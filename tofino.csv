@@ -1,0 +1,91 @@
+name, stages, xbar_bytes, hash_distribution_units, srams, map_rams, meter_alus, tcams
+bench_univmon_cs_10_17, 
+bench_univmon_cs_4_13, 7, 20, 14, 134, 132, 4, 1
+bench_univmon_cs_4_19, 
+bench_univmon_cs_5_17, 
+bench_univmon_cs_6_13, 9, 28, 20, 200, 198, 6, 1
+bench_univmon_cs_6_19, 
+bench_univmon_cs_7_17, 
+bench_univmon_cs_8_13, 11, 36, 26, 266, 264, 8, 1
+bench_univmon_cs_8_19, 
+bench_univmon_cs_9_17, 
+bench_univmon_cs_9_19, 
+univmon_cs_10_11, 6, 54, 22, 92, 90, 10, 1
+univmon_cs_10_13, 
+univmon_cs_10_16, 
+univmon_cs_10_18, 
+univmon_cs_4_11, 4, 20, 10, 38, 36, 4, 1
+univmon_cs_10_19, 
+univmon_cs_4_16, 
+univmon_cs_4_17, 
+univmon_cs_4_18, 
+univmon_cs_5_11, 5, 24, 12, 47, 45, 5, 1
+univmon_cs_5_13, 8, 24, 17, 167, 165, 5, 1
+univmon_cs_5_16, 
+univmon_cs_5_18, 
+univmon_cs_5_19, 
+univmon_cs_6_11, 5, 28, 14, 56, 54, 6, 1
+univmon_cs_6_16, 
+univmon_cs_6_17, 
+univmon_cs_6_18, 
+univmon_cs_7_11, 5, 32, 16, 65, 63, 7, 1
+univmon_cs_7_13, 10, 32, 23, 233, 231, 7, 1
+univmon_cs_7_16, 
+univmon_cs_7_18, 
+univmon_cs_7_19, 
+univmon_cs_8_11, 5, 36, 18, 74, 72, 8, 1
+univmon_cs_8_16, 
+univmon_cs_8_17, 
+univmon_cs_8_18, 
+univmon_cs_9_11, 6, 49, 20, 83, 81, 9, 1
+univmon_cs_9_13, 12, 49, 29, 299, 297, 9, 1
+univmon_cs_9_16, 
+univmon_cs_9_18, 
+bench_cm_10_11, 3, 10, 10, 20, 20, 10, 0
+bench_cm_10_13, 3, 10, 10, 30, 30, 10, 0
+bench_cm_10_16, 5, 10, 10, 170, 170, 10, 0
+bench_cm_10_17, 10, 10, 20, 330, 330, 10, 0
+bench_cm_10_18, 
+bench_cm_10_19, 
+bench_cm_4_11, 1, 4, 4, 8, 8, 4, 0
+bench_cm_4_13, 1, 4, 4, 12, 12, 4, 0
+bench_cm_4_16, 2, 4, 4, 68, 68, 4, 0
+bench_cm_4_17, 4, 4, 8, 132, 132, 4, 0
+bench_cm_4_18, 
+bench_cm_4_19, 
+bench_cm_5_11, 2, 5, 5, 10, 10, 5, 0
+bench_cm_5_13, 2, 5, 5, 15, 15, 5, 0
+bench_cm_5_16, 3, 5, 5, 85, 85, 5, 0
+bench_cm_5_17, 5, 5, 10, 165, 165, 5, 0
+bench_cm_5_18, 
+bench_cm_5_19, 
+bench_cm_6_11, 2, 6, 6, 12, 12, 6, 0
+bench_cm_6_13, 2, 6, 6, 18, 18, 6, 0
+bench_cm_6_16, 3, 6, 6, 102, 102, 6, 0
+bench_cm_6_17, 6, 6, 12, 198, 198, 6, 0
+bench_cm_6_18, 
+bench_cm_6_19, 
+bench_cm_7_11, 2, 7, 7, 14, 14, 7, 0
+bench_cm_7_13, 2, 7, 7, 21, 21, 7, 0
+bench_cm_7_16, 4, 7, 7, 119, 119, 7, 0
+bench_cm_7_17, 7, 7, 14, 231, 231, 7, 0
+bench_cm_7_18, 
+bench_cm_7_19, 
+bench_cm_8_11, 2, 8, 8, 16, 16, 8, 0
+bench_cm_8_13, 2, 8, 8, 24, 24, 8, 0
+bench_cm_8_16, 4, 8, 8, 136, 136, 8, 0
+bench_cm_8_17, 8, 8, 16, 264, 264, 8, 0
+bench_cm_8_18, 
+bench_cm_8_19, 
+bench_cm_9_11, 3, 9, 9, 18, 18, 9, 0
+bench_cm_9_13, 3, 9, 9, 27, 27, 9, 0
+bench_cm_9_16, 5, 9, 9, 153, 153, 9, 0
+bench_cm_9_17, 9, 9, 18, 297, 297, 9, 0
+bench_cm_9_18, 
+bench_cm_9_19, 
+bench_univmon_cs_2_4_11, 5, 64, 20, 76, 72, 8, 2
+bench_univmon_cs_2_4_13, 11, 64, 28, 268, 264, 8, 2
+bench_univmon_cs_2_5_11, 7, 76, 24, 94, 90, 10, 2
+bench_univmon_cs_2_5_13, 
+bench_univmon_cs_2_6_11, 7, 88, 28, 112, 108, 12, 2
+bench_univmon_cs_2_6_13, 
