@@ -70,7 +70,7 @@ epsilon_0 = 0.00001
 
 # Optimum leeway (relative)
 thr_leeway = 0.05
-resource_leeway = 0.0005
+resource_leeway = 0.05
 
 max_thr = -1
 solution = []
@@ -118,10 +118,12 @@ def solve(selection, key):
         ns_per_packet = get_ns_per_packet(s['r_cpu'], s['M_cpu'], sketch_cores)
 
         # Sketch Model: Fully parallel sketch updates on threads
-        throughput_sketch = sketch_cores * 1000 / (ns_per_packet)
+        throughput_sketch = 1000 / (ns_per_packet)
         throughput_dpdk = single_core_thr / (1-fraction_parallel + \
                                              fraction_parallel/s['dpdk_cores'])
         throughput = min(throughput_dpdk, throughput_sketch, throughput_p4)
+        s['throughput_sketch'] = throughput_sketch
+        s['throughput_dpdk'] = throughput_dpdk
 
         global max_thr
         global solution
@@ -154,7 +156,7 @@ min_obj = 1e9
 reduced_solution = []
 for s in solution:
     obj = 10*s['cpu_cores'] # Weigh cores 10 times more than stages
-    obj += s['M_cpu'] / (256) # fit in L2
+    obj += s['M_cpu'] / (1024 * 8) # fit in L2
     obj += abs(s['num_col_bits_p4'] - 15) # num stages due to cols
     obj += math.ceil(s['r_p4']/4) # num stages due to rows
 
@@ -168,7 +170,7 @@ for s in solution:
             reduced_solution.append(s)
 
 print(min_obj, len(reduced_solution))
-pprint.pprint(reduced_solution)
+pprint.pprint(reduced_solution[:10])
 
 
 '''
