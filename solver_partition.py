@@ -126,7 +126,8 @@ class p4(device):
 # Query and placement abstraction
 eps0 = 1e-5
 del0 = 0.96
-queries = [cm_sketch(eps0=eps0, del0=del0, sketch_id=1), cm_sketch(eps0=eps0, del0=del0, sketch_id=2)]
+queries = [cm_sketch(eps0=eps0, del0=del0, sketch_id=1),
+           cm_sketch(eps0=eps0, del0=del0, sketch_id=2)]
 
 # All memory measured in KB unless otherwise specified
 # TODO:: update with OVS
@@ -140,6 +141,7 @@ num_devices = len(devices)
 mappings = []
 subsketches = []
 num_subsketches = 0
+
 
 # Sketch partition and one sketch placement generation
 def gen_mappings(idx=0, cur_map=list(range(num_devices)), remaining=10):
@@ -155,6 +157,7 @@ max_thr = -1
 set_thr_solutions = list()
 thr_leeway = 0.05
 
+
 # Full sketch placement
 def gen_placements(subsketch_num=0, placements=[]):
     if(subsketch_num < num_subsketches):
@@ -162,7 +165,7 @@ def gen_placements(subsketch_num=0, placements=[]):
             placements.append((subsketch[subsketch_num], mappings[i]))
             gen_placements(subsketch_num+1, placements)
         else:
-            device_mappings = {}  #list(range(num_devices))
+            device_mappings = {}  # list(range(num_devices))
             for placement in placements:
                 for dev_num in len(num_devices):
                     dev_fraction = placement[1][dev_num]
