@@ -1,5 +1,6 @@
 import pprint
 import math
+import itertools
 import ipdb
 cell_size = 4
 
@@ -59,7 +60,9 @@ class cpu(device):
         r = 0
         M = 0
 
-        for (rows, cols, hashes) in sketches:
+        for sk in sketches:
+            rows = sk['rows']
+            cols = sk['cols']
             r += rows
             M += cols * rows * cell_size / 1024  # KB
 
@@ -77,7 +80,8 @@ class cpu(device):
         r4 = r * (max(0, M - self.L3_size) / M)
         ns_per_packet = (self.hash_ns * r + (t + r1) * self.L1_ns
                          + r2 * self.L2_ns + r3 * self.L3_ns + r4 * self.L4_ns)
-        return (ns_per_packet, M)
+        return (ns_per_packet, M,
+                {'r': r, 'M': M, 'ns_per_packet': ns_per_packet})
 
     def dpdk_throughput(self, c):
         return (self.dpdk_single_core_thr / (1-cpu.fraction_parallel
@@ -85,12 +89,12 @@ class cpu(device):
 
     # Remark: Can add stricter resource constraints depending on need
     def res_thr(self, sketches):
-        (ns_per_packet, M) = self.single_thread_ns(sketches)
+        (ns_per_packet, M, debug) = self.single_thread_ns(sketches)
         allocations = []
         for c in ap(2, self.cores):
             for dpdk_cores in range(1, c):
                 sketch_cores = c - dpdk_cores
-                sketch_throughput = ns_per_packet / sketch_cores
+                sketch_throughput = sketch_cores * 1000 / ns_per_packet
                 dpdk_thr = self.dpdk_throughput(dpdk_cores)
                 alloc_dict = {
                     'cost': 10*c + M/8192,
@@ -100,7 +104,8 @@ class cpu(device):
                         'sketch_cores': sketch_cores,
                         'dpdk_cores': dpdk_cores,
                         'sketch_throughput': sketch_throughput,
-                        'dpdk_throughput': dpdk_thr
+                        'dpdk_throughput': dpdk_thr,
+                        **debug
                     }
                 }
                 allocations.append(alloc_dict)
@@ -110,10 +115,13 @@ class cpu(device):
 class p4(device):
 
     def res_thr(self, sketches):
+        #ipdb.set_trace()
         r = 0
         M = 0
 
-        for (rows, cols, hashes) in sketches:
+        for sk in sketches:
+            rows = sk['rows']
+            cols = sk['cols']
             r += rows
             M += cols * rows * cell_size / 1024  # KB
             M_stage = cols * cell_size / 1024
@@ -131,10 +139,10 @@ class p4(device):
 
 
 # Query and placement abstraction
-eps0 = 1e-5
+eps0 = 1e-4
 del0 = 0.01
 queries = [cm_sketch(eps0=eps0, del0=del0, sketch_id=1),
-           cm_sketch(eps0=eps0, del0=del0, sketch_id=2)]
+           cm_sketch(eps0=10*eps0, del0=del0, sketch_id=2)]
 
 # All memory measured in KB unless otherwise specified
 # TODO:: update with OVS
@@ -142,7 +150,7 @@ devices = [
     cpu(L1_size=32, L2_size=256, L3_size=7775,
         L1_ns=0.6, L2_ns=1.5, L3_ns=3.7, L4_ns=36,
         hash_ns=3.5, cores=8, dpdk_single_core_thr=35),
-    p4(meter_alus=4, sram=48, stages=12)
+    p4(meter_alus=4, sram=48, stages=12, line_thr=148)
 ]
 num_devices = len(devices)
 mappings = []
@@ -171,48 +179,66 @@ thr_leeway = 0.05
 # Full sketch placement
 def gen_placements(subsketch_num=0, placements={}):
     global max_thr
+    global set_thr_solutions
     if(subsketch_num < num_subsketches):
-        for i in range(len(mappings)):
-            placements[subsketches[subsketch_num]] = mappings[i]
+        for i in range(len(sk.mappings)):
+            placements[subsketches[subsketch_num]] = sk.mappings[i]
             gen_placements(subsketch_num+1, placements)
-        else:
-            pprint(placements)
-            ipdb.set_trace()
-            device_mappings = {}  # list(range(num_devices))
-            for subsk, mapping in placements.items():
-                for dev_num in range(num_devices):
-                    dev_fraction = mapping[dev_num]
-                    if(dev_fraction > 0):
-                        num_cols = subsk[1].cols(dev_fraction)
-                        if dev_num in device_mappings:
-                            device_mappings[dev_num].append((1, num_cols, 1))
-                        else:
-                            device_mappings[dev_num] = [(1, num_cols, 1)]
+    else:
+        device_mappings = {}  # list(range(num_devices))
+        for subsk, mapping in placements.items():
+            for dev_num in range(num_devices):
+                dev_fraction = mapping[dev_num]
+                if(dev_fraction > 0):
+                    num_cols = subsk[1].cols(dev_fraction)
+                    # print(dev_fraction, num_cols)
+                    subsk_el = {
+                        'rows': 1,
+                        'cols': num_cols,
+                        'hashes': 1,
+                        'subsk': subsk,
+                        'dev_fraction': dev_fraction
+                    }
+                    device_mappings.setdefault(dev_num, []).append(subsk_el)
 
-            res_thr_list = []
-            for dev_num, sketches in device_mappings.items():
-                res_thr = devices[dev_num].res_thr(sketches)
-                if(res_thr is not None):
-                    res_thr_list.append(res_thr)
-                else:
-                    # This placement does not satisfy capacity constraints
-                    return
-            # placement format (row_num, sk_ptr) => mapping ptr
-            solution = {'placements': placements.copy(),
-                        'device_mappings': device_mappings,
-                        'res_thr_list': res_thr_list}
+        res_thr_choices = {}
+        for dev_num, sketches in device_mappings.items():
+            res_thr = devices[dev_num].res_thr(sketches)
+            if(res_thr is not None):
+                res_thr_choices[dev_num] = res_thr
+            else:
+                # This placement does not satisfy capacity constraints
+                return
+
+        # TODO:: Can choose best placement for
+        # each device and then take product
+        res_thr_choices_list_of_lists = list(res_thr_choices.values())
+        res_thr_product = list(itertools.product(
+            *res_thr_choices_list_of_lists))
+
+        # ipdb.set_trace()
+        # placement format (row_num, sk_ptr) => mapping ptr
+        solution_outline = {'placements': placements.copy(),
+                            'device_mappings': device_mappings}
+        for res_thr_instance in res_thr_product:
             thr_overall = 1e9  # Mpps
             total_cost = 0
-            for res_thr in res_thr_list:
-                thr_overall = min(thr_overall, res_thr['throughput'])
-                total_cost += res_thr['cost']
-
-            solution['thr_overall'] = thr_overall
-            solution['total_cost'] = total_cost
+            for dev_res_thr in res_thr_instance:
+                thr_overall = min(thr_overall, dev_res_thr['throughput'])
+                total_cost += dev_res_thr['cost']
+            # ipdb.set_trace()
             if(thr_overall > max_thr):
                 max_thr = thr_overall
+                solution = solution_outline.copy()
+                solution['res_thr'] = res_thr_instance
+                solution['thr_overall'] = thr_overall
+                solution['total_cost'] = total_cost
                 set_thr_solutions = [solution]
             elif((max_thr - thr_overall)/max_thr < thr_leeway):
+                solution = solution_outline.copy()
+                solution['res_thr'] = res_thr_instance
+                solution['thr_overall'] = thr_overall
+                solution['total_cost'] = total_cost
                 set_thr_solutions.append(solution)
 
 
@@ -221,7 +247,26 @@ for sk in queries:
     # Greedy setting of number of rows
     partitions = sk.rows()
     subsketches += [(i+1, sk) for i in range(partitions)]
+    sk.mappings = []
+    # only consider mappings which at least fit on the device
+    # when only one sketch is present.
+    for mapping in mappings:
+        all_mapped = True
+        for dev_num in range(num_devices):
+            if(mapping[dev_num] > 0):
+                num_cols = sk.cols(mapping[dev_num])
+                if(devices[dev_num].res_thr([
+                        {'rows': 1, 'cols': num_cols, 'hashes': 1}
+                        ]) is None):
+                    all_mapped = False
+                    break
+        if(all_mapped):
+            sk.mappings.append(mapping)
+    print(sk.mappings)
+
 num_subsketches = len(subsketches)
+print("num_subsketches: ", num_subsketches)
 gen_placements()
 print(len(set_thr_solutions))
-pprint.pprint(set_thr_solutions)
+#pprint.pprint(set_thr_solutions)
+ipdb.set_trace()
