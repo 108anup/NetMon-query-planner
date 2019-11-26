@@ -1,4 +1,11 @@
+import pprint
+import math
+import ipdb
 cell_size = 4
+
+
+def ap(first, last, step=1):
+    return [first + x*step for x in range(int((last - first)/step + 1))]
 
 
 # Sketch model
@@ -19,13 +26,13 @@ class cm_sketch(sketch):
     # def delta(self, r, c, h):
     #     pass
 
-    # def rows(self, epsilon, delta):
-    #     pass
+    def rows(self):
+        return int(math.log(1/self.del0))
 
     def cols(self, fraction):
         epsilon_max = self.eps0 / fraction
-        c = 2 / epsilon_max
-        return c
+        c = math.e / epsilon_max
+        return int(c)
 
 
 # Device model
@@ -80,7 +87,7 @@ class cpu(device):
     def res_thr(self, sketches):
         (ns_per_packet, M) = self.single_thread_ns(sketches)
         allocations = []
-        for c in self.cores:
+        for c in ap(2, self.cores):
             for dpdk_cores in range(1, c):
                 sketch_cores = c - dpdk_cores
                 sketch_throughput = ns_per_packet / sketch_cores
@@ -125,7 +132,7 @@ class p4(device):
 
 # Query and placement abstraction
 eps0 = 1e-5
-del0 = 0.96
+del0 = 0.01
 queries = [cm_sketch(eps0=eps0, del0=del0, sketch_id=1),
            cm_sketch(eps0=eps0, del0=del0, sketch_id=2)]
 
@@ -144,13 +151,16 @@ num_subsketches = 0
 
 
 # Sketch partition and one sketch placement generation
-def gen_mappings(idx=0, cur_map=list(range(num_devices)), remaining=10):
+def gen_mappings(idx=0, cur_map=list(range(num_devices)), sum_remaining=10):
     if(idx == num_devices):
         mappings.append(cur_map.copy())
+    elif (idx == num_devices - 1):
+        cur_map[idx] = sum_remaining/10
+        gen_mappings(idx+1, cur_map, 0)
     else:
-        for val in range(remaining+1):
+        for val in range(sum_remaining+1):
             cur_map[idx] = val/10
-            gen_mappings(idx+1, cur_map, remaining-val)
+            gen_mappings(idx+1, cur_map, sum_remaining-val)
 
 
 max_thr = -1
@@ -159,18 +169,21 @@ thr_leeway = 0.05
 
 
 # Full sketch placement
-def gen_placements(subsketch_num=0, placements=[]):
+def gen_placements(subsketch_num=0, placements={}):
+    global max_thr
     if(subsketch_num < num_subsketches):
         for i in range(len(mappings)):
-            placements.append((subsketch[subsketch_num], mappings[i]))
+            placements[subsketches[subsketch_num]] = mappings[i]
             gen_placements(subsketch_num+1, placements)
         else:
+            pprint(placements)
+            ipdb.set_trace()
             device_mappings = {}  # list(range(num_devices))
-            for placement in placements:
-                for dev_num in len(num_devices):
-                    dev_fraction = placement[1][dev_num]
+            for subsk, mapping in placements.items():
+                for dev_num in range(num_devices):
+                    dev_fraction = mapping[dev_num]
                     if(dev_fraction > 0):
-                        num_cols = placement[0].cols(dev_fraction)
+                        num_cols = subsk[1].cols(dev_fraction)
                         if dev_num in device_mappings:
                             device_mappings[dev_num].append((1, num_cols, 1))
                         else:
@@ -184,9 +197,10 @@ def gen_placements(subsketch_num=0, placements=[]):
                 else:
                     # This placement does not satisfy capacity constraints
                     return
+            # placement format (row_num, sk_ptr) => mapping ptr
             solution = {'placements': placements.copy(),
                         'device_mappings': device_mappings,
-                        'res_thr_list': res_thr_list)
+                        'res_thr_list': res_thr_list}
             thr_overall = 1e9  # Mpps
             total_cost = 0
             for res_thr in res_thr_list:
@@ -205,7 +219,9 @@ def gen_placements(subsketch_num=0, placements=[]):
 gen_mappings()
 for sk in queries:
     # Greedy setting of number of rows
-    partitions = sk.cols()
-    subsketches += [sk for i in range(partitions)]
+    partitions = sk.rows()
+    subsketches += [(i+1, sk) for i in range(partitions)]
 num_subsketches = len(subsketches)
 gen_placements()
+print(len(set_thr_solutions))
+pprint.pprint(set_thr_solutions)
