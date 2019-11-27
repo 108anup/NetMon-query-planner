@@ -2,6 +2,7 @@ import pprint
 import math
 import itertools
 import threading
+import sys
 import ipdb
 cell_size = 4
 
@@ -29,12 +30,12 @@ class cm_sketch(sketch):
     #     pass
 
     def rows(self):
-        return int(math.log(1/self.del0))
+        return math.ceil(math.log(1/self.del0))
 
     def cols(self, fraction):
         epsilon_max = self.eps0 / fraction
         c = math.e / epsilon_max
-        return int(c)
+        return math.ceil(c)
 
     def __repr__(self):
         return "cm: eps0: {}, del0: {}".format(self.eps0, self.del0)
@@ -70,6 +71,10 @@ class cpu(device):
             r += rows
             M += cols * rows * cell_size / 1024  # KB
 
+        # TODO:: fix this
+        if(r > 9):
+            return None
+
         # Uniformly random probability model
         # TODO:: Assumption DRAM is unbounded
         # TODO:: verify correctness / accuracy for when multiple sketches are
@@ -93,7 +98,10 @@ class cpu(device):
 
     # Remark: Can add stricter resource constraints depending on need
     def res_thr(self, sketches):
-        (ns_per_packet, M, debug) = self.single_thread_ns(sketches)
+        out = self.single_thread_ns(sketches)
+        if(out is None):
+            return None
+        (ns_per_packet, M, debug) = out
         allocations = []
         for c in ap(2, self.cores):
             for dpdk_cores in range(1, c):
@@ -144,9 +152,10 @@ class p4(device):
 
 # Query and placement abstraction
 eps0 = 1e-5
-del0 = 0.01
-queries = [cm_sketch(eps0=eps0, del0=del0, sketch_id=1),
-           cm_sketch(eps0=eps0*50, del0=del0, sketch_id=2)]
+del0 = 0.02
+queries = [cm_sketch(eps0=eps0*50, del0=del0, sketch_id=2),
+           cm_sketch(eps0=eps0, del0=del0, sketch_id=1),
+           cm_sketch(eps0=eps0*100, del0=del0/2)]
 
 # All memory measured in KB unless otherwise specified
 # TODO:: update with OVS
@@ -186,6 +195,9 @@ def gen_placements(subsketch_num=0, placements={}):
     global set_thr_solutions
     if(subsketch_num < num_subsketches):
         sk = subsketches[subsketch_num][1]
+        if(subsketch_num == 0 and len(sys.argv) > 1):
+            placements[subsketches[subsketch_num]] = sk.mappings[int(sys.argv[1])]
+            gen_placements(subsketch_num+1, placements)
         for i in range(len(sk.mappings)):
             placements[subsketches[subsketch_num]] = sk.mappings[i]
             gen_placements(subsketch_num+1, placements)
