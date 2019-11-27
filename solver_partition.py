@@ -36,6 +36,9 @@ class cm_sketch(sketch):
         c = math.e / epsilon_max
         return int(c)
 
+    def __repr__(self):
+        return "cm: eps0: {}, del0: {}".format(self.eps0, self.del0)
+
 
 # Device model
 # Devices must ensure capacity resource constraint,
@@ -140,17 +143,17 @@ class p4(device):
 
 
 # Query and placement abstraction
-eps0 = 1e-4
+eps0 = 1e-5
 del0 = 0.01
 queries = [cm_sketch(eps0=eps0, del0=del0, sketch_id=1),
-           cm_sketch(eps0=eps0, del0=del0, sketch_id=2)]
+           cm_sketch(eps0=eps0*50, del0=del0, sketch_id=2)]
 
 # All memory measured in KB unless otherwise specified
 # TODO:: update with OVS
 devices = [
     cpu(L1_size=32, L2_size=256, L3_size=7775,
         L1_ns=0.6, L2_ns=1.5, L3_ns=3.7, L4_ns=36,
-        hash_ns=3.5, cores=8, dpdk_single_core_thr=35),
+        hash_ns=3.5, cores=7, dpdk_single_core_thr=35),
     p4(meter_alus=4, sram=48, stages=12, line_thr=148)
 ]
 num_devices = len(devices)
@@ -173,93 +176,76 @@ def gen_mappings(idx=0, cur_map=list(range(num_devices)), sum_remaining=10):
 
 
 thr_leeway = 0.05
+max_thr = -1
+set_thr_solutions = []
 
 
 # Full sketch placement
-class Worker(threading.Thread):
-
-    def __init__(self, group=None, target=None, name=None,
-                 args=(), kwargs=None):
-        super(Worker, self).__init__(group=group, target=target,
-                                     name=name)
-        self.args = args
-        self.kwargs = kwargs
-        return
-
-    def run(self):
-        print(self.args)
-        first_map = self.args[0]
-        self.max_thr = -1
-        self.set_thr_solutions = []
-        subsketch_num = 0
-        placements = {}
+def gen_placements(subsketch_num=0, placements={}):
+    global max_thr
+    global set_thr_solutions
+    if(subsketch_num < num_subsketches):
         sk = subsketches[subsketch_num][1]
-        placements[subsketches[subsketch_num]] = sk.mappings[first_map]
-        self.gen_placements(subsketch_num+1, placements)
+        for i in range(len(sk.mappings)):
+            placements[subsketches[subsketch_num]] = sk.mappings[i]
+            gen_placements(subsketch_num+1, placements)
+    else:
+        device_mappings = {}  # list(range(num_devices))
+        for subsk, mapping in placements.items():
+            for dev_num in range(num_devices):
+                dev_fraction = mapping[dev_num]
+                if(dev_fraction > 0):
+                    num_cols = subsk[1].cols(dev_fraction)
+                    # print(dev_fraction, num_cols)
+                    subsk_el = {
+                        'rows': 1,
+                        'cols': num_cols,
+                        'hashes': 1,
+                        'subsk': subsk,
+                        'dev_fraction': dev_fraction
+                    }
+                    device_mappings.setdefault(dev_num,
+                                               []).append(subsk_el)
 
-    def gen_placements(self, subsketch_num=0, placements={}):
-        if(subsketch_num < num_subsketches):
-            sk = subsketches[subsketch_num][1]
-            for i in range(len(sk.mappings)):
-                placements[subsketches[subsketch_num]] = sk.mappings[i]
-                self.gen_placements(subsketch_num+1, placements)
-        else:
-            device_mappings = {}  # list(range(num_devices))
-            for subsk, mapping in placements.items():
-                for dev_num in range(num_devices):
-                    dev_fraction = mapping[dev_num]
-                    if(dev_fraction > 0):
-                        num_cols = subsk[1].cols(dev_fraction)
-                        # print(dev_fraction, num_cols)
-                        subsk_el = {
-                            'rows': 1,
-                            'cols': num_cols,
-                            'hashes': 1,
-                            'subsk': subsk,
-                            'dev_fraction': dev_fraction
-                        }
-                        device_mappings.setdefault(dev_num,
-                                                   []).append(subsk_el)
+        res_thr_choices = {}
+        for dev_num, sketches in device_mappings.items():
+            res_thr = devices[dev_num].res_thr(sketches)
+            if(res_thr is not None):
+                res_thr_choices[dev_num] = res_thr
+            else:
+                # This placement does not satisfy capacity constraints
+                return
 
-            res_thr_choices = {}
-            for dev_num, sketches in device_mappings.items():
-                res_thr = devices[dev_num].res_thr(sketches)
-                if(res_thr is not None):
-                    res_thr_choices[dev_num] = res_thr
-                else:
-                    # This placement does not satisfy capacity constraints
-                    return
+        # TODO:: Can choose best placement for
+        # each device and then take product
+        res_thr_choices_list_of_lists = list(res_thr_choices.values())
+        res_thr_product = list(itertools.product(
+            *res_thr_choices_list_of_lists))
 
-            # TODO:: Can choose best placement for
-            # each device and then take product
-            res_thr_choices_list_of_lists = list(res_thr_choices.values())
-            res_thr_product = list(itertools.product(
-                *res_thr_choices_list_of_lists))
-
+        # ipdb.set_trace()
+        # placement format (row_num, sk_ptr) => mapping ptr
+        solution_outline = {'placements': placements.copy(),
+                            'device_mappings': device_mappings}
+        for res_thr_instance in res_thr_product:
+            thr_overall = 1e9  # Mpps
+            total_cost = 0
+            for dev_res_thr in res_thr_instance:
+                thr_overall = min(thr_overall, dev_res_thr['throughput'])
+                total_cost += dev_res_thr['cost']
             # ipdb.set_trace()
-            # placement format (row_num, sk_ptr) => mapping ptr
-            solution_outline = {'placements': placements.copy(),
-                                'device_mappings': device_mappings}
-            for res_thr_instance in res_thr_product:
-                thr_overall = 1e9  # Mpps
-                total_cost = 0
-                for dev_res_thr in res_thr_instance:
-                    thr_overall = min(thr_overall, dev_res_thr['throughput'])
-                    total_cost += dev_res_thr['cost']
-                # ipdb.set_trace()
-                if(thr_overall > self.max_thr):
-                    max_thr = thr_overall
-                    solution = solution_outline.copy()
-                    solution['res_thr'] = res_thr_instance
-                    solution['thr_overall'] = thr_overall
-                    solution['total_cost'] = total_cost
-                    self.set_thr_solutions = [solution]
-                elif((max_thr - thr_overall)/max_thr < thr_leeway):
-                    solution = solution_outline.copy()
-                    solution['res_thr'] = res_thr_instance
-                    solution['thr_overall'] = thr_overall
-                    solution['total_cost'] = total_cost
-                    self.set_thr_solutions.append(solution)
+            if(thr_overall > max_thr):
+                max_thr = thr_overall
+                solution = solution_outline.copy()
+                solution['res_thr'] = res_thr_instance
+                solution['thr_overall'] = thr_overall
+                solution['total_cost'] = total_cost
+                set_thr_solutions = [solution]
+            elif((max_thr - thr_overall)/max_thr < thr_leeway):
+                solution = solution_outline.copy()
+                solution['res_thr'] = res_thr_instance
+                solution['thr_overall'] = thr_overall
+                solution['total_cost'] = total_cost
+                set_thr_solutions.append(solution)
 
 
 gen_mappings()
@@ -287,16 +273,7 @@ for sk in queries:
 num_subsketches = len(subsketches)
 print("num_subsketches: ", num_subsketches)
 
-workers = []
-for i in range(len(subsketches[0][1].mappings)):
-    w_i = Worker(args=(i, ))
-    workers.append(w_i)
-    w_i.start()
-
-for w in workers:
-    w.join()
-    print(len(w.set_thr_solutions))
-
-# print(len(set_thr_solutions))
+gen_placements()
+print(len(set_thr_solutions))
 # pprint.pprint(set_thr_solutions)
 ipdb.set_trace()
