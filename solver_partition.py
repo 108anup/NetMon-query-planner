@@ -69,7 +69,7 @@ class cpu(device):
             rows = sk['rows']
             cols = sk['cols']
             r += rows
-            M += cols * rows * cell_size / 1024  # KB
+            M += cols  * cell_size / 1024  # KB
 
         # TODO:: fix this
         if(r > 9):
@@ -135,7 +135,7 @@ class p4(device):
             rows = sk['rows']
             cols = sk['cols']
             r += rows
-            M += cols * rows * cell_size / 1024  # KB
+            M += cols * cell_size / 1024  # KB
             M_stage = cols * cell_size / 1024
             if(M_stage > self.sram):
                 return None
