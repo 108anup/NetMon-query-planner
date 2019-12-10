@@ -55,6 +55,11 @@ class cpu(param):
                           "mem_access_time_{}".format(self))
         self.ns_single = m.addVar(vtype=GRB.CONTINUOUS,
                                   name='ns_single_{}'.format(self))
+        log_m_access_time = m.addVar(vtype=GRB.CONTINUOUS)
+        log_rows = m.addVar(vtype=GRB.CONTINUOUS)
+        log_pdt_m_row = m.addVar(vtype=GRB.CONTINUOUS)
+        pdt_m_row = m.addVar(vtype=GRB.CONTINUOUS)
+
         # m.addQConstr(t * self.mem_ns[0] + self.m_access_time * rows
         #              + rows * self.hash_ns
         #              - self.ns_single <= invtol,
@@ -63,6 +68,7 @@ class cpu(param):
         #              + rows * self.hash_ns
         #              - self.ns_single >= -invtol,
         #              name='ns_l_single_{}'.format(self))
+        
         self.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
                                      name='cores_sketch_{}'.format(self))
         self.cores_dpdk = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
@@ -171,7 +177,7 @@ for (pnum, p) in enumerate(partitions):
                   for dnum in range(numdevices)), name='accuracy_{}'.format(p))
 
 # Capacity constraints and throughput
-resacc = gp.QuadExpr()
+resacc = gp.LinExpr()
 for (dnum, d) in enumerate(devices):
     # Simple total model
     rows_tot = m.addVar(vtype=GRB.INTEGER, name='rows_tot_{}'.format(d))
