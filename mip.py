@@ -29,7 +29,10 @@ class cm_sketch(param):
 
     def __repr__(self):
         return 'sk_{}'.format(self.sketch_id)
-        return "cm: eps0: {}, del0: {}".format(self.eps0, self.del0)
+
+    def details(self):
+        return "cm: eps0: {}, del0: {}, mim_mem: {}".format(
+            self.eps0, self.del0, self.min_mem())
 
     def rows(self):
         return math.ceil(math.log(1/self.del0))
@@ -124,7 +127,7 @@ class cpu(param):
                           name='ns_{}'.format(self))
 
     def res(self, rows, mem):
-        return 10*(self.cores_dpdk + self.cores_sketch)
+        return 10*(self.cores_dpdk + self.cores_sketch) + mem/self.Li_size[2]
 
     def __repr__(self):
         return self.name
@@ -166,6 +169,7 @@ for (i, q) in enumerate(queries, 1):
 devices = [
     cpu(mem_par=[1.1875, 32, 1448.15625, 5792.625, 32768.0, 440871.90625],
         mem_ns=[0.539759, 0.510892, 5.04469, 5.84114, 30.6627, 39.6981],
+        Li_size=[32, 256, 8192, 32768],
         hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
         max_mem=32768, max_rows=9, name='cpu_1'),
     p4(meter_alus=4, sram=48, stages=12, line_thr=148,
@@ -191,6 +195,11 @@ m.addConstrs((rows[i, j] >= frac[i, j]
 m.addConstrs((rows[i, j] <= frac[i, j] + tolerance
               for i in range(numdevices)
               for j in range(numpartitions)), name='r_ceil1')
+
+# m.addConstrs(((frac[i,j] == 0) >> (mem[i,j] == 0)
+#               for i in range(numdevices)
+#               for j in range(numpartitions)), name='frac_mem')
+
 for pnum in range(numpartitions):
     m.addConstr(frac.sum('*', pnum) == 1,
                 name='cov_{}'.format(pnum))
@@ -225,6 +234,8 @@ for (dnum, d) in enumerate(devices):
     # Throughput
     # NOTE: Following function updates m
     d.update_ns(rows_tot, mem_tot, m)
+    d.rows_tot = rows_tot
+    d.mem_tot = mem_tot
 
     # Resources
     resacc += d.res(rows_tot, mem_tot)
@@ -237,8 +248,8 @@ m.addConstr(res == resacc, name='res')
 
 # TODO:: fill with multi objective
 m.ModelSense = GRB.MINIMIZE
-m.setObjectiveN(ns, 0, 10, reltol=0.01, name='ns')
-m.setObjectiveN(res, 1, 5, reltol=0.01, name='res')
+m.setObjectiveN(ns, 0, 10, reltol=0.2, name='ns')
+m.setObjectiveN(res, 1, 5, reltol=0.05, name='res')
 
 start = time.time()
 m.update()
@@ -256,6 +267,30 @@ for v in m.getVars():
     print('%s %g' % (v.varName, v.x))
 
 
+# Mapping print:
+print("-----------------------------\n\n"
+      "Throughput: {} Mpps, ns per packet: {}".format(1000/ns.x, ns.x))
+print("Resources: {}".format(res.x))
+
+cur_sketch = 0
+row = 1
+for (pnum, p) in enumerate(partitions):
+    if(cur_sketch != p[1].sketch_id):
+        print("Sketch {} ({})".format(p[1].sketch_id, p[1].details()))
+        row = 1
+        cur_sketch = p[1].sketch_id
+    print("Row: {}".format(row))
+    row += 1
+
+    for (dnum, d) in enumerate(devices):
+        print("{}".format(frac[dnum, pnum].x), end='    ')
+
+    print('\n')
+
+for (dnum, d) in enumerate(devices):
+    print("Device {}:".format(d))
+    print("Rows total: {}".format(d.rows_tot.x))
+    print("Mem total: {}\n".format(d.mem_tot.x))
 
 '''
 Extra Codes
