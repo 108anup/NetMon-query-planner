@@ -4,6 +4,7 @@ import math
 import time
 import ipdb
 
+
 def memoize(func):
     cache = dict()
 
@@ -48,6 +49,8 @@ class cm_sketch(param):
 class cpu(param):
     # TODO:: update with OVS
     fraction_parallel = 3/4
+    static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
+    s_rows = [0, 2, 3, 4, 5, 6, 7, 8, 9]
 
     def get_pdt_var(self, a, b, pdt_name, m):
         m.update()
@@ -66,13 +69,13 @@ class cpu(param):
         #                    name='exp_pdt_{}_{}'.format(pdt_name, self))
         m.addGenConstrLogA(pdt, logpdt, 2,
                            name='log_pdt_{}_{}'.format(pdt_name, self),
-                           options="FuncPieces=-1 FuncPieceError=0.001")
+                           options="FuncPieces=-1 FuncPieceError=0.0001")
         m.addGenConstrLogA(a, loga, 2,
                            name='log_{}'.format(a.varName),
-                           options="FuncPieces=-1 FuncPieceError=0.001")
+                           options="FuncPieces=-1 FuncPieceError=0.0001")
         m.addGenConstrLogA(b, logb, 2,
                            name='log_{}'.format(b.varName),
-                           options="FuncPieces=-1 FuncPieceError=0.001")
+                           options="FuncPieces=-1 FuncPieceError=0.0001")
         m.addConstr(logpdt == loga + logb,
                     name='pdt_{}_{}'.format(pdt_name, self))
         return pdt
@@ -86,17 +89,22 @@ class cpu(param):
                           "mem_access_time_{}".format(self))
 
         # single core ns model
-        t = 18 + (rows-4)*6 - rows
+        # self.t = m.addVar(vtype=GRB.CONTINUOUS, lb=0)
+        # m.addGenConstrPWL(rows, self.t, cpu.s_rows, cpu.static_loads)
         self.ns_single = m.addVar(vtype=GRB.CONTINUOUS,
-                                  name='ns_single_{}'.format(self))
+                                  name='ns_single_{}'.format(self),
+                                  )
         self.pdt_m_rows = self.get_pdt_var(self.m_access_time,
                                            rows, 'm_rows', m)
-        m.addConstr(t * self.mem_ns[0] + self.pdt_m_rows
+        # m.addConstr(self.t * self.Li_ns[0] + self.pdt_m_rows
+        #             + rows * self.hash_ns
+        #             <= self.ns_single, name='ns_single_{}'.format(self))
+        m.addConstr(self.pdt_m_rows
                     + rows * self.hash_ns
-                    == self.ns_single, name='ns_single_{}'.format(self))
+                    <= self.ns_single, name='ns_single_{}'.format(self))
 
         # Multi-core model
-        self.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
+        self.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.cores,
                                      name='cores_sketch_{}'.format(self))
         self.cores_dpdk = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
                                    name='cores_dpdk_{}'.format(self))
@@ -153,28 +161,37 @@ cell_size = 4
 KB2B = 1024
 
 # Topology and Requirements
-# Query and placement abstraction
+# All memory measured in KB unless otherwise specified
+######################################################
+devices = [
+    cpu(mem_par=[0, 1.1875, 32, 1448.15625, 5792.625, 32768.0, 440871.90625],
+        mem_ns=[0, 0.539759, 0.510892, 5.04469, 5.84114, 30.6627, 39.6981],
+        Li_size=[32, 256, 8192, 32768],
+        Li_ns=[0.53, 1.5, 3.7, 36],
+        hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
+        max_mem=32768, max_rows=9, name='cpu_1'),
+    cpu(mem_par=[0, 1.1875, 32, 1448.15625, 5792.625, 32768.0, 440871.90625],
+        mem_ns=[0, 0.539759, 0.510892, 5.04469, 5.84114, 30.6627, 39.6981],
+        Li_size=[32, 256, 8192, 32768],
+        Li_ns=[0.53, 1.5, 3.7, 36],
+        hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
+        max_mem=32768, max_rows=9, name='cpu_1'),
+    p4(meter_alus=4, sram=48, stages=12, line_thr=148,
+       max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
+]
 eps0 = 1e-5
 del0 = 0.02
-queries = [cm_sketch(eps0=eps0*50, del0=del0),
-           cm_sketch(eps0=eps0, del0=del0),
+queries = [cm_sketch(eps0=eps0*50 , del0=del0),
+           cm_sketch(eps0=eps0/5, del0=del0),
            cm_sketch(eps0=eps0*100, del0=del0/2)]
+#######################################################
 partitions = []
 for (i, q) in enumerate(queries, 1):
     q.sketch_id = i
     num_rows = q.rows()
     partitions += [(r+1, q) for r in range(num_rows)]
 
-# All memory measured in KB unless otherwise specified
-devices = [
-    cpu(mem_par=[1.1875, 32, 1448.15625, 5792.625, 32768.0, 440871.90625],
-        mem_ns=[0.539759, 0.510892, 5.04469, 5.84114, 30.6627, 39.6981],
-        Li_size=[32, 256, 8192, 32768],
-        hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
-        max_mem=32768, max_rows=9, name='cpu_1'),
-    p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-       max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1')
-]
+
 numdevices = len(devices)
 numpartitions = len(partitions)
 
@@ -246,10 +263,11 @@ m.addGenConstrMax(ns, ns_series, name='ns_overall')
 res = m.addVar(vtype=GRB.CONTINUOUS, name='res_overall')
 m.addConstr(res == resacc, name='res')
 
-# TODO:: fill with multi objective
+###########################################################
 m.ModelSense = GRB.MINIMIZE
-m.setObjectiveN(ns, 0, 10, reltol=0.2, name='ns')
+m.setObjectiveN(ns, 0, 10, reltol=0.15, name='ns')
 m.setObjectiveN(res, 1, 5, reltol=0.05, name='res')
+###########################################################
 
 start = time.time()
 m.update()
@@ -289,6 +307,9 @@ for (pnum, p) in enumerate(partitions):
 
 for (dnum, d) in enumerate(devices):
     print("Device {}:".format(d))
+    if(isinstance(d, cpu)):
+        print("cores_sketch: {}, cores_dpdk: {}".format(
+            d.cores_sketch.x, d.cores_dpdk.x))
     print("Rows total: {}".format(d.rows_tot.x))
     print("Mem total: {}\n".format(d.mem_tot.x))
 
