@@ -5,13 +5,15 @@ Minimize
 Subject To
  pdt_xy: - log_x - log_y + log_pdt_xy = 0
 Bounds
- 5 <= x <= 6
- 6 <= y <= 7
- z = 11
+ -1 <= logz <= -0.5
+ log_x free
+ log_y free
+ log_pdt_xy free
 General Constraints
  GC0: logz = LOG_2 ( z )
  GC1: ez = EXPA ( 2 ^ z )
- log_pdt_xy: ( FuncPieces=-1 ) log_pdt_xy = LOG_2 ( pdt_xy )
- log_x: log_x = LOG_2 ( x )
- log_y: log_y = LOG_2 ( y )
+ log_pdt_xy: ( FuncPieces=-1 FuncPieceError=1e-05 ) pdt_xy =
+   EXPA ( 2 ^ log_pdt_xy )
+ log_x: x = EXPA ( 2 ^ log_x )
+ log_y: y = EXPA ( 2 ^ log_y )
 End
