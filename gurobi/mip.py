@@ -103,7 +103,7 @@ def solve(devices, queries):
     end = time.time()
     print("Model update took: {} seconds".format(end - start))
 
-    m.write("prog_{}.lp".format(cfg_num))
+    m.write("progs/prog_{}.lp".format(cfg_num))
 
     start = time.time()
     m.optimize()
@@ -142,7 +142,7 @@ def solve(devices, queries):
 
 cfg_num = 0
 if(len(sys.argv) > 1):
-    cfg_num = sys.argv[1]
+    cfg_num = int(sys.argv[1])
 
 cfg = config[cfg_num]
 solve(cfg.devices, cfg.queries)
