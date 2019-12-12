@@ -65,12 +65,6 @@ config = [
                 max_mem=32768, max_rows=9, name='cpu_1'),
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
                max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
-            p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
-            p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
-            p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1')
         ],
         queries=[cm_sketch(eps0=eps0*50, del0=del0),
                  # cm_sketch(eps0=eps0*6, del0=del0),
@@ -84,3 +78,18 @@ common_config = param(
     ns_tol=0.15,
     res_tol=0.1
 )
+
+
+'''
+Tricks performed:
+1. Remove Ceiling
+2. Make variables continuous (remove binary and integer variables)
+3. Log -INFINITY
+
+NOTES:
+1. With logarithmic constraints, if I make variables integral it seems to
+perform better, as long as those vars are not involved in other constraints.
+2. We want log to be able to take negative values to allow variables
+to take value 0 but some problem take a ton of time to solve in those
+scenarios.
+'''
