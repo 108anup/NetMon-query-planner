@@ -32,7 +32,7 @@ class cm_sketch(param):
         return 'sk_{}'.format(self.sketch_id)
 
     def details(self):
-        return "cm: eps0: {}, del0: {}, mim_mem: {}".format(
+        return "cm: eps0: {}, del0: {}, min_mem: {}".format(
             self.eps0, self.del0, self.min_mem())
 
     def rows(self):
@@ -92,16 +92,15 @@ class cpu(param):
         # self.t = m.addVar(vtype=GRB.CONTINUOUS, lb=0)
         # m.addGenConstrPWL(rows, self.t, cpu.s_rows, cpu.static_loads)
         self.ns_single = m.addVar(vtype=GRB.CONTINUOUS,
-                                  name='ns_single_{}'.format(self),
-                                  )
+                                  name='ns_single_{}'.format(self))
         self.pdt_m_rows = self.get_pdt_var(self.m_access_time,
                                            rows, 'm_rows', m)
         # m.addConstr(self.t * self.Li_ns[0] + self.pdt_m_rows
         #             + rows * self.hash_ns
         #             <= self.ns_single, name='ns_single_{}'.format(self))
-        m.addConstr(self.pdt_m_rows
-                    + rows * self.hash_ns
-                    <= self.ns_single, name='ns_single_{}'.format(self))
+        m.addConstr(self.pdt_m_rows + rows * self.hash_ns
+                    <= self.ns_single,
+                    name='ns_single_{}'.format(self))
 
         # Multi-core model
         self.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.cores,
@@ -170,13 +169,22 @@ devices = [
         Li_ns=[0.53, 1.5, 3.7, 36],
         hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
         max_mem=32768, max_rows=9, name='cpu_1'),
+    cpu(mem_par=[0, 1.1875, 32, 1448.15625, 5792.625, 32768.0, 440871.90625],
+        mem_ns=[0, 0.539759, 0.510892, 5.04469, 5.84114, 30.6627, 39.6981],
+        Li_size=[32, 256, 8192, 32768],
+        Li_ns=[0.53, 1.5, 3.7, 36],
+        hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
+        max_mem=32768, max_rows=9, name='cpu_1'),
     p4(meter_alus=4, sram=48, stages=12, line_thr=148,
        max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
+    p4(meter_alus=4, sram=48, stages=12, line_thr=148,
+       max_mpp=48, max_mem=48*12, max_rows=12, name='p4_2')
+
 ]
 eps0 = 1e-5
 del0 = 0.02
 queries = [cm_sketch(eps0=eps0*50 , del0=del0),
-           cm_sketch(eps0=eps0, del0=del0),
+           cm_sketch(eps0=eps0/5, del0=del0),
            cm_sketch(eps0=eps0*100, del0=del0/2)]
 #######################################################
 partitions = []
@@ -197,15 +205,15 @@ frac = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
                  lb=0, ub=1, name='frac')
 mem = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
                 lb=0, name='mem')
-rows = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
-                 name='rows', lb=0)
-m.addConstrs((rows[i, j] >= frac[i, j]
-              for i in range(numdevices)
-              for j in range(numpartitions)), name='r_ceil0')
+# rows = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
+#                  name='rows', lb=0)
+# m.addConstrs((rows[i, j] >= frac[i, j]
+#               for i in range(numdevices)
+#               for j in range(numpartitions)), name='r_ceil0')
 
-m.addConstrs((rows[i, j] <= frac[i, j] + tolerance
-              for i in range(numdevices)
-              for j in range(numpartitions)), name='r_ceil1')
+# m.addConstrs((rows[i, j] <= frac[i, j] + tolerance
+#               for i in range(numdevices)
+#               for j in range(numpartitions)), name='r_ceil1')
 
 # m.addConstrs(((frac[i,j] == 0) >> (mem[i,j] == 0)
 #               for i in range(numdevices)
@@ -226,16 +234,18 @@ for (pnum, p) in enumerate(partitions):
 resacc = gp.LinExpr()
 for (dnum, d) in enumerate(devices):
     # Simple total model
-    rows_tot = m.addVar(vtype=GRB.INTEGER, name='rows_tot_{}'.format(d))
-    mem_tot = m.addVar(vtype=GRB.CONTINUOUS, name='mem_tot_{}'.format(d))
-    m.addConstr(rows_tot == rows.sum(dnum, '*'), name='rows_tot_{}'.format(d))
+    rows_tot = m.addVar(vtype=GRB.INTEGER, name='rows_tot_{}'.format(d),
+                        lb=0, ub=d.max_rows)
+    mem_tot = m.addVar(vtype=GRB.CONTINUOUS, name='mem_tot_{}'.format(d),
+                       lb=0, ub=d.max_mem)
+    m.addConstr(rows_tot == frac.sum(dnum, '*'), name='rows_tot_{}'.format(d))
     m.addConstr(mem_tot == mem.sum(dnum, '*'), name='mem_tot_{}'.format(d))
 
     # Capacity constraints
-    m.addConstr(mem_tot, GRB.LESS_EQUAL, d.max_mem,
-                'capacity_mem_tot_{}'.format(d))
-    m.addConstr(rows_tot, GRB.LESS_EQUAL, d.max_rows,
-                'capacity_compute_{}'.format(d))
+    # m.addConstr(mem_tot, GRB.LESS_EQUAL, d.max_mem,
+    #             'capacity_mem_tot_{}'.format(d))
+    # m.addConstr(rows_tot, GRB.LESS_EQUAL, d.max_rows,
+    #             'capacity_compute_{}'.format(d))
 
     if isinstance(d, p4):
         for (pnum, p) in enumerate(partitions):
@@ -259,7 +269,7 @@ m.addConstr(res == resacc, name='res')
 
 ###########################################################
 m.ModelSense = GRB.MINIMIZE
-m.setObjectiveN(ns, 0, 10, reltol=0.15, name='ns')
+m.setObjectiveN(ns, 0, 10, reltol=0.2, name='ns')
 m.setObjectiveN(res, 1, 5, reltol=0.05, name='res')
 ###########################################################
 
