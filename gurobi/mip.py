@@ -2,7 +2,7 @@ import sys
 import time
 
 import gurobipy as gp
-# import ipdb
+import ipdb
 from gurobipy import GRB
 
 from config import config, common_config
@@ -31,17 +31,19 @@ def solve(devices, queries):
                      lb=0, ub=1, name='frac')
     mem = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
                     lb=0, name='mem')
+    # Ceiling
     # rows = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
     #                  name='rows', lb=0)
     # m.addConstrs((rows[i, j] >= frac[i, j]
     #               for i in range(numdevices)
     #               for j in range(numpartitions)), name='r_ceil0')
 
-    # m.addConstrs((rows[i, j] <= frac[i, j] + tolerance
+    # m.addConstrs((rows[i, j] <= frac[i, j] + common_config.tolerance
     #               for i in range(numdevices)
     #               for j in range(numpartitions)), name='r_ceil1')
 
-    # m.addConstrs(((frac[i,j] == 0) >> (mem[i,j] == 0)
+    # Frac == 0 -> mem == 0
+    # m.addConstrs(((frac[i, j] == 0) >> (mem[i, j] == 0)
     #               for i in range(numdevices)
     #               for j in range(numpartitions)), name='frac_mem')
 
@@ -110,34 +112,40 @@ def solve(devices, queries):
     end = time.time()
     print("Model optimize took: {} seconds".format(end - start))
 
-    for v in m.getVars():
-        print('%s %g' % (v.varName, v.x))
+    if(m.Status == GRB.INFEASIBLE):
+        m.computeIIS()
+        m.write("progs/infeasible_{}.ilp".format(cfg_num))
+    else:
+        for v in m.getVars():
+            print('%s %g' % (v.varName, v.x))
 
-    # Mapping print:
-    print("-----------------------------\n\n"
-          "Throughput: {} Mpps, ns per packet: {}".format(1000/ns.x, ns.x))
-    print("Resources: {}".format(res.x))
+        # Mapping print:
+        print("-----------------------------\n\n"
+              "Throughput: {} Mpps, ns per packet: {}".format(1000/ns.x, ns.x))
+        print("Resources: {}".format(res.x))
 
-    cur_sketch = 0
-    row = 1
-    for (pnum, p) in enumerate(partitions):
-        if(cur_sketch != p[1].sketch_id):
-            print("Sketch {} ({})".format(p[1].sketch_id, p[1].details()))
-            row = 1
-            cur_sketch = p[1].sketch_id
-        print("Row: {}".format(row))
-        row += 1
+        cur_sketch = 0
+        row = 1
+        for (pnum, p) in enumerate(partitions):
+            if(cur_sketch != p[1].sketch_id):
+                print("Sketch {} ({})".format(p[1].sketch_id, p[1].details()))
+                row = 1
+                cur_sketch = p[1].sketch_id
+            print("Row: {}".format(row))
+            row += 1
+
+            for (dnum, d) in enumerate(devices):
+                print("{}".format(frac[dnum, pnum].x), end='    ')
+
+            print('\n')
 
         for (dnum, d) in enumerate(devices):
-            print("{}".format(frac[dnum, pnum].x), end='    ')
+            print("Device {}:".format(d))
+            print(d.resource_stats())
+            print("Rows total: {}".format(d.rows_tot.x))
+            print("Mem total: {}\n".format(d.mem_tot.x))
 
-        print('\n')
-
-    for (dnum, d) in enumerate(devices):
-        print("Device {}:".format(d))
-        print(d.resource_stats())
-        print("Rows total: {}".format(d.rows_tot.x))
-        print("Mem total: {}\n".format(d.mem_tot.x))
+    # ipdb.set_trace()
 
 
 cfg_num = 0

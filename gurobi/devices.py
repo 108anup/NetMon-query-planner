@@ -13,20 +13,21 @@ class cpu(param):
         pdt = m.addVar(vtype=GRB.CONTINUOUS,
                        name='pdt_{}_{}'.format(pdt_name, self))
         loga = m.addVar(vtype=GRB.CONTINUOUS,
-                        name='log_{}'.format(a.varName))
+                        name='log_{}'.format(a.varName), lb=-GRB.INFINITY)
         logb = m.addVar(vtype=GRB.CONTINUOUS,
-                        name='log_{}'.format(b.varName))
+                        name='log_{}'.format(b.varName), lb=-GRB.INFINITY)
         logpdt = m.addVar(vtype=GRB.CONTINUOUS,
-                          name='log_pdt_{}_{}'.format(pdt_name, self))
+                          name='log_pdt_{}_{}'.format(pdt_name, self),
+                          lb=-GRB.INFINITY)
         # m.addGenConstrExpA(logpdt, pdt, 2,
         #                    name='exp_pdt_{}_{}'.format(pdt_name, self))
-        m.addGenConstrLogA(pdt, logpdt, 2,
+        m.addGenConstrExpA(logpdt, pdt, 2,
                            name='log_pdt_{}_{}'.format(pdt_name, self),
                            options="FuncPieces=-1 FuncPieceError=0.0001")
-        m.addGenConstrLogA(a, loga, 2,
+        m.addGenConstrExpA(loga, a, 2,
                            name='log_{}'.format(a.varName),
                            options="FuncPieces=-1 FuncPieceError=0.0001")
-        m.addGenConstrLogA(b, logb, 2,
+        m.addGenConstrExpA(logb, b, 2,
                            name='log_{}'.format(b.varName),
                            options="FuncPieces=-1 FuncPieceError=0.0001")
         m.addConstr(logpdt == loga + logb,

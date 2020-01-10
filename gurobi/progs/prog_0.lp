@@ -1,11 +1,11 @@
 \ Model netmon
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.15
+  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.05
    0 m_access_time_cpu_1 + 0 ns_sketch_cpu_1 + 0 ns_dpdk_cpu_1 + 0 ns_cpu_1
    + 0 m_access_time_cpu_2 + 0 ns_sketch_cpu_2 + 0 ns_dpdk_cpu_2
    + 0 ns_cpu_2 + ns
-  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.1
+  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
    res_overall
 Subject To
  cov_0: frac[0,0] + frac[1,0] + frac[2,0] + frac[3,0] = 1
@@ -209,12 +209,30 @@ Bounds
  frac[3,12] <= 1
  rows_tot_cpu_1 <= 9
  mem_tot_cpu_1 <= 32768
+ log_m_access_time_cpu_1 free
+ log_rows_tot_cpu_1 free
+ log_pdt_m_rows_cpu_1 free
  cores_sketch_cpu_1 <= 7
  1 <= cores_dpdk_cpu_1 <= 7
+ log_ns_sketch_cpu_1 free
+ log_cores_sketch_cpu_1 free
+ log_pdt_nsk_c_cpu_1 free
+ log_ns_dpdk_cpu_1 free
+ log_cores_dpdk_cpu_1 free
+ log_pdt_nsc_dpdk_cpu_1 free
  rows_tot_cpu_2 <= 9
  mem_tot_cpu_2 <= 32768
+ log_m_access_time_cpu_2 free
+ log_rows_tot_cpu_2 free
+ log_pdt_m_rows_cpu_2 free
  cores_sketch_cpu_2 <= 7
  1 <= cores_dpdk_cpu_2 <= 7
+ log_ns_sketch_cpu_2 free
+ log_cores_sketch_cpu_2 free
+ log_pdt_nsk_c_cpu_2 free
+ log_ns_dpdk_cpu_2 free
+ log_cores_dpdk_cpu_2 free
+ log_pdt_nsc_dpdk_cpu_2 free
  rows_tot_p4_1 <= 12
  mem_tot_p4_1 <= 576
  rows_tot_p4_2 <= 12
