@@ -112,10 +112,13 @@ def solve(devices, queries):
     end = time.time()
     print("Model optimize took: {} seconds".format(end - start))
 
+    m.printQuality()
+
     if(m.Status == GRB.INFEASIBLE):
         m.computeIIS()
         m.write("progs/infeasible_{}.ilp".format(cfg_num))
     else:
+        print("\n\nDEBUG -----------------------\n")
         for v in m.getVars():
             print('%s %g' % (v.varName, v.x))
 
