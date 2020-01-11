@@ -11,14 +11,14 @@ Subject To
  cov_1: frac[0,1] + frac[1,1] = 1
  cov_2: frac[0,2] + frac[1,2] = 1
  cov_3: frac[0,3] + frac[1,3] = 1
- accuracy_(1,_sk_1)[0]: - 21.23828125 frac[0,0] + mem[0,0] >= 0
- accuracy_(1,_sk_1)[1]: - 21.23828125 frac[1,0] + mem[1,0] >= 0
- accuracy_(2,_sk_1)[0]: - 21.23828125 frac[0,1] + mem[0,1] >= 0
- accuracy_(2,_sk_1)[1]: - 21.23828125 frac[1,1] + mem[1,1] >= 0
- accuracy_(3,_sk_1)[0]: - 21.23828125 frac[0,2] + mem[0,2] >= 0
- accuracy_(3,_sk_1)[1]: - 21.23828125 frac[1,2] + mem[1,2] >= 0
- accuracy_(4,_sk_1)[0]: - 21.23828125 frac[0,3] + mem[0,3] >= 0
- accuracy_(4,_sk_1)[1]: - 21.23828125 frac[1,3] + mem[1,3] >= 0
+ accuracy_(1,_sk_1)[0]: - 46.16796875 frac[0,0] + mem[0,0] >= 0
+ accuracy_(1,_sk_1)[1]: - 46.16796875 frac[1,0] + mem[1,0] >= 0
+ accuracy_(2,_sk_1)[0]: - 46.16796875 frac[0,1] + mem[0,1] >= 0
+ accuracy_(2,_sk_1)[1]: - 46.16796875 frac[1,1] + mem[1,1] >= 0
+ accuracy_(3,_sk_1)[0]: - 46.16796875 frac[0,2] + mem[0,2] >= 0
+ accuracy_(3,_sk_1)[1]: - 46.16796875 frac[1,2] + mem[1,2] >= 0
+ accuracy_(4,_sk_1)[0]: - 46.16796875 frac[0,3] + mem[0,3] >= 0
+ accuracy_(4,_sk_1)[1]: - 46.16796875 frac[1,3] + mem[1,3] >= 0
  rows_tot_cpu_1: - frac[0,0] - frac[0,1] - frac[0,2] - frac[0,3]
    + rows_tot_cpu_1 = 0
  mem_tot_cpu_1: - mem[0,0] - mem[0,1] - mem[0,2] - mem[0,3] + mem_tot_cpu_1

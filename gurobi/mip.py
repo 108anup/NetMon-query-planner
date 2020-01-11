@@ -5,7 +5,7 @@ import gurobipy as gp
 import ipdb
 from gurobipy import GRB
 
-from config import config, common_config
+from config import config, common_config, eps0
 
 
 def get_partitions(queries):
@@ -123,15 +123,21 @@ def solve(devices, queries):
             print('%s %g' % (v.varName, v.x))
 
         # Mapping print:
+        dbg = open('strobe.out', 'a')
         print("-----------------------------\n\n"
               "Throughput: {} Mpps, ns per packet: {}".format(1000/ns.x, ns.x))
         print("Resources: {}".format(res.x))
+
+        dbg.write("-----------------------------\n\n"
+                  "Throughput: {} Mpps, ns per packet: {}\n".format(1000/ns.x, ns.x))
+        dbg.write("Resources: {}\n".format(res.x))
 
         cur_sketch = 0
         row = 1
         for (pnum, p) in enumerate(partitions):
             if(cur_sketch != p[1].sketch_id):
                 print("Sketch {} ({})".format(p[1].sketch_id, p[1].details()))
+                dbg.write("Sketch {} ({})\n".format(p[1].sketch_id, p[1].details()))
                 row = 1
                 cur_sketch = p[1].sketch_id
             print("Row: {}".format(row))
@@ -148,6 +154,13 @@ def solve(devices, queries):
             print("Rows total: {}".format(d.rows_tot.x))
             print("Mem total: {}\n".format(d.mem_tot.x))
 
+        for (dnum, d) in enumerate(devices):
+            dbg.write("Device {}:\n".format(d))
+            dbg.write(d.resource_stats() + "\n")
+            dbg.write("Rows total: {}\n".format(d.rows_tot.x))
+            dbg.write("Mem total: {}\n\n".format(d.mem_tot.x))
+        dbg.close()
+
     # ipdb.set_trace()
 
 
@@ -156,4 +169,6 @@ if(len(sys.argv) > 1):
     cfg_num = int(sys.argv[1])
 
 cfg = config[cfg_num]
-solve(cfg.devices, cfg.queries)
+for eps0_mul in [1, 4, 10, 23]:
+    cfg.queries[0].eps0 = eps0 * eps0_mul
+    solve(cfg.devices, cfg.queries)

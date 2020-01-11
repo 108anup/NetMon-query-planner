@@ -136,4 +136,4 @@ class p4(param):
         return self.name
 
     def resource_stats(self):
-        pass
+        return ""
