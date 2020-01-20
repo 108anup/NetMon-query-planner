@@ -43,9 +43,9 @@ def solve(devices, queries):
     #               for j in range(numpartitions)), name='r_ceil1')
 
     # Frac == 0 -> mem == 0
-    m.addConstrs(((frac[i, j] == 0) >> (mem[i, j] == 0)
-                  for i in range(numdevices)
-                  for j in range(numpartitions)), name='frac_mem')
+    # m.addConstrs(((frac[i, j] == 0) >> (mem[i, j] == 0)
+    #               for i in range(numdevices)
+    #               for j in range(numpartitions)), name='frac_mem')
 
     for pnum in range(numpartitions):
         m.addConstr(frac.sum('*', pnum) == 1,

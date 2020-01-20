@@ -47,14 +47,6 @@ Subject To
    - cores_sketch_cpu_1 * ns_sketch_cpu_1 ] = 0
  pdt_nsc_dpdk_cpu_1: pdt_nsc_dpdk_cpu_1 + [
    - cores_dpdk_cpu_1 * ns_dpdk_cpu_1 ] = 0
- frac_mem[0,0]: frac[0,0] = 0 -> mem[0,0] = -0
- frac_mem[0,1]: frac[0,1] = 0 -> mem[0,1] = -0
- frac_mem[0,2]: frac[0,2] = 0 -> mem[0,2] = -0
- frac_mem[0,3]: frac[0,3] = 0 -> mem[0,3] = -0
- frac_mem[1,0]: frac[1,0] = 0 -> mem[1,0] = -0
- frac_mem[1,1]: frac[1,1] = 0 -> mem[1,1] = -0
- frac_mem[1,2]: frac[1,2] = 0 -> mem[1,2] = -0
- frac_mem[1,3]: frac[1,3] = 0 -> mem[1,3] = -0
 Bounds
  frac[0,0] <= 1
  frac[0,1] <= 1
