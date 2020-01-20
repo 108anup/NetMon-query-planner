@@ -43,9 +43,9 @@ def solve(devices, queries):
     #               for j in range(numpartitions)), name='r_ceil1')
 
     # Frac == 0 -> mem == 0
-    # m.addConstrs(((frac[i, j] == 0) >> (mem[i, j] == 0)
-    #               for i in range(numdevices)
-    #               for j in range(numpartitions)), name='frac_mem')
+    m.addConstrs(((frac[i, j] == 0) >> (mem[i, j] == 0)
+                  for i in range(numdevices)
+                  for j in range(numpartitions)), name='frac_mem')
 
     for pnum in range(numpartitions):
         m.addConstr(frac.sum('*', pnum) == 1,
@@ -123,21 +123,25 @@ def solve(devices, queries):
             print('%s %g' % (v.varName, v.x))
 
         # Mapping print:
-        dbg = open('strobe.out', 'a')
+        dbg = None
+        if(common_config.fileout == True):
+            dbg = open('strobe.out', 'a')
         print("-----------------------------\n\n"
               "Throughput: {} Mpps, ns per packet: {}".format(1000/ns.x, ns.x))
         print("Resources: {}".format(res.x))
 
-        dbg.write("-----------------------------\n\n"
-                  "Throughput: {} Mpps, ns per packet: {}\n".format(1000/ns.x, ns.x))
-        dbg.write("Resources: {}\n".format(res.x))
+        if(common_config.fileout == True):
+            dbg.write("-----------------------------\n\n"
+                      "Throughput: {} Mpps, ns per packet: {}\n".format(1000/ns.x, ns.x))
+            dbg.write("Resources: {}\n".format(res.x))
 
         cur_sketch = 0
         row = 1
         for (pnum, p) in enumerate(partitions):
             if(cur_sketch != p[1].sketch_id):
                 print("Sketch {} ({})".format(p[1].sketch_id, p[1].details()))
-                dbg.write("Sketch {} ({})\n".format(p[1].sketch_id, p[1].details()))
+                if(common_config.fileout == True):
+                    dbg.write("Sketch {} ({})\n".format(p[1].sketch_id, p[1].details()))
                 row = 1
                 cur_sketch = p[1].sketch_id
             print("Row: {}".format(row))
@@ -154,12 +158,13 @@ def solve(devices, queries):
             print("Rows total: {}".format(d.rows_tot.x))
             print("Mem total: {}\n".format(d.mem_tot.x))
 
-        for (dnum, d) in enumerate(devices):
-            dbg.write("Device {}:\n".format(d))
-            dbg.write(d.resource_stats() + "\n")
-            dbg.write("Rows total: {}\n".format(d.rows_tot.x))
-            dbg.write("Mem total: {}\n\n".format(d.mem_tot.x))
-        dbg.close()
+        if(common_config.fileout == True):
+            for (dnum, d) in enumerate(devices):
+                dbg.write("Device {}:\n".format(d))
+                dbg.write(d.resource_stats() + "\n")
+                dbg.write("Rows total: {}\n".format(d.rows_tot.x))
+                dbg.write("Mem total: {}\n\n".format(d.mem_tot.x))
+            dbg.close()
 
     # ipdb.set_trace()
 
@@ -169,6 +174,9 @@ if(len(sys.argv) > 1):
     cfg_num = int(sys.argv[1])
 
 cfg = config[cfg_num]
-for eps0_mul in [1, 4, 10, 23]:
-    cfg.queries[0].eps0 = eps0 * eps0_mul
+if(cfg_num == 3):
+    for eps0_mul in [1, 4, 10, 23]:
+        cfg.queries[0].eps0 = eps0 * eps0_mul
+        solve(cfg.devices, cfg.queries)
+else:
     solve(cfg.devices, cfg.queries)

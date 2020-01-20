@@ -1,10 +1,10 @@
 \ Model netmon
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.15
+  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.05
    0 m_access_time_cpu_1 + 0 ns_sketch_cpu_1 + 0 ns_dpdk_cpu_1 + 0 ns_cpu_1
    + ns
-  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.1
+  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
    res_overall
 Subject To
  cov_0: frac[0,0] + frac[1,0] = 1
@@ -52,16 +52,10 @@ Subject To
  mem_tot_cpu_1: - mem[0,0] - mem[0,1] - mem[0,2] - mem[0,3] - mem[0,4]
    - mem[0,5] - mem[0,6] - mem[0,7] - mem[0,8] - mem[0,9] - mem[0,10]
    - mem[0,11] - mem[0,12] + mem_tot_cpu_1 = 0
- pdt_m_rows_cpu_1: - log_m_access_time_cpu_1 - log_rows_tot_cpu_1
-   + log_pdt_m_rows_cpu_1 = 0
  ns_single_cpu_1: 3.5 rows_tot_cpu_1 - ns_single_cpu_1 + pdt_m_rows_cpu_1
    <= 0
  capacity_cores_cpu_1: cores_sketch_cpu_1 + cores_dpdk_cpu_1 <= 7
- pdt_nsk_c_cpu_1: - log_ns_sketch_cpu_1 - log_cores_sketch_cpu_1
-   + log_pdt_nsk_c_cpu_1 = 0
  ns_sketch_cpu_1: - ns_single_cpu_1 + pdt_nsk_c_cpu_1 = 0
- pdt_nsc_dpdk_cpu_1: - log_ns_dpdk_cpu_1 - log_cores_dpdk_cpu_1
-   + log_pdt_nsc_dpdk_cpu_1 = 0
  ns_dpdk_cpu_1: 7.142857142857143 cores_dpdk_cpu_1 - pdt_nsc_dpdk_cpu_1
    = -21.42857142857143
  rows_tot_p4_1: - frac[1,0] - frac[1,1] - frac[1,2] - frac[1,3] - frac[1,4]
@@ -87,6 +81,38 @@ Subject To
  res: - 1.220703125e-04 mem_tot_cpu_1 - 10 cores_sketch_cpu_1
    - 10 cores_dpdk_cpu_1 - 0.25 rows_tot_p4_1
    - 0.0208333333333333 mem_tot_p4_1 + res_overall = 0
+ pdt_m_rows_cpu_1: pdt_m_rows_cpu_1 + [
+   - rows_tot_cpu_1 * m_access_time_cpu_1 ] = 0
+ pdt_nsk_c_cpu_1: pdt_nsk_c_cpu_1 + [
+   - cores_sketch_cpu_1 * ns_sketch_cpu_1 ] = 0
+ pdt_nsc_dpdk_cpu_1: pdt_nsc_dpdk_cpu_1 + [
+   - cores_dpdk_cpu_1 * ns_dpdk_cpu_1 ] = 0
+ frac_mem[0,0]: frac[0,0] = 0 -> mem[0,0] = -0
+ frac_mem[0,1]: frac[0,1] = 0 -> mem[0,1] = -0
+ frac_mem[0,2]: frac[0,2] = 0 -> mem[0,2] = -0
+ frac_mem[0,3]: frac[0,3] = 0 -> mem[0,3] = -0
+ frac_mem[0,4]: frac[0,4] = 0 -> mem[0,4] = -0
+ frac_mem[0,5]: frac[0,5] = 0 -> mem[0,5] = -0
+ frac_mem[0,6]: frac[0,6] = 0 -> mem[0,6] = -0
+ frac_mem[0,7]: frac[0,7] = 0 -> mem[0,7] = -0
+ frac_mem[0,8]: frac[0,8] = 0 -> mem[0,8] = -0
+ frac_mem[0,9]: frac[0,9] = 0 -> mem[0,9] = -0
+ frac_mem[0,10]: frac[0,10] = 0 -> mem[0,10] = -0
+ frac_mem[0,11]: frac[0,11] = 0 -> mem[0,11] = -0
+ frac_mem[0,12]: frac[0,12] = 0 -> mem[0,12] = -0
+ frac_mem[1,0]: frac[1,0] = 0 -> mem[1,0] = -0
+ frac_mem[1,1]: frac[1,1] = 0 -> mem[1,1] = -0
+ frac_mem[1,2]: frac[1,2] = 0 -> mem[1,2] = -0
+ frac_mem[1,3]: frac[1,3] = 0 -> mem[1,3] = -0
+ frac_mem[1,4]: frac[1,4] = 0 -> mem[1,4] = -0
+ frac_mem[1,5]: frac[1,5] = 0 -> mem[1,5] = -0
+ frac_mem[1,6]: frac[1,6] = 0 -> mem[1,6] = -0
+ frac_mem[1,7]: frac[1,7] = 0 -> mem[1,7] = -0
+ frac_mem[1,8]: frac[1,8] = 0 -> mem[1,8] = -0
+ frac_mem[1,9]: frac[1,9] = 0 -> mem[1,9] = -0
+ frac_mem[1,10]: frac[1,10] = 0 -> mem[1,10] = -0
+ frac_mem[1,11]: frac[1,11] = 0 -> mem[1,11] = -0
+ frac_mem[1,12]: frac[1,12] = 0 -> mem[1,12] = -0
 Bounds
  frac[0,0] <= 1
  frac[0,1] <= 1
@@ -117,7 +143,7 @@ Bounds
  rows_tot_cpu_1 <= 9
  mem_tot_cpu_1 <= 32768
  cores_sketch_cpu_1 <= 7
- 1 <= cores_dpdk_cpu_1 <= 7
+ 3 <= cores_dpdk_cpu_1 <= 7
  rows_tot_p4_1 <= 12
  mem_tot_p4_1 <= 576
 Generals
@@ -126,24 +152,6 @@ General Constraints
  mem_access_time_cpu_1: m_access_time_cpu_1 = PWL ( mem_tot_cpu_1 ) : 
   (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
   (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- log_pdt_m_rows_cpu_1: ( FuncPieces=-1 FuncPieceError=0.0001 )
-   log_pdt_m_rows_cpu_1 = LOG_2 ( pdt_m_rows_cpu_1 )
- log_m_access_time_cpu_1: ( FuncPieces=-1 FuncPieceError=0.0001 )
-   log_m_access_time_cpu_1 = LOG_2 ( m_access_time_cpu_1 )
- log_rows_tot_cpu_1: ( FuncPieces=-1 FuncPieceError=0.0001 )
-   log_rows_tot_cpu_1 = LOG_2 ( rows_tot_cpu_1 )
- log_pdt_nsk_c_cpu_1: ( FuncPieces=-1 FuncPieceError=0.0001 )
-   log_pdt_nsk_c_cpu_1 = LOG_2 ( pdt_nsk_c_cpu_1 )
- log_ns_sketch_cpu_1: ( FuncPieces=-1 FuncPieceError=0.0001 )
-   log_ns_sketch_cpu_1 = LOG_2 ( ns_sketch_cpu_1 )
- log_cores_sketch_cpu_1: ( FuncPieces=-1 FuncPieceError=0.0001 )
-   log_cores_sketch_cpu_1 = LOG_2 ( cores_sketch_cpu_1 )
- log_pdt_nsc_dpdk_cpu_1: ( FuncPieces=-1 FuncPieceError=0.0001 )
-   log_pdt_nsc_dpdk_cpu_1 = LOG_2 ( pdt_nsc_dpdk_cpu_1 )
- log_ns_dpdk_cpu_1: ( FuncPieces=-1 FuncPieceError=0.0001 )
-   log_ns_dpdk_cpu_1 = LOG_2 ( ns_dpdk_cpu_1 )
- log_cores_dpdk_cpu_1: ( FuncPieces=-1 FuncPieceError=0.0001 )
-   log_cores_dpdk_cpu_1 = LOG_2 ( cores_dpdk_cpu_1 )
  ns_cpu_1: ns_cpu_1 = MAX ( ns_dpdk_cpu_1 , ns_sketch_cpu_1 )
  ns_overall: ns = MAX ( ns_cpu_1 , ns_p4_1 )
 End
