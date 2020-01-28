@@ -82,7 +82,7 @@ config = [
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
                max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
         ],
-        queries=[cm_sketch(eps0=eps0*5, del0=del0)]
+        queries=[cm_sketch(eps0=eps0*50, del0=del0)]
     )
 ]
 

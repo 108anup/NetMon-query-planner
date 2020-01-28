@@ -66,7 +66,7 @@ def get_ns_per_packet(r, M, sketch_cores):
 throughput_p4 = 148
 
 # Constraints
-epsilon_0 = 0.00001
+epsilon_0 = 0.00001*50
 
 # Optimum leeway (relative)
 thr_leeway = 0.05
