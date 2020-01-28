@@ -1,0 +1,60 @@
+-----------------------------
+
+Throughput: 76.18285790468587 Mpps, ns per packet: 13.126312499999974
+Resources: 70.51847267150879
+Sketch 1 (cm: eps0: 1e-05, del0: 0.02, min_mem: 1061.83203125)
+Device cpu_1:
+cores_sketch: 3.0, cores_dpdk: 4.0
+Rows total: 4.0
+Mem total: 4247.328125
+
+Device p4_1:
+
+Rows total: 0.0
+Mem total: 0.0
+
+-----------------------------
+
+Throughput: 83.32500083325016 Mpps, ns per packet: 12.00119999999998
+Resources: 73.05502962396068
+Sketch 1 (cm: eps0: 4e-05, del0: 0.02, min_mem: 265.4609375)
+Device cpu_1:
+cores_sketch: 2.0, cores_dpdk: 5.0
+Rows total: 3.491058810328974
+Mem total: 926.740877930594
+
+Device p4_1:
+
+Rows total: 0.5089411896710261
+Mem total: 135.10400534243593
+
+-----------------------------
+
+Throughput: 88.8800008888 Mpps, ns per packet: 11.251125000000002
+Resources: 74.00916177555028
+Sketch 1 (cm: eps0: 0.0001, del0: 0.02, min_mem: 106.18359375)
+Device cpu_1:
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 2.3842396644309836
+Mem total: 253.16729688091777
+
+Device p4_1:
+
+Rows total: 1.6157603355690164
+Mem total: 171.56723906942415
+
+-----------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 64.84733072916667
+Sketch 1 (cm: eps0: 0.00023, del0: 0.02, min_mem: 46.16796875)
+Device cpu_1:
+cores_sketch: -0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+
+Device p4_1:
+
+Rows total: 4.0
+Mem total: 184.671875
+
