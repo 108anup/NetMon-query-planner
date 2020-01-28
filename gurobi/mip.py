@@ -10,16 +10,29 @@ from config import config, common_config, eps0
 
 def get_partitions(queries):
     partitions = []
-    for (i, q) in enumerate(queries, 1):
+    for (i, q) in enumerate(queries):
         q.sketch_id = i
         num_rows = q.rows()
-        partitions += [(r+1, q) for r in range(num_rows)]
+        start_idx = len(partitions)
+        q.partitions = [start_idx + r for r in range(num_rows)]
+        partitions += [(r, q) for r in range(num_rows)]
     return partitions
 
 
-def solve(devices, queries):
+def update_flows(flows, queries):
+    for f in flows:
+        f.partitions = []
+        for q in f.queries:
+            coverage_requirement = q[1]
+            q_idx = q[0]
+            for p_idx in queries[q_idx].partitions:
+                f.partitions.append((p_idx, coverage_requirement))
+
+
+def solve(devices, queries, flows):
 
     partitions = get_partitions(queries)
+    update_flows(flows, queries)
     numdevices = len(devices)
     numpartitions = len(partitions)
 
@@ -27,6 +40,24 @@ def solve(devices, queries):
     m = gp.Model('netmon')
 
     # Decl of vars
+    """
+    TODO:
+    See what other people define by coverage
+
+    frac represents fraction of row monitored on a device
+    We are incorporating coverage by saying the fractions may not sum upto 1
+    then a packet may or may not be sampled (coin toss w.p. sample or not)
+    given a packet is sampled decide which device will the packet be sampled at
+    (use hash function for this)
+
+    To do this 2 approaches:
+    1. edge devices have to modify packets to convey whether packet will be
+       sampled and decide where to sample and then remove this info from header
+    2. each device makes a local decision. First check hash range and then
+       coin toss.
+
+    Need to include above costs. (1) is more efficient.
+    """
     frac = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
                      lb=0, ub=1, name='frac')
     mem = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
@@ -47,9 +78,18 @@ def solve(devices, queries):
     #               for i in range(numdevices)
     #               for j in range(numpartitions)), name='frac_mem')
 
-    for pnum in range(numpartitions):
-        m.addConstr(frac.sum('*', pnum) == 1,
-                    name='cov_{}'.format(pnum))
+    # Coverage Constraints
+    # for pnum in range(numpartitions):
+    #     m.addConstr(frac.sum('*', pnum) == 1,
+    #                 name='cov_{}'.format(pnum))
+    for (fnum, f) in enumerate(flows):
+        for p in f.partitions:
+            pnum = p[0]
+            coverage_requirement = p[1]
+            sum_expr = gp.quicksum(frac[dnum, pnum] for dnum in f.path)
+            # sum_expr = frac[[dnum for dnum in f.path], pnum].sum()
+            m.addConstr(sum_expr >= coverage_requirement,
+                        name='cov_{}_{}'.format(fnum, pnum))
 
     # Accuracy constraints
     for (pnum, p) in enumerate(partitions):
@@ -135,11 +175,11 @@ def solve(devices, queries):
                       "Throughput: {} Mpps, ns per packet: {}\n".format(1000/ns.x, ns.x))
             dbg.write("Resources: {}\n".format(res.x))
 
-        cur_sketch = 0
+        cur_sketch = -1
         row = 1
         for (pnum, p) in enumerate(partitions):
             if(cur_sketch != p[1].sketch_id):
-                print("Sketch {} ({})".format(p[1].sketch_id, p[1].details()))
+                print("Sketch ({}) ({})".format(p[1].sketch_id, p[1].details()))
                 if(common_config.fileout == True):
                     dbg.write("Sketch {} ({})\n".format(p[1].sketch_id, p[1].details()))
                 row = 1
@@ -153,18 +193,23 @@ def solve(devices, queries):
             print('\n')
 
         for (dnum, d) in enumerate(devices):
-            print("Device {}:".format(d))
+            print("Device ({}) {}:".format(dnum, d))
             print(d.resource_stats())
             print("Rows total: {}".format(d.rows_tot.x))
             print("Mem total: {}\n".format(d.mem_tot.x))
 
         if(common_config.fileout == True):
             for (dnum, d) in enumerate(devices):
-                dbg.write("Device {}:\n".format(d))
+                dbg.write("Device ({}) {}:\n".format(dnum, d))
                 dbg.write(d.resource_stats() + "\n")
                 dbg.write("Rows total: {}\n".format(d.rows_tot.x))
                 dbg.write("Mem total: {}\n\n".format(d.mem_tot.x))
             dbg.close()
+
+        for (fnum, f) in enumerate(flows):
+            print("Flow {}:".format(fnum))
+            print("queries: {}".format(f.queries))
+            print("path: {}".format(f.path))
 
     # ipdb.set_trace()
 
@@ -179,4 +224,4 @@ if(cfg_num == 3):
         cfg.queries[0].eps0 = eps0 * eps0_mul
         solve(cfg.devices, cfg.queries)
 else:
-    solve(cfg.devices, cfg.queries)
+    solve(cfg.devices, cfg.queries, cfg.flows)
