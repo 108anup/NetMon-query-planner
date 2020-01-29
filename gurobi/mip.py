@@ -46,7 +46,8 @@ def solve(devices, queries, flows):
 
     frac represents fraction of row monitored on a device
     We are incorporating coverage by saying the fractions may not sum upto 1
-    then a packet may or may not be sampled (coin toss w.p. sample or not)
+    then
+    (1) a packet may or may not be sampled (coin toss w.p. sample or not)
     given a packet is sampled decide which device will the packet be sampled at
     (use hash function for this)
 
@@ -56,7 +57,16 @@ def solve(devices, queries, flows):
     2. each device makes a local decision. First check hash range and then
        coin toss.
 
-    Need to include above costs. (1) is more efficient.
+    Need to include above costs. 2. is more efficient.
+
+    OR
+    (2) some keys may not be sampled ever. based on their hash.
+    So we hash into [0,1] and then [0,0.5] -> sketch 1, [0.5,0.9] sketch 2 and
+    [0.9,1] are never hashed.
+
+    Need to include cost of branch i.e. if hash lies in relevant range.
+
+    (2) is more efficient overall. But has different tradeoff than (1)
     """
     frac = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
                      lb=0, ub=1, name='frac')
@@ -188,7 +198,7 @@ def solve(devices, queries, flows):
             row += 1
 
             for (dnum, d) in enumerate(devices):
-                print("{}".format(frac[dnum, pnum].x), end='    ')
+                print("{:0.3f}".format(frac[dnum, pnum].x), end='    ')
 
             print('\n')
 
