@@ -5,7 +5,7 @@ from flows import flow
 import random
 
 
-hosts_per_tors = 8
+hosts_per_tors = 4
 tors_per_l1s = 2
 l1s = 2
 hosts = hosts_per_tors * tors_per_l1s * l1s
@@ -15,6 +15,8 @@ hosts_tors_l1s = hosts_tors + l1s
 
 
 def get_path(h1, h2):
+    while(h1 == h2):
+        h2 = random.randint(0, hosts-1)
     tor1 = int(h1 / hosts_per_tors)
     tor2 = int(h2 / hosts_per_tors)
     l11 = int(tor1 / tors_per_l1s)
@@ -36,8 +38,8 @@ def get_path(h1, h2):
         return (h1, tor1, l11, l2, l12, tor2, h2)
 
 
-eps0 = 1e-5
-del0 = 0.02
+eps0 = 0.1 * 8 / 128  # 1e-5
+del0 = 0.05  # 0.02
 
 """
 TODO:
@@ -74,12 +76,12 @@ beluga20 = {
     'Li_size': [32, 256, 8192, 32768],
     'Li_ns': [0.53, 1.5, 3.7, 36],
     'hash_ns': 3.5, 'cores': 7, 'dpdk_single_core_thr': 35,
-    'max_mem': 32768, 'max_rows': 9
+    'max_mem': 32768, 'max_rows': 12
 }
 
 tofino = {
     'meter_alus': 4, 'sram': 48, 'stages': 12, 'line_thr': 148,
-    'max_mpp': 48, 'max_mem': 48*12, 'max_rows': 12
+    'max_mpp': 48, 'max_mem': 48*12, 'max_rows': 12 * 4
 }
 
 # All memory measured in KB unless otherwise specified
@@ -275,19 +277,19 @@ config = [
             [p4(**tofino, name='l1_p4'+str(i+1)) for i in range(l1s)] +
             [p4(**tofino, name='l2_p4')]
         ),
-        queries=[
-            cm_sketch(eps0=eps0*50, del0=del0),
-            cm_sketch(eps0=eps0/5, del0=del0),
-            cm_sketch(eps0=eps0*100, del0=del0/2)
-        ],
+        queries=(
+            [cm_sketch(eps0=eps0, del0=del0) for i in range(64)] + []
+            # [cm_sketch(eps0=eps0*10, del0=del0) for i in range(24)] +
+            # [cm_sketch(eps0=eps0, del0=del0) for i in range(32)]
+        ),
         flows=[
             flow(
                 path=get_path(random.randint(0, hosts-1), random.randint(0, hosts-1)),
                 queries=[
-                    (random.randint(0, 2), int(random.random() * 4 + 7)/10)
+                    (random.randint(0, 63), int(random.random() * 4 + 7)/10)
                 ]
             )
-            for flownum in range(hosts*5)
+            for flownum in range(64 * 5)
         ]
     )
 ]
@@ -296,7 +298,8 @@ common_config = param(
     tolerance=0.999,
     ns_tol=0.05,
     res_tol=0.05,
-    fileout=False
+    fileout=False,
+    solver='univmon'
 )
 
 

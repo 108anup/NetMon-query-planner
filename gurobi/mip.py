@@ -146,9 +146,17 @@ def solve(devices, queries, flows):
     res = m.addVar(vtype=GRB.CONTINUOUS, name='res_overall')
     m.addConstr(res == resacc, name='res')
 
+    if(common_config.solver == 'univmon'):
+        mem_series = [d.mem_tot for d in devices]
+        max_mem = m.addVar(vtype=GRB.CONTINUOUS, name='max_mem')
+        m.addGenConstrMax(max_mem, mem_series, name='mem_overall')
+
     m.ModelSense = GRB.MINIMIZE
-    m.setObjectiveN(ns, 0, 10, reltol=common_config.ns_tol, name='ns')
-    m.setObjectiveN(res, 1, 5, reltol=common_config.res_tol, name='res')
+    if(common_config.solver == 'univmon'):
+        m.setObjective(max_mem)
+    elif(common_config.solver == 'netmon'):
+        m.setObjectiveN(ns, 0, 10, reltol=common_config.ns_tol, name='ns')
+        m.setObjectiveN(res, 1, 5, reltol=common_config.res_tol, name='res')
 
     start = time.time()
     m.update()
@@ -162,12 +170,11 @@ def solve(devices, queries, flows):
     end = time.time()
     print("Model optimize took: {} seconds".format(end - start))
 
-    m.printQuality()
-
     if(m.Status == GRB.INFEASIBLE):
         m.computeIIS()
         m.write("progs/infeasible_{}.ilp".format(cfg_num))
     else:
+        m.printQuality()
         print("\n\nDEBUG -----------------------\n")
         for v in m.getVars():
             print('%s %g' % (v.varName, v.x))
