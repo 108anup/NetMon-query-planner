@@ -189,7 +189,7 @@ def solve(devices, queries, flows):
         row = 1
         for (pnum, p) in enumerate(partitions):
             if(cur_sketch != p[1].sketch_id):
-                print("Sketch ({}) ({})".format(p[1].sketch_id, p[1].details()))
+                print("\nSketch ({}) ({})".format(p[1].sketch_id, p[1].details()))
                 if(common_config.fileout == True):
                     dbg.write("Sketch {} ({})\n".format(p[1].sketch_id, p[1].details()))
                 row = 1
@@ -199,8 +199,10 @@ def solve(devices, queries, flows):
 
             for (dnum, d) in enumerate(devices):
                 print("{:0.3f}".format(frac[dnum, pnum].x), end='    ')
-
-            print('\n')
+            tot_frac = 0
+            for (dnum, d) in enumerate(devices):
+                tot_frac += (frac[dnum, pnum].x)
+            print("\nTotal frac: {:0.3f}".format(tot_frac))
 
         for (dnum, d) in enumerate(devices):
             print("Device ({}) {}:".format(dnum, d))

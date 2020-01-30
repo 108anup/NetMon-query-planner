@@ -2,6 +2,38 @@ from common import param
 from devices import cpu, p4
 from sketches import cm_sketch
 from flows import flow
+import random
+
+
+hosts_per_tors = 8
+tors_per_l1s = 2
+l1s = 2
+hosts = hosts_per_tors * tors_per_l1s * l1s
+tors = tors_per_l1s * l1s
+hosts_tors = hosts + tors
+hosts_tors_l1s = hosts_tors + l1s
+
+
+def get_path(h1, h2):
+    tor1 = int(h1 / hosts_per_tors)
+    tor2 = int(h2 / hosts_per_tors)
+    l11 = int(tor1 / tors_per_l1s)
+    l12 = int(tor2 / tors_per_l1s)
+    tor1 = tor1 + hosts
+    tor2 = tor2 + hosts
+    l11 = l11 + hosts_tors
+    l12 = l12 + hosts_tors
+    l2 = hosts_tors_l1s
+    if(l11 == l12):
+        if(tor1 == tor2):
+            if(h1 == h2):
+                return tuple([h1])
+            else:
+                return (h1, tor1, h2)
+        else:
+            return (h1, tor1, l11, tor2, h2)
+    else:
+        return (h1, tor1, l11, l2, l12, tor2, h2)
 
 
 eps0 = 1e-5
@@ -52,6 +84,8 @@ tofino = {
 
 # All memory measured in KB unless otherwise specified
 config = [
+
+    # 0
     param(
         # Change when devices are added / removed
         devices=[
@@ -74,6 +108,7 @@ config = [
         ]
     ),
 
+    # 1
     param(
         devices=[
             cpu(mem_par=[1.1875, 32, 1448.15625,
@@ -92,6 +127,7 @@ config = [
                  cm_sketch(eps0=eps0*100, del0=del0/2)]
     ),
 
+    # 2
     # P4 priority over CPU
     param(
         devices=[
@@ -111,6 +147,7 @@ config = [
                  cm_sketch(eps0=eps0*100, del0=del0/2)]
     ),
 
+    # 3
     # Mem vary - CPU - P4
     param(
         devices=[
@@ -128,6 +165,7 @@ config = [
         queries=[cm_sketch(eps0=eps0*5, del0=del0)]
     ),
 
+    # 4
     # Skewed CPU allocation 1
     param(
         devices=[
@@ -155,6 +193,7 @@ config = [
                  cm_sketch(eps0=eps0*100, del0=del0/2)]
     ),
 
+    # 5
     # Skewed CPU allocation 2
     param(
         devices=[
@@ -182,6 +221,7 @@ config = [
                  cm_sketch(eps0=eps0*100, del0=del0/2)]
     ),
 
+    # 6
     # Use small sketches for fully utilizing CPUs
     param(
         devices=[
@@ -211,6 +251,7 @@ config = [
                  cm_sketch(eps0=eps0*100, del0=del0/2)]
     ),
 
+    # 7
     # Multi P4
     param(
         devices=[
@@ -221,6 +262,34 @@ config = [
         ],
         queries=[cm_sketch(eps0=eps0*12, del0=del0)]
     ),
+
+    # 8
+    # Large topo
+    param(
+        devices=(
+            [cpu(**beluga20, name='endhost_cpu'+str(i+1))
+             for i in range(hosts)] +
+            [p4(**tofino, name='tor_p4'+str(i+1)) for i in range(int(tors))] +
+            # [cpu(**beluga20, name='tor_cpu'+str(i+1))
+            #  for i in range(int(tors/2))] +
+            [p4(**tofino, name='l1_p4'+str(i+1)) for i in range(l1s)] +
+            [p4(**tofino, name='l2_p4')]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0*50, del0=del0),
+            cm_sketch(eps0=eps0/5, del0=del0),
+            cm_sketch(eps0=eps0*100, del0=del0/2)
+        ],
+        flows=[
+            flow(
+                path=get_path(random.randint(0, hosts-1), random.randint(0, hosts-1)),
+                queries=[
+                    (random.randint(0, 2), int(random.random() * 4 + 7)/10)
+                ]
+            )
+            for flownum in range(hosts*5)
+        ]
+    )
 ]
 
 common_config = param(
