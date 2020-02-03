@@ -303,6 +303,10 @@ common_config = param(
 )
 
 
+def update_config(args):
+    common_config.solver = args.scheme
+
+
 '''
 Tricks performed:
 1. Remove Ceiling

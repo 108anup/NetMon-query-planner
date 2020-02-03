@@ -5,7 +5,8 @@ import gurobipy as gp
 import ipdb
 from gurobipy import GRB
 
-from config import config, common_config, eps0
+from config import config, common_config, eps0, update_config
+from cli import generate_parser
 
 
 def get_partitions(queries):
@@ -233,10 +234,12 @@ def solve(devices, queries, flows):
     # ipdb.set_trace()
 
 
-cfg_num = 0
-if(len(sys.argv) > 1):
-    cfg_num = int(sys.argv[1])
+parser = generate_parser()
+args = parser.parse_args(sys.argv[1:])
+update_config(args)
 
+
+cfg_num = int(args.config)
 cfg = config[cfg_num]
 if(cfg_num == 3):
     for eps0_mul in [1, 4, 10, 23]:
