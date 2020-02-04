@@ -21,4 +21,16 @@ def generate_parser():
         help='Which configuration to use'
     )
 
+    p.add_argument(
+        '-v', '--verbose',
+        action='count',
+        default=0
+    )
+
+    p.add_argument(
+        '--mipout',
+        action='store_true',
+        default=0
+    )
+
     return p

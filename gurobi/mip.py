@@ -1,6 +1,7 @@
 import sys
 import time
 import re
+import logging
 
 import gurobipy as gp
 import ipdb
@@ -9,6 +10,45 @@ from gurobipy import GRB
 from config import config, common_config, eps0, update_config
 from cli import generate_parser
 from devices import cpu, p4
+
+
+class InfoFilter(logging.Filter):
+    def filter(self, rec):
+        return rec.levelno == logging.INFO
+
+
+class DebugFilter(logging.Filter):
+    def filter(self, rec):
+        return rec.levelno == logging.DEBUG
+
+
+def setup_logging(args):
+    log = logging.getLogger('mip')
+
+    if(args.verbose >= 2):
+        log.setLevel(logging.DEBUG)
+    elif(args.verbose >= 1):
+        log.setLevel(logging.INFO)
+    else:
+        log.setLevel(logging.WARNING)
+
+    if(args.verbose >= 2):
+        h_debug = logging.StreamHandler(sys.stdout)
+        h_debug.setLevel(logging.DEBUG)
+        h_debug.addFilter(DebugFilter())
+        log.addHandler(h_debug)
+        # TODO: Add option to redirect debug to file
+    if(args.verbose >= 1):
+        h_info = logging.StreamHandler(sys.stdout)
+        h_info.setLevel(logging.INFO)
+        h_info.addFilter(InfoFilter())
+        log.addHandler(h_info)
+    if(args.verbose >= 0):
+        h_warn = logging.StreamHandler()
+        h_warn.setLevel(logging.WARNING)
+        log.addHandler(h_warn)
+
+    return log
 
 
 def get_partitions(queries):
@@ -41,6 +81,8 @@ def solve(devices, queries, flows):
 
     # Build model
     m = gp.Model('netmon')
+    if(not common_config.mipout):
+        m.setParam(GRB.Param.LogToConsole, 0)
 
     # Decl of vars
     """
@@ -187,14 +229,18 @@ def solve(devices, queries, flows):
     start = time.time()
     m.update()
     end = time.time()
-    print("Model update took: {} seconds".format(end - start))
+    update_time = end - start
 
     m.write("progs/prog_{}.lp".format(cfg_num))
-
+    log.info("")
     start = time.time()
     m.optimize()
     end = time.time()
-    print("Model optimize took: {} seconds".format(end - start))
+
+    log.info("-"*50)
+    log.info("Model update took: {} seconds".format(update_time))
+    log.info("Model optimize took: {} seconds".format(end - start))
+    log.info("-"*50 + "\n")
 
     if(m.Status == GRB.INFEASIBLE):
         m.computeIIS()
@@ -226,7 +272,6 @@ def solve(devices, queries, flows):
             prog = re.compile(regex)
             for v in m.getVars():
                 if (prog.match(v.varName)):
-                    print(v.varName)
                     if(abs(v.x) < 1e-5):
                         m.addConstr(v == 0)
                     else:
@@ -237,8 +282,8 @@ def solve(devices, queries, flows):
             m.setObjectiveN(res, 1, 5, reltol=common_config.res_tol, name='res')
             # m.setObjectiveN(ns, 0, 10, name='ns')
             # m.setObjectiveN(ns, 0, 10, name='ns')
+            m.update()
             m.optimize()
-            print('\n')
 
             if(m.Status == GRB.INFEASIBLE):
                 m.computeIIS()
@@ -250,70 +295,54 @@ def solve(devices, queries, flows):
 
 def post_optimize(m, devices, partitions, flows, ns, res, frac):
 
-    m.printQuality()
-    print("\n\nDEBUG -----------------------\n")
-    print("Objective: {}".format(m.objVal))
+    # m.printQuality()
+    log.debug("VARIABLES "+"-"*30)
+    log.debug("Objective: {}".format(m.objVal))
     for v in m.getVars():
-        print('%s %g' % (v.varName, v.x))
+        log.debug('%s %g' % (v.varName, v.x))
+    log.debug("-"*50)
 
-    # Mapping print:
-    dbg = None
-    if(common_config.fileout == True):
-        dbg = open('strobe.out', 'a')
-    print("-----------------------------\n\n"
-          "Throughput: {} Mpps, ns per packet: {}".format(1000/ns.x, ns.x))
-    print("Resources: {}".format(res.x))
-
-    if(common_config.fileout == True):
-        dbg.write("-----------------------------\n\n"
-                  "Throughput: {} Mpps, ns per packet: {}\n".format(1000/ns.x, ns.x))
-        dbg.write("Resources: {}\n".format(res.x))
+    log.info("Throughput: {} Mpps, ns per packet: {}".format(1000/ns.x, ns.x))
+    log.info("Resources: {}".format(res.x))
 
     cur_sketch = -1
     row = 1
     for (pnum, p) in enumerate(partitions):
         if(cur_sketch != p[1].sketch_id):
-            print("\nSketch ({}) ({})".format(p[1].sketch_id, p[1].details()))
-            if(common_config.fileout == True):
-                dbg.write("Sketch {} ({})\n".format(p[1].sketch_id, p[1].details()))
+            log.info("\nSketch ({}) ({})".format(p[1].sketch_id, p[1].details()))
             row = 1
             cur_sketch = p[1].sketch_id
-        print("Row: {}".format(row))
+        log.info("Row: {}".format(row))
         row += 1
 
+        row_info = ""
+        total_frac = 0
         for (dnum, d) in enumerate(devices):
-            print("{:0.3f}".format(frac[dnum, pnum].x), end='    ')
-        tot_frac = 0
-        for (dnum, d) in enumerate(devices):
-            tot_frac += (frac[dnum, pnum].x)
-        print("\nTotal frac: {:0.3f}".format(tot_frac))
+            row_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
+            total_frac += (frac[dnum, pnum].x)
+        log.info(row_info)
+        log.info("Total frac: {:0.3f}".format(total_frac))
 
     for (dnum, d) in enumerate(devices):
-        print("Device ({}) {}:".format(dnum, d))
-        print(d.resource_stats())
-        print("Rows total: {}".format(d.rows_tot.x))
-        print("Mem total: {}".format(d.mem_tot.x))
-        print("Throughput: {}\n".format(1000/d.ns.x))
+        log.info("\nDevice ({}) {}:".format(dnum, d))
+        res_stats = d.resource_stats()
+        if(res_stats != ""):
+            log.info(res_stats)
+        log.info("Rows total: {}".format(d.rows_tot.x))
+        log.info("Mem total: {}".format(d.mem_tot.x))
+        log.info("Throughput: {}".format(1000/d.ns.x))
 
-    if(common_config.fileout == True):
-        for (dnum, d) in enumerate(devices):
-            dbg.write("Device ({}) {}:\n".format(dnum, d))
-            dbg.write(d.resource_stats() + "\n")
-            dbg.write("Rows total: {}\n".format(d.rows_tot.x))
-            dbg.write("Mem total: {}\n\n".format(d.mem_tot.x))
-        dbg.close()
-
-    '''
+    log.debug("")
     for (fnum, f) in enumerate(flows):
-        print("Flow {}:".format(fnum))
-        print("queries: {}".format(f.queries))
-        print("path: {}".format(f.path))
-    '''
+        log.debug("Flow {}:".format(fnum))
+        log.debug("queries: {}".format(f.queries))
+        log.debug("path: {}".format(f.path))
+    log.info("-"*50)
 
 parser = generate_parser()
 args = parser.parse_args(sys.argv[1:])
 update_config(args)
-
+log = setup_logging(args)
 
 cfg_num = int(args.config)
 cfg = config[cfg_num]

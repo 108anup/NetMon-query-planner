@@ -5,8 +5,8 @@ from flows import flow
 import random
 
 
-hosts_per_tors = 4
-tors_per_l1s = 2
+hosts_per_tors = 48
+tors_per_l1s = 4
 l1s = 2
 hosts = hosts_per_tors * tors_per_l1s * l1s
 tors = tors_per_l1s * l1s
@@ -326,6 +326,7 @@ common_config = param(
 
 def update_config(args):
     common_config.solver = args.scheme
+    common_config.mipout = args.mipout
 
 
 '''
