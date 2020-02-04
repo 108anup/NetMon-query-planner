@@ -84,7 +84,7 @@ class cpu(param):
         # Multi-core model
         self.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.cores,
                                      name='cores_sketch_{}'.format(self))
-        self.cores_dpdk = m.addVar(vtype=GRB.INTEGER, lb=3, ub=self.cores,
+        self.cores_dpdk = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
                                    name='cores_dpdk_{}'.format(self))
         m.addConstr(self.cores_sketch + self.cores_dpdk <= self.cores,
                     name='capacity_cores_{}'.format(self))
@@ -122,6 +122,10 @@ class cpu(param):
         return "cores_sketch: {}, cores_dpdk: {}".format(
             self.cores_sketch.x, self.cores_dpdk.x)
 
+    def __init__(self, *args, **kwargs):
+        super(cpu, self).__init__(*args, **kwargs)
+        self.weight = 10
+
 
 class p4(param):
 
@@ -137,3 +141,7 @@ class p4(param):
 
     def resource_stats(self):
         return ""
+
+    def __init__(self, *args, **kwargs):
+        super(p4, self).__init__(*args, **kwargs)
+        self.weight = 1

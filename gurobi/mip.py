@@ -1,5 +1,6 @@
 import sys
 import time
+import re
 
 import gurobipy as gp
 import ipdb
@@ -7,6 +8,7 @@ from gurobipy import GRB
 
 from config import config, common_config, eps0, update_config
 from cli import generate_parser
+from devices import cpu, p4
 
 
 def get_partitions(queries):
@@ -152,9 +154,20 @@ def solve(devices, queries, flows):
         max_mem = m.addVar(vtype=GRB.CONTINUOUS, name='max_mem')
         m.addGenConstrMax(max_mem, mem_series, name='mem_overall')
 
+    if(common_config.solver == 'univmon_greedy'):
+        mem_series_p4 = [d.mem_tot for d in devices if isinstance(d, p4)]
+        mem_series_cpu = [d.mem_tot for d in devices if isinstance(d, cpu)]
+        max_mem_p4 = m.addVar(vtype=GRB.CONTINUOUS, name='max_mem_p4')
+        m.addGenConstrMax(max_mem_p4, mem_series_p4, name='mem_overall_p4')
+        max_mem_cpu = m.addVar(vtype=GRB.CONTINUOUS, name='max_mem_cpu')
+        m.addGenConstrMax(max_mem_cpu, mem_series_cpu, name='mem_overall_cpu')
+
     m.ModelSense = GRB.MINIMIZE
     if(common_config.solver == 'univmon'):
         m.setObjective(max_mem)
+    elif(common_config.solver == 'univmon_greedy'):
+        m.setObjectiveN(max_mem_cpu, 0, 10, name='cpu_load')
+        m.setObjectiveN(max_mem_p4, 1, 5, name='p4_load')
     elif(common_config.solver == 'netmon'):
         m.setObjectiveN(ns, 0, 10, reltol=common_config.ns_tol, name='ns')
         m.setObjectiveN(res, 1, 5, reltol=common_config.res_tol, name='res')
@@ -175,64 +188,115 @@ def solve(devices, queries, flows):
         m.computeIIS()
         m.write("progs/infeasible_{}.ilp".format(cfg_num))
     else:
-        m.printQuality()
-        print("\n\nDEBUG -----------------------\n")
-        for v in m.getVars():
-            print('%s %g' % (v.varName, v.x))
+        post_optimize(m, devices, partitions, flows, ns, res, frac)
+        if('univmon' in common_config.solver):
+            '''
+            prefixes = ['cores_sketch_cpu',
+                        'cores_dpdk_cpu', 'ns_sketch_cpu', 'ns_dpdk_cpu',
+                        'ns_cpu', 'pdt_nsk_c_cpu', 'pdt_nsc_dpdk_cpu', 'ns$',
+                        'res_overall$']
+            regex = '|'.join(prefixes)
+            prog = re.compile(regex)
+            for v in m.getVars():
+                if (not prog.match(v.varName)):
+                    print(v.varName)
+                    if(abs(v.x) < 1e-5):
+                        m.addConstr(v == 0)
+                    else:
+                        m.addConstr(v == v.x)
 
-        # Mapping print:
-        dbg = None
-        if(common_config.fileout == True):
-            dbg = open('strobe.out', 'a')
-        print("-----------------------------\n\n"
-              "Throughput: {} Mpps, ns per packet: {}".format(1000/ns.x, ns.x))
-        print("Resources: {}".format(res.x))
+            for d in devices:
+                if(isinstance(d, cpu)):
+                    m.addConstr(d.cores_dpdk == 6)
+            '''
+            prefixes = ['frac', 'mem\[']
+            regex = '|'.join(prefixes)
+            prog = re.compile(regex)
+            for v in m.getVars():
+                if (prog.match(v.varName)):
+                    print(v.varName)
+                    if(abs(v.x) < 1e-5):
+                        m.addConstr(v == 0)
+                    else:
+                        m.addConstr(v == v.x)
 
-        if(common_config.fileout == True):
-            dbg.write("-----------------------------\n\n"
-                      "Throughput: {} Mpps, ns per packet: {}\n".format(1000/ns.x, ns.x))
-            dbg.write("Resources: {}\n".format(res.x))
+            m.NumObj = 2
+            m.setObjectiveN(ns, 0, 10, reltol=common_config.ns_tol, name='ns')
+            m.setObjectiveN(res, 1, 5, reltol=common_config.res_tol, name='res')
+            # m.setObjectiveN(ns, 0, 10, name='ns')
+            # m.setObjectiveN(ns, 0, 10, name='ns')
+            m.optimize()
+            print('\n')
 
-        cur_sketch = -1
-        row = 1
-        for (pnum, p) in enumerate(partitions):
-            if(cur_sketch != p[1].sketch_id):
-                print("\nSketch ({}) ({})".format(p[1].sketch_id, p[1].details()))
-                if(common_config.fileout == True):
-                    dbg.write("Sketch {} ({})\n".format(p[1].sketch_id, p[1].details()))
-                row = 1
-                cur_sketch = p[1].sketch_id
-            print("Row: {}".format(row))
-            row += 1
-
-            for (dnum, d) in enumerate(devices):
-                print("{:0.3f}".format(frac[dnum, pnum].x), end='    ')
-            tot_frac = 0
-            for (dnum, d) in enumerate(devices):
-                tot_frac += (frac[dnum, pnum].x)
-            print("\nTotal frac: {:0.3f}".format(tot_frac))
-
-        for (dnum, d) in enumerate(devices):
-            print("Device ({}) {}:".format(dnum, d))
-            print(d.resource_stats())
-            print("Rows total: {}".format(d.rows_tot.x))
-            print("Mem total: {}\n".format(d.mem_tot.x))
-
-        if(common_config.fileout == True):
-            for (dnum, d) in enumerate(devices):
-                dbg.write("Device ({}) {}:\n".format(dnum, d))
-                dbg.write(d.resource_stats() + "\n")
-                dbg.write("Rows total: {}\n".format(d.rows_tot.x))
-                dbg.write("Mem total: {}\n\n".format(d.mem_tot.x))
-            dbg.close()
-
-        for (fnum, f) in enumerate(flows):
-            print("Flow {}:".format(fnum))
-            print("queries: {}".format(f.queries))
-            print("path: {}".format(f.path))
-
+            if(m.Status == GRB.INFEASIBLE):
+                m.computeIIS()
+                m.write("progs/infeasible_{}.ilp".format(cfg_num))
+            else:
+                post_optimize(m, devices, partitions, flows, ns, res, frac)
     # ipdb.set_trace()
 
+
+def post_optimize(m, devices, partitions, flows, ns, res, frac):
+
+    m.printQuality()
+    print("\n\nDEBUG -----------------------\n")
+    print("Objective: {}".format(m.objVal))
+    for v in m.getVars():
+        print('%s %g' % (v.varName, v.x))
+
+    # Mapping print:
+    dbg = None
+    if(common_config.fileout == True):
+        dbg = open('strobe.out', 'a')
+    print("-----------------------------\n\n"
+          "Throughput: {} Mpps, ns per packet: {}".format(1000/ns.x, ns.x))
+    print("Resources: {}".format(res.x))
+
+    if(common_config.fileout == True):
+        dbg.write("-----------------------------\n\n"
+                  "Throughput: {} Mpps, ns per packet: {}\n".format(1000/ns.x, ns.x))
+        dbg.write("Resources: {}\n".format(res.x))
+
+    cur_sketch = -1
+    row = 1
+    for (pnum, p) in enumerate(partitions):
+        if(cur_sketch != p[1].sketch_id):
+            print("\nSketch ({}) ({})".format(p[1].sketch_id, p[1].details()))
+            if(common_config.fileout == True):
+                dbg.write("Sketch {} ({})\n".format(p[1].sketch_id, p[1].details()))
+            row = 1
+            cur_sketch = p[1].sketch_id
+        print("Row: {}".format(row))
+        row += 1
+
+        for (dnum, d) in enumerate(devices):
+            print("{:0.3f}".format(frac[dnum, pnum].x), end='    ')
+        tot_frac = 0
+        for (dnum, d) in enumerate(devices):
+            tot_frac += (frac[dnum, pnum].x)
+        print("\nTotal frac: {:0.3f}".format(tot_frac))
+
+    for (dnum, d) in enumerate(devices):
+        print("Device ({}) {}:".format(dnum, d))
+        print(d.resource_stats())
+        print("Rows total: {}".format(d.rows_tot.x))
+        print("Mem total: {}".format(d.mem_tot.x))
+        print("Throughput: {}\n".format(1000/d.ns.x))
+
+    if(common_config.fileout == True):
+        for (dnum, d) in enumerate(devices):
+            dbg.write("Device ({}) {}:\n".format(dnum, d))
+            dbg.write(d.resource_stats() + "\n")
+            dbg.write("Rows total: {}\n".format(d.rows_tot.x))
+            dbg.write("Mem total: {}\n\n".format(d.mem_tot.x))
+        dbg.close()
+
+    '''
+    for (fnum, f) in enumerate(flows):
+        print("Flow {}:".format(fnum))
+        print("queries: {}".format(f.queries))
+        print("path: {}".format(f.path))
+    '''
 
 parser = generate_parser()
 args = parser.parse_args(sys.argv[1:])

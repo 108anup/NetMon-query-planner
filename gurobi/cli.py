@@ -11,7 +11,7 @@ def generate_parser():
         action='store',
         default='netmon',
         help='Technique to use for placement',
-        choices=['netmon', 'univmon']
+        choices=['netmon', 'univmon', 'univmon_greedy']
     )
 
     p.add_argument(

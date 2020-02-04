@@ -269,7 +269,7 @@ config = [
     # Large topo
     param(
         devices=(
-            [cpu(**beluga20, name='endhost_cpu'+str(i+1))
+            [cpu(**beluga20, name='cpu'+str(i+1))
              for i in range(hosts)] +
             [p4(**tofino, name='tor_p4'+str(i+1)) for i in range(int(tors))] +
             # [cpu(**beluga20, name='tor_cpu'+str(i+1))
@@ -299,7 +299,7 @@ common_config = param(
     ns_tol=0.05,
     res_tol=0.05,
     fileout=False,
-    solver='univmon'
+    solver='netmon'
 )
 
 

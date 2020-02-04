@@ -1,12 +1,12 @@
 \ Model netmon
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.05
+  cpu_load: Priority=10 Weight=1 AbsTol=0 RelTol=0
    0 m_access_time_cpu_1 + 0 ns_sketch_cpu_1 + 0 ns_dpdk_cpu_1 + 0 ns_cpu_1
    + 0 m_access_time_cpu_2 + 0 ns_sketch_cpu_2 + 0 ns_dpdk_cpu_2
-   + 0 ns_cpu_2 + ns
-  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
-   res_overall
+   + 0 ns_cpu_2 + 0 ns + max_mem_cpu
+  p4_load: Priority=5 Weight=1 AbsTol=0 RelTol=0
+   max_mem_p4
 Subject To
  cov_0_3: frac[0,3] + frac[1,3] + frac[2,3] >= 1
  cov_0_4: frac[0,4] + frac[1,4] + frac[2,4] >= 1
@@ -188,11 +188,11 @@ Bounds
  rows_tot_cpu_1 <= 12
  mem_tot_cpu_1 <= 32768
  cores_sketch_cpu_1 <= 7
- 3 <= cores_dpdk_cpu_1 <= 7
+ 1 <= cores_dpdk_cpu_1 <= 7
  rows_tot_cpu_2 <= 12
  mem_tot_cpu_2 <= 32768
  cores_sketch_cpu_2 <= 7
- 3 <= cores_dpdk_cpu_2 <= 7
+ 1 <= cores_dpdk_cpu_2 <= 7
  rows_tot_p4_1 <= 48
  mem_tot_p4_1 <= 576
  rows_tot_p4_2 <= 48
@@ -209,4 +209,6 @@ General Constraints
   (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
  ns_cpu_2: ns_cpu_2 = MAX ( ns_dpdk_cpu_2 , ns_sketch_cpu_2 )
  ns_overall: ns = MAX ( ns_cpu_1 , ns_cpu_2 , ns_p4_1 , ns_p4_2 )
+ mem_overall_p4: max_mem_p4 = MAX ( mem_tot_p4_1 , mem_tot_p4_2 )
+ mem_overall_cpu: max_mem_cpu = MAX ( mem_tot_cpu_1 , mem_tot_cpu_2 )
 End
