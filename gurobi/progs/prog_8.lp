@@ -1,7 +1,7 @@
 \ Model netmon
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  cpu_load: Priority=10 Weight=1 AbsTol=0 RelTol=0
+  cpu_rows_load: Priority=20 Weight=1 AbsTol=0 RelTol=0
    0 m_access_time_cpu1 + 0 ns_sketch_cpu1 + 0 ns_dpdk_cpu1 + 0 ns_cpu1
    + 0 m_access_time_cpu2 + 0 ns_sketch_cpu2 + 0 ns_dpdk_cpu2 + 0 ns_cpu2
    + 0 m_access_time_cpu3 + 0 ns_sketch_cpu3 + 0 ns_dpdk_cpu3 + 0 ns_cpu3
@@ -20,1756 +20,1694 @@ Minimize multi-objectives
    + 0 ns_dpdk_cpu14 + 0 ns_cpu14 + 0 m_access_time_cpu15
    + 0 ns_sketch_cpu15 + 0 ns_dpdk_cpu15 + 0 ns_cpu15
    + 0 m_access_time_cpu16 + 0 ns_sketch_cpu16 + 0 ns_dpdk_cpu16
-   + 0 ns_cpu16 + 0 ns + max_mem_cpu
-  p4_load: Priority=5 Weight=1 AbsTol=0 RelTol=0
+   + 0 ns_cpu16 + 0 ns + max_rows_cpu
+  p4_rows_load: Priority=15 Weight=1 AbsTol=0 RelTol=0
+   max_rows_p4
+  cpu_load_mem: Priority=10 Weight=1 AbsTol=0 RelTol=0
+   max_mem_cpu
+  p4_load_mem: Priority=5 Weight=1 AbsTol=0 RelTol=0
    max_mem_p4
 Subject To
- cov_0_54: frac[3,54] + frac[10,54] + frac[16,54] + frac[18,54]
-   + frac[20,54] + frac[21,54] + frac[22,54] >= 0.8
- cov_0_55: frac[3,55] + frac[10,55] + frac[16,55] + frac[18,55]
-   + frac[20,55] + frac[21,55] + frac[22,55] >= 0.8
- cov_0_56: frac[3,56] + frac[10,56] + frac[16,56] + frac[18,56]
-   + frac[20,56] + frac[21,56] + frac[22,56] >= 0.8
- cov_1_60: frac[0,60] + frac[7,60] + frac[16,60] + frac[17,60]
-   + frac[20,60] >= 0.8
- cov_1_61: frac[0,61] + frac[7,61] + frac[16,61] + frac[17,61]
-   + frac[20,61] >= 0.8
- cov_1_62: frac[0,62] + frac[7,62] + frac[16,62] + frac[17,62]
-   + frac[20,62] >= 0.8
- cov_2_147: frac[0,147] + frac[9,147] + frac[16,147] + frac[18,147]
-   + frac[20,147] + frac[21,147] + frac[22,147] >= 0.7
- cov_2_148: frac[0,148] + frac[9,148] + frac[16,148] + frac[18,148]
-   + frac[20,148] + frac[21,148] + frac[22,148] >= 0.7
- cov_2_149: frac[0,149] + frac[9,149] + frac[16,149] + frac[18,149]
-   + frac[20,149] + frac[21,149] + frac[22,149] >= 0.7
- cov_3_54: frac[8,54] + frac[12,54] + frac[18,54] + frac[19,54]
-   + frac[21,54] >= 0.9
- cov_3_55: frac[8,55] + frac[12,55] + frac[18,55] + frac[19,55]
-   + frac[21,55] >= 0.9
- cov_3_56: frac[8,56] + frac[12,56] + frac[18,56] + frac[19,56]
-   + frac[21,56] >= 0.9
- cov_4_57: frac[2,57] + frac[15,57] + frac[16,57] + frac[19,57]
-   + frac[20,57] + frac[21,57] + frac[22,57] >= 1
- cov_4_58: frac[2,58] + frac[15,58] + frac[16,58] + frac[19,58]
-   + frac[20,58] + frac[21,58] + frac[22,58] >= 1
- cov_4_59: frac[2,59] + frac[15,59] + frac[16,59] + frac[19,59]
-   + frac[20,59] + frac[21,59] + frac[22,59] >= 1
- cov_5_0: frac[1,0] + frac[12,0] + frac[16,0] + frac[19,0] + frac[20,0]
-   + frac[21,0] + frac[22,0] >= 0.9
- cov_5_1: frac[1,1] + frac[12,1] + frac[16,1] + frac[19,1] + frac[20,1]
-   + frac[21,1] + frac[22,1] >= 0.9
- cov_5_2: frac[1,2] + frac[12,2] + frac[16,2] + frac[19,2] + frac[20,2]
-   + frac[21,2] + frac[22,2] >= 0.9
- cov_6_54: frac[3,54] + frac[6,54] + frac[16,54] + frac[17,54]
-   + frac[20,54] >= 0.9
- cov_6_55: frac[3,55] + frac[6,55] + frac[16,55] + frac[17,55]
-   + frac[20,55] >= 0.9
- cov_6_56: frac[3,56] + frac[6,56] + frac[16,56] + frac[17,56]
-   + frac[20,56] >= 0.9
- cov_7_123: frac[4,123] + frac[7,123] + frac[17,123] >= 1
- cov_7_124: frac[4,124] + frac[7,124] + frac[17,124] >= 1
- cov_7_125: frac[4,125] + frac[7,125] + frac[17,125] >= 1
- cov_8_171: frac[8,171] + frac[15,171] + frac[18,171] + frac[19,171]
-   + frac[21,171] >= 1
- cov_8_172: frac[8,172] + frac[15,172] + frac[18,172] + frac[19,172]
-   + frac[21,172] >= 1
- cov_8_173: frac[8,173] + frac[15,173] + frac[18,173] + frac[19,173]
-   + frac[21,173] >= 1
- cov_9_39: frac[13,39] + frac[15,39] + frac[19,39] >= 0.7
- cov_9_40: frac[13,40] + frac[15,40] + frac[19,40] >= 0.7
- cov_9_41: frac[13,41] + frac[15,41] + frac[19,41] >= 0.7
- cov_10_18: frac[1,18] + frac[15,18] + frac[16,18] + frac[19,18]
-   + frac[20,18] + frac[21,18] + frac[22,18] >= 0.7
- cov_10_19: frac[1,19] + frac[15,19] + frac[16,19] + frac[19,19]
-   + frac[20,19] + frac[21,19] + frac[22,19] >= 0.7
- cov_10_20: frac[1,20] + frac[15,20] + frac[16,20] + frac[19,20]
-   + frac[20,20] + frac[21,20] + frac[22,20] >= 0.7
- cov_11_6: frac[1,6] + frac[14,6] + frac[16,6] + frac[19,6] + frac[20,6]
-   + frac[21,6] + frac[22,6] >= 0.8
- cov_11_7: frac[1,7] + frac[14,7] + frac[16,7] + frac[19,7] + frac[20,7]
-   + frac[21,7] + frac[22,7] >= 0.8
- cov_11_8: frac[1,8] + frac[14,8] + frac[16,8] + frac[19,8] + frac[20,8]
-   + frac[21,8] + frac[22,8] >= 0.8
- cov_12_153: frac[9,153] + frac[14,153] + frac[18,153] + frac[19,153]
-   + frac[21,153] >= 0.8
- cov_12_154: frac[9,154] + frac[14,154] + frac[18,154] + frac[19,154]
-   + frac[21,154] >= 0.8
- cov_12_155: frac[9,155] + frac[14,155] + frac[18,155] + frac[19,155]
-   + frac[21,155] >= 0.8
- cov_13_132: frac[5,132] + frac[14,132] + frac[17,132] + frac[19,132]
-   + frac[20,132] + frac[21,132] + frac[22,132] >= 0.7
- cov_13_133: frac[5,133] + frac[14,133] + frac[17,133] + frac[19,133]
-   + frac[20,133] + frac[21,133] + frac[22,133] >= 0.7
- cov_13_134: frac[5,134] + frac[14,134] + frac[17,134] + frac[19,134]
-   + frac[20,134] + frac[21,134] + frac[22,134] >= 0.7
- cov_14_123: frac[7,123] + frac[13,123] + frac[17,123] + frac[19,123]
-   + frac[20,123] + frac[21,123] + frac[22,123] >= 0.7
- cov_14_124: frac[7,124] + frac[13,124] + frac[17,124] + frac[19,124]
-   + frac[20,124] + frac[21,124] + frac[22,124] >= 0.7
- cov_14_125: frac[7,125] + frac[13,125] + frac[17,125] + frac[19,125]
-   + frac[20,125] + frac[21,125] + frac[22,125] >= 0.7
- cov_15_159: frac[1,159] + frac[8,159] + frac[16,159] + frac[18,159]
-   + frac[20,159] + frac[21,159] + frac[22,159] >= 0.8
- cov_15_160: frac[1,160] + frac[8,160] + frac[16,160] + frac[18,160]
-   + frac[20,160] + frac[21,160] + frac[22,160] >= 0.8
- cov_15_161: frac[1,161] + frac[8,161] + frac[16,161] + frac[18,161]
-   + frac[20,161] + frac[21,161] + frac[22,161] >= 0.8
- cov_16_72: frac[4,72] + frac[9,72] + frac[17,72] + frac[18,72]
-   + frac[20,72] + frac[21,72] + frac[22,72] >= 0.8
- cov_16_73: frac[4,73] + frac[9,73] + frac[17,73] + frac[18,73]
-   + frac[20,73] + frac[21,73] + frac[22,73] >= 0.8
- cov_16_74: frac[4,74] + frac[9,74] + frac[17,74] + frac[18,74]
-   + frac[20,74] + frac[21,74] + frac[22,74] >= 0.8
- cov_17_174: frac[2,174] + frac[14,174] + frac[16,174] + frac[19,174]
-   + frac[20,174] + frac[21,174] + frac[22,174] >= 1
- cov_17_175: frac[2,175] + frac[14,175] + frac[16,175] + frac[19,175]
-   + frac[20,175] + frac[21,175] + frac[22,175] >= 1
- cov_17_176: frac[2,176] + frac[14,176] + frac[16,176] + frac[19,176]
-   + frac[20,176] + frac[21,176] + frac[22,176] >= 1
- cov_18_150: frac[3,150] + frac[9,150] + frac[16,150] + frac[18,150]
-   + frac[20,150] + frac[21,150] + frac[22,150] >= 0.9
- cov_18_151: frac[3,151] + frac[9,151] + frac[16,151] + frac[18,151]
-   + frac[20,151] + frac[21,151] + frac[22,151] >= 0.9
- cov_18_152: frac[3,152] + frac[9,152] + frac[16,152] + frac[18,152]
-   + frac[20,152] + frac[21,152] + frac[22,152] >= 0.9
- cov_19_93: frac[0,93] + frac[3,93] + frac[16,93] >= 0.9
- cov_19_94: frac[0,94] + frac[3,94] + frac[16,94] >= 0.9
- cov_19_95: frac[0,95] + frac[3,95] + frac[16,95] >= 0.9
- cov_20_102: frac[1,102] + frac[6,102] + frac[16,102] + frac[17,102]
-   + frac[20,102] >= 1
- cov_20_103: frac[1,103] + frac[6,103] + frac[16,103] + frac[17,103]
-   + frac[20,103] >= 1
- cov_20_104: frac[1,104] + frac[6,104] + frac[16,104] + frac[17,104]
-   + frac[20,104] >= 1
- cov_21_141: frac[0,141] + frac[13,141] + frac[16,141] + frac[19,141]
-   + frac[20,141] + frac[21,141] + frac[22,141] >= 1
- cov_21_142: frac[0,142] + frac[13,142] + frac[16,142] + frac[19,142]
-   + frac[20,142] + frac[21,142] + frac[22,142] >= 1
- cov_21_143: frac[0,143] + frac[13,143] + frac[16,143] + frac[19,143]
-   + frac[20,143] + frac[21,143] + frac[22,143] >= 1
- cov_22_9: frac[0,9] + frac[2,9] + frac[16,9] >= 0.9
- cov_22_10: frac[0,10] + frac[2,10] + frac[16,10] >= 0.9
- cov_22_11: frac[0,11] + frac[2,11] + frac[16,11] >= 0.9
- cov_23_141: frac[2,141] + frac[5,141] + frac[16,141] + frac[17,141]
-   + frac[20,141] >= 0.7
- cov_23_142: frac[2,142] + frac[5,142] + frac[16,142] + frac[17,142]
-   + frac[20,142] >= 0.7
- cov_23_143: frac[2,143] + frac[5,143] + frac[16,143] + frac[17,143]
-   + frac[20,143] >= 0.7
- cov_24_168: frac[0,168] + frac[1,168] + frac[16,168] >= 0.8
- cov_24_169: frac[0,169] + frac[1,169] + frac[16,169] >= 0.8
- cov_24_170: frac[0,170] + frac[1,170] + frac[16,170] >= 0.8
- cov_25_78: frac[1,78] + frac[7,78] + frac[16,78] + frac[17,78]
-   + frac[20,78] >= 0.7
- cov_25_79: frac[1,79] + frac[7,79] + frac[16,79] + frac[17,79]
-   + frac[20,79] >= 0.7
- cov_25_80: frac[1,80] + frac[7,80] + frac[16,80] + frac[17,80]
-   + frac[20,80] >= 0.7
- cov_26_111: frac[0,111] + frac[1,111] + frac[16,111] >= 0.9
- cov_26_112: frac[0,112] + frac[1,112] + frac[16,112] >= 0.9
- cov_26_113: frac[0,113] + frac[1,113] + frac[16,113] >= 0.9
- cov_27_48: frac[8,48] + frac[12,48] + frac[18,48] + frac[19,48]
-   + frac[21,48] >= 0.8
- cov_27_49: frac[8,49] + frac[12,49] + frac[18,49] + frac[19,49]
-   + frac[21,49] >= 0.8
- cov_27_50: frac[8,50] + frac[12,50] + frac[18,50] + frac[19,50]
-   + frac[21,50] >= 0.8
- cov_28_96: frac[13,96] + frac[15,96] + frac[19,96] >= 0.8
- cov_28_97: frac[13,97] + frac[15,97] + frac[19,97] >= 0.8
- cov_28_98: frac[13,98] + frac[15,98] + frac[19,98] >= 0.8
- cov_29_180: frac[7,180] + frac[15,180] + frac[17,180] + frac[19,180]
-   + frac[20,180] + frac[21,180] + frac[22,180] >= 0.9
- cov_29_181: frac[7,181] + frac[15,181] + frac[17,181] + frac[19,181]
-   + frac[20,181] + frac[21,181] + frac[22,181] >= 0.9
- cov_29_182: frac[7,182] + frac[15,182] + frac[17,182] + frac[19,182]
-   + frac[20,182] + frac[21,182] + frac[22,182] >= 0.9
- cov_30_126: frac[10,126] + frac[15,126] + frac[18,126] + frac[19,126]
-   + frac[21,126] >= 1
- cov_30_127: frac[10,127] + frac[15,127] + frac[18,127] + frac[19,127]
-   + frac[21,127] >= 1
- cov_30_128: frac[10,128] + frac[15,128] + frac[18,128] + frac[19,128]
-   + frac[21,128] >= 1
- cov_31_159: frac[3,159] + frac[4,159] + frac[16,159] + frac[17,159]
-   + frac[20,159] >= 0.8
- cov_31_160: frac[3,160] + frac[4,160] + frac[16,160] + frac[17,160]
-   + frac[20,160] >= 0.8
- cov_31_161: frac[3,161] + frac[4,161] + frac[16,161] + frac[17,161]
-   + frac[20,161] >= 0.8
- cov_32_51: frac[6,51] + frac[14,51] + frac[17,51] + frac[19,51]
-   + frac[20,51] + frac[21,51] + frac[22,51] >= 0.9
- cov_32_52: frac[6,52] + frac[14,52] + frac[17,52] + frac[19,52]
-   + frac[20,52] + frac[21,52] + frac[22,52] >= 0.9
- cov_32_53: frac[6,53] + frac[14,53] + frac[17,53] + frac[19,53]
-   + frac[20,53] + frac[21,53] + frac[22,53] >= 0.9
- cov_33_150: frac[8,150] + frac[12,150] + frac[18,150] + frac[19,150]
-   + frac[21,150] >= 0.7
- cov_33_151: frac[8,151] + frac[12,151] + frac[18,151] + frac[19,151]
-   + frac[21,151] >= 0.7
- cov_33_152: frac[8,152] + frac[12,152] + frac[18,152] + frac[19,152]
-   + frac[21,152] >= 0.7
- cov_34_141: frac[1,141] + frac[6,141] + frac[16,141] + frac[17,141]
-   + frac[20,141] >= 1
- cov_34_142: frac[1,142] + frac[6,142] + frac[16,142] + frac[17,142]
-   + frac[20,142] >= 1
- cov_34_143: frac[1,143] + frac[6,143] + frac[16,143] + frac[17,143]
-   + frac[20,143] >= 1
- cov_35_108: frac[1,108] + frac[12,108] + frac[16,108] + frac[19,108]
-   + frac[20,108] + frac[21,108] + frac[22,108] >= 1
- cov_35_109: frac[1,109] + frac[12,109] + frac[16,109] + frac[19,109]
-   + frac[20,109] + frac[21,109] + frac[22,109] >= 1
- cov_35_110: frac[1,110] + frac[12,110] + frac[16,110] + frac[19,110]
-   + frac[20,110] + frac[21,110] + frac[22,110] >= 1
- cov_36_66: frac[14,66] + frac[15,66] + frac[19,66] >= 0.9
- cov_36_67: frac[14,67] + frac[15,67] + frac[19,67] >= 0.9
- cov_36_68: frac[14,68] + frac[15,68] + frac[19,68] >= 0.9
- cov_37_114: frac[1,114] + frac[5,114] + frac[16,114] + frac[17,114]
-   + frac[20,114] >= 1
- cov_37_115: frac[1,115] + frac[5,115] + frac[16,115] + frac[17,115]
-   + frac[20,115] >= 1
- cov_37_116: frac[1,116] + frac[5,116] + frac[16,116] + frac[17,116]
-   + frac[20,116] >= 1
- cov_38_132: frac[1,132] + frac[7,132] + frac[16,132] + frac[17,132]
-   + frac[20,132] >= 1
- cov_38_133: frac[1,133] + frac[7,133] + frac[16,133] + frac[17,133]
-   + frac[20,133] >= 1
- cov_38_134: frac[1,134] + frac[7,134] + frac[16,134] + frac[17,134]
-   + frac[20,134] >= 1
- cov_39_33: frac[3,33] + frac[6,33] + frac[16,33] + frac[17,33]
-   + frac[20,33] >= 1
- cov_39_34: frac[3,34] + frac[6,34] + frac[16,34] + frac[17,34]
-   + frac[20,34] >= 1
- cov_39_35: frac[3,35] + frac[6,35] + frac[16,35] + frac[17,35]
-   + frac[20,35] >= 1
- cov_40_21: frac[4,21] + frac[5,21] + frac[17,21] >= 0.8
- cov_40_22: frac[4,22] + frac[5,22] + frac[17,22] >= 0.8
- cov_40_23: frac[4,23] + frac[5,23] + frac[17,23] >= 0.8
- cov_41_69: frac[1,69] + frac[7,69] + frac[16,69] + frac[17,69]
-   + frac[20,69] >= 0.7
- cov_41_70: frac[1,70] + frac[7,70] + frac[16,70] + frac[17,70]
-   + frac[20,70] >= 0.7
- cov_41_71: frac[1,71] + frac[7,71] + frac[16,71] + frac[17,71]
-   + frac[20,71] >= 0.7
- cov_42_24: frac[0,24] + frac[6,24] + frac[16,24] + frac[17,24]
-   + frac[20,24] >= 0.8
- cov_42_25: frac[0,25] + frac[6,25] + frac[16,25] + frac[17,25]
-   + frac[20,25] >= 0.8
- cov_42_26: frac[0,26] + frac[6,26] + frac[16,26] + frac[17,26]
-   + frac[20,26] >= 0.8
- cov_43_120: frac[5,120] + frac[10,120] + frac[17,120] + frac[18,120]
-   + frac[20,120] + frac[21,120] + frac[22,120] >= 1
- cov_43_121: frac[5,121] + frac[10,121] + frac[17,121] + frac[18,121]
-   + frac[20,121] + frac[21,121] + frac[22,121] >= 1
- cov_43_122: frac[5,122] + frac[10,122] + frac[17,122] + frac[18,122]
-   + frac[20,122] + frac[21,122] + frac[22,122] >= 1
- cov_44_156: frac[3,156] + frac[11,156] + frac[16,156] + frac[18,156]
-   + frac[20,156] + frac[21,156] + frac[22,156] >= 0.7
- cov_44_157: frac[3,157] + frac[11,157] + frac[16,157] + frac[18,157]
-   + frac[20,157] + frac[21,157] + frac[22,157] >= 0.7
- cov_44_158: frac[3,158] + frac[11,158] + frac[16,158] + frac[18,158]
-   + frac[20,158] + frac[21,158] + frac[22,158] >= 0.7
- cov_45_186: frac[1,186] + frac[15,186] + frac[16,186] + frac[19,186]
-   + frac[20,186] + frac[21,186] + frac[22,186] >= 0.7
- cov_45_187: frac[1,187] + frac[15,187] + frac[16,187] + frac[19,187]
-   + frac[20,187] + frac[21,187] + frac[22,187] >= 0.7
- cov_45_188: frac[1,188] + frac[15,188] + frac[16,188] + frac[19,188]
-   + frac[20,188] + frac[21,188] + frac[22,188] >= 0.7
- cov_46_144: frac[0,144] + frac[3,144] + frac[16,144] >= 0.9
- cov_46_145: frac[0,145] + frac[3,145] + frac[16,145] >= 0.9
- cov_46_146: frac[0,146] + frac[3,146] + frac[16,146] >= 0.9
- cov_47_24: frac[1,24] + frac[13,24] + frac[16,24] + frac[19,24]
-   + frac[20,24] + frac[21,24] + frac[22,24] >= 1
- cov_47_25: frac[1,25] + frac[13,25] + frac[16,25] + frac[19,25]
-   + frac[20,25] + frac[21,25] + frac[22,25] >= 1
- cov_47_26: frac[1,26] + frac[13,26] + frac[16,26] + frac[19,26]
-   + frac[20,26] + frac[21,26] + frac[22,26] >= 1
- cov_48_123: frac[3,123] + frac[5,123] + frac[16,123] + frac[17,123]
-   + frac[20,123] >= 0.8
- cov_48_124: frac[3,124] + frac[5,124] + frac[16,124] + frac[17,124]
-   + frac[20,124] >= 0.8
- cov_48_125: frac[3,125] + frac[5,125] + frac[16,125] + frac[17,125]
-   + frac[20,125] >= 0.8
- cov_49_87: frac[6,87] + frac[15,87] + frac[17,87] + frac[19,87]
-   + frac[20,87] + frac[21,87] + frac[22,87] >= 0.8
- cov_49_88: frac[6,88] + frac[15,88] + frac[17,88] + frac[19,88]
-   + frac[20,88] + frac[21,88] + frac[22,88] >= 0.8
- cov_49_89: frac[6,89] + frac[15,89] + frac[17,89] + frac[19,89]
-   + frac[20,89] + frac[21,89] + frac[22,89] >= 0.8
- cov_50_36: frac[6,36] + frac[12,36] + frac[17,36] + frac[19,36]
-   + frac[20,36] + frac[21,36] + frac[22,36] >= 0.8
- cov_50_37: frac[6,37] + frac[12,37] + frac[17,37] + frac[19,37]
-   + frac[20,37] + frac[21,37] + frac[22,37] >= 0.8
- cov_50_38: frac[6,38] + frac[12,38] + frac[17,38] + frac[19,38]
-   + frac[20,38] + frac[21,38] + frac[22,38] >= 0.8
- cov_51_30: frac[6,30] + frac[7,30] + frac[17,30] >= 1
- cov_51_31: frac[6,31] + frac[7,31] + frac[17,31] >= 1
- cov_51_32: frac[6,32] + frac[7,32] + frac[17,32] >= 1
- cov_52_0: frac[1,0] + frac[9,0] + frac[16,0] + frac[18,0] + frac[20,0]
+ cov_0_84: frac[10,84] + frac[14,84] + frac[18,84] + frac[19,84]
+   + frac[21,84] >= 0.7
+ cov_0_85: frac[10,85] + frac[14,85] + frac[18,85] + frac[19,85]
+   + frac[21,85] >= 0.7
+ cov_0_86: frac[10,86] + frac[14,86] + frac[18,86] + frac[19,86]
+   + frac[21,86] >= 0.7
+ cov_1_0: frac[4,0] + frac[15,0] + frac[17,0] + frac[19,0] + frac[20,0]
    + frac[21,0] + frac[22,0] >= 0.7
- cov_52_1: frac[1,1] + frac[9,1] + frac[16,1] + frac[18,1] + frac[20,1]
+ cov_1_1: frac[4,1] + frac[15,1] + frac[17,1] + frac[19,1] + frac[20,1]
    + frac[21,1] + frac[22,1] >= 0.7
- cov_52_2: frac[1,2] + frac[9,2] + frac[16,2] + frac[18,2] + frac[20,2]
+ cov_1_2: frac[4,2] + frac[15,2] + frac[17,2] + frac[19,2] + frac[20,2]
    + frac[21,2] + frac[22,2] >= 0.7
- cov_53_156: frac[3,156] + frac[15,156] + frac[16,156] + frac[19,156]
-   + frac[20,156] + frac[21,156] + frac[22,156] >= 0.9
- cov_53_157: frac[3,157] + frac[15,157] + frac[16,157] + frac[19,157]
-   + frac[20,157] + frac[21,157] + frac[22,157] >= 0.9
- cov_53_158: frac[3,158] + frac[15,158] + frac[16,158] + frac[19,158]
-   + frac[20,158] + frac[21,158] + frac[22,158] >= 0.9
- cov_54_21: frac[8,21] + frac[15,21] + frac[18,21] + frac[19,21]
-   + frac[21,21] >= 0.9
- cov_54_22: frac[8,22] + frac[15,22] + frac[18,22] + frac[19,22]
-   + frac[21,22] >= 0.9
- cov_54_23: frac[8,23] + frac[15,23] + frac[18,23] + frac[19,23]
-   + frac[21,23] >= 0.9
- cov_55_153: frac[11,153] + frac[15,153] + frac[18,153] + frac[19,153]
-   + frac[21,153] >= 0.9
- cov_55_154: frac[11,154] + frac[15,154] + frac[18,154] + frac[19,154]
-   + frac[21,154] >= 0.9
- cov_55_155: frac[11,155] + frac[15,155] + frac[18,155] + frac[19,155]
-   + frac[21,155] >= 0.9
- cov_56_48: frac[0,48] + frac[13,48] + frac[16,48] + frac[19,48]
-   + frac[20,48] + frac[21,48] + frac[22,48] >= 1
- cov_56_49: frac[0,49] + frac[13,49] + frac[16,49] + frac[19,49]
-   + frac[20,49] + frac[21,49] + frac[22,49] >= 1
- cov_56_50: frac[0,50] + frac[13,50] + frac[16,50] + frac[19,50]
-   + frac[20,50] + frac[21,50] + frac[22,50] >= 1
- cov_57_147: frac[8,147] + frac[12,147] + frac[18,147] + frac[19,147]
-   + frac[21,147] >= 1
- cov_57_148: frac[8,148] + frac[12,148] + frac[18,148] + frac[19,148]
-   + frac[21,148] >= 1
- cov_57_149: frac[8,149] + frac[12,149] + frac[18,149] + frac[19,149]
-   + frac[21,149] >= 1
- cov_58_72: frac[0,72] + frac[5,72] + frac[16,72] + frac[17,72]
-   + frac[20,72] >= 0.7
- cov_58_73: frac[0,73] + frac[5,73] + frac[16,73] + frac[17,73]
-   + frac[20,73] >= 0.7
- cov_58_74: frac[0,74] + frac[5,74] + frac[16,74] + frac[17,74]
-   + frac[20,74] >= 0.7
- cov_59_126: frac[2,126] + frac[9,126] + frac[16,126] + frac[18,126]
-   + frac[20,126] + frac[21,126] + frac[22,126] >= 1
- cov_59_127: frac[2,127] + frac[9,127] + frac[16,127] + frac[18,127]
-   + frac[20,127] + frac[21,127] + frac[22,127] >= 1
- cov_59_128: frac[2,128] + frac[9,128] + frac[16,128] + frac[18,128]
-   + frac[20,128] + frac[21,128] + frac[22,128] >= 1
- cov_60_99: frac[7,99] + frac[8,99] + frac[17,99] + frac[18,99]
-   + frac[20,99] + frac[21,99] + frac[22,99] >= 0.8
- cov_60_100: frac[7,100] + frac[8,100] + frac[17,100] + frac[18,100]
-   + frac[20,100] + frac[21,100] + frac[22,100] >= 0.8
- cov_60_101: frac[7,101] + frac[8,101] + frac[17,101] + frac[18,101]
-   + frac[20,101] + frac[21,101] + frac[22,101] >= 0.8
- cov_61_90: frac[1,90] + frac[15,90] + frac[16,90] + frac[19,90]
-   + frac[20,90] + frac[21,90] + frac[22,90] >= 1
- cov_61_91: frac[1,91] + frac[15,91] + frac[16,91] + frac[19,91]
-   + frac[20,91] + frac[21,91] + frac[22,91] >= 1
- cov_61_92: frac[1,92] + frac[15,92] + frac[16,92] + frac[19,92]
-   + frac[20,92] + frac[21,92] + frac[22,92] >= 1
- cov_62_99: frac[11,99] + frac[13,99] + frac[18,99] + frac[19,99]
-   + frac[21,99] >= 1
- cov_62_100: frac[11,100] + frac[13,100] + frac[18,100] + frac[19,100]
-   + frac[21,100] >= 1
- cov_62_101: frac[11,101] + frac[13,101] + frac[18,101] + frac[19,101]
-   + frac[21,101] >= 1
- cov_63_162: frac[4,162] + frac[6,162] + frac[17,162] >= 0.7
- cov_63_163: frac[4,163] + frac[6,163] + frac[17,163] >= 0.7
- cov_63_164: frac[4,164] + frac[6,164] + frac[17,164] >= 0.7
- cov_64_126: frac[1,126] + frac[7,126] + frac[16,126] + frac[17,126]
-   + frac[20,126] >= 0.9
- cov_64_127: frac[1,127] + frac[7,127] + frac[16,127] + frac[17,127]
-   + frac[20,127] >= 0.9
- cov_64_128: frac[1,128] + frac[7,128] + frac[16,128] + frac[17,128]
-   + frac[20,128] >= 0.9
- cov_65_171: frac[7,171] + frac[15,171] + frac[17,171] + frac[19,171]
-   + frac[20,171] + frac[21,171] + frac[22,171] >= 0.7
- cov_65_172: frac[7,172] + frac[15,172] + frac[17,172] + frac[19,172]
-   + frac[20,172] + frac[21,172] + frac[22,172] >= 0.7
- cov_65_173: frac[7,173] + frac[15,173] + frac[17,173] + frac[19,173]
-   + frac[20,173] + frac[21,173] + frac[22,173] >= 0.7
- cov_66_36: frac[10,36] + frac[11,36] + frac[18,36] >= 1
- cov_66_37: frac[10,37] + frac[11,37] + frac[18,37] >= 1
- cov_66_38: frac[10,38] + frac[11,38] + frac[18,38] >= 1
- cov_67_81: frac[2,81] + frac[15,81] + frac[16,81] + frac[19,81]
-   + frac[20,81] + frac[21,81] + frac[22,81] >= 0.8
- cov_67_82: frac[2,82] + frac[15,82] + frac[16,82] + frac[19,82]
-   + frac[20,82] + frac[21,82] + frac[22,82] >= 0.8
- cov_67_83: frac[2,83] + frac[15,83] + frac[16,83] + frac[19,83]
-   + frac[20,83] + frac[21,83] + frac[22,83] >= 0.8
- cov_68_141: frac[0,141] + frac[1,141] + frac[16,141] >= 0.7
- cov_68_142: frac[0,142] + frac[1,142] + frac[16,142] >= 0.7
- cov_68_143: frac[0,143] + frac[1,143] + frac[16,143] >= 0.7
- cov_69_54: frac[5,54] + frac[15,54] + frac[17,54] + frac[19,54]
-   + frac[20,54] + frac[21,54] + frac[22,54] >= 0.7
- cov_69_55: frac[5,55] + frac[15,55] + frac[17,55] + frac[19,55]
-   + frac[20,55] + frac[21,55] + frac[22,55] >= 0.7
- cov_69_56: frac[5,56] + frac[15,56] + frac[17,56] + frac[19,56]
-   + frac[20,56] + frac[21,56] + frac[22,56] >= 0.7
- cov_70_75: frac[4,75] + frac[10,75] + frac[17,75] + frac[18,75]
-   + frac[20,75] + frac[21,75] + frac[22,75] >= 1
- cov_70_76: frac[4,76] + frac[10,76] + frac[17,76] + frac[18,76]
-   + frac[20,76] + frac[21,76] + frac[22,76] >= 1
- cov_70_77: frac[4,77] + frac[10,77] + frac[17,77] + frac[18,77]
-   + frac[20,77] + frac[21,77] + frac[22,77] >= 1
- cov_71_147: frac[5,147] + frac[6,147] + frac[17,147] >= 0.7
- cov_71_148: frac[5,148] + frac[6,148] + frac[17,148] >= 0.7
- cov_71_149: frac[5,149] + frac[6,149] + frac[17,149] >= 0.7
- cov_72_0: frac[0,0] + frac[10,0] + frac[16,0] + frac[18,0] + frac[20,0]
-   + frac[21,0] + frac[22,0] >= 0.7
- cov_72_1: frac[0,1] + frac[10,1] + frac[16,1] + frac[18,1] + frac[20,1]
-   + frac[21,1] + frac[22,1] >= 0.7
- cov_72_2: frac[0,2] + frac[10,2] + frac[16,2] + frac[18,2] + frac[20,2]
-   + frac[21,2] + frac[22,2] >= 0.7
- cov_73_144: frac[1,144] + frac[15,144] + frac[16,144] + frac[19,144]
-   + frac[20,144] + frac[21,144] + frac[22,144] >= 0.8
- cov_73_145: frac[1,145] + frac[15,145] + frac[16,145] + frac[19,145]
-   + frac[20,145] + frac[21,145] + frac[22,145] >= 0.8
- cov_73_146: frac[1,146] + frac[15,146] + frac[16,146] + frac[19,146]
-   + frac[20,146] + frac[21,146] + frac[22,146] >= 0.8
- cov_74_81: frac[4,81] + frac[5,81] + frac[17,81] >= 0.7
- cov_74_82: frac[4,82] + frac[5,82] + frac[17,82] >= 0.7
- cov_74_83: frac[4,83] + frac[5,83] + frac[17,83] >= 0.7
- cov_75_150: frac[1,150] + frac[13,150] + frac[16,150] + frac[19,150]
-   + frac[20,150] + frac[21,150] + frac[22,150] >= 0.8
- cov_75_151: frac[1,151] + frac[13,151] + frac[16,151] + frac[19,151]
-   + frac[20,151] + frac[21,151] + frac[22,151] >= 0.8
- cov_75_152: frac[1,152] + frac[13,152] + frac[16,152] + frac[19,152]
-   + frac[20,152] + frac[21,152] + frac[22,152] >= 0.8
- cov_76_138: frac[1,138] + frac[8,138] + frac[16,138] + frac[18,138]
-   + frac[20,138] + frac[21,138] + frac[22,138] >= 0.8
- cov_76_139: frac[1,139] + frac[8,139] + frac[16,139] + frac[18,139]
-   + frac[20,139] + frac[21,139] + frac[22,139] >= 0.8
- cov_76_140: frac[1,140] + frac[8,140] + frac[16,140] + frac[18,140]
-   + frac[20,140] + frac[21,140] + frac[22,140] >= 0.8
- cov_77_9: frac[11,9] + frac[14,9] + frac[18,9] + frac[19,9] + frac[21,9]
-   >= 0.7
- cov_77_10: frac[11,10] + frac[14,10] + frac[18,10] + frac[19,10]
-   + frac[21,10] >= 0.7
- cov_77_11: frac[11,11] + frac[14,11] + frac[18,11] + frac[19,11]
-   + frac[21,11] >= 0.7
- cov_78_111: frac[3,111] + frac[10,111] + frac[16,111] + frac[18,111]
-   + frac[20,111] + frac[21,111] + frac[22,111] >= 0.8
- cov_78_112: frac[3,112] + frac[10,112] + frac[16,112] + frac[18,112]
-   + frac[20,112] + frac[21,112] + frac[22,112] >= 0.8
- cov_78_113: frac[3,113] + frac[10,113] + frac[16,113] + frac[18,113]
-   + frac[20,113] + frac[21,113] + frac[22,113] >= 0.8
- cov_79_96: frac[2,96] + frac[13,96] + frac[16,96] + frac[19,96]
-   + frac[20,96] + frac[21,96] + frac[22,96] >= 0.8
- cov_79_97: frac[2,97] + frac[13,97] + frac[16,97] + frac[19,97]
-   + frac[20,97] + frac[21,97] + frac[22,97] >= 0.8
- cov_79_98: frac[2,98] + frac[13,98] + frac[16,98] + frac[19,98]
-   + frac[20,98] + frac[21,98] + frac[22,98] >= 0.8
- cov_80_114: frac[5,114] + frac[9,114] + frac[17,114] + frac[18,114]
-   + frac[20,114] + frac[21,114] + frac[22,114] >= 0.8
- cov_80_115: frac[5,115] + frac[9,115] + frac[17,115] + frac[18,115]
-   + frac[20,115] + frac[21,115] + frac[22,115] >= 0.8
- cov_80_116: frac[5,116] + frac[9,116] + frac[17,116] + frac[18,116]
-   + frac[20,116] + frac[21,116] + frac[22,116] >= 0.8
- cov_81_108: frac[2,108] + frac[4,108] + frac[16,108] + frac[17,108]
-   + frac[20,108] >= 0.9
- cov_81_109: frac[2,109] + frac[4,109] + frac[16,109] + frac[17,109]
-   + frac[20,109] >= 0.9
- cov_81_110: frac[2,110] + frac[4,110] + frac[16,110] + frac[17,110]
-   + frac[20,110] >= 0.9
- cov_82_117: frac[7,117] + frac[12,117] + frac[17,117] + frac[19,117]
-   + frac[20,117] + frac[21,117] + frac[22,117] >= 1
- cov_82_118: frac[7,118] + frac[12,118] + frac[17,118] + frac[19,118]
-   + frac[20,118] + frac[21,118] + frac[22,118] >= 1
- cov_82_119: frac[7,119] + frac[12,119] + frac[17,119] + frac[19,119]
-   + frac[20,119] + frac[21,119] + frac[22,119] >= 1
- cov_83_87: frac[3,87] + frac[15,87] + frac[16,87] + frac[19,87]
-   + frac[20,87] + frac[21,87] + frac[22,87] >= 0.7
- cov_83_88: frac[3,88] + frac[15,88] + frac[16,88] + frac[19,88]
-   + frac[20,88] + frac[21,88] + frac[22,88] >= 0.7
- cov_83_89: frac[3,89] + frac[15,89] + frac[16,89] + frac[19,89]
-   + frac[20,89] + frac[21,89] + frac[22,89] >= 0.7
- cov_84_63: frac[3,63] + frac[4,63] + frac[16,63] + frac[17,63]
-   + frac[20,63] >= 0.7
- cov_84_64: frac[3,64] + frac[4,64] + frac[16,64] + frac[17,64]
-   + frac[20,64] >= 0.7
- cov_84_65: frac[3,65] + frac[4,65] + frac[16,65] + frac[17,65]
-   + frac[20,65] >= 0.7
- cov_85_9: frac[2,9] + frac[6,9] + frac[16,9] + frac[17,9] + frac[20,9]
-   >= 1
- cov_85_10: frac[2,10] + frac[6,10] + frac[16,10] + frac[17,10]
-   + frac[20,10] >= 1
- cov_85_11: frac[2,11] + frac[6,11] + frac[16,11] + frac[17,11]
-   + frac[20,11] >= 1
- cov_86_6: frac[8,6] + frac[9,6] + frac[18,6] >= 0.9
- cov_86_7: frac[8,7] + frac[9,7] + frac[18,7] >= 0.9
- cov_86_8: frac[8,8] + frac[9,8] + frac[18,8] >= 0.9
- cov_87_90: frac[8,90] + frac[11,90] + frac[18,90] >= 0.9
- cov_87_91: frac[8,91] + frac[11,91] + frac[18,91] >= 0.9
- cov_87_92: frac[8,92] + frac[11,92] + frac[18,92] >= 0.9
- cov_88_135: frac[4,135] + frac[6,135] + frac[17,135] >= 0.7
- cov_88_136: frac[4,136] + frac[6,136] + frac[17,136] >= 0.7
- cov_88_137: frac[4,137] + frac[6,137] + frac[17,137] >= 0.7
- cov_89_81: frac[8,81] + frac[9,81] + frac[18,81] >= 0.8
- cov_89_82: frac[8,82] + frac[9,82] + frac[18,82] >= 0.8
- cov_89_83: frac[8,83] + frac[9,83] + frac[18,83] >= 0.8
- cov_90_171: frac[3,171] + frac[15,171] + frac[16,171] + frac[19,171]
-   + frac[20,171] + frac[21,171] + frac[22,171] >= 0.8
- cov_90_172: frac[3,172] + frac[15,172] + frac[16,172] + frac[19,172]
-   + frac[20,172] + frac[21,172] + frac[22,172] >= 0.8
- cov_90_173: frac[3,173] + frac[15,173] + frac[16,173] + frac[19,173]
-   + frac[20,173] + frac[21,173] + frac[22,173] >= 0.8
- cov_91_33: frac[2,33] + frac[7,33] + frac[16,33] + frac[17,33]
-   + frac[20,33] >= 0.9
- cov_91_34: frac[2,34] + frac[7,34] + frac[16,34] + frac[17,34]
-   + frac[20,34] >= 0.9
- cov_91_35: frac[2,35] + frac[7,35] + frac[16,35] + frac[17,35]
-   + frac[20,35] >= 0.9
- cov_92_147: frac[7,147] + frac[15,147] + frac[17,147] + frac[19,147]
-   + frac[20,147] + frac[21,147] + frac[22,147] >= 0.7
- cov_92_148: frac[7,148] + frac[15,148] + frac[17,148] + frac[19,148]
-   + frac[20,148] + frac[21,148] + frac[22,148] >= 0.7
- cov_92_149: frac[7,149] + frac[15,149] + frac[17,149] + frac[19,149]
-   + frac[20,149] + frac[21,149] + frac[22,149] >= 0.7
- cov_93_171: frac[0,171] + frac[15,171] + frac[16,171] + frac[19,171]
-   + frac[20,171] + frac[21,171] + frac[22,171] >= 0.7
- cov_93_172: frac[0,172] + frac[15,172] + frac[16,172] + frac[19,172]
-   + frac[20,172] + frac[21,172] + frac[22,172] >= 0.7
- cov_93_173: frac[0,173] + frac[15,173] + frac[16,173] + frac[19,173]
-   + frac[20,173] + frac[21,173] + frac[22,173] >= 0.7
- cov_94_102: frac[3,102] + frac[12,102] + frac[16,102] + frac[19,102]
-   + frac[20,102] + frac[21,102] + frac[22,102] >= 0.7
- cov_94_103: frac[3,103] + frac[12,103] + frac[16,103] + frac[19,103]
-   + frac[20,103] + frac[21,103] + frac[22,103] >= 0.7
- cov_94_104: frac[3,104] + frac[12,104] + frac[16,104] + frac[19,104]
-   + frac[20,104] + frac[21,104] + frac[22,104] >= 0.7
- cov_95_12: frac[3,12] + frac[11,12] + frac[16,12] + frac[18,12]
-   + frac[20,12] + frac[21,12] + frac[22,12] >= 1
- cov_95_13: frac[3,13] + frac[11,13] + frac[16,13] + frac[18,13]
-   + frac[20,13] + frac[21,13] + frac[22,13] >= 1
- cov_95_14: frac[3,14] + frac[11,14] + frac[16,14] + frac[18,14]
-   + frac[20,14] + frac[21,14] + frac[22,14] >= 1
- cov_96_153: frac[7,153] + frac[14,153] + frac[17,153] + frac[19,153]
-   + frac[20,153] + frac[21,153] + frac[22,153] >= 1
- cov_96_154: frac[7,154] + frac[14,154] + frac[17,154] + frac[19,154]
-   + frac[20,154] + frac[21,154] + frac[22,154] >= 1
- cov_96_155: frac[7,155] + frac[14,155] + frac[17,155] + frac[19,155]
-   + frac[20,155] + frac[21,155] + frac[22,155] >= 1
- cov_97_156: frac[2,156] + frac[11,156] + frac[16,156] + frac[18,156]
-   + frac[20,156] + frac[21,156] + frac[22,156] >= 0.7
- cov_97_157: frac[2,157] + frac[11,157] + frac[16,157] + frac[18,157]
-   + frac[20,157] + frac[21,157] + frac[22,157] >= 0.7
- cov_97_158: frac[2,158] + frac[11,158] + frac[16,158] + frac[18,158]
-   + frac[20,158] + frac[21,158] + frac[22,158] >= 0.7
- cov_98_87: frac[3,87] + frac[12,87] + frac[16,87] + frac[19,87]
-   + frac[20,87] + frac[21,87] + frac[22,87] >= 1
- cov_98_88: frac[3,88] + frac[12,88] + frac[16,88] + frac[19,88]
-   + frac[20,88] + frac[21,88] + frac[22,88] >= 1
- cov_98_89: frac[3,89] + frac[12,89] + frac[16,89] + frac[19,89]
-   + frac[20,89] + frac[21,89] + frac[22,89] >= 1
- cov_99_99: frac[1,99] + frac[15,99] + frac[16,99] + frac[19,99]
-   + frac[20,99] + frac[21,99] + frac[22,99] >= 0.9
- cov_99_100: frac[1,100] + frac[15,100] + frac[16,100] + frac[19,100]
-   + frac[20,100] + frac[21,100] + frac[22,100] >= 0.9
- cov_99_101: frac[1,101] + frac[15,101] + frac[16,101] + frac[19,101]
-   + frac[20,101] + frac[21,101] + frac[22,101] >= 0.9
- cov_100_123: frac[0,123] + frac[14,123] + frac[16,123] + frac[19,123]
-   + frac[20,123] + frac[21,123] + frac[22,123] >= 1
- cov_100_124: frac[0,124] + frac[14,124] + frac[16,124] + frac[19,124]
-   + frac[20,124] + frac[21,124] + frac[22,124] >= 1
- cov_100_125: frac[0,125] + frac[14,125] + frac[16,125] + frac[19,125]
-   + frac[20,125] + frac[21,125] + frac[22,125] >= 1
- cov_101_57: frac[6,57] + frac[7,57] + frac[17,57] >= 0.9
- cov_101_58: frac[6,58] + frac[7,58] + frac[17,58] >= 0.9
- cov_101_59: frac[6,59] + frac[7,59] + frac[17,59] >= 0.9
- cov_102_63: frac[2,63] + frac[9,63] + frac[16,63] + frac[18,63]
-   + frac[20,63] + frac[21,63] + frac[22,63] >= 0.8
- cov_102_64: frac[2,64] + frac[9,64] + frac[16,64] + frac[18,64]
-   + frac[20,64] + frac[21,64] + frac[22,64] >= 0.8
- cov_102_65: frac[2,65] + frac[9,65] + frac[16,65] + frac[18,65]
-   + frac[20,65] + frac[21,65] + frac[22,65] >= 0.8
- cov_103_177: frac[2,177] + frac[4,177] + frac[16,177] + frac[17,177]
-   + frac[20,177] >= 0.9
- cov_103_178: frac[2,178] + frac[4,178] + frac[16,178] + frac[17,178]
-   + frac[20,178] >= 0.9
- cov_103_179: frac[2,179] + frac[4,179] + frac[16,179] + frac[17,179]
-   + frac[20,179] >= 0.9
- cov_104_60: frac[6,60] + frac[11,60] + frac[17,60] + frac[18,60]
-   + frac[20,60] + frac[21,60] + frac[22,60] >= 0.7
- cov_104_61: frac[6,61] + frac[11,61] + frac[17,61] + frac[18,61]
-   + frac[20,61] + frac[21,61] + frac[22,61] >= 0.7
- cov_104_62: frac[6,62] + frac[11,62] + frac[17,62] + frac[18,62]
-   + frac[20,62] + frac[21,62] + frac[22,62] >= 0.7
- cov_105_174: frac[5,174] + frac[7,174] + frac[17,174] >= 0.8
- cov_105_175: frac[5,175] + frac[7,175] + frac[17,175] >= 0.8
- cov_105_176: frac[5,176] + frac[7,176] + frac[17,176] >= 0.8
- cov_106_144: frac[2,144] + frac[14,144] + frac[16,144] + frac[19,144]
-   + frac[20,144] + frac[21,144] + frac[22,144] >= 0.8
- cov_106_145: frac[2,145] + frac[14,145] + frac[16,145] + frac[19,145]
-   + frac[20,145] + frac[21,145] + frac[22,145] >= 0.8
- cov_106_146: frac[2,146] + frac[14,146] + frac[16,146] + frac[19,146]
-   + frac[20,146] + frac[21,146] + frac[22,146] >= 0.8
- cov_107_33: frac[2,33] + frac[7,33] + frac[16,33] + frac[17,33]
-   + frac[20,33] >= 0.9
- cov_107_34: frac[2,34] + frac[7,34] + frac[16,34] + frac[17,34]
-   + frac[20,34] >= 0.9
- cov_107_35: frac[2,35] + frac[7,35] + frac[16,35] + frac[17,35]
-   + frac[20,35] >= 0.9
- cov_108_129: frac[5,129] + frac[10,129] + frac[17,129] + frac[18,129]
-   + frac[20,129] + frac[21,129] + frac[22,129] >= 0.9
- cov_108_130: frac[5,130] + frac[10,130] + frac[17,130] + frac[18,130]
-   + frac[20,130] + frac[21,130] + frac[22,130] >= 0.9
- cov_108_131: frac[5,131] + frac[10,131] + frac[17,131] + frac[18,131]
-   + frac[20,131] + frac[21,131] + frac[22,131] >= 0.9
- cov_109_177: frac[2,177] + frac[6,177] + frac[16,177] + frac[17,177]
-   + frac[20,177] >= 0.7
- cov_109_178: frac[2,178] + frac[6,178] + frac[16,178] + frac[17,178]
-   + frac[20,178] >= 0.7
- cov_109_179: frac[2,179] + frac[6,179] + frac[16,179] + frac[17,179]
-   + frac[20,179] >= 0.7
- cov_110_165: frac[3,165] + frac[14,165] + frac[16,165] + frac[19,165]
-   + frac[20,165] + frac[21,165] + frac[22,165] >= 0.7
- cov_110_166: frac[3,166] + frac[14,166] + frac[16,166] + frac[19,166]
-   + frac[20,166] + frac[21,166] + frac[22,166] >= 0.7
- cov_110_167: frac[3,167] + frac[14,167] + frac[16,167] + frac[19,167]
-   + frac[20,167] + frac[21,167] + frac[22,167] >= 0.7
- cov_111_99: frac[4,99] + frac[5,99] + frac[17,99] >= 1
- cov_111_100: frac[4,100] + frac[5,100] + frac[17,100] >= 1
- cov_111_101: frac[4,101] + frac[5,101] + frac[17,101] >= 1
- cov_112_66: frac[4,66] + frac[13,66] + frac[17,66] + frac[19,66]
-   + frac[20,66] + frac[21,66] + frac[22,66] >= 0.9
- cov_112_67: frac[4,67] + frac[13,67] + frac[17,67] + frac[19,67]
-   + frac[20,67] + frac[21,67] + frac[22,67] >= 0.9
- cov_112_68: frac[4,68] + frac[13,68] + frac[17,68] + frac[19,68]
-   + frac[20,68] + frac[21,68] + frac[22,68] >= 0.9
- cov_113_156: frac[4,156] + frac[7,156] + frac[17,156] >= 0.7
- cov_113_157: frac[4,157] + frac[7,157] + frac[17,157] >= 0.7
- cov_113_158: frac[4,158] + frac[7,158] + frac[17,158] >= 0.7
- cov_114_72: frac[0,72] + frac[14,72] + frac[16,72] + frac[19,72]
-   + frac[20,72] + frac[21,72] + frac[22,72] >= 0.9
- cov_114_73: frac[0,73] + frac[14,73] + frac[16,73] + frac[19,73]
-   + frac[20,73] + frac[21,73] + frac[22,73] >= 0.9
- cov_114_74: frac[0,74] + frac[14,74] + frac[16,74] + frac[19,74]
-   + frac[20,74] + frac[21,74] + frac[22,74] >= 0.9
- cov_115_9: frac[1,9] + frac[6,9] + frac[16,9] + frac[17,9] + frac[20,9]
+ cov_2_63: frac[4,63] + frac[12,63] + frac[17,63] + frac[19,63]
+   + frac[20,63] + frac[21,63] + frac[22,63] >= 0.7
+ cov_2_64: frac[4,64] + frac[12,64] + frac[17,64] + frac[19,64]
+   + frac[20,64] + frac[21,64] + frac[22,64] >= 0.7
+ cov_2_65: frac[4,65] + frac[12,65] + frac[17,65] + frac[19,65]
+   + frac[20,65] + frac[21,65] + frac[22,65] >= 0.7
+ cov_3_186: frac[4,186] + frac[13,186] + frac[17,186] + frac[19,186]
+   + frac[20,186] + frac[21,186] + frac[22,186] >= 0.9
+ cov_3_187: frac[4,187] + frac[13,187] + frac[17,187] + frac[19,187]
+   + frac[20,187] + frac[21,187] + frac[22,187] >= 0.9
+ cov_3_188: frac[4,188] + frac[13,188] + frac[17,188] + frac[19,188]
+   + frac[20,188] + frac[21,188] + frac[22,188] >= 0.9
+ cov_4_27: frac[4,27] + frac[13,27] + frac[17,27] + frac[19,27]
+   + frac[20,27] + frac[21,27] + frac[22,27] >= 0.7
+ cov_4_28: frac[4,28] + frac[13,28] + frac[17,28] + frac[19,28]
+   + frac[20,28] + frac[21,28] + frac[22,28] >= 0.7
+ cov_4_29: frac[4,29] + frac[13,29] + frac[17,29] + frac[19,29]
+   + frac[20,29] + frac[21,29] + frac[22,29] >= 0.7
+ cov_5_48: frac[9,48] + frac[11,48] + frac[18,48] >= 0.8
+ cov_5_49: frac[9,49] + frac[11,49] + frac[18,49] >= 0.8
+ cov_5_50: frac[9,50] + frac[11,50] + frac[18,50] >= 0.8
+ cov_6_180: frac[0,180] + frac[13,180] + frac[16,180] + frac[19,180]
+   + frac[20,180] + frac[21,180] + frac[22,180] >= 1
+ cov_6_181: frac[0,181] + frac[13,181] + frac[16,181] + frac[19,181]
+   + frac[20,181] + frac[21,181] + frac[22,181] >= 1
+ cov_6_182: frac[0,182] + frac[13,182] + frac[16,182] + frac[19,182]
+   + frac[20,182] + frac[21,182] + frac[22,182] >= 1
+ cov_7_18: frac[0,18] + frac[15,18] + frac[16,18] + frac[19,18]
+   + frac[20,18] + frac[21,18] + frac[22,18] >= 0.8
+ cov_7_19: frac[0,19] + frac[15,19] + frac[16,19] + frac[19,19]
+   + frac[20,19] + frac[21,19] + frac[22,19] >= 0.8
+ cov_7_20: frac[0,20] + frac[15,20] + frac[16,20] + frac[19,20]
+   + frac[20,20] + frac[21,20] + frac[22,20] >= 0.8
+ cov_8_15: frac[1,15] + frac[5,15] + frac[16,15] + frac[17,15]
+   + frac[20,15] >= 1
+ cov_8_16: frac[1,16] + frac[5,16] + frac[16,16] + frac[17,16]
+   + frac[20,16] >= 1
+ cov_8_17: frac[1,17] + frac[5,17] + frac[16,17] + frac[17,17]
+   + frac[20,17] >= 1
+ cov_9_6: frac[2,6] + frac[7,6] + frac[16,6] + frac[17,6] + frac[20,6]
    >= 0.9
- cov_115_10: frac[1,10] + frac[6,10] + frac[16,10] + frac[17,10]
-   + frac[20,10] >= 0.9
- cov_115_11: frac[1,11] + frac[6,11] + frac[16,11] + frac[17,11]
-   + frac[20,11] >= 0.9
- cov_116_186: frac[5,186] + frac[7,186] + frac[17,186] >= 0.9
- cov_116_187: frac[5,187] + frac[7,187] + frac[17,187] >= 0.9
- cov_116_188: frac[5,188] + frac[7,188] + frac[17,188] >= 0.9
- cov_117_75: frac[5,75] + frac[13,75] + frac[17,75] + frac[19,75]
-   + frac[20,75] + frac[21,75] + frac[22,75] >= 0.9
- cov_117_76: frac[5,76] + frac[13,76] + frac[17,76] + frac[19,76]
-   + frac[20,76] + frac[21,76] + frac[22,76] >= 0.9
- cov_117_77: frac[5,77] + frac[13,77] + frac[17,77] + frac[19,77]
-   + frac[20,77] + frac[21,77] + frac[22,77] >= 0.9
- cov_118_69: frac[10,69] + frac[12,69] + frac[18,69] + frac[19,69]
-   + frac[21,69] >= 0.8
- cov_118_70: frac[10,70] + frac[12,70] + frac[18,70] + frac[19,70]
-   + frac[21,70] >= 0.8
- cov_118_71: frac[10,71] + frac[12,71] + frac[18,71] + frac[19,71]
-   + frac[21,71] >= 0.8
- cov_119_159: frac[7,159] + frac[14,159] + frac[17,159] + frac[19,159]
-   + frac[20,159] + frac[21,159] + frac[22,159] >= 0.8
- cov_119_160: frac[7,160] + frac[14,160] + frac[17,160] + frac[19,160]
-   + frac[20,160] + frac[21,160] + frac[22,160] >= 0.8
- cov_119_161: frac[7,161] + frac[14,161] + frac[17,161] + frac[19,161]
-   + frac[20,161] + frac[21,161] + frac[22,161] >= 0.8
- cov_120_174: frac[0,174] + frac[6,174] + frac[16,174] + frac[17,174]
-   + frac[20,174] >= 0.9
- cov_120_175: frac[0,175] + frac[6,175] + frac[16,175] + frac[17,175]
-   + frac[20,175] >= 0.9
- cov_120_176: frac[0,176] + frac[6,176] + frac[16,176] + frac[17,176]
-   + frac[20,176] >= 0.9
- cov_121_171: frac[1,171] + frac[13,171] + frac[16,171] + frac[19,171]
-   + frac[20,171] + frac[21,171] + frac[22,171] >= 0.9
- cov_121_172: frac[1,172] + frac[13,172] + frac[16,172] + frac[19,172]
-   + frac[20,172] + frac[21,172] + frac[22,172] >= 0.9
- cov_121_173: frac[1,173] + frac[13,173] + frac[16,173] + frac[19,173]
-   + frac[20,173] + frac[21,173] + frac[22,173] >= 0.9
- cov_122_18: frac[1,18] + frac[9,18] + frac[16,18] + frac[18,18]
-   + frac[20,18] + frac[21,18] + frac[22,18] >= 0.8
- cov_122_19: frac[1,19] + frac[9,19] + frac[16,19] + frac[18,19]
-   + frac[20,19] + frac[21,19] + frac[22,19] >= 0.8
- cov_122_20: frac[1,20] + frac[9,20] + frac[16,20] + frac[18,20]
-   + frac[20,20] + frac[21,20] + frac[22,20] >= 0.8
- cov_123_15: frac[0,15] + frac[4,15] + frac[16,15] + frac[17,15]
-   + frac[20,15] >= 0.7
- cov_123_16: frac[0,16] + frac[4,16] + frac[16,16] + frac[17,16]
-   + frac[20,16] >= 0.7
- cov_123_17: frac[0,17] + frac[4,17] + frac[16,17] + frac[17,17]
-   + frac[20,17] >= 0.7
- cov_124_138: frac[7,138] + frac[10,138] + frac[17,138] + frac[18,138]
-   + frac[20,138] + frac[21,138] + frac[22,138] >= 1
- cov_124_139: frac[7,139] + frac[10,139] + frac[17,139] + frac[18,139]
-   + frac[20,139] + frac[21,139] + frac[22,139] >= 1
- cov_124_140: frac[7,140] + frac[10,140] + frac[17,140] + frac[18,140]
-   + frac[20,140] + frac[21,140] + frac[22,140] >= 1
- cov_125_183: frac[0,183] + frac[4,183] + frac[16,183] + frac[17,183]
-   + frac[20,183] >= 0.8
- cov_125_184: frac[0,184] + frac[4,184] + frac[16,184] + frac[17,184]
-   + frac[20,184] >= 0.8
- cov_125_185: frac[0,185] + frac[4,185] + frac[16,185] + frac[17,185]
-   + frac[20,185] >= 0.8
- cov_126_129: frac[4,129] + frac[8,129] + frac[17,129] + frac[18,129]
-   + frac[20,129] + frac[21,129] + frac[22,129] >= 0.7
- cov_126_130: frac[4,130] + frac[8,130] + frac[17,130] + frac[18,130]
-   + frac[20,130] + frac[21,130] + frac[22,130] >= 0.7
- cov_126_131: frac[4,131] + frac[8,131] + frac[17,131] + frac[18,131]
-   + frac[20,131] + frac[21,131] + frac[22,131] >= 0.7
- cov_127_54: frac[0,54] + frac[14,54] + frac[16,54] + frac[19,54]
-   + frac[20,54] + frac[21,54] + frac[22,54] >= 0.8
- cov_127_55: frac[0,55] + frac[14,55] + frac[16,55] + frac[19,55]
-   + frac[20,55] + frac[21,55] + frac[22,55] >= 0.8
- cov_127_56: frac[0,56] + frac[14,56] + frac[16,56] + frac[19,56]
-   + frac[20,56] + frac[21,56] + frac[22,56] >= 0.8
- cov_128_135: frac[13,135] + frac[15,135] + frac[19,135] >= 0.7
- cov_128_136: frac[13,136] + frac[15,136] + frac[19,136] >= 0.7
- cov_128_137: frac[13,137] + frac[15,137] + frac[19,137] >= 0.7
- cov_129_36: frac[2,36] + frac[13,36] + frac[16,36] + frac[19,36]
-   + frac[20,36] + frac[21,36] + frac[22,36] >= 0.7
- cov_129_37: frac[2,37] + frac[13,37] + frac[16,37] + frac[19,37]
-   + frac[20,37] + frac[21,37] + frac[22,37] >= 0.7
- cov_129_38: frac[2,38] + frac[13,38] + frac[16,38] + frac[19,38]
-   + frac[20,38] + frac[21,38] + frac[22,38] >= 0.7
- cov_130_81: frac[12,81] + frac[14,81] + frac[19,81] >= 0.8
- cov_130_82: frac[12,82] + frac[14,82] + frac[19,82] >= 0.8
- cov_130_83: frac[12,83] + frac[14,83] + frac[19,83] >= 0.8
- cov_131_156: frac[10,156] + frac[15,156] + frac[18,156] + frac[19,156]
-   + frac[21,156] >= 0.9
- cov_131_157: frac[10,157] + frac[15,157] + frac[18,157] + frac[19,157]
-   + frac[21,157] >= 0.9
- cov_131_158: frac[10,158] + frac[15,158] + frac[18,158] + frac[19,158]
-   + frac[21,158] >= 0.9
- cov_132_120: frac[0,120] + frac[6,120] + frac[16,120] + frac[17,120]
-   + frac[20,120] >= 0.8
- cov_132_121: frac[0,121] + frac[6,121] + frac[16,121] + frac[17,121]
-   + frac[20,121] >= 0.8
- cov_132_122: frac[0,122] + frac[6,122] + frac[16,122] + frac[17,122]
-   + frac[20,122] >= 0.8
- cov_133_63: frac[6,63] + frac[9,63] + frac[17,63] + frac[18,63]
-   + frac[20,63] + frac[21,63] + frac[22,63] >= 0.9
- cov_133_64: frac[6,64] + frac[9,64] + frac[17,64] + frac[18,64]
-   + frac[20,64] + frac[21,64] + frac[22,64] >= 0.9
- cov_133_65: frac[6,65] + frac[9,65] + frac[17,65] + frac[18,65]
-   + frac[20,65] + frac[21,65] + frac[22,65] >= 0.9
- cov_134_78: frac[5,78] + frac[10,78] + frac[17,78] + frac[18,78]
-   + frac[20,78] + frac[21,78] + frac[22,78] >= 0.7
- cov_134_79: frac[5,79] + frac[10,79] + frac[17,79] + frac[18,79]
-   + frac[20,79] + frac[21,79] + frac[22,79] >= 0.7
- cov_134_80: frac[5,80] + frac[10,80] + frac[17,80] + frac[18,80]
-   + frac[20,80] + frac[21,80] + frac[22,80] >= 0.7
- cov_135_21: frac[7,21] + frac[9,21] + frac[17,21] + frac[18,21]
-   + frac[20,21] + frac[21,21] + frac[22,21] >= 0.9
- cov_135_22: frac[7,22] + frac[9,22] + frac[17,22] + frac[18,22]
-   + frac[20,22] + frac[21,22] + frac[22,22] >= 0.9
- cov_135_23: frac[7,23] + frac[9,23] + frac[17,23] + frac[18,23]
-   + frac[20,23] + frac[21,23] + frac[22,23] >= 0.9
- cov_136_72: frac[4,72] + frac[11,72] + frac[17,72] + frac[18,72]
-   + frac[20,72] + frac[21,72] + frac[22,72] >= 0.7
- cov_136_73: frac[4,73] + frac[11,73] + frac[17,73] + frac[18,73]
-   + frac[20,73] + frac[21,73] + frac[22,73] >= 0.7
- cov_136_74: frac[4,74] + frac[11,74] + frac[17,74] + frac[18,74]
-   + frac[20,74] + frac[21,74] + frac[22,74] >= 0.7
- cov_137_186: frac[8,186] + frac[15,186] + frac[18,186] + frac[19,186]
-   + frac[21,186] >= 0.7
- cov_137_187: frac[8,187] + frac[15,187] + frac[18,187] + frac[19,187]
-   + frac[21,187] >= 0.7
- cov_137_188: frac[8,188] + frac[15,188] + frac[18,188] + frac[19,188]
-   + frac[21,188] >= 0.7
- cov_138_54: frac[11,54] + frac[14,54] + frac[18,54] + frac[19,54]
-   + frac[21,54] >= 1
- cov_138_55: frac[11,55] + frac[14,55] + frac[18,55] + frac[19,55]
-   + frac[21,55] >= 1
- cov_138_56: frac[11,56] + frac[14,56] + frac[18,56] + frac[19,56]
-   + frac[21,56] >= 1
- cov_139_111: frac[5,111] + frac[15,111] + frac[17,111] + frac[19,111]
-   + frac[20,111] + frac[21,111] + frac[22,111] >= 0.9
- cov_139_112: frac[5,112] + frac[15,112] + frac[17,112] + frac[19,112]
-   + frac[20,112] + frac[21,112] + frac[22,112] >= 0.9
- cov_139_113: frac[5,113] + frac[15,113] + frac[17,113] + frac[19,113]
-   + frac[20,113] + frac[21,113] + frac[22,113] >= 0.9
- cov_140_177: frac[3,177] + frac[12,177] + frac[16,177] + frac[19,177]
-   + frac[20,177] + frac[21,177] + frac[22,177] >= 0.8
- cov_140_178: frac[3,178] + frac[12,178] + frac[16,178] + frac[19,178]
-   + frac[20,178] + frac[21,178] + frac[22,178] >= 0.8
- cov_140_179: frac[3,179] + frac[12,179] + frac[16,179] + frac[19,179]
-   + frac[20,179] + frac[21,179] + frac[22,179] >= 0.8
- cov_141_54: frac[7,54] + frac[15,54] + frac[17,54] + frac[19,54]
-   + frac[20,54] + frac[21,54] + frac[22,54] >= 0.9
- cov_141_55: frac[7,55] + frac[15,55] + frac[17,55] + frac[19,55]
-   + frac[20,55] + frac[21,55] + frac[22,55] >= 0.9
- cov_141_56: frac[7,56] + frac[15,56] + frac[17,56] + frac[19,56]
-   + frac[20,56] + frac[21,56] + frac[22,56] >= 0.9
- cov_142_150: frac[1,150] + frac[15,150] + frac[16,150] + frac[19,150]
-   + frac[20,150] + frac[21,150] + frac[22,150] >= 0.7
- cov_142_151: frac[1,151] + frac[15,151] + frac[16,151] + frac[19,151]
-   + frac[20,151] + frac[21,151] + frac[22,151] >= 0.7
- cov_142_152: frac[1,152] + frac[15,152] + frac[16,152] + frac[19,152]
-   + frac[20,152] + frac[21,152] + frac[22,152] >= 0.7
- cov_143_108: frac[3,108] + frac[8,108] + frac[16,108] + frac[18,108]
-   + frac[20,108] + frac[21,108] + frac[22,108] >= 0.8
- cov_143_109: frac[3,109] + frac[8,109] + frac[16,109] + frac[18,109]
-   + frac[20,109] + frac[21,109] + frac[22,109] >= 0.8
- cov_143_110: frac[3,110] + frac[8,110] + frac[16,110] + frac[18,110]
-   + frac[20,110] + frac[21,110] + frac[22,110] >= 0.8
- cov_144_138: frac[2,138] + frac[6,138] + frac[16,138] + frac[17,138]
-   + frac[20,138] >= 0.9
- cov_144_139: frac[2,139] + frac[6,139] + frac[16,139] + frac[17,139]
-   + frac[20,139] >= 0.9
- cov_144_140: frac[2,140] + frac[6,140] + frac[16,140] + frac[17,140]
-   + frac[20,140] >= 0.9
- cov_145_129: frac[4,129] + frac[15,129] + frac[17,129] + frac[19,129]
-   + frac[20,129] + frac[21,129] + frac[22,129] >= 1
- cov_145_130: frac[4,130] + frac[15,130] + frac[17,130] + frac[19,130]
-   + frac[20,130] + frac[21,130] + frac[22,130] >= 1
- cov_145_131: frac[4,131] + frac[15,131] + frac[17,131] + frac[19,131]
-   + frac[20,131] + frac[21,131] + frac[22,131] >= 1
- cov_146_144: frac[5,144] + frac[14,144] + frac[17,144] + frac[19,144]
-   + frac[20,144] + frac[21,144] + frac[22,144] >= 0.8
- cov_146_145: frac[5,145] + frac[14,145] + frac[17,145] + frac[19,145]
-   + frac[20,145] + frac[21,145] + frac[22,145] >= 0.8
- cov_146_146: frac[5,146] + frac[14,146] + frac[17,146] + frac[19,146]
-   + frac[20,146] + frac[21,146] + frac[22,146] >= 0.8
- cov_147_165: frac[1,165] + frac[15,165] + frac[16,165] + frac[19,165]
-   + frac[20,165] + frac[21,165] + frac[22,165] >= 1
- cov_147_166: frac[1,166] + frac[15,166] + frac[16,166] + frac[19,166]
-   + frac[20,166] + frac[21,166] + frac[22,166] >= 1
- cov_147_167: frac[1,167] + frac[15,167] + frac[16,167] + frac[19,167]
-   + frac[20,167] + frac[21,167] + frac[22,167] >= 1
- cov_148_78: frac[3,78] + frac[5,78] + frac[16,78] + frac[17,78]
-   + frac[20,78] >= 0.9
- cov_148_79: frac[3,79] + frac[5,79] + frac[16,79] + frac[17,79]
-   + frac[20,79] >= 0.9
- cov_148_80: frac[3,80] + frac[5,80] + frac[16,80] + frac[17,80]
-   + frac[20,80] >= 0.9
- cov_149_117: frac[1,117] + frac[12,117] + frac[16,117] + frac[19,117]
-   + frac[20,117] + frac[21,117] + frac[22,117] >= 0.9
- cov_149_118: frac[1,118] + frac[12,118] + frac[16,118] + frac[19,118]
-   + frac[20,118] + frac[21,118] + frac[22,118] >= 0.9
- cov_149_119: frac[1,119] + frac[12,119] + frac[16,119] + frac[19,119]
-   + frac[20,119] + frac[21,119] + frac[22,119] >= 0.9
- cov_150_108: frac[14,108] + frac[15,108] + frac[19,108] >= 1
- cov_150_109: frac[14,109] + frac[15,109] + frac[19,109] >= 1
- cov_150_110: frac[14,110] + frac[15,110] + frac[19,110] >= 1
- cov_151_42: frac[9,42] + frac[10,42] + frac[18,42] >= 1
- cov_151_43: frac[9,43] + frac[10,43] + frac[18,43] >= 1
- cov_151_44: frac[9,44] + frac[10,44] + frac[18,44] >= 1
- cov_152_183: frac[4,183] + frac[15,183] + frac[17,183] + frac[19,183]
-   + frac[20,183] + frac[21,183] + frac[22,183] >= 0.9
- cov_152_184: frac[4,184] + frac[15,184] + frac[17,184] + frac[19,184]
-   + frac[20,184] + frac[21,184] + frac[22,184] >= 0.9
- cov_152_185: frac[4,185] + frac[15,185] + frac[17,185] + frac[19,185]
-   + frac[20,185] + frac[21,185] + frac[22,185] >= 0.9
- cov_153_111: frac[4,111] + frac[7,111] + frac[17,111] >= 0.9
- cov_153_112: frac[4,112] + frac[7,112] + frac[17,112] >= 0.9
- cov_153_113: frac[4,113] + frac[7,113] + frac[17,113] >= 0.9
- cov_154_132: frac[3,132] + frac[14,132] + frac[16,132] + frac[19,132]
-   + frac[20,132] + frac[21,132] + frac[22,132] >= 0.9
- cov_154_133: frac[3,133] + frac[14,133] + frac[16,133] + frac[19,133]
-   + frac[20,133] + frac[21,133] + frac[22,133] >= 0.9
- cov_154_134: frac[3,134] + frac[14,134] + frac[16,134] + frac[19,134]
-   + frac[20,134] + frac[21,134] + frac[22,134] >= 0.9
- cov_155_168: frac[3,168] + frac[12,168] + frac[16,168] + frac[19,168]
-   + frac[20,168] + frac[21,168] + frac[22,168] >= 0.8
- cov_155_169: frac[3,169] + frac[12,169] + frac[16,169] + frac[19,169]
-   + frac[20,169] + frac[21,169] + frac[22,169] >= 0.8
- cov_155_170: frac[3,170] + frac[12,170] + frac[16,170] + frac[19,170]
-   + frac[20,170] + frac[21,170] + frac[22,170] >= 0.8
- cov_156_114: frac[1,114] + frac[8,114] + frac[16,114] + frac[18,114]
-   + frac[20,114] + frac[21,114] + frac[22,114] >= 0.9
- cov_156_115: frac[1,115] + frac[8,115] + frac[16,115] + frac[18,115]
-   + frac[20,115] + frac[21,115] + frac[22,115] >= 0.9
- cov_156_116: frac[1,116] + frac[8,116] + frac[16,116] + frac[18,116]
-   + frac[20,116] + frac[21,116] + frac[22,116] >= 0.9
- cov_157_48: frac[0,48] + frac[9,48] + frac[16,48] + frac[18,48]
-   + frac[20,48] + frac[21,48] + frac[22,48] >= 0.8
- cov_157_49: frac[0,49] + frac[9,49] + frac[16,49] + frac[18,49]
-   + frac[20,49] + frac[21,49] + frac[22,49] >= 0.8
- cov_157_50: frac[0,50] + frac[9,50] + frac[16,50] + frac[18,50]
-   + frac[20,50] + frac[21,50] + frac[22,50] >= 0.8
- cov_158_138: frac[4,138] + frac[11,138] + frac[17,138] + frac[18,138]
-   + frac[20,138] + frac[21,138] + frac[22,138] >= 1
- cov_158_139: frac[4,139] + frac[11,139] + frac[17,139] + frac[18,139]
-   + frac[20,139] + frac[21,139] + frac[22,139] >= 1
- cov_158_140: frac[4,140] + frac[11,140] + frac[17,140] + frac[18,140]
-   + frac[20,140] + frac[21,140] + frac[22,140] >= 1
- cov_159_111: frac[0,111] + frac[3,111] + frac[16,111] >= 0.7
- cov_159_112: frac[0,112] + frac[3,112] + frac[16,112] >= 0.7
- cov_159_113: frac[0,113] + frac[3,113] + frac[16,113] >= 0.7
- cov_160_171: frac[9,171] + frac[12,171] + frac[18,171] + frac[19,171]
-   + frac[21,171] >= 0.9
- cov_160_172: frac[9,172] + frac[12,172] + frac[18,172] + frac[19,172]
-   + frac[21,172] >= 0.9
- cov_160_173: frac[9,173] + frac[12,173] + frac[18,173] + frac[19,173]
-   + frac[21,173] >= 0.9
- cov_161_63: frac[1,63] + frac[12,63] + frac[16,63] + frac[19,63]
-   + frac[20,63] + frac[21,63] + frac[22,63] >= 0.7
- cov_161_64: frac[1,64] + frac[12,64] + frac[16,64] + frac[19,64]
-   + frac[20,64] + frac[21,64] + frac[22,64] >= 0.7
- cov_161_65: frac[1,65] + frac[12,65] + frac[16,65] + frac[19,65]
-   + frac[20,65] + frac[21,65] + frac[22,65] >= 0.7
- cov_162_51: frac[5,51] + frac[13,51] + frac[17,51] + frac[19,51]
-   + frac[20,51] + frac[21,51] + frac[22,51] >= 0.7
- cov_162_52: frac[5,52] + frac[13,52] + frac[17,52] + frac[19,52]
-   + frac[20,52] + frac[21,52] + frac[22,52] >= 0.7
- cov_162_53: frac[5,53] + frac[13,53] + frac[17,53] + frac[19,53]
-   + frac[20,53] + frac[21,53] + frac[22,53] >= 0.7
- cov_163_3: frac[5,3] + frac[14,3] + frac[17,3] + frac[19,3] + frac[20,3]
-   + frac[21,3] + frac[22,3] >= 0.8
- cov_163_4: frac[5,4] + frac[14,4] + frac[17,4] + frac[19,4] + frac[20,4]
-   + frac[21,4] + frac[22,4] >= 0.8
- cov_163_5: frac[5,5] + frac[14,5] + frac[17,5] + frac[19,5] + frac[20,5]
-   + frac[21,5] + frac[22,5] >= 0.8
- cov_164_129: frac[0,129] + frac[11,129] + frac[16,129] + frac[18,129]
-   + frac[20,129] + frac[21,129] + frac[22,129] >= 0.7
- cov_164_130: frac[0,130] + frac[11,130] + frac[16,130] + frac[18,130]
-   + frac[20,130] + frac[21,130] + frac[22,130] >= 0.7
- cov_164_131: frac[0,131] + frac[11,131] + frac[16,131] + frac[18,131]
-   + frac[20,131] + frac[21,131] + frac[22,131] >= 0.7
- cov_165_42: frac[9,42] + frac[14,42] + frac[18,42] + frac[19,42]
-   + frac[21,42] >= 0.7
- cov_165_43: frac[9,43] + frac[14,43] + frac[18,43] + frac[19,43]
-   + frac[21,43] >= 0.7
- cov_165_44: frac[9,44] + frac[14,44] + frac[18,44] + frac[19,44]
-   + frac[21,44] >= 0.7
- cov_166_168: frac[8,168] + frac[9,168] + frac[18,168] >= 1
- cov_166_169: frac[8,169] + frac[9,169] + frac[18,169] >= 1
- cov_166_170: frac[8,170] + frac[9,170] + frac[18,170] >= 1
- cov_167_72: frac[9,72] + frac[10,72] + frac[18,72] >= 0.9
- cov_167_73: frac[9,73] + frac[10,73] + frac[18,73] >= 0.9
- cov_167_74: frac[9,74] + frac[10,74] + frac[18,74] >= 0.9
- cov_168_18: frac[4,18] + frac[11,18] + frac[17,18] + frac[18,18]
-   + frac[20,18] + frac[21,18] + frac[22,18] >= 0.7
- cov_168_19: frac[4,19] + frac[11,19] + frac[17,19] + frac[18,19]
-   + frac[20,19] + frac[21,19] + frac[22,19] >= 0.7
- cov_168_20: frac[4,20] + frac[11,20] + frac[17,20] + frac[18,20]
-   + frac[20,20] + frac[21,20] + frac[22,20] >= 0.7
- cov_169_120: frac[3,120] + frac[7,120] + frac[16,120] + frac[17,120]
-   + frac[20,120] >= 1
- cov_169_121: frac[3,121] + frac[7,121] + frac[16,121] + frac[17,121]
-   + frac[20,121] >= 1
- cov_169_122: frac[3,122] + frac[7,122] + frac[16,122] + frac[17,122]
-   + frac[20,122] >= 1
- cov_170_189: frac[2,189] + frac[15,189] + frac[16,189] + frac[19,189]
-   + frac[20,189] + frac[21,189] + frac[22,189] >= 1
- cov_170_190: frac[2,190] + frac[15,190] + frac[16,190] + frac[19,190]
-   + frac[20,190] + frac[21,190] + frac[22,190] >= 1
- cov_170_191: frac[2,191] + frac[15,191] + frac[16,191] + frac[19,191]
-   + frac[20,191] + frac[21,191] + frac[22,191] >= 1
- cov_171_66: frac[2,66] + frac[5,66] + frac[16,66] + frac[17,66]
-   + frac[20,66] >= 0.8
- cov_171_67: frac[2,67] + frac[5,67] + frac[16,67] + frac[17,67]
-   + frac[20,67] >= 0.8
- cov_171_68: frac[2,68] + frac[5,68] + frac[16,68] + frac[17,68]
-   + frac[20,68] >= 0.8
- cov_172_63: frac[10,63] + frac[15,63] + frac[18,63] + frac[19,63]
-   + frac[21,63] >= 0.8
- cov_172_64: frac[10,64] + frac[15,64] + frac[18,64] + frac[19,64]
-   + frac[21,64] >= 0.8
- cov_172_65: frac[10,65] + frac[15,65] + frac[18,65] + frac[19,65]
-   + frac[21,65] >= 0.8
- cov_173_42: frac[6,42] + frac[7,42] + frac[17,42] >= 0.7
- cov_173_43: frac[6,43] + frac[7,43] + frac[17,43] >= 0.7
- cov_173_44: frac[6,44] + frac[7,44] + frac[17,44] >= 0.7
- cov_174_168: frac[4,168] + frac[6,168] + frac[17,168] >= 1
- cov_174_169: frac[4,169] + frac[6,169] + frac[17,169] >= 1
- cov_174_170: frac[4,170] + frac[6,170] + frac[17,170] >= 1
- cov_175_150: frac[9,150] + frac[13,150] + frac[18,150] + frac[19,150]
-   + frac[21,150] >= 0.7
- cov_175_151: frac[9,151] + frac[13,151] + frac[18,151] + frac[19,151]
-   + frac[21,151] >= 0.7
- cov_175_152: frac[9,152] + frac[13,152] + frac[18,152] + frac[19,152]
-   + frac[21,152] >= 0.7
- cov_176_138: frac[7,138] + frac[9,138] + frac[17,138] + frac[18,138]
-   + frac[20,138] + frac[21,138] + frac[22,138] >= 0.7
- cov_176_139: frac[7,139] + frac[9,139] + frac[17,139] + frac[18,139]
-   + frac[20,139] + frac[21,139] + frac[22,139] >= 0.7
- cov_176_140: frac[7,140] + frac[9,140] + frac[17,140] + frac[18,140]
-   + frac[20,140] + frac[21,140] + frac[22,140] >= 0.7
- cov_177_81: frac[1,81] + frac[13,81] + frac[16,81] + frac[19,81]
-   + frac[20,81] + frac[21,81] + frac[22,81] >= 1
- cov_177_82: frac[1,82] + frac[13,82] + frac[16,82] + frac[19,82]
-   + frac[20,82] + frac[21,82] + frac[22,82] >= 1
- cov_177_83: frac[1,83] + frac[13,83] + frac[16,83] + frac[19,83]
-   + frac[20,83] + frac[21,83] + frac[22,83] >= 1
- cov_178_189: frac[1,189] + frac[7,189] + frac[16,189] + frac[17,189]
-   + frac[20,189] >= 1
- cov_178_190: frac[1,190] + frac[7,190] + frac[16,190] + frac[17,190]
-   + frac[20,190] >= 1
- cov_178_191: frac[1,191] + frac[7,191] + frac[16,191] + frac[17,191]
-   + frac[20,191] >= 1
- cov_179_72: frac[5,72] + frac[7,72] + frac[17,72] >= 0.9
- cov_179_73: frac[5,73] + frac[7,73] + frac[17,73] >= 0.9
- cov_179_74: frac[5,74] + frac[7,74] + frac[17,74] >= 0.9
- cov_180_78: frac[0,78] + frac[7,78] + frac[16,78] + frac[17,78]
-   + frac[20,78] >= 1
- cov_180_79: frac[0,79] + frac[7,79] + frac[16,79] + frac[17,79]
-   + frac[20,79] >= 1
- cov_180_80: frac[0,80] + frac[7,80] + frac[16,80] + frac[17,80]
-   + frac[20,80] >= 1
- cov_181_78: frac[1,78] + frac[15,78] + frac[16,78] + frac[19,78]
-   + frac[20,78] + frac[21,78] + frac[22,78] >= 0.9
- cov_181_79: frac[1,79] + frac[15,79] + frac[16,79] + frac[19,79]
-   + frac[20,79] + frac[21,79] + frac[22,79] >= 0.9
- cov_181_80: frac[1,80] + frac[15,80] + frac[16,80] + frac[19,80]
-   + frac[20,80] + frac[21,80] + frac[22,80] >= 0.9
- cov_182_156: frac[6,156] + frac[12,156] + frac[17,156] + frac[19,156]
-   + frac[20,156] + frac[21,156] + frac[22,156] >= 0.7
- cov_182_157: frac[6,157] + frac[12,157] + frac[17,157] + frac[19,157]
-   + frac[20,157] + frac[21,157] + frac[22,157] >= 0.7
- cov_182_158: frac[6,158] + frac[12,158] + frac[17,158] + frac[19,158]
-   + frac[20,158] + frac[21,158] + frac[22,158] >= 0.7
- cov_183_153: frac[6,153] + frac[13,153] + frac[17,153] + frac[19,153]
-   + frac[20,153] + frac[21,153] + frac[22,153] >= 0.7
- cov_183_154: frac[6,154] + frac[13,154] + frac[17,154] + frac[19,154]
-   + frac[20,154] + frac[21,154] + frac[22,154] >= 0.7
- cov_183_155: frac[6,155] + frac[13,155] + frac[17,155] + frac[19,155]
-   + frac[20,155] + frac[21,155] + frac[22,155] >= 0.7
- cov_184_9: frac[4,9] + frac[10,9] + frac[17,9] + frac[18,9] + frac[20,9]
-   + frac[21,9] + frac[22,9] >= 0.9
- cov_184_10: frac[4,10] + frac[10,10] + frac[17,10] + frac[18,10]
-   + frac[20,10] + frac[21,10] + frac[22,10] >= 0.9
- cov_184_11: frac[4,11] + frac[10,11] + frac[17,11] + frac[18,11]
-   + frac[20,11] + frac[21,11] + frac[22,11] >= 0.9
- cov_185_150: frac[12,150] + frac[15,150] + frac[19,150] >= 0.8
- cov_185_151: frac[12,151] + frac[15,151] + frac[19,151] >= 0.8
- cov_185_152: frac[12,152] + frac[15,152] + frac[19,152] >= 0.8
- cov_186_135: frac[11,135] + frac[15,135] + frac[18,135] + frac[19,135]
-   + frac[21,135] >= 1
- cov_186_136: frac[11,136] + frac[15,136] + frac[18,136] + frac[19,136]
-   + frac[21,136] >= 1
- cov_186_137: frac[11,137] + frac[15,137] + frac[18,137] + frac[19,137]
-   + frac[21,137] >= 1
- cov_187_12: frac[2,12] + frac[3,12] + frac[16,12] >= 0.9
- cov_187_13: frac[2,13] + frac[3,13] + frac[16,13] >= 0.9
- cov_187_14: frac[2,14] + frac[3,14] + frac[16,14] >= 0.9
- cov_188_99: frac[9,99] + frac[12,99] + frac[18,99] + frac[19,99]
-   + frac[21,99] >= 0.9
- cov_188_100: frac[9,100] + frac[12,100] + frac[18,100] + frac[19,100]
-   + frac[21,100] >= 0.9
- cov_188_101: frac[9,101] + frac[12,101] + frac[18,101] + frac[19,101]
-   + frac[21,101] >= 0.9
- cov_189_60: frac[12,60] + frac[13,60] + frac[19,60] >= 0.9
- cov_189_61: frac[12,61] + frac[13,61] + frac[19,61] >= 0.9
- cov_189_62: frac[12,62] + frac[13,62] + frac[19,62] >= 0.9
- cov_190_123: frac[7,123] + frac[11,123] + frac[17,123] + frac[18,123]
-   + frac[20,123] + frac[21,123] + frac[22,123] >= 0.9
- cov_190_124: frac[7,124] + frac[11,124] + frac[17,124] + frac[18,124]
-   + frac[20,124] + frac[21,124] + frac[22,124] >= 0.9
- cov_190_125: frac[7,125] + frac[11,125] + frac[17,125] + frac[18,125]
-   + frac[20,125] + frac[21,125] + frac[22,125] >= 0.9
- cov_191_84: frac[2,84] + frac[5,84] + frac[16,84] + frac[17,84]
-   + frac[20,84] >= 0.9
- cov_191_85: frac[2,85] + frac[5,85] + frac[16,85] + frac[17,85]
-   + frac[20,85] >= 0.9
- cov_191_86: frac[2,86] + frac[5,86] + frac[16,86] + frac[17,86]
-   + frac[20,86] >= 0.9
- cov_192_177: frac[1,177] + frac[14,177] + frac[16,177] + frac[19,177]
-   + frac[20,177] + frac[21,177] + frac[22,177] >= 0.9
- cov_192_178: frac[1,178] + frac[14,178] + frac[16,178] + frac[19,178]
-   + frac[20,178] + frac[21,178] + frac[22,178] >= 0.9
- cov_192_179: frac[1,179] + frac[14,179] + frac[16,179] + frac[19,179]
-   + frac[20,179] + frac[21,179] + frac[22,179] >= 0.9
- cov_193_39: frac[2,39] + frac[6,39] + frac[16,39] + frac[17,39]
-   + frac[20,39] >= 0.9
- cov_193_40: frac[2,40] + frac[6,40] + frac[16,40] + frac[17,40]
-   + frac[20,40] >= 0.9
- cov_193_41: frac[2,41] + frac[6,41] + frac[16,41] + frac[17,41]
-   + frac[20,41] >= 0.9
- cov_194_159: frac[2,159] + frac[14,159] + frac[16,159] + frac[19,159]
-   + frac[20,159] + frac[21,159] + frac[22,159] >= 0.9
- cov_194_160: frac[2,160] + frac[14,160] + frac[16,160] + frac[19,160]
-   + frac[20,160] + frac[21,160] + frac[22,160] >= 0.9
- cov_194_161: frac[2,161] + frac[14,161] + frac[16,161] + frac[19,161]
-   + frac[20,161] + frac[21,161] + frac[22,161] >= 0.9
- cov_195_102: frac[7,102] + frac[8,102] + frac[17,102] + frac[18,102]
-   + frac[20,102] + frac[21,102] + frac[22,102] >= 0.8
- cov_195_103: frac[7,103] + frac[8,103] + frac[17,103] + frac[18,103]
-   + frac[20,103] + frac[21,103] + frac[22,103] >= 0.8
- cov_195_104: frac[7,104] + frac[8,104] + frac[17,104] + frac[18,104]
-   + frac[20,104] + frac[21,104] + frac[22,104] >= 0.8
- cov_196_60: frac[3,60] + frac[12,60] + frac[16,60] + frac[19,60]
-   + frac[20,60] + frac[21,60] + frac[22,60] >= 0.9
- cov_196_61: frac[3,61] + frac[12,61] + frac[16,61] + frac[19,61]
-   + frac[20,61] + frac[21,61] + frac[22,61] >= 0.9
- cov_196_62: frac[3,62] + frac[12,62] + frac[16,62] + frac[19,62]
-   + frac[20,62] + frac[21,62] + frac[22,62] >= 0.9
- cov_197_138: frac[2,138] + frac[8,138] + frac[16,138] + frac[18,138]
-   + frac[20,138] + frac[21,138] + frac[22,138] >= 0.9
- cov_197_139: frac[2,139] + frac[8,139] + frac[16,139] + frac[18,139]
-   + frac[20,139] + frac[21,139] + frac[22,139] >= 0.9
- cov_197_140: frac[2,140] + frac[8,140] + frac[16,140] + frac[18,140]
-   + frac[20,140] + frac[21,140] + frac[22,140] >= 0.9
- cov_198_18: frac[0,18] + frac[7,18] + frac[16,18] + frac[17,18]
-   + frac[20,18] >= 0.7
- cov_198_19: frac[0,19] + frac[7,19] + frac[16,19] + frac[17,19]
-   + frac[20,19] >= 0.7
- cov_198_20: frac[0,20] + frac[7,20] + frac[16,20] + frac[17,20]
-   + frac[20,20] >= 0.7
- cov_199_153: frac[9,153] + frac[15,153] + frac[18,153] + frac[19,153]
-   + frac[21,153] >= 0.9
- cov_199_154: frac[9,154] + frac[15,154] + frac[18,154] + frac[19,154]
-   + frac[21,154] >= 0.9
- cov_199_155: frac[9,155] + frac[15,155] + frac[18,155] + frac[19,155]
-   + frac[21,155] >= 0.9
- cov_200_120: frac[1,120] + frac[12,120] + frac[16,120] + frac[19,120]
-   + frac[20,120] + frac[21,120] + frac[22,120] >= 0.9
- cov_200_121: frac[1,121] + frac[12,121] + frac[16,121] + frac[19,121]
-   + frac[20,121] + frac[21,121] + frac[22,121] >= 0.9
- cov_200_122: frac[1,122] + frac[12,122] + frac[16,122] + frac[19,122]
-   + frac[20,122] + frac[21,122] + frac[22,122] >= 0.9
- cov_201_9: frac[1,9] + frac[8,9] + frac[16,9] + frac[18,9] + frac[20,9]
-   + frac[21,9] + frac[22,9] >= 0.8
- cov_201_10: frac[1,10] + frac[8,10] + frac[16,10] + frac[18,10]
-   + frac[20,10] + frac[21,10] + frac[22,10] >= 0.8
- cov_201_11: frac[1,11] + frac[8,11] + frac[16,11] + frac[18,11]
-   + frac[20,11] + frac[21,11] + frac[22,11] >= 0.8
- cov_202_90: frac[0,90] + frac[10,90] + frac[16,90] + frac[18,90]
-   + frac[20,90] + frac[21,90] + frac[22,90] >= 0.9
- cov_202_91: frac[0,91] + frac[10,91] + frac[16,91] + frac[18,91]
-   + frac[20,91] + frac[21,91] + frac[22,91] >= 0.9
- cov_202_92: frac[0,92] + frac[10,92] + frac[16,92] + frac[18,92]
-   + frac[20,92] + frac[21,92] + frac[22,92] >= 0.9
- cov_203_105: frac[1,105] + frac[5,105] + frac[16,105] + frac[17,105]
-   + frac[20,105] >= 0.8
- cov_203_106: frac[1,106] + frac[5,106] + frac[16,106] + frac[17,106]
-   + frac[20,106] >= 0.8
- cov_203_107: frac[1,107] + frac[5,107] + frac[16,107] + frac[17,107]
-   + frac[20,107] >= 0.8
- cov_204_99: frac[9,99] + frac[14,99] + frac[18,99] + frac[19,99]
-   + frac[21,99] >= 0.7
- cov_204_100: frac[9,100] + frac[14,100] + frac[18,100] + frac[19,100]
-   + frac[21,100] >= 0.7
- cov_204_101: frac[9,101] + frac[14,101] + frac[18,101] + frac[19,101]
-   + frac[21,101] >= 0.7
- cov_205_84: frac[3,84] + frac[5,84] + frac[16,84] + frac[17,84]
-   + frac[20,84] >= 1
- cov_205_85: frac[3,85] + frac[5,85] + frac[16,85] + frac[17,85]
-   + frac[20,85] >= 1
- cov_205_86: frac[3,86] + frac[5,86] + frac[16,86] + frac[17,86]
-   + frac[20,86] >= 1
- cov_206_183: frac[1,183] + frac[3,183] + frac[16,183] >= 1
- cov_206_184: frac[1,184] + frac[3,184] + frac[16,184] >= 1
- cov_206_185: frac[1,185] + frac[3,185] + frac[16,185] >= 1
- cov_207_81: frac[6,81] + frac[8,81] + frac[17,81] + frac[18,81]
-   + frac[20,81] + frac[21,81] + frac[22,81] >= 1
- cov_207_82: frac[6,82] + frac[8,82] + frac[17,82] + frac[18,82]
-   + frac[20,82] + frac[21,82] + frac[22,82] >= 1
- cov_207_83: frac[6,83] + frac[8,83] + frac[17,83] + frac[18,83]
-   + frac[20,83] + frac[21,83] + frac[22,83] >= 1
- cov_208_132: frac[2,132] + frac[14,132] + frac[16,132] + frac[19,132]
-   + frac[20,132] + frac[21,132] + frac[22,132] >= 0.7
- cov_208_133: frac[2,133] + frac[14,133] + frac[16,133] + frac[19,133]
-   + frac[20,133] + frac[21,133] + frac[22,133] >= 0.7
- cov_208_134: frac[2,134] + frac[14,134] + frac[16,134] + frac[19,134]
-   + frac[20,134] + frac[21,134] + frac[22,134] >= 0.7
- cov_209_126: frac[3,126] + frac[5,126] + frac[16,126] + frac[17,126]
-   + frac[20,126] >= 0.9
- cov_209_127: frac[3,127] + frac[5,127] + frac[16,127] + frac[17,127]
-   + frac[20,127] >= 0.9
- cov_209_128: frac[3,128] + frac[5,128] + frac[16,128] + frac[17,128]
-   + frac[20,128] >= 0.9
- cov_210_39: frac[3,39] + frac[12,39] + frac[16,39] + frac[19,39]
-   + frac[20,39] + frac[21,39] + frac[22,39] >= 0.9
- cov_210_40: frac[3,40] + frac[12,40] + frac[16,40] + frac[19,40]
-   + frac[20,40] + frac[21,40] + frac[22,40] >= 0.9
- cov_210_41: frac[3,41] + frac[12,41] + frac[16,41] + frac[19,41]
-   + frac[20,41] + frac[21,41] + frac[22,41] >= 0.9
- cov_211_132: frac[4,132] + frac[7,132] + frac[17,132] >= 0.7
- cov_211_133: frac[4,133] + frac[7,133] + frac[17,133] >= 0.7
- cov_211_134: frac[4,134] + frac[7,134] + frac[17,134] >= 0.7
- cov_212_69: frac[4,69] + frac[14,69] + frac[17,69] + frac[19,69]
-   + frac[20,69] + frac[21,69] + frac[22,69] >= 1
- cov_212_70: frac[4,70] + frac[14,70] + frac[17,70] + frac[19,70]
-   + frac[20,70] + frac[21,70] + frac[22,70] >= 1
- cov_212_71: frac[4,71] + frac[14,71] + frac[17,71] + frac[19,71]
-   + frac[20,71] + frac[21,71] + frac[22,71] >= 1
- cov_213_63: frac[1,63] + frac[8,63] + frac[16,63] + frac[18,63]
-   + frac[20,63] + frac[21,63] + frac[22,63] >= 0.7
- cov_213_64: frac[1,64] + frac[8,64] + frac[16,64] + frac[18,64]
-   + frac[20,64] + frac[21,64] + frac[22,64] >= 0.7
- cov_213_65: frac[1,65] + frac[8,65] + frac[16,65] + frac[18,65]
-   + frac[20,65] + frac[21,65] + frac[22,65] >= 0.7
- cov_214_54: frac[5,54] + frac[11,54] + frac[17,54] + frac[18,54]
-   + frac[20,54] + frac[21,54] + frac[22,54] >= 0.7
- cov_214_55: frac[5,55] + frac[11,55] + frac[17,55] + frac[18,55]
-   + frac[20,55] + frac[21,55] + frac[22,55] >= 0.7
- cov_214_56: frac[5,56] + frac[11,56] + frac[17,56] + frac[18,56]
-   + frac[20,56] + frac[21,56] + frac[22,56] >= 0.7
- cov_215_60: frac[7,60] + frac[15,60] + frac[17,60] + frac[19,60]
-   + frac[20,60] + frac[21,60] + frac[22,60] >= 0.9
- cov_215_61: frac[7,61] + frac[15,61] + frac[17,61] + frac[19,61]
-   + frac[20,61] + frac[21,61] + frac[22,61] >= 0.9
- cov_215_62: frac[7,62] + frac[15,62] + frac[17,62] + frac[19,62]
-   + frac[20,62] + frac[21,62] + frac[22,62] >= 0.9
- cov_216_150: frac[1,150] + frac[6,150] + frac[16,150] + frac[17,150]
-   + frac[20,150] >= 1
- cov_216_151: frac[1,151] + frac[6,151] + frac[16,151] + frac[17,151]
-   + frac[20,151] >= 1
- cov_216_152: frac[1,152] + frac[6,152] + frac[16,152] + frac[17,152]
-   + frac[20,152] >= 1
- cov_217_69: frac[6,69] + frac[13,69] + frac[17,69] + frac[19,69]
-   + frac[20,69] + frac[21,69] + frac[22,69] >= 0.7
- cov_217_70: frac[6,70] + frac[13,70] + frac[17,70] + frac[19,70]
-   + frac[20,70] + frac[21,70] + frac[22,70] >= 0.7
- cov_217_71: frac[6,71] + frac[13,71] + frac[17,71] + frac[19,71]
-   + frac[20,71] + frac[21,71] + frac[22,71] >= 0.7
- cov_218_174: frac[8,174] + frac[15,174] + frac[18,174] + frac[19,174]
-   + frac[21,174] >= 0.8
- cov_218_175: frac[8,175] + frac[15,175] + frac[18,175] + frac[19,175]
-   + frac[21,175] >= 0.8
- cov_218_176: frac[8,176] + frac[15,176] + frac[18,176] + frac[19,176]
-   + frac[21,176] >= 0.8
- cov_219_153: frac[7,153] + frac[13,153] + frac[17,153] + frac[19,153]
-   + frac[20,153] + frac[21,153] + frac[22,153] >= 0.9
- cov_219_154: frac[7,154] + frac[13,154] + frac[17,154] + frac[19,154]
-   + frac[20,154] + frac[21,154] + frac[22,154] >= 0.9
- cov_219_155: frac[7,155] + frac[13,155] + frac[17,155] + frac[19,155]
-   + frac[20,155] + frac[21,155] + frac[22,155] >= 0.9
- cov_220_9: frac[9,9] + frac[15,9] + frac[18,9] + frac[19,9] + frac[21,9]
-   >= 1
- cov_220_10: frac[9,10] + frac[15,10] + frac[18,10] + frac[19,10]
-   + frac[21,10] >= 1
- cov_220_11: frac[9,11] + frac[15,11] + frac[18,11] + frac[19,11]
-   + frac[21,11] >= 1
- cov_221_153: frac[8,153] + frac[10,153] + frac[18,153] >= 0.9
- cov_221_154: frac[8,154] + frac[10,154] + frac[18,154] >= 0.9
- cov_221_155: frac[8,155] + frac[10,155] + frac[18,155] >= 0.9
- cov_222_21: frac[1,21] + frac[13,21] + frac[16,21] + frac[19,21]
-   + frac[20,21] + frac[21,21] + frac[22,21] >= 0.9
- cov_222_22: frac[1,22] + frac[13,22] + frac[16,22] + frac[19,22]
-   + frac[20,22] + frac[21,22] + frac[22,22] >= 0.9
- cov_222_23: frac[1,23] + frac[13,23] + frac[16,23] + frac[19,23]
-   + frac[20,23] + frac[21,23] + frac[22,23] >= 0.9
- cov_223_33: frac[7,33] + frac[10,33] + frac[17,33] + frac[18,33]
-   + frac[20,33] + frac[21,33] + frac[22,33] >= 0.9
- cov_223_34: frac[7,34] + frac[10,34] + frac[17,34] + frac[18,34]
-   + frac[20,34] + frac[21,34] + frac[22,34] >= 0.9
- cov_223_35: frac[7,35] + frac[10,35] + frac[17,35] + frac[18,35]
-   + frac[20,35] + frac[21,35] + frac[22,35] >= 0.9
- cov_224_63: frac[3,63] + frac[15,63] + frac[16,63] + frac[19,63]
-   + frac[20,63] + frac[21,63] + frac[22,63] >= 0.8
- cov_224_64: frac[3,64] + frac[15,64] + frac[16,64] + frac[19,64]
-   + frac[20,64] + frac[21,64] + frac[22,64] >= 0.8
- cov_224_65: frac[3,65] + frac[15,65] + frac[16,65] + frac[19,65]
-   + frac[20,65] + frac[21,65] + frac[22,65] >= 0.8
- cov_225_69: frac[3,69] + frac[10,69] + frac[16,69] + frac[18,69]
-   + frac[20,69] + frac[21,69] + frac[22,69] >= 0.7
- cov_225_70: frac[3,70] + frac[10,70] + frac[16,70] + frac[18,70]
-   + frac[20,70] + frac[21,70] + frac[22,70] >= 0.7
- cov_225_71: frac[3,71] + frac[10,71] + frac[16,71] + frac[18,71]
-   + frac[20,71] + frac[21,71] + frac[22,71] >= 0.7
- cov_226_147: frac[6,147] + frac[15,147] + frac[17,147] + frac[19,147]
-   + frac[20,147] + frac[21,147] + frac[22,147] >= 0.7
- cov_226_148: frac[6,148] + frac[15,148] + frac[17,148] + frac[19,148]
-   + frac[20,148] + frac[21,148] + frac[22,148] >= 0.7
- cov_226_149: frac[6,149] + frac[15,149] + frac[17,149] + frac[19,149]
-   + frac[20,149] + frac[21,149] + frac[22,149] >= 0.7
- cov_227_126: frac[4,126] + frac[8,126] + frac[17,126] + frac[18,126]
-   + frac[20,126] + frac[21,126] + frac[22,126] >= 0.7
- cov_227_127: frac[4,127] + frac[8,127] + frac[17,127] + frac[18,127]
-   + frac[20,127] + frac[21,127] + frac[22,127] >= 0.7
- cov_227_128: frac[4,128] + frac[8,128] + frac[17,128] + frac[18,128]
-   + frac[20,128] + frac[21,128] + frac[22,128] >= 0.7
- cov_228_174: frac[3,174] + frac[12,174] + frac[16,174] + frac[19,174]
-   + frac[20,174] + frac[21,174] + frac[22,174] >= 0.7
- cov_228_175: frac[3,175] + frac[12,175] + frac[16,175] + frac[19,175]
-   + frac[20,175] + frac[21,175] + frac[22,175] >= 0.7
- cov_228_176: frac[3,176] + frac[12,176] + frac[16,176] + frac[19,176]
-   + frac[20,176] + frac[21,176] + frac[22,176] >= 0.7
- cov_229_30: frac[13,30] + frac[14,30] + frac[19,30] >= 0.7
- cov_229_31: frac[13,31] + frac[14,31] + frac[19,31] >= 0.7
- cov_229_32: frac[13,32] + frac[14,32] + frac[19,32] >= 0.7
- cov_230_129: frac[4,129] + frac[5,129] + frac[17,129] >= 0.7
- cov_230_130: frac[4,130] + frac[5,130] + frac[17,130] >= 0.7
- cov_230_131: frac[4,131] + frac[5,131] + frac[17,131] >= 0.7
- cov_231_102: frac[2,102] + frac[8,102] + frac[16,102] + frac[18,102]
-   + frac[20,102] + frac[21,102] + frac[22,102] >= 0.7
- cov_231_103: frac[2,103] + frac[8,103] + frac[16,103] + frac[18,103]
-   + frac[20,103] + frac[21,103] + frac[22,103] >= 0.7
- cov_231_104: frac[2,104] + frac[8,104] + frac[16,104] + frac[18,104]
-   + frac[20,104] + frac[21,104] + frac[22,104] >= 0.7
- cov_232_159: frac[2,159] + frac[8,159] + frac[16,159] + frac[18,159]
-   + frac[20,159] + frac[21,159] + frac[22,159] >= 0.9
- cov_232_160: frac[2,160] + frac[8,160] + frac[16,160] + frac[18,160]
-   + frac[20,160] + frac[21,160] + frac[22,160] >= 0.9
- cov_232_161: frac[2,161] + frac[8,161] + frac[16,161] + frac[18,161]
-   + frac[20,161] + frac[21,161] + frac[22,161] >= 0.9
- cov_233_39: frac[7,39] + frac[10,39] + frac[17,39] + frac[18,39]
-   + frac[20,39] + frac[21,39] + frac[22,39] >= 1
- cov_233_40: frac[7,40] + frac[10,40] + frac[17,40] + frac[18,40]
-   + frac[20,40] + frac[21,40] + frac[22,40] >= 1
- cov_233_41: frac[7,41] + frac[10,41] + frac[17,41] + frac[18,41]
-   + frac[20,41] + frac[21,41] + frac[22,41] >= 1
- cov_234_51: frac[2,51] + frac[10,51] + frac[16,51] + frac[18,51]
-   + frac[20,51] + frac[21,51] + frac[22,51] >= 1
- cov_234_52: frac[2,52] + frac[10,52] + frac[16,52] + frac[18,52]
-   + frac[20,52] + frac[21,52] + frac[22,52] >= 1
- cov_234_53: frac[2,53] + frac[10,53] + frac[16,53] + frac[18,53]
-   + frac[20,53] + frac[21,53] + frac[22,53] >= 1
- cov_235_87: frac[0,87] + frac[8,87] + frac[16,87] + frac[18,87]
-   + frac[20,87] + frac[21,87] + frac[22,87] >= 1
- cov_235_88: frac[0,88] + frac[8,88] + frac[16,88] + frac[18,88]
-   + frac[20,88] + frac[21,88] + frac[22,88] >= 1
- cov_235_89: frac[0,89] + frac[8,89] + frac[16,89] + frac[18,89]
-   + frac[20,89] + frac[21,89] + frac[22,89] >= 1
- cov_236_69: frac[10,69] + frac[14,69] + frac[18,69] + frac[19,69]
-   + frac[21,69] >= 0.8
- cov_236_70: frac[10,70] + frac[14,70] + frac[18,70] + frac[19,70]
-   + frac[21,70] >= 0.8
- cov_236_71: frac[10,71] + frac[14,71] + frac[18,71] + frac[19,71]
-   + frac[21,71] >= 0.8
- cov_237_132: frac[0,132] + frac[3,132] + frac[16,132] >= 0.8
- cov_237_133: frac[0,133] + frac[3,133] + frac[16,133] >= 0.8
- cov_237_134: frac[0,134] + frac[3,134] + frac[16,134] >= 0.8
- cov_238_174: frac[1,174] + frac[12,174] + frac[16,174] + frac[19,174]
-   + frac[20,174] + frac[21,174] + frac[22,174] >= 0.9
- cov_238_175: frac[1,175] + frac[12,175] + frac[16,175] + frac[19,175]
-   + frac[20,175] + frac[21,175] + frac[22,175] >= 0.9
- cov_238_176: frac[1,176] + frac[12,176] + frac[16,176] + frac[19,176]
-   + frac[20,176] + frac[21,176] + frac[22,176] >= 0.9
- cov_239_105: frac[5,105] + frac[14,105] + frac[17,105] + frac[19,105]
-   + frac[20,105] + frac[21,105] + frac[22,105] >= 0.7
- cov_239_106: frac[5,106] + frac[14,106] + frac[17,106] + frac[19,106]
-   + frac[20,106] + frac[21,106] + frac[22,106] >= 0.7
- cov_239_107: frac[5,107] + frac[14,107] + frac[17,107] + frac[19,107]
-   + frac[20,107] + frac[21,107] + frac[22,107] >= 0.7
- cov_240_165: frac[3,165] + frac[9,165] + frac[16,165] + frac[18,165]
-   + frac[20,165] + frac[21,165] + frac[22,165] >= 0.7
- cov_240_166: frac[3,166] + frac[9,166] + frac[16,166] + frac[18,166]
-   + frac[20,166] + frac[21,166] + frac[22,166] >= 0.7
- cov_240_167: frac[3,167] + frac[9,167] + frac[16,167] + frac[18,167]
-   + frac[20,167] + frac[21,167] + frac[22,167] >= 0.7
- cov_241_165: frac[14,165] + frac[15,165] + frac[19,165] >= 0.7
- cov_241_166: frac[14,166] + frac[15,166] + frac[19,166] >= 0.7
- cov_241_167: frac[14,167] + frac[15,167] + frac[19,167] >= 0.7
- cov_242_90: frac[11,90] + frac[15,90] + frac[18,90] + frac[19,90]
-   + frac[21,90] >= 0.9
- cov_242_91: frac[11,91] + frac[15,91] + frac[18,91] + frac[19,91]
-   + frac[21,91] >= 0.9
- cov_242_92: frac[11,92] + frac[15,92] + frac[18,92] + frac[19,92]
-   + frac[21,92] >= 0.9
- cov_243_177: frac[1,177] + frac[9,177] + frac[16,177] + frac[18,177]
-   + frac[20,177] + frac[21,177] + frac[22,177] >= 1
- cov_243_178: frac[1,178] + frac[9,178] + frac[16,178] + frac[18,178]
-   + frac[20,178] + frac[21,178] + frac[22,178] >= 1
- cov_243_179: frac[1,179] + frac[9,179] + frac[16,179] + frac[18,179]
-   + frac[20,179] + frac[21,179] + frac[22,179] >= 1
- cov_244_174: frac[2,174] + frac[7,174] + frac[16,174] + frac[17,174]
-   + frac[20,174] >= 0.9
- cov_244_175: frac[2,175] + frac[7,175] + frac[16,175] + frac[17,175]
-   + frac[20,175] >= 0.9
- cov_244_176: frac[2,176] + frac[7,176] + frac[16,176] + frac[17,176]
-   + frac[20,176] >= 0.9
- cov_245_108: frac[5,108] + frac[10,108] + frac[17,108] + frac[18,108]
-   + frac[20,108] + frac[21,108] + frac[22,108] >= 0.9
- cov_245_109: frac[5,109] + frac[10,109] + frac[17,109] + frac[18,109]
-   + frac[20,109] + frac[21,109] + frac[22,109] >= 0.9
- cov_245_110: frac[5,110] + frac[10,110] + frac[17,110] + frac[18,110]
-   + frac[20,110] + frac[21,110] + frac[22,110] >= 0.9
- cov_246_15: frac[2,15] + frac[4,15] + frac[16,15] + frac[17,15]
-   + frac[20,15] >= 0.7
- cov_246_16: frac[2,16] + frac[4,16] + frac[16,16] + frac[17,16]
-   + frac[20,16] >= 0.7
- cov_246_17: frac[2,17] + frac[4,17] + frac[16,17] + frac[17,17]
-   + frac[20,17] >= 0.7
- cov_247_87: frac[0,87] + frac[12,87] + frac[16,87] + frac[19,87]
-   + frac[20,87] + frac[21,87] + frac[22,87] >= 1
- cov_247_88: frac[0,88] + frac[12,88] + frac[16,88] + frac[19,88]
-   + frac[20,88] + frac[21,88] + frac[22,88] >= 1
- cov_247_89: frac[0,89] + frac[12,89] + frac[16,89] + frac[19,89]
-   + frac[20,89] + frac[21,89] + frac[22,89] >= 1
- cov_248_183: frac[3,183] + frac[11,183] + frac[16,183] + frac[18,183]
-   + frac[20,183] + frac[21,183] + frac[22,183] >= 0.8
- cov_248_184: frac[3,184] + frac[11,184] + frac[16,184] + frac[18,184]
-   + frac[20,184] + frac[21,184] + frac[22,184] >= 0.8
- cov_248_185: frac[3,185] + frac[11,185] + frac[16,185] + frac[18,185]
-   + frac[20,185] + frac[21,185] + frac[22,185] >= 0.8
- cov_249_12: frac[10,12] + frac[11,12] + frac[18,12] >= 1
- cov_249_13: frac[10,13] + frac[11,13] + frac[18,13] >= 1
- cov_249_14: frac[10,14] + frac[11,14] + frac[18,14] >= 1
- cov_250_42: frac[1,42] + frac[15,42] + frac[16,42] + frac[19,42]
+ cov_9_7: frac[2,7] + frac[7,7] + frac[16,7] + frac[17,7] + frac[20,7]
+   >= 0.9
+ cov_9_8: frac[2,8] + frac[7,8] + frac[16,8] + frac[17,8] + frac[20,8]
+   >= 0.9
+ cov_10_36: frac[1,36] + frac[14,36] + frac[16,36] + frac[19,36]
+   + frac[20,36] + frac[21,36] + frac[22,36] >= 1
+ cov_10_37: frac[1,37] + frac[14,37] + frac[16,37] + frac[19,37]
+   + frac[20,37] + frac[21,37] + frac[22,37] >= 1
+ cov_10_38: frac[1,38] + frac[14,38] + frac[16,38] + frac[19,38]
+   + frac[20,38] + frac[21,38] + frac[22,38] >= 1
+ cov_11_168: frac[0,168] + frac[12,168] + frac[16,168] + frac[19,168]
+   + frac[20,168] + frac[21,168] + frac[22,168] >= 1
+ cov_11_169: frac[0,169] + frac[12,169] + frac[16,169] + frac[19,169]
+   + frac[20,169] + frac[21,169] + frac[22,169] >= 1
+ cov_11_170: frac[0,170] + frac[12,170] + frac[16,170] + frac[19,170]
+   + frac[20,170] + frac[21,170] + frac[22,170] >= 1
+ cov_12_21: frac[0,21] + frac[12,21] + frac[16,21] + frac[19,21]
+   + frac[20,21] + frac[21,21] + frac[22,21] >= 1
+ cov_12_22: frac[0,22] + frac[12,22] + frac[16,22] + frac[19,22]
+   + frac[20,22] + frac[21,22] + frac[22,22] >= 1
+ cov_12_23: frac[0,23] + frac[12,23] + frac[16,23] + frac[19,23]
+   + frac[20,23] + frac[21,23] + frac[22,23] >= 1
+ cov_13_105: frac[2,105] + frac[12,105] + frac[16,105] + frac[19,105]
+   + frac[20,105] + frac[21,105] + frac[22,105] >= 0.9
+ cov_13_106: frac[2,106] + frac[12,106] + frac[16,106] + frac[19,106]
+   + frac[20,106] + frac[21,106] + frac[22,106] >= 0.9
+ cov_13_107: frac[2,107] + frac[12,107] + frac[16,107] + frac[19,107]
+   + frac[20,107] + frac[21,107] + frac[22,107] >= 0.9
+ cov_14_27: frac[9,27] + frac[12,27] + frac[18,27] + frac[19,27]
+   + frac[21,27] >= 0.9
+ cov_14_28: frac[9,28] + frac[12,28] + frac[18,28] + frac[19,28]
+   + frac[21,28] >= 0.9
+ cov_14_29: frac[9,29] + frac[12,29] + frac[18,29] + frac[19,29]
+   + frac[21,29] >= 0.9
+ cov_15_36: frac[3,36] + frac[15,36] + frac[16,36] + frac[19,36]
+   + frac[20,36] + frac[21,36] + frac[22,36] >= 0.8
+ cov_15_37: frac[3,37] + frac[15,37] + frac[16,37] + frac[19,37]
+   + frac[20,37] + frac[21,37] + frac[22,37] >= 0.8
+ cov_15_38: frac[3,38] + frac[15,38] + frac[16,38] + frac[19,38]
+   + frac[20,38] + frac[21,38] + frac[22,38] >= 0.8
+ cov_16_42: frac[6,42] + frac[14,42] + frac[17,42] + frac[19,42]
    + frac[20,42] + frac[21,42] + frac[22,42] >= 0.7
- cov_250_43: frac[1,43] + frac[15,43] + frac[16,43] + frac[19,43]
+ cov_16_43: frac[6,43] + frac[14,43] + frac[17,43] + frac[19,43]
    + frac[20,43] + frac[21,43] + frac[22,43] >= 0.7
- cov_250_44: frac[1,44] + frac[15,44] + frac[16,44] + frac[19,44]
+ cov_16_44: frac[6,44] + frac[14,44] + frac[17,44] + frac[19,44]
    + frac[20,44] + frac[21,44] + frac[22,44] >= 0.7
- cov_251_156: frac[1,156] + frac[9,156] + frac[16,156] + frac[18,156]
-   + frac[20,156] + frac[21,156] + frac[22,156] >= 0.8
- cov_251_157: frac[1,157] + frac[9,157] + frac[16,157] + frac[18,157]
-   + frac[20,157] + frac[21,157] + frac[22,157] >= 0.8
- cov_251_158: frac[1,158] + frac[9,158] + frac[16,158] + frac[18,158]
-   + frac[20,158] + frac[21,158] + frac[22,158] >= 0.8
- cov_252_51: frac[5,51] + frac[11,51] + frac[17,51] + frac[18,51]
-   + frac[20,51] + frac[21,51] + frac[22,51] >= 1
- cov_252_52: frac[5,52] + frac[11,52] + frac[17,52] + frac[18,52]
-   + frac[20,52] + frac[21,52] + frac[22,52] >= 1
- cov_252_53: frac[5,53] + frac[11,53] + frac[17,53] + frac[18,53]
-   + frac[20,53] + frac[21,53] + frac[22,53] >= 1
- cov_253_165: frac[11,165] + frac[12,165] + frac[18,165] + frac[19,165]
-   + frac[21,165] >= 0.7
- cov_253_166: frac[11,166] + frac[12,166] + frac[18,166] + frac[19,166]
-   + frac[21,166] >= 0.7
- cov_253_167: frac[11,167] + frac[12,167] + frac[18,167] + frac[19,167]
-   + frac[21,167] >= 0.7
- cov_254_21: frac[3,21] + frac[5,21] + frac[16,21] + frac[17,21]
-   + frac[20,21] >= 0.9
- cov_254_22: frac[3,22] + frac[5,22] + frac[16,22] + frac[17,22]
-   + frac[20,22] >= 0.9
- cov_254_23: frac[3,23] + frac[5,23] + frac[16,23] + frac[17,23]
-   + frac[20,23] >= 0.9
- cov_255_69: frac[6,69] + frac[8,69] + frac[17,69] + frac[18,69]
-   + frac[20,69] + frac[21,69] + frac[22,69] >= 0.8
- cov_255_70: frac[6,70] + frac[8,70] + frac[17,70] + frac[18,70]
-   + frac[20,70] + frac[21,70] + frac[22,70] >= 0.8
- cov_255_71: frac[6,71] + frac[8,71] + frac[17,71] + frac[18,71]
-   + frac[20,71] + frac[21,71] + frac[22,71] >= 0.8
- cov_256_126: frac[1,126] + frac[4,126] + frac[16,126] + frac[17,126]
+ cov_17_69: frac[5,69] + frac[7,69] + frac[17,69] >= 0.7
+ cov_17_70: frac[5,70] + frac[7,70] + frac[17,70] >= 0.7
+ cov_17_71: frac[5,71] + frac[7,71] + frac[17,71] >= 0.7
+ cov_18_171: frac[4,171] + frac[12,171] + frac[17,171] + frac[19,171]
+   + frac[20,171] + frac[21,171] + frac[22,171] >= 0.9
+ cov_18_172: frac[4,172] + frac[12,172] + frac[17,172] + frac[19,172]
+   + frac[20,172] + frac[21,172] + frac[22,172] >= 0.9
+ cov_18_173: frac[4,173] + frac[12,173] + frac[17,173] + frac[19,173]
+   + frac[20,173] + frac[21,173] + frac[22,173] >= 0.9
+ cov_19_171: frac[5,171] + frac[14,171] + frac[17,171] + frac[19,171]
+   + frac[20,171] + frac[21,171] + frac[22,171] >= 0.9
+ cov_19_172: frac[5,172] + frac[14,172] + frac[17,172] + frac[19,172]
+   + frac[20,172] + frac[21,172] + frac[22,172] >= 0.9
+ cov_19_173: frac[5,173] + frac[14,173] + frac[17,173] + frac[19,173]
+   + frac[20,173] + frac[21,173] + frac[22,173] >= 0.9
+ cov_20_189: frac[3,189] + frac[15,189] + frac[16,189] + frac[19,189]
+   + frac[20,189] + frac[21,189] + frac[22,189] >= 0.8
+ cov_20_190: frac[3,190] + frac[15,190] + frac[16,190] + frac[19,190]
+   + frac[20,190] + frac[21,190] + frac[22,190] >= 0.8
+ cov_20_191: frac[3,191] + frac[15,191] + frac[16,191] + frac[19,191]
+   + frac[20,191] + frac[21,191] + frac[22,191] >= 0.8
+ cov_21_168: frac[2,168] + frac[15,168] + frac[16,168] + frac[19,168]
+   + frac[20,168] + frac[21,168] + frac[22,168] >= 0.8
+ cov_21_169: frac[2,169] + frac[15,169] + frac[16,169] + frac[19,169]
+   + frac[20,169] + frac[21,169] + frac[22,169] >= 0.8
+ cov_21_170: frac[2,170] + frac[15,170] + frac[16,170] + frac[19,170]
+   + frac[20,170] + frac[21,170] + frac[22,170] >= 0.8
+ cov_22_57: frac[1,57] + frac[14,57] + frac[16,57] + frac[19,57]
+   + frac[20,57] + frac[21,57] + frac[22,57] >= 0.8
+ cov_22_58: frac[1,58] + frac[14,58] + frac[16,58] + frac[19,58]
+   + frac[20,58] + frac[21,58] + frac[22,58] >= 0.8
+ cov_22_59: frac[1,59] + frac[14,59] + frac[16,59] + frac[19,59]
+   + frac[20,59] + frac[21,59] + frac[22,59] >= 0.8
+ cov_23_60: frac[4,60] + frac[7,60] + frac[17,60] >= 0.7
+ cov_23_61: frac[4,61] + frac[7,61] + frac[17,61] >= 0.7
+ cov_23_62: frac[4,62] + frac[7,62] + frac[17,62] >= 0.7
+ cov_24_165: frac[1,165] + frac[14,165] + frac[16,165] + frac[19,165]
+   + frac[20,165] + frac[21,165] + frac[22,165] >= 0.9
+ cov_24_166: frac[1,166] + frac[14,166] + frac[16,166] + frac[19,166]
+   + frac[20,166] + frac[21,166] + frac[22,166] >= 0.9
+ cov_24_167: frac[1,167] + frac[14,167] + frac[16,167] + frac[19,167]
+   + frac[20,167] + frac[21,167] + frac[22,167] >= 0.9
+ cov_25_135: frac[8,135] + frac[15,135] + frac[18,135] + frac[19,135]
+   + frac[21,135] >= 0.8
+ cov_25_136: frac[8,136] + frac[15,136] + frac[18,136] + frac[19,136]
+   + frac[21,136] >= 0.8
+ cov_25_137: frac[8,137] + frac[15,137] + frac[18,137] + frac[19,137]
+   + frac[21,137] >= 0.8
+ cov_26_84: frac[1,84] + frac[2,84] + frac[16,84] >= 1
+ cov_26_85: frac[1,85] + frac[2,85] + frac[16,85] >= 1
+ cov_26_86: frac[1,86] + frac[2,86] + frac[16,86] >= 1
+ cov_27_150: frac[4,150] + frac[15,150] + frac[17,150] + frac[19,150]
+   + frac[20,150] + frac[21,150] + frac[22,150] >= 0.9
+ cov_27_151: frac[4,151] + frac[15,151] + frac[17,151] + frac[19,151]
+   + frac[20,151] + frac[21,151] + frac[22,151] >= 0.9
+ cov_27_152: frac[4,152] + frac[15,152] + frac[17,152] + frac[19,152]
+   + frac[20,152] + frac[21,152] + frac[22,152] >= 0.9
+ cov_28_132: frac[6,132] + frac[11,132] + frac[17,132] + frac[18,132]
+   + frac[20,132] + frac[21,132] + frac[22,132] >= 1
+ cov_28_133: frac[6,133] + frac[11,133] + frac[17,133] + frac[18,133]
+   + frac[20,133] + frac[21,133] + frac[22,133] >= 1
+ cov_28_134: frac[6,134] + frac[11,134] + frac[17,134] + frac[18,134]
+   + frac[20,134] + frac[21,134] + frac[22,134] >= 1
+ cov_29_120: frac[6,120] + frac[10,120] + frac[17,120] + frac[18,120]
+   + frac[20,120] + frac[21,120] + frac[22,120] >= 0.7
+ cov_29_121: frac[6,121] + frac[10,121] + frac[17,121] + frac[18,121]
+   + frac[20,121] + frac[21,121] + frac[22,121] >= 0.7
+ cov_29_122: frac[6,122] + frac[10,122] + frac[17,122] + frac[18,122]
+   + frac[20,122] + frac[21,122] + frac[22,122] >= 0.7
+ cov_30_24: frac[2,24] + frac[15,24] + frac[16,24] + frac[19,24]
+   + frac[20,24] + frac[21,24] + frac[22,24] >= 0.9
+ cov_30_25: frac[2,25] + frac[15,25] + frac[16,25] + frac[19,25]
+   + frac[20,25] + frac[21,25] + frac[22,25] >= 0.9
+ cov_30_26: frac[2,26] + frac[15,26] + frac[16,26] + frac[19,26]
+   + frac[20,26] + frac[21,26] + frac[22,26] >= 0.9
+ cov_31_117: frac[4,117] + frac[5,117] + frac[17,117] >= 0.7
+ cov_31_118: frac[4,118] + frac[5,118] + frac[17,118] >= 0.7
+ cov_31_119: frac[4,119] + frac[5,119] + frac[17,119] >= 0.7
+ cov_32_126: frac[0,126] + frac[6,126] + frac[16,126] + frac[17,126]
    + frac[20,126] >= 0.9
- cov_256_127: frac[1,127] + frac[4,127] + frac[16,127] + frac[17,127]
+ cov_32_127: frac[0,127] + frac[6,127] + frac[16,127] + frac[17,127]
    + frac[20,127] >= 0.9
- cov_256_128: frac[1,128] + frac[4,128] + frac[16,128] + frac[17,128]
+ cov_32_128: frac[0,128] + frac[6,128] + frac[16,128] + frac[17,128]
    + frac[20,128] >= 0.9
- cov_257_138: frac[2,138] + frac[14,138] + frac[16,138] + frac[19,138]
-   + frac[20,138] + frac[21,138] + frac[22,138] >= 0.7
- cov_257_139: frac[2,139] + frac[14,139] + frac[16,139] + frac[19,139]
-   + frac[20,139] + frac[21,139] + frac[22,139] >= 0.7
- cov_257_140: frac[2,140] + frac[14,140] + frac[16,140] + frac[19,140]
-   + frac[20,140] + frac[21,140] + frac[22,140] >= 0.7
- cov_258_57: frac[6,57] + frac[10,57] + frac[17,57] + frac[18,57]
-   + frac[20,57] + frac[21,57] + frac[22,57] >= 0.9
- cov_258_58: frac[6,58] + frac[10,58] + frac[17,58] + frac[18,58]
-   + frac[20,58] + frac[21,58] + frac[22,58] >= 0.9
- cov_258_59: frac[6,59] + frac[10,59] + frac[17,59] + frac[18,59]
-   + frac[20,59] + frac[21,59] + frac[22,59] >= 0.9
- cov_259_162: frac[1,162] + frac[10,162] + frac[16,162] + frac[18,162]
-   + frac[20,162] + frac[21,162] + frac[22,162] >= 0.9
- cov_259_163: frac[1,163] + frac[10,163] + frac[16,163] + frac[18,163]
-   + frac[20,163] + frac[21,163] + frac[22,163] >= 0.9
- cov_259_164: frac[1,164] + frac[10,164] + frac[16,164] + frac[18,164]
-   + frac[20,164] + frac[21,164] + frac[22,164] >= 0.9
- cov_260_81: frac[5,81] + frac[11,81] + frac[17,81] + frac[18,81]
-   + frac[20,81] + frac[21,81] + frac[22,81] >= 0.8
- cov_260_82: frac[5,82] + frac[11,82] + frac[17,82] + frac[18,82]
-   + frac[20,82] + frac[21,82] + frac[22,82] >= 0.8
- cov_260_83: frac[5,83] + frac[11,83] + frac[17,83] + frac[18,83]
-   + frac[20,83] + frac[21,83] + frac[22,83] >= 0.8
- cov_261_105: frac[7,105] + frac[11,105] + frac[17,105] + frac[18,105]
-   + frac[20,105] + frac[21,105] + frac[22,105] >= 1
- cov_261_106: frac[7,106] + frac[11,106] + frac[17,106] + frac[18,106]
-   + frac[20,106] + frac[21,106] + frac[22,106] >= 1
- cov_261_107: frac[7,107] + frac[11,107] + frac[17,107] + frac[18,107]
-   + frac[20,107] + frac[21,107] + frac[22,107] >= 1
- cov_262_132: frac[10,132] + frac[15,132] + frac[18,132] + frac[19,132]
-   + frac[21,132] >= 0.9
- cov_262_133: frac[10,133] + frac[15,133] + frac[18,133] + frac[19,133]
-   + frac[21,133] >= 0.9
- cov_262_134: frac[10,134] + frac[15,134] + frac[18,134] + frac[19,134]
-   + frac[21,134] >= 0.9
- cov_263_147: frac[11,147] + frac[14,147] + frac[18,147] + frac[19,147]
-   + frac[21,147] >= 0.9
- cov_263_148: frac[11,148] + frac[14,148] + frac[18,148] + frac[19,148]
-   + frac[21,148] >= 0.9
- cov_263_149: frac[11,149] + frac[14,149] + frac[18,149] + frac[19,149]
-   + frac[21,149] >= 0.9
- cov_264_87: frac[4,87] + frac[9,87] + frac[17,87] + frac[18,87]
-   + frac[20,87] + frac[21,87] + frac[22,87] >= 0.8
- cov_264_88: frac[4,88] + frac[9,88] + frac[17,88] + frac[18,88]
-   + frac[20,88] + frac[21,88] + frac[22,88] >= 0.8
- cov_264_89: frac[4,89] + frac[9,89] + frac[17,89] + frac[18,89]
-   + frac[20,89] + frac[21,89] + frac[22,89] >= 0.8
- cov_265_108: frac[2,108] + frac[6,108] + frac[16,108] + frac[17,108]
-   + frac[20,108] >= 0.9
- cov_265_109: frac[2,109] + frac[6,109] + frac[16,109] + frac[17,109]
-   + frac[20,109] >= 0.9
- cov_265_110: frac[2,110] + frac[6,110] + frac[16,110] + frac[17,110]
-   + frac[20,110] >= 0.9
- cov_266_165: frac[2,165] + frac[14,165] + frac[16,165] + frac[19,165]
-   + frac[20,165] + frac[21,165] + frac[22,165] >= 1
- cov_266_166: frac[2,166] + frac[14,166] + frac[16,166] + frac[19,166]
-   + frac[20,166] + frac[21,166] + frac[22,166] >= 1
- cov_266_167: frac[2,167] + frac[14,167] + frac[16,167] + frac[19,167]
-   + frac[20,167] + frac[21,167] + frac[22,167] >= 1
- cov_267_39: frac[3,39] + frac[14,39] + frac[16,39] + frac[19,39]
-   + frac[20,39] + frac[21,39] + frac[22,39] >= 0.9
- cov_267_40: frac[3,40] + frac[14,40] + frac[16,40] + frac[19,40]
-   + frac[20,40] + frac[21,40] + frac[22,40] >= 0.9
- cov_267_41: frac[3,41] + frac[14,41] + frac[16,41] + frac[19,41]
-   + frac[20,41] + frac[21,41] + frac[22,41] >= 0.9
- cov_268_135: frac[12,135] + frac[15,135] + frac[19,135] >= 0.8
- cov_268_136: frac[12,136] + frac[15,136] + frac[19,136] >= 0.8
- cov_268_137: frac[12,137] + frac[15,137] + frac[19,137] >= 0.8
- cov_269_162: frac[5,162] + frac[13,162] + frac[17,162] + frac[19,162]
-   + frac[20,162] + frac[21,162] + frac[22,162] >= 0.7
- cov_269_163: frac[5,163] + frac[13,163] + frac[17,163] + frac[19,163]
-   + frac[20,163] + frac[21,163] + frac[22,163] >= 0.7
- cov_269_164: frac[5,164] + frac[13,164] + frac[17,164] + frac[19,164]
-   + frac[20,164] + frac[21,164] + frac[22,164] >= 0.7
- cov_270_33: frac[8,33] + frac[9,33] + frac[18,33] >= 0.9
- cov_270_34: frac[8,34] + frac[9,34] + frac[18,34] >= 0.9
- cov_270_35: frac[8,35] + frac[9,35] + frac[18,35] >= 0.9
- cov_271_165: frac[9,165] + frac[14,165] + frac[18,165] + frac[19,165]
-   + frac[21,165] >= 1
- cov_271_166: frac[9,166] + frac[14,166] + frac[18,166] + frac[19,166]
-   + frac[21,166] >= 1
- cov_271_167: frac[9,167] + frac[14,167] + frac[18,167] + frac[19,167]
-   + frac[21,167] >= 1
- cov_272_171: frac[2,171] + frac[6,171] + frac[16,171] + frac[17,171]
-   + frac[20,171] >= 0.9
- cov_272_172: frac[2,172] + frac[6,172] + frac[16,172] + frac[17,172]
-   + frac[20,172] >= 0.9
- cov_272_173: frac[2,173] + frac[6,173] + frac[16,173] + frac[17,173]
-   + frac[20,173] >= 0.9
- cov_273_12: frac[4,12] + frac[11,12] + frac[17,12] + frac[18,12]
-   + frac[20,12] + frac[21,12] + frac[22,12] >= 0.8
- cov_273_13: frac[4,13] + frac[11,13] + frac[17,13] + frac[18,13]
-   + frac[20,13] + frac[21,13] + frac[22,13] >= 0.8
- cov_273_14: frac[4,14] + frac[11,14] + frac[17,14] + frac[18,14]
-   + frac[20,14] + frac[21,14] + frac[22,14] >= 0.8
- cov_274_6: frac[3,6] + frac[10,6] + frac[16,6] + frac[18,6] + frac[20,6]
+ cov_33_177: frac[2,177] + frac[3,177] + frac[16,177] >= 1
+ cov_33_178: frac[2,178] + frac[3,178] + frac[16,178] >= 1
+ cov_33_179: frac[2,179] + frac[3,179] + frac[16,179] >= 1
+ cov_34_150: frac[8,150] + frac[12,150] + frac[18,150] + frac[19,150]
+   + frac[21,150] >= 0.9
+ cov_34_151: frac[8,151] + frac[12,151] + frac[18,151] + frac[19,151]
+   + frac[21,151] >= 0.9
+ cov_34_152: frac[8,152] + frac[12,152] + frac[18,152] + frac[19,152]
+   + frac[21,152] >= 0.9
+ cov_35_42: frac[12,42] + frac[15,42] + frac[19,42] >= 0.8
+ cov_35_43: frac[12,43] + frac[15,43] + frac[19,43] >= 0.8
+ cov_35_44: frac[12,44] + frac[15,44] + frac[19,44] >= 0.8
+ cov_36_147: frac[3,147] + frac[12,147] + frac[16,147] + frac[19,147]
+   + frac[20,147] + frac[21,147] + frac[22,147] >= 0.9
+ cov_36_148: frac[3,148] + frac[12,148] + frac[16,148] + frac[19,148]
+   + frac[20,148] + frac[21,148] + frac[22,148] >= 0.9
+ cov_36_149: frac[3,149] + frac[12,149] + frac[16,149] + frac[19,149]
+   + frac[20,149] + frac[21,149] + frac[22,149] >= 0.9
+ cov_37_78: frac[5,78] + frac[15,78] + frac[17,78] + frac[19,78]
+   + frac[20,78] + frac[21,78] + frac[22,78] >= 0.9
+ cov_37_79: frac[5,79] + frac[15,79] + frac[17,79] + frac[19,79]
+   + frac[20,79] + frac[21,79] + frac[22,79] >= 0.9
+ cov_37_80: frac[5,80] + frac[15,80] + frac[17,80] + frac[19,80]
+   + frac[20,80] + frac[21,80] + frac[22,80] >= 0.9
+ cov_38_126: frac[9,126] + frac[11,126] + frac[18,126] >= 0.8
+ cov_38_127: frac[9,127] + frac[11,127] + frac[18,127] >= 0.8
+ cov_38_128: frac[9,128] + frac[11,128] + frac[18,128] >= 0.8
+ cov_39_39: frac[1,39] + frac[3,39] + frac[16,39] >= 0.9
+ cov_39_40: frac[1,40] + frac[3,40] + frac[16,40] >= 0.9
+ cov_39_41: frac[1,41] + frac[3,41] + frac[16,41] >= 0.9
+ cov_40_162: frac[1,162] + frac[4,162] + frac[16,162] + frac[17,162]
+   + frac[20,162] >= 1
+ cov_40_163: frac[1,163] + frac[4,163] + frac[16,163] + frac[17,163]
+   + frac[20,163] >= 1
+ cov_40_164: frac[1,164] + frac[4,164] + frac[16,164] + frac[17,164]
+   + frac[20,164] >= 1
+ cov_41_57: frac[4,57] + frac[6,57] + frac[17,57] >= 0.8
+ cov_41_58: frac[4,58] + frac[6,58] + frac[17,58] >= 0.8
+ cov_41_59: frac[4,59] + frac[6,59] + frac[17,59] >= 0.8
+ cov_42_84: frac[6,84] + frac[7,84] + frac[17,84] >= 0.8
+ cov_42_85: frac[6,85] + frac[7,85] + frac[17,85] >= 0.8
+ cov_42_86: frac[6,86] + frac[7,86] + frac[17,86] >= 0.8
+ cov_43_93: frac[3,93] + frac[11,93] + frac[16,93] + frac[18,93]
+   + frac[20,93] + frac[21,93] + frac[22,93] >= 0.9
+ cov_43_94: frac[3,94] + frac[11,94] + frac[16,94] + frac[18,94]
+   + frac[20,94] + frac[21,94] + frac[22,94] >= 0.9
+ cov_43_95: frac[3,95] + frac[11,95] + frac[16,95] + frac[18,95]
+   + frac[20,95] + frac[21,95] + frac[22,95] >= 0.9
+ cov_44_102: frac[0,102] + frac[2,102] + frac[16,102] >= 0.9
+ cov_44_103: frac[0,103] + frac[2,103] + frac[16,103] >= 0.9
+ cov_44_104: frac[0,104] + frac[2,104] + frac[16,104] >= 0.9
+ cov_45_27: frac[6,27] + frac[9,27] + frac[17,27] + frac[18,27]
+   + frac[20,27] + frac[21,27] + frac[22,27] >= 0.8
+ cov_45_28: frac[6,28] + frac[9,28] + frac[17,28] + frac[18,28]
+   + frac[20,28] + frac[21,28] + frac[22,28] >= 0.8
+ cov_45_29: frac[6,29] + frac[9,29] + frac[17,29] + frac[18,29]
+   + frac[20,29] + frac[21,29] + frac[22,29] >= 0.8
+ cov_46_6: frac[1,6] + frac[9,6] + frac[16,6] + frac[18,6] + frac[20,6]
    + frac[21,6] + frac[22,6] >= 0.8
- cov_274_7: frac[3,7] + frac[10,7] + frac[16,7] + frac[18,7] + frac[20,7]
+ cov_46_7: frac[1,7] + frac[9,7] + frac[16,7] + frac[18,7] + frac[20,7]
    + frac[21,7] + frac[22,7] >= 0.8
- cov_274_8: frac[3,8] + frac[10,8] + frac[16,8] + frac[18,8] + frac[20,8]
+ cov_46_8: frac[1,8] + frac[9,8] + frac[16,8] + frac[18,8] + frac[20,8]
    + frac[21,8] + frac[22,8] >= 0.8
- cov_275_108: frac[7,108] + frac[9,108] + frac[17,108] + frac[18,108]
-   + frac[20,108] + frac[21,108] + frac[22,108] >= 0.8
- cov_275_109: frac[7,109] + frac[9,109] + frac[17,109] + frac[18,109]
-   + frac[20,109] + frac[21,109] + frac[22,109] >= 0.8
- cov_275_110: frac[7,110] + frac[9,110] + frac[17,110] + frac[18,110]
-   + frac[20,110] + frac[21,110] + frac[22,110] >= 0.8
- cov_276_51: frac[6,51] + frac[7,51] + frac[17,51] >= 0.9
- cov_276_52: frac[6,52] + frac[7,52] + frac[17,52] >= 0.9
- cov_276_53: frac[6,53] + frac[7,53] + frac[17,53] >= 0.9
- cov_277_72: frac[4,72] + frac[14,72] + frac[17,72] + frac[19,72]
-   + frac[20,72] + frac[21,72] + frac[22,72] >= 0.8
- cov_277_73: frac[4,73] + frac[14,73] + frac[17,73] + frac[19,73]
-   + frac[20,73] + frac[21,73] + frac[22,73] >= 0.8
- cov_277_74: frac[4,74] + frac[14,74] + frac[17,74] + frac[19,74]
-   + frac[20,74] + frac[21,74] + frac[22,74] >= 0.8
- cov_278_96: frac[6,96] + frac[9,96] + frac[17,96] + frac[18,96]
-   + frac[20,96] + frac[21,96] + frac[22,96] >= 0.8
- cov_278_97: frac[6,97] + frac[9,97] + frac[17,97] + frac[18,97]
-   + frac[20,97] + frac[21,97] + frac[22,97] >= 0.8
- cov_278_98: frac[6,98] + frac[9,98] + frac[17,98] + frac[18,98]
-   + frac[20,98] + frac[21,98] + frac[22,98] >= 0.8
- cov_279_105: frac[0,105] + frac[7,105] + frac[16,105] + frac[17,105]
-   + frac[20,105] >= 1
- cov_279_106: frac[0,106] + frac[7,106] + frac[16,106] + frac[17,106]
-   + frac[20,106] >= 1
- cov_279_107: frac[0,107] + frac[7,107] + frac[16,107] + frac[17,107]
-   + frac[20,107] >= 1
- cov_280_174: frac[7,174] + frac[12,174] + frac[17,174] + frac[19,174]
-   + frac[20,174] + frac[21,174] + frac[22,174] >= 0.8
- cov_280_175: frac[7,175] + frac[12,175] + frac[17,175] + frac[19,175]
-   + frac[20,175] + frac[21,175] + frac[22,175] >= 0.8
- cov_280_176: frac[7,176] + frac[12,176] + frac[17,176] + frac[19,176]
-   + frac[20,176] + frac[21,176] + frac[22,176] >= 0.8
- cov_281_135: frac[12,135] + frac[13,135] + frac[19,135] >= 0.8
- cov_281_136: frac[12,136] + frac[13,136] + frac[19,136] >= 0.8
- cov_281_137: frac[12,137] + frac[13,137] + frac[19,137] >= 0.8
- cov_282_12: frac[2,12] + frac[9,12] + frac[16,12] + frac[18,12]
-   + frac[20,12] + frac[21,12] + frac[22,12] >= 1
- cov_282_13: frac[2,13] + frac[9,13] + frac[16,13] + frac[18,13]
-   + frac[20,13] + frac[21,13] + frac[22,13] >= 1
- cov_282_14: frac[2,14] + frac[9,14] + frac[16,14] + frac[18,14]
-   + frac[20,14] + frac[21,14] + frac[22,14] >= 1
- cov_283_141: frac[1,141] + frac[4,141] + frac[16,141] + frac[17,141]
-   + frac[20,141] >= 0.8
- cov_283_142: frac[1,142] + frac[4,142] + frac[16,142] + frac[17,142]
-   + frac[20,142] >= 0.8
- cov_283_143: frac[1,143] + frac[4,143] + frac[16,143] + frac[17,143]
-   + frac[20,143] >= 0.8
- cov_284_57: frac[0,57] + frac[1,57] + frac[16,57] >= 0.8
- cov_284_58: frac[0,58] + frac[1,58] + frac[16,58] >= 0.8
- cov_284_59: frac[0,59] + frac[1,59] + frac[16,59] >= 0.8
- cov_285_9: frac[2,9] + frac[10,9] + frac[16,9] + frac[18,9] + frac[20,9]
-   + frac[21,9] + frac[22,9] >= 0.9
- cov_285_10: frac[2,10] + frac[10,10] + frac[16,10] + frac[18,10]
-   + frac[20,10] + frac[21,10] + frac[22,10] >= 0.9
- cov_285_11: frac[2,11] + frac[10,11] + frac[16,11] + frac[18,11]
-   + frac[20,11] + frac[21,11] + frac[22,11] >= 0.9
- cov_286_117: frac[4,117] + frac[15,117] + frac[17,117] + frac[19,117]
-   + frac[20,117] + frac[21,117] + frac[22,117] >= 0.8
- cov_286_118: frac[4,118] + frac[15,118] + frac[17,118] + frac[19,118]
-   + frac[20,118] + frac[21,118] + frac[22,118] >= 0.8
- cov_286_119: frac[4,119] + frac[15,119] + frac[17,119] + frac[19,119]
-   + frac[20,119] + frac[21,119] + frac[22,119] >= 0.8
- cov_287_36: frac[2,36] + frac[11,36] + frac[16,36] + frac[18,36]
-   + frac[20,36] + frac[21,36] + frac[22,36] >= 0.7
- cov_287_37: frac[2,37] + frac[11,37] + frac[16,37] + frac[18,37]
-   + frac[20,37] + frac[21,37] + frac[22,37] >= 0.7
- cov_287_38: frac[2,38] + frac[11,38] + frac[16,38] + frac[18,38]
-   + frac[20,38] + frac[21,38] + frac[22,38] >= 0.7
- cov_288_48: frac[4,48] + frac[11,48] + frac[17,48] + frac[18,48]
-   + frac[20,48] + frac[21,48] + frac[22,48] >= 0.8
- cov_288_49: frac[4,49] + frac[11,49] + frac[17,49] + frac[18,49]
-   + frac[20,49] + frac[21,49] + frac[22,49] >= 0.8
- cov_288_50: frac[4,50] + frac[11,50] + frac[17,50] + frac[18,50]
-   + frac[20,50] + frac[21,50] + frac[22,50] >= 0.8
- cov_289_108: frac[2,108] + frac[14,108] + frac[16,108] + frac[19,108]
-   + frac[20,108] + frac[21,108] + frac[22,108] >= 0.7
- cov_289_109: frac[2,109] + frac[14,109] + frac[16,109] + frac[19,109]
-   + frac[20,109] + frac[21,109] + frac[22,109] >= 0.7
- cov_289_110: frac[2,110] + frac[14,110] + frac[16,110] + frac[19,110]
-   + frac[20,110] + frac[21,110] + frac[22,110] >= 0.7
- cov_290_186: frac[7,186] + frac[13,186] + frac[17,186] + frac[19,186]
-   + frac[20,186] + frac[21,186] + frac[22,186] >= 0.7
- cov_290_187: frac[7,187] + frac[13,187] + frac[17,187] + frac[19,187]
-   + frac[20,187] + frac[21,187] + frac[22,187] >= 0.7
- cov_290_188: frac[7,188] + frac[13,188] + frac[17,188] + frac[19,188]
-   + frac[20,188] + frac[21,188] + frac[22,188] >= 0.7
- cov_291_162: frac[3,162] + frac[8,162] + frac[16,162] + frac[18,162]
-   + frac[20,162] + frac[21,162] + frac[22,162] >= 0.9
- cov_291_163: frac[3,163] + frac[8,163] + frac[16,163] + frac[18,163]
-   + frac[20,163] + frac[21,163] + frac[22,163] >= 0.9
- cov_291_164: frac[3,164] + frac[8,164] + frac[16,164] + frac[18,164]
-   + frac[20,164] + frac[21,164] + frac[22,164] >= 0.9
- cov_292_60: frac[9,60] + frac[13,60] + frac[18,60] + frac[19,60]
-   + frac[21,60] >= 0.9
- cov_292_61: frac[9,61] + frac[13,61] + frac[18,61] + frac[19,61]
-   + frac[21,61] >= 0.9
- cov_292_62: frac[9,62] + frac[13,62] + frac[18,62] + frac[19,62]
-   + frac[21,62] >= 0.9
- cov_293_153: frac[12,153] + frac[14,153] + frac[19,153] >= 0.7
- cov_293_154: frac[12,154] + frac[14,154] + frac[19,154] >= 0.7
- cov_293_155: frac[12,155] + frac[14,155] + frac[19,155] >= 0.7
- cov_294_63: frac[1,63] + frac[14,63] + frac[16,63] + frac[19,63]
-   + frac[20,63] + frac[21,63] + frac[22,63] >= 0.7
- cov_294_64: frac[1,64] + frac[14,64] + frac[16,64] + frac[19,64]
-   + frac[20,64] + frac[21,64] + frac[22,64] >= 0.7
- cov_294_65: frac[1,65] + frac[14,65] + frac[16,65] + frac[19,65]
-   + frac[20,65] + frac[21,65] + frac[22,65] >= 0.7
- cov_295_48: frac[5,48] + frac[13,48] + frac[17,48] + frac[19,48]
-   + frac[20,48] + frac[21,48] + frac[22,48] >= 0.8
- cov_295_49: frac[5,49] + frac[13,49] + frac[17,49] + frac[19,49]
-   + frac[20,49] + frac[21,49] + frac[22,49] >= 0.8
- cov_295_50: frac[5,50] + frac[13,50] + frac[17,50] + frac[19,50]
-   + frac[20,50] + frac[21,50] + frac[22,50] >= 0.8
- cov_296_117: frac[5,117] + frac[14,117] + frac[17,117] + frac[19,117]
-   + frac[20,117] + frac[21,117] + frac[22,117] >= 1
- cov_296_118: frac[5,118] + frac[14,118] + frac[17,118] + frac[19,118]
-   + frac[20,118] + frac[21,118] + frac[22,118] >= 1
- cov_296_119: frac[5,119] + frac[14,119] + frac[17,119] + frac[19,119]
-   + frac[20,119] + frac[21,119] + frac[22,119] >= 1
- cov_297_81: frac[3,81] + frac[13,81] + frac[16,81] + frac[19,81]
-   + frac[20,81] + frac[21,81] + frac[22,81] >= 0.7
- cov_297_82: frac[3,82] + frac[13,82] + frac[16,82] + frac[19,82]
-   + frac[20,82] + frac[21,82] + frac[22,82] >= 0.7
- cov_297_83: frac[3,83] + frac[13,83] + frac[16,83] + frac[19,83]
-   + frac[20,83] + frac[21,83] + frac[22,83] >= 0.7
- cov_298_138: frac[10,138] + frac[13,138] + frac[18,138] + frac[19,138]
-   + frac[21,138] >= 0.9
- cov_298_139: frac[10,139] + frac[13,139] + frac[18,139] + frac[19,139]
-   + frac[21,139] >= 0.9
- cov_298_140: frac[10,140] + frac[13,140] + frac[18,140] + frac[19,140]
-   + frac[21,140] >= 0.9
- cov_299_96: frac[2,96] + frac[9,96] + frac[16,96] + frac[18,96]
-   + frac[20,96] + frac[21,96] + frac[22,96] >= 0.9
- cov_299_97: frac[2,97] + frac[9,97] + frac[16,97] + frac[18,97]
-   + frac[20,97] + frac[21,97] + frac[22,97] >= 0.9
- cov_299_98: frac[2,98] + frac[9,98] + frac[16,98] + frac[18,98]
-   + frac[20,98] + frac[21,98] + frac[22,98] >= 0.9
- cov_300_189: frac[7,189] + frac[14,189] + frac[17,189] + frac[19,189]
-   + frac[20,189] + frac[21,189] + frac[22,189] >= 0.9
- cov_300_190: frac[7,190] + frac[14,190] + frac[17,190] + frac[19,190]
-   + frac[20,190] + frac[21,190] + frac[22,190] >= 0.9
- cov_300_191: frac[7,191] + frac[14,191] + frac[17,191] + frac[19,191]
-   + frac[20,191] + frac[21,191] + frac[22,191] >= 0.9
- cov_301_18: frac[7,18] + frac[10,18] + frac[17,18] + frac[18,18]
-   + frac[20,18] + frac[21,18] + frac[22,18] >= 0.8
- cov_301_19: frac[7,19] + frac[10,19] + frac[17,19] + frac[18,19]
-   + frac[20,19] + frac[21,19] + frac[22,19] >= 0.8
- cov_301_20: frac[7,20] + frac[10,20] + frac[17,20] + frac[18,20]
-   + frac[20,20] + frac[21,20] + frac[22,20] >= 0.8
- cov_302_39: frac[2,39] + frac[9,39] + frac[16,39] + frac[18,39]
-   + frac[20,39] + frac[21,39] + frac[22,39] >= 0.9
- cov_302_40: frac[2,40] + frac[9,40] + frac[16,40] + frac[18,40]
-   + frac[20,40] + frac[21,40] + frac[22,40] >= 0.9
- cov_302_41: frac[2,41] + frac[9,41] + frac[16,41] + frac[18,41]
-   + frac[20,41] + frac[21,41] + frac[22,41] >= 0.9
- cov_303_54: frac[1,54] + frac[11,54] + frac[16,54] + frac[18,54]
-   + frac[20,54] + frac[21,54] + frac[22,54] >= 0.7
- cov_303_55: frac[1,55] + frac[11,55] + frac[16,55] + frac[18,55]
-   + frac[20,55] + frac[21,55] + frac[22,55] >= 0.7
- cov_303_56: frac[1,56] + frac[11,56] + frac[16,56] + frac[18,56]
-   + frac[20,56] + frac[21,56] + frac[22,56] >= 0.7
- cov_304_153: frac[0,153] + frac[10,153] + frac[16,153] + frac[18,153]
+ cov_47_21: frac[9,21] + frac[12,21] + frac[18,21] + frac[19,21]
+   + frac[21,21] >= 1
+ cov_47_22: frac[9,22] + frac[12,22] + frac[18,22] + frac[19,22]
+   + frac[21,22] >= 1
+ cov_47_23: frac[9,23] + frac[12,23] + frac[18,23] + frac[19,23]
+   + frac[21,23] >= 1
+ cov_48_84: frac[10,84] + frac[12,84] + frac[18,84] + frac[19,84]
+   + frac[21,84] >= 0.8
+ cov_48_85: frac[10,85] + frac[12,85] + frac[18,85] + frac[19,85]
+   + frac[21,85] >= 0.8
+ cov_48_86: frac[10,86] + frac[12,86] + frac[18,86] + frac[19,86]
+   + frac[21,86] >= 0.8
+ cov_49_54: frac[8,54] + frac[10,54] + frac[18,54] >= 0.8
+ cov_49_55: frac[8,55] + frac[10,55] + frac[18,55] >= 0.8
+ cov_49_56: frac[8,56] + frac[10,56] + frac[18,56] >= 0.8
+ cov_50_186: frac[1,186] + frac[14,186] + frac[16,186] + frac[19,186]
+   + frac[20,186] + frac[21,186] + frac[22,186] >= 0.9
+ cov_50_187: frac[1,187] + frac[14,187] + frac[16,187] + frac[19,187]
+   + frac[20,187] + frac[21,187] + frac[22,187] >= 0.9
+ cov_50_188: frac[1,188] + frac[14,188] + frac[16,188] + frac[19,188]
+   + frac[20,188] + frac[21,188] + frac[22,188] >= 0.9
+ cov_51_153: frac[6,153] + frac[9,153] + frac[17,153] + frac[18,153]
    + frac[20,153] + frac[21,153] + frac[22,153] >= 1
- cov_304_154: frac[0,154] + frac[10,154] + frac[16,154] + frac[18,154]
+ cov_51_154: frac[6,154] + frac[9,154] + frac[17,154] + frac[18,154]
    + frac[20,154] + frac[21,154] + frac[22,154] >= 1
- cov_304_155: frac[0,155] + frac[10,155] + frac[16,155] + frac[18,155]
+ cov_51_155: frac[6,155] + frac[9,155] + frac[17,155] + frac[18,155]
    + frac[20,155] + frac[21,155] + frac[22,155] >= 1
- cov_305_30: frac[0,30] + frac[7,30] + frac[16,30] + frac[17,30]
-   + frac[20,30] >= 1
- cov_305_31: frac[0,31] + frac[7,31] + frac[16,31] + frac[17,31]
-   + frac[20,31] >= 1
- cov_305_32: frac[0,32] + frac[7,32] + frac[16,32] + frac[17,32]
-   + frac[20,32] >= 1
- cov_306_129: frac[5,129] + frac[13,129] + frac[17,129] + frac[19,129]
+ cov_52_3: frac[8,3] + frac[10,3] + frac[18,3] >= 0.8
+ cov_52_4: frac[8,4] + frac[10,4] + frac[18,4] >= 0.8
+ cov_52_5: frac[8,5] + frac[10,5] + frac[18,5] >= 0.8
+ cov_53_150: frac[8,150] + frac[11,150] + frac[18,150] >= 0.7
+ cov_53_151: frac[8,151] + frac[11,151] + frac[18,151] >= 0.7
+ cov_53_152: frac[8,152] + frac[11,152] + frac[18,152] >= 0.7
+ cov_54_183: frac[8,183] + frac[13,183] + frac[18,183] + frac[19,183]
+   + frac[21,183] >= 0.9
+ cov_54_184: frac[8,184] + frac[13,184] + frac[18,184] + frac[19,184]
+   + frac[21,184] >= 0.9
+ cov_54_185: frac[8,185] + frac[13,185] + frac[18,185] + frac[19,185]
+   + frac[21,185] >= 0.9
+ cov_55_186: frac[2,186] + frac[9,186] + frac[16,186] + frac[18,186]
+   + frac[20,186] + frac[21,186] + frac[22,186] >= 0.8
+ cov_55_187: frac[2,187] + frac[9,187] + frac[16,187] + frac[18,187]
+   + frac[20,187] + frac[21,187] + frac[22,187] >= 0.8
+ cov_55_188: frac[2,188] + frac[9,188] + frac[16,188] + frac[18,188]
+   + frac[20,188] + frac[21,188] + frac[22,188] >= 0.8
+ cov_56_132: frac[5,132] + frac[6,132] + frac[17,132] >= 1
+ cov_56_133: frac[5,133] + frac[6,133] + frac[17,133] >= 1
+ cov_56_134: frac[5,134] + frac[6,134] + frac[17,134] >= 1
+ cov_57_153: frac[0,153] + frac[8,153] + frac[16,153] + frac[18,153]
+   + frac[20,153] + frac[21,153] + frac[22,153] >= 1
+ cov_57_154: frac[0,154] + frac[8,154] + frac[16,154] + frac[18,154]
+   + frac[20,154] + frac[21,154] + frac[22,154] >= 1
+ cov_57_155: frac[0,155] + frac[8,155] + frac[16,155] + frac[18,155]
+   + frac[20,155] + frac[21,155] + frac[22,155] >= 1
+ cov_58_21: frac[1,21] + frac[13,21] + frac[16,21] + frac[19,21]
+   + frac[20,21] + frac[21,21] + frac[22,21] >= 0.9
+ cov_58_22: frac[1,22] + frac[13,22] + frac[16,22] + frac[19,22]
+   + frac[20,22] + frac[21,22] + frac[22,22] >= 0.9
+ cov_58_23: frac[1,23] + frac[13,23] + frac[16,23] + frac[19,23]
+   + frac[20,23] + frac[21,23] + frac[22,23] >= 0.9
+ cov_59_15: frac[11,15] + frac[15,15] + frac[18,15] + frac[19,15]
+   + frac[21,15] >= 0.8
+ cov_59_16: frac[11,16] + frac[15,16] + frac[18,16] + frac[19,16]
+   + frac[21,16] >= 0.8
+ cov_59_17: frac[11,17] + frac[15,17] + frac[18,17] + frac[19,17]
+   + frac[21,17] >= 0.8
+ cov_60_9: frac[9,9] + frac[13,9] + frac[18,9] + frac[19,9] + frac[21,9]
+   >= 0.7
+ cov_60_10: frac[9,10] + frac[13,10] + frac[18,10] + frac[19,10]
+   + frac[21,10] >= 0.7
+ cov_60_11: frac[9,11] + frac[13,11] + frac[18,11] + frac[19,11]
+   + frac[21,11] >= 0.7
+ cov_61_153: frac[4,153] + frac[9,153] + frac[17,153] + frac[18,153]
+   + frac[20,153] + frac[21,153] + frac[22,153] >= 0.7
+ cov_61_154: frac[4,154] + frac[9,154] + frac[17,154] + frac[18,154]
+   + frac[20,154] + frac[21,154] + frac[22,154] >= 0.7
+ cov_61_155: frac[4,155] + frac[9,155] + frac[17,155] + frac[18,155]
+   + frac[20,155] + frac[21,155] + frac[22,155] >= 0.7
+ cov_62_180: frac[8,180] + frac[10,180] + frac[18,180] >= 1
+ cov_62_181: frac[8,181] + frac[10,181] + frac[18,181] >= 1
+ cov_62_182: frac[8,182] + frac[10,182] + frac[18,182] >= 1
+ cov_63_15: frac[6,15] + frac[7,15] + frac[17,15] >= 0.7
+ cov_63_16: frac[6,16] + frac[7,16] + frac[17,16] >= 0.7
+ cov_63_17: frac[6,17] + frac[7,17] + frac[17,17] >= 0.7
+ cov_64_189: frac[4,189] + frac[14,189] + frac[17,189] + frac[19,189]
+   + frac[20,189] + frac[21,189] + frac[22,189] >= 0.8
+ cov_64_190: frac[4,190] + frac[14,190] + frac[17,190] + frac[19,190]
+   + frac[20,190] + frac[21,190] + frac[22,190] >= 0.8
+ cov_64_191: frac[4,191] + frac[14,191] + frac[17,191] + frac[19,191]
+   + frac[20,191] + frac[21,191] + frac[22,191] >= 0.8
+ cov_65_171: frac[9,171] + frac[14,171] + frac[18,171] + frac[19,171]
+   + frac[21,171] >= 0.9
+ cov_65_172: frac[9,172] + frac[14,172] + frac[18,172] + frac[19,172]
+   + frac[21,172] >= 0.9
+ cov_65_173: frac[9,173] + frac[14,173] + frac[18,173] + frac[19,173]
+   + frac[21,173] >= 0.9
+ cov_66_120: frac[8,120] + frac[9,120] + frac[18,120] >= 1
+ cov_66_121: frac[8,121] + frac[9,121] + frac[18,121] >= 1
+ cov_66_122: frac[8,122] + frac[9,122] + frac[18,122] >= 1
+ cov_67_111: frac[12,111] + frac[15,111] + frac[19,111] >= 0.8
+ cov_67_112: frac[12,112] + frac[15,112] + frac[19,112] >= 0.8
+ cov_67_113: frac[12,113] + frac[15,113] + frac[19,113] >= 0.8
+ cov_68_9: frac[0,9] + frac[10,9] + frac[16,9] + frac[18,9] + frac[20,9]
+   + frac[21,9] + frac[22,9] >= 0.7
+ cov_68_10: frac[0,10] + frac[10,10] + frac[16,10] + frac[18,10]
+   + frac[20,10] + frac[21,10] + frac[22,10] >= 0.7
+ cov_68_11: frac[0,11] + frac[10,11] + frac[16,11] + frac[18,11]
+   + frac[20,11] + frac[21,11] + frac[22,11] >= 0.7
+ cov_69_180: frac[11,180] + frac[12,180] + frac[18,180] + frac[19,180]
+   + frac[21,180] >= 0.7
+ cov_69_181: frac[11,181] + frac[12,181] + frac[18,181] + frac[19,181]
+   + frac[21,181] >= 0.7
+ cov_69_182: frac[11,182] + frac[12,182] + frac[18,182] + frac[19,182]
+   + frac[21,182] >= 0.7
+ cov_70_42: frac[7,42] + frac[8,42] + frac[17,42] + frac[18,42]
+   + frac[20,42] + frac[21,42] + frac[22,42] >= 0.8
+ cov_70_43: frac[7,43] + frac[8,43] + frac[17,43] + frac[18,43]
+   + frac[20,43] + frac[21,43] + frac[22,43] >= 0.8
+ cov_70_44: frac[7,44] + frac[8,44] + frac[17,44] + frac[18,44]
+   + frac[20,44] + frac[21,44] + frac[22,44] >= 0.8
+ cov_71_150: frac[2,150] + frac[15,150] + frac[16,150] + frac[19,150]
+   + frac[20,150] + frac[21,150] + frac[22,150] >= 0.8
+ cov_71_151: frac[2,151] + frac[15,151] + frac[16,151] + frac[19,151]
+   + frac[20,151] + frac[21,151] + frac[22,151] >= 0.8
+ cov_71_152: frac[2,152] + frac[15,152] + frac[16,152] + frac[19,152]
+   + frac[20,152] + frac[21,152] + frac[22,152] >= 0.8
+ cov_72_66: frac[6,66] + frac[12,66] + frac[17,66] + frac[19,66]
+   + frac[20,66] + frac[21,66] + frac[22,66] >= 0.9
+ cov_72_67: frac[6,67] + frac[12,67] + frac[17,67] + frac[19,67]
+   + frac[20,67] + frac[21,67] + frac[22,67] >= 0.9
+ cov_72_68: frac[6,68] + frac[12,68] + frac[17,68] + frac[19,68]
+   + frac[20,68] + frac[21,68] + frac[22,68] >= 0.9
+ cov_73_114: frac[8,114] + frac[15,114] + frac[18,114] + frac[19,114]
+   + frac[21,114] >= 1
+ cov_73_115: frac[8,115] + frac[15,115] + frac[18,115] + frac[19,115]
+   + frac[21,115] >= 1
+ cov_73_116: frac[8,116] + frac[15,116] + frac[18,116] + frac[19,116]
+   + frac[21,116] >= 1
+ cov_74_15: frac[3,15] + frac[12,15] + frac[16,15] + frac[19,15]
+   + frac[20,15] + frac[21,15] + frac[22,15] >= 0.8
+ cov_74_16: frac[3,16] + frac[12,16] + frac[16,16] + frac[19,16]
+   + frac[20,16] + frac[21,16] + frac[22,16] >= 0.8
+ cov_74_17: frac[3,17] + frac[12,17] + frac[16,17] + frac[19,17]
+   + frac[20,17] + frac[21,17] + frac[22,17] >= 0.8
+ cov_75_153: frac[0,153] + frac[6,153] + frac[16,153] + frac[17,153]
+   + frac[20,153] >= 0.8
+ cov_75_154: frac[0,154] + frac[6,154] + frac[16,154] + frac[17,154]
+   + frac[20,154] >= 0.8
+ cov_75_155: frac[0,155] + frac[6,155] + frac[16,155] + frac[17,155]
+   + frac[20,155] >= 0.8
+ cov_76_189: frac[12,189] + frac[14,189] + frac[19,189] >= 1
+ cov_76_190: frac[12,190] + frac[14,190] + frac[19,190] >= 1
+ cov_76_191: frac[12,191] + frac[14,191] + frac[19,191] >= 1
+ cov_77_51: frac[1,51] + frac[2,51] + frac[16,51] >= 0.8
+ cov_77_52: frac[1,52] + frac[2,52] + frac[16,52] >= 0.8
+ cov_77_53: frac[1,53] + frac[2,53] + frac[16,53] >= 0.8
+ cov_78_27: frac[6,27] + frac[13,27] + frac[17,27] + frac[19,27]
+   + frac[20,27] + frac[21,27] + frac[22,27] >= 0.8
+ cov_78_28: frac[6,28] + frac[13,28] + frac[17,28] + frac[19,28]
+   + frac[20,28] + frac[21,28] + frac[22,28] >= 0.8
+ cov_78_29: frac[6,29] + frac[13,29] + frac[17,29] + frac[19,29]
+   + frac[20,29] + frac[21,29] + frac[22,29] >= 0.8
+ cov_79_141: frac[9,141] + frac[13,141] + frac[18,141] + frac[19,141]
+   + frac[21,141] >= 0.7
+ cov_79_142: frac[9,142] + frac[13,142] + frac[18,142] + frac[19,142]
+   + frac[21,142] >= 0.7
+ cov_79_143: frac[9,143] + frac[13,143] + frac[18,143] + frac[19,143]
+   + frac[21,143] >= 0.7
+ cov_80_63: frac[0,63] + frac[1,63] + frac[16,63] >= 0.7
+ cov_80_64: frac[0,64] + frac[1,64] + frac[16,64] >= 0.7
+ cov_80_65: frac[0,65] + frac[1,65] + frac[16,65] >= 0.7
+ cov_81_168: frac[2,168] + frac[9,168] + frac[16,168] + frac[18,168]
+   + frac[20,168] + frac[21,168] + frac[22,168] >= 0.7
+ cov_81_169: frac[2,169] + frac[9,169] + frac[16,169] + frac[18,169]
+   + frac[20,169] + frac[21,169] + frac[22,169] >= 0.7
+ cov_81_170: frac[2,170] + frac[9,170] + frac[16,170] + frac[18,170]
+   + frac[20,170] + frac[21,170] + frac[22,170] >= 0.7
+ cov_82_171: frac[9,171] + frac[15,171] + frac[18,171] + frac[19,171]
+   + frac[21,171] >= 0.7
+ cov_82_172: frac[9,172] + frac[15,172] + frac[18,172] + frac[19,172]
+   + frac[21,172] >= 0.7
+ cov_82_173: frac[9,173] + frac[15,173] + frac[18,173] + frac[19,173]
+   + frac[21,173] >= 0.7
+ cov_83_57: frac[1,57] + frac[10,57] + frac[16,57] + frac[18,57]
+   + frac[20,57] + frac[21,57] + frac[22,57] >= 0.7
+ cov_83_58: frac[1,58] + frac[10,58] + frac[16,58] + frac[18,58]
+   + frac[20,58] + frac[21,58] + frac[22,58] >= 0.7
+ cov_83_59: frac[1,59] + frac[10,59] + frac[16,59] + frac[18,59]
+   + frac[20,59] + frac[21,59] + frac[22,59] >= 0.7
+ cov_84_27: frac[0,27] + frac[13,27] + frac[16,27] + frac[19,27]
+   + frac[20,27] + frac[21,27] + frac[22,27] >= 0.8
+ cov_84_28: frac[0,28] + frac[13,28] + frac[16,28] + frac[19,28]
+   + frac[20,28] + frac[21,28] + frac[22,28] >= 0.8
+ cov_84_29: frac[0,29] + frac[13,29] + frac[16,29] + frac[19,29]
+   + frac[20,29] + frac[21,29] + frac[22,29] >= 0.8
+ cov_85_183: frac[6,183] + frac[10,183] + frac[17,183] + frac[18,183]
+   + frac[20,183] + frac[21,183] + frac[22,183] >= 0.8
+ cov_85_184: frac[6,184] + frac[10,184] + frac[17,184] + frac[18,184]
+   + frac[20,184] + frac[21,184] + frac[22,184] >= 0.8
+ cov_85_185: frac[6,185] + frac[10,185] + frac[17,185] + frac[18,185]
+   + frac[20,185] + frac[21,185] + frac[22,185] >= 0.8
+ cov_86_72: frac[4,72] + frac[8,72] + frac[17,72] + frac[18,72]
+   + frac[20,72] + frac[21,72] + frac[22,72] >= 0.9
+ cov_86_73: frac[4,73] + frac[8,73] + frac[17,73] + frac[18,73]
+   + frac[20,73] + frac[21,73] + frac[22,73] >= 0.9
+ cov_86_74: frac[4,74] + frac[8,74] + frac[17,74] + frac[18,74]
+   + frac[20,74] + frac[21,74] + frac[22,74] >= 0.9
+ cov_87_84: frac[3,84] + frac[12,84] + frac[16,84] + frac[19,84]
+   + frac[20,84] + frac[21,84] + frac[22,84] >= 0.9
+ cov_87_85: frac[3,85] + frac[12,85] + frac[16,85] + frac[19,85]
+   + frac[20,85] + frac[21,85] + frac[22,85] >= 0.9
+ cov_87_86: frac[3,86] + frac[12,86] + frac[16,86] + frac[19,86]
+   + frac[20,86] + frac[21,86] + frac[22,86] >= 0.9
+ cov_88_24: frac[7,24] + frac[9,24] + frac[17,24] + frac[18,24]
+   + frac[20,24] + frac[21,24] + frac[22,24] >= 0.8
+ cov_88_25: frac[7,25] + frac[9,25] + frac[17,25] + frac[18,25]
+   + frac[20,25] + frac[21,25] + frac[22,25] >= 0.8
+ cov_88_26: frac[7,26] + frac[9,26] + frac[17,26] + frac[18,26]
+   + frac[20,26] + frac[21,26] + frac[22,26] >= 0.8
+ cov_89_3: frac[14,3] + frac[15,3] + frac[19,3] >= 0.9
+ cov_89_4: frac[14,4] + frac[15,4] + frac[19,4] >= 0.9
+ cov_89_5: frac[14,5] + frac[15,5] + frac[19,5] >= 0.9
+ cov_90_18: frac[7,18] + frac[13,18] + frac[17,18] + frac[19,18]
+   + frac[20,18] + frac[21,18] + frac[22,18] >= 1
+ cov_90_19: frac[7,19] + frac[13,19] + frac[17,19] + frac[19,19]
+   + frac[20,19] + frac[21,19] + frac[22,19] >= 1
+ cov_90_20: frac[7,20] + frac[13,20] + frac[17,20] + frac[19,20]
+   + frac[20,20] + frac[21,20] + frac[22,20] >= 1
+ cov_91_111: frac[11,111] + frac[15,111] + frac[18,111] + frac[19,111]
+   + frac[21,111] >= 1
+ cov_91_112: frac[11,112] + frac[15,112] + frac[18,112] + frac[19,112]
+   + frac[21,112] >= 1
+ cov_91_113: frac[11,113] + frac[15,113] + frac[18,113] + frac[19,113]
+   + frac[21,113] >= 1
+ cov_92_153: frac[12,153] + frac[15,153] + frac[19,153] >= 0.7
+ cov_92_154: frac[12,154] + frac[15,154] + frac[19,154] >= 0.7
+ cov_92_155: frac[12,155] + frac[15,155] + frac[19,155] >= 0.7
+ cov_93_174: frac[6,174] + frac[14,174] + frac[17,174] + frac[19,174]
+   + frac[20,174] + frac[21,174] + frac[22,174] >= 0.8
+ cov_93_175: frac[6,175] + frac[14,175] + frac[17,175] + frac[19,175]
+   + frac[20,175] + frac[21,175] + frac[22,175] >= 0.8
+ cov_93_176: frac[6,176] + frac[14,176] + frac[17,176] + frac[19,176]
+   + frac[20,176] + frac[21,176] + frac[22,176] >= 0.8
+ cov_94_42: frac[7,42] + frac[8,42] + frac[17,42] + frac[18,42]
+   + frac[20,42] + frac[21,42] + frac[22,42] >= 0.8
+ cov_94_43: frac[7,43] + frac[8,43] + frac[17,43] + frac[18,43]
+   + frac[20,43] + frac[21,43] + frac[22,43] >= 0.8
+ cov_94_44: frac[7,44] + frac[8,44] + frac[17,44] + frac[18,44]
+   + frac[20,44] + frac[21,44] + frac[22,44] >= 0.8
+ cov_95_87: frac[11,87] + frac[12,87] + frac[18,87] + frac[19,87]
+   + frac[21,87] >= 0.7
+ cov_95_88: frac[11,88] + frac[12,88] + frac[18,88] + frac[19,88]
+   + frac[21,88] >= 0.7
+ cov_95_89: frac[11,89] + frac[12,89] + frac[18,89] + frac[19,89]
+   + frac[21,89] >= 0.7
+ cov_96_45: frac[5,45] + frac[14,45] + frac[17,45] + frac[19,45]
+   + frac[20,45] + frac[21,45] + frac[22,45] >= 1
+ cov_96_46: frac[5,46] + frac[14,46] + frac[17,46] + frac[19,46]
+   + frac[20,46] + frac[21,46] + frac[22,46] >= 1
+ cov_96_47: frac[5,47] + frac[14,47] + frac[17,47] + frac[19,47]
+   + frac[20,47] + frac[21,47] + frac[22,47] >= 1
+ cov_97_174: frac[2,174] + frac[13,174] + frac[16,174] + frac[19,174]
+   + frac[20,174] + frac[21,174] + frac[22,174] >= 1
+ cov_97_175: frac[2,175] + frac[13,175] + frac[16,175] + frac[19,175]
+   + frac[20,175] + frac[21,175] + frac[22,175] >= 1
+ cov_97_176: frac[2,176] + frac[13,176] + frac[16,176] + frac[19,176]
+   + frac[20,176] + frac[21,176] + frac[22,176] >= 1
+ cov_98_150: frac[7,150] + frac[14,150] + frac[17,150] + frac[19,150]
+   + frac[20,150] + frac[21,150] + frac[22,150] >= 0.9
+ cov_98_151: frac[7,151] + frac[14,151] + frac[17,151] + frac[19,151]
+   + frac[20,151] + frac[21,151] + frac[22,151] >= 0.9
+ cov_98_152: frac[7,152] + frac[14,152] + frac[17,152] + frac[19,152]
+   + frac[20,152] + frac[21,152] + frac[22,152] >= 0.9
+ cov_99_48: frac[4,48] + frac[15,48] + frac[17,48] + frac[19,48]
+   + frac[20,48] + frac[21,48] + frac[22,48] >= 0.7
+ cov_99_49: frac[4,49] + frac[15,49] + frac[17,49] + frac[19,49]
+   + frac[20,49] + frac[21,49] + frac[22,49] >= 0.7
+ cov_99_50: frac[4,50] + frac[15,50] + frac[17,50] + frac[19,50]
+   + frac[20,50] + frac[21,50] + frac[22,50] >= 0.7
+ cov_100_51: frac[10,51] + frac[12,51] + frac[18,51] + frac[19,51]
+   + frac[21,51] >= 0.8
+ cov_100_52: frac[10,52] + frac[12,52] + frac[18,52] + frac[19,52]
+   + frac[21,52] >= 0.8
+ cov_100_53: frac[10,53] + frac[12,53] + frac[18,53] + frac[19,53]
+   + frac[21,53] >= 0.8
+ cov_101_183: frac[5,183] + frac[6,183] + frac[17,183] >= 1
+ cov_101_184: frac[5,184] + frac[6,184] + frac[17,184] >= 1
+ cov_101_185: frac[5,185] + frac[6,185] + frac[17,185] >= 1
+ cov_102_162: frac[6,162] + frac[7,162] + frac[17,162] >= 0.9
+ cov_102_163: frac[6,163] + frac[7,163] + frac[17,163] >= 0.9
+ cov_102_164: frac[6,164] + frac[7,164] + frac[17,164] >= 0.9
+ cov_103_168: frac[10,168] + frac[15,168] + frac[18,168] + frac[19,168]
+   + frac[21,168] >= 0.8
+ cov_103_169: frac[10,169] + frac[15,169] + frac[18,169] + frac[19,169]
+   + frac[21,169] >= 0.8
+ cov_103_170: frac[10,170] + frac[15,170] + frac[18,170] + frac[19,170]
+   + frac[21,170] >= 0.8
+ cov_104_66: frac[1,66] + frac[6,66] + frac[16,66] + frac[17,66]
+   + frac[20,66] >= 1
+ cov_104_67: frac[1,67] + frac[6,67] + frac[16,67] + frac[17,67]
+   + frac[20,67] >= 1
+ cov_104_68: frac[1,68] + frac[6,68] + frac[16,68] + frac[17,68]
+   + frac[20,68] >= 1
+ cov_105_114: frac[2,114] + frac[9,114] + frac[16,114] + frac[18,114]
+   + frac[20,114] + frac[21,114] + frac[22,114] >= 1
+ cov_105_115: frac[2,115] + frac[9,115] + frac[16,115] + frac[18,115]
+   + frac[20,115] + frac[21,115] + frac[22,115] >= 1
+ cov_105_116: frac[2,116] + frac[9,116] + frac[16,116] + frac[18,116]
+   + frac[20,116] + frac[21,116] + frac[22,116] >= 1
+ cov_106_135: frac[6,135] + frac[8,135] + frac[17,135] + frac[18,135]
+   + frac[20,135] + frac[21,135] + frac[22,135] >= 0.9
+ cov_106_136: frac[6,136] + frac[8,136] + frac[17,136] + frac[18,136]
+   + frac[20,136] + frac[21,136] + frac[22,136] >= 0.9
+ cov_106_137: frac[6,137] + frac[8,137] + frac[17,137] + frac[18,137]
+   + frac[20,137] + frac[21,137] + frac[22,137] >= 0.9
+ cov_107_114: frac[10,114] + frac[11,114] + frac[18,114] >= 0.7
+ cov_107_115: frac[10,115] + frac[11,115] + frac[18,115] >= 0.7
+ cov_107_116: frac[10,116] + frac[11,116] + frac[18,116] >= 0.7
+ cov_108_0: frac[1,0] + frac[6,0] + frac[16,0] + frac[17,0] + frac[20,0]
+   >= 0.7
+ cov_108_1: frac[1,1] + frac[6,1] + frac[16,1] + frac[17,1] + frac[20,1]
+   >= 0.7
+ cov_108_2: frac[1,2] + frac[6,2] + frac[16,2] + frac[17,2] + frac[20,2]
+   >= 0.7
+ cov_109_42: frac[0,42] + frac[3,42] + frac[16,42] >= 0.7
+ cov_109_43: frac[0,43] + frac[3,43] + frac[16,43] >= 0.7
+ cov_109_44: frac[0,44] + frac[3,44] + frac[16,44] >= 0.7
+ cov_110_120: frac[2,120] + frac[5,120] + frac[16,120] + frac[17,120]
+   + frac[20,120] >= 0.9
+ cov_110_121: frac[2,121] + frac[5,121] + frac[16,121] + frac[17,121]
+   + frac[20,121] >= 0.9
+ cov_110_122: frac[2,122] + frac[5,122] + frac[16,122] + frac[17,122]
+   + frac[20,122] >= 0.9
+ cov_111_183: frac[0,183] + frac[6,183] + frac[16,183] + frac[17,183]
+   + frac[20,183] >= 0.7
+ cov_111_184: frac[0,184] + frac[6,184] + frac[16,184] + frac[17,184]
+   + frac[20,184] >= 0.7
+ cov_111_185: frac[0,185] + frac[6,185] + frac[16,185] + frac[17,185]
+   + frac[20,185] >= 0.7
+ cov_112_129: frac[2,129] + frac[14,129] + frac[16,129] + frac[19,129]
    + frac[20,129] + frac[21,129] + frac[22,129] >= 1
- cov_306_130: frac[5,130] + frac[13,130] + frac[17,130] + frac[19,130]
+ cov_112_130: frac[2,130] + frac[14,130] + frac[16,130] + frac[19,130]
    + frac[20,130] + frac[21,130] + frac[22,130] >= 1
- cov_306_131: frac[5,131] + frac[13,131] + frac[17,131] + frac[19,131]
+ cov_112_131: frac[2,131] + frac[14,131] + frac[16,131] + frac[19,131]
    + frac[20,131] + frac[21,131] + frac[22,131] >= 1
- cov_307_51: frac[4,51] + frac[8,51] + frac[17,51] + frac[18,51]
+ cov_113_51: frac[2,51] + frac[8,51] + frac[16,51] + frac[18,51]
    + frac[20,51] + frac[21,51] + frac[22,51] >= 1
- cov_307_52: frac[4,52] + frac[8,52] + frac[17,52] + frac[18,52]
+ cov_113_52: frac[2,52] + frac[8,52] + frac[16,52] + frac[18,52]
    + frac[20,52] + frac[21,52] + frac[22,52] >= 1
- cov_307_53: frac[4,53] + frac[8,53] + frac[17,53] + frac[18,53]
+ cov_113_53: frac[2,53] + frac[8,53] + frac[16,53] + frac[18,53]
    + frac[20,53] + frac[21,53] + frac[22,53] >= 1
- cov_308_165: frac[2,165] + frac[3,165] + frac[16,165] >= 0.8
- cov_308_166: frac[2,166] + frac[3,166] + frac[16,166] >= 0.8
- cov_308_167: frac[2,167] + frac[3,167] + frac[16,167] >= 0.8
- cov_309_189: frac[2,189] + frac[3,189] + frac[16,189] >= 0.8
- cov_309_190: frac[2,190] + frac[3,190] + frac[16,190] >= 0.8
- cov_309_191: frac[2,191] + frac[3,191] + frac[16,191] >= 0.8
- cov_310_12: frac[3,12] + frac[7,12] + frac[16,12] + frac[17,12]
-   + frac[20,12] >= 0.8
- cov_310_13: frac[3,13] + frac[7,13] + frac[16,13] + frac[17,13]
-   + frac[20,13] >= 0.8
- cov_310_14: frac[3,14] + frac[7,14] + frac[16,14] + frac[17,14]
-   + frac[20,14] >= 0.8
- cov_311_156: frac[3,156] + frac[14,156] + frac[16,156] + frac[19,156]
-   + frac[20,156] + frac[21,156] + frac[22,156] >= 0.9
- cov_311_157: frac[3,157] + frac[14,157] + frac[16,157] + frac[19,157]
-   + frac[20,157] + frac[21,157] + frac[22,157] >= 0.9
- cov_311_158: frac[3,158] + frac[14,158] + frac[16,158] + frac[19,158]
-   + frac[20,158] + frac[21,158] + frac[22,158] >= 0.9
- cov_312_165: frac[3,165] + frac[6,165] + frac[16,165] + frac[17,165]
-   + frac[20,165] >= 0.9
- cov_312_166: frac[3,166] + frac[6,166] + frac[16,166] + frac[17,166]
-   + frac[20,166] >= 0.9
- cov_312_167: frac[3,167] + frac[6,167] + frac[16,167] + frac[17,167]
-   + frac[20,167] >= 0.9
- cov_313_183: frac[4,183] + frac[6,183] + frac[17,183] >= 0.9
- cov_313_184: frac[4,184] + frac[6,184] + frac[17,184] >= 0.9
- cov_313_185: frac[4,185] + frac[6,185] + frac[17,185] >= 0.9
- cov_314_87: frac[1,87] + frac[8,87] + frac[16,87] + frac[18,87]
+ cov_114_33: frac[3,33] + frac[8,33] + frac[16,33] + frac[18,33]
+   + frac[20,33] + frac[21,33] + frac[22,33] >= 0.9
+ cov_114_34: frac[3,34] + frac[8,34] + frac[16,34] + frac[18,34]
+   + frac[20,34] + frac[21,34] + frac[22,34] >= 0.9
+ cov_114_35: frac[3,35] + frac[8,35] + frac[16,35] + frac[18,35]
+   + frac[20,35] + frac[21,35] + frac[22,35] >= 0.9
+ cov_115_54: frac[3,54] + frac[10,54] + frac[16,54] + frac[18,54]
+   + frac[20,54] + frac[21,54] + frac[22,54] >= 0.7
+ cov_115_55: frac[3,55] + frac[10,55] + frac[16,55] + frac[18,55]
+   + frac[20,55] + frac[21,55] + frac[22,55] >= 0.7
+ cov_115_56: frac[3,56] + frac[10,56] + frac[16,56] + frac[18,56]
+   + frac[20,56] + frac[21,56] + frac[22,56] >= 0.7
+ cov_116_87: frac[3,87] + frac[10,87] + frac[16,87] + frac[18,87]
+   + frac[20,87] + frac[21,87] + frac[22,87] >= 0.9
+ cov_116_88: frac[3,88] + frac[10,88] + frac[16,88] + frac[18,88]
+   + frac[20,88] + frac[21,88] + frac[22,88] >= 0.9
+ cov_116_89: frac[3,89] + frac[10,89] + frac[16,89] + frac[18,89]
+   + frac[20,89] + frac[21,89] + frac[22,89] >= 0.9
+ cov_117_84: frac[4,84] + frac[7,84] + frac[17,84] >= 0.7
+ cov_117_85: frac[4,85] + frac[7,85] + frac[17,85] >= 0.7
+ cov_117_86: frac[4,86] + frac[7,86] + frac[17,86] >= 0.7
+ cov_118_66: frac[5,66] + frac[14,66] + frac[17,66] + frac[19,66]
+   + frac[20,66] + frac[21,66] + frac[22,66] >= 0.8
+ cov_118_67: frac[5,67] + frac[14,67] + frac[17,67] + frac[19,67]
+   + frac[20,67] + frac[21,67] + frac[22,67] >= 0.8
+ cov_118_68: frac[5,68] + frac[14,68] + frac[17,68] + frac[19,68]
+   + frac[20,68] + frac[21,68] + frac[22,68] >= 0.8
+ cov_119_126: frac[2,126] + frac[10,126] + frac[16,126] + frac[18,126]
+   + frac[20,126] + frac[21,126] + frac[22,126] >= 1
+ cov_119_127: frac[2,127] + frac[10,127] + frac[16,127] + frac[18,127]
+   + frac[20,127] + frac[21,127] + frac[22,127] >= 1
+ cov_119_128: frac[2,128] + frac[10,128] + frac[16,128] + frac[18,128]
+   + frac[20,128] + frac[21,128] + frac[22,128] >= 1
+ cov_120_120: frac[7,120] + frac[15,120] + frac[17,120] + frac[19,120]
+   + frac[20,120] + frac[21,120] + frac[22,120] >= 0.7
+ cov_120_121: frac[7,121] + frac[15,121] + frac[17,121] + frac[19,121]
+   + frac[20,121] + frac[21,121] + frac[22,121] >= 0.7
+ cov_120_122: frac[7,122] + frac[15,122] + frac[17,122] + frac[19,122]
+   + frac[20,122] + frac[21,122] + frac[22,122] >= 0.7
+ cov_121_30: frac[4,30] + frac[14,30] + frac[17,30] + frac[19,30]
+   + frac[20,30] + frac[21,30] + frac[22,30] >= 0.7
+ cov_121_31: frac[4,31] + frac[14,31] + frac[17,31] + frac[19,31]
+   + frac[20,31] + frac[21,31] + frac[22,31] >= 0.7
+ cov_121_32: frac[4,32] + frac[14,32] + frac[17,32] + frac[19,32]
+   + frac[20,32] + frac[21,32] + frac[22,32] >= 0.7
+ cov_122_120: frac[0,120] + frac[13,120] + frac[16,120] + frac[19,120]
+   + frac[20,120] + frac[21,120] + frac[22,120] >= 0.8
+ cov_122_121: frac[0,121] + frac[13,121] + frac[16,121] + frac[19,121]
+   + frac[20,121] + frac[21,121] + frac[22,121] >= 0.8
+ cov_122_122: frac[0,122] + frac[13,122] + frac[16,122] + frac[19,122]
+   + frac[20,122] + frac[21,122] + frac[22,122] >= 0.8
+ cov_123_111: frac[3,111] + frac[11,111] + frac[16,111] + frac[18,111]
+   + frac[20,111] + frac[21,111] + frac[22,111] >= 0.7
+ cov_123_112: frac[3,112] + frac[11,112] + frac[16,112] + frac[18,112]
+   + frac[20,112] + frac[21,112] + frac[22,112] >= 0.7
+ cov_123_113: frac[3,113] + frac[11,113] + frac[16,113] + frac[18,113]
+   + frac[20,113] + frac[21,113] + frac[22,113] >= 0.7
+ cov_124_36: frac[13,36] + frac[14,36] + frac[19,36] >= 1
+ cov_124_37: frac[13,37] + frac[14,37] + frac[19,37] >= 1
+ cov_124_38: frac[13,38] + frac[14,38] + frac[19,38] >= 1
+ cov_125_174: frac[3,174] + frac[11,174] + frac[16,174] + frac[18,174]
+   + frac[20,174] + frac[21,174] + frac[22,174] >= 1
+ cov_125_175: frac[3,175] + frac[11,175] + frac[16,175] + frac[18,175]
+   + frac[20,175] + frac[21,175] + frac[22,175] >= 1
+ cov_125_176: frac[3,176] + frac[11,176] + frac[16,176] + frac[18,176]
+   + frac[20,176] + frac[21,176] + frac[22,176] >= 1
+ cov_126_30: frac[8,30] + frac[15,30] + frac[18,30] + frac[19,30]
+   + frac[21,30] >= 0.7
+ cov_126_31: frac[8,31] + frac[15,31] + frac[18,31] + frac[19,31]
+   + frac[21,31] >= 0.7
+ cov_126_32: frac[8,32] + frac[15,32] + frac[18,32] + frac[19,32]
+   + frac[21,32] >= 0.7
+ cov_127_186: frac[8,186] + frac[14,186] + frac[18,186] + frac[19,186]
+   + frac[21,186] >= 0.8
+ cov_127_187: frac[8,187] + frac[14,187] + frac[18,187] + frac[19,187]
+   + frac[21,187] >= 0.8
+ cov_127_188: frac[8,188] + frac[14,188] + frac[18,188] + frac[19,188]
+   + frac[21,188] >= 0.8
+ cov_128_69: frac[13,69] + frac[14,69] + frac[19,69] >= 0.9
+ cov_128_70: frac[13,70] + frac[14,70] + frac[19,70] >= 0.9
+ cov_128_71: frac[13,71] + frac[14,71] + frac[19,71] >= 0.9
+ cov_129_90: frac[2,90] + frac[9,90] + frac[16,90] + frac[18,90]
+   + frac[20,90] + frac[21,90] + frac[22,90] >= 1
+ cov_129_91: frac[2,91] + frac[9,91] + frac[16,91] + frac[18,91]
+   + frac[20,91] + frac[21,91] + frac[22,91] >= 1
+ cov_129_92: frac[2,92] + frac[9,92] + frac[16,92] + frac[18,92]
+   + frac[20,92] + frac[21,92] + frac[22,92] >= 1
+ cov_130_48: frac[12,48] + frac[15,48] + frac[19,48] >= 1
+ cov_130_49: frac[12,49] + frac[15,49] + frac[19,49] >= 1
+ cov_130_50: frac[12,50] + frac[15,50] + frac[19,50] >= 1
+ cov_131_18: frac[1,18] + frac[9,18] + frac[16,18] + frac[18,18]
+   + frac[20,18] + frac[21,18] + frac[22,18] >= 0.7
+ cov_131_19: frac[1,19] + frac[9,19] + frac[16,19] + frac[18,19]
+   + frac[20,19] + frac[21,19] + frac[22,19] >= 0.7
+ cov_131_20: frac[1,20] + frac[9,20] + frac[16,20] + frac[18,20]
+   + frac[20,20] + frac[21,20] + frac[22,20] >= 0.7
+ cov_132_30: frac[1,30] + frac[6,30] + frac[16,30] + frac[17,30]
+   + frac[20,30] >= 0.8
+ cov_132_31: frac[1,31] + frac[6,31] + frac[16,31] + frac[17,31]
+   + frac[20,31] >= 0.8
+ cov_132_32: frac[1,32] + frac[6,32] + frac[16,32] + frac[17,32]
+   + frac[20,32] >= 0.8
+ cov_133_135: frac[2,135] + frac[9,135] + frac[16,135] + frac[18,135]
+   + frac[20,135] + frac[21,135] + frac[22,135] >= 1
+ cov_133_136: frac[2,136] + frac[9,136] + frac[16,136] + frac[18,136]
+   + frac[20,136] + frac[21,136] + frac[22,136] >= 1
+ cov_133_137: frac[2,137] + frac[9,137] + frac[16,137] + frac[18,137]
+   + frac[20,137] + frac[21,137] + frac[22,137] >= 1
+ cov_134_174: frac[2,174] + frac[3,174] + frac[16,174] >= 0.9
+ cov_134_175: frac[2,175] + frac[3,175] + frac[16,175] >= 0.9
+ cov_134_176: frac[2,176] + frac[3,176] + frac[16,176] >= 0.9
+ cov_135_144: frac[0,144] + frac[13,144] + frac[16,144] + frac[19,144]
+   + frac[20,144] + frac[21,144] + frac[22,144] >= 0.8
+ cov_135_145: frac[0,145] + frac[13,145] + frac[16,145] + frac[19,145]
+   + frac[20,145] + frac[21,145] + frac[22,145] >= 0.8
+ cov_135_146: frac[0,146] + frac[13,146] + frac[16,146] + frac[19,146]
+   + frac[20,146] + frac[21,146] + frac[22,146] >= 0.8
+ cov_136_123: frac[11,123] + frac[12,123] + frac[18,123] + frac[19,123]
+   + frac[21,123] >= 0.7
+ cov_136_124: frac[11,124] + frac[12,124] + frac[18,124] + frac[19,124]
+   + frac[21,124] >= 0.7
+ cov_136_125: frac[11,125] + frac[12,125] + frac[18,125] + frac[19,125]
+   + frac[21,125] >= 0.7
+ cov_137_168: frac[0,168] + frac[1,168] + frac[16,168] >= 0.9
+ cov_137_169: frac[0,169] + frac[1,169] + frac[16,169] >= 0.9
+ cov_137_170: frac[0,170] + frac[1,170] + frac[16,170] >= 0.9
+ cov_138_165: frac[5,165] + frac[7,165] + frac[17,165] >= 0.7
+ cov_138_166: frac[5,166] + frac[7,166] + frac[17,166] >= 0.7
+ cov_138_167: frac[5,167] + frac[7,167] + frac[17,167] >= 0.7
+ cov_139_111: frac[5,111] + frac[13,111] + frac[17,111] + frac[19,111]
+   + frac[20,111] + frac[21,111] + frac[22,111] >= 0.9
+ cov_139_112: frac[5,112] + frac[13,112] + frac[17,112] + frac[19,112]
+   + frac[20,112] + frac[21,112] + frac[22,112] >= 0.9
+ cov_139_113: frac[5,113] + frac[13,113] + frac[17,113] + frac[19,113]
+   + frac[20,113] + frac[21,113] + frac[22,113] >= 0.9
+ cov_140_33: frac[5,33] + frac[11,33] + frac[17,33] + frac[18,33]
+   + frac[20,33] + frac[21,33] + frac[22,33] >= 1
+ cov_140_34: frac[5,34] + frac[11,34] + frac[17,34] + frac[18,34]
+   + frac[20,34] + frac[21,34] + frac[22,34] >= 1
+ cov_140_35: frac[5,35] + frac[11,35] + frac[17,35] + frac[18,35]
+   + frac[20,35] + frac[21,35] + frac[22,35] >= 1
+ cov_141_18: frac[6,18] + frac[7,18] + frac[17,18] >= 0.8
+ cov_141_19: frac[6,19] + frac[7,19] + frac[17,19] >= 0.8
+ cov_141_20: frac[6,20] + frac[7,20] + frac[17,20] >= 0.8
+ cov_142_105: frac[7,105] + frac[10,105] + frac[17,105] + frac[18,105]
+   + frac[20,105] + frac[21,105] + frac[22,105] >= 1
+ cov_142_106: frac[7,106] + frac[10,106] + frac[17,106] + frac[18,106]
+   + frac[20,106] + frac[21,106] + frac[22,106] >= 1
+ cov_142_107: frac[7,107] + frac[10,107] + frac[17,107] + frac[18,107]
+   + frac[20,107] + frac[21,107] + frac[22,107] >= 1
+ cov_143_57: frac[5,57] + frac[7,57] + frac[17,57] >= 0.8
+ cov_143_58: frac[5,58] + frac[7,58] + frac[17,58] >= 0.8
+ cov_143_59: frac[5,59] + frac[7,59] + frac[17,59] >= 0.8
+ cov_144_27: frac[4,27] + frac[10,27] + frac[17,27] + frac[18,27]
+   + frac[20,27] + frac[21,27] + frac[22,27] >= 0.8
+ cov_144_28: frac[4,28] + frac[10,28] + frac[17,28] + frac[18,28]
+   + frac[20,28] + frac[21,28] + frac[22,28] >= 0.8
+ cov_144_29: frac[4,29] + frac[10,29] + frac[17,29] + frac[18,29]
+   + frac[20,29] + frac[21,29] + frac[22,29] >= 0.8
+ cov_145_96: frac[8,96] + frac[14,96] + frac[18,96] + frac[19,96]
+   + frac[21,96] >= 1
+ cov_145_97: frac[8,97] + frac[14,97] + frac[18,97] + frac[19,97]
+   + frac[21,97] >= 1
+ cov_145_98: frac[8,98] + frac[14,98] + frac[18,98] + frac[19,98]
+   + frac[21,98] >= 1
+ cov_146_24: frac[8,24] + frac[12,24] + frac[18,24] + frac[19,24]
+   + frac[21,24] >= 1
+ cov_146_25: frac[8,25] + frac[12,25] + frac[18,25] + frac[19,25]
+   + frac[21,25] >= 1
+ cov_146_26: frac[8,26] + frac[12,26] + frac[18,26] + frac[19,26]
+   + frac[21,26] >= 1
+ cov_147_24: frac[4,24] + frac[11,24] + frac[17,24] + frac[18,24]
+   + frac[20,24] + frac[21,24] + frac[22,24] >= 0.8
+ cov_147_25: frac[4,25] + frac[11,25] + frac[17,25] + frac[18,25]
+   + frac[20,25] + frac[21,25] + frac[22,25] >= 0.8
+ cov_147_26: frac[4,26] + frac[11,26] + frac[17,26] + frac[18,26]
+   + frac[20,26] + frac[21,26] + frac[22,26] >= 0.8
+ cov_148_102: frac[2,102] + frac[3,102] + frac[16,102] >= 1
+ cov_148_103: frac[2,103] + frac[3,103] + frac[16,103] >= 1
+ cov_148_104: frac[2,104] + frac[3,104] + frac[16,104] >= 1
+ cov_149_147: frac[9,147] + frac[14,147] + frac[18,147] + frac[19,147]
+   + frac[21,147] >= 0.7
+ cov_149_148: frac[9,148] + frac[14,148] + frac[18,148] + frac[19,148]
+   + frac[21,148] >= 0.7
+ cov_149_149: frac[9,149] + frac[14,149] + frac[18,149] + frac[19,149]
+   + frac[21,149] >= 0.7
+ cov_150_177: frac[1,177] + frac[9,177] + frac[16,177] + frac[18,177]
+   + frac[20,177] + frac[21,177] + frac[22,177] >= 1
+ cov_150_178: frac[1,178] + frac[9,178] + frac[16,178] + frac[18,178]
+   + frac[20,178] + frac[21,178] + frac[22,178] >= 1
+ cov_150_179: frac[1,179] + frac[9,179] + frac[16,179] + frac[18,179]
+   + frac[20,179] + frac[21,179] + frac[22,179] >= 1
+ cov_151_51: frac[1,51] + frac[3,51] + frac[16,51] >= 1
+ cov_151_52: frac[1,52] + frac[3,52] + frac[16,52] >= 1
+ cov_151_53: frac[1,53] + frac[3,53] + frac[16,53] >= 1
+ cov_152_123: frac[5,123] + frac[14,123] + frac[17,123] + frac[19,123]
+   + frac[20,123] + frac[21,123] + frac[22,123] >= 0.8
+ cov_152_124: frac[5,124] + frac[14,124] + frac[17,124] + frac[19,124]
+   + frac[20,124] + frac[21,124] + frac[22,124] >= 0.8
+ cov_152_125: frac[5,125] + frac[14,125] + frac[17,125] + frac[19,125]
+   + frac[20,125] + frac[21,125] + frac[22,125] >= 0.8
+ cov_153_141: frac[1,141] + frac[10,141] + frac[16,141] + frac[18,141]
+   + frac[20,141] + frac[21,141] + frac[22,141] >= 0.9
+ cov_153_142: frac[1,142] + frac[10,142] + frac[16,142] + frac[18,142]
+   + frac[20,142] + frac[21,142] + frac[22,142] >= 0.9
+ cov_153_143: frac[1,143] + frac[10,143] + frac[16,143] + frac[18,143]
+   + frac[20,143] + frac[21,143] + frac[22,143] >= 0.9
+ cov_154_177: frac[8,177] + frac[15,177] + frac[18,177] + frac[19,177]
+   + frac[21,177] >= 0.7
+ cov_154_178: frac[8,178] + frac[15,178] + frac[18,178] + frac[19,178]
+   + frac[21,178] >= 0.7
+ cov_154_179: frac[8,179] + frac[15,179] + frac[18,179] + frac[19,179]
+   + frac[21,179] >= 0.7
+ cov_155_180: frac[3,180] + frac[15,180] + frac[16,180] + frac[19,180]
+   + frac[20,180] + frac[21,180] + frac[22,180] >= 0.8
+ cov_155_181: frac[3,181] + frac[15,181] + frac[16,181] + frac[19,181]
+   + frac[20,181] + frac[21,181] + frac[22,181] >= 0.8
+ cov_155_182: frac[3,182] + frac[15,182] + frac[16,182] + frac[19,182]
+   + frac[20,182] + frac[21,182] + frac[22,182] >= 0.8
+ cov_156_42: frac[1,42] + frac[6,42] + frac[16,42] + frac[17,42]
+   + frac[20,42] >= 1
+ cov_156_43: frac[1,43] + frac[6,43] + frac[16,43] + frac[17,43]
+   + frac[20,43] >= 1
+ cov_156_44: frac[1,44] + frac[6,44] + frac[16,44] + frac[17,44]
+   + frac[20,44] >= 1
+ cov_157_18: frac[0,18] + frac[4,18] + frac[16,18] + frac[17,18]
+   + frac[20,18] >= 0.7
+ cov_157_19: frac[0,19] + frac[4,19] + frac[16,19] + frac[17,19]
+   + frac[20,19] >= 0.7
+ cov_157_20: frac[0,20] + frac[4,20] + frac[16,20] + frac[17,20]
+   + frac[20,20] >= 0.7
+ cov_158_96: frac[3,96] + frac[6,96] + frac[16,96] + frac[17,96]
+   + frac[20,96] >= 0.8
+ cov_158_97: frac[3,97] + frac[6,97] + frac[16,97] + frac[17,97]
+   + frac[20,97] >= 0.8
+ cov_158_98: frac[3,98] + frac[6,98] + frac[16,98] + frac[17,98]
+   + frac[20,98] >= 0.8
+ cov_159_96: frac[1,96] + frac[4,96] + frac[16,96] + frac[17,96]
+   + frac[20,96] >= 0.9
+ cov_159_97: frac[1,97] + frac[4,97] + frac[16,97] + frac[17,97]
+   + frac[20,97] >= 0.9
+ cov_159_98: frac[1,98] + frac[4,98] + frac[16,98] + frac[17,98]
+   + frac[20,98] >= 0.9
+ cov_160_153: frac[0,153] + frac[8,153] + frac[16,153] + frac[18,153]
+   + frac[20,153] + frac[21,153] + frac[22,153] >= 0.7
+ cov_160_154: frac[0,154] + frac[8,154] + frac[16,154] + frac[18,154]
+   + frac[20,154] + frac[21,154] + frac[22,154] >= 0.7
+ cov_160_155: frac[0,155] + frac[8,155] + frac[16,155] + frac[18,155]
+   + frac[20,155] + frac[21,155] + frac[22,155] >= 0.7
+ cov_161_6: frac[0,6] + frac[6,6] + frac[16,6] + frac[17,6] + frac[20,6]
+   >= 0.7
+ cov_161_7: frac[0,7] + frac[6,7] + frac[16,7] + frac[17,7] + frac[20,7]
+   >= 0.7
+ cov_161_8: frac[0,8] + frac[6,8] + frac[16,8] + frac[17,8] + frac[20,8]
+   >= 0.7
+ cov_162_156: frac[2,156] + frac[11,156] + frac[16,156] + frac[18,156]
+   + frac[20,156] + frac[21,156] + frac[22,156] >= 0.7
+ cov_162_157: frac[2,157] + frac[11,157] + frac[16,157] + frac[18,157]
+   + frac[20,157] + frac[21,157] + frac[22,157] >= 0.7
+ cov_162_158: frac[2,158] + frac[11,158] + frac[16,158] + frac[18,158]
+   + frac[20,158] + frac[21,158] + frac[22,158] >= 0.7
+ cov_163_72: frac[3,72] + frac[5,72] + frac[16,72] + frac[17,72]
+   + frac[20,72] >= 0.9
+ cov_163_73: frac[3,73] + frac[5,73] + frac[16,73] + frac[17,73]
+   + frac[20,73] >= 0.9
+ cov_163_74: frac[3,74] + frac[5,74] + frac[16,74] + frac[17,74]
+   + frac[20,74] >= 0.9
+ cov_164_180: frac[0,180] + frac[1,180] + frac[16,180] >= 0.8
+ cov_164_181: frac[0,181] + frac[1,181] + frac[16,181] >= 0.8
+ cov_164_182: frac[0,182] + frac[1,182] + frac[16,182] >= 0.8
+ cov_165_174: frac[12,174] + frac[15,174] + frac[19,174] >= 0.9
+ cov_165_175: frac[12,175] + frac[15,175] + frac[19,175] >= 0.9
+ cov_165_176: frac[12,176] + frac[15,176] + frac[19,176] >= 0.9
+ cov_166_150: frac[4,150] + frac[11,150] + frac[17,150] + frac[18,150]
+   + frac[20,150] + frac[21,150] + frac[22,150] >= 1
+ cov_166_151: frac[4,151] + frac[11,151] + frac[17,151] + frac[18,151]
+   + frac[20,151] + frac[21,151] + frac[22,151] >= 1
+ cov_166_152: frac[4,152] + frac[11,152] + frac[17,152] + frac[18,152]
+   + frac[20,152] + frac[21,152] + frac[22,152] >= 1
+ cov_167_48: frac[10,48] + frac[14,48] + frac[18,48] + frac[19,48]
+   + frac[21,48] >= 1
+ cov_167_49: frac[10,49] + frac[14,49] + frac[18,49] + frac[19,49]
+   + frac[21,49] >= 1
+ cov_167_50: frac[10,50] + frac[14,50] + frac[18,50] + frac[19,50]
+   + frac[21,50] >= 1
+ cov_168_78: frac[0,78] + frac[3,78] + frac[16,78] >= 0.9
+ cov_168_79: frac[0,79] + frac[3,79] + frac[16,79] >= 0.9
+ cov_168_80: frac[0,80] + frac[3,80] + frac[16,80] >= 0.9
+ cov_169_87: frac[6,87] + frac[15,87] + frac[17,87] + frac[19,87]
+   + frac[20,87] + frac[21,87] + frac[22,87] >= 0.9
+ cov_169_88: frac[6,88] + frac[15,88] + frac[17,88] + frac[19,88]
+   + frac[20,88] + frac[21,88] + frac[22,88] >= 0.9
+ cov_169_89: frac[6,89] + frac[15,89] + frac[17,89] + frac[19,89]
+   + frac[20,89] + frac[21,89] + frac[22,89] >= 0.9
+ cov_170_54: frac[1,54] + frac[15,54] + frac[16,54] + frac[19,54]
+   + frac[20,54] + frac[21,54] + frac[22,54] >= 0.8
+ cov_170_55: frac[1,55] + frac[15,55] + frac[16,55] + frac[19,55]
+   + frac[20,55] + frac[21,55] + frac[22,55] >= 0.8
+ cov_170_56: frac[1,56] + frac[15,56] + frac[16,56] + frac[19,56]
+   + frac[20,56] + frac[21,56] + frac[22,56] >= 0.8
+ cov_171_168: frac[7,168] + frac[9,168] + frac[17,168] + frac[18,168]
+   + frac[20,168] + frac[21,168] + frac[22,168] >= 0.7
+ cov_171_169: frac[7,169] + frac[9,169] + frac[17,169] + frac[18,169]
+   + frac[20,169] + frac[21,169] + frac[22,169] >= 0.7
+ cov_171_170: frac[7,170] + frac[9,170] + frac[17,170] + frac[18,170]
+   + frac[20,170] + frac[21,170] + frac[22,170] >= 0.7
+ cov_172_87: frac[0,87] + frac[8,87] + frac[16,87] + frac[18,87]
    + frac[20,87] + frac[21,87] + frac[22,87] >= 0.7
- cov_314_88: frac[1,88] + frac[8,88] + frac[16,88] + frac[18,88]
+ cov_172_88: frac[0,88] + frac[8,88] + frac[16,88] + frac[18,88]
    + frac[20,88] + frac[21,88] + frac[22,88] >= 0.7
- cov_314_89: frac[1,89] + frac[8,89] + frac[16,89] + frac[18,89]
+ cov_172_89: frac[0,89] + frac[8,89] + frac[16,89] + frac[18,89]
    + frac[20,89] + frac[21,89] + frac[22,89] >= 0.7
- cov_315_177: frac[10,177] + frac[14,177] + frac[18,177] + frac[19,177]
-   + frac[21,177] >= 1
- cov_315_178: frac[10,178] + frac[14,178] + frac[18,178] + frac[19,178]
-   + frac[21,178] >= 1
- cov_315_179: frac[10,179] + frac[14,179] + frac[18,179] + frac[19,179]
-   + frac[21,179] >= 1
- cov_316_180: frac[12,180] + frac[15,180] + frac[19,180] >= 0.9
- cov_316_181: frac[12,181] + frac[15,181] + frac[19,181] >= 0.9
- cov_316_182: frac[12,182] + frac[15,182] + frac[19,182] >= 0.9
- cov_317_9: frac[3,9] + frac[4,9] + frac[16,9] + frac[17,9] + frac[20,9]
-   >= 0.8
- cov_317_10: frac[3,10] + frac[4,10] + frac[16,10] + frac[17,10]
-   + frac[20,10] >= 0.8
- cov_317_11: frac[3,11] + frac[4,11] + frac[16,11] + frac[17,11]
-   + frac[20,11] >= 0.8
- cov_318_3: frac[3,3] + frac[8,3] + frac[16,3] + frac[18,3] + frac[20,3]
-   + frac[21,3] + frac[22,3] >= 0.8
- cov_318_4: frac[3,4] + frac[8,4] + frac[16,4] + frac[18,4] + frac[20,4]
-   + frac[21,4] + frac[22,4] >= 0.8
- cov_318_5: frac[3,5] + frac[8,5] + frac[16,5] + frac[18,5] + frac[20,5]
-   + frac[21,5] + frac[22,5] >= 0.8
- cov_319_78: frac[4,78] + frac[7,78] + frac[17,78] >= 0.8
- cov_319_79: frac[4,79] + frac[7,79] + frac[17,79] >= 0.8
- cov_319_80: frac[4,80] + frac[7,80] + frac[17,80] >= 0.8
+ cov_173_81: frac[7,81] + frac[8,81] + frac[17,81] + frac[18,81]
+   + frac[20,81] + frac[21,81] + frac[22,81] >= 0.8
+ cov_173_82: frac[7,82] + frac[8,82] + frac[17,82] + frac[18,82]
+   + frac[20,82] + frac[21,82] + frac[22,82] >= 0.8
+ cov_173_83: frac[7,83] + frac[8,83] + frac[17,83] + frac[18,83]
+   + frac[20,83] + frac[21,83] + frac[22,83] >= 0.8
+ cov_174_111: frac[10,111] + frac[11,111] + frac[18,111] >= 1
+ cov_174_112: frac[10,112] + frac[11,112] + frac[18,112] >= 1
+ cov_174_113: frac[10,113] + frac[11,113] + frac[18,113] >= 1
+ cov_175_69: frac[0,69] + frac[5,69] + frac[16,69] + frac[17,69]
+   + frac[20,69] >= 0.8
+ cov_175_70: frac[0,70] + frac[5,70] + frac[16,70] + frac[17,70]
+   + frac[20,70] >= 0.8
+ cov_175_71: frac[0,71] + frac[5,71] + frac[16,71] + frac[17,71]
+   + frac[20,71] >= 0.8
+ cov_176_15: frac[0,15] + frac[13,15] + frac[16,15] + frac[19,15]
+   + frac[20,15] + frac[21,15] + frac[22,15] >= 0.8
+ cov_176_16: frac[0,16] + frac[13,16] + frac[16,16] + frac[19,16]
+   + frac[20,16] + frac[21,16] + frac[22,16] >= 0.8
+ cov_176_17: frac[0,17] + frac[13,17] + frac[16,17] + frac[19,17]
+   + frac[20,17] + frac[21,17] + frac[22,17] >= 0.8
+ cov_177_159: frac[1,159] + frac[11,159] + frac[16,159] + frac[18,159]
+   + frac[20,159] + frac[21,159] + frac[22,159] >= 0.7
+ cov_177_160: frac[1,160] + frac[11,160] + frac[16,160] + frac[18,160]
+   + frac[20,160] + frac[21,160] + frac[22,160] >= 0.7
+ cov_177_161: frac[1,161] + frac[11,161] + frac[16,161] + frac[18,161]
+   + frac[20,161] + frac[21,161] + frac[22,161] >= 0.7
+ cov_178_36: frac[1,36] + frac[4,36] + frac[16,36] + frac[17,36]
+   + frac[20,36] >= 1
+ cov_178_37: frac[1,37] + frac[4,37] + frac[16,37] + frac[17,37]
+   + frac[20,37] >= 1
+ cov_178_38: frac[1,38] + frac[4,38] + frac[16,38] + frac[17,38]
+   + frac[20,38] >= 1
+ cov_179_138: frac[10,138] + frac[12,138] + frac[18,138] + frac[19,138]
+   + frac[21,138] >= 0.7
+ cov_179_139: frac[10,139] + frac[12,139] + frac[18,139] + frac[19,139]
+   + frac[21,139] >= 0.7
+ cov_179_140: frac[10,140] + frac[12,140] + frac[18,140] + frac[19,140]
+   + frac[21,140] >= 0.7
+ cov_180_93: frac[10,93] + frac[15,93] + frac[18,93] + frac[19,93]
+   + frac[21,93] >= 0.8
+ cov_180_94: frac[10,94] + frac[15,94] + frac[18,94] + frac[19,94]
+   + frac[21,94] >= 0.8
+ cov_180_95: frac[10,95] + frac[15,95] + frac[18,95] + frac[19,95]
+   + frac[21,95] >= 0.8
+ cov_181_39: frac[2,39] + frac[9,39] + frac[16,39] + frac[18,39]
+   + frac[20,39] + frac[21,39] + frac[22,39] >= 0.9
+ cov_181_40: frac[2,40] + frac[9,40] + frac[16,40] + frac[18,40]
+   + frac[20,40] + frac[21,40] + frac[22,40] >= 0.9
+ cov_181_41: frac[2,41] + frac[9,41] + frac[16,41] + frac[18,41]
+   + frac[20,41] + frac[21,41] + frac[22,41] >= 0.9
+ cov_182_51: frac[3,51] + frac[5,51] + frac[16,51] + frac[17,51]
+   + frac[20,51] >= 1
+ cov_182_52: frac[3,52] + frac[5,52] + frac[16,52] + frac[17,52]
+   + frac[20,52] >= 1
+ cov_182_53: frac[3,53] + frac[5,53] + frac[16,53] + frac[17,53]
+   + frac[20,53] >= 1
+ cov_183_120: frac[0,120] + frac[10,120] + frac[16,120] + frac[18,120]
+   + frac[20,120] + frac[21,120] + frac[22,120] >= 0.8
+ cov_183_121: frac[0,121] + frac[10,121] + frac[16,121] + frac[18,121]
+   + frac[20,121] + frac[21,121] + frac[22,121] >= 0.8
+ cov_183_122: frac[0,122] + frac[10,122] + frac[16,122] + frac[18,122]
+   + frac[20,122] + frac[21,122] + frac[22,122] >= 0.8
+ cov_184_189: frac[0,189] + frac[7,189] + frac[16,189] + frac[17,189]
+   + frac[20,189] >= 1
+ cov_184_190: frac[0,190] + frac[7,190] + frac[16,190] + frac[17,190]
+   + frac[20,190] >= 1
+ cov_184_191: frac[0,191] + frac[7,191] + frac[16,191] + frac[17,191]
+   + frac[20,191] >= 1
+ cov_185_162: frac[5,162] + frac[13,162] + frac[17,162] + frac[19,162]
+   + frac[20,162] + frac[21,162] + frac[22,162] >= 0.8
+ cov_185_163: frac[5,163] + frac[13,163] + frac[17,163] + frac[19,163]
+   + frac[20,163] + frac[21,163] + frac[22,163] >= 0.8
+ cov_185_164: frac[5,164] + frac[13,164] + frac[17,164] + frac[19,164]
+   + frac[20,164] + frac[21,164] + frac[22,164] >= 0.8
+ cov_186_30: frac[2,30] + frac[4,30] + frac[16,30] + frac[17,30]
+   + frac[20,30] >= 0.8
+ cov_186_31: frac[2,31] + frac[4,31] + frac[16,31] + frac[17,31]
+   + frac[20,31] >= 0.8
+ cov_186_32: frac[2,32] + frac[4,32] + frac[16,32] + frac[17,32]
+   + frac[20,32] >= 0.8
+ cov_187_174: frac[4,174] + frac[6,174] + frac[17,174] >= 0.8
+ cov_187_175: frac[4,175] + frac[6,175] + frac[17,175] >= 0.8
+ cov_187_176: frac[4,176] + frac[6,176] + frac[17,176] >= 0.8
+ cov_188_27: frac[7,27] + frac[14,27] + frac[17,27] + frac[19,27]
+   + frac[20,27] + frac[21,27] + frac[22,27] >= 0.9
+ cov_188_28: frac[7,28] + frac[14,28] + frac[17,28] + frac[19,28]
+   + frac[20,28] + frac[21,28] + frac[22,28] >= 0.9
+ cov_188_29: frac[7,29] + frac[14,29] + frac[17,29] + frac[19,29]
+   + frac[20,29] + frac[21,29] + frac[22,29] >= 0.9
+ cov_189_15: frac[1,15] + frac[7,15] + frac[16,15] + frac[17,15]
+   + frac[20,15] >= 0.9
+ cov_189_16: frac[1,16] + frac[7,16] + frac[16,16] + frac[17,16]
+   + frac[20,16] >= 0.9
+ cov_189_17: frac[1,17] + frac[7,17] + frac[16,17] + frac[17,17]
+   + frac[20,17] >= 0.9
+ cov_190_90: frac[9,90] + frac[10,90] + frac[18,90] >= 0.7
+ cov_190_91: frac[9,91] + frac[10,91] + frac[18,91] >= 0.7
+ cov_190_92: frac[9,92] + frac[10,92] + frac[18,92] >= 0.7
+ cov_191_27: frac[0,27] + frac[5,27] + frac[16,27] + frac[17,27]
+   + frac[20,27] >= 1
+ cov_191_28: frac[0,28] + frac[5,28] + frac[16,28] + frac[17,28]
+   + frac[20,28] >= 1
+ cov_191_29: frac[0,29] + frac[5,29] + frac[16,29] + frac[17,29]
+   + frac[20,29] >= 1
+ cov_192_15: frac[1,15] + frac[14,15] + frac[16,15] + frac[19,15]
+   + frac[20,15] + frac[21,15] + frac[22,15] >= 0.7
+ cov_192_16: frac[1,16] + frac[14,16] + frac[16,16] + frac[19,16]
+   + frac[20,16] + frac[21,16] + frac[22,16] >= 0.7
+ cov_192_17: frac[1,17] + frac[14,17] + frac[16,17] + frac[19,17]
+   + frac[20,17] + frac[21,17] + frac[22,17] >= 0.7
+ cov_193_174: frac[2,174] + frac[3,174] + frac[16,174] >= 0.8
+ cov_193_175: frac[2,175] + frac[3,175] + frac[16,175] >= 0.8
+ cov_193_176: frac[2,176] + frac[3,176] + frac[16,176] >= 0.8
+ cov_194_36: frac[2,36] + frac[14,36] + frac[16,36] + frac[19,36]
+   + frac[20,36] + frac[21,36] + frac[22,36] >= 1
+ cov_194_37: frac[2,37] + frac[14,37] + frac[16,37] + frac[19,37]
+   + frac[20,37] + frac[21,37] + frac[22,37] >= 1
+ cov_194_38: frac[2,38] + frac[14,38] + frac[16,38] + frac[19,38]
+   + frac[20,38] + frac[21,38] + frac[22,38] >= 1
+ cov_195_102: frac[0,102] + frac[6,102] + frac[16,102] + frac[17,102]
+   + frac[20,102] >= 0.8
+ cov_195_103: frac[0,103] + frac[6,103] + frac[16,103] + frac[17,103]
+   + frac[20,103] >= 0.8
+ cov_195_104: frac[0,104] + frac[6,104] + frac[16,104] + frac[17,104]
+   + frac[20,104] >= 0.8
+ cov_196_111: frac[4,111] + frac[9,111] + frac[17,111] + frac[18,111]
+   + frac[20,111] + frac[21,111] + frac[22,111] >= 0.8
+ cov_196_112: frac[4,112] + frac[9,112] + frac[17,112] + frac[18,112]
+   + frac[20,112] + frac[21,112] + frac[22,112] >= 0.8
+ cov_196_113: frac[4,113] + frac[9,113] + frac[17,113] + frac[18,113]
+   + frac[20,113] + frac[21,113] + frac[22,113] >= 0.8
+ cov_197_54: frac[0,54] + frac[4,54] + frac[16,54] + frac[17,54]
+   + frac[20,54] >= 1
+ cov_197_55: frac[0,55] + frac[4,55] + frac[16,55] + frac[17,55]
+   + frac[20,55] >= 1
+ cov_197_56: frac[0,56] + frac[4,56] + frac[16,56] + frac[17,56]
+   + frac[20,56] >= 1
+ cov_198_57: frac[3,57] + frac[10,57] + frac[16,57] + frac[18,57]
+   + frac[20,57] + frac[21,57] + frac[22,57] >= 0.9
+ cov_198_58: frac[3,58] + frac[10,58] + frac[16,58] + frac[18,58]
+   + frac[20,58] + frac[21,58] + frac[22,58] >= 0.9
+ cov_198_59: frac[3,59] + frac[10,59] + frac[16,59] + frac[18,59]
+   + frac[20,59] + frac[21,59] + frac[22,59] >= 0.9
+ cov_199_57: frac[2,57] + frac[10,57] + frac[16,57] + frac[18,57]
+   + frac[20,57] + frac[21,57] + frac[22,57] >= 0.9
+ cov_199_58: frac[2,58] + frac[10,58] + frac[16,58] + frac[18,58]
+   + frac[20,58] + frac[21,58] + frac[22,58] >= 0.9
+ cov_199_59: frac[2,59] + frac[10,59] + frac[16,59] + frac[18,59]
+   + frac[20,59] + frac[21,59] + frac[22,59] >= 0.9
+ cov_200_0: frac[4,0] + frac[6,0] + frac[17,0] >= 0.7
+ cov_200_1: frac[4,1] + frac[6,1] + frac[17,1] >= 0.7
+ cov_200_2: frac[4,2] + frac[6,2] + frac[17,2] >= 0.7
+ cov_201_33: frac[7,33] + frac[8,33] + frac[17,33] + frac[18,33]
+   + frac[20,33] + frac[21,33] + frac[22,33] >= 0.8
+ cov_201_34: frac[7,34] + frac[8,34] + frac[17,34] + frac[18,34]
+   + frac[20,34] + frac[21,34] + frac[22,34] >= 0.8
+ cov_201_35: frac[7,35] + frac[8,35] + frac[17,35] + frac[18,35]
+   + frac[20,35] + frac[21,35] + frac[22,35] >= 0.8
+ cov_202_60: frac[1,60] + frac[4,60] + frac[16,60] + frac[17,60]
+   + frac[20,60] >= 0.7
+ cov_202_61: frac[1,61] + frac[4,61] + frac[16,61] + frac[17,61]
+   + frac[20,61] >= 0.7
+ cov_202_62: frac[1,62] + frac[4,62] + frac[16,62] + frac[17,62]
+   + frac[20,62] >= 0.7
+ cov_203_6: frac[1,6] + frac[14,6] + frac[16,6] + frac[19,6] + frac[20,6]
+   + frac[21,6] + frac[22,6] >= 0.8
+ cov_203_7: frac[1,7] + frac[14,7] + frac[16,7] + frac[19,7] + frac[20,7]
+   + frac[21,7] + frac[22,7] >= 0.8
+ cov_203_8: frac[1,8] + frac[14,8] + frac[16,8] + frac[19,8] + frac[20,8]
+   + frac[21,8] + frac[22,8] >= 0.8
+ cov_204_174: frac[13,174] + frac[14,174] + frac[19,174] >= 0.9
+ cov_204_175: frac[13,175] + frac[14,175] + frac[19,175] >= 0.9
+ cov_204_176: frac[13,176] + frac[14,176] + frac[19,176] >= 0.9
+ cov_205_72: frac[2,72] + frac[5,72] + frac[16,72] + frac[17,72]
+   + frac[20,72] >= 0.7
+ cov_205_73: frac[2,73] + frac[5,73] + frac[16,73] + frac[17,73]
+   + frac[20,73] >= 0.7
+ cov_205_74: frac[2,74] + frac[5,74] + frac[16,74] + frac[17,74]
+   + frac[20,74] >= 0.7
+ cov_206_144: frac[10,144] + frac[11,144] + frac[18,144] >= 0.7
+ cov_206_145: frac[10,145] + frac[11,145] + frac[18,145] >= 0.7
+ cov_206_146: frac[10,146] + frac[11,146] + frac[18,146] >= 0.7
+ cov_207_42: frac[5,42] + frac[13,42] + frac[17,42] + frac[19,42]
+   + frac[20,42] + frac[21,42] + frac[22,42] >= 0.9
+ cov_207_43: frac[5,43] + frac[13,43] + frac[17,43] + frac[19,43]
+   + frac[20,43] + frac[21,43] + frac[22,43] >= 0.9
+ cov_207_44: frac[5,44] + frac[13,44] + frac[17,44] + frac[19,44]
+   + frac[20,44] + frac[21,44] + frac[22,44] >= 0.9
+ cov_208_126: frac[9,126] + frac[13,126] + frac[18,126] + frac[19,126]
+   + frac[21,126] >= 1
+ cov_208_127: frac[9,127] + frac[13,127] + frac[18,127] + frac[19,127]
+   + frac[21,127] >= 1
+ cov_208_128: frac[9,128] + frac[13,128] + frac[18,128] + frac[19,128]
+   + frac[21,128] >= 1
+ cov_209_24: frac[2,24] + frac[5,24] + frac[16,24] + frac[17,24]
+   + frac[20,24] >= 0.9
+ cov_209_25: frac[2,25] + frac[5,25] + frac[16,25] + frac[17,25]
+   + frac[20,25] >= 0.9
+ cov_209_26: frac[2,26] + frac[5,26] + frac[16,26] + frac[17,26]
+   + frac[20,26] >= 0.9
+ cov_210_114: frac[4,114] + frac[12,114] + frac[17,114] + frac[19,114]
+   + frac[20,114] + frac[21,114] + frac[22,114] >= 1
+ cov_210_115: frac[4,115] + frac[12,115] + frac[17,115] + frac[19,115]
+   + frac[20,115] + frac[21,115] + frac[22,115] >= 1
+ cov_210_116: frac[4,116] + frac[12,116] + frac[17,116] + frac[19,116]
+   + frac[20,116] + frac[21,116] + frac[22,116] >= 1
+ cov_211_165: frac[2,165] + frac[6,165] + frac[16,165] + frac[17,165]
+   + frac[20,165] >= 0.7
+ cov_211_166: frac[2,166] + frac[6,166] + frac[16,166] + frac[17,166]
+   + frac[20,166] >= 0.7
+ cov_211_167: frac[2,167] + frac[6,167] + frac[16,167] + frac[17,167]
+   + frac[20,167] >= 0.7
+ cov_212_189: frac[7,189] + frac[14,189] + frac[17,189] + frac[19,189]
+   + frac[20,189] + frac[21,189] + frac[22,189] >= 0.8
+ cov_212_190: frac[7,190] + frac[14,190] + frac[17,190] + frac[19,190]
+   + frac[20,190] + frac[21,190] + frac[22,190] >= 0.8
+ cov_212_191: frac[7,191] + frac[14,191] + frac[17,191] + frac[19,191]
+   + frac[20,191] + frac[21,191] + frac[22,191] >= 0.8
+ cov_213_18: frac[6,18] + frac[9,18] + frac[17,18] + frac[18,18]
+   + frac[20,18] + frac[21,18] + frac[22,18] >= 1
+ cov_213_19: frac[6,19] + frac[9,19] + frac[17,19] + frac[18,19]
+   + frac[20,19] + frac[21,19] + frac[22,19] >= 1
+ cov_213_20: frac[6,20] + frac[9,20] + frac[17,20] + frac[18,20]
+   + frac[20,20] + frac[21,20] + frac[22,20] >= 1
+ cov_214_42: frac[13,42] + frac[15,42] + frac[19,42] >= 0.7
+ cov_214_43: frac[13,43] + frac[15,43] + frac[19,43] >= 0.7
+ cov_214_44: frac[13,44] + frac[15,44] + frac[19,44] >= 0.7
+ cov_215_15: frac[3,15] + frac[15,15] + frac[16,15] + frac[19,15]
+   + frac[20,15] + frac[21,15] + frac[22,15] >= 0.9
+ cov_215_16: frac[3,16] + frac[15,16] + frac[16,16] + frac[19,16]
+   + frac[20,16] + frac[21,16] + frac[22,16] >= 0.9
+ cov_215_17: frac[3,17] + frac[15,17] + frac[16,17] + frac[19,17]
+   + frac[20,17] + frac[21,17] + frac[22,17] >= 0.9
+ cov_216_159: frac[5,159] + frac[11,159] + frac[17,159] + frac[18,159]
+   + frac[20,159] + frac[21,159] + frac[22,159] >= 0.8
+ cov_216_160: frac[5,160] + frac[11,160] + frac[17,160] + frac[18,160]
+   + frac[20,160] + frac[21,160] + frac[22,160] >= 0.8
+ cov_216_161: frac[5,161] + frac[11,161] + frac[17,161] + frac[18,161]
+   + frac[20,161] + frac[21,161] + frac[22,161] >= 0.8
+ cov_217_93: frac[5,93] + frac[11,93] + frac[17,93] + frac[18,93]
+   + frac[20,93] + frac[21,93] + frac[22,93] >= 0.8
+ cov_217_94: frac[5,94] + frac[11,94] + frac[17,94] + frac[18,94]
+   + frac[20,94] + frac[21,94] + frac[22,94] >= 0.8
+ cov_217_95: frac[5,95] + frac[11,95] + frac[17,95] + frac[18,95]
+   + frac[20,95] + frac[21,95] + frac[22,95] >= 0.8
+ cov_218_147: frac[7,147] + frac[13,147] + frac[17,147] + frac[19,147]
+   + frac[20,147] + frac[21,147] + frac[22,147] >= 0.7
+ cov_218_148: frac[7,148] + frac[13,148] + frac[17,148] + frac[19,148]
+   + frac[20,148] + frac[21,148] + frac[22,148] >= 0.7
+ cov_218_149: frac[7,149] + frac[13,149] + frac[17,149] + frac[19,149]
+   + frac[20,149] + frac[21,149] + frac[22,149] >= 0.7
+ cov_219_159: frac[4,159] + frac[13,159] + frac[17,159] + frac[19,159]
+   + frac[20,159] + frac[21,159] + frac[22,159] >= 0.8
+ cov_219_160: frac[4,160] + frac[13,160] + frac[17,160] + frac[19,160]
+   + frac[20,160] + frac[21,160] + frac[22,160] >= 0.8
+ cov_219_161: frac[4,161] + frac[13,161] + frac[17,161] + frac[19,161]
+   + frac[20,161] + frac[21,161] + frac[22,161] >= 0.8
+ cov_220_102: frac[1,102] + frac[6,102] + frac[16,102] + frac[17,102]
+   + frac[20,102] >= 0.8
+ cov_220_103: frac[1,103] + frac[6,103] + frac[16,103] + frac[17,103]
+   + frac[20,103] >= 0.8
+ cov_220_104: frac[1,104] + frac[6,104] + frac[16,104] + frac[17,104]
+   + frac[20,104] >= 0.8
+ cov_221_117: frac[3,117] + frac[7,117] + frac[16,117] + frac[17,117]
+   + frac[20,117] >= 0.8
+ cov_221_118: frac[3,118] + frac[7,118] + frac[16,118] + frac[17,118]
+   + frac[20,118] >= 0.8
+ cov_221_119: frac[3,119] + frac[7,119] + frac[16,119] + frac[17,119]
+   + frac[20,119] >= 0.8
+ cov_222_87: frac[3,87] + frac[7,87] + frac[16,87] + frac[17,87]
+   + frac[20,87] >= 0.8
+ cov_222_88: frac[3,88] + frac[7,88] + frac[16,88] + frac[17,88]
+   + frac[20,88] >= 0.8
+ cov_222_89: frac[3,89] + frac[7,89] + frac[16,89] + frac[17,89]
+   + frac[20,89] >= 0.8
+ cov_223_99: frac[3,99] + frac[14,99] + frac[16,99] + frac[19,99]
+   + frac[20,99] + frac[21,99] + frac[22,99] >= 0.7
+ cov_223_100: frac[3,100] + frac[14,100] + frac[16,100] + frac[19,100]
+   + frac[20,100] + frac[21,100] + frac[22,100] >= 0.7
+ cov_223_101: frac[3,101] + frac[14,101] + frac[16,101] + frac[19,101]
+   + frac[20,101] + frac[21,101] + frac[22,101] >= 0.7
+ cov_224_114: frac[9,114] + frac[10,114] + frac[18,114] >= 1
+ cov_224_115: frac[9,115] + frac[10,115] + frac[18,115] >= 1
+ cov_224_116: frac[9,116] + frac[10,116] + frac[18,116] >= 1
+ cov_225_135: frac[12,135] + frac[13,135] + frac[19,135] >= 1
+ cov_225_136: frac[12,136] + frac[13,136] + frac[19,136] >= 1
+ cov_225_137: frac[12,137] + frac[13,137] + frac[19,137] >= 1
+ cov_226_189: frac[2,189] + frac[3,189] + frac[16,189] >= 1
+ cov_226_190: frac[2,190] + frac[3,190] + frac[16,190] >= 1
+ cov_226_191: frac[2,191] + frac[3,191] + frac[16,191] >= 1
+ cov_227_24: frac[13,24] + frac[15,24] + frac[19,24] >= 0.9
+ cov_227_25: frac[13,25] + frac[15,25] + frac[19,25] >= 0.9
+ cov_227_26: frac[13,26] + frac[15,26] + frac[19,26] >= 0.9
+ cov_228_150: frac[7,150] + frac[13,150] + frac[17,150] + frac[19,150]
+   + frac[20,150] + frac[21,150] + frac[22,150] >= 0.7
+ cov_228_151: frac[7,151] + frac[13,151] + frac[17,151] + frac[19,151]
+   + frac[20,151] + frac[21,151] + frac[22,151] >= 0.7
+ cov_228_152: frac[7,152] + frac[13,152] + frac[17,152] + frac[19,152]
+   + frac[20,152] + frac[21,152] + frac[22,152] >= 0.7
+ cov_229_99: frac[0,99] + frac[3,99] + frac[16,99] >= 0.8
+ cov_229_100: frac[0,100] + frac[3,100] + frac[16,100] >= 0.8
+ cov_229_101: frac[0,101] + frac[3,101] + frac[16,101] >= 0.8
+ cov_230_108: frac[3,108] + frac[13,108] + frac[16,108] + frac[19,108]
+   + frac[20,108] + frac[21,108] + frac[22,108] >= 0.7
+ cov_230_109: frac[3,109] + frac[13,109] + frac[16,109] + frac[19,109]
+   + frac[20,109] + frac[21,109] + frac[22,109] >= 0.7
+ cov_230_110: frac[3,110] + frac[13,110] + frac[16,110] + frac[19,110]
+   + frac[20,110] + frac[21,110] + frac[22,110] >= 0.7
+ cov_231_84: frac[4,84] + frac[12,84] + frac[17,84] + frac[19,84]
+   + frac[20,84] + frac[21,84] + frac[22,84] >= 1
+ cov_231_85: frac[4,85] + frac[12,85] + frac[17,85] + frac[19,85]
+   + frac[20,85] + frac[21,85] + frac[22,85] >= 1
+ cov_231_86: frac[4,86] + frac[12,86] + frac[17,86] + frac[19,86]
+   + frac[20,86] + frac[21,86] + frac[22,86] >= 1
+ cov_232_183: frac[8,183] + frac[11,183] + frac[18,183] >= 1
+ cov_232_184: frac[8,184] + frac[11,184] + frac[18,184] >= 1
+ cov_232_185: frac[8,185] + frac[11,185] + frac[18,185] >= 1
+ cov_233_114: frac[5,114] + frac[6,114] + frac[17,114] >= 0.9
+ cov_233_115: frac[5,115] + frac[6,115] + frac[17,115] >= 0.9
+ cov_233_116: frac[5,116] + frac[6,116] + frac[17,116] >= 0.9
+ cov_234_6: frac[11,6] + frac[12,6] + frac[18,6] + frac[19,6] + frac[21,6]
+   >= 0.9
+ cov_234_7: frac[11,7] + frac[12,7] + frac[18,7] + frac[19,7] + frac[21,7]
+   >= 0.9
+ cov_234_8: frac[11,8] + frac[12,8] + frac[18,8] + frac[19,8] + frac[21,8]
+   >= 0.9
+ cov_235_156: frac[6,156] + frac[12,156] + frac[17,156] + frac[19,156]
+   + frac[20,156] + frac[21,156] + frac[22,156] >= 1
+ cov_235_157: frac[6,157] + frac[12,157] + frac[17,157] + frac[19,157]
+   + frac[20,157] + frac[21,157] + frac[22,157] >= 1
+ cov_235_158: frac[6,158] + frac[12,158] + frac[17,158] + frac[19,158]
+   + frac[20,158] + frac[21,158] + frac[22,158] >= 1
+ cov_236_171: frac[11,171] + frac[15,171] + frac[18,171] + frac[19,171]
+   + frac[21,171] >= 0.7
+ cov_236_172: frac[11,172] + frac[15,172] + frac[18,172] + frac[19,172]
+   + frac[21,172] >= 0.7
+ cov_236_173: frac[11,173] + frac[15,173] + frac[18,173] + frac[19,173]
+   + frac[21,173] >= 0.7
+ cov_237_174: frac[9,174] + frac[13,174] + frac[18,174] + frac[19,174]
+   + frac[21,174] >= 0.7
+ cov_237_175: frac[9,175] + frac[13,175] + frac[18,175] + frac[19,175]
+   + frac[21,175] >= 0.7
+ cov_237_176: frac[9,176] + frac[13,176] + frac[18,176] + frac[19,176]
+   + frac[21,176] >= 0.7
+ cov_238_162: frac[0,162] + frac[13,162] + frac[16,162] + frac[19,162]
+   + frac[20,162] + frac[21,162] + frac[22,162] >= 0.9
+ cov_238_163: frac[0,163] + frac[13,163] + frac[16,163] + frac[19,163]
+   + frac[20,163] + frac[21,163] + frac[22,163] >= 0.9
+ cov_238_164: frac[0,164] + frac[13,164] + frac[16,164] + frac[19,164]
+   + frac[20,164] + frac[21,164] + frac[22,164] >= 0.9
+ cov_239_159: frac[0,159] + frac[12,159] + frac[16,159] + frac[19,159]
+   + frac[20,159] + frac[21,159] + frac[22,159] >= 1
+ cov_239_160: frac[0,160] + frac[12,160] + frac[16,160] + frac[19,160]
+   + frac[20,160] + frac[21,160] + frac[22,160] >= 1
+ cov_239_161: frac[0,161] + frac[12,161] + frac[16,161] + frac[19,161]
+   + frac[20,161] + frac[21,161] + frac[22,161] >= 1
+ cov_240_45: frac[7,45] + frac[11,45] + frac[17,45] + frac[18,45]
+   + frac[20,45] + frac[21,45] + frac[22,45] >= 0.8
+ cov_240_46: frac[7,46] + frac[11,46] + frac[17,46] + frac[18,46]
+   + frac[20,46] + frac[21,46] + frac[22,46] >= 0.8
+ cov_240_47: frac[7,47] + frac[11,47] + frac[17,47] + frac[18,47]
+   + frac[20,47] + frac[21,47] + frac[22,47] >= 0.8
+ cov_241_153: frac[7,153] + frac[8,153] + frac[17,153] + frac[18,153]
+   + frac[20,153] + frac[21,153] + frac[22,153] >= 0.9
+ cov_241_154: frac[7,154] + frac[8,154] + frac[17,154] + frac[18,154]
+   + frac[20,154] + frac[21,154] + frac[22,154] >= 0.9
+ cov_241_155: frac[7,155] + frac[8,155] + frac[17,155] + frac[18,155]
+   + frac[20,155] + frac[21,155] + frac[22,155] >= 0.9
+ cov_242_129: frac[11,129] + frac[14,129] + frac[18,129] + frac[19,129]
+   + frac[21,129] >= 0.9
+ cov_242_130: frac[11,130] + frac[14,130] + frac[18,130] + frac[19,130]
+   + frac[21,130] >= 0.9
+ cov_242_131: frac[11,131] + frac[14,131] + frac[18,131] + frac[19,131]
+   + frac[21,131] >= 0.9
+ cov_243_24: frac[2,24] + frac[12,24] + frac[16,24] + frac[19,24]
+   + frac[20,24] + frac[21,24] + frac[22,24] >= 1
+ cov_243_25: frac[2,25] + frac[12,25] + frac[16,25] + frac[19,25]
+   + frac[20,25] + frac[21,25] + frac[22,25] >= 1
+ cov_243_26: frac[2,26] + frac[12,26] + frac[16,26] + frac[19,26]
+   + frac[20,26] + frac[21,26] + frac[22,26] >= 1
+ cov_244_162: frac[6,162] + frac[11,162] + frac[17,162] + frac[18,162]
+   + frac[20,162] + frac[21,162] + frac[22,162] >= 0.8
+ cov_244_163: frac[6,163] + frac[11,163] + frac[17,163] + frac[18,163]
+   + frac[20,163] + frac[21,163] + frac[22,163] >= 0.8
+ cov_244_164: frac[6,164] + frac[11,164] + frac[17,164] + frac[18,164]
+   + frac[20,164] + frac[21,164] + frac[22,164] >= 0.8
+ cov_245_99: frac[4,99] + frac[13,99] + frac[17,99] + frac[19,99]
+   + frac[20,99] + frac[21,99] + frac[22,99] >= 1
+ cov_245_100: frac[4,100] + frac[13,100] + frac[17,100] + frac[19,100]
+   + frac[20,100] + frac[21,100] + frac[22,100] >= 1
+ cov_245_101: frac[4,101] + frac[13,101] + frac[17,101] + frac[19,101]
+   + frac[20,101] + frac[21,101] + frac[22,101] >= 1
+ cov_246_108: frac[4,108] + frac[10,108] + frac[17,108] + frac[18,108]
+   + frac[20,108] + frac[21,108] + frac[22,108] >= 0.8
+ cov_246_109: frac[4,109] + frac[10,109] + frac[17,109] + frac[18,109]
+   + frac[20,109] + frac[21,109] + frac[22,109] >= 0.8
+ cov_246_110: frac[4,110] + frac[10,110] + frac[17,110] + frac[18,110]
+   + frac[20,110] + frac[21,110] + frac[22,110] >= 0.8
+ cov_247_66: frac[10,66] + frac[15,66] + frac[18,66] + frac[19,66]
+   + frac[21,66] >= 0.7
+ cov_247_67: frac[10,67] + frac[15,67] + frac[18,67] + frac[19,67]
+   + frac[21,67] >= 0.7
+ cov_247_68: frac[10,68] + frac[15,68] + frac[18,68] + frac[19,68]
+   + frac[21,68] >= 0.7
+ cov_248_129: frac[10,129] + frac[13,129] + frac[18,129] + frac[19,129]
+   + frac[21,129] >= 0.9
+ cov_248_130: frac[10,130] + frac[13,130] + frac[18,130] + frac[19,130]
+   + frac[21,130] >= 0.9
+ cov_248_131: frac[10,131] + frac[13,131] + frac[18,131] + frac[19,131]
+   + frac[21,131] >= 0.9
+ cov_249_141: frac[1,141] + frac[7,141] + frac[16,141] + frac[17,141]
+   + frac[20,141] >= 0.7
+ cov_249_142: frac[1,142] + frac[7,142] + frac[16,142] + frac[17,142]
+   + frac[20,142] >= 0.7
+ cov_249_143: frac[1,143] + frac[7,143] + frac[16,143] + frac[17,143]
+   + frac[20,143] >= 0.7
+ cov_250_150: frac[4,150] + frac[6,150] + frac[17,150] >= 0.8
+ cov_250_151: frac[4,151] + frac[6,151] + frac[17,151] >= 0.8
+ cov_250_152: frac[4,152] + frac[6,152] + frac[17,152] >= 0.8
+ cov_251_42: frac[8,42] + frac[13,42] + frac[18,42] + frac[19,42]
+   + frac[21,42] >= 0.9
+ cov_251_43: frac[8,43] + frac[13,43] + frac[18,43] + frac[19,43]
+   + frac[21,43] >= 0.9
+ cov_251_44: frac[8,44] + frac[13,44] + frac[18,44] + frac[19,44]
+   + frac[21,44] >= 0.9
+ cov_252_42: frac[12,42] + frac[14,42] + frac[19,42] >= 1
+ cov_252_43: frac[12,43] + frac[14,43] + frac[19,43] >= 1
+ cov_252_44: frac[12,44] + frac[14,44] + frac[19,44] >= 1
+ cov_253_51: frac[3,51] + frac[9,51] + frac[16,51] + frac[18,51]
+   + frac[20,51] + frac[21,51] + frac[22,51] >= 0.8
+ cov_253_52: frac[3,52] + frac[9,52] + frac[16,52] + frac[18,52]
+   + frac[20,52] + frac[21,52] + frac[22,52] >= 0.8
+ cov_253_53: frac[3,53] + frac[9,53] + frac[16,53] + frac[18,53]
+   + frac[20,53] + frac[21,53] + frac[22,53] >= 0.8
+ cov_254_132: frac[0,132] + frac[2,132] + frac[16,132] >= 0.7
+ cov_254_133: frac[0,133] + frac[2,133] + frac[16,133] >= 0.7
+ cov_254_134: frac[0,134] + frac[2,134] + frac[16,134] >= 0.7
+ cov_255_156: frac[14,156] + frac[15,156] + frac[19,156] >= 1
+ cov_255_157: frac[14,157] + frac[15,157] + frac[19,157] >= 1
+ cov_255_158: frac[14,158] + frac[15,158] + frac[19,158] >= 1
+ cov_256_153: frac[12,153] + frac[13,153] + frac[19,153] >= 0.8
+ cov_256_154: frac[12,154] + frac[13,154] + frac[19,154] >= 0.8
+ cov_256_155: frac[12,155] + frac[13,155] + frac[19,155] >= 0.8
+ cov_257_156: frac[3,156] + frac[15,156] + frac[16,156] + frac[19,156]
+   + frac[20,156] + frac[21,156] + frac[22,156] >= 0.9
+ cov_257_157: frac[3,157] + frac[15,157] + frac[16,157] + frac[19,157]
+   + frac[20,157] + frac[21,157] + frac[22,157] >= 0.9
+ cov_257_158: frac[3,158] + frac[15,158] + frac[16,158] + frac[19,158]
+   + frac[20,158] + frac[21,158] + frac[22,158] >= 0.9
+ cov_258_63: frac[8,63] + frac[11,63] + frac[18,63] >= 0.7
+ cov_258_64: frac[8,64] + frac[11,64] + frac[18,64] >= 0.7
+ cov_258_65: frac[8,65] + frac[11,65] + frac[18,65] >= 0.7
+ cov_259_144: frac[4,144] + frac[12,144] + frac[17,144] + frac[19,144]
+   + frac[20,144] + frac[21,144] + frac[22,144] >= 0.9
+ cov_259_145: frac[4,145] + frac[12,145] + frac[17,145] + frac[19,145]
+   + frac[20,145] + frac[21,145] + frac[22,145] >= 0.9
+ cov_259_146: frac[4,146] + frac[12,146] + frac[17,146] + frac[19,146]
+   + frac[20,146] + frac[21,146] + frac[22,146] >= 0.9
+ cov_260_24: frac[4,24] + frac[15,24] + frac[17,24] + frac[19,24]
+   + frac[20,24] + frac[21,24] + frac[22,24] >= 1
+ cov_260_25: frac[4,25] + frac[15,25] + frac[17,25] + frac[19,25]
+   + frac[20,25] + frac[21,25] + frac[22,25] >= 1
+ cov_260_26: frac[4,26] + frac[15,26] + frac[17,26] + frac[19,26]
+   + frac[20,26] + frac[21,26] + frac[22,26] >= 1
+ cov_261_18: frac[8,18] + frac[10,18] + frac[18,18] >= 0.9
+ cov_261_19: frac[8,19] + frac[10,19] + frac[18,19] >= 0.9
+ cov_261_20: frac[8,20] + frac[10,20] + frac[18,20] >= 0.9
+ cov_262_153: frac[4,153] + frac[13,153] + frac[17,153] + frac[19,153]
+   + frac[20,153] + frac[21,153] + frac[22,153] >= 0.7
+ cov_262_154: frac[4,154] + frac[13,154] + frac[17,154] + frac[19,154]
+   + frac[20,154] + frac[21,154] + frac[22,154] >= 0.7
+ cov_262_155: frac[4,155] + frac[13,155] + frac[17,155] + frac[19,155]
+   + frac[20,155] + frac[21,155] + frac[22,155] >= 0.7
+ cov_263_138: frac[0,138] + frac[14,138] + frac[16,138] + frac[19,138]
+   + frac[20,138] + frac[21,138] + frac[22,138] >= 0.7
+ cov_263_139: frac[0,139] + frac[14,139] + frac[16,139] + frac[19,139]
+   + frac[20,139] + frac[21,139] + frac[22,139] >= 0.7
+ cov_263_140: frac[0,140] + frac[14,140] + frac[16,140] + frac[19,140]
+   + frac[20,140] + frac[21,140] + frac[22,140] >= 0.7
+ cov_264_102: frac[3,102] + frac[14,102] + frac[16,102] + frac[19,102]
+   + frac[20,102] + frac[21,102] + frac[22,102] >= 1
+ cov_264_103: frac[3,103] + frac[14,103] + frac[16,103] + frac[19,103]
+   + frac[20,103] + frac[21,103] + frac[22,103] >= 1
+ cov_264_104: frac[3,104] + frac[14,104] + frac[16,104] + frac[19,104]
+   + frac[20,104] + frac[21,104] + frac[22,104] >= 1
+ cov_265_42: frac[3,42] + frac[7,42] + frac[16,42] + frac[17,42]
+   + frac[20,42] >= 0.7
+ cov_265_43: frac[3,43] + frac[7,43] + frac[16,43] + frac[17,43]
+   + frac[20,43] >= 0.7
+ cov_265_44: frac[3,44] + frac[7,44] + frac[16,44] + frac[17,44]
+   + frac[20,44] >= 0.7
+ cov_266_51: frac[1,51] + frac[13,51] + frac[16,51] + frac[19,51]
+   + frac[20,51] + frac[21,51] + frac[22,51] >= 1
+ cov_266_52: frac[1,52] + frac[13,52] + frac[16,52] + frac[19,52]
+   + frac[20,52] + frac[21,52] + frac[22,52] >= 1
+ cov_266_53: frac[1,53] + frac[13,53] + frac[16,53] + frac[19,53]
+   + frac[20,53] + frac[21,53] + frac[22,53] >= 1
+ cov_267_9: frac[2,9] + frac[10,9] + frac[16,9] + frac[18,9] + frac[20,9]
+   + frac[21,9] + frac[22,9] >= 1
+ cov_267_10: frac[2,10] + frac[10,10] + frac[16,10] + frac[18,10]
+   + frac[20,10] + frac[21,10] + frac[22,10] >= 1
+ cov_267_11: frac[2,11] + frac[10,11] + frac[16,11] + frac[18,11]
+   + frac[20,11] + frac[21,11] + frac[22,11] >= 1
+ cov_268_6: frac[9,6] + frac[14,6] + frac[18,6] + frac[19,6] + frac[21,6]
+   >= 1
+ cov_268_7: frac[9,7] + frac[14,7] + frac[18,7] + frac[19,7] + frac[21,7]
+   >= 1
+ cov_268_8: frac[9,8] + frac[14,8] + frac[18,8] + frac[19,8] + frac[21,8]
+   >= 1
+ cov_269_171: frac[4,171] + frac[7,171] + frac[17,171] >= 0.8
+ cov_269_172: frac[4,172] + frac[7,172] + frac[17,172] >= 0.8
+ cov_269_173: frac[4,173] + frac[7,173] + frac[17,173] >= 0.8
+ cov_270_78: frac[6,78] + frac[12,78] + frac[17,78] + frac[19,78]
+   + frac[20,78] + frac[21,78] + frac[22,78] >= 0.9
+ cov_270_79: frac[6,79] + frac[12,79] + frac[17,79] + frac[19,79]
+   + frac[20,79] + frac[21,79] + frac[22,79] >= 0.9
+ cov_270_80: frac[6,80] + frac[12,80] + frac[17,80] + frac[19,80]
+   + frac[20,80] + frac[21,80] + frac[22,80] >= 0.9
+ cov_271_99: frac[8,99] + frac[15,99] + frac[18,99] + frac[19,99]
+   + frac[21,99] >= 0.9
+ cov_271_100: frac[8,100] + frac[15,100] + frac[18,100] + frac[19,100]
+   + frac[21,100] >= 0.9
+ cov_271_101: frac[8,101] + frac[15,101] + frac[18,101] + frac[19,101]
+   + frac[21,101] >= 0.9
+ cov_272_63: frac[12,63] + frac[13,63] + frac[19,63] >= 1
+ cov_272_64: frac[12,64] + frac[13,64] + frac[19,64] >= 1
+ cov_272_65: frac[12,65] + frac[13,65] + frac[19,65] >= 1
+ cov_273_36: frac[5,36] + frac[7,36] + frac[17,36] >= 0.7
+ cov_273_37: frac[5,37] + frac[7,37] + frac[17,37] >= 0.7
+ cov_273_38: frac[5,38] + frac[7,38] + frac[17,38] >= 0.7
+ cov_274_129: frac[0,129] + frac[6,129] + frac[16,129] + frac[17,129]
+   + frac[20,129] >= 0.9
+ cov_274_130: frac[0,130] + frac[6,130] + frac[16,130] + frac[17,130]
+   + frac[20,130] >= 0.9
+ cov_274_131: frac[0,131] + frac[6,131] + frac[16,131] + frac[17,131]
+   + frac[20,131] >= 0.9
+ cov_275_132: frac[1,132] + frac[9,132] + frac[16,132] + frac[18,132]
+   + frac[20,132] + frac[21,132] + frac[22,132] >= 0.8
+ cov_275_133: frac[1,133] + frac[9,133] + frac[16,133] + frac[18,133]
+   + frac[20,133] + frac[21,133] + frac[22,133] >= 0.8
+ cov_275_134: frac[1,134] + frac[9,134] + frac[16,134] + frac[18,134]
+   + frac[20,134] + frac[21,134] + frac[22,134] >= 0.8
+ cov_276_69: frac[14,69] + frac[15,69] + frac[19,69] >= 0.9
+ cov_276_70: frac[14,70] + frac[15,70] + frac[19,70] >= 0.9
+ cov_276_71: frac[14,71] + frac[15,71] + frac[19,71] >= 0.9
+ cov_277_162: frac[2,162] + frac[14,162] + frac[16,162] + frac[19,162]
+   + frac[20,162] + frac[21,162] + frac[22,162] >= 0.8
+ cov_277_163: frac[2,163] + frac[14,163] + frac[16,163] + frac[19,163]
+   + frac[20,163] + frac[21,163] + frac[22,163] >= 0.8
+ cov_277_164: frac[2,164] + frac[14,164] + frac[16,164] + frac[19,164]
+   + frac[20,164] + frac[21,164] + frac[22,164] >= 0.8
+ cov_278_168: frac[13,168] + frac[15,168] + frac[19,168] >= 1
+ cov_278_169: frac[13,169] + frac[15,169] + frac[19,169] >= 1
+ cov_278_170: frac[13,170] + frac[15,170] + frac[19,170] >= 1
+ cov_279_147: frac[4,147] + frac[11,147] + frac[17,147] + frac[18,147]
+   + frac[20,147] + frac[21,147] + frac[22,147] >= 0.8
+ cov_279_148: frac[4,148] + frac[11,148] + frac[17,148] + frac[18,148]
+   + frac[20,148] + frac[21,148] + frac[22,148] >= 0.8
+ cov_279_149: frac[4,149] + frac[11,149] + frac[17,149] + frac[18,149]
+   + frac[20,149] + frac[21,149] + frac[22,149] >= 0.8
+ cov_280_186: frac[2,186] + frac[15,186] + frac[16,186] + frac[19,186]
+   + frac[20,186] + frac[21,186] + frac[22,186] >= 0.7
+ cov_280_187: frac[2,187] + frac[15,187] + frac[16,187] + frac[19,187]
+   + frac[20,187] + frac[21,187] + frac[22,187] >= 0.7
+ cov_280_188: frac[2,188] + frac[15,188] + frac[16,188] + frac[19,188]
+   + frac[20,188] + frac[21,188] + frac[22,188] >= 0.7
+ cov_281_30: frac[4,30] + frac[11,30] + frac[17,30] + frac[18,30]
+   + frac[20,30] + frac[21,30] + frac[22,30] >= 1
+ cov_281_31: frac[4,31] + frac[11,31] + frac[17,31] + frac[18,31]
+   + frac[20,31] + frac[21,31] + frac[22,31] >= 1
+ cov_281_32: frac[4,32] + frac[11,32] + frac[17,32] + frac[18,32]
+   + frac[20,32] + frac[21,32] + frac[22,32] >= 1
+ cov_282_99: frac[8,99] + frac[10,99] + frac[18,99] >= 0.7
+ cov_282_100: frac[8,100] + frac[10,100] + frac[18,100] >= 0.7
+ cov_282_101: frac[8,101] + frac[10,101] + frac[18,101] >= 0.7
+ cov_283_153: frac[6,153] + frac[8,153] + frac[17,153] + frac[18,153]
+   + frac[20,153] + frac[21,153] + frac[22,153] >= 1
+ cov_283_154: frac[6,154] + frac[8,154] + frac[17,154] + frac[18,154]
+   + frac[20,154] + frac[21,154] + frac[22,154] >= 1
+ cov_283_155: frac[6,155] + frac[8,155] + frac[17,155] + frac[18,155]
+   + frac[20,155] + frac[21,155] + frac[22,155] >= 1
+ cov_284_129: frac[10,129] + frac[14,129] + frac[18,129] + frac[19,129]
+   + frac[21,129] >= 0.9
+ cov_284_130: frac[10,130] + frac[14,130] + frac[18,130] + frac[19,130]
+   + frac[21,130] >= 0.9
+ cov_284_131: frac[10,131] + frac[14,131] + frac[18,131] + frac[19,131]
+   + frac[21,131] >= 0.9
+ cov_285_156: frac[9,156] + frac[15,156] + frac[18,156] + frac[19,156]
+   + frac[21,156] >= 0.8
+ cov_285_157: frac[9,157] + frac[15,157] + frac[18,157] + frac[19,157]
+   + frac[21,157] >= 0.8
+ cov_285_158: frac[9,158] + frac[15,158] + frac[18,158] + frac[19,158]
+   + frac[21,158] >= 0.8
+ cov_286_120: frac[4,120] + frac[9,120] + frac[17,120] + frac[18,120]
+   + frac[20,120] + frac[21,120] + frac[22,120] >= 0.9
+ cov_286_121: frac[4,121] + frac[9,121] + frac[17,121] + frac[18,121]
+   + frac[20,121] + frac[21,121] + frac[22,121] >= 0.9
+ cov_286_122: frac[4,122] + frac[9,122] + frac[17,122] + frac[18,122]
+   + frac[20,122] + frac[21,122] + frac[22,122] >= 0.9
+ cov_287_6: frac[5,6] + frac[12,6] + frac[17,6] + frac[19,6] + frac[20,6]
+   + frac[21,6] + frac[22,6] >= 0.7
+ cov_287_7: frac[5,7] + frac[12,7] + frac[17,7] + frac[19,7] + frac[20,7]
+   + frac[21,7] + frac[22,7] >= 0.7
+ cov_287_8: frac[5,8] + frac[12,8] + frac[17,8] + frac[19,8] + frac[20,8]
+   + frac[21,8] + frac[22,8] >= 0.7
+ cov_288_81: frac[9,81] + frac[10,81] + frac[18,81] >= 0.7
+ cov_288_82: frac[9,82] + frac[10,82] + frac[18,82] >= 0.7
+ cov_288_83: frac[9,83] + frac[10,83] + frac[18,83] >= 0.7
+ cov_289_45: frac[8,45] + frac[14,45] + frac[18,45] + frac[19,45]
+   + frac[21,45] >= 0.7
+ cov_289_46: frac[8,46] + frac[14,46] + frac[18,46] + frac[19,46]
+   + frac[21,46] >= 0.7
+ cov_289_47: frac[8,47] + frac[14,47] + frac[18,47] + frac[19,47]
+   + frac[21,47] >= 0.7
+ cov_290_54: frac[6,54] + frac[9,54] + frac[17,54] + frac[18,54]
+   + frac[20,54] + frac[21,54] + frac[22,54] >= 0.8
+ cov_290_55: frac[6,55] + frac[9,55] + frac[17,55] + frac[18,55]
+   + frac[20,55] + frac[21,55] + frac[22,55] >= 0.8
+ cov_290_56: frac[6,56] + frac[9,56] + frac[17,56] + frac[18,56]
+   + frac[20,56] + frac[21,56] + frac[22,56] >= 0.8
+ cov_291_48: frac[8,48] + frac[10,48] + frac[18,48] >= 1
+ cov_291_49: frac[8,49] + frac[10,49] + frac[18,49] >= 1
+ cov_291_50: frac[8,50] + frac[10,50] + frac[18,50] >= 1
+ cov_292_177: frac[10,177] + frac[11,177] + frac[18,177] >= 0.7
+ cov_292_178: frac[10,178] + frac[11,178] + frac[18,178] >= 0.7
+ cov_292_179: frac[10,179] + frac[11,179] + frac[18,179] >= 0.7
+ cov_293_3: frac[6,3] + frac[14,3] + frac[17,3] + frac[19,3] + frac[20,3]
+   + frac[21,3] + frac[22,3] >= 0.7
+ cov_293_4: frac[6,4] + frac[14,4] + frac[17,4] + frac[19,4] + frac[20,4]
+   + frac[21,4] + frac[22,4] >= 0.7
+ cov_293_5: frac[6,5] + frac[14,5] + frac[17,5] + frac[19,5] + frac[20,5]
+   + frac[21,5] + frac[22,5] >= 0.7
+ cov_294_36: frac[8,36] + frac[13,36] + frac[18,36] + frac[19,36]
+   + frac[21,36] >= 0.8
+ cov_294_37: frac[8,37] + frac[13,37] + frac[18,37] + frac[19,37]
+   + frac[21,37] >= 0.8
+ cov_294_38: frac[8,38] + frac[13,38] + frac[18,38] + frac[19,38]
+   + frac[21,38] >= 0.8
+ cov_295_9: frac[4,9] + frac[11,9] + frac[17,9] + frac[18,9] + frac[20,9]
+   + frac[21,9] + frac[22,9] >= 1
+ cov_295_10: frac[4,10] + frac[11,10] + frac[17,10] + frac[18,10]
+   + frac[20,10] + frac[21,10] + frac[22,10] >= 1
+ cov_295_11: frac[4,11] + frac[11,11] + frac[17,11] + frac[18,11]
+   + frac[20,11] + frac[21,11] + frac[22,11] >= 1
+ cov_296_117: frac[13,117] + frac[14,117] + frac[19,117] >= 0.9
+ cov_296_118: frac[13,118] + frac[14,118] + frac[19,118] >= 0.9
+ cov_296_119: frac[13,119] + frac[14,119] + frac[19,119] >= 0.9
+ cov_297_24: frac[2,24] + frac[8,24] + frac[16,24] + frac[18,24]
+   + frac[20,24] + frac[21,24] + frac[22,24] >= 0.9
+ cov_297_25: frac[2,25] + frac[8,25] + frac[16,25] + frac[18,25]
+   + frac[20,25] + frac[21,25] + frac[22,25] >= 0.9
+ cov_297_26: frac[2,26] + frac[8,26] + frac[16,26] + frac[18,26]
+   + frac[20,26] + frac[21,26] + frac[22,26] >= 0.9
+ cov_298_174: frac[1,174] + frac[9,174] + frac[16,174] + frac[18,174]
+   + frac[20,174] + frac[21,174] + frac[22,174] >= 0.8
+ cov_298_175: frac[1,175] + frac[9,175] + frac[16,175] + frac[18,175]
+   + frac[20,175] + frac[21,175] + frac[22,175] >= 0.8
+ cov_298_176: frac[1,176] + frac[9,176] + frac[16,176] + frac[18,176]
+   + frac[20,176] + frac[21,176] + frac[22,176] >= 0.8
+ cov_299_180: frac[6,180] + frac[7,180] + frac[17,180] >= 0.8
+ cov_299_181: frac[6,181] + frac[7,181] + frac[17,181] >= 0.8
+ cov_299_182: frac[6,182] + frac[7,182] + frac[17,182] >= 0.8
+ cov_300_78: frac[0,78] + frac[1,78] + frac[16,78] >= 0.8
+ cov_300_79: frac[0,79] + frac[1,79] + frac[16,79] >= 0.8
+ cov_300_80: frac[0,80] + frac[1,80] + frac[16,80] >= 0.8
+ cov_301_159: frac[4,159] + frac[9,159] + frac[17,159] + frac[18,159]
+   + frac[20,159] + frac[21,159] + frac[22,159] >= 0.9
+ cov_301_160: frac[4,160] + frac[9,160] + frac[17,160] + frac[18,160]
+   + frac[20,160] + frac[21,160] + frac[22,160] >= 0.9
+ cov_301_161: frac[4,161] + frac[9,161] + frac[17,161] + frac[18,161]
+   + frac[20,161] + frac[21,161] + frac[22,161] >= 0.9
+ cov_302_114: frac[8,114] + frac[15,114] + frac[18,114] + frac[19,114]
+   + frac[21,114] >= 1
+ cov_302_115: frac[8,115] + frac[15,115] + frac[18,115] + frac[19,115]
+   + frac[21,115] >= 1
+ cov_302_116: frac[8,116] + frac[15,116] + frac[18,116] + frac[19,116]
+   + frac[21,116] >= 1
+ cov_303_87: frac[4,87] + frac[6,87] + frac[17,87] >= 1
+ cov_303_88: frac[4,88] + frac[6,88] + frac[17,88] >= 1
+ cov_303_89: frac[4,89] + frac[6,89] + frac[17,89] >= 1
+ cov_304_189: frac[1,189] + frac[9,189] + frac[16,189] + frac[18,189]
+   + frac[20,189] + frac[21,189] + frac[22,189] >= 0.7
+ cov_304_190: frac[1,190] + frac[9,190] + frac[16,190] + frac[18,190]
+   + frac[20,190] + frac[21,190] + frac[22,190] >= 0.7
+ cov_304_191: frac[1,191] + frac[9,191] + frac[16,191] + frac[18,191]
+   + frac[20,191] + frac[21,191] + frac[22,191] >= 0.7
+ cov_305_102: frac[11,102] + frac[13,102] + frac[18,102] + frac[19,102]
+   + frac[21,102] >= 0.7
+ cov_305_103: frac[11,103] + frac[13,103] + frac[18,103] + frac[19,103]
+   + frac[21,103] >= 0.7
+ cov_305_104: frac[11,104] + frac[13,104] + frac[18,104] + frac[19,104]
+   + frac[21,104] >= 0.7
+ cov_306_81: frac[1,81] + frac[8,81] + frac[16,81] + frac[18,81]
+   + frac[20,81] + frac[21,81] + frac[22,81] >= 0.8
+ cov_306_82: frac[1,82] + frac[8,82] + frac[16,82] + frac[18,82]
+   + frac[20,82] + frac[21,82] + frac[22,82] >= 0.8
+ cov_306_83: frac[1,83] + frac[8,83] + frac[16,83] + frac[18,83]
+   + frac[20,83] + frac[21,83] + frac[22,83] >= 0.8
+ cov_307_45: frac[0,45] + frac[4,45] + frac[16,45] + frac[17,45]
+   + frac[20,45] >= 1
+ cov_307_46: frac[0,46] + frac[4,46] + frac[16,46] + frac[17,46]
+   + frac[20,46] >= 1
+ cov_307_47: frac[0,47] + frac[4,47] + frac[16,47] + frac[17,47]
+   + frac[20,47] >= 1
+ cov_308_183: frac[7,183] + frac[10,183] + frac[17,183] + frac[18,183]
+   + frac[20,183] + frac[21,183] + frac[22,183] >= 0.9
+ cov_308_184: frac[7,184] + frac[10,184] + frac[17,184] + frac[18,184]
+   + frac[20,184] + frac[21,184] + frac[22,184] >= 0.9
+ cov_308_185: frac[7,185] + frac[10,185] + frac[17,185] + frac[18,185]
+   + frac[20,185] + frac[21,185] + frac[22,185] >= 0.9
+ cov_309_45: frac[5,45] + frac[8,45] + frac[17,45] + frac[18,45]
+   + frac[20,45] + frac[21,45] + frac[22,45] >= 0.7
+ cov_309_46: frac[5,46] + frac[8,46] + frac[17,46] + frac[18,46]
+   + frac[20,46] + frac[21,46] + frac[22,46] >= 0.7
+ cov_309_47: frac[5,47] + frac[8,47] + frac[17,47] + frac[18,47]
+   + frac[20,47] + frac[21,47] + frac[22,47] >= 0.7
+ cov_310_0: frac[9,0] + frac[15,0] + frac[18,0] + frac[19,0] + frac[21,0]
+   >= 1
+ cov_310_1: frac[9,1] + frac[15,1] + frac[18,1] + frac[19,1] + frac[21,1]
+   >= 1
+ cov_310_2: frac[9,2] + frac[15,2] + frac[18,2] + frac[19,2] + frac[21,2]
+   >= 1
+ cov_311_39: frac[3,39] + frac[7,39] + frac[16,39] + frac[17,39]
+   + frac[20,39] >= 1
+ cov_311_40: frac[3,40] + frac[7,40] + frac[16,40] + frac[17,40]
+   + frac[20,40] >= 1
+ cov_311_41: frac[3,41] + frac[7,41] + frac[16,41] + frac[17,41]
+   + frac[20,41] >= 1
+ cov_312_30: frac[0,30] + frac[3,30] + frac[16,30] >= 0.8
+ cov_312_31: frac[0,31] + frac[3,31] + frac[16,31] >= 0.8
+ cov_312_32: frac[0,32] + frac[3,32] + frac[16,32] >= 0.8
+ cov_313_36: frac[2,36] + frac[9,36] + frac[16,36] + frac[18,36]
+   + frac[20,36] + frac[21,36] + frac[22,36] >= 0.9
+ cov_313_37: frac[2,37] + frac[9,37] + frac[16,37] + frac[18,37]
+   + frac[20,37] + frac[21,37] + frac[22,37] >= 0.9
+ cov_313_38: frac[2,38] + frac[9,38] + frac[16,38] + frac[18,38]
+   + frac[20,38] + frac[21,38] + frac[22,38] >= 0.9
+ cov_314_39: frac[10,39] + frac[11,39] + frac[18,39] >= 0.7
+ cov_314_40: frac[10,40] + frac[11,40] + frac[18,40] >= 0.7
+ cov_314_41: frac[10,41] + frac[11,41] + frac[18,41] >= 0.7
+ cov_315_45: frac[2,45] + frac[4,45] + frac[16,45] + frac[17,45]
+   + frac[20,45] >= 0.7
+ cov_315_46: frac[2,46] + frac[4,46] + frac[16,46] + frac[17,46]
+   + frac[20,46] >= 0.7
+ cov_315_47: frac[2,47] + frac[4,47] + frac[16,47] + frac[17,47]
+   + frac[20,47] >= 0.7
+ cov_316_60: frac[0,60] + frac[14,60] + frac[16,60] + frac[19,60]
+   + frac[20,60] + frac[21,60] + frac[22,60] >= 0.7
+ cov_316_61: frac[0,61] + frac[14,61] + frac[16,61] + frac[19,61]
+   + frac[20,61] + frac[21,61] + frac[22,61] >= 0.7
+ cov_316_62: frac[0,62] + frac[14,62] + frac[16,62] + frac[19,62]
+   + frac[20,62] + frac[21,62] + frac[22,62] >= 0.7
+ cov_317_162: frac[8,162] + frac[15,162] + frac[18,162] + frac[19,162]
+   + frac[21,162] >= 0.9
+ cov_317_163: frac[8,163] + frac[15,163] + frac[18,163] + frac[19,163]
+   + frac[21,163] >= 0.9
+ cov_317_164: frac[8,164] + frac[15,164] + frac[18,164] + frac[19,164]
+   + frac[21,164] >= 0.9
+ cov_318_69: frac[2,69] + frac[7,69] + frac[16,69] + frac[17,69]
+   + frac[20,69] >= 0.7
+ cov_318_70: frac[2,70] + frac[7,70] + frac[16,70] + frac[17,70]
+   + frac[20,70] >= 0.7
+ cov_318_71: frac[2,71] + frac[7,71] + frac[16,71] + frac[17,71]
+   + frac[20,71] >= 0.7
+ cov_319_174: frac[11,174] + frac[14,174] + frac[18,174] + frac[19,174]
+   + frac[21,174] >= 0.7
+ cov_319_175: frac[11,175] + frac[14,175] + frac[18,175] + frac[19,175]
+   + frac[21,175] >= 0.7
+ cov_319_176: frac[11,176] + frac[14,176] + frac[18,176] + frac[19,176]
+   + frac[21,176] >= 0.7
  accuracy_(0,_sk_0)[0]: - 1.69921875 frac[0,0] + mem[0,0] >= 0
  accuracy_(0,_sk_0)[1]: - 1.69921875 frac[1,0] + mem[1,0] >= 0
  accuracy_(0,_sk_0)[2]: - 1.69921875 frac[2,0] + mem[2,0] >= 0
@@ -14161,4 +14099,12 @@ General Constraints
    mem_tot_cpu7 , mem_tot_cpu8 , mem_tot_cpu9 , mem_tot_cpu10 ,
    mem_tot_cpu11 , mem_tot_cpu12 , mem_tot_cpu13 , mem_tot_cpu14 ,
    mem_tot_cpu15 , mem_tot_cpu16 )
+ rows_overall_p4: max_rows_p4 = MAX ( rows_tot_tor_p41 , rows_tot_tor_p42 ,
+   rows_tot_tor_p43 , rows_tot_tor_p44 , rows_tot_l1_p41 ,
+   rows_tot_l1_p42 , rows_tot_l2_p4 )
+ rows_overall_cpu: max_rows_cpu = MAX ( rows_tot_cpu1 , rows_tot_cpu2 ,
+   rows_tot_cpu3 , rows_tot_cpu4 , rows_tot_cpu5 , rows_tot_cpu6 ,
+   rows_tot_cpu7 , rows_tot_cpu8 , rows_tot_cpu9 , rows_tot_cpu10 ,
+   rows_tot_cpu11 , rows_tot_cpu12 , rows_tot_cpu13 , rows_tot_cpu14 ,
+   rows_tot_cpu15 , rows_tot_cpu16 )
 End

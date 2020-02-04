@@ -291,7 +291,28 @@ config = [
             )
             for flownum in range(64 * 5)
         ]
-    )
+    ),
+
+    # 9
+    # Adversarial case for univmon_greedy
+    param(
+        devices=[
+            cpu(**beluga20, name='cpu_1'),
+            cpu(**beluga20, name='cpu_2'),
+            p4(**tofino, name='p4_1'),
+            p4(**tofino, name='p4_2'),
+        ],
+        queries=[
+            cm_sketch(eps0=eps0*50, del0=del0),
+            cm_sketch(eps0=eps0/5000, del0=del0),
+            cm_sketch(eps0=eps0*100, del0=del0/2)
+        ],
+        flows=[
+            flow(path=(0, 2, 1), queries=[(1, 1), (2, 1)]),
+            flow(path=(0, 2), queries=[(2, 0.9), (0, 1)]),
+            flow(path=(0, 3, 1), queries=[(1, 0.8), (2, 0.5)])
+        ]
+    ),
 ]
 
 common_config = param(

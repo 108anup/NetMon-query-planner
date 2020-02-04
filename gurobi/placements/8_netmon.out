@@ -32,11 +32,11 @@ Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
 Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
-Model update took: 0.0011315345764160156 seconds
+Model update took: 0.0011456012725830078 seconds
 Warning: constraint name "accuracy_(0, sk_0)[0]" has a space
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 6838 rows, 9047 columns and 24692 nonzeros
-Model fingerprint: 0xb8fb027a
+Optimize a model with 6838 rows, 9047 columns and 24710 nonzeros
+Model fingerprint: 0x283a25cd
 Model has 48 quadratic constraints
 Model has 33 general constraints
 Variable types: 9015 continuous, 32 integer (0 binary)
@@ -56,29 +56,29 @@ Multi-objectives: applying initial presolve ...
 ---------------------------------------------------------------------------
 
 Presolve added 0 rows and 137 columns
-Presolve removed 1302 rows and 0 columns
+Presolve removed 1299 rows and 0 columns
 Presolve time: 0.01s
-Presolved: 5728 rows and 9185 columns
+Presolved: 5731 rows and 9185 columns
 ---------------------------------------------------------------------------
 
 Multi-objectives: optimize objective 1 (ns) ...
 ---------------------------------------------------------------------------
 
-Presolve removed 5021 rows and 7854 columns
+Presolve removed 5023 rows and 7851 columns
 Presolve time: 0.05s
-Presolved: 899 rows, 1332 columns, 4255 nonzeros
+Presolved: 900 rows, 1335 columns, 4275 nonzeros
 Presolved model has 48 SOS constraint(s)
 Presolved model has 48 bilinear constraint(s)
-Variable types: 1172 continuous, 160 integer (128 binary)
+Variable types: 1175 continuous, 160 integer (128 binary)
 
-Root relaxation: objective 1.020408e+01, 610 iterations, 0.01 seconds
+Root relaxation: objective 1.020408e+01, 569 iterations, 0.00 seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
 *    0     0               0      10.2040816   10.20408  0.00%     -    0s
 
-Explored 0 nodes (610 simplex iterations) in 0.08 seconds
+Explored 0 nodes (569 simplex iterations) in 0.08 seconds
 Thread count was 8 (of 8 available processors)
 
 Solution count 1: 10.2041 
@@ -91,38 +91,38 @@ Multi-objectives: optimize objective 2 (res) ...
 ---------------------------------------------------------------------------
 
 
-Loaded user MIP start with objective 1207.85
+Loaded user MIP start with objective 1208.96
 
-Presolve removed 5022 rows and 7863 columns
-Presolve time: 0.05s
-Presolved: 899 rows, 1338 columns, 4310 nonzeros
+Presolve removed 5024 rows and 7860 columns
+Presolve time: 0.04s
+Presolved: 900 rows, 1341 columns, 4330 nonzeros
 Presolved model has 32 bilinear constraint(s)
-Variable types: 1194 continuous, 144 integer (128 binary)
+Variable types: 1197 continuous, 144 integer (128 binary)
 
-Root relaxation: objective 1.046819e+03, 859 iterations, 0.01 seconds
+Root relaxation: objective 1.047846e+03, 900 iterations, 0.01 seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-*    0     0               0    1046.8187988 1046.81880  0.00%     -    0s
+*    0     0               0    1047.8462402 1047.84624  0.00%     -    0s
 
-Explored 0 nodes (859 simplex iterations) in 0.13 seconds
+Explored 0 nodes (900 simplex iterations) in 0.13 seconds
 Thread count was 8 (of 8 available processors)
 
-Solution count 2: 1046.82 1207.85 
+Solution count 2: 1047.85 1208.96 
 
 Optimal solution found (tolerance 1.00e-04)
-Best objective 1.046818798828e+03, best bound 1.046818798828e+03, gap 0.0000%
+Best objective 1.047846240234e+03, best bound 1.047846240234e+03, gap 0.0000%
 
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.13 seconds, solution count 2
 
-Model optimize took: 0.1348118782043457 seconds
+Model optimize took: 0.1344282627105713 seconds
 
 Solution quality statistics for model netmon :
   Maximum violation:
-    Bound       : 0.00000000e+00
-    Constraint  : 2.84217094e-14 (rows_tot_tor_p44)
+    Bound       : 2.22044605e-16 (frac[17,132])
+    Constraint  : 3.55271368e-14 (rows_tot_tor_p44)
     Integrality : 0.00000000e+00
 
 
@@ -3201,9 +3201,9 @@ frac[15,188] 0
 frac[15,189] 0
 frac[15,190] 0
 frac[15,191] 0
-frac[16,0] 0.2
-frac[16,1] 0.2
-frac[16,2] 0.2
+frac[16,0] 0
+frac[16,1] 0
+frac[16,2] 0
 frac[16,3] 0
 frac[16,4] 0
 frac[16,5] 0
@@ -3213,12 +3213,12 @@ frac[16,8] 0
 frac[16,9] 0
 frac[16,10] 0
 frac[16,11] 0
-frac[16,12] 0.9
-frac[16,13] 0.9
-frac[16,14] 0.9
-frac[16,15] 0.8
-frac[16,16] 0.8
-frac[16,17] 0.8
+frac[16,12] 0
+frac[16,13] 0
+frac[16,14] 0
+frac[16,15] 0
+frac[16,16] 0
+frac[16,17] 0
 frac[16,18] 0
 frac[16,19] 0
 frac[16,20] 0
@@ -3228,15 +3228,15 @@ frac[16,23] 0
 frac[16,24] 0
 frac[16,25] 0
 frac[16,26] 0
-frac[16,27] 0.9
-frac[16,28] 0.9
-frac[16,29] 0.9
+frac[16,27] 0
+frac[16,28] 0
+frac[16,29] 0
 frac[16,30] 0
 frac[16,31] 0
 frac[16,32] 0
-frac[16,33] 0
-frac[16,34] 0
-frac[16,35] 0
+frac[16,33] 0.9
+frac[16,34] 0.9
+frac[16,35] 0.9
 frac[16,36] 0
 frac[16,37] 0
 frac[16,38] 0
@@ -3246,15 +3246,15 @@ frac[16,41] 0
 frac[16,42] 0
 frac[16,43] 0
 frac[16,44] 0
-frac[16,45] 0.2
-frac[16,46] 0.2
-frac[16,47] 0.2
+frac[16,45] 0.3
+frac[16,46] 0.3
+frac[16,47] 0.3
 frac[16,48] 0
 frac[16,49] 0
 frac[16,50] 0
-frac[16,51] 1
-frac[16,52] 1
-frac[16,53] 1
+frac[16,51] 0
+frac[16,52] 0
+frac[16,53] 0
 frac[16,54] 0
 frac[16,55] 0
 frac[16,56] 0
@@ -3264,15 +3264,15 @@ frac[16,59] 0
 frac[16,60] 0
 frac[16,61] 0
 frac[16,62] 0
-frac[16,63] 1
-frac[16,64] 1
-frac[16,65] 1
-frac[16,66] 0.7
-frac[16,67] 0.7
-frac[16,68] 0.7
-frac[16,69] 0.7
-frac[16,70] 0.7
-frac[16,71] 0.7
+frac[16,63] 0
+frac[16,64] 0
+frac[16,65] 0
+frac[16,66] 0.8
+frac[16,67] 0.8
+frac[16,68] 0.8
+frac[16,69] 0
+frac[16,70] 0
+frac[16,71] 0
 frac[16,72] 0
 frac[16,73] 0
 frac[16,74] 0
@@ -3285,9 +3285,9 @@ frac[16,80] 0.9
 frac[16,81] 0
 frac[16,82] 0
 frac[16,83] 0
-frac[16,84] 0
-frac[16,85] 0
-frac[16,86] 0
+frac[16,84] 0.7
+frac[16,85] 0.7
+frac[16,86] 0.7
 frac[16,87] 0
 frac[16,88] 0
 frac[16,89] 0
@@ -3300,162 +3300,162 @@ frac[16,95] 0
 frac[16,96] 0.8
 frac[16,97] 0.8
 frac[16,98] 0.8
-frac[16,99] 0.2
-frac[16,100] 0.2
-frac[16,101] 0.2
-frac[16,102] 0
-frac[16,103] 0
-frac[16,104] 0
-frac[16,105] 0
-frac[16,106] 0
-frac[16,107] 0
-frac[16,108] 0
-frac[16,109] 0
-frac[16,110] 0
-frac[16,111] 0
-frac[16,112] 0
-frac[16,113] 0
+frac[16,99] 0
+frac[16,100] 0
+frac[16,101] 0
+frac[16,102] 0.7
+frac[16,103] 0.7
+frac[16,104] 0.7
+frac[16,105] 0.9
+frac[16,106] 0.9
+frac[16,107] 0.9
+frac[16,108] 1
+frac[16,109] 1
+frac[16,110] 1
+frac[16,111] 1
+frac[16,112] 1
+frac[16,113] 1
 frac[16,114] 0.9
 frac[16,115] 0.9
 frac[16,116] 0.9
-frac[16,117] 0.8
-frac[16,118] 0.8
-frac[16,119] 0.8
-frac[16,120] 0.9
-frac[16,121] 0.9
-frac[16,122] 0.9
-frac[16,123] 0
-frac[16,124] 0
-frac[16,125] 0
+frac[16,117] 0
+frac[16,118] 0
+frac[16,119] 0
+frac[16,120] 0
+frac[16,121] 0
+frac[16,122] 0
+frac[16,123] 0.7
+frac[16,124] 0.7
+frac[16,125] 0.7
 frac[16,126] 0
 frac[16,127] 0
 frac[16,128] 0
-frac[16,129] 0
-frac[16,130] 0
-frac[16,131] 0
-frac[16,132] 0
-frac[16,133] 0
-frac[16,134] 0
-frac[16,135] 0.7
-frac[16,136] 0.7
-frac[16,137] 0.7
-frac[16,138] 0
-frac[16,139] 0
-frac[16,140] 0
-frac[16,141] 0.9
-frac[16,142] 0.9
-frac[16,143] 0.9
-frac[16,144] 1
-frac[16,145] 1
-frac[16,146] 1
+frac[16,129] 0.1
+frac[16,130] 0.1
+frac[16,131] 0.1
+frac[16,132] 1
+frac[16,133] 1
+frac[16,134] 1
+frac[16,135] 1
+frac[16,136] 1
+frac[16,137] 1
+frac[16,138] 0.4
+frac[16,139] 0.4
+frac[16,140] 0.4
+frac[16,141] 0
+frac[16,142] 0
+frac[16,143] 0
+frac[16,144] 0.7
+frac[16,145] 0.7
+frac[16,146] 0.7
 frac[16,147] 0
 frac[16,148] 0
 frac[16,149] 0
-frac[16,150] 0
-frac[16,151] 0
-frac[16,152] 0
+frac[16,150] 1
+frac[16,151] 1
+frac[16,152] 1
 frac[16,153] 0
 frac[16,154] 0
 frac[16,155] 0
 frac[16,156] 0
 frac[16,157] 0
 frac[16,158] 0
-frac[16,159] 0.6
-frac[16,160] 0.6
-frac[16,161] 0.6
+frac[16,159] 0
+frac[16,160] 0
+frac[16,161] 0
 frac[16,162] 0
 frac[16,163] 0
 frac[16,164] 0
-frac[16,165] 0
-frac[16,166] 0
-frac[16,167] 0
-frac[16,168] 0.2
-frac[16,169] 0.2
-frac[16,170] 0.2
-frac[16,171] 0.3
-frac[16,172] 0.3
-frac[16,173] 0.3
+frac[16,165] 0.7
+frac[16,166] 0.7
+frac[16,167] 0.7
+frac[16,168] 0.7
+frac[16,169] 0.7
+frac[16,170] 0.7
+frac[16,171] 0.8
+frac[16,172] 0.8
+frac[16,173] 0.8
 frac[16,174] 0
 frac[16,175] 0
 frac[16,176] 0
 frac[16,177] 0
 frac[16,178] 0
 frac[16,179] 0
-frac[16,180] 0.8
-frac[16,181] 0.8
-frac[16,182] 0.8
-frac[16,183] 0.3
-frac[16,184] 0.3
-frac[16,185] 0.3
+frac[16,180] 0
+frac[16,181] 0
+frac[16,182] 0
+frac[16,183] 0
+frac[16,184] 0
+frac[16,185] 0
 frac[16,186] 0
 frac[16,187] 0
 frac[16,188] 0
 frac[16,189] 0
 frac[16,190] 0
 frac[16,191] 0
-frac[17,0] 0.8
-frac[17,1] 0.8
-frac[17,2] 0.8
+frac[17,0] 0
+frac[17,1] 0
+frac[17,2] 0
 frac[17,3] 0
 frac[17,4] 0
 frac[17,5] 0
-frac[17,6] 0
-frac[17,7] 0
-frac[17,8] 0
+frac[17,6] 0.7
+frac[17,7] 0.7
+frac[17,8] 0.7
 frac[17,9] 0
 frac[17,10] 0
 frac[17,11] 0
 frac[17,12] 0
 frac[17,13] 0
 frac[17,14] 0
-frac[17,15] 1
-frac[17,16] 1
-frac[17,17] 1
-frac[17,18] 1
-frac[17,19] 1
-frac[17,20] 1
-frac[17,21] 0.2
-frac[17,22] 0.2
-frac[17,23] 0.2
+frac[17,15] 0
+frac[17,16] 0
+frac[17,17] 0
+frac[17,18] 0
+frac[17,19] 0
+frac[17,20] 0
+frac[17,21] 0
+frac[17,22] 0
+frac[17,23] 0
 frac[17,24] 0
 frac[17,25] 0
 frac[17,26] 0
-frac[17,27] 0.8
-frac[17,28] 0.8
-frac[17,29] 0.8
-frac[17,30] 0
-frac[17,31] 0
-frac[17,32] 0
-frac[17,33] 0
-frac[17,34] 0
-frac[17,35] 0
+frac[17,27] 0
+frac[17,28] 0
+frac[17,29] 0
+frac[17,30] 0.8
+frac[17,31] 0.8
+frac[17,32] 0.8
+frac[17,33] 0.8
+frac[17,34] 0.8
+frac[17,35] 0.8
 frac[17,36] 0
 frac[17,37] 0
 frac[17,38] 0
-frac[17,39] 0.8
-frac[17,40] 0.8
-frac[17,41] 0.8
-frac[17,42] 0.7
-frac[17,43] 0.7
-frac[17,44] 0.7
+frac[17,39] 0.9
+frac[17,40] 0.9
+frac[17,41] 0.9
+frac[17,42] 0.9
+frac[17,43] 0.9
+frac[17,44] 0.9
 frac[17,45] 0
 frac[17,46] 0
 frac[17,47] 0
-frac[17,48] 0.3
-frac[17,49] 0.3
-frac[17,50] 0.3
+frac[17,48] 0
+frac[17,49] 0
+frac[17,50] 0
 frac[17,51] 0
 frac[17,52] 0
 frac[17,53] 0
-frac[17,54] 0
-frac[17,55] 0
-frac[17,56] 0
-frac[17,57] 0
-frac[17,58] 0
-frac[17,59] 0
-frac[17,60] 0
-frac[17,61] 0
-frac[17,62] 0
+frac[17,54] 1
+frac[17,55] 1
+frac[17,56] 1
+frac[17,57] 0.8
+frac[17,58] 0.8
+frac[17,59] 0.8
+frac[17,60] 0.9
+frac[17,61] 0.9
+frac[17,62] 0.9
 frac[17,63] 0
 frac[17,64] 0
 frac[17,65] 0
@@ -3468,81 +3468,81 @@ frac[17,71] 0
 frac[17,72] 0
 frac[17,73] 0
 frac[17,74] 0
-frac[17,75] 0.8
-frac[17,76] 0.8
-frac[17,77] 0.8
-frac[17,78] 0
-frac[17,79] 0
-frac[17,80] 0
-frac[17,81] 0.9
-frac[17,82] 0.9
-frac[17,83] 0.9
+frac[17,75] 1
+frac[17,76] 1
+frac[17,77] 1
+frac[17,78] 0.1
+frac[17,79] 0.1
+frac[17,80] 0.1
+frac[17,81] 1
+frac[17,82] 1
+frac[17,83] 1
 frac[17,84] 0
 frac[17,85] 0
 frac[17,86] 0
-frac[17,87] 0.9
-frac[17,88] 0.9
-frac[17,89] 0.9
-frac[17,90] 1
-frac[17,91] 1
-frac[17,92] 1
-frac[17,93] 0.9
-frac[17,94] 0.9
-frac[17,95] 0.9
-frac[17,96] 0
-frac[17,97] 0
-frac[17,98] 0
+frac[17,87] 0
+frac[17,88] 0
+frac[17,89] 0
+frac[17,90] 0.7
+frac[17,91] 0.7
+frac[17,92] 0.7
+frac[17,93] 0
+frac[17,94] 0
+frac[17,95] 0
+frac[17,96] 0.2
+frac[17,97] 0.2
+frac[17,98] 0.2
 frac[17,99] 0
 frac[17,100] 0
 frac[17,101] 0
 frac[17,102] 0
 frac[17,103] 0
 frac[17,104] 0
-frac[17,105] 0.8
-frac[17,106] 0.8
-frac[17,107] 0.8
-frac[17,108] 0
-frac[17,109] 0
-frac[17,110] 0
+frac[17,105] 0.9
+frac[17,106] 0.9
+frac[17,107] 0.9
+frac[17,108] 0.9
+frac[17,109] 0.9
+frac[17,110] 0.9
 frac[17,111] 0
 frac[17,112] 0
 frac[17,113] 0
 frac[17,114] 0
 frac[17,115] 0
 frac[17,116] 0
-frac[17,117] 0
-frac[17,118] 0
-frac[17,119] 0
-frac[17,120] 0.8
-frac[17,121] 0.8
-frac[17,122] 0.8
-frac[17,123] 1
-frac[17,124] 1
-frac[17,125] 1
+frac[17,117] 0.8
+frac[17,118] 0.8
+frac[17,119] 0.8
+frac[17,120] 0
+frac[17,121] 0
+frac[17,122] 0
+frac[17,123] 0.8
+frac[17,124] 0.8
+frac[17,125] 0.8
 frac[17,126] 0
 frac[17,127] 0
 frac[17,128] 0
 frac[17,129] 0
 frac[17,130] 0
 frac[17,131] 0
-frac[17,132] 0
-frac[17,133] 0
-frac[17,134] 0
+frac[17,132] 1
+frac[17,133] 1
+frac[17,134] 1
 frac[17,135] 0
 frac[17,136] 0
 frac[17,137] 0
-frac[17,138] 0.7
-frac[17,139] 0.7
-frac[17,140] 0.7
-frac[17,141] 0.1
-frac[17,142] 0.1
-frac[17,143] 0.1
-frac[17,144] 1
-frac[17,145] 1
-frac[17,146] 1
-frac[17,147] 0
-frac[17,148] 0
-frac[17,149] 0
+frac[17,138] 0
+frac[17,139] 0
+frac[17,140] 0
+frac[17,141] 0
+frac[17,142] 0
+frac[17,143] 0
+frac[17,144] 0
+frac[17,145] 0
+frac[17,146] 0
+frac[17,147] 0.9
+frac[17,148] 0.9
+frac[17,149] 0.9
 frac[17,150] 0
 frac[17,151] 0
 frac[17,152] 0
@@ -3552,9 +3552,9 @@ frac[17,155] 0
 frac[17,156] 0
 frac[17,157] 0
 frac[17,158] 0
-frac[17,159] 0
-frac[17,160] 0
-frac[17,161] 0
+frac[17,159] 0.2
+frac[17,160] 0.2
+frac[17,161] 0.2
 frac[17,162] 0
 frac[17,163] 0
 frac[17,164] 0
@@ -3567,78 +3567,78 @@ frac[17,170] 0
 frac[17,171] 0
 frac[17,172] 0
 frac[17,173] 0
-frac[17,174] 0.1
-frac[17,175] 0.1
-frac[17,176] 0.1
-frac[17,177] 0
-frac[17,178] 0
-frac[17,179] 0
+frac[17,174] 0
+frac[17,175] 0
+frac[17,176] 0
+frac[17,177] 0.7
+frac[17,178] 0.7
+frac[17,179] 0.7
 frac[17,180] 0
 frac[17,181] 0
 frac[17,182] 0
-frac[17,183] 0.7
-frac[17,184] 0.7
-frac[17,185] 0.7
-frac[17,186] 0.7
-frac[17,187] 0.7
-frac[17,188] 0.7
+frac[17,183] 0
+frac[17,184] 0
+frac[17,185] 0
+frac[17,186] 0
+frac[17,187] 0
+frac[17,188] 0
 frac[17,189] 0
 frac[17,190] 0
 frac[17,191] 0
-frac[18,0] 0
-frac[18,1] 0
-frac[18,2] 0
-frac[18,3] 0.7
-frac[18,4] 0.7
-frac[18,5] 0.7
+frac[18,0] 0.9
+frac[18,1] 0.9
+frac[18,2] 0.9
+frac[18,3] 0
+frac[18,4] 0
+frac[18,5] 0
 frac[18,6] 0
 frac[18,7] 0
 frac[18,8] 0
-frac[18,9] 0
-frac[18,10] 0
-frac[18,11] 0
-frac[18,12] 0
-frac[18,13] 0
-frac[18,14] 0
+frac[18,9] 1
+frac[18,10] 1
+frac[18,11] 1
+frac[18,12] 0.9
+frac[18,13] 0.9
+frac[18,14] 0.9
 frac[18,15] 0
 frac[18,16] 0
 frac[18,17] 0
-frac[18,18] 0.7
-frac[18,19] 0.7
-frac[18,20] 0.7
+frac[18,18] 0
+frac[18,19] 0
+frac[18,20] 0
 frac[18,21] 0.7
 frac[18,22] 0.7
 frac[18,23] 0.7
 frac[18,24] 0
 frac[18,25] 0
 frac[18,26] 0
-frac[18,27] 0
-frac[18,28] 0
-frac[18,29] 0
+frac[18,27] 0.9
+frac[18,28] 0.9
+frac[18,29] 0.9
 frac[18,30] 0
 frac[18,31] 0
 frac[18,32] 0
 frac[18,33] 0
 frac[18,34] 0
 frac[18,35] 0
-frac[18,36] 0.8
-frac[18,37] 0.8
-frac[18,38] 0.8
+frac[18,36] 0
+frac[18,37] 0
+frac[18,38] 0
 frac[18,39] 0
 frac[18,40] 0
 frac[18,41] 0
 frac[18,42] 0
 frac[18,43] 0
 frac[18,44] 0
-frac[18,45] 0
-frac[18,46] 0
-frac[18,47] 0
-frac[18,48] 0
-frac[18,49] 0
-frac[18,50] 0
-frac[18,51] 0.7
-frac[18,52] 0.7
-frac[18,53] 0.7
+frac[18,45] 1
+frac[18,46] 1
+frac[18,47] 1
+frac[18,48] 0.9
+frac[18,49] 0.9
+frac[18,50] 0.9
+frac[18,51] 0
+frac[18,52] 0
+frac[18,53] 0
 frac[18,54] 0
 frac[18,55] 0
 frac[18,56] 0
@@ -3651,21 +3651,21 @@ frac[18,62] 0
 frac[18,63] 0
 frac[18,64] 0
 frac[18,65] 0
-frac[18,66] 0
-frac[18,67] 0
-frac[18,68] 0
+frac[18,66] 1
+frac[18,67] 1
+frac[18,68] 1
 frac[18,69] 0
 frac[18,70] 0
 frac[18,71] 0
-frac[18,72] 0
-frac[18,73] 0
-frac[18,74] 0
+frac[18,72] 1
+frac[18,73] 1
+frac[18,74] 1
 frac[18,75] 0
 frac[18,76] 0
 frac[18,77] 0
-frac[18,78] 0.8
-frac[18,79] 0.8
-frac[18,80] 0.8
+frac[18,78] 0.9
+frac[18,79] 0.9
+frac[18,80] 0.9
 frac[18,81] 0
 frac[18,82] 0
 frac[18,83] 0
@@ -3675,54 +3675,54 @@ frac[18,86] 0
 frac[18,87] 0
 frac[18,88] 0
 frac[18,89] 0
-frac[18,90] 1
-frac[18,91] 1
-frac[18,92] 1
-frac[18,93] 0
-frac[18,94] 0
-frac[18,95] 0
-frac[18,96] 0.9
-frac[18,97] 0.9
-frac[18,98] 0.9
-frac[18,99] 0.7
-frac[18,100] 0.7
-frac[18,101] 0.7
+frac[18,90] 0.9
+frac[18,91] 0.9
+frac[18,92] 0.9
+frac[18,93] 1
+frac[18,94] 1
+frac[18,95] 1
+frac[18,96] 1
+frac[18,97] 1
+frac[18,98] 1
+frac[18,99] 0
+frac[18,100] 0
+frac[18,101] 0
 frac[18,102] 0
 frac[18,103] 0
 frac[18,104] 0
 frac[18,105] 0
 frac[18,106] 0
 frac[18,107] 0
-frac[18,108] 0.8
-frac[18,109] 0.8
-frac[18,110] 0.8
+frac[18,108] 0
+frac[18,109] 0
+frac[18,110] 0
 frac[18,111] 0
 frac[18,112] 0
 frac[18,113] 0
 frac[18,114] 0
 frac[18,115] 0
 frac[18,116] 0
-frac[18,117] 0.9
-frac[18,118] 0.9
-frac[18,119] 0.9
-frac[18,120] 0
-frac[18,121] 0
-frac[18,122] 0
+frac[18,117] 0
+frac[18,118] 0
+frac[18,119] 0
+frac[18,120] 1
+frac[18,121] 1
+frac[18,122] 1
 frac[18,123] 0
 frac[18,124] 0
 frac[18,125] 0
-frac[18,126] 1
-frac[18,127] 1
-frac[18,128] 1
-frac[18,129] 0
-frac[18,130] 0
-frac[18,131] 0
+frac[18,126] 0
+frac[18,127] 0
+frac[18,128] 0
+frac[18,129] 0.9
+frac[18,130] 0.9
+frac[18,131] 0.9
 frac[18,132] 0
 frac[18,133] 0
 frac[18,134] 0
-frac[18,135] 0.7
-frac[18,136] 0.7
-frac[18,137] 0.7
+frac[18,135] 0
+frac[18,136] 0
+frac[18,137] 0
 frac[18,138] 0
 frac[18,139] 0
 frac[18,140] 0
@@ -3732,9 +3732,9 @@ frac[18,143] 0
 frac[18,144] 0
 frac[18,145] 0
 frac[18,146] 0
-frac[18,147] 0.7
-frac[18,148] 0.7
-frac[18,149] 0.7
+frac[18,147] 0
+frac[18,148] 0
+frac[18,149] 0
 frac[18,150] 0
 frac[18,151] 0
 frac[18,152] 0
@@ -3744,12 +3744,12 @@ frac[18,155] 0
 frac[18,156] 0
 frac[18,157] 0
 frac[18,158] 0
-frac[18,159] 0.7
-frac[18,160] 0.7
-frac[18,161] 0.7
-frac[18,162] 0.8
-frac[18,163] 0.8
-frac[18,164] 0.8
+frac[18,159] 1
+frac[18,160] 1
+frac[18,161] 1
+frac[18,162] 0
+frac[18,163] 0
+frac[18,164] 0
 frac[18,165] 0
 frac[18,166] 0
 frac[18,167] 0
@@ -3759,21 +3759,21 @@ frac[18,170] 0
 frac[18,171] 0
 frac[18,172] 0
 frac[18,173] 0
-frac[18,174] 1
-frac[18,175] 1
-frac[18,176] 1
-frac[18,177] 1
-frac[18,178] 1
-frac[18,179] 1
+frac[18,174] 0
+frac[18,175] 0
+frac[18,176] 0
+frac[18,177] 0
+frac[18,178] 0
+frac[18,179] 0
 frac[18,180] 0
 frac[18,181] 0
 frac[18,182] 0
-frac[18,183] 0.6
-frac[18,184] 0.6
-frac[18,185] 0.6
-frac[18,186] 0.8
-frac[18,187] 0.8
-frac[18,188] 0.8
+frac[18,183] 1
+frac[18,184] 1
+frac[18,185] 1
+frac[18,186] 0
+frac[18,187] 0
+frac[18,188] 0
 frac[18,189] 0
 frac[18,190] 0
 frac[18,191] 0
@@ -3783,141 +3783,141 @@ frac[19,2] 0
 frac[19,3] 0
 frac[19,4] 0
 frac[19,5] 0
-frac[19,6] 0.8
-frac[19,7] 0.8
-frac[19,8] 0.8
-frac[19,9] 1
-frac[19,10] 1
-frac[19,11] 1
+frac[19,6] 0.7
+frac[19,7] 0.7
+frac[19,8] 0.7
+frac[19,9] 0
+frac[19,10] 0
+frac[19,11] 0
 frac[19,12] 0
 frac[19,13] 0
 frac[19,14] 0
 frac[19,15] 0
 frac[19,16] 0
 frac[19,17] 0
-frac[19,18] 1
-frac[19,19] 1
-frac[19,20] 1
-frac[19,21] 0
-frac[19,22] 0
-frac[19,23] 0
+frac[19,18] 0
+frac[19,19] 0
+frac[19,20] 0
+frac[19,21] 0.3
+frac[19,22] 0.3
+frac[19,23] 0.3
 frac[19,24] 0
 frac[19,25] 0
 frac[19,26] 0
-frac[19,27] 0.7
-frac[19,28] 0.7
-frac[19,29] 0.7
-frac[19,30] 1
-frac[19,31] 1
-frac[19,32] 1
-frac[19,33] 0.8
-frac[19,34] 0.8
-frac[19,35] 0.8
-frac[19,36] 0.8
-frac[19,37] 0.8
-frac[19,38] 0.8
-frac[19,39] 0
-frac[19,40] 0
-frac[19,41] 0
+frac[19,27] 0
+frac[19,28] 0
+frac[19,29] 0
+frac[19,30] 0
+frac[19,31] 0
+frac[19,32] 0
+frac[19,33] 0
+frac[19,34] 0
+frac[19,35] 0
+frac[19,36] 1
+frac[19,37] 1
+frac[19,38] 1
+frac[19,39] 1
+frac[19,40] 1
+frac[19,41] 1
 frac[19,42] 0
 frac[19,43] 0
 frac[19,44] 0
 frac[19,45] 0
 frac[19,46] 0
 frac[19,47] 0
-frac[19,48] 0
-frac[19,49] 0
-frac[19,50] 0
+frac[19,48] 0.8
+frac[19,49] 0.8
+frac[19,50] 0.8
 frac[19,51] 0
 frac[19,52] 0
 frac[19,53] 0
 frac[19,54] 0
 frac[19,55] 0
 frac[19,56] 0
-frac[19,57] 0
-frac[19,58] 0
-frac[19,59] 0
+frac[19,57] 1
+frac[19,58] 1
+frac[19,59] 1
 frac[19,60] 0
 frac[19,61] 0
 frac[19,62] 0
-frac[19,63] 0.8
-frac[19,64] 0.8
-frac[19,65] 0.8
-frac[19,66] 0
-frac[19,67] 0
-frac[19,68] 0
-frac[19,69] 0
-frac[19,70] 0
-frac[19,71] 0
+frac[19,63] 0.1
+frac[19,64] 0.1
+frac[19,65] 0.1
+frac[19,66] 1
+frac[19,67] 1
+frac[19,68] 1
+frac[19,69] 1
+frac[19,70] 1
+frac[19,71] 1
 frac[19,72] 0
 frac[19,73] 0
 frac[19,74] 0
-frac[19,75] 0.9
-frac[19,76] 0.9
-frac[19,77] 0.9
-frac[19,78] 0
-frac[19,79] 0
-frac[19,80] 0
-frac[19,81] 0
-frac[19,82] 0
-frac[19,83] 0
+frac[19,75] 0
+frac[19,76] 0
+frac[19,77] 0
+frac[19,78] 1
+frac[19,79] 1
+frac[19,80] 1
+frac[19,81] 0.9
+frac[19,82] 0.9
+frac[19,83] 0.9
 frac[19,84] 0
 frac[19,85] 0
 frac[19,86] 0
 frac[19,87] 0
 frac[19,88] 0
 frac[19,89] 0
-frac[19,90] 0.9
-frac[19,91] 0.9
-frac[19,92] 0.9
-frac[19,93] 0.7
-frac[19,94] 0.7
-frac[19,95] 0.7
-frac[19,96] 0.9
-frac[19,97] 0.9
-frac[19,98] 0.9
+frac[19,90] 0
+frac[19,91] 0
+frac[19,92] 0
+frac[19,93] 0
+frac[19,94] 0
+frac[19,95] 0
+frac[19,96] 0
+frac[19,97] 0
+frac[19,98] 0
 frac[19,99] 0
 frac[19,100] 0
 frac[19,101] 0
-frac[19,102] 0
-frac[19,103] 0
-frac[19,104] 0
+frac[19,102] 0.8
+frac[19,103] 0.8
+frac[19,104] 0.8
 frac[19,105] 0
 frac[19,106] 0
 frac[19,107] 0
 frac[19,108] 0
 frac[19,109] 0
 frac[19,110] 0
-frac[19,111] 0
-frac[19,112] 0
-frac[19,113] 0
+frac[19,111] 0.9
+frac[19,112] 0.9
+frac[19,113] 0.9
 frac[19,114] 0
 frac[19,115] 0
 frac[19,116] 0
-frac[19,117] 0.1
-frac[19,118] 0.1
-frac[19,119] 0.1
-frac[19,120] 1
-frac[19,121] 1
-frac[19,122] 1
+frac[19,117] 0.2
+frac[19,118] 0.2
+frac[19,119] 0.2
+frac[19,120] 0.8
+frac[19,121] 0.8
+frac[19,122] 0.8
 frac[19,123] 0
 frac[19,124] 0
 frac[19,125] 0
 frac[19,126] 0
 frac[19,127] 0
 frac[19,128] 0
-frac[19,129] 1
-frac[19,130] 1
-frac[19,131] 1
-frac[19,132] 0
-frac[19,133] 0
-frac[19,134] 0
+frac[19,129] 0
+frac[19,130] 0
+frac[19,131] 0
+frac[19,132] 0.8
+frac[19,133] 0.8
+frac[19,134] 0.8
 frac[19,135] 0
 frac[19,136] 0
 frac[19,137] 0
-frac[19,138] 0
-frac[19,139] 0
-frac[19,140] 0
+frac[19,138] 0.6
+frac[19,139] 0.6
+frac[19,140] 0.6
 frac[19,141] 0
 frac[19,142] 0
 frac[19,143] 0
@@ -3927,30 +3927,30 @@ frac[19,146] 0
 frac[19,147] 0
 frac[19,148] 0
 frac[19,149] 0
-frac[19,150] 0
-frac[19,151] 0
-frac[19,152] 0
+frac[19,150] 0.9
+frac[19,151] 0.9
+frac[19,152] 0.9
 frac[19,153] 0
 frac[19,154] 0
 frac[19,155] 0
 frac[19,156] 0
 frac[19,157] 0
 frac[19,158] 0
-frac[19,159] 0.8
-frac[19,160] 0.8
-frac[19,161] 0.8
+frac[19,159] 0
+frac[19,160] 0
+frac[19,161] 0
 frac[19,162] 0
 frac[19,163] 0
 frac[19,164] 0
-frac[19,165] 0.7
-frac[19,166] 0.7
-frac[19,167] 0.7
-frac[19,168] 0
-frac[19,169] 0
-frac[19,170] 0
-frac[19,171] 0.9
-frac[19,172] 0.9
-frac[19,173] 0.9
+frac[19,165] 0.3
+frac[19,166] 0.3
+frac[19,167] 0.3
+frac[19,168] 1
+frac[19,169] 1
+frac[19,170] 1
+frac[19,171] 0
+frac[19,172] 0
+frac[19,173] 0
 frac[19,174] 0
 frac[19,175] 0
 frac[19,176] 0
@@ -3960,81 +3960,81 @@ frac[19,179] 0
 frac[19,180] 0.9
 frac[19,181] 0.9
 frac[19,182] 0.9
-frac[19,183] 0.3
-frac[19,184] 0.3
-frac[19,185] 0.3
+frac[19,183] 0
+frac[19,184] 0
+frac[19,185] 0
 frac[19,186] 0
 frac[19,187] 0
 frac[19,188] 0
 frac[19,189] 0
 frac[19,190] 0
 frac[19,191] 0
-frac[20,0] 0
-frac[20,1] 0
-frac[20,2] 0
-frac[20,3] 0.7
-frac[20,4] 0.7
-frac[20,5] 0.7
+frac[20,0] 0.9
+frac[20,1] 0.9
+frac[20,2] 0.9
+frac[20,3] 0
+frac[20,4] 0
+frac[20,5] 0
 frac[20,6] 0
 frac[20,7] 0
 frac[20,8] 0
-frac[20,9] 1
-frac[20,10] 1
-frac[20,11] 1
-frac[20,12] 0
-frac[20,13] 0
-frac[20,14] 0
+frac[20,9] 0.8
+frac[20,10] 0.8
+frac[20,11] 0.8
+frac[20,12] 0.9
+frac[20,13] 0.9
+frac[20,14] 0.9
 frac[20,15] 0
 frac[20,16] 0
 frac[20,17] 0
 frac[20,18] 0
 frac[20,19] 0
 frac[20,20] 0
-frac[20,21] 0.8
-frac[20,22] 0.8
-frac[20,23] 0.8
+frac[20,21] 1
+frac[20,22] 1
+frac[20,23] 1
 frac[20,24] 0
 frac[20,25] 0
 frac[20,26] 0
-frac[20,27] 0
-frac[20,28] 0
-frac[20,29] 0
+frac[20,27] 1
+frac[20,28] 1
+frac[20,29] 1
 frac[20,30] 0
 frac[20,31] 0
 frac[20,32] 0
 frac[20,33] 0
 frac[20,34] 0
 frac[20,35] 0
-frac[20,36] 0.9
-frac[20,37] 0.9
-frac[20,38] 0.9
-frac[20,39] 0
-frac[20,40] 0
-frac[20,41] 0
+frac[20,36] 1
+frac[20,37] 1
+frac[20,38] 1
+frac[20,39] 0.1
+frac[20,40] 0.1
+frac[20,41] 0.1
 frac[20,42] 0
 frac[20,43] 0
 frac[20,44] 0
-frac[20,45] 0
-frac[20,46] 0
-frac[20,47] 0
-frac[20,48] 0.7
-frac[20,49] 0.7
-frac[20,50] 0.7
+frac[20,45] 0.6
+frac[20,46] 0.6
+frac[20,47] 0.6
+frac[20,48] 0
+frac[20,49] 0
+frac[20,50] 0
 frac[20,51] 0
 frac[20,52] 0
 frac[20,53] 0
 frac[20,54] 0
 frac[20,55] 0
 frac[20,56] 0
-frac[20,57] 0.8
-frac[20,58] 0.8
-frac[20,59] 0.8
-frac[20,60] 1
-frac[20,61] 1
-frac[20,62] 1
-frac[20,63] 0
-frac[20,64] 0
-frac[20,65] 0
+frac[20,57] 0
+frac[20,58] 0
+frac[20,59] 0
+frac[20,60] 0
+frac[20,61] 0
+frac[20,62] 0
+frac[20,63] 0.9
+frac[20,64] 0.9
+frac[20,65] 0.9
 frac[20,66] 0
 frac[20,67] 0
 frac[20,68] 0
@@ -4050,66 +4050,66 @@ frac[20,77] 0
 frac[20,78] 0
 frac[20,79] 0
 frac[20,80] 0
-frac[20,81] 0
-frac[20,82] 0
-frac[20,83] 0
-frac[20,84] 0.2
-frac[20,85] 0.2
-frac[20,86] 0.2
-frac[20,87] 0
-frac[20,88] 0
-frac[20,89] 0
+frac[20,81] 0.1
+frac[20,82] 0.1
+frac[20,83] 0.1
+frac[20,84] 0
+frac[20,85] 0
+frac[20,86] 0
+frac[20,87] 0.9
+frac[20,88] 0.9
+frac[20,89] 0.9
 frac[20,90] 0
 frac[20,91] 0
 frac[20,92] 0
-frac[20,93] 0.3
-frac[20,94] 0.3
-frac[20,95] 0.3
+frac[20,93] 0
+frac[20,94] 0
+frac[20,95] 0
 frac[20,96] 0
 frac[20,97] 0
 frac[20,98] 0
-frac[20,99] 0.7
-frac[20,100] 0.7
-frac[20,101] 0.7
-frac[20,102] 0
-frac[20,103] 0
-frac[20,104] 0
+frac[20,99] 0.2
+frac[20,100] 0.2
+frac[20,101] 0.2
+frac[20,102] 0.3
+frac[20,103] 0.3
+frac[20,104] 0.3
 frac[20,105] 0
 frac[20,106] 0
 frac[20,107] 0
 frac[20,108] 0
 frac[20,109] 0
 frac[20,110] 0
-frac[20,111] 0.7
-frac[20,112] 0.7
-frac[20,113] 0.7
-frac[20,114] 0
-frac[20,115] 0
-frac[20,116] 0
-frac[20,117] 0
-frac[20,118] 0
-frac[20,119] 0
+frac[20,111] 0
+frac[20,112] 0
+frac[20,113] 0
+frac[20,114] 0.2
+frac[20,115] 0.2
+frac[20,116] 0.2
+frac[20,117] 0.2
+frac[20,118] 0.2
+frac[20,119] 0.2
 frac[20,120] 0
 frac[20,121] 0
 frac[20,122] 0
 frac[20,123] 0
 frac[20,124] 0
 frac[20,125] 0
-frac[20,126] 1
-frac[20,127] 1
-frac[20,128] 1
-frac[20,129] 0
-frac[20,130] 0
-frac[20,131] 0
-frac[20,132] 0.1
-frac[20,133] 0.1
-frac[20,134] 0.1
-frac[20,135] 0.2
-frac[20,136] 0.2
-frac[20,137] 0.2
-frac[20,138] 0
-frac[20,139] 0
-frac[20,140] 0
+frac[20,126] 0
+frac[20,127] 0
+frac[20,128] 0
+frac[20,129] 0.9
+frac[20,130] 0.9
+frac[20,131] 0.9
+frac[20,132] 0
+frac[20,133] 0
+frac[20,134] 0
+frac[20,135] 0
+frac[20,136] 0
+frac[20,137] 0
+frac[20,138] 0.5
+frac[20,139] 0.5
+frac[20,140] 0.5
 frac[20,141] 0
 frac[20,142] 0
 frac[20,143] 0
@@ -4119,69 +4119,69 @@ frac[20,146] 0
 frac[20,147] 0
 frac[20,148] 0
 frac[20,149] 0
-frac[20,150] 1
-frac[20,151] 1
-frac[20,152] 1
+frac[20,150] 0
+frac[20,151] 0
+frac[20,152] 0
 frac[20,153] 1
 frac[20,154] 1
 frac[20,155] 1
-frac[20,156] 0
-frac[20,157] 0
-frac[20,158] 0
-frac[20,159] 0.1
-frac[20,160] 0.1
-frac[20,161] 0.1
-frac[20,162] 0
-frac[20,163] 0
-frac[20,164] 0
-frac[20,165] 0.8
-frac[20,166] 0.8
-frac[20,167] 0.8
-frac[20,168] 0.8
-frac[20,169] 0.8
-frac[20,170] 0.8
-frac[20,171] 0.7
-frac[20,172] 0.7
-frac[20,173] 0.7
-frac[20,174] 0.8
-frac[20,175] 0.8
-frac[20,176] 0.8
+frac[20,156] 0.1
+frac[20,157] 0.1
+frac[20,158] 0.1
+frac[20,159] 0.7
+frac[20,160] 0.7
+frac[20,161] 0.7
+frac[20,162] 0.7
+frac[20,163] 0.7
+frac[20,164] 0.7
+frac[20,165] 0.2
+frac[20,166] 0.2
+frac[20,167] 0.2
+frac[20,168] 0
+frac[20,169] 0
+frac[20,170] 0
+frac[20,171] 0.1
+frac[20,172] 0.1
+frac[20,173] 0.1
+frac[20,174] 0
+frac[20,175] 0
+frac[20,176] 0
 frac[20,177] 0
 frac[20,178] 0
 frac[20,179] 0
-frac[20,180] 0
-frac[20,181] 0
-frac[20,182] 0
-frac[20,183] 0
-frac[20,184] 0
-frac[20,185] 0
-frac[20,186] 1
-frac[20,187] 1
-frac[20,188] 1
-frac[20,189] 0
-frac[20,190] 0
-frac[20,191] 0
-frac[21,0] 0.9
-frac[21,1] 0.9
-frac[21,2] 0.9
-frac[21,3] 0.1
-frac[21,4] 0.1
-frac[21,5] 0.1
-frac[21,6] 0
-frac[21,7] 0
-frac[21,8] 0
+frac[20,180] 0.9
+frac[20,181] 0.9
+frac[20,182] 0.9
+frac[20,183] 1
+frac[20,184] 1
+frac[20,185] 1
+frac[20,186] 0
+frac[20,187] 0
+frac[20,188] 0
+frac[20,189] 0.1
+frac[20,190] 0.1
+frac[20,191] 0.1
+frac[21,0] 0
+frac[21,1] 0
+frac[21,2] 0
+frac[21,3] 0.8
+frac[21,4] 0.8
+frac[21,5] 0.8
+frac[21,6] 0.3
+frac[21,7] 0.3
+frac[21,8] 0.3
 frac[21,9] 0
 frac[21,10] 0
 frac[21,11] 0
 frac[21,12] 0
 frac[21,13] 0
 frac[21,14] 0
-frac[21,15] 0.7
-frac[21,16] 0.7
-frac[21,17] 0.7
-frac[21,18] 0
-frac[21,19] 0
-frac[21,20] 0
+frac[21,15] 1
+frac[21,16] 1
+frac[21,17] 1
+frac[21,18] 0.7
+frac[21,19] 0.7
+frac[21,20] 0.7
 frac[21,21] 0
 frac[21,22] 0
 frac[21,23] 0
@@ -4203,9 +4203,9 @@ frac[21,38] 0
 frac[21,39] 0
 frac[21,40] 0
 frac[21,41] 0
-frac[21,42] 0
-frac[21,43] 0
-frac[21,44] 0
+frac[21,42] 0.1
+frac[21,43] 0.1
+frac[21,44] 0.1
 frac[21,45] 0
 frac[21,46] 0
 frac[21,47] 0
@@ -4215,99 +4215,99 @@ frac[21,50] 0
 frac[21,51] 0
 frac[21,52] 0
 frac[21,53] 0
-frac[21,54] 0.9
-frac[21,55] 0.9
-frac[21,56] 0.9
-frac[21,57] 0.2
-frac[21,58] 0.2
-frac[21,59] 0.2
+frac[21,54] 1
+frac[21,55] 1
+frac[21,56] 1
+frac[21,57] 0
+frac[21,58] 0
+frac[21,59] 0
 frac[21,60] 0
 frac[21,61] 0
 frac[21,62] 0
 frac[21,63] 0
 frac[21,64] 0
 frac[21,65] 0
-frac[21,66] 0.2
-frac[21,67] 0.2
-frac[21,68] 0.2
-frac[21,69] 0.9
-frac[21,70] 0.9
-frac[21,71] 0.9
+frac[21,66] 0
+frac[21,67] 0
+frac[21,68] 0
+frac[21,69] 0
+frac[21,70] 0
+frac[21,71] 0
 frac[21,72] 0
 frac[21,73] 0
 frac[21,74] 0
-frac[21,75] 0
-frac[21,76] 0
-frac[21,77] 0
-frac[21,78] 0.1
-frac[21,79] 0.1
-frac[21,80] 0.1
+frac[21,75] 0.9
+frac[21,76] 0.9
+frac[21,77] 0.9
+frac[21,78] 0
+frac[21,79] 0
+frac[21,80] 0
 frac[21,81] 0
 frac[21,82] 0
 frac[21,83] 0
-frac[21,84] 0.8
-frac[21,85] 0.8
-frac[21,86] 0.8
+frac[21,84] 1
+frac[21,85] 1
+frac[21,86] 1
 frac[21,87] 0
 frac[21,88] 0
 frac[21,89] 0
 frac[21,90] 0
 frac[21,91] 0
 frac[21,92] 0
-frac[21,93] 0
-frac[21,94] 0
-frac[21,95] 0
+frac[21,93] 0.7
+frac[21,94] 0.7
+frac[21,95] 0.7
 frac[21,96] 0
 frac[21,97] 0
 frac[21,98] 0
-frac[21,99] 0
-frac[21,100] 0
-frac[21,101] 0
-frac[21,102] 0.9
-frac[21,103] 0.9
-frac[21,104] 0.9
+frac[21,99] 0.8
+frac[21,100] 0.8
+frac[21,101] 0.8
+frac[21,102] 0
+frac[21,103] 0
+frac[21,104] 0
 frac[21,105] 0
 frac[21,106] 0
 frac[21,107] 0
-frac[21,108] 0.9
-frac[21,109] 0.9
-frac[21,110] 0.9
-frac[21,111] 1
-frac[21,112] 1
-frac[21,113] 1
+frac[21,108] 0
+frac[21,109] 0
+frac[21,110] 0
+frac[21,111] 0
+frac[21,112] 0
+frac[21,113] 0
 frac[21,114] 0.8
 frac[21,115] 0.8
 frac[21,116] 0.8
-frac[21,117] 0
-frac[21,118] 0
-frac[21,119] 0
+frac[21,117] 0.6
+frac[21,118] 0.6
+frac[21,119] 0.6
 frac[21,120] 0
 frac[21,121] 0
 frac[21,122] 0
 frac[21,123] 0
 frac[21,124] 0
 frac[21,125] 0
-frac[21,126] 0
-frac[21,127] 0
-frac[21,128] 0
+frac[21,126] 0.8
+frac[21,127] 0.8
+frac[21,128] 0.8
 frac[21,129] 0
 frac[21,130] 0
 frac[21,131] 0
-frac[21,132] 0.9
-frac[21,133] 0.9
-frac[21,134] 0.9
+frac[21,132] 0
+frac[21,133] 0
+frac[21,134] 0
 frac[21,135] 0
 frac[21,136] 0
 frac[21,137] 0
-frac[21,138] 0.8
-frac[21,139] 0.8
-frac[21,140] 0.8
-frac[21,141] 0.7
-frac[21,142] 0.7
-frac[21,143] 0.7
-frac[21,144] 0
-frac[21,145] 0
-frac[21,146] 0
+frac[21,138] 0.4
+frac[21,139] 0.4
+frac[21,140] 0.4
+frac[21,141] 0
+frac[21,142] 0
+frac[21,143] 0
+frac[21,144] 1
+frac[21,145] 1
+frac[21,146] 1
 frac[21,147] 0
 frac[21,148] 0
 frac[21,149] 0
@@ -4317,30 +4317,30 @@ frac[21,152] 0
 frac[21,153] 0
 frac[21,154] 0
 frac[21,155] 0
-frac[21,156] 0.9
-frac[21,157] 0.9
-frac[21,158] 0.9
+frac[21,156] 0.8
+frac[21,157] 0.8
+frac[21,158] 0.8
 frac[21,159] 0
 frac[21,160] 0
 frac[21,161] 0
 frac[21,162] 0
 frac[21,163] 0
 frac[21,164] 0
-frac[21,165] 0
-frac[21,166] 0
-frac[21,167] 0
+frac[21,165] 0.7
+frac[21,166] 0.7
+frac[21,167] 0.7
 frac[21,168] 0
 frac[21,169] 0
 frac[21,170] 0
 frac[21,171] 0
 frac[21,172] 0
 frac[21,173] 0
-frac[21,174] 0
-frac[21,175] 0
-frac[21,176] 0
-frac[21,177] 0
-frac[21,178] 0
-frac[21,179] 0
+frac[21,174] 1
+frac[21,175] 1
+frac[21,176] 1
+frac[21,177] 0.7
+frac[21,178] 0.7
+frac[21,179] 0.7
 frac[21,180] 0
 frac[21,181] 0
 frac[21,182] 0
@@ -4350,30 +4350,30 @@ frac[21,185] 0
 frac[21,186] 0
 frac[21,187] 0
 frac[21,188] 0
-frac[21,189] 0
-frac[21,190] 0
-frac[21,191] 0
-frac[22,0] 0
-frac[22,1] 0
-frac[22,2] 0
-frac[22,3] 0.2
-frac[22,4] 0.2
-frac[22,5] 0.2
-frac[22,6] 1
-frac[22,7] 1
-frac[22,8] 1
-frac[22,9] 0
-frac[22,10] 0
-frac[22,11] 0
+frac[21,189] 0.9
+frac[21,190] 0.9
+frac[21,191] 0.9
+frac[22,0] 0.1
+frac[22,1] 0.1
+frac[22,2] 0.1
+frac[22,3] 0.1
+frac[22,4] 0.1
+frac[22,5] 0.1
+frac[22,6] 0
+frac[22,7] 0
+frac[22,8] 0
+frac[22,9] 0.2
+frac[22,10] 0.2
+frac[22,11] 0.2
 frac[22,12] 0
 frac[22,13] 0
 frac[22,14] 0
 frac[22,15] 0
 frac[22,16] 0
 frac[22,17] 0
-frac[22,18] 0
-frac[22,19] 0
-frac[22,20] 0
+frac[22,18] 0.1
+frac[22,19] 0.1
+frac[22,20] 0.1
 frac[22,21] 0
 frac[22,22] 0
 frac[22,23] 0
@@ -4386,36 +4386,36 @@ frac[22,29] 0
 frac[22,30] 0
 frac[22,31] 0
 frac[22,32] 0
-frac[22,33] 1
-frac[22,34] 1
-frac[22,35] 1
+frac[22,33] 0
+frac[22,34] 0
+frac[22,35] 0
 frac[22,36] 0
 frac[22,37] 0
 frac[22,38] 0
-frac[22,39] 0.8
-frac[22,40] 0.8
-frac[22,41] 0.8
-frac[22,42] 0.2
-frac[22,43] 0.2
-frac[22,44] 0.2
-frac[22,45] 0.7
-frac[22,46] 0.7
-frac[22,47] 0.7
+frac[22,39] 0
+frac[22,40] 0
+frac[22,41] 0
+frac[22,42] 0
+frac[22,43] 0
+frac[22,44] 0
+frac[22,45] 0
+frac[22,46] 0
+frac[22,47] 0
 frac[22,48] 0
 frac[22,49] 0
 frac[22,50] 0
-frac[22,51] 0.1
-frac[22,52] 0.1
-frac[22,53] 0.1
-frac[22,54] 0.1
-frac[22,55] 0.1
-frac[22,56] 0.1
+frac[22,51] 0.8
+frac[22,52] 0.8
+frac[22,53] 0.8
+frac[22,54] 0
+frac[22,55] 0
+frac[22,56] 0
 frac[22,57] 0
 frac[22,58] 0
 frac[22,59] 0
-frac[22,60] 0
-frac[22,61] 0
-frac[22,62] 0
+frac[22,60] 0.7
+frac[22,61] 0.7
+frac[22,62] 0.7
 frac[22,63] 0
 frac[22,64] 0
 frac[22,65] 0
@@ -4434,33 +4434,33 @@ frac[22,77] 0
 frac[22,78] 0
 frac[22,79] 0
 frac[22,80] 0
-frac[22,81] 0.7
-frac[22,82] 0.7
-frac[22,83] 0.7
+frac[22,81] 0
+frac[22,82] 0
+frac[22,83] 0
 frac[22,84] 0
 frac[22,85] 0
 frac[22,86] 0
-frac[22,87] 0
-frac[22,88] 0
-frac[22,89] 0
-frac[22,90] 0
-frac[22,91] 0
-frac[22,92] 0
+frac[22,87] 0.1
+frac[22,88] 0.1
+frac[22,89] 0.1
+frac[22,90] 0.7
+frac[22,91] 0.7
+frac[22,92] 0.7
 frac[22,93] 0
 frac[22,94] 0
 frac[22,95] 0
-frac[22,96] 0
-frac[22,97] 0
-frac[22,98] 0
+frac[22,96] 0.6
+frac[22,97] 0.6
+frac[22,98] 0.6
 frac[22,99] 0
 frac[22,100] 0
 frac[22,101] 0
 frac[22,102] 0
 frac[22,103] 0
 frac[22,104] 0
-frac[22,105] 1
-frac[22,106] 1
-frac[22,107] 1
+frac[22,105] 0
+frac[22,106] 0
+frac[22,107] 0
 frac[22,108] 0
 frac[22,109] 0
 frac[22,110] 0
@@ -4476,9 +4476,9 @@ frac[22,119] 0
 frac[22,120] 0
 frac[22,121] 0
 frac[22,122] 0
-frac[22,123] 0
-frac[22,124] 0
-frac[22,125] 0
+frac[22,123] 0.3
+frac[22,124] 0.3
+frac[22,125] 0.3
 frac[22,126] 0
 frac[22,127] 0
 frac[22,128] 0
@@ -4488,63 +4488,63 @@ frac[22,131] 0
 frac[22,132] 0
 frac[22,133] 0
 frac[22,134] 0
-frac[22,135] 0
-frac[22,136] 0
-frac[22,137] 0
+frac[22,135] 1
+frac[22,136] 1
+frac[22,137] 1
 frac[22,138] 0
 frac[22,139] 0
 frac[22,140] 0
-frac[22,141] 0
-frac[22,142] 0
-frac[22,143] 0
+frac[22,141] 1
+frac[22,142] 1
+frac[22,143] 1
 frac[22,144] 0
 frac[22,145] 0
 frac[22,146] 0
-frac[22,147] 1
-frac[22,148] 1
-frac[22,149] 1
+frac[22,147] 0
+frac[22,148] 0
+frac[22,149] 0
 frac[22,150] 0
 frac[22,151] 0
 frac[22,152] 0
 frac[22,153] 0
 frac[22,154] 0
 frac[22,155] 0
-frac[22,156] 0.1
-frac[22,157] 0.1
-frac[22,158] 0.1
+frac[22,156] 0
+frac[22,157] 0
+frac[22,158] 0
 frac[22,159] 0
 frac[22,160] 0
 frac[22,161] 0
-frac[22,162] 1
-frac[22,163] 1
-frac[22,164] 1
+frac[22,162] 0.1
+frac[22,163] 0.1
+frac[22,164] 0.1
 frac[22,165] 0
 frac[22,166] 0
 frac[22,167] 0
 frac[22,168] 0
 frac[22,169] 0
 frac[22,170] 0
-frac[22,171] 0
-frac[22,172] 0
-frac[22,173] 0
+frac[22,171] 0.8
+frac[22,172] 0.8
+frac[22,173] 0.8
 frac[22,174] 0
 frac[22,175] 0
 frac[22,176] 0
 frac[22,177] 0
 frac[22,178] 0
 frac[22,179] 0
-frac[22,180] 0.1
-frac[22,181] 0.1
-frac[22,182] 0.1
+frac[22,180] 0
+frac[22,181] 0
+frac[22,182] 0
 frac[22,183] 0
 frac[22,184] 0
 frac[22,185] 0
 frac[22,186] 0
 frac[22,187] 0
 frac[22,188] 0
-frac[22,189] 1
-frac[22,190] 1
-frac[22,191] 1
+frac[22,189] 0
+frac[22,190] 0
+frac[22,191] 0
 mem[0,0] 0
 mem[0,1] 0
 mem[0,2] 0
@@ -7617,42 +7617,42 @@ mem[15,188] 0
 mem[15,189] 0
 mem[15,190] 0
 mem[15,191] 0
-mem[16,0] 0.339844
-mem[16,1] 0.339844
-mem[16,2] 0.339844
-mem[16,3] 0
-mem[16,4] 0
-mem[16,5] 0
+mem[16,0] 0
+mem[16,1] 0
+mem[16,2] 0
+mem[16,3] -0
+mem[16,4] -0
+mem[16,5] -0
 mem[16,6] -0
 mem[16,7] -0
 mem[16,8] -0
 mem[16,9] 0
 mem[16,10] 0
 mem[16,11] 0
-mem[16,12] 1.5293
-mem[16,13] 1.5293
-mem[16,14] 1.5293
-mem[16,15] 1.35938
-mem[16,16] 1.35938
-mem[16,17] 1.35938
+mem[16,12] 0
+mem[16,13] 0
+mem[16,14] 0
+mem[16,15] 0
+mem[16,16] 0
+mem[16,17] 0
 mem[16,18] 0
 mem[16,19] 0
 mem[16,20] 0
 mem[16,21] 0
 mem[16,22] 0
 mem[16,23] 0
-mem[16,24] 0
-mem[16,25] 0
-mem[16,26] 0
-mem[16,27] 1.5293
-mem[16,28] 1.5293
-mem[16,29] 1.5293
+mem[16,24] -0
+mem[16,25] -0
+mem[16,26] -0
+mem[16,27] 0
+mem[16,28] 0
+mem[16,29] 0
 mem[16,30] 0
 mem[16,31] 0
 mem[16,32] 0
-mem[16,33] 0
-mem[16,34] 0
-mem[16,35] 0
+mem[16,33] 1.5293
+mem[16,34] 1.5293
+mem[16,35] 1.5293
 mem[16,36] 0
 mem[16,37] 0
 mem[16,38] 0
@@ -7662,33 +7662,33 @@ mem[16,41] 0
 mem[16,42] -0
 mem[16,43] -0
 mem[16,44] -0
-mem[16,45] 0.339844
-mem[16,46] 0.339844
-mem[16,47] 0.339844
+mem[16,45] 0.509766
+mem[16,46] 0.509766
+mem[16,47] 0.509766
 mem[16,48] 0
 mem[16,49] 0
 mem[16,50] 0
-mem[16,51] 1.69922
-mem[16,52] 1.69922
-mem[16,53] 1.69922
+mem[16,51] 0
+mem[16,52] 0
+mem[16,53] 0
 mem[16,54] 0
 mem[16,55] 0
 mem[16,56] 0
 mem[16,57] 0
 mem[16,58] 0
 mem[16,59] 0
-mem[16,60] -0
-mem[16,61] -0
-mem[16,62] -0
-mem[16,63] 1.69922
-mem[16,64] 1.69922
-mem[16,65] 1.69922
-mem[16,66] 1.18945
-mem[16,67] 1.18945
-mem[16,68] 1.18945
-mem[16,69] 1.18945
-mem[16,70] 1.18945
-mem[16,71] 1.18945
+mem[16,60] 0
+mem[16,61] 0
+mem[16,62] 0
+mem[16,63] 0
+mem[16,64] 0
+mem[16,65] 0
+mem[16,66] 1.35938
+mem[16,67] 1.35938
+mem[16,68] 1.35938
+mem[16,69] 0
+mem[16,70] 0
+mem[16,71] 0
 mem[16,72] 0
 mem[16,73] 0
 mem[16,74] 0
@@ -7701,177 +7701,177 @@ mem[16,80] 1.5293
 mem[16,81] 0
 mem[16,82] 0
 mem[16,83] 0
-mem[16,84] 0
-mem[16,85] 0
-mem[16,86] 0
+mem[16,84] 1.18945
+mem[16,85] 1.18945
+mem[16,86] 1.18945
 mem[16,87] 0
 mem[16,88] 0
 mem[16,89] 0
-mem[16,90] -0
-mem[16,91] -0
-mem[16,92] -0
+mem[16,90] 0
+mem[16,91] 0
+mem[16,92] 0
 mem[16,93] 0
 mem[16,94] 0
 mem[16,95] 0
 mem[16,96] 1.35938
 mem[16,97] 1.35938
 mem[16,98] 1.35938
-mem[16,99] 0.339844
-mem[16,100] 0.339844
-mem[16,101] 0.339844
-mem[16,102] 0
-mem[16,103] 0
-mem[16,104] 0
-mem[16,105] 0
-mem[16,106] 0
-mem[16,107] 0
-mem[16,108] 0
-mem[16,109] 0
-mem[16,110] 0
-mem[16,111] 0
-mem[16,112] 0
-mem[16,113] 0
+mem[16,99] 0
+mem[16,100] 0
+mem[16,101] 0
+mem[16,102] 1.18945
+mem[16,103] 1.18945
+mem[16,104] 1.18945
+mem[16,105] 1.5293
+mem[16,106] 1.5293
+mem[16,107] 1.5293
+mem[16,108] 1.69922
+mem[16,109] 1.69922
+mem[16,110] 1.69922
+mem[16,111] 1.69922
+mem[16,112] 1.69922
+mem[16,113] 1.69922
 mem[16,114] 1.5293
 mem[16,115] 1.5293
 mem[16,116] 1.5293
-mem[16,117] 1.35938
-mem[16,118] 1.35938
-mem[16,119] 1.35938
-mem[16,120] 1.5293
-mem[16,121] 1.5293
-mem[16,122] 1.5293
-mem[16,123] 0
-mem[16,124] 0
-mem[16,125] 0
+mem[16,117] 0
+mem[16,118] 0
+mem[16,119] 0
+mem[16,120] 0
+mem[16,121] 0
+mem[16,122] 0
+mem[16,123] 1.18945
+mem[16,124] 1.18945
+mem[16,125] 1.18945
 mem[16,126] 0
 mem[16,127] 0
 mem[16,128] 0
-mem[16,129] 0
-mem[16,130] 0
-mem[16,131] 0
-mem[16,132] 0
-mem[16,133] 0
-mem[16,134] 0
-mem[16,135] 1.18945
-mem[16,136] 1.18945
-mem[16,137] 1.18945
-mem[16,138] -0
-mem[16,139] -0
-mem[16,140] -0
-mem[16,141] 1.5293
-mem[16,142] 1.5293
-mem[16,143] 1.5293
-mem[16,144] 1.69922
-mem[16,145] 1.69922
-mem[16,146] 1.69922
+mem[16,129] 0.169922
+mem[16,130] 0.169922
+mem[16,131] 0.169922
+mem[16,132] 1.69922
+mem[16,133] 1.69922
+mem[16,134] 1.69922
+mem[16,135] 1.69922
+mem[16,136] 1.69922
+mem[16,137] 1.69922
+mem[16,138] 0.679687
+mem[16,139] 0.679687
+mem[16,140] 0.679687
+mem[16,141] -0
+mem[16,142] -0
+mem[16,143] -0
+mem[16,144] 1.18945
+mem[16,145] 1.18945
+mem[16,146] 1.18945
 mem[16,147] 0
 mem[16,148] 0
 mem[16,149] 0
-mem[16,150] 0
-mem[16,151] 0
-mem[16,152] 0
+mem[16,150] 1.69922
+mem[16,151] 1.69922
+mem[16,152] 1.69922
 mem[16,153] 0
 mem[16,154] 0
 mem[16,155] 0
 mem[16,156] 0
 mem[16,157] 0
 mem[16,158] 0
-mem[16,159] 1.01953
-mem[16,160] 1.01953
-mem[16,161] 1.01953
+mem[16,159] 0
+mem[16,160] 0
+mem[16,161] 0
 mem[16,162] 0
 mem[16,163] 0
 mem[16,164] 0
-mem[16,165] -0
-mem[16,166] -0
-mem[16,167] -0
-mem[16,168] 0.339844
-mem[16,169] 0.339844
-mem[16,170] 0.339844
-mem[16,171] 0.509766
-mem[16,172] 0.509766
-mem[16,173] 0.509766
+mem[16,165] 1.18945
+mem[16,166] 1.18945
+mem[16,167] 1.18945
+mem[16,168] 1.18945
+mem[16,169] 1.18945
+mem[16,170] 1.18945
+mem[16,171] 1.35938
+mem[16,172] 1.35938
+mem[16,173] 1.35938
 mem[16,174] 0
 mem[16,175] 0
 mem[16,176] 0
 mem[16,177] 0
 mem[16,178] 0
 mem[16,179] 0
-mem[16,180] 1.35938
-mem[16,181] 1.35938
-mem[16,182] 1.35938
-mem[16,183] 0.509766
-mem[16,184] 0.509766
-mem[16,185] 0.509766
-mem[16,186] 0
-mem[16,187] 0
-mem[16,188] 0
+mem[16,180] 0
+mem[16,181] 0
+mem[16,182] 0
+mem[16,183] 0
+mem[16,184] 0
+mem[16,185] 0
+mem[16,186] -0
+mem[16,187] -0
+mem[16,188] -0
 mem[16,189] 0
 mem[16,190] 0
 mem[16,191] 0
-mem[17,0] 1.35938
-mem[17,1] 1.35938
-mem[17,2] 1.35938
+mem[17,0] 0
+mem[17,1] 0
+mem[17,2] 0
 mem[17,3] 0
 mem[17,4] 0
 mem[17,5] 0
-mem[17,6] 0
-mem[17,7] 0
-mem[17,8] 0
+mem[17,6] 1.18945
+mem[17,7] 1.18945
+mem[17,8] 1.18945
 mem[17,9] 0
 mem[17,10] 0
 mem[17,11] 0
 mem[17,12] 0
 mem[17,13] 0
 mem[17,14] 0
-mem[17,15] 1.69922
-mem[17,16] 1.69922
-mem[17,17] 1.69922
-mem[17,18] 1.69922
-mem[17,19] 1.69922
-mem[17,20] 1.69922
-mem[17,21] 0.339844
-mem[17,22] 0.339844
-mem[17,23] 0.339844
+mem[17,15] 0
+mem[17,16] 0
+mem[17,17] 0
+mem[17,18] -0
+mem[17,19] -0
+mem[17,20] -0
+mem[17,21] 0
+mem[17,22] 0
+mem[17,23] 0
 mem[17,24] 0
 mem[17,25] 0
 mem[17,26] 0
-mem[17,27] 1.35938
-mem[17,28] 1.35938
-mem[17,29] 1.35938
-mem[17,30] -0
-mem[17,31] -0
-mem[17,32] -0
-mem[17,33] 0
-mem[17,34] 0
-mem[17,35] 0
+mem[17,27] 0
+mem[17,28] 0
+mem[17,29] 0
+mem[17,30] 1.35938
+mem[17,31] 1.35938
+mem[17,32] 1.35938
+mem[17,33] 1.35938
+mem[17,34] 1.35938
+mem[17,35] 1.35938
 mem[17,36] 0
 mem[17,37] 0
 mem[17,38] 0
-mem[17,39] 1.35938
-mem[17,40] 1.35938
-mem[17,41] 1.35938
-mem[17,42] 1.18945
-mem[17,43] 1.18945
-mem[17,44] 1.18945
+mem[17,39] 1.5293
+mem[17,40] 1.5293
+mem[17,41] 1.5293
+mem[17,42] 1.5293
+mem[17,43] 1.5293
+mem[17,44] 1.5293
 mem[17,45] 0
 mem[17,46] 0
 mem[17,47] 0
-mem[17,48] 0.509766
-mem[17,49] 0.509766
-mem[17,50] 0.509766
-mem[17,51] 0
-mem[17,52] 0
-mem[17,53] 0
-mem[17,54] -0
-mem[17,55] -0
-mem[17,56] -0
-mem[17,57] 0
-mem[17,58] 0
-mem[17,59] 0
-mem[17,60] 0
-mem[17,61] 0
-mem[17,62] 0
+mem[17,48] 0
+mem[17,49] 0
+mem[17,50] 0
+mem[17,51] -0
+mem[17,52] -0
+mem[17,53] -0
+mem[17,54] 1.69922
+mem[17,55] 1.69922
+mem[17,56] 1.69922
+mem[17,57] 1.35938
+mem[17,58] 1.35938
+mem[17,59] 1.35938
+mem[17,60] 1.5293
+mem[17,61] 1.5293
+mem[17,62] 1.5293
 mem[17,63] 0
 mem[17,64] 0
 mem[17,65] 0
@@ -7881,99 +7881,99 @@ mem[17,68] 0
 mem[17,69] 0
 mem[17,70] 0
 mem[17,71] 0
-mem[17,72] -0
-mem[17,73] -0
-mem[17,74] -0
-mem[17,75] 1.35938
-mem[17,76] 1.35938
-mem[17,77] 1.35938
-mem[17,78] 0
-mem[17,79] 0
-mem[17,80] 0
-mem[17,81] 1.5293
-mem[17,82] 1.5293
-mem[17,83] 1.5293
+mem[17,72] 0
+mem[17,73] 0
+mem[17,74] 0
+mem[17,75] 1.69922
+mem[17,76] 1.69922
+mem[17,77] 1.69922
+mem[17,78] 0.169922
+mem[17,79] 0.169922
+mem[17,80] 0.169922
+mem[17,81] 1.69922
+mem[17,82] 1.69922
+mem[17,83] 1.69922
 mem[17,84] 0
 mem[17,85] 0
 mem[17,86] 0
-mem[17,87] 1.5293
-mem[17,88] 1.5293
-mem[17,89] 1.5293
-mem[17,90] 1.69922
-mem[17,91] 1.69922
-mem[17,92] 1.69922
-mem[17,93] 1.5293
-mem[17,94] 1.5293
-mem[17,95] 1.5293
-mem[17,96] 0
-mem[17,97] 0
-mem[17,98] 0
+mem[17,87] 0
+mem[17,88] 0
+mem[17,89] 0
+mem[17,90] 1.18945
+mem[17,91] 1.18945
+mem[17,92] 1.18945
+mem[17,93] 0
+mem[17,94] 0
+mem[17,95] 0
+mem[17,96] 0.339844
+mem[17,97] 0.339844
+mem[17,98] 0.339844
 mem[17,99] 0
 mem[17,100] 0
 mem[17,101] 0
 mem[17,102] 0
 mem[17,103] 0
 mem[17,104] 0
-mem[17,105] 1.35938
-mem[17,106] 1.35938
-mem[17,107] 1.35938
-mem[17,108] 0
-mem[17,109] 0
-mem[17,110] 0
+mem[17,105] 1.5293
+mem[17,106] 1.5293
+mem[17,107] 1.5293
+mem[17,108] 1.5293
+mem[17,109] 1.5293
+mem[17,110] 1.5293
 mem[17,111] 0
 mem[17,112] 0
 mem[17,113] 0
 mem[17,114] 0
 mem[17,115] 0
 mem[17,116] 0
-mem[17,117] 0
-mem[17,118] 0
-mem[17,119] 0
-mem[17,120] 1.35938
-mem[17,121] 1.35938
-mem[17,122] 1.35938
-mem[17,123] 1.69922
-mem[17,124] 1.69922
-mem[17,125] 1.69922
-mem[17,126] 0
-mem[17,127] 0
-mem[17,128] 0
-mem[17,129] -0
-mem[17,130] -0
-mem[17,131] -0
-mem[17,132] -0
-mem[17,133] -0
-mem[17,134] -0
+mem[17,117] 1.35938
+mem[17,118] 1.35938
+mem[17,119] 1.35938
+mem[17,120] 0
+mem[17,121] 0
+mem[17,122] 0
+mem[17,123] 1.35938
+mem[17,124] 1.35938
+mem[17,125] 1.35938
+mem[17,126] -0
+mem[17,127] -0
+mem[17,128] -0
+mem[17,129] 0
+mem[17,130] 0
+mem[17,131] 0
+mem[17,132] 1.69922
+mem[17,133] 1.69922
+mem[17,134] 1.69922
 mem[17,135] 0
 mem[17,136] 0
 mem[17,137] 0
-mem[17,138] 1.18945
-mem[17,139] 1.18945
-mem[17,140] 1.18945
-mem[17,141] 0.169922
-mem[17,142] 0.169922
-mem[17,143] 0.169922
-mem[17,144] 1.69922
-mem[17,145] 1.69922
-mem[17,146] 1.69922
-mem[17,147] 0
-mem[17,148] 0
-mem[17,149] 0
+mem[17,138] 0
+mem[17,139] 0
+mem[17,140] 0
+mem[17,141] 0
+mem[17,142] 0
+mem[17,143] 0
+mem[17,144] -0
+mem[17,145] -0
+mem[17,146] -0
+mem[17,147] 1.5293
+mem[17,148] 1.5293
+mem[17,149] 1.5293
 mem[17,150] 0
 mem[17,151] 0
 mem[17,152] 0
 mem[17,153] 0
 mem[17,154] 0
 mem[17,155] 0
-mem[17,156] -0
-mem[17,157] -0
-mem[17,158] -0
-mem[17,159] 0
-mem[17,160] 0
-mem[17,161] 0
-mem[17,162] -0
-mem[17,163] -0
-mem[17,164] -0
+mem[17,156] 0
+mem[17,157] 0
+mem[17,158] 0
+mem[17,159] 0.339844
+mem[17,160] 0.339844
+mem[17,161] 0.339844
+mem[17,162] 0
+mem[17,163] 0
+mem[17,164] 0
 mem[17,165] 0
 mem[17,166] 0
 mem[17,167] 0
@@ -7983,78 +7983,78 @@ mem[17,170] 0
 mem[17,171] 0
 mem[17,172] 0
 mem[17,173] 0
-mem[17,174] 0.169922
-mem[17,175] 0.169922
-mem[17,176] 0.169922
-mem[17,177] -0
-mem[17,178] -0
-mem[17,179] -0
+mem[17,174] -0
+mem[17,175] -0
+mem[17,176] -0
+mem[17,177] 1.18945
+mem[17,178] 1.18945
+mem[17,179] 1.18945
 mem[17,180] 0
 mem[17,181] 0
 mem[17,182] 0
-mem[17,183] 1.18945
-mem[17,184] 1.18945
-mem[17,185] 1.18945
-mem[17,186] 1.18945
-mem[17,187] 1.18945
-mem[17,188] 1.18945
-mem[17,189] 0
-mem[17,190] 0
-mem[17,191] 0
-mem[18,0] 0
-mem[18,1] 0
-mem[18,2] 0
-mem[18,3] 1.18945
-mem[18,4] 1.18945
-mem[18,5] 1.18945
+mem[17,183] 0
+mem[17,184] 0
+mem[17,185] 0
+mem[17,186] -0
+mem[17,187] -0
+mem[17,188] -0
+mem[17,189] -0
+mem[17,190] -0
+mem[17,191] -0
+mem[18,0] 1.5293
+mem[18,1] 1.5293
+mem[18,2] 1.5293
+mem[18,3] 0
+mem[18,4] 0
+mem[18,5] 0
 mem[18,6] 0
 mem[18,7] 0
 mem[18,8] 0
-mem[18,9] 0
-mem[18,10] 0
-mem[18,11] 0
-mem[18,12] -0
-mem[18,13] -0
-mem[18,14] -0
+mem[18,9] 1.69922
+mem[18,10] 1.69922
+mem[18,11] 1.69922
+mem[18,12] 1.5293
+mem[18,13] 1.5293
+mem[18,14] 1.5293
 mem[18,15] 0
 mem[18,16] 0
 mem[18,17] 0
-mem[18,18] 1.18945
-mem[18,19] 1.18945
-mem[18,20] 1.18945
+mem[18,18] 0
+mem[18,19] 0
+mem[18,20] 0
 mem[18,21] 1.18945
 mem[18,22] 1.18945
 mem[18,23] 1.18945
 mem[18,24] 0
 mem[18,25] 0
 mem[18,26] 0
-mem[18,27] 0
-mem[18,28] 0
-mem[18,29] 0
+mem[18,27] 1.5293
+mem[18,28] 1.5293
+mem[18,29] 1.5293
 mem[18,30] -0
 mem[18,31] -0
 mem[18,32] -0
 mem[18,33] 0
 mem[18,34] 0
 mem[18,35] 0
-mem[18,36] 1.35938
-mem[18,37] 1.35938
-mem[18,38] 1.35938
+mem[18,36] 0
+mem[18,37] 0
+mem[18,38] 0
 mem[18,39] 0
 mem[18,40] 0
 mem[18,41] 0
 mem[18,42] 0
 mem[18,43] 0
 mem[18,44] 0
-mem[18,45] 0
-mem[18,46] 0
-mem[18,47] 0
-mem[18,48] -0
-mem[18,49] -0
-mem[18,50] -0
-mem[18,51] 1.18945
-mem[18,52] 1.18945
-mem[18,53] 1.18945
+mem[18,45] 1.69922
+mem[18,46] 1.69922
+mem[18,47] 1.69922
+mem[18,48] 1.5293
+mem[18,49] 1.5293
+mem[18,50] 1.5293
+mem[18,51] -0
+mem[18,52] -0
+mem[18,53] -0
 mem[18,54] 0
 mem[18,55] 0
 mem[18,56] 0
@@ -8067,78 +8067,78 @@ mem[18,62] 0
 mem[18,63] 0
 mem[18,64] 0
 mem[18,65] 0
-mem[18,66] 0
-mem[18,67] 0
-mem[18,68] 0
+mem[18,66] 1.69922
+mem[18,67] 1.69922
+mem[18,68] 1.69922
 mem[18,69] 0
 mem[18,70] 0
 mem[18,71] 0
-mem[18,72] -0
-mem[18,73] -0
-mem[18,74] -0
+mem[18,72] 1.69922
+mem[18,73] 1.69922
+mem[18,74] 1.69922
 mem[18,75] 0
 mem[18,76] 0
 mem[18,77] 0
-mem[18,78] 1.35937
-mem[18,79] 1.35937
-mem[18,80] 1.35937
-mem[18,81] -0
-mem[18,82] -0
-mem[18,83] -0
+mem[18,78] 1.5293
+mem[18,79] 1.5293
+mem[18,80] 1.5293
+mem[18,81] 0
+mem[18,82] 0
+mem[18,83] 0
 mem[18,84] 0
 mem[18,85] 0
 mem[18,86] 0
 mem[18,87] 0
 mem[18,88] 0
 mem[18,89] 0
-mem[18,90] 1.69922
-mem[18,91] 1.69922
-mem[18,92] 1.69922
-mem[18,93] -0
-mem[18,94] -0
-mem[18,95] -0
-mem[18,96] 1.5293
-mem[18,97] 1.5293
-mem[18,98] 1.5293
-mem[18,99] 1.18945
-mem[18,100] 1.18945
-mem[18,101] 1.18945
+mem[18,90] 1.5293
+mem[18,91] 1.5293
+mem[18,92] 1.5293
+mem[18,93] 1.69922
+mem[18,94] 1.69922
+mem[18,95] 1.69922
+mem[18,96] 1.69922
+mem[18,97] 1.69922
+mem[18,98] 1.69922
+mem[18,99] 0
+mem[18,100] 0
+mem[18,101] 0
 mem[18,102] 0
 mem[18,103] 0
 mem[18,104] 0
 mem[18,105] 0
 mem[18,106] 0
 mem[18,107] 0
-mem[18,108] 1.35938
-mem[18,109] 1.35938
-mem[18,110] 1.35938
+mem[18,108] 0
+mem[18,109] 0
+mem[18,110] 0
 mem[18,111] 0
 mem[18,112] 0
 mem[18,113] 0
 mem[18,114] 0
 mem[18,115] 0
 mem[18,116] 0
-mem[18,117] 1.5293
-mem[18,118] 1.5293
-mem[18,119] 1.5293
-mem[18,120] 0
-mem[18,121] 0
-mem[18,122] 0
+mem[18,117] 0
+mem[18,118] 0
+mem[18,119] 0
+mem[18,120] 1.69922
+mem[18,121] 1.69922
+mem[18,122] 1.69922
 mem[18,123] 0
 mem[18,124] 0
 mem[18,125] 0
-mem[18,126] 1.69922
-mem[18,127] 1.69922
-mem[18,128] 1.69922
-mem[18,129] -0
-mem[18,130] -0
-mem[18,131] -0
+mem[18,126] 0
+mem[18,127] 0
+mem[18,128] 0
+mem[18,129] 1.5293
+mem[18,130] 1.5293
+mem[18,131] 1.5293
 mem[18,132] 0
 mem[18,133] 0
 mem[18,134] 0
-mem[18,135] 1.18945
-mem[18,136] 1.18945
-mem[18,137] 1.18945
+mem[18,135] 0
+mem[18,136] 0
+mem[18,137] 0
 mem[18,138] 0
 mem[18,139] 0
 mem[18,140] 0
@@ -8148,9 +8148,9 @@ mem[18,143] 0
 mem[18,144] 0
 mem[18,145] 0
 mem[18,146] 0
-mem[18,147] 1.18945
-mem[18,148] 1.18945
-mem[18,149] 1.18945
+mem[18,147] 0
+mem[18,148] 0
+mem[18,149] 0
 mem[18,150] 0
 mem[18,151] 0
 mem[18,152] 0
@@ -8160,36 +8160,36 @@ mem[18,155] 0
 mem[18,156] 0
 mem[18,157] 0
 mem[18,158] 0
-mem[18,159] 1.18945
-mem[18,160] 1.18945
-mem[18,161] 1.18945
-mem[18,162] 1.35938
-mem[18,163] 1.35938
-mem[18,164] 1.35938
+mem[18,159] 1.69922
+mem[18,160] 1.69922
+mem[18,161] 1.69922
+mem[18,162] 0
+mem[18,163] 0
+mem[18,164] 0
 mem[18,165] 0
 mem[18,166] 0
 mem[18,167] 0
-mem[18,168] -0
-mem[18,169] -0
-mem[18,170] -0
+mem[18,168] 0
+mem[18,169] 0
+mem[18,170] 0
 mem[18,171] 0
 mem[18,172] 0
 mem[18,173] 0
-mem[18,174] 1.69922
-mem[18,175] 1.69922
-mem[18,176] 1.69922
-mem[18,177] 1.69922
-mem[18,178] 1.69922
-mem[18,179] 1.69922
+mem[18,174] 0
+mem[18,175] 0
+mem[18,176] 0
+mem[18,177] 0
+mem[18,178] 0
+mem[18,179] 0
 mem[18,180] 0
 mem[18,181] 0
 mem[18,182] 0
-mem[18,183] 1.01953
-mem[18,184] 1.01953
-mem[18,185] 1.01953
-mem[18,186] 1.35938
-mem[18,187] 1.35938
-mem[18,188] 1.35938
+mem[18,183] 1.69922
+mem[18,184] 1.69922
+mem[18,185] 1.69922
+mem[18,186] -0
+mem[18,187] -0
+mem[18,188] -0
 mem[18,189] 0
 mem[18,190] 0
 mem[18,191] 0
@@ -8199,258 +8199,258 @@ mem[19,2] 0
 mem[19,3] 0
 mem[19,4] 0
 mem[19,5] 0
-mem[19,6] 1.35938
-mem[19,7] 1.35938
-mem[19,8] 1.35938
-mem[19,9] 1.69922
-mem[19,10] 1.69922
-mem[19,11] 1.69922
-mem[19,12] -0
-mem[19,13] -0
-mem[19,14] -0
+mem[19,6] 1.18945
+mem[19,7] 1.18945
+mem[19,8] 1.18945
+mem[19,9] 0
+mem[19,10] 0
+mem[19,11] 0
+mem[19,12] 0
+mem[19,13] 0
+mem[19,14] 0
 mem[19,15] 0
 mem[19,16] 0
 mem[19,17] 0
-mem[19,18] 1.69922
-mem[19,19] 1.69922
-mem[19,20] 1.69922
-mem[19,21] 0
-mem[19,22] 0
-mem[19,23] 0
+mem[19,18] 0
+mem[19,19] 0
+mem[19,20] 0
+mem[19,21] 0.509766
+mem[19,22] 0.509766
+mem[19,23] 0.509766
 mem[19,24] 0
 mem[19,25] 0
 mem[19,26] 0
-mem[19,27] 1.18945
-mem[19,28] 1.18945
-mem[19,29] 1.18945
-mem[19,30] 1.69922
-mem[19,31] 1.69922
-mem[19,32] 1.69922
-mem[19,33] 1.35938
-mem[19,34] 1.35938
-mem[19,35] 1.35938
-mem[19,36] 1.35938
-mem[19,37] 1.35938
-mem[19,38] 1.35938
-mem[19,39] 0
-mem[19,40] 0
-mem[19,41] 0
+mem[19,27] 0
+mem[19,28] 0
+mem[19,29] 0
+mem[19,30] -0
+mem[19,31] -0
+mem[19,32] -0
+mem[19,33] 0
+mem[19,34] 0
+mem[19,35] 0
+mem[19,36] 1.69922
+mem[19,37] 1.69922
+mem[19,38] 1.69922
+mem[19,39] 1.69922
+mem[19,40] 1.69922
+mem[19,41] 1.69922
 mem[19,42] 0
 mem[19,43] 0
 mem[19,44] 0
 mem[19,45] 0
 mem[19,46] 0
 mem[19,47] 0
-mem[19,48] 0
-mem[19,49] 0
-mem[19,50] 0
+mem[19,48] 1.35938
+mem[19,49] 1.35938
+mem[19,50] 1.35938
 mem[19,51] 0
 mem[19,52] 0
 mem[19,53] 0
 mem[19,54] 0
 mem[19,55] 0
 mem[19,56] 0
-mem[19,57] 0
-mem[19,58] 0
-mem[19,59] 0
-mem[19,60] -0
-mem[19,61] -0
-mem[19,62] -0
-mem[19,63] 1.35938
-mem[19,64] 1.35938
-mem[19,65] 1.35938
-mem[19,66] -0
-mem[19,67] -0
-mem[19,68] -0
-mem[19,69] 0
-mem[19,70] 0
-mem[19,71] 0
+mem[19,57] 1.69922
+mem[19,58] 1.69922
+mem[19,59] 1.69922
+mem[19,60] 0
+mem[19,61] 0
+mem[19,62] 0
+mem[19,63] 0.169922
+mem[19,64] 0.169922
+mem[19,65] 0.169922
+mem[19,66] 1.69922
+mem[19,67] 1.69922
+mem[19,68] 1.69922
+mem[19,69] 1.69922
+mem[19,70] 1.69922
+mem[19,71] 1.69922
 mem[19,72] 0
 mem[19,73] 0
 mem[19,74] 0
-mem[19,75] 1.5293
-mem[19,76] 1.5293
-mem[19,77] 1.5293
-mem[19,78] 0
-mem[19,79] 0
-mem[19,80] 0
-mem[19,81] 0
-mem[19,82] 0
-mem[19,83] 0
+mem[19,75] 0
+mem[19,76] 0
+mem[19,77] 0
+mem[19,78] 1.69922
+mem[19,79] 1.69922
+mem[19,80] 1.69922
+mem[19,81] 1.5293
+mem[19,82] 1.5293
+mem[19,83] 1.5293
 mem[19,84] 0
 mem[19,85] 0
 mem[19,86] 0
 mem[19,87] 0
 mem[19,88] 0
 mem[19,89] 0
-mem[19,90] 1.5293
-mem[19,91] 1.5293
-mem[19,92] 1.5293
-mem[19,93] 1.18945
-mem[19,94] 1.18945
-mem[19,95] 1.18945
-mem[19,96] 1.5293
-mem[19,97] 1.5293
-mem[19,98] 1.5293
+mem[19,90] 0
+mem[19,91] 0
+mem[19,92] 0
+mem[19,93] 0
+mem[19,94] 0
+mem[19,95] 0
+mem[19,96] 0
+mem[19,97] 0
+mem[19,98] 0
 mem[19,99] 0
 mem[19,100] 0
 mem[19,101] 0
-mem[19,102] 0
-mem[19,103] 0
-mem[19,104] 0
+mem[19,102] 1.35938
+mem[19,103] 1.35938
+mem[19,104] 1.35938
 mem[19,105] 0
 mem[19,106] 0
 mem[19,107] 0
 mem[19,108] 0
 mem[19,109] 0
 mem[19,110] 0
-mem[19,111] 0
-mem[19,112] 0
-mem[19,113] 0
+mem[19,111] 1.5293
+mem[19,112] 1.5293
+mem[19,113] 1.5293
 mem[19,114] 0
 mem[19,115] 0
 mem[19,116] 0
-mem[19,117] 0.169922
-mem[19,118] 0.169922
-mem[19,119] 0.169922
-mem[19,120] 1.69922
-mem[19,121] 1.69922
-mem[19,122] 1.69922
+mem[19,117] 0.339844
+mem[19,118] 0.339844
+mem[19,119] 0.339844
+mem[19,120] 1.35938
+mem[19,121] 1.35938
+mem[19,122] 1.35938
 mem[19,123] 0
 mem[19,124] 0
 mem[19,125] 0
 mem[19,126] 0
 mem[19,127] 0
 mem[19,128] 0
-mem[19,129] 1.69922
-mem[19,130] 1.69922
-mem[19,131] 1.69922
-mem[19,132] 0
-mem[19,133] 0
-mem[19,134] 0
+mem[19,129] 0
+mem[19,130] 0
+mem[19,131] 0
+mem[19,132] 1.35938
+mem[19,133] 1.35938
+mem[19,134] 1.35938
 mem[19,135] 0
 mem[19,136] 0
 mem[19,137] 0
-mem[19,138] 0
-mem[19,139] 0
-mem[19,140] 0
-mem[19,141] 0
-mem[19,142] 0
-mem[19,143] 0
-mem[19,144] -0
-mem[19,145] -0
-mem[19,146] -0
-mem[19,147] 0
-mem[19,148] 0
-mem[19,149] 0
-mem[19,150] -0
-mem[19,151] -0
-mem[19,152] -0
-mem[19,153] 0
-mem[19,154] 0
-mem[19,155] 0
+mem[19,138] 1.01953
+mem[19,139] 1.01953
+mem[19,140] 1.01953
+mem[19,141] -0
+mem[19,142] -0
+mem[19,143] -0
+mem[19,144] 0
+mem[19,145] 0
+mem[19,146] 0
+mem[19,147] -0
+mem[19,148] -0
+mem[19,149] -0
+mem[19,150] 1.5293
+mem[19,151] 1.5293
+mem[19,152] 1.5293
+mem[19,153] -0
+mem[19,154] -0
+mem[19,155] -0
 mem[19,156] 0
 mem[19,157] 0
 mem[19,158] 0
-mem[19,159] 1.35938
-mem[19,160] 1.35938
-mem[19,161] 1.35938
+mem[19,159] 0
+mem[19,160] 0
+mem[19,161] 0
 mem[19,162] 0
 mem[19,163] 0
 mem[19,164] 0
-mem[19,165] 1.18945
-mem[19,166] 1.18945
-mem[19,167] 1.18945
-mem[19,168] 0
-mem[19,169] 0
-mem[19,170] 0
-mem[19,171] 1.5293
-mem[19,172] 1.5293
-mem[19,173] 1.5293
+mem[19,165] 0.509766
+mem[19,166] 0.509766
+mem[19,167] 0.509766
+mem[19,168] 1.69922
+mem[19,169] 1.69922
+mem[19,170] 1.69922
+mem[19,171] 0
+mem[19,172] 0
+mem[19,173] 0
 mem[19,174] 0
 mem[19,175] 0
 mem[19,176] 0
-mem[19,177] -0
-mem[19,178] -0
-mem[19,179] -0
+mem[19,177] 0
+mem[19,178] 0
+mem[19,179] 0
 mem[19,180] 1.5293
 mem[19,181] 1.5293
 mem[19,182] 1.5293
-mem[19,183] 0.509766
-mem[19,184] 0.509766
-mem[19,185] 0.509766
-mem[19,186] 0
-mem[19,187] 0
-mem[19,188] 0
-mem[19,189] 0
-mem[19,190] 0
-mem[19,191] 0
-mem[20,0] 0
-mem[20,1] 0
-mem[20,2] 0
-mem[20,3] 1.18945
-mem[20,4] 1.18945
-mem[20,5] 1.18945
+mem[19,183] 0
+mem[19,184] 0
+mem[19,185] 0
+mem[19,186] -0
+mem[19,187] -0
+mem[19,188] -0
+mem[19,189] -0
+mem[19,190] -0
+mem[19,191] -0
+mem[20,0] 1.5293
+mem[20,1] 1.5293
+mem[20,2] 1.5293
+mem[20,3] 0
+mem[20,4] 0
+mem[20,5] 0
 mem[20,6] 0
 mem[20,7] 0
 mem[20,8] 0
-mem[20,9] 1.69922
-mem[20,10] 1.69922
-mem[20,11] 1.69922
-mem[20,12] 0
-mem[20,13] 0
-mem[20,14] 0
+mem[20,9] 1.35938
+mem[20,10] 1.35938
+mem[20,11] 1.35938
+mem[20,12] 1.5293
+mem[20,13] 1.5293
+mem[20,14] 1.5293
 mem[20,15] 0
 mem[20,16] 0
 mem[20,17] 0
 mem[20,18] 0
 mem[20,19] 0
 mem[20,20] 0
-mem[20,21] 1.35938
-mem[20,22] 1.35938
-mem[20,23] 1.35938
+mem[20,21] 1.69922
+mem[20,22] 1.69922
+mem[20,23] 1.69922
 mem[20,24] 0
 mem[20,25] 0
 mem[20,26] 0
-mem[20,27] 0
-mem[20,28] 0
-mem[20,29] 0
+mem[20,27] 1.69922
+mem[20,28] 1.69922
+mem[20,29] 1.69922
 mem[20,30] 0
 mem[20,31] 0
 mem[20,32] 0
 mem[20,33] 0
 mem[20,34] 0
 mem[20,35] 0
-mem[20,36] 1.5293
-mem[20,37] 1.5293
-mem[20,38] 1.5293
-mem[20,39] 0
-mem[20,40] 0
-mem[20,41] 0
+mem[20,36] 1.69922
+mem[20,37] 1.69922
+mem[20,38] 1.69922
+mem[20,39] 0.169922
+mem[20,40] 0.169922
+mem[20,41] 0.169922
 mem[20,42] 0
 mem[20,43] 0
 mem[20,44] 0
-mem[20,45] 0
-mem[20,46] 0
-mem[20,47] 0
-mem[20,48] 1.18945
-mem[20,49] 1.18945
-mem[20,50] 1.18945
+mem[20,45] 1.01953
+mem[20,46] 1.01953
+mem[20,47] 1.01953
+mem[20,48] 0
+mem[20,49] 0
+mem[20,50] 0
 mem[20,51] 0
 mem[20,52] 0
 mem[20,53] 0
 mem[20,54] 0
 mem[20,55] 0
 mem[20,56] 0
-mem[20,57] 1.35938
-mem[20,58] 1.35938
-mem[20,59] 1.35938
-mem[20,60] 1.69922
-mem[20,61] 1.69922
-mem[20,62] 1.69922
-mem[20,63] 0
-mem[20,64] 0
-mem[20,65] 0
+mem[20,57] 0
+mem[20,58] 0
+mem[20,59] 0
+mem[20,60] 0
+mem[20,61] 0
+mem[20,62] 0
+mem[20,63] 1.5293
+mem[20,64] 1.5293
+mem[20,65] 1.5293
 mem[20,66] 0
 mem[20,67] 0
 mem[20,68] 0
@@ -8466,138 +8466,138 @@ mem[20,77] 0
 mem[20,78] 0
 mem[20,79] 0
 mem[20,80] 0
-mem[20,81] 0
-mem[20,82] 0
-mem[20,83] 0
-mem[20,84] 0.339844
-mem[20,85] 0.339844
-mem[20,86] 0.339844
-mem[20,87] 0
-mem[20,88] 0
-mem[20,89] 0
+mem[20,81] 0.169922
+mem[20,82] 0.169922
+mem[20,83] 0.169922
+mem[20,84] 0
+mem[20,85] 0
+mem[20,86] 0
+mem[20,87] 1.5293
+mem[20,88] 1.5293
+mem[20,89] 1.5293
 mem[20,90] 0
 mem[20,91] 0
 mem[20,92] 0
-mem[20,93] 0.509766
-mem[20,94] 0.509766
-mem[20,95] 0.509766
+mem[20,93] 0
+mem[20,94] 0
+mem[20,95] 0
 mem[20,96] 0
 mem[20,97] 0
 mem[20,98] 0
-mem[20,99] 1.18945
-mem[20,100] 1.18945
-mem[20,101] 1.18945
-mem[20,102] 0
-mem[20,103] 0
-mem[20,104] 0
+mem[20,99] 0.339844
+mem[20,100] 0.339844
+mem[20,101] 0.339844
+mem[20,102] 0.509766
+mem[20,103] 0.509766
+mem[20,104] 0.509766
 mem[20,105] 0
 mem[20,106] 0
 mem[20,107] 0
 mem[20,108] 0
 mem[20,109] 0
 mem[20,110] 0
-mem[20,111] 1.18945
-mem[20,112] 1.18945
-mem[20,113] 1.18945
-mem[20,114] 0
-mem[20,115] 0
-mem[20,116] 0
-mem[20,117] 0
-mem[20,118] 0
-mem[20,119] 0
+mem[20,111] 0
+mem[20,112] 0
+mem[20,113] 0
+mem[20,114] 0.339844
+mem[20,115] 0.339844
+mem[20,116] 0.339844
+mem[20,117] 0.339844
+mem[20,118] 0.339844
+mem[20,119] 0.339844
 mem[20,120] 0
 mem[20,121] 0
 mem[20,122] 0
 mem[20,123] 0
 mem[20,124] 0
 mem[20,125] 0
-mem[20,126] 1.69922
-mem[20,127] 1.69922
-mem[20,128] 1.69922
-mem[20,129] 0
-mem[20,130] 0
-mem[20,131] 0
-mem[20,132] 0.169922
-mem[20,133] 0.169922
-mem[20,134] 0.169922
-mem[20,135] 0.339844
-mem[20,136] 0.339844
-mem[20,137] 0.339844
-mem[20,138] -0
-mem[20,139] -0
-mem[20,140] -0
+mem[20,126] 0
+mem[20,127] 0
+mem[20,128] 0
+mem[20,129] 1.5293
+mem[20,130] 1.5293
+mem[20,131] 1.5293
+mem[20,132] 0
+mem[20,133] 0
+mem[20,134] 0
+mem[20,135] 0
+mem[20,136] 0
+mem[20,137] 0
+mem[20,138] 0.849609
+mem[20,139] 0.849609
+mem[20,140] 0.849609
 mem[20,141] 0
 mem[20,142] 0
 mem[20,143] 0
-mem[20,144] 0
-mem[20,145] 0
-mem[20,146] 0
+mem[20,144] -0
+mem[20,145] -0
+mem[20,146] -0
 mem[20,147] 0
 mem[20,148] 0
 mem[20,149] 0
-mem[20,150] 1.69922
-mem[20,151] 1.69922
-mem[20,152] 1.69922
+mem[20,150] 0
+mem[20,151] 0
+mem[20,152] 0
 mem[20,153] 1.69922
 mem[20,154] 1.69922
 mem[20,155] 1.69922
-mem[20,156] 0
-mem[20,157] 0
-mem[20,158] 0
-mem[20,159] 0.169922
-mem[20,160] 0.169922
-mem[20,161] 0.169922
-mem[20,162] 0
-mem[20,163] 0
-mem[20,164] 0
-mem[20,165] 1.35938
-mem[20,166] 1.35938
-mem[20,167] 1.35938
-mem[20,168] 1.35938
-mem[20,169] 1.35938
-mem[20,170] 1.35938
-mem[20,171] 1.18945
-mem[20,172] 1.18945
-mem[20,173] 1.18945
-mem[20,174] 1.35937
-mem[20,175] 1.35937
-mem[20,176] 1.35937
+mem[20,156] 0.169922
+mem[20,157] 0.169922
+mem[20,158] 0.169922
+mem[20,159] 1.18945
+mem[20,160] 1.18945
+mem[20,161] 1.18945
+mem[20,162] 1.18945
+mem[20,163] 1.18945
+mem[20,164] 1.18945
+mem[20,165] 0.339844
+mem[20,166] 0.339844
+mem[20,167] 0.339844
+mem[20,168] 0
+mem[20,169] 0
+mem[20,170] 0
+mem[20,171] 0.169922
+mem[20,172] 0.169922
+mem[20,173] 0.169922
+mem[20,174] 0
+mem[20,175] 0
+mem[20,176] 0
 mem[20,177] 0
 mem[20,178] 0
 mem[20,179] 0
-mem[20,180] 0
-mem[20,181] 0
-mem[20,182] 0
-mem[20,183] 0
-mem[20,184] 0
-mem[20,185] 0
-mem[20,186] 1.69922
-mem[20,187] 1.69922
-mem[20,188] 1.69922
-mem[20,189] 0
-mem[20,190] 0
-mem[20,191] 0
-mem[21,0] 1.5293
-mem[21,1] 1.5293
-mem[21,2] 1.5293
-mem[21,3] 0.169922
-mem[21,4] 0.169922
-mem[21,5] 0.169922
-mem[21,6] 0
-mem[21,7] 0
-mem[21,8] 0
+mem[20,180] 1.5293
+mem[20,181] 1.5293
+mem[20,182] 1.5293
+mem[20,183] 1.69922
+mem[20,184] 1.69922
+mem[20,185] 1.69922
+mem[20,186] -0
+mem[20,187] -0
+mem[20,188] -0
+mem[20,189] 0.169922
+mem[20,190] 0.169922
+mem[20,191] 0.169922
+mem[21,0] 0
+mem[21,1] 0
+mem[21,2] 0
+mem[21,3] 1.35937
+mem[21,4] 1.35937
+mem[21,5] 1.35937
+mem[21,6] 0.509766
+mem[21,7] 0.509766
+mem[21,8] 0.509766
 mem[21,9] 0
 mem[21,10] 0
 mem[21,11] 0
-mem[21,12] -0
-mem[21,13] -0
-mem[21,14] -0
-mem[21,15] 1.18945
-mem[21,16] 1.18945
-mem[21,17] 1.18945
-mem[21,18] 0
-mem[21,19] 0
-mem[21,20] 0
+mem[21,12] 0
+mem[21,13] 0
+mem[21,14] 0
+mem[21,15] 1.69922
+mem[21,16] 1.69922
+mem[21,17] 1.69922
+mem[21,18] 1.18945
+mem[21,19] 1.18945
+mem[21,20] 1.18945
 mem[21,21] 0
 mem[21,22] 0
 mem[21,23] 0
@@ -8607,9 +8607,9 @@ mem[21,26] 1.69922
 mem[21,27] 0
 mem[21,28] 0
 mem[21,29] 0
-mem[21,30] 0
-mem[21,31] 0
-mem[21,32] 0
+mem[21,30] -0
+mem[21,31] -0
+mem[21,32] -0
 mem[21,33] 0
 mem[21,34] 0
 mem[21,35] 0
@@ -8619,9 +8619,9 @@ mem[21,38] 0
 mem[21,39] 0
 mem[21,40] 0
 mem[21,41] 0
-mem[21,42] 0
-mem[21,43] 0
-mem[21,44] 0
+mem[21,42] 0.169922
+mem[21,43] 0.169922
+mem[21,44] 0.169922
 mem[21,45] 0
 mem[21,46] 0
 mem[21,47] 0
@@ -8631,99 +8631,99 @@ mem[21,50] 0
 mem[21,51] 0
 mem[21,52] 0
 mem[21,53] 0
-mem[21,54] 1.5293
-mem[21,55] 1.5293
-mem[21,56] 1.5293
-mem[21,57] 0.339844
-mem[21,58] 0.339844
-mem[21,59] 0.339844
+mem[21,54] 1.69922
+mem[21,55] 1.69922
+mem[21,56] 1.69922
+mem[21,57] 0
+mem[21,58] 0
+mem[21,59] 0
 mem[21,60] 0
 mem[21,61] 0
 mem[21,62] 0
 mem[21,63] 0
 mem[21,64] 0
 mem[21,65] 0
-mem[21,66] 0.339844
-mem[21,67] 0.339844
-mem[21,68] 0.339844
-mem[21,69] 1.5293
-mem[21,70] 1.5293
-mem[21,71] 1.5293
+mem[21,66] 0
+mem[21,67] 0
+mem[21,68] 0
+mem[21,69] 0
+mem[21,70] 0
+mem[21,71] 0
 mem[21,72] 0
 mem[21,73] 0
 mem[21,74] 0
-mem[21,75] 0
-mem[21,76] 0
-mem[21,77] 0
-mem[21,78] 0.169922
-mem[21,79] 0.169922
-mem[21,80] 0.169922
+mem[21,75] 1.5293
+mem[21,76] 1.5293
+mem[21,77] 1.5293
+mem[21,78] 0
+mem[21,79] 0
+mem[21,80] 0
 mem[21,81] 0
 mem[21,82] 0
 mem[21,83] 0
-mem[21,84] 1.35938
-mem[21,85] 1.35938
-mem[21,86] 1.35938
+mem[21,84] 1.69922
+mem[21,85] 1.69922
+mem[21,86] 1.69922
 mem[21,87] 0
 mem[21,88] 0
 mem[21,89] 0
 mem[21,90] 0
 mem[21,91] 0
 mem[21,92] 0
-mem[21,93] 0
-mem[21,94] 0
-mem[21,95] 0
+mem[21,93] 1.18945
+mem[21,94] 1.18945
+mem[21,95] 1.18945
 mem[21,96] 0
 mem[21,97] 0
 mem[21,98] 0
-mem[21,99] 0
-mem[21,100] 0
-mem[21,101] 0
-mem[21,102] 1.5293
-mem[21,103] 1.5293
-mem[21,104] 1.5293
+mem[21,99] 1.35938
+mem[21,100] 1.35938
+mem[21,101] 1.35938
+mem[21,102] 0
+mem[21,103] 0
+mem[21,104] 0
 mem[21,105] 0
 mem[21,106] 0
 mem[21,107] 0
-mem[21,108] 1.5293
-mem[21,109] 1.5293
-mem[21,110] 1.5293
-mem[21,111] 1.69922
-mem[21,112] 1.69922
-mem[21,113] 1.69922
+mem[21,108] 0
+mem[21,109] 0
+mem[21,110] 0
+mem[21,111] 0
+mem[21,112] 0
+mem[21,113] 0
 mem[21,114] 1.35938
 mem[21,115] 1.35938
 mem[21,116] 1.35938
-mem[21,117] 0
-mem[21,118] 0
-mem[21,119] 0
+mem[21,117] 1.01953
+mem[21,118] 1.01953
+mem[21,119] 1.01953
 mem[21,120] 0
 mem[21,121] 0
 mem[21,122] 0
 mem[21,123] 0
 mem[21,124] 0
 mem[21,125] 0
-mem[21,126] 0
-mem[21,127] 0
-mem[21,128] 0
+mem[21,126] 1.35938
+mem[21,127] 1.35938
+mem[21,128] 1.35938
 mem[21,129] 0
 mem[21,130] 0
 mem[21,131] 0
-mem[21,132] 1.5293
-mem[21,133] 1.5293
-mem[21,134] 1.5293
+mem[21,132] 0
+mem[21,133] 0
+mem[21,134] 0
 mem[21,135] 0
 mem[21,136] 0
 mem[21,137] 0
-mem[21,138] 1.35938
-mem[21,139] 1.35938
-mem[21,140] 1.35938
-mem[21,141] 1.18945
-mem[21,142] 1.18945
-mem[21,143] 1.18945
-mem[21,144] 0
-mem[21,145] 0
-mem[21,146] 0
+mem[21,138] 0.679687
+mem[21,139] 0.679687
+mem[21,140] 0.679687
+mem[21,141] 0
+mem[21,142] 0
+mem[21,143] 0
+mem[21,144] 1.69922
+mem[21,145] 1.69922
+mem[21,146] 1.69922
 mem[21,147] 0
 mem[21,148] 0
 mem[21,149] 0
@@ -8733,168 +8733,168 @@ mem[21,152] 0
 mem[21,153] 0
 mem[21,154] 0
 mem[21,155] 0
-mem[21,156] 1.5293
-mem[21,157] 1.5293
-mem[21,158] 1.5293
+mem[21,156] 1.35938
+mem[21,157] 1.35938
+mem[21,158] 1.35938
 mem[21,159] 0
 mem[21,160] 0
 mem[21,161] 0
 mem[21,162] 0
 mem[21,163] 0
 mem[21,164] 0
-mem[21,165] 0
-mem[21,166] 0
-mem[21,167] 0
+mem[21,165] 1.18945
+mem[21,166] 1.18945
+mem[21,167] 1.18945
 mem[21,168] 0
 mem[21,169] 0
 mem[21,170] 0
 mem[21,171] 0
 mem[21,172] 0
 mem[21,173] 0
-mem[21,174] 0
-mem[21,175] 0
-mem[21,176] 0
-mem[21,177] 0
-mem[21,178] 0
-mem[21,179] 0
+mem[21,174] 1.69922
+mem[21,175] 1.69922
+mem[21,176] 1.69922
+mem[21,177] 1.18945
+mem[21,178] 1.18945
+mem[21,179] 1.18945
 mem[21,180] 0
 mem[21,181] 0
 mem[21,182] 0
 mem[21,183] 0
 mem[21,184] 0
 mem[21,185] 0
-mem[21,186] 0
-mem[21,187] 0
-mem[21,188] 0
-mem[21,189] 0
-mem[21,190] 0
-mem[21,191] 0
-mem[22,0] 0
-mem[22,1] 0
-mem[22,2] 0
-mem[22,3] 0.339844
-mem[22,4] 0.339844
-mem[22,5] 0.339844
-mem[22,6] 1.69922
-mem[22,7] 1.69922
-mem[22,8] 1.69922
-mem[22,9] 0
-mem[22,10] 0
-mem[22,11] 0
-mem[22,12] -0
-mem[22,13] -0
-mem[22,14] -0
+mem[21,186] -0
+mem[21,187] -0
+mem[21,188] -0
+mem[21,189] 1.5293
+mem[21,190] 1.5293
+mem[21,191] 1.5293
+mem[22,0] 0.169922
+mem[22,1] 0.169922
+mem[22,2] 0.169922
+mem[22,3] 0.169922
+mem[22,4] 0.169922
+mem[22,5] 0.169922
+mem[22,6] 0
+mem[22,7] 0
+mem[22,8] 0
+mem[22,9] 0.339844
+mem[22,10] 0.339844
+mem[22,11] 0.339844
+mem[22,12] 0
+mem[22,13] 0
+mem[22,14] 0
 mem[22,15] 0
 mem[22,16] 0
 mem[22,17] 0
-mem[22,18] 0
-mem[22,19] 0
-mem[22,20] 0
+mem[22,18] 0.169922
+mem[22,19] 0.169922
+mem[22,20] 0.169922
 mem[22,21] 0
 mem[22,22] 0
 mem[22,23] 0
 mem[22,24] 0
 mem[22,25] 0
 mem[22,26] 0
-mem[22,27] 0
-mem[22,28] 0
-mem[22,29] 0
-mem[22,30] 0
-mem[22,31] 0
-mem[22,32] 0
-mem[22,33] 1.69922
-mem[22,34] 1.69922
-mem[22,35] 1.69922
+mem[22,27] -0
+mem[22,28] -0
+mem[22,29] -0
+mem[22,30] -0
+mem[22,31] -0
+mem[22,32] -0
+mem[22,33] 0
+mem[22,34] 0
+mem[22,35] 0
 mem[22,36] 0
 mem[22,37] 0
 mem[22,38] 0
-mem[22,39] 1.35938
-mem[22,40] 1.35938
-mem[22,41] 1.35938
-mem[22,42] 0.339844
-mem[22,43] 0.339844
-mem[22,44] 0.339844
-mem[22,45] 1.18945
-mem[22,46] 1.18945
-mem[22,47] 1.18945
+mem[22,39] 0
+mem[22,40] 0
+mem[22,41] 0
+mem[22,42] 0
+mem[22,43] 0
+mem[22,44] 0
+mem[22,45] 0
+mem[22,46] 0
+mem[22,47] 0
 mem[22,48] 0
 mem[22,49] 0
 mem[22,50] 0
-mem[22,51] 0.169922
-mem[22,52] 0.169922
-mem[22,53] 0.169922
-mem[22,54] 0.169922
-mem[22,55] 0.169922
-mem[22,56] 0.169922
+mem[22,51] 1.35938
+mem[22,52] 1.35938
+mem[22,53] 1.35938
+mem[22,54] 0
+mem[22,55] 0
+mem[22,56] 0
 mem[22,57] 0
 mem[22,58] 0
 mem[22,59] 0
-mem[22,60] 0
-mem[22,61] 0
-mem[22,62] 0
+mem[22,60] 1.18945
+mem[22,61] 1.18945
+mem[22,62] 1.18945
 mem[22,63] 0
 mem[22,64] 0
 mem[22,65] 0
-mem[22,66] 0
-mem[22,67] 0
-mem[22,68] 0
+mem[22,66] -0
+mem[22,67] -0
+mem[22,68] -0
 mem[22,69] 0
 mem[22,70] 0
 mem[22,71] 0
 mem[22,72] 0
 mem[22,73] 0
 mem[22,74] 0
-mem[22,75] 0
-mem[22,76] 0
-mem[22,77] 0
+mem[22,75] -0
+mem[22,76] -0
+mem[22,77] -0
 mem[22,78] 0
 mem[22,79] 0
 mem[22,80] 0
-mem[22,81] 1.18945
-mem[22,82] 1.18945
-mem[22,83] 1.18945
+mem[22,81] 0
+mem[22,82] 0
+mem[22,83] 0
 mem[22,84] 0
 mem[22,85] 0
 mem[22,86] 0
-mem[22,87] 0
-mem[22,88] 0
-mem[22,89] 0
-mem[22,90] 0
-mem[22,91] 0
-mem[22,92] 0
+mem[22,87] 0.169922
+mem[22,88] 0.169922
+mem[22,89] 0.169922
+mem[22,90] 1.18945
+mem[22,91] 1.18945
+mem[22,92] 1.18945
 mem[22,93] 0
 mem[22,94] 0
 mem[22,95] 0
-mem[22,96] 0
-mem[22,97] 0
-mem[22,98] 0
+mem[22,96] 1.01953
+mem[22,97] 1.01953
+mem[22,98] 1.01953
 mem[22,99] 0
 mem[22,100] 0
 mem[22,101] 0
 mem[22,102] 0
 mem[22,103] 0
 mem[22,104] 0
-mem[22,105] 1.69922
-mem[22,106] 1.69922
-mem[22,107] 1.69922
+mem[22,105] 0
+mem[22,106] 0
+mem[22,107] 0
 mem[22,108] 0
 mem[22,109] 0
 mem[22,110] 0
 mem[22,111] 0
 mem[22,112] 0
 mem[22,113] 0
-mem[22,114] -0
-mem[22,115] -0
-mem[22,116] -0
+mem[22,114] 0
+mem[22,115] 0
+mem[22,116] 0
 mem[22,117] 0
 mem[22,118] 0
 mem[22,119] 0
 mem[22,120] 0
 mem[22,121] 0
 mem[22,122] 0
-mem[22,123] 0
-mem[22,124] 0
-mem[22,125] 0
+mem[22,123] 0.509766
+mem[22,124] 0.509766
+mem[22,125] 0.509766
 mem[22,126] 0
 mem[22,127] 0
 mem[22,128] 0
@@ -8904,63 +8904,63 @@ mem[22,131] 0
 mem[22,132] 0
 mem[22,133] 0
 mem[22,134] 0
-mem[22,135] 0
-mem[22,136] 0
-mem[22,137] 0
-mem[22,138] -0
-mem[22,139] -0
-mem[22,140] -0
-mem[22,141] 0
-mem[22,142] 0
-mem[22,143] 0
-mem[22,144] 0
-mem[22,145] 0
-mem[22,146] 0
-mem[22,147] 1.69922
-mem[22,148] 1.69922
-mem[22,149] 1.69922
+mem[22,135] 1.69922
+mem[22,136] 1.69922
+mem[22,137] 1.69922
+mem[22,138] 0
+mem[22,139] 0
+mem[22,140] 0
+mem[22,141] 1.69922
+mem[22,142] 1.69922
+mem[22,143] 1.69922
+mem[22,144] -0
+mem[22,145] -0
+mem[22,146] -0
+mem[22,147] 0
+mem[22,148] 0
+mem[22,149] 0
 mem[22,150] 0
 mem[22,151] 0
 mem[22,152] 0
 mem[22,153] 0
 mem[22,154] 0
 mem[22,155] 0
-mem[22,156] 0.169922
-mem[22,157] 0.169922
-mem[22,158] 0.169922
+mem[22,156] 0
+mem[22,157] 0
+mem[22,158] 0
 mem[22,159] 0
 mem[22,160] 0
 mem[22,161] 0
-mem[22,162] 1.69922
-mem[22,163] 1.69922
-mem[22,164] 1.69922
+mem[22,162] 0.169922
+mem[22,163] 0.169922
+mem[22,164] 0.169922
 mem[22,165] 0
 mem[22,166] 0
 mem[22,167] 0
 mem[22,168] 0
 mem[22,169] 0
 mem[22,170] 0
-mem[22,171] 0
-mem[22,172] 0
-mem[22,173] 0
+mem[22,171] 1.35938
+mem[22,172] 1.35938
+mem[22,173] 1.35938
 mem[22,174] 0
 mem[22,175] 0
 mem[22,176] 0
 mem[22,177] 0
 mem[22,178] 0
 mem[22,179] 0
-mem[22,180] 0.169922
-mem[22,181] 0.169922
-mem[22,182] 0.169922
+mem[22,180] 0
+mem[22,181] 0
+mem[22,182] 0
 mem[22,183] 0
 mem[22,184] 0
 mem[22,185] 0
-mem[22,186] 0
-mem[22,187] 0
-mem[22,188] 0
-mem[22,189] 1.69922
-mem[22,190] 1.69922
-mem[22,191] 1.69922
+mem[22,186] -0
+mem[22,187] -0
+mem[22,188] -0
+mem[22,189] 0
+mem[22,190] 0
+mem[22,191] 0
 rows_tot_cpu1 0
 mem_tot_cpu1 0
 m_access_time_cpu1 0
@@ -8978,7 +8978,7 @@ mem_tot_cpu2 0
 m_access_time_cpu2 0
 ns_single_cpu2 0
 pdt_m_rows_cpu2 0
-cores_sketch_cpu2 -0
+cores_sketch_cpu2 0
 cores_dpdk_cpu2 6
 ns_sketch_cpu2 0
 ns_dpdk_cpu2 10.7143
@@ -9153,8 +9153,8 @@ ns_dpdk_cpu16 10.7143
 ns_cpu16 10.7143
 pdt_nsk_c_cpu16 0
 pdt_nsc_dpdk_cpu16 64.2857
-rows_tot_tor_p41 47.1
-mem_tot_tor_p41 80.0332
+rows_tot_tor_p41 48
+mem_tot_tor_p41 81.5625
 ns_tor_p41 6.75676
 rows_tot_tor_p42 48
 mem_tot_tor_p42 81.5625
@@ -9168,106 +9168,106 @@ ns_tor_p44 6.75676
 rows_tot_l1_p41 48
 mem_tot_l1_p41 81.5625
 ns_l1_p41 6.75676
-rows_tot_l1_p42 38.1
-mem_tot_l1_p42 64.7402
+rows_tot_l1_p42 48
+mem_tot_l1_p42 81.5625
 ns_l1_p42 6.75676
-rows_tot_l2_p4 27
-mem_tot_l2_p4 45.8789
+rows_tot_l2_p4 19.8
+mem_tot_l2_p4 33.6445
 ns_l2_p4 6.75676
 ns 10.7143
-res_overall 1046.82
+res_overall 1047.85
 -----------------------------
 
 Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
-Resources: 1046.8187988281252
+Resources: 1047.846240234375
 
 Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.800    0.000    0.000    0.000    0.900    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.900    0.000    0.100    
 Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.800    0.000    0.000    0.000    0.900    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.900    0.000    0.100    
 Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.800    0.000    0.000    0.000    0.900    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.900    0.000    0.100    
 Total frac: 1.900
 
 Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.700    0.100    0.200    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.100    
+Total frac: 0.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.700    0.100    0.200    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.100    
+Total frac: 0.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.700    0.100    0.200    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.100    
+Total frac: 0.900
 
 Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    1.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.700    0.000    0.300    0.000    
+Total frac: 1.700
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    1.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.700    0.000    0.300    0.000    
+Total frac: 1.700
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    1.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.700    0.000    0.300    0.000    
+Total frac: 1.700
 
 Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.800    0.000    0.200    
 Total frac: 2.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.800    0.000    0.200    
 Total frac: 2.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.800    0.000    0.200    
 Total frac: 2.000
 
 Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.000    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.900    0.000    0.000    
+Total frac: 1.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.000    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.900    0.000    0.000    
+Total frac: 1.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.000    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.900    0.000    0.000    
+Total frac: 1.800
 
 Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    1.000    0.000    0.000    0.000    0.700    0.000    
-Total frac: 2.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    1.000    0.000    0.000    0.000    0.700    0.000    
-Total frac: 2.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    1.000    0.000    0.000    0.000    0.700    0.000    
-Total frac: 2.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.000
 
 Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.700    1.000    0.000    0.000    0.000    
-Total frac: 2.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.100    
+Total frac: 0.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.700    1.000    0.000    0.000    0.000    
-Total frac: 2.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.100    
+Total frac: 0.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.700    1.000    0.000    0.000    0.000    
-Total frac: 2.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.100    
+Total frac: 0.800
 
 Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.700    0.000    0.800    0.000    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.300    1.000    0.000    0.000    
+Total frac: 2.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.700    0.000    0.800    0.000    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.300    1.000    0.000    0.000    
+Total frac: 2.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.700    0.000    0.800    0.000    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.300    1.000    0.000    0.000    
+Total frac: 2.000
 
 Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
@@ -9282,465 +9282,465 @@ Total frac: 1.000
 
 Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    0.700    0.000    0.000    0.000    
-Total frac: 2.400
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    1.000    0.000    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    0.700    0.000    0.000    0.000    
-Total frac: 2.400
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    1.000    0.000    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    0.700    0.000    0.000    0.000    
-Total frac: 2.400
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    1.000    0.000    0.000    
+Total frac: 1.900
 
 Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.000    0.000    
+Total frac: 0.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.000    0.000    
+Total frac: 0.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.000    0.000    
+Total frac: 0.800
 
 Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    1.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    0.000    0.000    0.000    0.000    
+Total frac: 1.700
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    1.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    0.000    0.000    0.000    0.000    
+Total frac: 1.700
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    1.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    0.000    0.000    0.000    0.000    
+Total frac: 1.700
 
 Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.800    0.900    0.000    0.000    
-Total frac: 2.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.000    
+Total frac: 2.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.800    0.900    0.000    0.000    
-Total frac: 2.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.000    
+Total frac: 2.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.800    0.900    0.000    0.000    
-Total frac: 2.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.000    
+Total frac: 2.000
 
 Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.000    0.800    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    1.000    0.100    0.000    0.000    
+Total frac: 2.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.000    0.800    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    1.000    0.100    0.000    0.000    
+Total frac: 2.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.000    0.800    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    1.000    0.100    0.000    0.000    
+Total frac: 2.000
 
 Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    0.200    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.100    0.000    
+Total frac: 1.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    0.200    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.100    0.000    
+Total frac: 1.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    0.200    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.100    0.000    
+Total frac: 1.000
 
 Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.000    0.000    0.000    0.000    0.000    0.700    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.000    1.000    0.000    0.600    0.000    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.000    0.000    0.000    0.000    0.000    0.700    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.000    1.000    0.000    0.600    0.000    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.000    0.000    0.000    0.000    0.000    0.700    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.000    1.000    0.000    0.600    0.000    0.000    
+Total frac: 1.900
 
 Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.000    0.000    0.700    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    0.000    0.000    
+Total frac: 1.700
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.000    0.000    0.700    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    0.000    0.000    
+Total frac: 1.700
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.000    0.000    0.700    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    0.000    0.000    
+Total frac: 1.700
 
 Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.700    0.000    0.000    0.000    0.100    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    
+Total frac: 0.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.700    0.000    0.000    0.000    0.100    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    
+Total frac: 0.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.700    0.000    0.000    0.000    0.100    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    
+Total frac: 0.800
 
 Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 2.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 2.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 2.000
 
 Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.200    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    1.000    0.000    0.000    0.000    
+Total frac: 1.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.200    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    1.000    0.000    0.000    0.000    
+Total frac: 1.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.200    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    1.000    0.000    0.000    0.000    
+Total frac: 1.800
 
 Sketch (20) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.700    
+Total frac: 1.600
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.700    
+Total frac: 1.600
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.700    
+Total frac: 1.600
 
 Sketch (21) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.800    0.000    0.000    0.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.900    0.000    0.000    
+Total frac: 1.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.800    0.000    0.000    0.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.900    0.000    0.000    
+Total frac: 1.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.800    0.000    0.000    0.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.900    0.000    0.000    
+Total frac: 1.000
 
 Sketch (22) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    0.200    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    1.000    1.000    0.000    0.000    0.000    
+Total frac: 2.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    0.200    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    1.000    1.000    0.000    0.000    0.000    
+Total frac: 2.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    0.200    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    1.000    1.000    0.000    0.000    0.000    
+Total frac: 2.800
 
 Sketch (23) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    0.900    0.000    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    
+Total frac: 1.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    0.900    0.000    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    
+Total frac: 1.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    0.900    0.000    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    
+Total frac: 1.000
 
 Sketch (24) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    
-Total frac: 0.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.700    0.000    0.000    
+Total frac: 1.700
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    
-Total frac: 0.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.700    0.000    0.000    
+Total frac: 1.700
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    
-Total frac: 0.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.700    0.000    0.000    
+Total frac: 1.700
 
 Sketch (25) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.900    0.000    0.000    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.900    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.900    0.000    0.000    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.900    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.900    0.000    0.000    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.900    0.000    
+Total frac: 1.900
 
 Sketch (26) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.800    0.000    0.000    0.100    0.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    0.900    1.000    0.000    0.000    0.000    
+Total frac: 2.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.800    0.000    0.000    0.100    0.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    0.900    1.000    0.000    0.000    0.000    
+Total frac: 2.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.800    0.000    0.000    0.100    0.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    0.900    1.000    0.000    0.000    0.000    
+Total frac: 2.900
 
 Sketch (27) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.700    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.900    0.100    0.000    0.000    
+Total frac: 2.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.700    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.900    0.100    0.000    0.000    
+Total frac: 2.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.700    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.900    0.100    0.000    0.000    
+Total frac: 2.000
 
 Sketch (28) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.800    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.700
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.800    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.700
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.800    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.700
 
 Sketch (29) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.100    
+Total frac: 1.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.100    
+Total frac: 1.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.100    
+Total frac: 1.000
 
 Sketch (30) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.900    0.000    0.000    0.000    
-Total frac: 2.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.900    0.000    0.000    0.000    0.700    
+Total frac: 2.300
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.900    0.000    0.000    0.000    
-Total frac: 2.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.900    0.000    0.000    0.000    0.700    
+Total frac: 2.300
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.900    0.000    0.000    0.000    
-Total frac: 2.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.900    0.000    0.000    0.000    0.700    
+Total frac: 2.300
 
 Sketch (31) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.700    0.300    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.700    0.000    
+Total frac: 1.700
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.700    0.300    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.700    0.000    
+Total frac: 1.700
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.700    0.300    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.700    0.000    
+Total frac: 1.700
 
 Sketch (32) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.900    0.900    0.000    0.000    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.200    1.000    0.000    0.000    0.000    0.600    
 Total frac: 2.600
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.900    0.900    0.000    0.000    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.200    1.000    0.000    0.000    0.000    0.600    
 Total frac: 2.600
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.900    0.900    0.000    0.000    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.200    1.000    0.000    0.000    0.000    0.600    
 Total frac: 2.600
 
 Sketch (33) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.000    0.700    0.000    0.700    0.000    0.000    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.800    0.000    
+Total frac: 1.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.000    0.700    0.000    0.700    0.000    0.000    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.800    0.000    
+Total frac: 1.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.000    0.700    0.000    0.700    0.000    0.000    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.800    0.000    
+Total frac: 1.000
 
 Sketch (34) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.800    0.300    0.000    0.000    
+Total frac: 1.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.800    0.300    0.000    0.000    
+Total frac: 1.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    
-Total frac: 0.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.800    0.300    0.000    0.000    
+Total frac: 1.800
 
 Sketch (35) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.000    1.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.900    0.000    0.000    0.000    0.000    0.000    
 Total frac: 1.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.000    1.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.900    0.000    0.000    0.000    0.000    0.000    
 Total frac: 1.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.000    1.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.900    0.000    0.000    0.000    0.000    0.000    
 Total frac: 1.800
 
 Sketch (36) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.900    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.900    0.000    0.000    0.000    0.000    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.900    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.900    0.000    0.000    0.000    0.000    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.900    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.900    0.000    0.000    0.000    0.000    0.000    
+Total frac: 1.900
 
 Sketch (37) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    1.000    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.900    0.000    0.000    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    1.000    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.900    0.000    0.000    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    1.000    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.900    0.000    0.000    0.000    
+Total frac: 1.900
 
 Sketch (38) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.800    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.200    0.800    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.800    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.200    0.800    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.800    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.200    0.800    0.000    
+Total frac: 1.900
 
 Sketch (39) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.900    0.100    0.000    0.000    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.200    0.200    0.600    0.000    
 Total frac: 1.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.900    0.100    0.000    0.000    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.200    0.200    0.600    0.000    
 Total frac: 1.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.900    0.100    0.000    0.000    0.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.200    0.200    0.600    0.000    
 Total frac: 1.800
 
 Sketch (40) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    1.000    0.000    0.000    0.000    
-Total frac: 2.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.800    0.000    0.000    0.000    
+Total frac: 1.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    1.000    0.000    0.000    0.000    
-Total frac: 2.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.800    0.000    0.000    0.000    
+Total frac: 1.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.800    0.000    1.000    0.000    0.000    0.000    
-Total frac: 2.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.800    0.000    0.000    0.000    
+Total frac: 1.800
 
 Sketch (41) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.800    0.000    0.000    0.000    0.000    0.300    
+Total frac: 1.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.800    0.000    0.000    0.000    0.000    0.300    
+Total frac: 1.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.800    0.000    0.000    0.000    0.000    0.300    
+Total frac: 1.800
 
 Sketch (42) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    1.000    0.000    0.000    
-Total frac: 2.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    
+Total frac: 0.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    1.000    0.000    0.000    
-Total frac: 2.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    
+Total frac: 0.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    1.000    0.000    0.000    
-Total frac: 2.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    
+Total frac: 0.800
 
 Sketch (43) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.000    0.900    0.000    0.900    0.000    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.000    0.900    0.000    0.900    0.000    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.000    0.900    0.000    0.900    0.000    0.000    
+Total frac: 1.900
 
 Sketch (44) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.900    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.800    0.000    0.000    0.000    
+Total frac: 2.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.900    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.800    0.000    0.000    0.000    
+Total frac: 2.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.900    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.800    0.000    0.000    0.000    
+Total frac: 2.800
 
 Sketch (45) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.700    0.000    0.200    0.000    0.000    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    0.000    1.000    
+Total frac: 2.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.700    0.000    0.200    0.000    0.000    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    0.000    1.000    
+Total frac: 2.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.700    0.000    0.200    0.000    0.000    
-Total frac: 1.600
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    0.000    1.000    
+Total frac: 2.000
 
 Sketch (46) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.800    0.000    
-Total frac: 1.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.400    0.000    0.000    0.600    0.500    0.400    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.800    0.000    
-Total frac: 1.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.400    0.000    0.000    0.600    0.500    0.400    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.800    0.000    
-Total frac: 1.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.400    0.000    0.000    0.600    0.500    0.400    0.000    
+Total frac: 1.900
 
 Sketch (47) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    0.000    0.000    0.000    0.700    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    
+Total frac: 1.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    0.000    0.000    0.000    0.700    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    
+Total frac: 1.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    0.000    0.000    0.000    0.700    0.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    
+Total frac: 1.000
 
 Sketch (48) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.000    0.000    0.000    0.000    
-Total frac: 2.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.700
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.000    0.000    0.000    0.000    
-Total frac: 2.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.700
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    1.000    0.000    0.000    0.000    0.000    0.000    
-Total frac: 2.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.700
 
 Sketch (49) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    1.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.000    
+Total frac: 0.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    1.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.000    
+Total frac: 0.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    1.000    
-Total frac: 1.700
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.000    0.000    0.000    0.000    0.000    
+Total frac: 0.900
 
 Sketch (50) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.900    0.000    0.000    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.900    0.000    0.000    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.900    0.000    0.000    0.000    
+Total frac: 1.900
 
 Sketch (51) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
@@ -9755,134 +9755,134 @@ Total frac: 1.000
 
 Sketch (52) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.800    0.000    
+Total frac: 0.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.800    0.000    
+Total frac: 0.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.100    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.800    0.000    
+Total frac: 0.900
 
 Sketch (53) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.600    0.000    0.700    0.800    0.100    0.000    0.000    
-Total frac: 2.200
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    1.000    0.000    0.700    0.000    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.600    0.000    0.700    0.800    0.100    0.000    0.000    
-Total frac: 2.200
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    1.000    0.000    0.700    0.000    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.600    0.000    0.700    0.800    0.100    0.000    0.000    
-Total frac: 2.200
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    1.000    0.000    0.700    0.000    0.000    
+Total frac: 1.900
 
 Sketch (54) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    1.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.100    
+Total frac: 0.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    1.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.100    
+Total frac: 0.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    1.000    
-Total frac: 1.800
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.100    
+Total frac: 0.800
 
 Sketch (55) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.800    0.000    0.000    
-Total frac: 1.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.300    0.200    0.700    0.000    
+Total frac: 1.900
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.800    0.000    0.000    
-Total frac: 1.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.300    0.200    0.700    0.000    
+Total frac: 1.900
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.800    0.000    0.000    
-Total frac: 1.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.300    0.200    0.700    0.000    
+Total frac: 1.900
 
 Sketch (56) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.000    0.000    0.000    0.800    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    1.000    0.000    0.000    0.000    
+Total frac: 1.700
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.000    0.000    0.000    0.800    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    1.000    0.000    0.000    0.000    
+Total frac: 1.700
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.200    0.000    0.000    0.000    0.800    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    1.000    0.000    0.000    0.000    
+Total frac: 1.700
 
 Sketch (57) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.000    0.000    0.900    0.700    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.100    0.000    0.800    
+Total frac: 1.700
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.000    0.000    0.900    0.700    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.100    0.000    0.800    
+Total frac: 1.700
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.000    0.000    0.900    0.700    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.000    0.100    0.000    0.800    
+Total frac: 1.700
 
 Sketch (58) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    1.000    0.000    0.800    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    1.000    0.000    0.800    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    1.000    0.000    0.800    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    
+Total frac: 1.000
 
 Sketch (59) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.700    0.000    
+Total frac: 1.400
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.700    0.000    
+Total frac: 1.400
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    0.000    0.000    0.000    
-Total frac: 1.000
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.000    0.000    0.000    0.700    0.000    
+Total frac: 1.400
 
 Sketch (60) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.900    0.000    0.000    0.100    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.900    0.000    0.000    
 Total frac: 1.800
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.900    0.000    0.000    0.100    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.900    0.000    0.000    
 Total frac: 1.800
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.800    0.000    0.000    0.900    0.000    0.000    0.100    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.900    0.900    0.000    0.000    
 Total frac: 1.800
 
 Sketch (61) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.700    0.600    0.300    0.000    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    1.000    0.000    0.000    
+Total frac: 2.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.700    0.600    0.300    0.000    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    1.000    0.000    0.000    
+Total frac: 2.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.300    0.700    0.600    0.300    0.000    0.000    0.000    
-Total frac: 1.900
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    0.000    1.000    0.000    0.000    
+Total frac: 2.000
 
 Sketch (62) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.800    0.000    1.000    0.000    0.000    
-Total frac: 2.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    
+Total frac: 0.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.800    0.000    1.000    0.000    0.000    
-Total frac: 2.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    
+Total frac: 0.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.700    0.800    0.000    1.000    0.000    0.000    
-Total frac: 2.500
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    
+Total frac: 0.000
 
 Sketch (63) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Row: 1
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.900    0.000    
 Total frac: 1.000
 Row: 2
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.900    0.000    
 Total frac: 1.000
 Row: 3
-0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.100    0.900    0.000    
 Total frac: 1.000
 Device (0) cpu1:
 cores_sketch: -0.0, cores_dpdk: 6.0
@@ -9891,7 +9891,7 @@ Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (1) cpu2:
-cores_sketch: -0.0, cores_dpdk: 6.0
+cores_sketch: 0.0, cores_dpdk: 6.0
 Rows total: 0.0
 Mem total: 0.0
 Throughput: 93.33333333333333
@@ -9982,8 +9982,8 @@ Throughput: 93.33333333333333
 
 Device (16) tor_p41:
 
-Rows total: 47.1
-Mem total: 80.033203125
+Rows total: 48.0
+Mem total: 81.5625
 Throughput: 148.0
 
 Device (17) tor_p42:
@@ -10012,13 +10012,13 @@ Throughput: 148.0
 
 Device (21) l1_p42:
 
-Rows total: 38.1
-Mem total: 64.740234375
+Rows total: 48.0
+Mem total: 81.5625
 Throughput: 148.0
 
 Device (22) l2_p4:
 
-Rows total: 27.000000000000007
-Mem total: 45.87890625
+Rows total: 19.800000000000008
+Mem total: 33.64453125000001
 Throughput: 148.0
 

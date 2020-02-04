@@ -154,20 +154,32 @@ def solve(devices, queries, flows):
         max_mem = m.addVar(vtype=GRB.CONTINUOUS, name='max_mem')
         m.addGenConstrMax(max_mem, mem_series, name='mem_overall')
 
-    if(common_config.solver == 'univmon_greedy'):
+    if('univmon_greedy' in common_config.solver):
         mem_series_p4 = [d.mem_tot for d in devices if isinstance(d, p4)]
         mem_series_cpu = [d.mem_tot for d in devices if isinstance(d, cpu)]
         max_mem_p4 = m.addVar(vtype=GRB.CONTINUOUS, name='max_mem_p4')
         m.addGenConstrMax(max_mem_p4, mem_series_p4, name='mem_overall_p4')
         max_mem_cpu = m.addVar(vtype=GRB.CONTINUOUS, name='max_mem_cpu')
         m.addGenConstrMax(max_mem_cpu, mem_series_cpu, name='mem_overall_cpu')
+        if(common_config.solver == 'univmon_greedy_rows'):
+            rows_series_p4 = [d.rows_tot for d in devices if isinstance(d, p4)]
+            rows_series_cpu = [d.rows_tot for d in devices if isinstance(d, cpu)]
+            max_rows_p4 = m.addVar(vtype=GRB.CONTINUOUS, name='max_rows_p4')
+            m.addGenConstrMax(max_rows_p4, rows_series_p4, name='rows_overall_p4')
+            max_rows_cpu = m.addVar(vtype=GRB.CONTINUOUS, name='max_rows_cpu')
+            m.addGenConstrMax(max_rows_cpu, rows_series_cpu, name='rows_overall_cpu')
 
     m.ModelSense = GRB.MINIMIZE
     if(common_config.solver == 'univmon'):
         m.setObjective(max_mem)
     elif(common_config.solver == 'univmon_greedy'):
-        m.setObjectiveN(max_mem_cpu, 0, 10, name='cpu_load')
-        m.setObjectiveN(max_mem_p4, 1, 5, name='p4_load')
+        m.setObjectiveN(max_mem_cpu, 0, 10, name='cpu_mem_load')
+        m.setObjectiveN(max_mem_p4, 1, 5, name='p4_mem_load')
+    elif(common_config.solver == 'univmon_greedy_rows'):
+        m.setObjectiveN(max_rows_cpu, 0, 20, name='cpu_rows_load')
+        m.setObjectiveN(max_rows_p4, 1, 15, name='p4_rows_load')
+        m.setObjectiveN(max_mem_cpu, 2, 10, name='cpu_load_mem')
+        m.setObjectiveN(max_mem_p4, 3, 5, name='p4_load_mem')
     elif(common_config.solver == 'netmon'):
         m.setObjectiveN(ns, 0, 10, reltol=common_config.ns_tol, name='ns')
         m.setObjectiveN(res, 1, 5, reltol=common_config.res_tol, name='res')
