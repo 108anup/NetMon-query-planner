@@ -81,7 +81,7 @@ beluga20 = {
 
 tofino = {
     'meter_alus': 4, 'sram': 48, 'stages': 12, 'line_thr': 148,
-    'max_mpp': 48, 'max_mem': 48*12, 'max_rows': 12 * 4
+    'max_mpr': 48, 'max_mem': 48*12, 'max_rows': 12 * 4
 }
 
 # All memory measured in KB unless otherwise specified
@@ -122,7 +122,7 @@ config = [
                 hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
                 max_mem=32768, max_rows=9, name='cpu_1'),
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1')
+               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_1')
         ],
         queries=[cm_sketch(eps0=eps0*50, del0=del0),
                  cm_sketch(eps0=eps0/5, del0=del0),
@@ -142,7 +142,7 @@ config = [
                 hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
                 max_mem=32768, max_rows=9, name='cpu_1'),
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
+               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_1'),
         ],
         queries=[cm_sketch(eps0=eps0*50, del0=del0),
                  # cm_sketch(eps0=eps0*6, del0=del0),
@@ -162,7 +162,7 @@ config = [
                 hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
                 max_mem=32768, max_rows=9, name='cpu_1'),
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
+               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_1'),
         ],
         queries=[cm_sketch(eps0=eps0*5, del0=del0)]
     ),
@@ -188,7 +188,7 @@ config = [
                 hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
                 max_mem=32768, max_rows=9, name='cpu_2'),
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
+               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_1'),
         ],
         queries=[cm_sketch(eps0=eps0*5, del0=del0),
                  cm_sketch(eps0=eps0/2, del0=del0),
@@ -216,7 +216,7 @@ config = [
                 hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
                 max_mem=32768, max_rows=9, name='cpu_2'),
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
+               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_1'),
         ],
         queries=[cm_sketch(eps0=eps0*50, del0=del0),
                  cm_sketch(eps0=eps0/5, del0=del0),
@@ -244,9 +244,9 @@ config = [
                 hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
                 max_mem=32768, max_rows=9, name='cpu_2'),
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
+               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_1'),
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_2')
+               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_2')
         ],
         queries=[cm_sketch(eps0=eps0*12, del0=del0),
                  cm_sketch(eps0=eps0/5, del0=del0),
@@ -258,9 +258,9 @@ config = [
     param(
         devices=[
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_1'),
+               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_1'),
             p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpp=48, max_mem=48*12, max_rows=12, name='p4_2')
+               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_2')
         ],
         queries=[cm_sketch(eps0=eps0*12, del0=del0)]
     ),
@@ -327,6 +327,8 @@ common_config = param(
 def update_config(args):
     common_config.solver = args.scheme
     common_config.mipout = args.mipout
+    common_config.cfg_num = int(args.config)
+    common_config.partition = args.partition
 
 
 '''

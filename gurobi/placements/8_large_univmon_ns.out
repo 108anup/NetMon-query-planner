@@ -1,0 +1,34 @@
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+Model update took: 0.06793713569641113 seconds
+Warning: constraint name "accuracy_(0, sk_0)[0]" has a space
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 79702 rows, 152471 columns and 311620 nonzeros
+Model fingerprint: 0x3c266ebc
+Model has 1 general constraint
+Variable types: 152471 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [7e-01, 5e+01]
+Presolve removed 79052 rows and 151315 columns
+Presolve time: 0.21s
+Presolved: 650 rows, 1156 columns, 3257 nonzeros
+Variable types: 1156 continuous, 0 integer (0 binary)
+
+Root relaxation: objective 4.349252e+00, 921 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       4.3492519    4.34925  0.00%     -    0s
+
+Explored 0 nodes (921 simplex iterations) in 0.26 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 4.34925 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.349251916274e+00, best bound 4.349251916274e+00, gap 0.0000%
+Model optimize took: 0.259613037109375 seconds

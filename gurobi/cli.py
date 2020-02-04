@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-
+from solvers import solver_names
 
 def generate_parser():
     p = ArgumentParser(
@@ -11,7 +11,7 @@ def generate_parser():
         action='store',
         default='netmon',
         help='Technique to use for placement',
-        choices=['netmon', 'univmon', 'univmon_greedy', 'univmon_greedy_rows']
+        choices=solver_names
     )
 
     p.add_argument(
@@ -30,7 +30,13 @@ def generate_parser():
     p.add_argument(
         '--mipout',
         action='store_true',
-        default=0
+        default=False
+    )
+
+    p.add_argument(
+        '-p', '--partition',
+        action='store_true',
+        default=False
     )
 
     return p

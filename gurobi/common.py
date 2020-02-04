@@ -1,3 +1,17 @@
+import sys
+import logging
+
+
+class InfoFilter(logging.Filter):
+    def filter(self, rec):
+        return rec.levelno == logging.INFO
+
+
+class DebugFilter(logging.Filter):
+    def filter(self, rec):
+        return rec.levelno == logging.DEBUG
+
+
 def memoize(func):
     cache = dict()
 
@@ -22,6 +36,32 @@ class param:
             raise AttributeError
 
 
+def setup_logging(args):
+    if(args.verbose >= 2):
+        log.setLevel(logging.DEBUG)
+    elif(args.verbose >= 1):
+        log.setLevel(logging.INFO)
+    else:
+        log.setLevel(logging.WARNING)
+
+    if(args.verbose >= 2):
+        h_debug = logging.StreamHandler(sys.stdout)
+        h_debug.setLevel(logging.DEBUG)
+        h_debug.addFilter(DebugFilter())
+        log.addHandler(h_debug)
+        # TODO: Add option to redirect debug to file
+    if(args.verbose >= 1):
+        h_info = logging.StreamHandler(sys.stdout)
+        h_info.setLevel(logging.INFO)
+        h_info.addFilter(InfoFilter())
+        log.addHandler(h_info)
+    if(args.verbose >= 0):
+        h_warn = logging.StreamHandler()
+        h_warn.setLevel(logging.WARNING)
+        log.addHandler(h_warn)
+
+
+log = logging.getLogger('mip')
 constants = param(
     cell_size=4,
     KB2B=1024

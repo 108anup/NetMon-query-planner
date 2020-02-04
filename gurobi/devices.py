@@ -57,7 +57,10 @@ class cpu(param):
         #     sys.exit(-1)
         return pdt
 
-    def update_ns(self, rows, mem, m):
+    def add_ns_constraints(self, m):
+        rows = self.rows_tot
+        mem = self.mem_tot
+
         # Access time based on mem
         # TODO:: better fits for mem and t
         self.m_access_time = m.addVar(vtype=GRB.CONTINUOUS, lb=0,
@@ -112,8 +115,8 @@ class cpu(param):
         m.addGenConstrMax(self.ns, [self.ns_dpdk, self.ns_sketch],
                           name='ns_{}'.format(self))
 
-    def res(self, rows, mem):
-        return 10*(self.cores_dpdk + self.cores_sketch) + mem/self.Li_size[2]
+    def res(self):
+        return 10*(self.cores_dpdk + self.cores_sketch) + self.mem_tot/self.Li_size[2]
 
     def __repr__(self):
         return self.name
@@ -129,12 +132,12 @@ class cpu(param):
 
 class p4(param):
 
-    def update_ns(self, rows, mem, m):
+    def add_ns_constraints(self, m):
         self.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
         m.addConstr(self.ns == 1000 / self.line_thr, name='ns_{}'.format(self))
 
-    def res(self, rows, mem):
-        return rows/self.meter_alus + mem/self.sram
+    def res(self):
+        return self.rows_tot/self.meter_alus + self.mem_tot/self.sram
 
     def __repr__(self):
         return self.name
