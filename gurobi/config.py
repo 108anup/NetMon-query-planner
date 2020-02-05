@@ -12,6 +12,7 @@ hosts = hosts_per_tors * tors_per_l1s * l1s
 tors = tors_per_l1s * l1s
 hosts_tors = hosts + tors
 hosts_tors_l1s = hosts_tors + l1s
+numqueries = 128
 
 
 def get_path(h1, h2):
@@ -278,7 +279,7 @@ config = [
             [p4(**tofino, name='l2_p4')]
         ),
         queries=(
-            [cm_sketch(eps0=eps0, del0=del0) for i in range(64)] + []
+            [cm_sketch(eps0=eps0, del0=del0) for i in range(numqueries)] + []
             # [cm_sketch(eps0=eps0*10, del0=del0) for i in range(24)] +
             # [cm_sketch(eps0=eps0, del0=del0) for i in range(32)]
         ),
@@ -286,10 +287,10 @@ config = [
             flow(
                 path=get_path(random.randint(0, hosts-1), random.randint(0, hosts-1)),
                 queries=[
-                    (random.randint(0, 63), int(random.random() * 4 + 7)/10)
+                    (random.randint(0, numqueries-1), int(random.random() * 4 + 7)/10)
                 ]
             )
-            for flownum in range(64 * 5)
+            for flownum in range(max(hosts, numqueries) * 5)
         ]
     ),
 
@@ -320,7 +321,9 @@ common_config = param(
     ns_tol=0.05,
     res_tol=0.05,
     fileout=False,
-    solver='netmon'
+    solver='netmon',
+    use_model=False,
+    ftol=6e-5
 )
 
 

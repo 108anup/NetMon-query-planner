@@ -81,7 +81,7 @@ class cpu(param):
         #             + rows * self.hash_ns
         #             <= self.ns_single, name='ns_single_{}'.format(self))
         m.addConstr(self.pdt_m_rows + rows * self.hash_ns
-                    <= self.ns_single,
+                    == self.ns_single,
                     name='ns_single_{}'.format(self))
 
         # Multi-core model

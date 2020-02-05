@@ -95,8 +95,9 @@ def solve(devices, queries, flows):
                       for dnum in range(numdevices)),
                      name='accuracy_{}_{}'.format(pnum, sk))
 
-    # Memory constraints
+    # Load constraints
     for (dnum, d) in enumerate(devices):
+        # Memory constraints
         # Capacity constraints included in bounds
         mem_tot = m.addVar(vtype=GRB.CONTINUOUS,
                            name='mem_tot_{}'.format(d),
@@ -104,6 +105,16 @@ def solve(devices, queries, flows):
         m.addConstr(mem_tot == mem.sum(dnum, '*'),
                     name='mem_tot_{}'.format(d))
         d.mem_tot = mem_tot
+
+        # Row constraints
+        rows_tot = m.addVar(vtype=GRB.CONTINUOUS,
+                            name='rows_tot_{}'.format(d), lb=0)
+        rows_series = [p.num_rows * frac[dnum, p.partition_id]
+                       for p in partitions]
+        m.addConstr(rows_tot == gp.quicksum(rows_series),
+                    name='rows_tot_{}'.format(d))
+        d.rows_tot = rows_tot
+
 
     if(solver_to_num[common_config.solver] > 0):
         add_device_aware_constraints(devices, queries, flows,

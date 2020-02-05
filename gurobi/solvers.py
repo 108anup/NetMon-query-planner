@@ -40,6 +40,21 @@ Need to include cost of branch i.e. if hash lies in relevant range.
 """
 
 
+def get_rounded_val(v):
+    if(v < 0):
+        return 0
+    if(v < common_config.ftol):
+        return 0
+    return v
+
+
+def get_val(v):
+    if(isinstance(v, (float, int))):
+        return v
+    else:
+        return v.x
+
+
 def write_vars(m):
     log.debug("\nVARIABLES "+"-"*30)
     log.debug("Objective: {}".format(m.objVal))
@@ -51,20 +66,24 @@ def write_vars(m):
 def add_device_aware_constraints(devices, queries, flows,
                                  partitions, m, frac, mem):
     for (dnum, d) in enumerate(devices):
-        # Row constraints
-        rows_tot = m.addVar(vtype=GRB.CONTINUOUS,
-                            name='rows_tot_{}'.format(d),
-                            lb=0, ub=d.max_rows)
-        rows_series = [p.num_rows * frac[dnum, p.partition_id]
-                       for p in partitions]
-        m.addConstr(rows_tot == gp.quicksum(rows_series),
-                    name='rows_tot_{}'.format(d))
-        d.rows_tot = rows_tot
+        m.addConstr(d.rows_tot <= d.max_rows,
+                    name='row_capacity_{}'.format(d))
 
         if hasattr(d, 'max_mpp'):
             for (pnum, p) in enumerate(partitions):
                 m.addConstr(mem[dnum, pnum] <= d.max_mpr * p.num_rows,
                             'capacity_mem_par_{}'.format(d))
+
+
+def check_device_aware_constraints(devices, partitions, mem):
+    for (dnum, d) in enumerate(devices):
+        if not (d.rows_tot.x <= d.max_rows):
+            return False
+        if hasattr(d, 'max_mpp'):
+            for (pnum, p) in enumerate(partitions):
+                if not (mem[dnum, pnum].x <= d.max_mpr * p.num_rows):
+                    return False
+    return True
 
 
 def add_device_model_constraints(devices, queries, flows, partitions, m):
@@ -80,9 +99,48 @@ def add_device_model_constraints(devices, queries, flows, partitions, m):
     ns_series = [d.ns for d in devices]
     ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns')
     m.addGenConstrMax(ns, ns_series, name='ns_overall')
-    res = m.addVar(vtype=GRB.CONTINUOUS, name='ns')
+    res = m.addVar(vtype=GRB.CONTINUOUS, name='res')
     m.addConstr(res_acc == res, name='res_acc')
     return (ns, res)
+
+
+def optimize_devices(devices, ns_req=None):
+    res_acc = 0
+    ns_max = 0
+    for d in devices:
+        u = gp.Model(d.name)
+        d.u = u
+        mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
+                           name='mem_tot_{}'.format(d),
+                           lb=0, ub=d.max_mem)
+        u.addConstr(mem_tot == get_rounded_val(d.mem_tot.x),
+                    name='mem_tot_{}'.format(d))
+        d.mem_tot = mem_tot
+
+        # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
+        #                     name='rows_tot_{}'.format(d), lb=0)
+        # u.addConstr(rows_tot == d.rows_tot.x, name='rows_tot_{}'.format(d))
+        d.rows_tot = get_rounded_val(d.rows_tot.x)
+        d.add_ns_constraints(u)
+
+        if(ns_req):
+            u.addConstr(d.ns >= ns_req, name='ns_req_{}'.format(d))
+        u.setObjectiveN(d.ns, 0, 10, reltol=common_config.ns_tol,
+                        name='ns')
+        u.setObjectiveN(d.res(), 1, 5, reltol=common_config.res_tol,
+                        name='res')
+
+        u.ModelSense = GRB.MINIMIZE
+        u.setParam(GRB.Param.LogToConsole, 0)
+        u.update()
+        u.optimize()
+
+        write_vars(u)
+
+        ns_max = max(ns_max, u.getObjective(0).getValue())
+        res_acc += u.getObjective(1).getValue()
+
+    return (ns_max, res_acc)
 
 
 class netmon(param):
@@ -116,9 +174,14 @@ class univmon(param):
         mem_series = [d.mem_tot for d in self.devices]
         self.max_mem = self.m.addVar(vtype=GRB.CONTINUOUS, name='max_mem')
         self.m.addGenConstrMax(self.max_mem, mem_series, name='mem_overall')
+        self.tot_mem = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                     name='tot_mem')
+        self.m.addConstr(self.tot_mem == gp.quicksum(mem_series),
+                         name='tot_mem')
 
     def add_objective(self):
-        self.m.setObjective(self.max_mem)
+        self.m.setObjectiveN(self.max_mem, 0, 10, name='max_mem')
+        self.m.setObjectiveN(self.tot_mem, 1, 5, name='tot_mem')
 
     def post_optimize(self, aware=False):
         self.m.printQuality()
@@ -127,77 +190,116 @@ class univmon(param):
         log_placement(self.devices, self.queries, self.flows, self.partitions,
                       self.m, self.frac)
 
-        '''
-        prefixes = ['cores_sketch_cpu',
-                    'cores_dpdk_cpu', 'ns_sketch_cpu', 'ns_dpdk_cpu',
-                    'ns_cpu', 'pdt_nsk_c_cpu', 'pdt_nsc_dpdk_cpu', 'ns$',
-                    'res_overall$']
-        regex = '|'.join(prefixes)
-        prog = re.compile(regex)
-        for v in m.getVars():
-            if (not prog.match(v.varName)):
-                print(v.varName)
-                if(abs(v.x) < 1e-5):
-                    m.addConstr(v == 0)
-                else:
-                    m.addConstr(v == v.x)
+        if(not common_config.use_model):
+            if (not aware and
+                not check_device_aware_constraints(
+                    self.devices, self.partitions, self.mem)):
+                log.info("Infeasible placement")
+                return
 
-        for d in devices:
-            if(isinstance(d, cpu)):
-                m.addConstr(d.cores_dpdk == 6)
-        '''
-        prefixes = ['frac', 'mem\[']
-        regex = '|'.join(prefixes)
-        prog = re.compile(regex)
-        for v in self.m.getVars():
-            if (prog.match(v.varName)):
-                if((v.x) < 0):
-                    self.m.addConstr(v == 0)
-                else:
-                    self.m.addConstr(v == v.x)
+            res_acc = 0
+            ns_max = 0
+            for d in self.devices:
+                u = gp.Model(d.name)
+                d.u = u
+                mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
+                                   name='mem_tot_{}'.format(d),
+                                   lb=0, ub=d.max_mem)
+                u.addConstr(mem_tot == get_rounded_val(d.mem_tot.x),
+                            name='mem_tot_{}'.format(d))
+                d.mem_tot = mem_tot
 
+                # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
+                #                     name='rows_tot_{}'.format(d), lb=0)
+                # u.addConstr(rows_tot == d.rows_tot.x, name='rows_tot_{}'.format(d))
+                d.rows_tot = get_rounded_val(d.rows_tot.x)
+                d.add_ns_constraints(u)
 
-        # # Compute Best thr / res tradeoff possible
-        # if(not aware):
-        #     for (dnum, d) in enumerate(devices):
+                u.setObjectiveN(d.ns, 0, 10, reltol=common_config.ns_tol,
+                                name='ns')
+                u.setObjectiveN(d.res(), 1, 5, reltol=common_config.res_tol,
+                                name='res')
 
-        if(not aware):
-            add_device_aware_constraints(
+                u.ModelSense = GRB.MINIMIZE
+                u.setParam(GRB.Param.LogToConsole, 0)
+                u.update()
+                u.optimize()
+
+                write_vars(u)
+
+                ns_max = max(ns_max, u.getObjective(0).getValue())
+
+            res_acc = 0
+            for d in self.devices:
+                u = d.u
+                if(isinstance(d, cpu)):
+                    u.addConstr(d.ns >= ns_max, name='ns_req_{}'.format(d))
+
+                    u.update()
+                    u.optimize()
+                    write_vars(u)
+
+                ns_max = max(ns_max, u.getObjective(0).getValue())
+                res_acc += u.getObjective(1).getValue()
+
+            log_results(ns_max, res_acc)
+
+        else:
+            prefixes = ['frac', 'mem\[']
+            regex = '|'.join(prefixes)
+            prog = re.compile(regex)
+            for v in self.m.getVars():
+                if (prog.match(v.varName)):
+                    # if((v.x) < 0):
+                    #     self.m.addConstr(v == 0)
+                    # else:
+                    #     self.m.addConstr(v == v.x)
+                    self.m.addConstr(v == get_rounded_val(v.x))
+
+            self.m.setParam(GRB.Param.FeasibilityTol, common_config.ftol)
+            if(not aware):
+                add_device_aware_constraints(
+                    self.devices, self.queries, self.flows,
+                    self.partitions, self.m, self.frac, self.mem)
+
+            (ns, res) = add_device_model_constraints(
                 self.devices, self.queries, self.flows,
-                self.partitions, self.m, self.frac, self.mem)
+                self.partitions, self.m)
 
-        (ns, res) = add_device_model_constraints(
-            self.devices, self.queries, self.flows, self.partitions, self.m)
+            self.m.NumObj = 2
+            self.m.setObjectiveN(ns, 0, 10, reltol=common_config.ns_tol,
+                                 name='ns')
+            self.m.setObjectiveN(res, 1, 5, reltol=common_config.res_tol,
+                                 name='res')
+            self.m.update()
+            self.m.optimize()
 
-        self.m.NumObj = 2
-        self.m.setObjectiveN(ns, 0, 10, reltol=common_config.ns_tol, name='ns')
-        self.m.setObjectiveN(res, 1, 5, reltol=common_config.res_tol,
-                             name='res')
-        self.m.update()
-        self.m.optimize()
+            if(self.m.Status == GRB.INFEASIBLE):
+                self.m.computeIIS()
+                self.m.write("progs/infeasible_placement_{}.ilp"
+                             "".format(common_config.cfg_num))
+                return
 
-        if(self.m.Status == GRB.INFEASIBLE):
-            self.m.computeIIS()
-            self.m.write("progs/infeasible_placement_{}.ilp"
-                         "".format(common_config.cfg_num))
-            return
+            # optimal_ns = ns.x * (1 + common_config.ns_tol)
+            # self.m.addConstr(ns <= optimal_ns)
+            # for d in self.devices:
+            #     self.m.addConstr(d.ns <= optimal_ns)
+            # self.m.setObjectiveN(res, 0, 10, reltol=common_config.res_tol,
+            #                      name='res')
+            # self.m.update()
+            # self.m.optimize()
 
-        # optimal_ns = ns.x * (1 + common_config.ns_tol)
-        # self.m.addConstr(ns <= optimal_ns)
-        # for d in self.devices:
-        #     self.m.addConstr(d.ns <= optimal_ns)
-        # self.m.setObjectiveN(res, 0, 10, reltol=common_config.res_tol,
-        #                      name='res')
-        # self.m.update()
-        # self.m.optimize()
+            # if(self.m.Status == GRB.INFEASIBLE):
+            #     self.m.computeIIS()
+            #     self.m.write("progs/infeasible_placement_{}.ilp"
+            #                  "".format(common_config.cfg_num))
+            #     return
 
-        # if(self.m.Status == GRB.INFEASIBLE):
-        #     self.m.computeIIS()
-        #     self.m.write("progs/infeasible_placement_{}.ilp"
-        #                  "".format(common_config.cfg_num))
-        #     return
+            self.m.printQuality()
+            write_vars(self.m)
 
-        log_results(ns, res)
+            log_results(ns, res)
+
         log_placement(self.devices, self.queries, self.flows,
                       self.partitions, self.m, self.frac)
 
@@ -221,10 +323,15 @@ class univmon_greedy(univmon):
                                          name='max_mem_cpu')
         self.m.addGenConstrMax(self.max_mem_cpu, mem_series_cpu,
                                name='mem_overall_cpu')
+        self.tot_mem = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                      name='tot_mem')
+        self.m.addConstr(self.tot_mem == gp.quicksum(mem_series_cpu)
+                         + gp.quicksum(mem_series_p4), name='tot_mem')
 
     def add_objective(self):
         self.m.setObjectiveN(self.max_mem_cpu, 0, 10, name='cpu_mem_load')
         self.m.setObjectiveN(self.max_mem_p4, 1, 5, name='p4_mem_load')
+        self.m.setObjectiveN(self.tot_mem, 2, 1, name='mem_load')
 
     def post_optimize(self):
         super(univmon_greedy, self).post_optimize(True)
@@ -250,18 +357,24 @@ class univmon_greedy_rows(univmon_greedy):
                                           name='max_rows_cpu')
         self.m.addGenConstrMax(self.max_rows_cpu, rows_series_cpu,
                                name='rows_overall_cpu')
+        self.tot_rows = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                      name='tot_rows')
+        self.m.addConstr(self.tot_rows == gp.quicksum(rows_series_cpu)
+                         + gp.quicksum(rows_series_p4), name='tot_rows')
 
     def add_objective(self):
-        self.m.setObjectiveN(self.max_rows_cpu, 0, 20, name='cpu_rows_load')
-        self.m.setObjectiveN(self.max_rows_p4, 1, 15, name='p4_rows_load')
-        self.m.setObjectiveN(self.max_mem_cpu, 2, 10, name='cpu_load_mem')
-        self.m.setObjectiveN(self.max_mem_p4, 3, 5, name='p4_load_mem')
+        self.m.setObjectiveN(self.max_rows_cpu, 0, 30, name='cpu_rows_load')
+        self.m.setObjectiveN(self.max_rows_p4, 1, 25, name='p4_rows_load')
+        self.m.setObjectiveN(self.tot_rows, 2, 20, name='rows_load')
+        self.m.setObjectiveN(self.max_mem_cpu, 3, 15, name='cpu_load_mem')
+        self.m.setObjectiveN(self.max_mem_p4, 4, 10, name='p4_load_mem')
+        self.m.setObjectiveN(self.tot_mem, 5, 5, name='mem_load')
 
 
 def log_results(ns, res):
     log.info("\nThroughput: {} Mpps, ns per packet: {}".format(
-        1000/ns.x, ns.x))
-    log.info("Resources: {}".format(res.x))
+        1000/get_val(ns), get_val(ns)))
+    log.info("Resources: {}".format(get_val(res)))
 
 
 def log_placement(devices, queries, flows, partitions, m, frac):
@@ -286,8 +399,7 @@ def log_placement(devices, queries, flows, partitions, m, frac):
         res_stats = d.resource_stats()
         if(res_stats != ""):
             log.info(res_stats)
-        if(hasattr(d, 'rows_tot')):
-            log.info("Rows total: {}".format(d.rows_tot.x))
+        log.info("Rows total: {}".format(get_val(d.rows_tot)))
         log.info("Mem total: {}".format(d.mem_tot.x))
         if(hasattr(d, 'ns')):
             log.info("Throughput: {}".format(1000/d.ns.x))

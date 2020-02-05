@@ -1,0 +1,208 @@
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------
+Model update took: 5.5789947509765625e-05 seconds
+Model optimize took: 0.006768226623535156 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 1.4662546562379
+frac[0,0] 0
+frac[0,1] 0.488751
+frac[0,2] 0
+frac[1,0] 0
+frac[1,1] 0.488751
+frac[1,2] 2.49971e-07
+frac[2,0] 1
+frac[2,1] 0.0224976
+frac[2,2] 1
+frac[3,0] 0
+frac[3,1] 0
+frac[3,2] 0.5
+mem[0,0] -1.81899e-12
+mem[0,1] 12455.3
+mem[0,2] 0
+mem[1,0] -1.81899e-12
+mem[1,1] 12455.3
+mem[1,2] 1.9529e-08
+mem[2,0] 0.105469
+mem[2,1] 573.326
+mem[2,2] 0.078125
+mem[3,0] -1.56472e-14
+mem[3,1] 0
+mem[3,2] 0.0390625
+mem_tot_cpu_1 12455.3
+rows_tot_cpu_1 1.46625
+mem_tot_cpu_2 12455.3
+rows_tot_cpu_2 1.46625
+mem_tot_p4_1 573.509
+rows_tot_p4_1 7.06749
+mem_tot_p4_2 0.0390625
+rows_tot_p4_2 2
+max_mem_p4 573.509
+max_mem_cpu 12455.3
+tot_mem 25484.1
+max_rows_p4 7.06749
+max_rows_cpu 1.46625
+tot_rows 12
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 0.3125, del0: 0.05, min_mem: 0.03515625)
+Par: 1, Rows: 3
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.489    0.489    0.022    0.000    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 4
+0.000    0.000    1.000    0.500    
+Total frac: 1.500
+
+Device (0) cpu_1:
+Rows total: 1.4662536563556219
+Mem total: 12455.286420726563
+
+Device (1) cpu_2:
+Rows total: 1.4662546562379
+Mem total: 12455.286420726563
+
+Device (2) p4_1:
+Rows total: 7.067491687406479
+Mem total: 573.509189796872
+
+Device (3) p4_2:
+Rows total: 1.9999990001154229
+Mem total: 0.0390624804709887
+
+Flow 0:
+queries: [(1, 1), (2, 1)]
+path: (0, 2, 1)
+Flow 1:
+queries: [(2, 0.9), (0, 1)]
+path: (0, 2)
+Flow 2:
+queries: [(1, 0.8), (2, 0.5)]
+path: (0, 3, 1)
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.428571428571429
+frac[0,0] 0
+frac[0,1] 0.488751
+frac[0,2] 0
+frac[1,0] 0
+frac[1,1] 0.488751
+frac[1,2] 0
+frac[2,0] 1
+frac[2,1] 0.0224976
+frac[2,2] 1
+frac[3,0] 0
+frac[3,1] 0
+frac[3,2] 0.5
+mem[0,0] 0
+mem[0,1] 12455.3
+mem[0,2] 0
+mem[1,0] 0
+mem[1,1] 12455.3
+mem[1,2] 0
+mem[2,0] 0.105469
+mem[2,1] 573.326
+mem[2,2] 0.078125
+mem[3,0] 0
+mem[3,1] 0
+mem[3,2] 0.0390625
+mem_tot_cpu_1 12455.3
+rows_tot_cpu_1 1.46625
+mem_tot_cpu_2 12455.3
+rows_tot_cpu_2 1.46625
+mem_tot_p4_1 573.509
+rows_tot_p4_1 7.06749
+mem_tot_p4_2 0.0390625
+rows_tot_p4_2 2
+max_mem_p4 573.509
+max_mem_cpu 12455.3
+tot_mem 25484.1
+max_rows_p4 7.06749
+max_rows_cpu 1.46625
+tot_rows 12
+m_access_time_cpu_1 11.9718
+ns_single_cpu_1 22.6856
+pdt_m_rows_cpu_1 17.5537
+cores_sketch_cpu_1 2
+cores_dpdk_cpu_1 5
+ns_sketch_cpu_1 11.3428
+ns_dpdk_cpu_1 11.4286
+ns_cpu_1 11.4286
+pdt_nsk_c_cpu_1 22.6856
+pdt_nsc_dpdk_cpu_1 57.1429
+m_access_time_cpu_2 11.9718
+ns_single_cpu_2 22.6856
+pdt_m_rows_cpu_2 17.5537
+cores_sketch_cpu_2 2
+cores_dpdk_cpu_2 5
+ns_sketch_cpu_2 11.3428
+ns_dpdk_cpu_2 11.4286
+ns_cpu_2 11.4286
+pdt_nsk_c_cpu_2 22.6856
+pdt_nsc_dpdk_cpu_2 57.1429
+ns_p4_1 6.75676
+ns_p4_2 6.75676
+ns 11.4286
+ns 157.257
+--------------------------------------------------
+
+Throughput: 87.5 Mpps, ns per packet: 11.428571428571429
+Resources: 157.2566360056329
+
+Sketch (0) (cm: eps0: 0.3125, del0: 0.05, min_mem: 0.03515625)
+Par: 1, Rows: 3
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.489    0.489    0.022    0.000    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 4
+0.000    0.000    1.000    0.500    
+Total frac: 1.500
+
+Device (0) cpu_1:
+cores_sketch: 2.0, cores_dpdk: 5.0
+Rows total: 1.4662536563556219
+Mem total: 12455.286420726565
+Throughput: 87.5
+
+Device (1) cpu_2:
+cores_sketch: 2.0, cores_dpdk: 5.0
+Rows total: 1.4662536563533228
+Mem total: 12455.286420707036
+Throughput: 87.5
+
+Device (2) p4_1:
+Rows total: 7.067491687406479
+Mem total: 573.509189796872
+Throughput: 148.0
+
+Device (3) p4_2:
+Rows total: 1.9999990001154229
+Mem total: 0.03906248047100435
+Throughput: 148.0
+
+Flow 0:
+queries: [(1, 1), (2, 1)]
+path: (0, 2, 1)
+Flow 1:
+queries: [(2, 0.9), (0, 1)]
+path: (0, 2)
+Flow 2:
+queries: [(1, 0.8), (2, 0.5)]
+path: (0, 3, 1)
+--------------------------------------------------

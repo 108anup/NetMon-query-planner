@@ -33,7 +33,7 @@ class param:
         if attr in self.__dict__:
             return self.__dict__[attr]
         else:
-            raise AttributeError
+            raise AttributeError("Not found key: {}".format(attr))
 
 
 def setup_logging(args):

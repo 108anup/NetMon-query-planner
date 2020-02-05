@@ -6,12 +6,12 @@ Minimize multi-objectives
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
   
 Subject To
- cov_0_7: frac[0,7] + frac[1,7] + frac[2,7] >= 1
- R76: frac[0,7] = 0
- R86: frac[1,7] = 0
- R96: frac[2,7] = 0.9999487948799924
+ cov_0_2: frac[0,2] + frac[1,2] + frac[2,2] >= 1
+ R32: frac[0,2] = 0
+ R35: frac[1,2] = 0
+ R38: frac[2,2] = 0.9999871987199981
 Bounds
- frac[0,7] free
- frac[1,7] free
- frac[2,7] free
+ frac[0,2] free
+ frac[1,2] free
+ frac[2,2] free
 End
