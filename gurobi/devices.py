@@ -122,8 +122,11 @@ class cpu(param):
         return self.name
 
     def resource_stats(self):
-        return "cores_sketch: {}, cores_dpdk: {}".format(
-            self.cores_sketch.x, self.cores_dpdk.x)
+        if(hasattr(self, 'cores_sketch')):
+            return "cores_sketch: {}, cores_dpdk: {}".format(
+                self.cores_sketch.x, self.cores_dpdk.x)
+        else:
+            return ""
 
     def __init__(self, *args, **kwargs):
         super(cpu, self).__init__(*args, **kwargs)

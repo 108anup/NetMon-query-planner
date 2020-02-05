@@ -93,7 +93,7 @@ def solve(devices, queries, flows):
         mm = sk.min_mem()
         m.addConstrs((mem[dnum, pnum] >= mm * frac[dnum, pnum] * num_rows
                       for dnum in range(numdevices)),
-                     name='accuracy_{}'.format(p))
+                     name='accuracy_{}_{}'.format(pnum, sk))
 
     # Memory constraints
     for (dnum, d) in enumerate(devices):

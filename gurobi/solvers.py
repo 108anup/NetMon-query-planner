@@ -110,7 +110,7 @@ class netmon(param):
 
 class univmon(param):
     def __init__(self, *args, **kwargs):
-        super(netmon, self).__init__(*args, **kwargs)
+        super(univmon, self).__init__(*args, **kwargs)
 
     def add_constraints(self):
         mem_series = [d.mem_tot for d in self.devices]
@@ -121,16 +121,12 @@ class univmon(param):
         self.m.setObjective(self.max_mem)
 
     def post_optimize(self, aware=False):
+        self.m.printQuality()
+        write_vars(self.m)
+
         log_placement(self.devices, self.queries, self.flows, self.partitions,
                       self.m, self.frac)
 
-        if(not aware):
-            add_device_aware_constraints(
-                self.devices, self.queries, self.flows,
-                self.partitions, self.m, self.frac, self.mem)
-
-        (ns, res) = add_device_model_constraints(
-            self.devices, self.queries, self.flows, self.partitions, self.m)
         '''
         prefixes = ['cores_sketch_cpu',
                     'cores_dpdk_cpu', 'ns_sketch_cpu', 'ns_dpdk_cpu',
@@ -155,10 +151,23 @@ class univmon(param):
         prog = re.compile(regex)
         for v in self.m.getVars():
             if (prog.match(v.varName)):
-                if(abs(v.x) < 1e-5):
+                if((v.x) < 0):
                     self.m.addConstr(v == 0)
                 else:
                     self.m.addConstr(v == v.x)
+
+
+        # # Compute Best thr / res tradeoff possible
+        # if(not aware):
+        #     for (dnum, d) in enumerate(devices):
+
+        if(not aware):
+            add_device_aware_constraints(
+                self.devices, self.queries, self.flows,
+                self.partitions, self.m, self.frac, self.mem)
+
+        (ns, res) = add_device_model_constraints(
+            self.devices, self.queries, self.flows, self.partitions, self.m)
 
         self.m.NumObj = 2
         self.m.setObjectiveN(ns, 0, 10, reltol=common_config.ns_tol, name='ns')
@@ -171,15 +180,31 @@ class univmon(param):
             self.m.computeIIS()
             self.m.write("progs/infeasible_placement_{}.ilp"
                          "".format(common_config.cfg_num))
-        else:
-            log_results(ns, res)
-            log_placement(self.devices, self.queries, self.flows,
-                          self.partitions, self.frac)
+            return
+
+        # optimal_ns = ns.x * (1 + common_config.ns_tol)
+        # self.m.addConstr(ns <= optimal_ns)
+        # for d in self.devices:
+        #     self.m.addConstr(d.ns <= optimal_ns)
+        # self.m.setObjectiveN(res, 0, 10, reltol=common_config.res_tol,
+        #                      name='res')
+        # self.m.update()
+        # self.m.optimize()
+
+        # if(self.m.Status == GRB.INFEASIBLE):
+        #     self.m.computeIIS()
+        #     self.m.write("progs/infeasible_placement_{}.ilp"
+        #                  "".format(common_config.cfg_num))
+        #     return
+
+        log_results(ns, res)
+        log_placement(self.devices, self.queries, self.flows,
+                      self.partitions, self.m, self.frac)
 
 
 class univmon_greedy(univmon):
     def __init__(self, *args, **kwargs):
-        super(netmon, self).__init__(*args, **kwargs)
+        super(univmon_greedy, self).__init__(*args, **kwargs)
 
     def add_constraints(self):
         mem_series_p4 = [d.mem_tot
@@ -207,10 +232,10 @@ class univmon_greedy(univmon):
 
 class univmon_greedy_rows(univmon_greedy):
     def __init__(self, *args, **kwargs):
-        super(netmon, self).__init__(*args, **kwargs)
+        super(univmon_greedy_rows, self).__init__(*args, **kwargs)
 
     def add_constraints(self):
-        super(self, univmon_greedy_rows).add_constraints()
+        super(univmon_greedy_rows, self).add_constraints()
         rows_series_p4 = [d.rows_tot
                           for d in self.devices
                           if isinstance(d, p4)]
