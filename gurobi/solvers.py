@@ -1,13 +1,11 @@
 import re
 import sys
-import inspect
 
 import gurobipy as gp
 from gurobipy import GRB
 
-from common import param, log
+from common import log, param
 from config import common_config
-
 from devices import cpu, p4
 
 """
@@ -104,45 +102,6 @@ def add_device_model_constraints(devices, queries, flows, partitions, m):
     return (ns, res)
 
 
-def optimize_devices(devices, ns_req=None):
-    res_acc = 0
-    ns_max = 0
-    for d in devices:
-        u = gp.Model(d.name)
-        d.u = u
-        mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
-                           name='mem_tot_{}'.format(d),
-                           lb=0, ub=d.max_mem)
-        u.addConstr(mem_tot == get_rounded_val(d.mem_tot.x),
-                    name='mem_tot_{}'.format(d))
-        d.mem_tot = mem_tot
-
-        # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
-        #                     name='rows_tot_{}'.format(d), lb=0)
-        # u.addConstr(rows_tot == d.rows_tot.x, name='rows_tot_{}'.format(d))
-        d.rows_tot = get_rounded_val(d.rows_tot.x)
-        d.add_ns_constraints(u)
-
-        if(ns_req):
-            u.addConstr(d.ns >= ns_req, name='ns_req_{}'.format(d))
-        u.setObjectiveN(d.ns, 0, 10, reltol=common_config.ns_tol,
-                        name='ns')
-        u.setObjectiveN(d.res(), 1, 5, reltol=common_config.res_tol,
-                        name='res')
-
-        u.ModelSense = GRB.MINIMIZE
-        u.setParam(GRB.Param.LogToConsole, 0)
-        u.update()
-        u.optimize()
-
-        write_vars(u)
-
-        ns_max = max(ns_max, u.getObjective(0).getValue())
-        res_acc += u.getObjective(1).getValue()
-
-    return (ns_max, res_acc)
-
-
 class netmon(param):
     def __init__(self, *args, **kwargs):
         super(netmon, self).__init__(*args, **kwargs)
@@ -195,6 +154,11 @@ class univmon(param):
                 not check_device_aware_constraints(
                     self.devices, self.partitions, self.mem)):
                 log.info("Infeasible placement")
+
+                if(not (common_config.output_file is None)):
+                    f = open(common_config.output_file, 'a')
+                    f.write("-, -, ")
+                    f.close()
                 return
 
             res_acc = 0
@@ -315,22 +279,26 @@ class univmon_greedy(univmon):
         mem_series_cpu = [d.mem_tot
                           for d in self.devices
                           if isinstance(d, cpu)]
-        self.max_mem_p4 = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                        name='max_mem_p4')
-        self.m.addGenConstrMax(self.max_mem_p4, mem_series_p4,
-                               name='mem_overall_p4')
-        self.max_mem_cpu = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                         name='max_mem_cpu')
-        self.m.addGenConstrMax(self.max_mem_cpu, mem_series_cpu,
-                               name='mem_overall_cpu')
+        if(len(mem_series_p4) > 0):
+            self.max_mem_p4 = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                            name='max_mem_p4')
+            self.m.addGenConstrMax(self.max_mem_p4, mem_series_p4,
+                                   name='mem_overall_p4')
+        if(len(mem_series_cpu) > 0):
+            self.max_mem_cpu = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                             name='max_mem_cpu')
+            self.m.addGenConstrMax(self.max_mem_cpu, mem_series_cpu,
+                                   name='mem_overall_cpu')
         self.tot_mem = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                      name='tot_mem')
+                                     name='tot_mem')
         self.m.addConstr(self.tot_mem == gp.quicksum(mem_series_cpu)
                          + gp.quicksum(mem_series_p4), name='tot_mem')
 
     def add_objective(self):
-        self.m.setObjectiveN(self.max_mem_cpu, 0, 10, name='cpu_mem_load')
-        self.m.setObjectiveN(self.max_mem_p4, 1, 5, name='p4_mem_load')
+        if(hasattr(self, 'max_mem_cpu')):
+            self.m.setObjectiveN(self.max_mem_cpu, 0, 10, name='cpu_mem_load')
+        if(hasattr(self, 'max_mem_p4')):
+            self.m.setObjectiveN(self.max_mem_p4, 1, 5, name='p4_mem_load')
         self.m.setObjectiveN(self.tot_mem, 2, 1, name='mem_load')
 
     def post_optimize(self):
@@ -349,25 +317,31 @@ class univmon_greedy_rows(univmon_greedy):
         rows_series_cpu = [d.rows_tot
                            for d in self.devices
                            if isinstance(d, cpu)]
-        self.max_rows_p4 = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                         name='max_rows_p4')
-        self.m.addGenConstrMax(self.max_rows_p4, rows_series_p4,
-                               name='rows_overall_p4')
-        self.max_rows_cpu = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                          name='max_rows_cpu')
-        self.m.addGenConstrMax(self.max_rows_cpu, rows_series_cpu,
-                               name='rows_overall_cpu')
+        if(len(rows_series_p4) > 0):
+            self.max_rows_p4 = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                             name='max_rows_p4')
+            self.m.addGenConstrMax(self.max_rows_p4, rows_series_p4,
+                                   name='rows_overall_p4')
+        if(len(rows_series_cpu) > 0):
+            self.max_rows_cpu = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                              name='max_rows_cpu')
+            self.m.addGenConstrMax(self.max_rows_cpu, rows_series_cpu,
+                                   name='rows_overall_cpu')
         self.tot_rows = self.m.addVar(vtype=GRB.CONTINUOUS,
                                       name='tot_rows')
         self.m.addConstr(self.tot_rows == gp.quicksum(rows_series_cpu)
                          + gp.quicksum(rows_series_p4), name='tot_rows')
 
     def add_objective(self):
-        self.m.setObjectiveN(self.max_rows_cpu, 0, 30, name='cpu_rows_load')
-        self.m.setObjectiveN(self.max_rows_p4, 1, 25, name='p4_rows_load')
+        if(hasattr(self, 'max_rows_cpu')):
+            self.m.setObjectiveN(self.max_rows_cpu, 0, 30, name='cpu_rows_load')
+        if(hasattr(self, 'max_rows_p4')):
+            self.m.setObjectiveN(self.max_rows_p4, 1, 25, name='p4_rows_load')
         self.m.setObjectiveN(self.tot_rows, 2, 20, name='rows_load')
-        self.m.setObjectiveN(self.max_mem_cpu, 3, 15, name='cpu_load_mem')
-        self.m.setObjectiveN(self.max_mem_p4, 4, 10, name='p4_load_mem')
+        if(hasattr(self, 'max_mem_cpu')):
+            self.m.setObjectiveN(self.max_mem_cpu, 3, 15, name='cpu_load_mem')
+        if(hasattr(self, 'max_mem_p4')):
+            self.m.setObjectiveN(self.max_mem_p4, 4, 10, name='p4_load_mem')
         self.m.setObjectiveN(self.tot_mem, 5, 5, name='mem_load')
 
 
@@ -375,6 +349,11 @@ def log_results(ns, res):
     log.info("\nThroughput: {} Mpps, ns per packet: {}".format(
         1000/get_val(ns), get_val(ns)))
     log.info("Resources: {}".format(get_val(res)))
+
+    if(not (common_config.output_file is None)):
+        f = open(common_config.output_file, 'a')
+        f.write("{:0.3f}, {:0.3f}, ".format(1000/get_val(ns), get_val(res)))
+        f.close()
 
 
 def log_placement(devices, queries, flows, partitions, m, frac):

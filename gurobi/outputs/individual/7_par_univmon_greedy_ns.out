@@ -1,0 +1,126 @@
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------
+Model update took: 7.200241088867188e-05 seconds
+Model optimize took: 0.005427360534667969 seconds
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 1
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+Par: 3, Rows: 1
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 1
+0.486    0.486    0.006    0.023    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.486    0.486    0.006    0.023    
+Total frac: 1.000
+Par: 3, Rows: 1
+0.486    0.486    0.006    0.023    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 1
+0.500    0.500    0.000    0.000    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.500    0.500    0.000    0.000    
+Total frac: 1.000
+Par: 3, Rows: 1
+0.500    0.500    0.000    0.000    
+Total frac: 1.000
+Par: 4, Rows: 1
+0.500    0.500    0.000    0.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+Rows total: 3.4573387585525053
+Mem total: 12413.542012328126
+
+Device (1) cpu_2:
+Rows total: 3.4573387585525053
+Mem total: 12413.542012328126
+
+Device (2) p4_1:
+Rows total: 3.0176610805002797
+Mem total: 574.7587689218747
+
+Device (3) p4_2:
+Rows total: 0.06766140239471059
+Mem total: 574.7587689218747
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 70.0 Mpps, ns per packet: 14.285714285714286
+Resources: 167.7502625644887
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 1
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+Par: 3, Rows: 1
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 1
+0.486    0.486    0.006    0.023    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.486    0.486    0.006    0.023    
+Total frac: 1.000
+Par: 3, Rows: 1
+0.486    0.486    0.006    0.023    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 1
+0.500    0.500    0.000    0.000    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.500    0.500    0.000    0.000    
+Total frac: 1.000
+Par: 3, Rows: 1
+0.500    0.500    0.000    0.000    
+Total frac: 1.000
+Par: 4, Rows: 1
+0.500    0.500    0.000    0.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 4.0, cores_dpdk: 2.9999999999999996
+Rows total: 3.4573387585525053
+Mem total: 12413.542012328126
+Throughput: 70.0
+
+Device (1) cpu_2:
+cores_sketch: 4.0, cores_dpdk: 2.9999999999999996
+Rows total: 3.4573387585525053
+Mem total: 12413.542012328126
+Throughput: 70.0
+
+Device (2) p4_1:
+Rows total: 3.0176610805002797
+Mem total: 574.7587689218747
+Throughput: 148.0
+
+Device (3) p4_2:
+Rows total: 0.06766140239471059
+Mem total: 574.7587689218747
+Throughput: 148.0
+--------------------------------------------------

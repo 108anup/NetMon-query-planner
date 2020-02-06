@@ -17,7 +17,7 @@ if [[ -n $3 ]]; then
     args="-p"
 fi
 
-python mip.py -c "$1" -s univmon -vv $args | tee "$dir/$1_$3univmon_ns.out"
-python mip.py -c "$1" -s univmon_greedy -vv $args | tee "$dir/$1_$3univmon_greedy_ns.out"
-python mip.py -c "$1" -s univmon_greedy_rows -vv $args | tee "$dir/$1_$3univmon_greedy_rows_ns.out"
-python mip.py -c "$1" -s netmon -vv $args | tee "$dir/$1_$3netmon.out"
+python mip.py -c "$1" -s univmon -v $args | tee "$dir/$1_$3univmon_ns.out"
+python mip.py -c "$1" -s univmon_greedy -v $args | tee "$dir/$1_$3univmon_greedy_ns.out"
+python mip.py -c "$1" -s univmon_greedy_rows -v $args | tee "$dir/$1_$3univmon_greedy_rows_ns.out"
+python mip.py -c "$1" -s netmon -v --mipout $args | tee "$dir/$1_$3netmon.out"

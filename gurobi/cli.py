@@ -1,5 +1,7 @@
 from argparse import ArgumentParser
+
 from solvers import solver_names
+
 
 def generate_parser():
     p = ArgumentParser(
@@ -37,6 +39,12 @@ def generate_parser():
         '-p', '--partition',
         action='store_true',
         default=False
+    )
+
+    p.add_argument(
+        '-o', '--output-file',
+        action='store',
+        default=None
     )
 
     return p

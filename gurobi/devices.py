@@ -1,6 +1,6 @@
-import sys
-from common import param
 from gurobipy import GRB
+
+from common import param
 
 
 class cpu(param):

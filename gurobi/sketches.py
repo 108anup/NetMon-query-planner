@@ -1,6 +1,6 @@
 import math
 
-from common import memoize, param, constants
+from common import constants, memoize, param
 
 
 class cm_sketch(param):
@@ -18,6 +18,6 @@ class cm_sketch(param):
     def cols(self):
         return math.ceil(math.e / self.eps0)
 
-    #@memoize
+    # @memoize
     def min_mem(self):
         return constants.cell_size * self.cols() / constants.KB2B

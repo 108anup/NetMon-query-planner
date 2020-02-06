@@ -1,0 +1,2002 @@
+\ Model netmon_copy
+\ LP format - for model browsing. Use MPS format to capture full model detail.
+Minimize multi-objectives
+  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.05
+  
+  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
+  
+Subject To
+ cov_4_21: frac[1,21] + frac[3,21] + frac[8,21] + frac[9,21] + frac[12,21]
+   >= 1
+ cov_6_72: frac[1,72] + frac[2,72] + frac[8,72] + frac[9,72] + frac[12,72]
+   >= 0.9
+ cov_7_7: frac[3,7] + frac[7,7] + frac[9,7] + frac[11,7] + frac[12,7]
+   + frac[13,7] + frac[14,7] >= 1
+ cov_8_49: frac[1,49] + frac[7,49] + frac[8,49] + frac[11,49] + frac[12,49]
+   + frac[13,49] + frac[14,49] >= 1
+ cov_9_46: frac[1,46] + frac[2,46] + frac[8,46] + frac[9,46] + frac[12,46]
+   >= 0.8
+ cov_10_24: frac[0,24] + frac[2,24] + frac[8,24] + frac[9,24] + frac[12,24]
+   >= 0.7
+ cov_15_45: frac[2,45] + frac[4,45] + frac[9,45] + frac[10,45]
+   + frac[12,45] + frac[13,45] + frac[14,45] >= 0.8
+ cov_17_60: frac[0,60] + frac[1,60] + frac[8,60] >= 0.9
+ cov_23_69: frac[1,69] + frac[4,69] + frac[8,69] + frac[10,69]
+   + frac[12,69] + frac[13,69] + frac[14,69] >= 1
+ cov_30_67: frac[1,67] + frac[3,67] + frac[8,67] + frac[9,67] + frac[12,67]
+   >= 1
+ cov_31_1: frac[2,1] + frac[3,1] + frac[9,1] >= 1
+ cov_32_52: frac[5,52] + frac[7,52] + frac[10,52] + frac[11,52]
+   + frac[13,52] >= 0.8
+ cov_44_52: frac[0,52] + frac[1,52] + frac[8,52] >= 1
+ cov_45_32: frac[0,32] + frac[7,32] + frac[8,32] + frac[11,32]
+   + frac[12,32] + frac[13,32] + frac[14,32] >= 1
+ cov_48_66: frac[0,66] + frac[3,66] + frac[8,66] + frac[9,66] + frac[12,66]
+   >= 0.8
+ cov_49_54: frac[0,54] + frac[6,54] + frac[8,54] + frac[11,54]
+   + frac[12,54] + frac[13,54] + frac[14,54] >= 1
+ cov_52_64: frac[3,64] + frac[6,64] + frac[9,64] + frac[11,64]
+   + frac[12,64] + frac[13,64] + frac[14,64] >= 1
+ cov_54_35: frac[2,35] + frac[3,35] + frac[9,35] >= 0.9
+ cov_55_78: frac[0,78] + frac[6,78] + frac[8,78] + frac[11,78]
+   + frac[12,78] + frac[13,78] + frac[14,78] >= 1
+ cov_56_29: frac[6,29] + frac[7,29] + frac[11,29] >= 1
+ cov_57_4: frac[0,4] + frac[3,4] + frac[8,4] + frac[9,4] + frac[12,4]
+   >= 0.8
+ cov_59_23: frac[1,23] + frac[3,23] + frac[8,23] + frac[9,23] + frac[12,23]
+   >= 1
+ cov_61_65: frac[1,65] + frac[3,65] + frac[8,65] + frac[9,65] + frac[12,65]
+   >= 0.9
+ cov_65_19: frac[0,19] + frac[1,19] + frac[8,19] >= 0.7
+ cov_67_13: frac[1,13] + frac[7,13] + frac[8,13] + frac[11,13]
+   + frac[12,13] + frac[13,13] + frac[14,13] >= 1
+ cov_69_7: frac[0,7] + frac[1,7] + frac[8,7] >= 0.9
+ cov_70_63: frac[3,63] + frac[7,63] + frac[9,63] + frac[11,63]
+   + frac[12,63] + frac[13,63] + frac[14,63] >= 1
+ cov_71_59: frac[4,59] + frac[6,59] + frac[10,59] + frac[11,59]
+   + frac[13,59] >= 0.9
+ cov_73_75: frac[6,75] + frac[7,75] + frac[11,75] >= 0.7
+ cov_75_3: frac[2,3] + frac[3,3] + frac[9,3] >= 0.9
+ cov_77_63: frac[4,63] + frac[5,63] + frac[10,63] >= 0.7
+ cov_78_22: frac[4,22] + frac[5,22] + frac[10,22] >= 0.9
+ cov_82_28: frac[0,28] + frac[2,28] + frac[8,28] + frac[9,28] + frac[12,28]
+   >= 0.7
+ cov_84_71: frac[0,71] + frac[1,71] + frac[8,71] >= 0.7
+ cov_86_3: frac[1,3] + frac[7,3] + frac[8,3] + frac[11,3] + frac[12,3]
+   + frac[13,3] + frac[14,3] >= 0.9
+ cov_87_21: frac[5,21] + frac[7,21] + frac[10,21] + frac[11,21]
+   + frac[13,21] >= 1
+ cov_89_38: frac[0,38] + frac[1,38] + frac[8,38] >= 1
+ cov_93_5: frac[1,5] + frac[4,5] + frac[8,5] + frac[10,5] + frac[12,5]
+   + frac[13,5] + frac[14,5] >= 1
+ cov_94_67: frac[1,67] + frac[7,67] + frac[8,67] + frac[11,67]
+   + frac[12,67] + frac[13,67] + frac[14,67] >= 1
+ cov_97_11: frac[4,11] + frac[6,11] + frac[10,11] + frac[11,11]
+   + frac[13,11] >= 1
+ cov_101_31: frac[1,31] + frac[4,31] + frac[8,31] + frac[10,31]
+   + frac[12,31] + frac[13,31] + frac[14,31] >= 1
+ cov_102_29: frac[0,29] + frac[5,29] + frac[8,29] + frac[10,29]
+   + frac[12,29] + frac[13,29] + frac[14,29] >= 1
+ cov_120_20: frac[3,20] + frac[4,20] + frac[9,20] + frac[10,20]
+   + frac[12,20] + frac[13,20] + frac[14,20] >= 1
+ cov_122_12: frac[0,12] + frac[5,12] + frac[8,12] + frac[10,12]
+   + frac[12,12] + frac[13,12] + frac[14,12] >= 1
+ cov_124_53: frac[2,53] + frac[7,53] + frac[9,53] + frac[11,53]
+   + frac[12,53] + frac[13,53] + frac[14,53] >= 0.9
+ cov_125_37: frac[3,37] + frac[5,37] + frac[9,37] + frac[10,37]
+   + frac[12,37] + frac[13,37] + frac[14,37] >= 0.8
+ cov_126_9: frac[0,9] + frac[5,9] + frac[8,9] + frac[10,9] + frac[12,9]
+   + frac[13,9] + frac[14,9] >= 1
+ cov_127_60: frac[2,60] + frac[3,60] + frac[9,60] >= 1
+ cov_130_74: frac[0,74] + frac[1,74] + frac[8,74] >= 1
+ cov_133_48: frac[5,48] + frac[7,48] + frac[10,48] + frac[11,48]
+   + frac[13,48] >= 0.9
+ cov_137_43: frac[5,43] + frac[7,43] + frac[10,43] + frac[11,43]
+   + frac[13,43] >= 0.8
+ cov_146_26: frac[1,26] + frac[7,26] + frac[8,26] + frac[11,26]
+   + frac[12,26] + frac[13,26] + frac[14,26] >= 0.9
+ cov_147_73: frac[2,73] + frac[3,73] + frac[9,73] >= 0.7
+ cov_150_72: frac[5,72] + frac[7,72] + frac[10,72] + frac[11,72]
+   + frac[13,72] >= 1
+ cov_154_15: frac[5,15] + frac[6,15] + frac[10,15] + frac[11,15]
+   + frac[13,15] >= 1
+ cov_162_51: frac[2,51] + frac[3,51] + frac[9,51] >= 1
+ cov_164_0: frac[1,0] + frac[4,0] + frac[8,0] + frac[10,0] + frac[12,0]
+   + frac[13,0] + frac[14,0] >= 1
+ cov_165_8: frac[5,8] + frac[7,8] + frac[10,8] + frac[11,8] + frac[13,8]
+   >= 0.8
+ cov_173_66: frac[5,66] + frac[7,66] + frac[10,66] + frac[11,66]
+   + frac[13,66] >= 1
+ cov_181_26: frac[4,26] + frac[5,26] + frac[10,26] >= 0.8
+ cov_182_39: frac[0,39] + frac[4,39] + frac[8,39] + frac[10,39]
+   + frac[12,39] + frac[13,39] + frac[14,39] >= 1
+ cov_183_56: frac[1,56] + frac[7,56] + frac[8,56] + frac[11,56]
+   + frac[12,56] + frac[13,56] + frac[14,56] >= 1
+ cov_191_76: frac[2,76] + frac[7,76] + frac[9,76] + frac[11,76]
+   + frac[12,76] + frac[13,76] + frac[14,76] >= 0.9
+ cov_197_67: frac[2,67] + frac[5,67] + frac[9,67] + frac[10,67]
+   + frac[12,67] + frac[13,67] + frac[14,67] >= 1
+ cov_200_27: frac[2,27] + frac[7,27] + frac[9,27] + frac[11,27]
+   + frac[12,27] + frac[13,27] + frac[14,27] >= 1
+ cov_201_22: frac[0,22] + frac[2,22] + frac[8,22] + frac[9,22]
+   + frac[12,22] >= 1
+ cov_202_23: frac[4,23] + frac[7,23] + frac[10,23] + frac[11,23]
+   + frac[13,23] >= 0.7
+ cov_210_57: frac[2,57] + frac[6,57] + frac[9,57] + frac[11,57]
+   + frac[12,57] + frac[13,57] + frac[14,57] >= 1
+ cov_213_16: frac[1,16] + frac[7,16] + frac[8,16] + frac[11,16]
+   + frac[12,16] + frac[13,16] + frac[14,16] >= 0.9
+ cov_214_55: frac[5,55] + frac[6,55] + frac[10,55] + frac[11,55]
+   + frac[13,55] >= 1
+ cov_216_17: frac[2,17] + frac[3,17] + frac[9,17] >= 0.9
+ cov_218_68: frac[1,68] + frac[2,68] + frac[8,68] + frac[9,68]
+   + frac[12,68] >= 0.9
+ cov_222_59: frac[0,59] + frac[2,59] + frac[8,59] + frac[9,59]
+   + frac[12,59] >= 0.9
+ cov_225_44: frac[6,44] + frac[7,44] + frac[11,44] >= 1
+ cov_230_61: frac[4,61] + frac[7,61] + frac[10,61] + frac[11,61]
+   + frac[13,61] >= 1
+ cov_232_15: frac[1,15] + frac[3,15] + frac[8,15] + frac[9,15]
+   + frac[12,15] >= 0.7
+ cov_233_36: frac[2,36] + frac[6,36] + frac[9,36] + frac[11,36]
+   + frac[12,36] + frac[13,36] + frac[14,36] >= 1
+ cov_234_1: frac[0,1] + frac[1,1] + frac[8,1] >= 0.9
+ cov_235_74: frac[3,74] + frac[7,74] + frac[9,74] + frac[11,74]
+   + frac[12,74] + frac[13,74] + frac[14,74] >= 1
+ cov_236_64: frac[0,64] + frac[1,64] + frac[8,64] >= 0.7
+ cov_240_29: frac[2,29] + frac[3,29] + frac[9,29] >= 0.8
+ cov_251_10: frac[0,10] + frac[5,10] + frac[8,10] + frac[10,10]
+   + frac[12,10] + frac[13,10] + frac[14,10] >= 0.9
+ cov_253_54: frac[4,54] + frac[5,54] + frac[10,54] >= 1
+ cov_254_46: frac[4,46] + frac[5,46] + frac[10,46] >= 0.8
+ cov_256_69: frac[2,69] + frac[3,69] + frac[9,69] >= 0.9
+ cov_259_57: frac[0,57] + frac[1,57] + frac[8,57] >= 0.9
+ cov_260_8: frac[1,8] + frac[3,8] + frac[8,8] + frac[9,8] + frac[12,8]
+   >= 0.7
+ cov_266_34: frac[5,34] + frac[6,34] + frac[10,34] + frac[11,34]
+   + frac[13,34] >= 1
+ cov_270_30: frac[0,30] + frac[2,30] + frac[8,30] + frac[9,30]
+   + frac[12,30] >= 1
+ cov_271_73: frac[0,73] + frac[4,73] + frac[8,73] + frac[10,73]
+   + frac[12,73] + frac[13,73] + frac[14,73] >= 0.8
+ cov_275_6: frac[0,6] + frac[5,6] + frac[8,6] + frac[10,6] + frac[12,6]
+   + frac[13,6] + frac[14,6] >= 1
+ cov_284_50: frac[5,50] + frac[6,50] + frac[10,50] + frac[11,50]
+   + frac[13,50] >= 0.8
+ cov_290_75: frac[4,75] + frac[5,75] + frac[10,75] >= 1
+ cov_291_2: frac[2,2] + frac[7,2] + frac[9,2] + frac[11,2] + frac[12,2]
+   + frac[13,2] + frac[14,2] >= 1
+ cov_293_70: frac[3,70] + frac[6,70] + frac[9,70] + frac[11,70]
+   + frac[12,70] + frac[13,70] + frac[14,70] >= 0.9
+ cov_294_17: frac[0,17] + frac[7,17] + frac[8,17] + frac[11,17]
+   + frac[12,17] + frac[13,17] + frac[14,17] >= 0.8
+ cov_300_62: frac[3,62] + frac[5,62] + frac[9,62] + frac[10,62]
+   + frac[12,62] + frac[13,62] + frac[14,62] >= 1
+ cov_303_34: frac[0,34] + frac[3,34] + frac[8,34] + frac[9,34]
+   + frac[12,34] >= 0.8
+ cov_306_19: frac[4,19] + frac[6,19] + frac[10,19] + frac[11,19]
+   + frac[13,19] >= 0.8
+ cov_307_75: frac[0,75] + frac[3,75] + frac[8,75] + frac[9,75]
+   + frac[12,75] >= 0.9
+ cov_313_24: frac[4,24] + frac[6,24] + frac[10,24] + frac[11,24]
+   + frac[13,24] >= 0.7
+ cov_321_41: frac[3,41] + frac[5,41] + frac[9,41] + frac[10,41]
+   + frac[12,41] + frac[13,41] + frac[14,41] >= 1
+ cov_326_45: frac[6,45] + frac[7,45] + frac[11,45] >= 0.8
+ cov_327_5: frac[6,5] + frac[7,5] + frac[11,5] >= 1
+ cov_330_30: frac[4,30] + frac[7,30] + frac[10,30] + frac[11,30]
+   + frac[13,30] >= 1
+ cov_331_58: frac[4,58] + frac[7,58] + frac[10,58] + frac[11,58]
+   + frac[13,58] >= 0.8
+ cov_349_36: frac[0,36] + frac[1,36] + frac[8,36] >= 0.9
+ cov_353_13: frac[2,13] + frac[3,13] + frac[9,13] >= 0.9
+ cov_354_4: frac[5,4] + frac[7,4] + frac[10,4] + frac[11,4] + frac[13,4]
+   >= 1
+ cov_355_44: frac[3,44] + frac[5,44] + frac[9,44] + frac[10,44]
+   + frac[12,44] + frac[13,44] + frac[14,44] >= 1
+ cov_357_28: frac[5,28] + frac[6,28] + frac[10,28] + frac[11,28]
+   + frac[13,28] >= 0.8
+ cov_358_33: frac[0,33] + frac[5,33] + frac[8,33] + frac[10,33]
+   + frac[12,33] + frac[13,33] + frac[14,33] >= 1
+ cov_360_40: frac[3,40] + frac[5,40] + frac[9,40] + frac[10,40]
+   + frac[12,40] + frac[13,40] + frac[14,40] >= 1
+ cov_368_42: frac[1,42] + frac[5,42] + frac[8,42] + frac[10,42]
+   + frac[12,42] + frac[13,42] + frac[14,42] >= 0.9
+ cov_369_25: frac[4,25] + frac[5,25] + frac[10,25] >= 1
+ cov_370_18: frac[4,18] + frac[7,18] + frac[10,18] + frac[11,18]
+   + frac[13,18] >= 0.9
+ cov_372_51: frac[1,51] + frac[5,51] + frac[8,51] + frac[10,51]
+   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.9
+ cov_373_25: frac[0,25] + frac[1,25] + frac[8,25] >= 0.8
+ cov_374_60: frac[4,60] + frac[7,60] + frac[10,60] + frac[11,60]
+   + frac[13,60] >= 1
+ cov_375_55: frac[0,55] + frac[1,55] + frac[8,55] >= 0.9
+ cov_376_14: frac[4,14] + frac[7,14] + frac[10,14] + frac[11,14]
+   + frac[13,14] >= 0.8
+ cov_377_77: frac[0,77] + frac[3,77] + frac[8,77] + frac[9,77]
+   + frac[12,77] >= 0.8
+ cov_380_37: frac[0,37] + frac[1,37] + frac[8,37] >= 0.7
+ cov_381_47: frac[2,47] + frac[5,47] + frac[9,47] + frac[10,47]
+   + frac[12,47] + frac[13,47] + frac[14,47] >= 0.8
+ cov_384_58: frac[0,58] + frac[2,58] + frac[8,58] + frac[9,58]
+   + frac[12,58] >= 1
+ cov_391_38: frac[4,38] + frac[6,38] + frac[10,38] + frac[11,38]
+   + frac[13,38] >= 0.9
+ cov_392_79: frac[3,79] + frac[4,79] + frac[9,79] + frac[10,79]
+   + frac[12,79] + frac[13,79] + frac[14,79] >= 1
+ cov_396_71: frac[3,71] + frac[7,71] + frac[9,71] + frac[11,71]
+   + frac[12,71] + frac[13,71] + frac[14,71] >= 0.9
+ cov_397_33: frac[2,33] + frac[3,33] + frac[9,33] >= 1
+ accuracy_0_sk_0[8]: - 50.9765625 frac[8,0] + mem[8,0] >= 0
+ accuracy_0_sk_0[9]: - 50.9765625 frac[9,0] + mem[9,0] >= 0
+ accuracy_0_sk_0[10]: - 50.9765625 frac[10,0] + mem[10,0] >= 0
+ accuracy_0_sk_0[12]: - 50.9765625 frac[12,0] + mem[12,0] >= 0
+ accuracy_0_sk_0[13]: - 50.9765625 frac[13,0] + mem[13,0] >= 0
+ accuracy_0_sk_0[14]: - 50.9765625 frac[14,0] + mem[14,0] >= 0
+ accuracy_1_sk_1[8]: - 50.9765625 frac[8,1] + mem[8,1] >= 0
+ accuracy_1_sk_1[9]: - 50.9765625 frac[9,1] + mem[9,1] >= 0
+ accuracy_2_sk_2[9]: - 50.9765625 frac[9,2] + mem[9,2] >= 0
+ accuracy_2_sk_2[11]: - 50.9765625 frac[11,2] + mem[11,2] >= 0
+ accuracy_2_sk_2[12]: - 50.9765625 frac[12,2] + mem[12,2] >= 0
+ accuracy_2_sk_2[13]: - 50.9765625 frac[13,2] + mem[13,2] >= 0
+ accuracy_2_sk_2[14]: - 50.9765625 frac[14,2] + mem[14,2] >= 0
+ accuracy_3_sk_3[8]: - 50.9765625 frac[8,3] + mem[8,3] >= 0
+ accuracy_3_sk_3[9]: - 50.9765625 frac[9,3] + mem[9,3] >= 0
+ accuracy_3_sk_3[11]: - 50.9765625 frac[11,3] + mem[11,3] >= 0
+ accuracy_3_sk_3[12]: - 50.9765625 frac[12,3] + mem[12,3] >= 0
+ accuracy_3_sk_3[13]: - 50.9765625 frac[13,3] + mem[13,3] >= 0
+ accuracy_3_sk_3[14]: - 50.9765625 frac[14,3] + mem[14,3] >= 0
+ accuracy_4_sk_4[8]: - 50.9765625 frac[8,4] + mem[8,4] >= 0
+ accuracy_4_sk_4[9]: - 50.9765625 frac[9,4] + mem[9,4] >= 0
+ accuracy_4_sk_4[10]: - 50.9765625 frac[10,4] + mem[10,4] >= 0
+ accuracy_4_sk_4[11]: - 50.9765625 frac[11,4] + mem[11,4] >= 0
+ accuracy_4_sk_4[12]: - 50.9765625 frac[12,4] + mem[12,4] >= 0
+ accuracy_4_sk_4[13]: - 50.9765625 frac[13,4] + mem[13,4] >= 0
+ accuracy_5_sk_5[8]: - 50.9765625 frac[8,5] + mem[8,5] >= 0
+ accuracy_5_sk_5[10]: - 50.9765625 frac[10,5] + mem[10,5] >= 0
+ accuracy_5_sk_5[11]: - 50.9765625 frac[11,5] + mem[11,5] >= 0
+ accuracy_5_sk_5[12]: - 50.9765625 frac[12,5] + mem[12,5] >= 0
+ accuracy_5_sk_5[13]: - 50.9765625 frac[13,5] + mem[13,5] >= 0
+ accuracy_5_sk_5[14]: - 50.9765625 frac[14,5] + mem[14,5] >= 0
+ accuracy_6_sk_6[8]: - 50.9765625 frac[8,6] + mem[8,6] >= 0
+ accuracy_6_sk_6[10]: - 50.9765625 frac[10,6] + mem[10,6] >= 0
+ accuracy_6_sk_6[12]: - 50.9765625 frac[12,6] + mem[12,6] >= 0
+ accuracy_6_sk_6[13]: - 50.9765625 frac[13,6] + mem[13,6] >= 0
+ accuracy_6_sk_6[14]: - 50.9765625 frac[14,6] + mem[14,6] >= 0
+ accuracy_7_sk_7[8]: - 50.9765625 frac[8,7] + mem[8,7] >= 0
+ accuracy_7_sk_7[9]: - 50.9765625 frac[9,7] + mem[9,7] >= 0
+ accuracy_7_sk_7[11]: - 50.9765625 frac[11,7] + mem[11,7] >= 0
+ accuracy_7_sk_7[12]: - 50.9765625 frac[12,7] + mem[12,7] >= 0
+ accuracy_7_sk_7[13]: - 50.9765625 frac[13,7] + mem[13,7] >= 0
+ accuracy_7_sk_7[14]: - 50.9765625 frac[14,7] + mem[14,7] >= 0
+ accuracy_8_sk_8[8]: - 50.9765625 frac[8,8] + mem[8,8] >= 0
+ accuracy_8_sk_8[9]: - 50.9765625 frac[9,8] + mem[9,8] >= 0
+ accuracy_8_sk_8[10]: - 50.9765625 frac[10,8] + mem[10,8] >= 0
+ accuracy_8_sk_8[11]: - 50.9765625 frac[11,8] + mem[11,8] >= 0
+ accuracy_8_sk_8[12]: - 50.9765625 frac[12,8] + mem[12,8] >= 0
+ accuracy_8_sk_8[13]: - 50.9765625 frac[13,8] + mem[13,8] >= 0
+ accuracy_9_sk_9[8]: - 50.9765625 frac[8,9] + mem[8,9] >= 0
+ accuracy_9_sk_9[10]: - 50.9765625 frac[10,9] + mem[10,9] >= 0
+ accuracy_9_sk_9[12]: - 50.9765625 frac[12,9] + mem[12,9] >= 0
+ accuracy_9_sk_9[13]: - 50.9765625 frac[13,9] + mem[13,9] >= 0
+ accuracy_9_sk_9[14]: - 50.9765625 frac[14,9] + mem[14,9] >= 0
+ accuracy_10_sk_10[8]: - 50.9765625 frac[8,10] + mem[8,10] >= 0
+ accuracy_10_sk_10[10]: - 50.9765625 frac[10,10] + mem[10,10] >= 0
+ accuracy_10_sk_10[12]: - 50.9765625 frac[12,10] + mem[12,10] >= 0
+ accuracy_10_sk_10[13]: - 50.9765625 frac[13,10] + mem[13,10] >= 0
+ accuracy_10_sk_10[14]: - 50.9765625 frac[14,10] + mem[14,10] >= 0
+ accuracy_11_sk_11[10]: - 50.9765625 frac[10,11] + mem[10,11] >= 0
+ accuracy_11_sk_11[11]: - 50.9765625 frac[11,11] + mem[11,11] >= 0
+ accuracy_11_sk_11[13]: - 50.9765625 frac[13,11] + mem[13,11] >= 0
+ accuracy_12_sk_12[8]: - 50.9765625 frac[8,12] + mem[8,12] >= 0
+ accuracy_12_sk_12[10]: - 50.9765625 frac[10,12] + mem[10,12] >= 0
+ accuracy_12_sk_12[12]: - 50.9765625 frac[12,12] + mem[12,12] >= 0
+ accuracy_12_sk_12[13]: - 50.9765625 frac[13,12] + mem[13,12] >= 0
+ accuracy_12_sk_12[14]: - 50.9765625 frac[14,12] + mem[14,12] >= 0
+ accuracy_13_sk_13[8]: - 50.9765625 frac[8,13] + mem[8,13] >= 0
+ accuracy_13_sk_13[9]: - 50.9765625 frac[9,13] + mem[9,13] >= 0
+ accuracy_13_sk_13[11]: - 50.9765625 frac[11,13] + mem[11,13] >= 0
+ accuracy_13_sk_13[12]: - 50.9765625 frac[12,13] + mem[12,13] >= 0
+ accuracy_13_sk_13[13]: - 50.9765625 frac[13,13] + mem[13,13] >= 0
+ accuracy_13_sk_13[14]: - 50.9765625 frac[14,13] + mem[14,13] >= 0
+ accuracy_14_sk_14[10]: - 50.9765625 frac[10,14] + mem[10,14] >= 0
+ accuracy_14_sk_14[11]: - 50.9765625 frac[11,14] + mem[11,14] >= 0
+ accuracy_14_sk_14[13]: - 50.9765625 frac[13,14] + mem[13,14] >= 0
+ accuracy_15_sk_15[8]: - 50.9765625 frac[8,15] + mem[8,15] >= 0
+ accuracy_15_sk_15[9]: - 50.9765625 frac[9,15] + mem[9,15] >= 0
+ accuracy_15_sk_15[10]: - 50.9765625 frac[10,15] + mem[10,15] >= 0
+ accuracy_15_sk_15[11]: - 50.9765625 frac[11,15] + mem[11,15] >= 0
+ accuracy_15_sk_15[12]: - 50.9765625 frac[12,15] + mem[12,15] >= 0
+ accuracy_15_sk_15[13]: - 50.9765625 frac[13,15] + mem[13,15] >= 0
+ accuracy_15_sk_15[14]: - 50.9765625 frac[14,15] + mem[14,15] >= 0
+ accuracy_16_sk_16[8]: - 50.9765625 frac[8,16] + mem[8,16] >= 0
+ accuracy_16_sk_16[11]: - 50.9765625 frac[11,16] + mem[11,16] >= 0
+ accuracy_16_sk_16[12]: - 50.9765625 frac[12,16] + mem[12,16] >= 0
+ accuracy_16_sk_16[13]: - 50.9765625 frac[13,16] + mem[13,16] >= 0
+ accuracy_16_sk_16[14]: - 50.9765625 frac[14,16] + mem[14,16] >= 0
+ accuracy_17_sk_17[8]: - 50.9765625 frac[8,17] + mem[8,17] >= 0
+ accuracy_17_sk_17[9]: - 50.9765625 frac[9,17] + mem[9,17] >= 0
+ accuracy_17_sk_17[11]: - 50.9765625 frac[11,17] + mem[11,17] >= 0
+ accuracy_17_sk_17[12]: - 50.9765625 frac[12,17] + mem[12,17] >= 0
+ accuracy_17_sk_17[13]: - 50.9765625 frac[13,17] + mem[13,17] >= 0
+ accuracy_17_sk_17[14]: - 50.9765625 frac[14,17] + mem[14,17] >= 0
+ accuracy_18_sk_18[10]: - 50.9765625 frac[10,18] + mem[10,18] >= 0
+ accuracy_18_sk_18[11]: - 50.9765625 frac[11,18] + mem[11,18] >= 0
+ accuracy_18_sk_18[13]: - 50.9765625 frac[13,18] + mem[13,18] >= 0
+ accuracy_19_sk_19[8]: - 50.9765625 frac[8,19] + mem[8,19] >= 0
+ accuracy_19_sk_19[10]: - 50.9765625 frac[10,19] + mem[10,19] >= 0
+ accuracy_19_sk_19[11]: - 50.9765625 frac[11,19] + mem[11,19] >= 0
+ accuracy_19_sk_19[13]: - 50.9765625 frac[13,19] + mem[13,19] >= 0
+ accuracy_19_sk_19[14]: - 50.9765625 frac[14,19] + mem[14,19] >= 0
+ accuracy_20_sk_20[9]: - 50.9765625 frac[9,20] + mem[9,20] >= 0
+ accuracy_20_sk_20[10]: - 50.9765625 frac[10,20] + mem[10,20] >= 0
+ accuracy_20_sk_20[12]: - 50.9765625 frac[12,20] + mem[12,20] >= 0
+ accuracy_20_sk_20[13]: - 50.9765625 frac[13,20] + mem[13,20] >= 0
+ accuracy_20_sk_20[14]: - 50.9765625 frac[14,20] + mem[14,20] >= 0
+ accuracy_21_sk_21[8]: - 50.9765625 frac[8,21] + mem[8,21] >= 0
+ accuracy_21_sk_21[9]: - 50.9765625 frac[9,21] + mem[9,21] >= 0
+ accuracy_21_sk_21[10]: - 50.9765625 frac[10,21] + mem[10,21] >= 0
+ accuracy_21_sk_21[11]: - 50.9765625 frac[11,21] + mem[11,21] >= 0
+ accuracy_21_sk_21[12]: - 50.9765625 frac[12,21] + mem[12,21] >= 0
+ accuracy_21_sk_21[13]: - 50.9765625 frac[13,21] + mem[13,21] >= 0
+ accuracy_22_sk_22[8]: - 50.9765625 frac[8,22] + mem[8,22] >= 0
+ accuracy_22_sk_22[9]: - 50.9765625 frac[9,22] + mem[9,22] >= 0
+ accuracy_22_sk_22[10]: - 50.9765625 frac[10,22] + mem[10,22] >= 0
+ accuracy_22_sk_22[12]: - 50.9765625 frac[12,22] + mem[12,22] >= 0
+ accuracy_22_sk_22[13]: - 50.9765625 frac[13,22] + mem[13,22] >= 0
+ accuracy_23_sk_23[8]: - 50.9765625 frac[8,23] + mem[8,23] >= 0
+ accuracy_23_sk_23[9]: - 50.9765625 frac[9,23] + mem[9,23] >= 0
+ accuracy_23_sk_23[10]: - 50.9765625 frac[10,23] + mem[10,23] >= 0
+ accuracy_23_sk_23[11]: - 50.9765625 frac[11,23] + mem[11,23] >= 0
+ accuracy_23_sk_23[12]: - 50.9765625 frac[12,23] + mem[12,23] >= 0
+ accuracy_23_sk_23[13]: - 50.9765625 frac[13,23] + mem[13,23] >= 0
+ accuracy_24_sk_24[8]: - 50.9765625 frac[8,24] + mem[8,24] >= 0
+ accuracy_24_sk_24[9]: - 50.9765625 frac[9,24] + mem[9,24] >= 0
+ accuracy_24_sk_24[10]: - 50.9765625 frac[10,24] + mem[10,24] >= 0
+ accuracy_24_sk_24[11]: - 50.9765625 frac[11,24] + mem[11,24] >= 0
+ accuracy_24_sk_24[12]: - 50.9765625 frac[12,24] + mem[12,24] >= 0
+ accuracy_24_sk_24[13]: - 50.9765625 frac[13,24] + mem[13,24] >= 0
+ accuracy_25_sk_25[8]: - 50.9765625 frac[8,25] + mem[8,25] >= 0
+ accuracy_25_sk_25[10]: - 50.9765625 frac[10,25] + mem[10,25] >= 0
+ accuracy_26_sk_26[8]: - 50.9765625 frac[8,26] + mem[8,26] >= 0
+ accuracy_26_sk_26[10]: - 50.9765625 frac[10,26] + mem[10,26] >= 0
+ accuracy_26_sk_26[11]: - 50.9765625 frac[11,26] + mem[11,26] >= 0
+ accuracy_26_sk_26[12]: - 50.9765625 frac[12,26] + mem[12,26] >= 0
+ accuracy_26_sk_26[13]: - 50.9765625 frac[13,26] + mem[13,26] >= 0
+ accuracy_26_sk_26[14]: - 50.9765625 frac[14,26] + mem[14,26] >= 0
+ accuracy_27_sk_27[9]: - 50.9765625 frac[9,27] + mem[9,27] >= 0
+ accuracy_27_sk_27[11]: - 50.9765625 frac[11,27] + mem[11,27] >= 0
+ accuracy_27_sk_27[12]: - 50.9765625 frac[12,27] + mem[12,27] >= 0
+ accuracy_27_sk_27[13]: - 50.9765625 frac[13,27] + mem[13,27] >= 0
+ accuracy_27_sk_27[14]: - 50.9765625 frac[14,27] + mem[14,27] >= 0
+ accuracy_28_sk_28[8]: - 50.9765625 frac[8,28] + mem[8,28] >= 0
+ accuracy_28_sk_28[9]: - 50.9765625 frac[9,28] + mem[9,28] >= 0
+ accuracy_28_sk_28[10]: - 50.9765625 frac[10,28] + mem[10,28] >= 0
+ accuracy_28_sk_28[11]: - 50.9765625 frac[11,28] + mem[11,28] >= 0
+ accuracy_28_sk_28[12]: - 50.9765625 frac[12,28] + mem[12,28] >= 0
+ accuracy_28_sk_28[13]: - 50.9765625 frac[13,28] + mem[13,28] >= 0
+ accuracy_28_sk_28[14]: - 50.9765625 frac[14,28] + mem[14,28] >= 0
+ accuracy_29_sk_29[8]: - 50.9765625 frac[8,29] + mem[8,29] >= 0
+ accuracy_29_sk_29[9]: - 50.9765625 frac[9,29] + mem[9,29] >= 0
+ accuracy_29_sk_29[10]: - 50.9765625 frac[10,29] + mem[10,29] >= 0
+ accuracy_29_sk_29[11]: - 50.9765625 frac[11,29] + mem[11,29] >= 0
+ accuracy_29_sk_29[12]: - 50.9765625 frac[12,29] + mem[12,29] >= 0
+ accuracy_29_sk_29[13]: - 50.9765625 frac[13,29] + mem[13,29] >= 0
+ accuracy_29_sk_29[14]: - 50.9765625 frac[14,29] + mem[14,29] >= 0
+ accuracy_30_sk_30[8]: - 50.9765625 frac[8,30] + mem[8,30] >= 0
+ accuracy_30_sk_30[9]: - 50.9765625 frac[9,30] + mem[9,30] >= 0
+ accuracy_30_sk_30[10]: - 50.9765625 frac[10,30] + mem[10,30] >= 0
+ accuracy_30_sk_30[11]: - 50.9765625 frac[11,30] + mem[11,30] >= 0
+ accuracy_30_sk_30[12]: - 50.9765625 frac[12,30] + mem[12,30] >= 0
+ accuracy_30_sk_30[13]: - 50.9765625 frac[13,30] + mem[13,30] >= 0
+ accuracy_31_sk_31[8]: - 50.9765625 frac[8,31] + mem[8,31] >= 0
+ accuracy_31_sk_31[10]: - 50.9765625 frac[10,31] + mem[10,31] >= 0
+ accuracy_31_sk_31[12]: - 50.9765625 frac[12,31] + mem[12,31] >= 0
+ accuracy_31_sk_31[13]: - 50.9765625 frac[13,31] + mem[13,31] >= 0
+ accuracy_31_sk_31[14]: - 50.9765625 frac[14,31] + mem[14,31] >= 0
+ accuracy_32_sk_32[8]: - 50.9765625 frac[8,32] + mem[8,32] >= 0
+ accuracy_32_sk_32[9]: - 50.9765625 frac[9,32] + mem[9,32] >= 0
+ accuracy_32_sk_32[11]: - 50.9765625 frac[11,32] + mem[11,32] >= 0
+ accuracy_32_sk_32[12]: - 50.9765625 frac[12,32] + mem[12,32] >= 0
+ accuracy_32_sk_32[13]: - 50.9765625 frac[13,32] + mem[13,32] >= 0
+ accuracy_32_sk_32[14]: - 50.9765625 frac[14,32] + mem[14,32] >= 0
+ accuracy_33_sk_33[8]: - 50.9765625 frac[8,33] + mem[8,33] >= 0
+ accuracy_33_sk_33[9]: - 50.9765625 frac[9,33] + mem[9,33] >= 0
+ accuracy_33_sk_33[10]: - 50.9765625 frac[10,33] + mem[10,33] >= 0
+ accuracy_33_sk_33[12]: - 50.9765625 frac[12,33] + mem[12,33] >= 0
+ accuracy_33_sk_33[13]: - 50.9765625 frac[13,33] + mem[13,33] >= 0
+ accuracy_33_sk_33[14]: - 50.9765625 frac[14,33] + mem[14,33] >= 0
+ accuracy_34_sk_34[8]: - 50.9765625 frac[8,34] + mem[8,34] >= 0
+ accuracy_34_sk_34[9]: - 50.9765625 frac[9,34] + mem[9,34] >= 0
+ accuracy_34_sk_34[10]: - 50.9765625 frac[10,34] + mem[10,34] >= 0
+ accuracy_34_sk_34[11]: - 50.9765625 frac[11,34] + mem[11,34] >= 0
+ accuracy_34_sk_34[12]: - 50.9765625 frac[12,34] + mem[12,34] >= 0
+ accuracy_34_sk_34[13]: - 50.9765625 frac[13,34] + mem[13,34] >= 0
+ accuracy_35_sk_35[9]: - 50.9765625 frac[9,35] + mem[9,35] >= 0
+ accuracy_36_sk_36[8]: - 50.9765625 frac[8,36] + mem[8,36] >= 0
+ accuracy_36_sk_36[9]: - 50.9765625 frac[9,36] + mem[9,36] >= 0
+ accuracy_36_sk_36[11]: - 50.9765625 frac[11,36] + mem[11,36] >= 0
+ accuracy_36_sk_36[12]: - 50.9765625 frac[12,36] + mem[12,36] >= 0
+ accuracy_36_sk_36[13]: - 50.9765625 frac[13,36] + mem[13,36] >= 0
+ accuracy_36_sk_36[14]: - 50.9765625 frac[14,36] + mem[14,36] >= 0
+ accuracy_37_sk_37[8]: - 50.9765625 frac[8,37] + mem[8,37] >= 0
+ accuracy_37_sk_37[9]: - 50.9765625 frac[9,37] + mem[9,37] >= 0
+ accuracy_37_sk_37[10]: - 50.9765625 frac[10,37] + mem[10,37] >= 0
+ accuracy_37_sk_37[12]: - 50.9765625 frac[12,37] + mem[12,37] >= 0
+ accuracy_37_sk_37[13]: - 50.9765625 frac[13,37] + mem[13,37] >= 0
+ accuracy_37_sk_37[14]: - 50.9765625 frac[14,37] + mem[14,37] >= 0
+ accuracy_38_sk_38[8]: - 50.9765625 frac[8,38] + mem[8,38] >= 0
+ accuracy_38_sk_38[10]: - 50.9765625 frac[10,38] + mem[10,38] >= 0
+ accuracy_38_sk_38[11]: - 50.9765625 frac[11,38] + mem[11,38] >= 0
+ accuracy_38_sk_38[13]: - 50.9765625 frac[13,38] + mem[13,38] >= 0
+ accuracy_39_sk_39[8]: - 50.9765625 frac[8,39] + mem[8,39] >= 0
+ accuracy_39_sk_39[9]: - 50.9765625 frac[9,39] + mem[9,39] >= 0
+ accuracy_39_sk_39[10]: - 50.9765625 frac[10,39] + mem[10,39] >= 0
+ accuracy_39_sk_39[12]: - 50.9765625 frac[12,39] + mem[12,39] >= 0
+ accuracy_39_sk_39[13]: - 50.9765625 frac[13,39] + mem[13,39] >= 0
+ accuracy_39_sk_39[14]: - 50.9765625 frac[14,39] + mem[14,39] >= 0
+ accuracy_40_sk_40[9]: - 50.9765625 frac[9,40] + mem[9,40] >= 0
+ accuracy_40_sk_40[10]: - 50.9765625 frac[10,40] + mem[10,40] >= 0
+ accuracy_40_sk_40[12]: - 50.9765625 frac[12,40] + mem[12,40] >= 0
+ accuracy_40_sk_40[13]: - 50.9765625 frac[13,40] + mem[13,40] >= 0
+ accuracy_40_sk_40[14]: - 50.9765625 frac[14,40] + mem[14,40] >= 0
+ accuracy_41_sk_41[9]: - 50.9765625 frac[9,41] + mem[9,41] >= 0
+ accuracy_41_sk_41[10]: - 50.9765625 frac[10,41] + mem[10,41] >= 0
+ accuracy_41_sk_41[12]: - 50.9765625 frac[12,41] + mem[12,41] >= 0
+ accuracy_41_sk_41[13]: - 50.9765625 frac[13,41] + mem[13,41] >= 0
+ accuracy_41_sk_41[14]: - 50.9765625 frac[14,41] + mem[14,41] >= 0
+ accuracy_42_sk_42[8]: - 50.9765625 frac[8,42] + mem[8,42] >= 0
+ accuracy_42_sk_42[10]: - 50.9765625 frac[10,42] + mem[10,42] >= 0
+ accuracy_42_sk_42[12]: - 50.9765625 frac[12,42] + mem[12,42] >= 0
+ accuracy_42_sk_42[13]: - 50.9765625 frac[13,42] + mem[13,42] >= 0
+ accuracy_42_sk_42[14]: - 50.9765625 frac[14,42] + mem[14,42] >= 0
+ accuracy_43_sk_43[10]: - 50.9765625 frac[10,43] + mem[10,43] >= 0
+ accuracy_43_sk_43[11]: - 50.9765625 frac[11,43] + mem[11,43] >= 0
+ accuracy_43_sk_43[13]: - 50.9765625 frac[13,43] + mem[13,43] >= 0
+ accuracy_44_sk_44[8]: - 50.9765625 frac[8,44] + mem[8,44] >= 0
+ accuracy_44_sk_44[9]: - 50.9765625 frac[9,44] + mem[9,44] >= 0
+ accuracy_44_sk_44[10]: - 50.9765625 frac[10,44] + mem[10,44] >= 0
+ accuracy_44_sk_44[11]: - 50.9765625 frac[11,44] + mem[11,44] >= 0
+ accuracy_44_sk_44[12]: - 50.9765625 frac[12,44] + mem[12,44] >= 0
+ accuracy_44_sk_44[13]: - 50.9765625 frac[13,44] + mem[13,44] >= 0
+ accuracy_44_sk_44[14]: - 50.9765625 frac[14,44] + mem[14,44] >= 0
+ accuracy_45_sk_45[8]: - 50.9765625 frac[8,45] + mem[8,45] >= 0
+ accuracy_45_sk_45[9]: - 50.9765625 frac[9,45] + mem[9,45] >= 0
+ accuracy_45_sk_45[10]: - 50.9765625 frac[10,45] + mem[10,45] >= 0
+ accuracy_45_sk_45[11]: - 50.9765625 frac[11,45] + mem[11,45] >= 0
+ accuracy_45_sk_45[12]: - 50.9765625 frac[12,45] + mem[12,45] >= 0
+ accuracy_45_sk_45[13]: - 50.9765625 frac[13,45] + mem[13,45] >= 0
+ accuracy_45_sk_45[14]: - 50.9765625 frac[14,45] + mem[14,45] >= 0
+ accuracy_46_sk_46[8]: - 50.9765625 frac[8,46] + mem[8,46] >= 0
+ accuracy_46_sk_46[9]: - 50.9765625 frac[9,46] + mem[9,46] >= 0
+ accuracy_46_sk_46[10]: - 50.9765625 frac[10,46] + mem[10,46] >= 0
+ accuracy_46_sk_46[12]: - 50.9765625 frac[12,46] + mem[12,46] >= 0
+ accuracy_47_sk_47[9]: - 50.9765625 frac[9,47] + mem[9,47] >= 0
+ accuracy_47_sk_47[10]: - 50.9765625 frac[10,47] + mem[10,47] >= 0
+ accuracy_47_sk_47[12]: - 50.9765625 frac[12,47] + mem[12,47] >= 0
+ accuracy_47_sk_47[13]: - 50.9765625 frac[13,47] + mem[13,47] >= 0
+ accuracy_47_sk_47[14]: - 50.9765625 frac[14,47] + mem[14,47] >= 0
+ accuracy_48_sk_48[10]: - 50.9765625 frac[10,48] + mem[10,48] >= 0
+ accuracy_48_sk_48[11]: - 50.9765625 frac[11,48] + mem[11,48] >= 0
+ accuracy_48_sk_48[13]: - 50.9765625 frac[13,48] + mem[13,48] >= 0
+ accuracy_49_sk_49[8]: - 50.9765625 frac[8,49] + mem[8,49] >= 0
+ accuracy_49_sk_49[11]: - 50.9765625 frac[11,49] + mem[11,49] >= 0
+ accuracy_49_sk_49[12]: - 50.9765625 frac[12,49] + mem[12,49] >= 0
+ accuracy_49_sk_49[13]: - 50.9765625 frac[13,49] + mem[13,49] >= 0
+ accuracy_49_sk_49[14]: - 50.9765625 frac[14,49] + mem[14,49] >= 0
+ accuracy_50_sk_50[10]: - 50.9765625 frac[10,50] + mem[10,50] >= 0
+ accuracy_50_sk_50[11]: - 50.9765625 frac[11,50] + mem[11,50] >= 0
+ accuracy_50_sk_50[13]: - 50.9765625 frac[13,50] + mem[13,50] >= 0
+ accuracy_51_sk_51[8]: - 50.9765625 frac[8,51] + mem[8,51] >= 0
+ accuracy_51_sk_51[9]: - 50.9765625 frac[9,51] + mem[9,51] >= 0
+ accuracy_51_sk_51[10]: - 50.9765625 frac[10,51] + mem[10,51] >= 0
+ accuracy_51_sk_51[12]: - 50.9765625 frac[12,51] + mem[12,51] >= 0
+ accuracy_51_sk_51[13]: - 50.9765625 frac[13,51] + mem[13,51] >= 0
+ accuracy_51_sk_51[14]: - 50.9765625 frac[14,51] + mem[14,51] >= 0
+ accuracy_52_sk_52[8]: - 50.9765625 frac[8,52] + mem[8,52] >= 0
+ accuracy_52_sk_52[10]: - 50.9765625 frac[10,52] + mem[10,52] >= 0
+ accuracy_52_sk_52[11]: - 50.9765625 frac[11,52] + mem[11,52] >= 0
+ accuracy_52_sk_52[13]: - 50.9765625 frac[13,52] + mem[13,52] >= 0
+ accuracy_53_sk_53[9]: - 50.9765625 frac[9,53] + mem[9,53] >= 0
+ accuracy_53_sk_53[11]: - 50.9765625 frac[11,53] + mem[11,53] >= 0
+ accuracy_53_sk_53[12]: - 50.9765625 frac[12,53] + mem[12,53] >= 0
+ accuracy_53_sk_53[13]: - 50.9765625 frac[13,53] + mem[13,53] >= 0
+ accuracy_53_sk_53[14]: - 50.9765625 frac[14,53] + mem[14,53] >= 0
+ accuracy_54_sk_54[8]: - 50.9765625 frac[8,54] + mem[8,54] >= 0
+ accuracy_54_sk_54[10]: - 50.9765625 frac[10,54] + mem[10,54] >= 0
+ accuracy_54_sk_54[11]: - 50.9765625 frac[11,54] + mem[11,54] >= 0
+ accuracy_54_sk_54[12]: - 50.9765625 frac[12,54] + mem[12,54] >= 0
+ accuracy_54_sk_54[13]: - 50.9765625 frac[13,54] + mem[13,54] >= 0
+ accuracy_54_sk_54[14]: - 50.9765625 frac[14,54] + mem[14,54] >= 0
+ accuracy_55_sk_55[8]: - 50.9765625 frac[8,55] + mem[8,55] >= 0
+ accuracy_55_sk_55[10]: - 50.9765625 frac[10,55] + mem[10,55] >= 0
+ accuracy_55_sk_55[11]: - 50.9765625 frac[11,55] + mem[11,55] >= 0
+ accuracy_55_sk_55[13]: - 50.9765625 frac[13,55] + mem[13,55] >= 0
+ accuracy_56_sk_56[8]: - 50.9765625 frac[8,56] + mem[8,56] >= 0
+ accuracy_56_sk_56[11]: - 50.9765625 frac[11,56] + mem[11,56] >= 0
+ accuracy_56_sk_56[12]: - 50.9765625 frac[12,56] + mem[12,56] >= 0
+ accuracy_56_sk_56[13]: - 50.9765625 frac[13,56] + mem[13,56] >= 0
+ accuracy_56_sk_56[14]: - 50.9765625 frac[14,56] + mem[14,56] >= 0
+ accuracy_57_sk_57[8]: - 50.9765625 frac[8,57] + mem[8,57] >= 0
+ accuracy_57_sk_57[9]: - 50.9765625 frac[9,57] + mem[9,57] >= 0
+ accuracy_57_sk_57[10]: - 50.9765625 frac[10,57] + mem[10,57] >= 0
+ accuracy_57_sk_57[11]: - 50.9765625 frac[11,57] + mem[11,57] >= 0
+ accuracy_57_sk_57[12]: - 50.9765625 frac[12,57] + mem[12,57] >= 0
+ accuracy_57_sk_57[13]: - 50.9765625 frac[13,57] + mem[13,57] >= 0
+ accuracy_57_sk_57[14]: - 50.9765625 frac[14,57] + mem[14,57] >= 0
+ accuracy_58_sk_58[8]: - 50.9765625 frac[8,58] + mem[8,58] >= 0
+ accuracy_58_sk_58[9]: - 50.9765625 frac[9,58] + mem[9,58] >= 0
+ accuracy_58_sk_58[10]: - 50.9765625 frac[10,58] + mem[10,58] >= 0
+ accuracy_58_sk_58[11]: - 50.9765625 frac[11,58] + mem[11,58] >= 0
+ accuracy_58_sk_58[12]: - 50.9765625 frac[12,58] + mem[12,58] >= 0
+ accuracy_58_sk_58[13]: - 50.9765625 frac[13,58] + mem[13,58] >= 0
+ accuracy_59_sk_59[8]: - 50.9765625 frac[8,59] + mem[8,59] >= 0
+ accuracy_59_sk_59[9]: - 50.9765625 frac[9,59] + mem[9,59] >= 0
+ accuracy_59_sk_59[10]: - 50.9765625 frac[10,59] + mem[10,59] >= 0
+ accuracy_59_sk_59[11]: - 50.9765625 frac[11,59] + mem[11,59] >= 0
+ accuracy_59_sk_59[12]: - 50.9765625 frac[12,59] + mem[12,59] >= 0
+ accuracy_59_sk_59[13]: - 50.9765625 frac[13,59] + mem[13,59] >= 0
+ accuracy_60_sk_60[8]: - 50.9765625 frac[8,60] + mem[8,60] >= 0
+ accuracy_60_sk_60[9]: - 50.9765625 frac[9,60] + mem[9,60] >= 0
+ accuracy_60_sk_60[10]: - 50.9765625 frac[10,60] + mem[10,60] >= 0
+ accuracy_60_sk_60[11]: - 50.9765625 frac[11,60] + mem[11,60] >= 0
+ accuracy_60_sk_60[13]: - 50.9765625 frac[13,60] + mem[13,60] >= 0
+ accuracy_61_sk_61[10]: - 50.9765625 frac[10,61] + mem[10,61] >= 0
+ accuracy_61_sk_61[11]: - 50.9765625 frac[11,61] + mem[11,61] >= 0
+ accuracy_61_sk_61[13]: - 50.9765625 frac[13,61] + mem[13,61] >= 0
+ accuracy_62_sk_62[9]: - 50.9765625 frac[9,62] + mem[9,62] >= 0
+ accuracy_62_sk_62[10]: - 50.9765625 frac[10,62] + mem[10,62] >= 0
+ accuracy_62_sk_62[12]: - 50.9765625 frac[12,62] + mem[12,62] >= 0
+ accuracy_62_sk_62[13]: - 50.9765625 frac[13,62] + mem[13,62] >= 0
+ accuracy_62_sk_62[14]: - 50.9765625 frac[14,62] + mem[14,62] >= 0
+ accuracy_63_sk_63[9]: - 50.9765625 frac[9,63] + mem[9,63] >= 0
+ accuracy_63_sk_63[10]: - 50.9765625 frac[10,63] + mem[10,63] >= 0
+ accuracy_63_sk_63[11]: - 50.9765625 frac[11,63] + mem[11,63] >= 0
+ accuracy_63_sk_63[12]: - 50.9765625 frac[12,63] + mem[12,63] >= 0
+ accuracy_63_sk_63[13]: - 50.9765625 frac[13,63] + mem[13,63] >= 0
+ accuracy_63_sk_63[14]: - 50.9765625 frac[14,63] + mem[14,63] >= 0
+ accuracy_64_sk_64[8]: - 50.9765625 frac[8,64] + mem[8,64] >= 0
+ accuracy_64_sk_64[9]: - 50.9765625 frac[9,64] + mem[9,64] >= 0
+ accuracy_64_sk_64[11]: - 50.9765625 frac[11,64] + mem[11,64] >= 0
+ accuracy_64_sk_64[12]: - 50.9765625 frac[12,64] + mem[12,64] >= 0
+ accuracy_64_sk_64[13]: - 50.9765625 frac[13,64] + mem[13,64] >= 0
+ accuracy_64_sk_64[14]: - 50.9765625 frac[14,64] + mem[14,64] >= 0
+ accuracy_65_sk_65[8]: - 50.9765625 frac[8,65] + mem[8,65] >= 0
+ accuracy_65_sk_65[9]: - 50.9765625 frac[9,65] + mem[9,65] >= 0
+ accuracy_65_sk_65[12]: - 50.9765625 frac[12,65] + mem[12,65] >= 0
+ accuracy_66_sk_66[8]: - 50.9765625 frac[8,66] + mem[8,66] >= 0
+ accuracy_66_sk_66[9]: - 50.9765625 frac[9,66] + mem[9,66] >= 0
+ accuracy_66_sk_66[10]: - 50.9765625 frac[10,66] + mem[10,66] >= 0
+ accuracy_66_sk_66[11]: - 50.9765625 frac[11,66] + mem[11,66] >= 0
+ accuracy_66_sk_66[12]: - 50.9765625 frac[12,66] + mem[12,66] >= 0
+ accuracy_66_sk_66[13]: - 50.9765625 frac[13,66] + mem[13,66] >= 0
+ accuracy_67_sk_67[8]: - 50.9765625 frac[8,67] + mem[8,67] >= 0
+ accuracy_67_sk_67[9]: - 50.9765625 frac[9,67] + mem[9,67] >= 0
+ accuracy_67_sk_67[10]: - 50.9765625 frac[10,67] + mem[10,67] >= 0
+ accuracy_67_sk_67[11]: - 50.9765625 frac[11,67] + mem[11,67] >= 0
+ accuracy_67_sk_67[12]: - 50.9765625 frac[12,67] + mem[12,67] >= 0
+ accuracy_67_sk_67[13]: - 50.9765625 frac[13,67] + mem[13,67] >= 0
+ accuracy_67_sk_67[14]: - 50.9765625 frac[14,67] + mem[14,67] >= 0
+ accuracy_68_sk_68[8]: - 50.9765625 frac[8,68] + mem[8,68] >= 0
+ accuracy_68_sk_68[9]: - 50.9765625 frac[9,68] + mem[9,68] >= 0
+ accuracy_68_sk_68[12]: - 50.9765625 frac[12,68] + mem[12,68] >= 0
+ accuracy_69_sk_69[8]: - 50.9765625 frac[8,69] + mem[8,69] >= 0
+ accuracy_69_sk_69[9]: - 50.9765625 frac[9,69] + mem[9,69] >= 0
+ accuracy_69_sk_69[10]: - 50.9765625 frac[10,69] + mem[10,69] >= 0
+ accuracy_69_sk_69[12]: - 50.9765625 frac[12,69] + mem[12,69] >= 0
+ accuracy_69_sk_69[13]: - 50.9765625 frac[13,69] + mem[13,69] >= 0
+ accuracy_69_sk_69[14]: - 50.9765625 frac[14,69] + mem[14,69] >= 0
+ accuracy_70_sk_70[9]: - 50.9765625 frac[9,70] + mem[9,70] >= 0
+ accuracy_70_sk_70[11]: - 50.9765625 frac[11,70] + mem[11,70] >= 0
+ accuracy_70_sk_70[12]: - 50.9765625 frac[12,70] + mem[12,70] >= 0
+ accuracy_70_sk_70[13]: - 50.9765625 frac[13,70] + mem[13,70] >= 0
+ accuracy_70_sk_70[14]: - 50.9765625 frac[14,70] + mem[14,70] >= 0
+ accuracy_71_sk_71[8]: - 50.9765625 frac[8,71] + mem[8,71] >= 0
+ accuracy_71_sk_71[9]: - 50.9765625 frac[9,71] + mem[9,71] >= 0
+ accuracy_71_sk_71[11]: - 50.9765625 frac[11,71] + mem[11,71] >= 0
+ accuracy_71_sk_71[12]: - 50.9765625 frac[12,71] + mem[12,71] >= 0
+ accuracy_71_sk_71[13]: - 50.9765625 frac[13,71] + mem[13,71] >= 0
+ accuracy_71_sk_71[14]: - 50.9765625 frac[14,71] + mem[14,71] >= 0
+ accuracy_72_sk_72[8]: - 50.9765625 frac[8,72] + mem[8,72] >= 0
+ accuracy_72_sk_72[9]: - 50.9765625 frac[9,72] + mem[9,72] >= 0
+ accuracy_72_sk_72[10]: - 50.9765625 frac[10,72] + mem[10,72] >= 0
+ accuracy_72_sk_72[11]: - 50.9765625 frac[11,72] + mem[11,72] >= 0
+ accuracy_72_sk_72[12]: - 50.9765625 frac[12,72] + mem[12,72] >= 0
+ accuracy_72_sk_72[13]: - 50.9765625 frac[13,72] + mem[13,72] >= 0
+ accuracy_73_sk_73[8]: - 50.9765625 frac[8,73] + mem[8,73] >= 0
+ accuracy_73_sk_73[9]: - 50.9765625 frac[9,73] + mem[9,73] >= 0
+ accuracy_73_sk_73[10]: - 50.9765625 frac[10,73] + mem[10,73] >= 0
+ accuracy_73_sk_73[12]: - 50.9765625 frac[12,73] + mem[12,73] >= 0
+ accuracy_73_sk_73[13]: - 50.9765625 frac[13,73] + mem[13,73] >= 0
+ accuracy_73_sk_73[14]: - 50.9765625 frac[14,73] + mem[14,73] >= 0
+ accuracy_74_sk_74[8]: - 50.9765625 frac[8,74] + mem[8,74] >= 0
+ accuracy_74_sk_74[9]: - 50.9765625 frac[9,74] + mem[9,74] >= 0
+ accuracy_74_sk_74[10]: - 50.9765625 frac[10,74] + mem[10,74] >= 0
+ accuracy_74_sk_74[11]: - 50.9765625 frac[11,74] + mem[11,74] >= 0
+ accuracy_74_sk_74[12]: - 50.9765625 frac[12,74] + mem[12,74] >= 0
+ accuracy_74_sk_74[13]: - 50.9765625 frac[13,74] + mem[13,74] >= 0
+ accuracy_74_sk_74[14]: - 50.9765625 frac[14,74] + mem[14,74] >= 0
+ accuracy_75_sk_75[8]: - 50.9765625 frac[8,75] + mem[8,75] >= 0
+ accuracy_75_sk_75[9]: - 50.9765625 frac[9,75] + mem[9,75] >= 0
+ accuracy_75_sk_75[10]: - 50.9765625 frac[10,75] + mem[10,75] >= 0
+ accuracy_75_sk_75[11]: - 50.9765625 frac[11,75] + mem[11,75] >= 0
+ accuracy_75_sk_75[12]: - 50.9765625 frac[12,75] + mem[12,75] >= 0
+ accuracy_76_sk_76[9]: - 50.9765625 frac[9,76] + mem[9,76] >= 0
+ accuracy_76_sk_76[11]: - 50.9765625 frac[11,76] + mem[11,76] >= 0
+ accuracy_76_sk_76[12]: - 50.9765625 frac[12,76] + mem[12,76] >= 0
+ accuracy_76_sk_76[13]: - 50.9765625 frac[13,76] + mem[13,76] >= 0
+ accuracy_76_sk_76[14]: - 50.9765625 frac[14,76] + mem[14,76] >= 0
+ accuracy_77_sk_77[8]: - 50.9765625 frac[8,77] + mem[8,77] >= 0
+ accuracy_77_sk_77[9]: - 50.9765625 frac[9,77] + mem[9,77] >= 0
+ accuracy_77_sk_77[12]: - 50.9765625 frac[12,77] + mem[12,77] >= 0
+ accuracy_78_sk_78[8]: - 50.9765625 frac[8,78] + mem[8,78] >= 0
+ accuracy_78_sk_78[11]: - 50.9765625 frac[11,78] + mem[11,78] >= 0
+ accuracy_78_sk_78[12]: - 50.9765625 frac[12,78] + mem[12,78] >= 0
+ accuracy_78_sk_78[13]: - 50.9765625 frac[13,78] + mem[13,78] >= 0
+ accuracy_78_sk_78[14]: - 50.9765625 frac[14,78] + mem[14,78] >= 0
+ accuracy_79_sk_79[9]: - 50.9765625 frac[9,79] + mem[9,79] >= 0
+ accuracy_79_sk_79[10]: - 50.9765625 frac[10,79] + mem[10,79] >= 0
+ accuracy_79_sk_79[12]: - 50.9765625 frac[12,79] + mem[12,79] >= 0
+ accuracy_79_sk_79[13]: - 50.9765625 frac[13,79] + mem[13,79] >= 0
+ accuracy_79_sk_79[14]: - 50.9765625 frac[14,79] + mem[14,79] >= 0
+ rows_tot_cpu1: - 3 frac[0,0] - 3 frac[0,1] - 3 frac[0,2] - 3 frac[0,3]
+   - 3 frac[0,4] - 3 frac[0,5] - 3 frac[0,6] - 3 frac[0,7] - 3 frac[0,8]
+   - 3 frac[0,9] - 3 frac[0,10] - 3 frac[0,11] - 3 frac[0,12]
+   - 3 frac[0,13] - 3 frac[0,14] - 3 frac[0,15] - 3 frac[0,16]
+   - 3 frac[0,17] - 3 frac[0,18] - 3 frac[0,19] - 3 frac[0,20]
+   - 3 frac[0,21] - 3 frac[0,22] - 3 frac[0,23] - 3 frac[0,24]
+   - 3 frac[0,25] - 3 frac[0,26] - 3 frac[0,27] - 3 frac[0,28]
+   - 3 frac[0,29] - 3 frac[0,30] - 3 frac[0,31] - 3 frac[0,32]
+   - 3 frac[0,33] - 3 frac[0,34] - 3 frac[0,35] - 3 frac[0,36]
+   - 3 frac[0,37] - 3 frac[0,38] - 3 frac[0,39] - 3 frac[0,40]
+   - 3 frac[0,41] - 3 frac[0,42] - 3 frac[0,43] - 3 frac[0,44]
+   - 3 frac[0,45] - 3 frac[0,46] - 3 frac[0,47] - 3 frac[0,48]
+   - 3 frac[0,49] - 3 frac[0,50] - 3 frac[0,51] - 3 frac[0,52]
+   - 3 frac[0,53] - 3 frac[0,54] - 3 frac[0,55] - 3 frac[0,56]
+   - 3 frac[0,57] - 3 frac[0,58] - 3 frac[0,59] - 3 frac[0,60]
+   - 3 frac[0,61] - 3 frac[0,62] - 3 frac[0,63] - 3 frac[0,64]
+   - 3 frac[0,65] - 3 frac[0,66] - 3 frac[0,67] - 3 frac[0,68]
+   - 3 frac[0,69] - 3 frac[0,70] - 3 frac[0,71] - 3 frac[0,72]
+   - 3 frac[0,73] - 3 frac[0,74] - 3 frac[0,75] - 3 frac[0,76]
+   - 3 frac[0,77] - 3 frac[0,78] - 3 frac[0,79] + rows_tot_cpu1 = 0
+ rows_tot_cpu2: - 3 frac[1,0] - 3 frac[1,1] - 3 frac[1,2] - 3 frac[1,3]
+   - 3 frac[1,4] - 3 frac[1,5] - 3 frac[1,6] - 3 frac[1,7] - 3 frac[1,8]
+   - 3 frac[1,9] - 3 frac[1,10] - 3 frac[1,11] - 3 frac[1,12]
+   - 3 frac[1,13] - 3 frac[1,14] - 3 frac[1,15] - 3 frac[1,16]
+   - 3 frac[1,17] - 3 frac[1,18] - 3 frac[1,19] - 3 frac[1,20]
+   - 3 frac[1,21] - 3 frac[1,22] - 3 frac[1,23] - 3 frac[1,24]
+   - 3 frac[1,25] - 3 frac[1,26] - 3 frac[1,27] - 3 frac[1,28]
+   - 3 frac[1,29] - 3 frac[1,30] - 3 frac[1,31] - 3 frac[1,32]
+   - 3 frac[1,33] - 3 frac[1,34] - 3 frac[1,35] - 3 frac[1,36]
+   - 3 frac[1,37] - 3 frac[1,38] - 3 frac[1,39] - 3 frac[1,40]
+   - 3 frac[1,41] - 3 frac[1,42] - 3 frac[1,43] - 3 frac[1,44]
+   - 3 frac[1,45] - 3 frac[1,46] - 3 frac[1,47] - 3 frac[1,48]
+   - 3 frac[1,49] - 3 frac[1,50] - 3 frac[1,51] - 3 frac[1,52]
+   - 3 frac[1,53] - 3 frac[1,54] - 3 frac[1,55] - 3 frac[1,56]
+   - 3 frac[1,57] - 3 frac[1,58] - 3 frac[1,59] - 3 frac[1,60]
+   - 3 frac[1,61] - 3 frac[1,62] - 3 frac[1,63] - 3 frac[1,64]
+   - 3 frac[1,65] - 3 frac[1,66] - 3 frac[1,67] - 3 frac[1,68]
+   - 3 frac[1,69] - 3 frac[1,70] - 3 frac[1,71] - 3 frac[1,72]
+   - 3 frac[1,73] - 3 frac[1,74] - 3 frac[1,75] - 3 frac[1,76]
+   - 3 frac[1,77] - 3 frac[1,78] - 3 frac[1,79] + rows_tot_cpu2 = 0
+ rows_tot_cpu3: - 3 frac[2,0] - 3 frac[2,1] - 3 frac[2,2] - 3 frac[2,3]
+   - 3 frac[2,4] - 3 frac[2,5] - 3 frac[2,6] - 3 frac[2,7] - 3 frac[2,8]
+   - 3 frac[2,9] - 3 frac[2,10] - 3 frac[2,11] - 3 frac[2,12]
+   - 3 frac[2,13] - 3 frac[2,14] - 3 frac[2,15] - 3 frac[2,16]
+   - 3 frac[2,17] - 3 frac[2,18] - 3 frac[2,19] - 3 frac[2,20]
+   - 3 frac[2,21] - 3 frac[2,22] - 3 frac[2,23] - 3 frac[2,24]
+   - 3 frac[2,25] - 3 frac[2,26] - 3 frac[2,27] - 3 frac[2,28]
+   - 3 frac[2,29] - 3 frac[2,30] - 3 frac[2,31] - 3 frac[2,32]
+   - 3 frac[2,33] - 3 frac[2,34] - 3 frac[2,35] - 3 frac[2,36]
+   - 3 frac[2,37] - 3 frac[2,38] - 3 frac[2,39] - 3 frac[2,40]
+   - 3 frac[2,41] - 3 frac[2,42] - 3 frac[2,43] - 3 frac[2,44]
+   - 3 frac[2,45] - 3 frac[2,46] - 3 frac[2,47] - 3 frac[2,48]
+   - 3 frac[2,49] - 3 frac[2,50] - 3 frac[2,51] - 3 frac[2,52]
+   - 3 frac[2,53] - 3 frac[2,54] - 3 frac[2,55] - 3 frac[2,56]
+   - 3 frac[2,57] - 3 frac[2,58] - 3 frac[2,59] - 3 frac[2,60]
+   - 3 frac[2,61] - 3 frac[2,62] - 3 frac[2,63] - 3 frac[2,64]
+   - 3 frac[2,65] - 3 frac[2,66] - 3 frac[2,67] - 3 frac[2,68]
+   - 3 frac[2,69] - 3 frac[2,70] - 3 frac[2,71] - 3 frac[2,72]
+   - 3 frac[2,73] - 3 frac[2,74] - 3 frac[2,75] - 3 frac[2,76]
+   - 3 frac[2,77] - 3 frac[2,78] - 3 frac[2,79] + rows_tot_cpu3 = 0
+ rows_tot_cpu4: - 3 frac[3,0] - 3 frac[3,1] - 3 frac[3,2] - 3 frac[3,3]
+   - 3 frac[3,4] - 3 frac[3,5] - 3 frac[3,6] - 3 frac[3,7] - 3 frac[3,8]
+   - 3 frac[3,9] - 3 frac[3,10] - 3 frac[3,11] - 3 frac[3,12]
+   - 3 frac[3,13] - 3 frac[3,14] - 3 frac[3,15] - 3 frac[3,16]
+   - 3 frac[3,17] - 3 frac[3,18] - 3 frac[3,19] - 3 frac[3,20]
+   - 3 frac[3,21] - 3 frac[3,22] - 3 frac[3,23] - 3 frac[3,24]
+   - 3 frac[3,25] - 3 frac[3,26] - 3 frac[3,27] - 3 frac[3,28]
+   - 3 frac[3,29] - 3 frac[3,30] - 3 frac[3,31] - 3 frac[3,32]
+   - 3 frac[3,33] - 3 frac[3,34] - 3 frac[3,35] - 3 frac[3,36]
+   - 3 frac[3,37] - 3 frac[3,38] - 3 frac[3,39] - 3 frac[3,40]
+   - 3 frac[3,41] - 3 frac[3,42] - 3 frac[3,43] - 3 frac[3,44]
+   - 3 frac[3,45] - 3 frac[3,46] - 3 frac[3,47] - 3 frac[3,48]
+   - 3 frac[3,49] - 3 frac[3,50] - 3 frac[3,51] - 3 frac[3,52]
+   - 3 frac[3,53] - 3 frac[3,54] - 3 frac[3,55] - 3 frac[3,56]
+   - 3 frac[3,57] - 3 frac[3,58] - 3 frac[3,59] - 3 frac[3,60]
+   - 3 frac[3,61] - 3 frac[3,62] - 3 frac[3,63] - 3 frac[3,64]
+   - 3 frac[3,65] - 3 frac[3,66] - 3 frac[3,67] - 3 frac[3,68]
+   - 3 frac[3,69] - 3 frac[3,70] - 3 frac[3,71] - 3 frac[3,72]
+   - 3 frac[3,73] - 3 frac[3,74] - 3 frac[3,75] - 3 frac[3,76]
+   - 3 frac[3,77] - 3 frac[3,78] - 3 frac[3,79] + rows_tot_cpu4 = 0
+ rows_tot_cpu5: - 3 frac[4,0] - 3 frac[4,1] - 3 frac[4,2] - 3 frac[4,3]
+   - 3 frac[4,4] - 3 frac[4,5] - 3 frac[4,6] - 3 frac[4,7] - 3 frac[4,8]
+   - 3 frac[4,9] - 3 frac[4,10] - 3 frac[4,11] - 3 frac[4,12]
+   - 3 frac[4,13] - 3 frac[4,14] - 3 frac[4,15] - 3 frac[4,16]
+   - 3 frac[4,17] - 3 frac[4,18] - 3 frac[4,19] - 3 frac[4,20]
+   - 3 frac[4,21] - 3 frac[4,22] - 3 frac[4,23] - 3 frac[4,24]
+   - 3 frac[4,25] - 3 frac[4,26] - 3 frac[4,27] - 3 frac[4,28]
+   - 3 frac[4,29] - 3 frac[4,30] - 3 frac[4,31] - 3 frac[4,32]
+   - 3 frac[4,33] - 3 frac[4,34] - 3 frac[4,35] - 3 frac[4,36]
+   - 3 frac[4,37] - 3 frac[4,38] - 3 frac[4,39] - 3 frac[4,40]
+   - 3 frac[4,41] - 3 frac[4,42] - 3 frac[4,43] - 3 frac[4,44]
+   - 3 frac[4,45] - 3 frac[4,46] - 3 frac[4,47] - 3 frac[4,48]
+   - 3 frac[4,49] - 3 frac[4,50] - 3 frac[4,51] - 3 frac[4,52]
+   - 3 frac[4,53] - 3 frac[4,54] - 3 frac[4,55] - 3 frac[4,56]
+   - 3 frac[4,57] - 3 frac[4,58] - 3 frac[4,59] - 3 frac[4,60]
+   - 3 frac[4,61] - 3 frac[4,62] - 3 frac[4,63] - 3 frac[4,64]
+   - 3 frac[4,65] - 3 frac[4,66] - 3 frac[4,67] - 3 frac[4,68]
+   - 3 frac[4,69] - 3 frac[4,70] - 3 frac[4,71] - 3 frac[4,72]
+   - 3 frac[4,73] - 3 frac[4,74] - 3 frac[4,75] - 3 frac[4,76]
+   - 3 frac[4,77] - 3 frac[4,78] - 3 frac[4,79] + rows_tot_cpu5 = 0
+ rows_tot_cpu6: - 3 frac[5,0] - 3 frac[5,1] - 3 frac[5,2] - 3 frac[5,3]
+   - 3 frac[5,4] - 3 frac[5,5] - 3 frac[5,6] - 3 frac[5,7] - 3 frac[5,8]
+   - 3 frac[5,9] - 3 frac[5,10] - 3 frac[5,11] - 3 frac[5,12]
+   - 3 frac[5,13] - 3 frac[5,14] - 3 frac[5,15] - 3 frac[5,16]
+   - 3 frac[5,17] - 3 frac[5,18] - 3 frac[5,19] - 3 frac[5,20]
+   - 3 frac[5,21] - 3 frac[5,22] - 3 frac[5,23] - 3 frac[5,24]
+   - 3 frac[5,25] - 3 frac[5,26] - 3 frac[5,27] - 3 frac[5,28]
+   - 3 frac[5,29] - 3 frac[5,30] - 3 frac[5,31] - 3 frac[5,32]
+   - 3 frac[5,33] - 3 frac[5,34] - 3 frac[5,35] - 3 frac[5,36]
+   - 3 frac[5,37] - 3 frac[5,38] - 3 frac[5,39] - 3 frac[5,40]
+   - 3 frac[5,41] - 3 frac[5,42] - 3 frac[5,43] - 3 frac[5,44]
+   - 3 frac[5,45] - 3 frac[5,46] - 3 frac[5,47] - 3 frac[5,48]
+   - 3 frac[5,49] - 3 frac[5,50] - 3 frac[5,51] - 3 frac[5,52]
+   - 3 frac[5,53] - 3 frac[5,54] - 3 frac[5,55] - 3 frac[5,56]
+   - 3 frac[5,57] - 3 frac[5,58] - 3 frac[5,59] - 3 frac[5,60]
+   - 3 frac[5,61] - 3 frac[5,62] - 3 frac[5,63] - 3 frac[5,64]
+   - 3 frac[5,65] - 3 frac[5,66] - 3 frac[5,67] - 3 frac[5,68]
+   - 3 frac[5,69] - 3 frac[5,70] - 3 frac[5,71] - 3 frac[5,72]
+   - 3 frac[5,73] - 3 frac[5,74] - 3 frac[5,75] - 3 frac[5,76]
+   - 3 frac[5,77] - 3 frac[5,78] - 3 frac[5,79] + rows_tot_cpu6 = 0
+ rows_tot_cpu7: - 3 frac[6,0] - 3 frac[6,1] - 3 frac[6,2] - 3 frac[6,3]
+   - 3 frac[6,4] - 3 frac[6,5] - 3 frac[6,6] - 3 frac[6,7] - 3 frac[6,8]
+   - 3 frac[6,9] - 3 frac[6,10] - 3 frac[6,11] - 3 frac[6,12]
+   - 3 frac[6,13] - 3 frac[6,14] - 3 frac[6,15] - 3 frac[6,16]
+   - 3 frac[6,17] - 3 frac[6,18] - 3 frac[6,19] - 3 frac[6,20]
+   - 3 frac[6,21] - 3 frac[6,22] - 3 frac[6,23] - 3 frac[6,24]
+   - 3 frac[6,25] - 3 frac[6,26] - 3 frac[6,27] - 3 frac[6,28]
+   - 3 frac[6,29] - 3 frac[6,30] - 3 frac[6,31] - 3 frac[6,32]
+   - 3 frac[6,33] - 3 frac[6,34] - 3 frac[6,35] - 3 frac[6,36]
+   - 3 frac[6,37] - 3 frac[6,38] - 3 frac[6,39] - 3 frac[6,40]
+   - 3 frac[6,41] - 3 frac[6,42] - 3 frac[6,43] - 3 frac[6,44]
+   - 3 frac[6,45] - 3 frac[6,46] - 3 frac[6,47] - 3 frac[6,48]
+   - 3 frac[6,49] - 3 frac[6,50] - 3 frac[6,51] - 3 frac[6,52]
+   - 3 frac[6,53] - 3 frac[6,54] - 3 frac[6,55] - 3 frac[6,56]
+   - 3 frac[6,57] - 3 frac[6,58] - 3 frac[6,59] - 3 frac[6,60]
+   - 3 frac[6,61] - 3 frac[6,62] - 3 frac[6,63] - 3 frac[6,64]
+   - 3 frac[6,65] - 3 frac[6,66] - 3 frac[6,67] - 3 frac[6,68]
+   - 3 frac[6,69] - 3 frac[6,70] - 3 frac[6,71] - 3 frac[6,72]
+   - 3 frac[6,73] - 3 frac[6,74] - 3 frac[6,75] - 3 frac[6,76]
+   - 3 frac[6,77] - 3 frac[6,78] - 3 frac[6,79] + rows_tot_cpu7 = 0
+ rows_tot_cpu8: - 3 frac[7,0] - 3 frac[7,1] - 3 frac[7,2] - 3 frac[7,3]
+   - 3 frac[7,4] - 3 frac[7,5] - 3 frac[7,6] - 3 frac[7,7] - 3 frac[7,8]
+   - 3 frac[7,9] - 3 frac[7,10] - 3 frac[7,11] - 3 frac[7,12]
+   - 3 frac[7,13] - 3 frac[7,14] - 3 frac[7,15] - 3 frac[7,16]
+   - 3 frac[7,17] - 3 frac[7,18] - 3 frac[7,19] - 3 frac[7,20]
+   - 3 frac[7,21] - 3 frac[7,22] - 3 frac[7,23] - 3 frac[7,24]
+   - 3 frac[7,25] - 3 frac[7,26] - 3 frac[7,27] - 3 frac[7,28]
+   - 3 frac[7,29] - 3 frac[7,30] - 3 frac[7,31] - 3 frac[7,32]
+   - 3 frac[7,33] - 3 frac[7,34] - 3 frac[7,35] - 3 frac[7,36]
+   - 3 frac[7,37] - 3 frac[7,38] - 3 frac[7,39] - 3 frac[7,40]
+   - 3 frac[7,41] - 3 frac[7,42] - 3 frac[7,43] - 3 frac[7,44]
+   - 3 frac[7,45] - 3 frac[7,46] - 3 frac[7,47] - 3 frac[7,48]
+   - 3 frac[7,49] - 3 frac[7,50] - 3 frac[7,51] - 3 frac[7,52]
+   - 3 frac[7,53] - 3 frac[7,54] - 3 frac[7,55] - 3 frac[7,56]
+   - 3 frac[7,57] - 3 frac[7,58] - 3 frac[7,59] - 3 frac[7,60]
+   - 3 frac[7,61] - 3 frac[7,62] - 3 frac[7,63] - 3 frac[7,64]
+   - 3 frac[7,65] - 3 frac[7,66] - 3 frac[7,67] - 3 frac[7,68]
+   - 3 frac[7,69] - 3 frac[7,70] - 3 frac[7,71] - 3 frac[7,72]
+   - 3 frac[7,73] - 3 frac[7,74] - 3 frac[7,75] - 3 frac[7,76]
+   - 3 frac[7,77] - 3 frac[7,78] - 3 frac[7,79] + rows_tot_cpu8 = 0
+ mem_tot_tor_p41: - mem[8,0] - mem[8,1] - mem[8,2] - mem[8,3] - mem[8,4]
+   - mem[8,5] - mem[8,6] - mem[8,7] - mem[8,8] - mem[8,9] - mem[8,10]
+   - mem[8,11] - mem[8,12] - mem[8,13] - mem[8,14] - mem[8,15] - mem[8,16]
+   - mem[8,17] - mem[8,18] - mem[8,19] - mem[8,20] - mem[8,21] - mem[8,22]
+   - mem[8,23] - mem[8,24] - mem[8,25] - mem[8,26] - mem[8,27] - mem[8,28]
+   - mem[8,29] - mem[8,30] - mem[8,31] - mem[8,32] - mem[8,33] - mem[8,34]
+   - mem[8,35] - mem[8,36] - mem[8,37] - mem[8,38] - mem[8,39] - mem[8,40]
+   - mem[8,41] - mem[8,42] - mem[8,43] - mem[8,44] - mem[8,45] - mem[8,46]
+   - mem[8,47] - mem[8,48] - mem[8,49] - mem[8,50] - mem[8,51] - mem[8,52]
+   - mem[8,53] - mem[8,54] - mem[8,55] - mem[8,56] - mem[8,57] - mem[8,58]
+   - mem[8,59] - mem[8,60] - mem[8,61] - mem[8,62] - mem[8,63] - mem[8,64]
+   - mem[8,65] - mem[8,66] - mem[8,67] - mem[8,68] - mem[8,69] - mem[8,70]
+   - mem[8,71] - mem[8,72] - mem[8,73] - mem[8,74] - mem[8,75] - mem[8,76]
+   - mem[8,77] - mem[8,78] - mem[8,79] + mem_tot_tor_p41 = 0
+ mem_tot_tor_p42: - mem[9,0] - mem[9,1] - mem[9,2] - mem[9,3] - mem[9,4]
+   - mem[9,5] - mem[9,6] - mem[9,7] - mem[9,8] - mem[9,9] - mem[9,10]
+   - mem[9,11] - mem[9,12] - mem[9,13] - mem[9,14] - mem[9,15] - mem[9,16]
+   - mem[9,17] - mem[9,18] - mem[9,19] - mem[9,20] - mem[9,21] - mem[9,22]
+   - mem[9,23] - mem[9,24] - mem[9,25] - mem[9,26] - mem[9,27] - mem[9,28]
+   - mem[9,29] - mem[9,30] - mem[9,31] - mem[9,32] - mem[9,33] - mem[9,34]
+   - mem[9,35] - mem[9,36] - mem[9,37] - mem[9,38] - mem[9,39] - mem[9,40]
+   - mem[9,41] - mem[9,42] - mem[9,43] - mem[9,44] - mem[9,45] - mem[9,46]
+   - mem[9,47] - mem[9,48] - mem[9,49] - mem[9,50] - mem[9,51] - mem[9,52]
+   - mem[9,53] - mem[9,54] - mem[9,55] - mem[9,56] - mem[9,57] - mem[9,58]
+   - mem[9,59] - mem[9,60] - mem[9,61] - mem[9,62] - mem[9,63] - mem[9,64]
+   - mem[9,65] - mem[9,66] - mem[9,67] - mem[9,68] - mem[9,69] - mem[9,70]
+   - mem[9,71] - mem[9,72] - mem[9,73] - mem[9,74] - mem[9,75] - mem[9,76]
+   - mem[9,77] - mem[9,78] - mem[9,79] + mem_tot_tor_p42 = 0
+ mem_tot_tor_p43: - mem[10,0] - mem[10,1] - mem[10,2] - mem[10,3]
+   - mem[10,4] - mem[10,5] - mem[10,6] - mem[10,7] - mem[10,8] - mem[10,9]
+   - mem[10,10] - mem[10,11] - mem[10,12] - mem[10,13] - mem[10,14]
+   - mem[10,15] - mem[10,16] - mem[10,17] - mem[10,18] - mem[10,19]
+   - mem[10,20] - mem[10,21] - mem[10,22] - mem[10,23] - mem[10,24]
+   - mem[10,25] - mem[10,26] - mem[10,27] - mem[10,28] - mem[10,29]
+   - mem[10,30] - mem[10,31] - mem[10,32] - mem[10,33] - mem[10,34]
+   - mem[10,35] - mem[10,36] - mem[10,37] - mem[10,38] - mem[10,39]
+   - mem[10,40] - mem[10,41] - mem[10,42] - mem[10,43] - mem[10,44]
+   - mem[10,45] - mem[10,46] - mem[10,47] - mem[10,48] - mem[10,49]
+   - mem[10,50] - mem[10,51] - mem[10,52] - mem[10,53] - mem[10,54]
+   - mem[10,55] - mem[10,56] - mem[10,57] - mem[10,58] - mem[10,59]
+   - mem[10,60] - mem[10,61] - mem[10,62] - mem[10,63] - mem[10,64]
+   - mem[10,65] - mem[10,66] - mem[10,67] - mem[10,68] - mem[10,69]
+   - mem[10,70] - mem[10,71] - mem[10,72] - mem[10,73] - mem[10,74]
+   - mem[10,75] - mem[10,76] - mem[10,77] - mem[10,78] - mem[10,79]
+   + mem_tot_tor_p43 = 0
+ mem_tot_tor_p44: - mem[11,0] - mem[11,1] - mem[11,2] - mem[11,3]
+   - mem[11,4] - mem[11,5] - mem[11,6] - mem[11,7] - mem[11,8] - mem[11,9]
+   - mem[11,10] - mem[11,11] - mem[11,12] - mem[11,13] - mem[11,14]
+   - mem[11,15] - mem[11,16] - mem[11,17] - mem[11,18] - mem[11,19]
+   - mem[11,20] - mem[11,21] - mem[11,22] - mem[11,23] - mem[11,24]
+   - mem[11,25] - mem[11,26] - mem[11,27] - mem[11,28] - mem[11,29]
+   - mem[11,30] - mem[11,31] - mem[11,32] - mem[11,33] - mem[11,34]
+   - mem[11,35] - mem[11,36] - mem[11,37] - mem[11,38] - mem[11,39]
+   - mem[11,40] - mem[11,41] - mem[11,42] - mem[11,43] - mem[11,44]
+   - mem[11,45] - mem[11,46] - mem[11,47] - mem[11,48] - mem[11,49]
+   - mem[11,50] - mem[11,51] - mem[11,52] - mem[11,53] - mem[11,54]
+   - mem[11,55] - mem[11,56] - mem[11,57] - mem[11,58] - mem[11,59]
+   - mem[11,60] - mem[11,61] - mem[11,62] - mem[11,63] - mem[11,64]
+   - mem[11,65] - mem[11,66] - mem[11,67] - mem[11,68] - mem[11,69]
+   - mem[11,70] - mem[11,71] - mem[11,72] - mem[11,73] - mem[11,74]
+   - mem[11,75] - mem[11,76] - mem[11,77] - mem[11,78] - mem[11,79]
+   + mem_tot_tor_p44 = 0
+ mem_tot_l1_p41: - mem[12,0] - mem[12,1] - mem[12,2] - mem[12,3]
+   - mem[12,4] - mem[12,5] - mem[12,6] - mem[12,7] - mem[12,8] - mem[12,9]
+   - mem[12,10] - mem[12,11] - mem[12,12] - mem[12,13] - mem[12,14]
+   - mem[12,15] - mem[12,16] - mem[12,17] - mem[12,18] - mem[12,19]
+   - mem[12,20] - mem[12,21] - mem[12,22] - mem[12,23] - mem[12,24]
+   - mem[12,25] - mem[12,26] - mem[12,27] - mem[12,28] - mem[12,29]
+   - mem[12,30] - mem[12,31] - mem[12,32] - mem[12,33] - mem[12,34]
+   - mem[12,35] - mem[12,36] - mem[12,37] - mem[12,38] - mem[12,39]
+   - mem[12,40] - mem[12,41] - mem[12,42] - mem[12,43] - mem[12,44]
+   - mem[12,45] - mem[12,46] - mem[12,47] - mem[12,48] - mem[12,49]
+   - mem[12,50] - mem[12,51] - mem[12,52] - mem[12,53] - mem[12,54]
+   - mem[12,55] - mem[12,56] - mem[12,57] - mem[12,58] - mem[12,59]
+   - mem[12,60] - mem[12,61] - mem[12,62] - mem[12,63] - mem[12,64]
+   - mem[12,65] - mem[12,66] - mem[12,67] - mem[12,68] - mem[12,69]
+   - mem[12,70] - mem[12,71] - mem[12,72] - mem[12,73] - mem[12,74]
+   - mem[12,75] - mem[12,76] - mem[12,77] - mem[12,78] - mem[12,79]
+   + mem_tot_l1_p41 = 0
+ mem_tot_l1_p42: - mem[13,0] - mem[13,1] - mem[13,2] - mem[13,3]
+   - mem[13,4] - mem[13,5] - mem[13,6] - mem[13,7] - mem[13,8] - mem[13,9]
+   - mem[13,10] - mem[13,11] - mem[13,12] - mem[13,13] - mem[13,14]
+   - mem[13,15] - mem[13,16] - mem[13,17] - mem[13,18] - mem[13,19]
+   - mem[13,20] - mem[13,21] - mem[13,22] - mem[13,23] - mem[13,24]
+   - mem[13,25] - mem[13,26] - mem[13,27] - mem[13,28] - mem[13,29]
+   - mem[13,30] - mem[13,31] - mem[13,32] - mem[13,33] - mem[13,34]
+   - mem[13,35] - mem[13,36] - mem[13,37] - mem[13,38] - mem[13,39]
+   - mem[13,40] - mem[13,41] - mem[13,42] - mem[13,43] - mem[13,44]
+   - mem[13,45] - mem[13,46] - mem[13,47] - mem[13,48] - mem[13,49]
+   - mem[13,50] - mem[13,51] - mem[13,52] - mem[13,53] - mem[13,54]
+   - mem[13,55] - mem[13,56] - mem[13,57] - mem[13,58] - mem[13,59]
+   - mem[13,60] - mem[13,61] - mem[13,62] - mem[13,63] - mem[13,64]
+   - mem[13,65] - mem[13,66] - mem[13,67] - mem[13,68] - mem[13,69]
+   - mem[13,70] - mem[13,71] - mem[13,72] - mem[13,73] - mem[13,74]
+   - mem[13,75] - mem[13,76] - mem[13,77] - mem[13,78] - mem[13,79]
+   + mem_tot_l1_p42 = 0
+ mem_tot_l2_p4: - mem[14,0] - mem[14,1] - mem[14,2] - mem[14,3] - mem[14,4]
+   - mem[14,5] - mem[14,6] - mem[14,7] - mem[14,8] - mem[14,9] - mem[14,10]
+   - mem[14,11] - mem[14,12] - mem[14,13] - mem[14,14] - mem[14,15]
+   - mem[14,16] - mem[14,17] - mem[14,18] - mem[14,19] - mem[14,20]
+   - mem[14,21] - mem[14,22] - mem[14,23] - mem[14,24] - mem[14,25]
+   - mem[14,26] - mem[14,27] - mem[14,28] - mem[14,29] - mem[14,30]
+   - mem[14,31] - mem[14,32] - mem[14,33] - mem[14,34] - mem[14,35]
+   - mem[14,36] - mem[14,37] - mem[14,38] - mem[14,39] - mem[14,40]
+   - mem[14,41] - mem[14,42] - mem[14,43] - mem[14,44] - mem[14,45]
+   - mem[14,46] - mem[14,47] - mem[14,48] - mem[14,49] - mem[14,50]
+   - mem[14,51] - mem[14,52] - mem[14,53] - mem[14,54] - mem[14,55]
+   - mem[14,56] - mem[14,57] - mem[14,58] - mem[14,59] - mem[14,60]
+   - mem[14,61] - mem[14,62] - mem[14,63] - mem[14,64] - mem[14,65]
+   - mem[14,66] - mem[14,67] - mem[14,68] - mem[14,69] - mem[14,70]
+   - mem[14,71] - mem[14,72] - mem[14,73] - mem[14,74] - mem[14,75]
+   - mem[14,76] - mem[14,77] - mem[14,78] - mem[14,79] + mem_tot_l2_p4 = 0
+ row_capacity_cpu1: rows_tot_cpu1 <= 12
+ row_capacity_cpu2: rows_tot_cpu2 <= 12
+ row_capacity_cpu3: rows_tot_cpu3 <= 12
+ row_capacity_cpu4: rows_tot_cpu4 <= 12
+ row_capacity_cpu5: rows_tot_cpu5 <= 12
+ row_capacity_cpu6: rows_tot_cpu6 <= 12
+ row_capacity_cpu7: rows_tot_cpu7 <= 12
+ row_capacity_cpu8: rows_tot_cpu8 <= 12
+Bounds
+ frac[0,1] free
+ frac[0,4] free
+ frac[0,6] free
+ frac[0,7] free
+ frac[0,9] free
+ frac[0,10] free
+ frac[0,12] free
+ frac[0,17] free
+ frac[0,19] free
+ frac[0,22] free
+ frac[0,24] free
+ frac[0,25] free
+ frac[0,28] free
+ frac[0,29] free
+ frac[0,30] free
+ frac[0,32] free
+ frac[0,33] free
+ frac[0,34] free
+ frac[0,36] free
+ frac[0,37] free
+ frac[0,38] free
+ frac[0,39] free
+ frac[0,52] free
+ frac[0,54] free
+ frac[0,55] free
+ frac[0,57] free
+ frac[0,58] free
+ frac[0,59] free
+ frac[0,60] free
+ frac[0,64] free
+ frac[0,66] free
+ frac[0,71] free
+ frac[0,73] free
+ frac[0,74] free
+ frac[0,75] free
+ frac[0,77] free
+ frac[0,78] free
+ frac[1,0] free
+ frac[1,1] free
+ frac[1,3] free
+ frac[1,5] free
+ frac[1,7] free
+ frac[1,8] free
+ frac[1,13] free
+ frac[1,15] free
+ frac[1,16] free
+ frac[1,19] free
+ frac[1,21] free
+ frac[1,23] free
+ frac[1,25] free
+ frac[1,26] free
+ frac[1,31] free
+ frac[1,36] free
+ frac[1,37] free
+ frac[1,38] free
+ frac[1,42] free
+ frac[1,46] free
+ frac[1,49] free
+ frac[1,51] free
+ frac[1,52] free
+ frac[1,55] free
+ frac[1,56] free
+ frac[1,57] free
+ frac[1,60] free
+ frac[1,64] free
+ frac[1,65] free
+ frac[1,67] free
+ frac[1,68] free
+ frac[1,69] free
+ frac[1,71] free
+ frac[1,72] free
+ frac[1,74] free
+ frac[2,1] free
+ frac[2,2] free
+ frac[2,3] free
+ frac[2,13] free
+ frac[2,17] free
+ frac[2,22] free
+ frac[2,24] free
+ frac[2,27] free
+ frac[2,28] free
+ frac[2,29] free
+ frac[2,30] free
+ frac[2,33] free
+ frac[2,35] free
+ frac[2,36] free
+ frac[2,45] free
+ frac[2,46] free
+ frac[2,47] free
+ frac[2,51] free
+ frac[2,53] free
+ frac[2,57] free
+ frac[2,58] free
+ frac[2,59] free
+ frac[2,60] free
+ frac[2,68] free
+ frac[2,69] free
+ frac[2,72] free
+ frac[2,73] free
+ frac[2,76] free
+ frac[3,1] free
+ frac[3,3] free
+ frac[3,4] free
+ frac[3,7] free
+ frac[3,8] free
+ frac[3,13] free
+ frac[3,15] free
+ frac[3,17] free
+ frac[3,20] free
+ frac[3,21] free
+ frac[3,23] free
+ frac[3,29] free
+ frac[3,33] free
+ frac[3,34] free
+ frac[3,35] free
+ frac[3,37] free
+ frac[3,40] free
+ frac[3,41] free
+ frac[3,44] free
+ frac[3,51] free
+ frac[3,60] free
+ frac[3,62] free
+ frac[3,63] free
+ frac[3,64] free
+ frac[3,65] free
+ frac[3,66] free
+ frac[3,69] free
+ frac[3,70] free
+ frac[3,71] free
+ frac[3,73] free
+ frac[3,74] free
+ frac[3,75] free
+ frac[3,77] free
+ frac[3,79] free
+ frac[4,0] free
+ frac[4,5] free
+ frac[4,11] free
+ frac[4,14] free
+ frac[4,18] free
+ frac[4,19] free
+ frac[4,20] free
+ frac[4,22] free
+ frac[4,23] free
+ frac[4,24] free
+ frac[4,25] free
+ frac[4,26] free
+ frac[4,30] free
+ frac[4,31] free
+ frac[4,38] free
+ frac[4,39] free
+ frac[4,45] free
+ frac[4,46] free
+ frac[4,54] free
+ frac[4,58] free
+ frac[4,59] free
+ frac[4,60] free
+ frac[4,61] free
+ frac[4,63] free
+ frac[4,69] free
+ frac[4,73] free
+ frac[4,75] free
+ frac[4,79] free
+ frac[5,4] free
+ frac[5,6] free
+ frac[5,8] free
+ frac[5,9] free
+ frac[5,10] free
+ frac[5,12] free
+ frac[5,15] free
+ frac[5,21] free
+ frac[5,22] free
+ frac[5,25] free
+ frac[5,26] free
+ frac[5,28] free
+ frac[5,29] free
+ frac[5,33] free
+ frac[5,34] free
+ frac[5,37] free
+ frac[5,40] free
+ frac[5,41] free
+ frac[5,42] free
+ frac[5,43] free
+ frac[5,44] free
+ frac[5,46] free
+ frac[5,47] free
+ frac[5,48] free
+ frac[5,50] free
+ frac[5,51] free
+ frac[5,52] free
+ frac[5,54] free
+ frac[5,55] free
+ frac[5,62] free
+ frac[5,63] free
+ frac[5,66] free
+ frac[5,72] free
+ frac[5,75] free
+ frac[6,5] free
+ frac[6,11] free
+ frac[6,15] free
+ frac[6,19] free
+ frac[6,24] free
+ frac[6,28] free
+ frac[6,29] free
+ frac[6,34] free
+ frac[6,36] free
+ frac[6,38] free
+ frac[6,44] free
+ frac[6,45] free
+ frac[6,50] free
+ frac[6,54] free
+ frac[6,55] free
+ frac[6,57] free
+ frac[6,59] free
+ frac[6,64] free
+ frac[6,70] free
+ frac[6,75] free
+ frac[6,78] free
+ frac[7,2] free
+ frac[7,3] free
+ frac[7,4] free
+ frac[7,5] free
+ frac[7,7] free
+ frac[7,8] free
+ frac[7,13] free
+ frac[7,14] free
+ frac[7,16] free
+ frac[7,17] free
+ frac[7,18] free
+ frac[7,21] free
+ frac[7,23] free
+ frac[7,26] free
+ frac[7,27] free
+ frac[7,29] free
+ frac[7,30] free
+ frac[7,32] free
+ frac[7,43] free
+ frac[7,44] free
+ frac[7,45] free
+ frac[7,48] free
+ frac[7,49] free
+ frac[7,52] free
+ frac[7,53] free
+ frac[7,56] free
+ frac[7,58] free
+ frac[7,60] free
+ frac[7,61] free
+ frac[7,63] free
+ frac[7,66] free
+ frac[7,71] free
+ frac[7,72] free
+ frac[7,74] free
+ frac[7,75] free
+ frac[7,76] free
+ frac[8,0] free
+ frac[8,1] free
+ frac[8,3] free
+ frac[8,4] free
+ frac[8,5] free
+ frac[8,6] free
+ frac[8,7] free
+ frac[8,8] free
+ frac[8,9] free
+ frac[8,10] free
+ frac[8,12] free
+ frac[8,13] free
+ frac[8,15] free
+ frac[8,16] free
+ frac[8,17] free
+ frac[8,19] free
+ frac[8,21] free
+ frac[8,22] free
+ frac[8,23] free
+ frac[8,24] free
+ frac[8,25] free
+ frac[8,26] free
+ frac[8,28] free
+ frac[8,29] free
+ frac[8,30] free
+ frac[8,31] free
+ frac[8,32] free
+ frac[8,33] free
+ frac[8,34] free
+ frac[8,36] free
+ frac[8,37] free
+ frac[8,38] free
+ frac[8,39] free
+ frac[8,42] free
+ frac[8,46] free
+ frac[8,49] free
+ frac[8,51] free
+ frac[8,52] free
+ frac[8,54] free
+ frac[8,55] free
+ frac[8,56] free
+ frac[8,57] free
+ frac[8,58] free
+ frac[8,59] free
+ frac[8,60] free
+ frac[8,64] free
+ frac[8,65] free
+ frac[8,66] free
+ frac[8,67] free
+ frac[8,68] free
+ frac[8,69] free
+ frac[8,71] free
+ frac[8,72] free
+ frac[8,73] free
+ frac[8,74] free
+ frac[8,75] free
+ frac[8,77] free
+ frac[8,78] free
+ frac[9,1] free
+ frac[9,2] free
+ frac[9,3] free
+ frac[9,4] free
+ frac[9,7] free
+ frac[9,8] free
+ frac[9,13] free
+ frac[9,15] free
+ frac[9,17] free
+ frac[9,20] free
+ frac[9,21] free
+ frac[9,22] free
+ frac[9,23] free
+ frac[9,24] free
+ frac[9,27] free
+ frac[9,28] free
+ frac[9,29] free
+ frac[9,30] free
+ frac[9,33] free
+ frac[9,34] free
+ frac[9,35] free
+ frac[9,36] free
+ frac[9,37] free
+ frac[9,40] free
+ frac[9,41] free
+ frac[9,44] free
+ frac[9,45] free
+ frac[9,46] free
+ frac[9,47] free
+ frac[9,51] free
+ frac[9,53] free
+ frac[9,57] free
+ frac[9,58] free
+ frac[9,59] free
+ frac[9,60] free
+ frac[9,62] free
+ frac[9,63] free
+ frac[9,64] free
+ frac[9,65] free
+ frac[9,66] free
+ frac[9,67] free
+ frac[9,68] free
+ frac[9,69] free
+ frac[9,70] free
+ frac[9,71] free
+ frac[9,72] free
+ frac[9,73] free
+ frac[9,74] free
+ frac[9,75] free
+ frac[9,76] free
+ frac[9,77] free
+ frac[9,79] free
+ frac[10,0] free
+ frac[10,4] free
+ frac[10,5] free
+ frac[10,6] free
+ frac[10,8] free
+ frac[10,9] free
+ frac[10,10] free
+ frac[10,11] free
+ frac[10,12] free
+ frac[10,14] free
+ frac[10,15] free
+ frac[10,18] free
+ frac[10,19] free
+ frac[10,20] free
+ frac[10,21] free
+ frac[10,22] free
+ frac[10,23] free
+ frac[10,24] free
+ frac[10,25] free
+ frac[10,26] free
+ frac[10,28] free
+ frac[10,29] free
+ frac[10,30] free
+ frac[10,31] free
+ frac[10,33] free
+ frac[10,34] free
+ frac[10,37] free
+ frac[10,38] free
+ frac[10,39] free
+ frac[10,40] free
+ frac[10,41] free
+ frac[10,42] free
+ frac[10,43] free
+ frac[10,44] free
+ frac[10,45] free
+ frac[10,46] free
+ frac[10,47] free
+ frac[10,48] free
+ frac[10,50] free
+ frac[10,51] free
+ frac[10,52] free
+ frac[10,54] free
+ frac[10,55] free
+ frac[10,58] free
+ frac[10,59] free
+ frac[10,60] free
+ frac[10,61] free
+ frac[10,62] free
+ frac[10,63] free
+ frac[10,66] free
+ frac[10,67] free
+ frac[10,69] free
+ frac[10,72] free
+ frac[10,73] free
+ frac[10,75] free
+ frac[10,79] free
+ frac[11,2] free
+ frac[11,3] free
+ frac[11,4] free
+ frac[11,5] free
+ frac[11,7] free
+ frac[11,8] free
+ frac[11,11] free
+ frac[11,13] free
+ frac[11,14] free
+ frac[11,15] free
+ frac[11,16] free
+ frac[11,17] free
+ frac[11,18] free
+ frac[11,19] free
+ frac[11,21] free
+ frac[11,23] free
+ frac[11,24] free
+ frac[11,26] free
+ frac[11,27] free
+ frac[11,28] free
+ frac[11,29] free
+ frac[11,30] free
+ frac[11,32] free
+ frac[11,34] free
+ frac[11,36] free
+ frac[11,38] free
+ frac[11,43] free
+ frac[11,44] free
+ frac[11,45] free
+ frac[11,48] free
+ frac[11,49] free
+ frac[11,50] free
+ frac[11,52] free
+ frac[11,53] free
+ frac[11,54] free
+ frac[11,55] free
+ frac[11,56] free
+ frac[11,57] free
+ frac[11,58] free
+ frac[11,59] free
+ frac[11,60] free
+ frac[11,61] free
+ frac[11,63] free
+ frac[11,64] free
+ frac[11,66] free
+ frac[11,67] free
+ frac[11,70] free
+ frac[11,71] free
+ frac[11,72] free
+ frac[11,74] free
+ frac[11,75] free
+ frac[11,76] free
+ frac[11,78] free
+ frac[12,0] free
+ frac[12,2] free
+ frac[12,3] free
+ frac[12,4] free
+ frac[12,5] free
+ frac[12,6] free
+ frac[12,7] free
+ frac[12,8] free
+ frac[12,9] free
+ frac[12,10] free
+ frac[12,12] free
+ frac[12,13] free
+ frac[12,15] free
+ frac[12,16] free
+ frac[12,17] free
+ frac[12,20] free
+ frac[12,21] free
+ frac[12,22] free
+ frac[12,23] free
+ frac[12,24] free
+ frac[12,26] free
+ frac[12,27] free
+ frac[12,28] free
+ frac[12,29] free
+ frac[12,30] free
+ frac[12,31] free
+ frac[12,32] free
+ frac[12,33] free
+ frac[12,34] free
+ frac[12,36] free
+ frac[12,37] free
+ frac[12,39] free
+ frac[12,40] free
+ frac[12,41] free
+ frac[12,42] free
+ frac[12,44] free
+ frac[12,45] free
+ frac[12,46] free
+ frac[12,47] free
+ frac[12,49] free
+ frac[12,51] free
+ frac[12,53] free
+ frac[12,54] free
+ frac[12,56] free
+ frac[12,57] free
+ frac[12,58] free
+ frac[12,59] free
+ frac[12,62] free
+ frac[12,63] free
+ frac[12,64] free
+ frac[12,65] free
+ frac[12,66] free
+ -infinity <= frac[12,67] <= 1
+ frac[12,68] free
+ frac[12,69] free
+ frac[12,70] free
+ frac[12,71] free
+ frac[12,72] free
+ frac[12,73] free
+ frac[12,74] free
+ frac[12,75] free
+ frac[12,76] free
+ frac[12,77] free
+ frac[12,78] free
+ frac[12,79] free
+ frac[13,0] free
+ frac[13,2] free
+ frac[13,3] free
+ frac[13,4] free
+ frac[13,5] free
+ frac[13,6] free
+ frac[13,7] free
+ frac[13,8] free
+ frac[13,9] free
+ frac[13,10] free
+ frac[13,11] free
+ frac[13,12] free
+ frac[13,13] free
+ frac[13,14] free
+ frac[13,15] free
+ frac[13,16] free
+ frac[13,17] free
+ frac[13,18] free
+ frac[13,19] free
+ frac[13,20] free
+ frac[13,21] free
+ frac[13,23] free
+ frac[13,24] free
+ frac[13,26] free
+ frac[13,27] free
+ frac[13,28] free
+ frac[13,29] free
+ frac[13,30] free
+ frac[13,31] free
+ frac[13,32] free
+ frac[13,33] free
+ frac[13,34] free
+ frac[13,36] free
+ frac[13,37] free
+ frac[13,38] free
+ frac[13,39] free
+ frac[13,40] free
+ frac[13,41] free
+ frac[13,42] free
+ frac[13,43] free
+ frac[13,44] free
+ frac[13,45] free
+ frac[13,47] free
+ frac[13,48] free
+ frac[13,49] free
+ frac[13,50] free
+ frac[13,51] free
+ frac[13,52] free
+ frac[13,53] free
+ frac[13,54] free
+ frac[13,55] free
+ frac[13,56] free
+ frac[13,57] free
+ frac[13,58] free
+ frac[13,59] free
+ frac[13,60] free
+ frac[13,61] free
+ frac[13,62] free
+ frac[13,63] free
+ frac[13,64] free
+ frac[13,66] free
+ frac[13,67] free
+ frac[13,69] free
+ frac[13,70] free
+ frac[13,71] free
+ frac[13,72] free
+ frac[13,73] free
+ frac[13,74] free
+ frac[13,76] free
+ frac[13,78] free
+ frac[13,79] free
+ frac[14,0] free
+ frac[14,2] free
+ frac[14,3] free
+ frac[14,5] free
+ frac[14,6] free
+ frac[14,7] free
+ frac[14,9] free
+ frac[14,10] free
+ frac[14,12] free
+ frac[14,13] free
+ frac[14,16] free
+ frac[14,17] free
+ frac[14,20] free
+ frac[14,26] free
+ frac[14,27] free
+ frac[14,29] free
+ frac[14,31] free
+ frac[14,32] free
+ frac[14,33] free
+ frac[14,36] free
+ frac[14,37] free
+ frac[14,39] free
+ frac[14,40] free
+ frac[14,41] free
+ frac[14,42] free
+ frac[14,44] free
+ frac[14,45] free
+ frac[14,47] free
+ frac[14,49] free
+ frac[14,51] free
+ frac[14,53] free
+ frac[14,54] free
+ frac[14,56] free
+ frac[14,57] free
+ frac[14,62] free
+ frac[14,63] free
+ frac[14,64] free
+ frac[14,67] free
+ frac[14,69] free
+ frac[14,70] free
+ frac[14,71] free
+ frac[14,73] free
+ frac[14,74] free
+ frac[14,76] free
+ frac[14,78] free
+ frac[14,79] free
+ mem[8,0] free
+ mem[8,1] free
+ mem[8,3] free
+ mem[8,4] free
+ mem[8,5] free
+ mem[8,6] free
+ mem[8,7] free
+ mem[8,8] free
+ mem[8,9] free
+ mem[8,10] free
+ mem[8,12] free
+ mem[8,13] free
+ mem[8,15] free
+ mem[8,16] free
+ mem[8,17] free
+ mem[8,19] free
+ mem[8,21] free
+ mem[8,22] free
+ mem[8,23] free
+ mem[8,24] free
+ mem[8,25] free
+ mem[8,26] free
+ mem[8,28] free
+ mem[8,29] free
+ mem[8,30] free
+ mem[8,31] free
+ mem[8,32] free
+ mem[8,33] free
+ mem[8,34] free
+ mem[8,36] free
+ mem[8,37] free
+ mem[8,38] free
+ mem[8,39] free
+ mem[8,42] free
+ mem[8,44] free
+ mem[8,45] free
+ mem[8,46] free
+ mem[8,49] free
+ mem[8,51] free
+ mem[8,52] free
+ mem[8,54] free
+ mem[8,55] free
+ mem[8,56] free
+ mem[8,57] free
+ mem[8,58] free
+ mem[8,59] free
+ mem[8,60] free
+ mem[8,64] free
+ mem[8,65] free
+ mem[8,66] free
+ mem[8,67] free
+ mem[8,68] free
+ mem[8,69] free
+ mem[8,71] free
+ mem[8,72] free
+ mem[8,73] free
+ mem[8,74] free
+ mem[8,75] free
+ mem[8,77] free
+ mem[8,78] free
+ mem[9,0] free
+ mem[9,1] free
+ mem[9,2] free
+ mem[9,3] free
+ mem[9,4] free
+ mem[9,7] free
+ mem[9,8] free
+ mem[9,13] free
+ mem[9,15] free
+ mem[9,17] free
+ mem[9,20] free
+ mem[9,21] free
+ mem[9,22] free
+ mem[9,23] free
+ mem[9,24] free
+ mem[9,27] free
+ mem[9,28] free
+ mem[9,29] free
+ mem[9,30] free
+ mem[9,32] free
+ mem[9,33] free
+ mem[9,34] free
+ mem[9,35] free
+ mem[9,36] free
+ mem[9,37] free
+ mem[9,39] free
+ mem[9,40] free
+ mem[9,41] free
+ mem[9,44] free
+ mem[9,45] free
+ mem[9,46] free
+ mem[9,47] free
+ mem[9,51] free
+ mem[9,53] free
+ mem[9,57] free
+ mem[9,58] free
+ mem[9,59] free
+ mem[9,60] free
+ mem[9,62] free
+ mem[9,63] free
+ mem[9,64] free
+ mem[9,65] free
+ mem[9,66] free
+ mem[9,67] free
+ mem[9,68] free
+ mem[9,69] free
+ mem[9,70] free
+ mem[9,71] free
+ mem[9,72] free
+ mem[9,73] free
+ mem[9,74] free
+ mem[9,75] free
+ mem[9,76] free
+ mem[9,77] free
+ mem[9,79] free
+ mem[10,0] free
+ mem[10,4] free
+ mem[10,5] free
+ mem[10,6] free
+ mem[10,8] free
+ mem[10,9] free
+ mem[10,10] free
+ mem[10,11] free
+ mem[10,12] free
+ mem[10,14] free
+ mem[10,15] free
+ mem[10,18] free
+ mem[10,19] free
+ mem[10,20] free
+ mem[10,21] free
+ mem[10,22] free
+ mem[10,23] free
+ mem[10,24] free
+ mem[10,25] free
+ mem[10,26] free
+ mem[10,28] free
+ mem[10,29] free
+ mem[10,30] free
+ mem[10,31] free
+ mem[10,33] free
+ mem[10,34] free
+ mem[10,37] free
+ mem[10,38] free
+ mem[10,39] free
+ mem[10,40] free
+ mem[10,41] free
+ mem[10,42] free
+ mem[10,43] free
+ mem[10,44] free
+ mem[10,45] free
+ mem[10,46] free
+ mem[10,47] free
+ mem[10,48] free
+ mem[10,50] free
+ mem[10,51] free
+ mem[10,52] free
+ mem[10,54] free
+ mem[10,55] free
+ mem[10,57] free
+ mem[10,58] free
+ mem[10,59] free
+ mem[10,60] free
+ mem[10,61] free
+ mem[10,62] free
+ mem[10,63] free
+ mem[10,66] free
+ mem[10,69] free
+ mem[10,72] free
+ mem[10,73] free
+ mem[10,74] free
+ mem[10,75] free
+ mem[10,79] free
+ mem[11,2] free
+ mem[11,3] free
+ mem[11,4] free
+ mem[11,5] free
+ mem[11,7] free
+ mem[11,8] free
+ mem[11,11] free
+ mem[11,13] free
+ mem[11,14] free
+ mem[11,15] free
+ mem[11,16] free
+ mem[11,17] free
+ mem[11,18] free
+ mem[11,19] free
+ mem[11,21] free
+ mem[11,23] free
+ mem[11,24] free
+ mem[11,26] free
+ mem[11,27] free
+ mem[11,28] free
+ mem[11,29] free
+ mem[11,30] free
+ mem[11,32] free
+ mem[11,34] free
+ mem[11,36] free
+ mem[11,38] free
+ mem[11,43] free
+ mem[11,44] free
+ mem[11,45] free
+ mem[11,48] free
+ mem[11,49] free
+ mem[11,50] free
+ mem[11,52] free
+ mem[11,53] free
+ mem[11,54] free
+ mem[11,55] free
+ mem[11,56] free
+ mem[11,57] free
+ mem[11,58] free
+ mem[11,59] free
+ mem[11,60] free
+ mem[11,61] free
+ mem[11,63] free
+ mem[11,64] free
+ mem[11,66] free
+ mem[11,70] free
+ mem[11,71] free
+ mem[11,72] free
+ mem[11,74] free
+ mem[11,75] free
+ mem[11,76] free
+ mem[11,78] free
+ mem[12,0] free
+ mem[12,2] free
+ mem[12,3] free
+ mem[12,4] free
+ mem[12,5] free
+ mem[12,6] free
+ mem[12,7] free
+ mem[12,8] free
+ mem[12,9] free
+ mem[12,10] free
+ mem[12,12] free
+ mem[12,13] free
+ mem[12,15] free
+ mem[12,16] free
+ mem[12,17] free
+ mem[12,20] free
+ mem[12,21] free
+ mem[12,22] free
+ mem[12,23] free
+ mem[12,24] free
+ mem[12,26] free
+ mem[12,27] free
+ mem[12,28] free
+ mem[12,29] free
+ mem[12,30] free
+ mem[12,31] free
+ mem[12,32] free
+ mem[12,33] free
+ mem[12,34] free
+ mem[12,36] free
+ mem[12,37] free
+ mem[12,39] free
+ mem[12,40] free
+ mem[12,41] free
+ mem[12,42] free
+ mem[12,44] free
+ mem[12,45] free
+ mem[12,46] free
+ mem[12,47] free
+ mem[12,49] free
+ mem[12,51] free
+ mem[12,53] free
+ mem[12,54] free
+ mem[12,56] free
+ mem[12,57] free
+ mem[12,58] free
+ mem[12,59] free
+ mem[12,62] free
+ mem[12,63] free
+ mem[12,64] free
+ mem[12,65] free
+ mem[12,66] free
+ mem[12,67] free
+ mem[12,68] free
+ mem[12,69] free
+ mem[12,70] free
+ mem[12,71] free
+ mem[12,72] free
+ mem[12,73] free
+ mem[12,74] free
+ mem[12,75] free
+ mem[12,76] free
+ mem[12,77] free
+ mem[12,78] free
+ mem[12,79] free
+ mem[13,0] free
+ mem[13,2] free
+ mem[13,3] free
+ mem[13,4] free
+ mem[13,5] free
+ mem[13,6] free
+ mem[13,7] free
+ mem[13,8] free
+ mem[13,9] free
+ mem[13,10] free
+ mem[13,11] free
+ mem[13,12] free
+ mem[13,13] free
+ mem[13,14] free
+ mem[13,15] free
+ mem[13,16] free
+ mem[13,17] free
+ mem[13,18] free
+ mem[13,19] free
+ mem[13,20] free
+ mem[13,21] free
+ mem[13,22] free
+ mem[13,23] free
+ mem[13,24] free
+ mem[13,26] free
+ mem[13,27] free
+ mem[13,28] free
+ mem[13,29] free
+ mem[13,30] free
+ mem[13,31] free
+ mem[13,32] free
+ mem[13,33] free
+ mem[13,34] free
+ mem[13,36] free
+ mem[13,37] free
+ mem[13,38] free
+ mem[13,39] free
+ mem[13,40] free
+ mem[13,41] free
+ mem[13,42] free
+ mem[13,43] free
+ mem[13,44] free
+ mem[13,45] free
+ mem[13,47] free
+ mem[13,48] free
+ mem[13,49] free
+ mem[13,50] free
+ mem[13,51] free
+ mem[13,52] free
+ mem[13,53] free
+ mem[13,54] free
+ mem[13,55] free
+ mem[13,56] free
+ mem[13,57] free
+ mem[13,58] free
+ mem[13,59] free
+ mem[13,60] free
+ mem[13,61] free
+ mem[13,62] free
+ mem[13,63] free
+ mem[13,64] free
+ mem[13,66] free
+ mem[13,67] free
+ mem[13,69] free
+ mem[13,70] free
+ mem[13,71] free
+ mem[13,72] free
+ mem[13,73] free
+ mem[13,74] free
+ mem[13,76] free
+ mem[13,78] free
+ mem[13,79] free
+ mem[14,0] free
+ mem[14,2] free
+ mem[14,3] free
+ mem[14,5] free
+ mem[14,6] free
+ mem[14,7] free
+ mem[14,9] free
+ mem[14,10] free
+ mem[14,12] free
+ mem[14,13] free
+ mem[14,15] free
+ mem[14,16] free
+ mem[14,17] free
+ mem[14,19] free
+ mem[14,20] free
+ mem[14,26] free
+ mem[14,27] free
+ mem[14,28] free
+ mem[14,29] free
+ mem[14,31] free
+ mem[14,32] free
+ mem[14,33] free
+ mem[14,36] free
+ mem[14,37] free
+ mem[14,39] free
+ mem[14,40] free
+ mem[14,41] free
+ mem[14,42] free
+ mem[14,44] free
+ mem[14,45] free
+ mem[14,47] free
+ mem[14,49] free
+ mem[14,51] free
+ mem[14,53] free
+ mem[14,54] free
+ mem[14,56] free
+ mem[14,57] free
+ mem[14,62] free
+ mem[14,63] free
+ mem[14,64] free
+ mem[14,67] free
+ mem[14,69] free
+ mem[14,70] free
+ mem[14,71] free
+ mem[14,73] free
+ mem[14,74] free
+ mem[14,76] free
+ mem[14,78] free
+ mem[14,79] free
+ rows_tot_cpu1 free
+ rows_tot_cpu2 free
+ rows_tot_cpu3 free
+ rows_tot_cpu4 free
+ rows_tot_cpu5 free
+ rows_tot_cpu6 free
+ rows_tot_cpu7 free
+ rows_tot_cpu8 free
+ -infinity <= mem_tot_tor_p41 <= 576
+ -infinity <= mem_tot_tor_p42 <= 576
+ -infinity <= mem_tot_tor_p43 <= 576
+ -infinity <= mem_tot_tor_p44 <= 576
+ -infinity <= mem_tot_l1_p41 <= 576
+ -infinity <= mem_tot_l1_p42 <= 576
+ -infinity <= mem_tot_l2_p4 <= 576
+End

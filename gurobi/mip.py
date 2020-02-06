@@ -1,15 +1,16 @@
+import os
+import pickle
 import sys
 import time
 
 import gurobipy as gp
-import ipdb
 from gurobipy import GRB
 
-from config import config, common_config, eps0, update_config
 from cli import generate_parser
-from common import param, setup_logging, log
-from solvers import (solver_to_num, solver_to_class,
-                     add_device_aware_constraints)
+from common import log, param, setup_logging
+from config import common_config, config, eps0, update_config
+from solvers import (add_device_aware_constraints, solver_to_class,
+                     solver_to_num)
 
 
 def get_partitions(queries):
@@ -52,8 +53,9 @@ def solve(devices, queries, flows):
         m.setParam(GRB.Param.LogToConsole, 0)
 
     # Fraction of partition on device
-    frac = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
-                     lb=0, ub=1, name='frac')
+    frac = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
+                     # lb=0, ub=1,
+                     name='frac')
     # Memory taken by partition
     mem = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
                     lb=0, name='mem')
@@ -115,7 +117,6 @@ def solve(devices, queries, flows):
                     name='rows_tot_{}'.format(d))
         d.rows_tot = rows_tot
 
-
     if(solver_to_num[common_config.solver] > 0):
         add_device_aware_constraints(devices, queries, flows,
                                      partitions, m, frac, mem)
@@ -157,9 +158,21 @@ setup_logging(args)
 
 cfg_num = common_config.cfg_num
 cfg = config[cfg_num]
-if(cfg_num == 3):
-    for eps0_mul in [1, 4, 10, 23]:
-        cfg.queries[0].eps0 = eps0 * eps0_mul
-        solve(cfg.devices, cfg.queries)
-else:
-    solve(cfg.devices, cfg.queries, cfg.flows)
+# if(cfg_num == 3):
+#     for eps0_mul in [1, 4, 10, 23]:
+#         cfg.queries[0].eps0 = eps0 * eps0_mul
+#         solve(cfg.devices, cfg.queries)
+# else:
+
+
+# if (cfg_num == 3):
+#     if(os.path.exists('pickle_objs/cfg_3')):
+#         cfg_file = open('pickle_objs/cfg_3', 'rb')
+#         cfg = pickle.load(cfg_file)
+#         cfg_file.close()
+#     else:
+#         cfg_file = open('pickle_objs/cfg_3', 'wb')
+#         pickle.dump(cfg, cfg_file)
+#         cfg_file.close()
+
+solve(cfg.devices, cfg.queries, cfg.flows)
