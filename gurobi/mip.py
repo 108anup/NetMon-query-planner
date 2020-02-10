@@ -53,8 +53,8 @@ def solve(devices, queries, flows):
         m.setParam(GRB.Param.LogToConsole, 0)
 
     # Fraction of partition on device
-    frac = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
-                     # lb=0, ub=1,
+    frac = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
+                     lb=0, ub=1,
                      name='frac')
     # Memory taken by partition
     mem = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,

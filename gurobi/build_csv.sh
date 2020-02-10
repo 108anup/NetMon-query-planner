@@ -2,10 +2,10 @@
 
 output_file="outputs/sensitivity.csv"
 
-cfgs=($(echo {0..9}))
+cfgs=(3 9)
 
 for cfg in ${cfgs[@]}; do
-    echo -n "n, ${cfg}, " >> $output_file
+    echo -n "v, ${cfg}, " >> $output_file
     args="-c ${cfg} -o ${output_file} -v"
     python mip.py -s univmon $args \
         | tee "outputs/build_csv/${cfg}_univmon.out"
@@ -16,4 +16,5 @@ for cfg in ${cfgs[@]}; do
     python mip.py -s netmon $args \
         | tee "outputs/build_csv/${cfg}_netmon.out"
     echo "" >> $output_file
+    rm pickle_objs/cfg-*
 done
