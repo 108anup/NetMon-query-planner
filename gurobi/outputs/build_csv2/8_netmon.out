@@ -1,0 +1,85 @@
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 12 rows, 12 columns and 23 nonzeros
+Model fingerprint: 0xfc1e6275
+Model has 1 general constraint
+Variable types: 12 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [2e-02, 1e+02]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 6e+02]
+  RHS range        [1e+00, 5e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 2 objectives ... 
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 9 rows and 8 columns
+Presolve time: 0.00s
+Presolved: 3 rows and 4 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (ns) ...
+---------------------------------------------------------------------------
+
+Presolve removed 3 rows and 4 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.7567568e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  6.756756757e+00
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (res) ...
+---------------------------------------------------------------------------
+
+Presolve removed 4 rows and 4 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.8737793e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  2.873779297e+00
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 2
+
+--------------------------------------------------
+Model update took: 3.147125244140625e-05 seconds
+Model optimize took: 0.0007038116455078125 seconds
+--------------------------------------------------
+
+Solution quality statistics for model netmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 0.00000000e+00
+    Integrality : 0.00000000e+00
+
+Throughput: 148.0 Mpps, ns per packet: 6.756756756756757
+Resources: 2.873779296875
+
+Sketch (0) (cm: eps0: 0.0003125, del0: 0.05, min_mem: 33.98046875)
+Par: 1, Rows: 3
+1.000    0.000    
+Total frac: 1.000
+
+Device (0) p4_1:
+Rows total: 3.0
+Mem total: 101.94140625
+Throughput: 148.0
+
+Device (1) p4_2:
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 148.0
+--------------------------------------------------
