@@ -311,6 +311,33 @@ config = [
         ],
         queries=[cm_sketch(eps0=eps0*5, del0=del0)]
     ),
+
+    # 11
+    # Pressure at core
+    param(
+        devices=(
+            [cpu(**beluga20, name='cpu_{}'.format(i)) for i in range(20)] +
+            [p4(**tofino, name='p4_1')]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0, del0=del0) for i in range(20)
+        ],
+        flows=[flow(path=(i, 20, (i + 1) % 20), queries=[(i, 1)])
+               for i in range(20)]
+    ),
+
+    # 12
+    # Pressure at core, core is now cpu
+    param(
+        devices=(
+            [p4(**tofino, name='p4_{}'.format(i)) for i in range(20)] +
+            [cpu(**beluga20, name='cpu_1')]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0/1000, del0=del0)],
+        flows=[flow(path=(i, 20, (i + 1) % 20), queries=[(0, 1)])
+               for i in range(20)]
+    )
 ]
 
 common_config = param(

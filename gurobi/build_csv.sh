@@ -2,11 +2,11 @@
 
 output_file="outputs/sensitivity.csv"
 
-cfgs=($(echo {0..9}))
+cfgs=($(echo 12))
 
 for cfg in ${cfgs[@]}; do
-    echo -n "n, ${cfg}, " >> $output_file
-    args="-c ${cfg} -o ${output_file} -v"
+    echo -n "v, ${cfg}, " >> $output_file
+    args="-c ${cfg} -o ${output_file} -v --mipout"
     python mip.py -s univmon $args \
         | tee "outputs/build_csv/${cfg}_univmon.out"
     python mip.py -s univmon_greedy $args \
