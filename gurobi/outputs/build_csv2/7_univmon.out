@@ -1,0 +1,159 @@
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 24 rows, 34 columns and 73 nonzeros
+Model fingerprint: 0x4030fb4a
+Model has 1 general constraint
+Variable types: 34 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 1e+00]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 2 objectives ... 
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 4 rows and 1 columns
+Presolve time: 0.00s
+Presolved: 20 rows and 33 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (max_mem) ...
+---------------------------------------------------------------------------
+
+Presolve removed 11 rows and 17 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 16 columns, 30 nonzeros
+Presolved model has 2 SOS constraint(s)
+Variable types: 14 continuous, 2 integer (2 binary)
+
+Root relaxation: objective 1.241230e+04, 9 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0    12412.300781 12412.3008  0.00%     -    0s
+
+Explored 0 nodes (9 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 12412.3 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.241230078125e+04, best bound 1.241230078125e+04, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (tot_mem) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 25976.6
+
+Presolve removed 21 rows and 33 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 1: 25976.6 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.597660156250e+04, best bound 2.597660156250e+04, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 2
+
+--------------------------------------------------
+Model update took: 3.838539123535156e-05 seconds
+Model optimize took: 0.0021660327911376953 seconds
+--------------------------------------------------
+
+Solution quality statistics for model netmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 5.68434189e-14 (accuracy_1_sk_1[3])
+    Integrality : 0.00000000e+00
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 3
+-0.000    0.000    1.000    0.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.487    0.487    0.006    0.020    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 4
+0.000    0.000    -0.000    1.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+Rows total: 1.4611933270364652
+Mem total: 12412.30078125
+
+Device (1) cpu_2:
+Rows total: 1.4611933270364652
+Mem total: 12412.30078125
+
+Device (2) p4_1:
+Rows total: 3.0178071999507043
+Mem total: 576.0
+
+Device (3) p4_2:
+Rows total: 4.059806145976365
+Mem total: 576.0
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 168.79975020690404
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 3
+-0.000    0.000    1.000    0.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.487    0.487    0.006    0.020    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 4
+0.000    0.000    -0.000    1.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 1.9999999999999998, cores_dpdk: 4.9999999999999964
+Rows total: 1.4611933270364652
+Mem total: 12412.30078125
+Throughput: 87.49999999999999
+
+Device (1) cpu_2:
+cores_sketch: 1.9999999999999998, cores_dpdk: 4.9999999999999964
+Rows total: 1.4611933270364652
+Mem total: 12412.30078125
+Throughput: 87.49999999999999
+
+Device (2) p4_1:
+Rows total: 3.0178071999507043
+Mem total: 576.0
+Throughput: 148.0
+
+Device (3) p4_2:
+Rows total: 4.059806145976365
+Mem total: 576.0
+Throughput: 148.0
+--------------------------------------------------

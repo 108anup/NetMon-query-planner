@@ -111,6 +111,7 @@ class netmon(param):
             self.devices, self.queries, self.flows, self.partitions, self.m)
 
     def add_objective(self):
+        self.m.setParam(GRB.Param.TimeLimit, 120)
         self.m.setObjectiveN(self.ns, 0, 10, reltol=common_config.ns_tol,
                              name='ns')
         self.m.setObjectiveN(self.res, 1, 5, reltol=common_config.res_tol,
@@ -284,11 +285,13 @@ class univmon_greedy(univmon):
                                             name='max_mem_p4')
             self.m.addGenConstrMax(self.max_mem_p4, mem_series_p4,
                                    name='mem_overall_p4')
+            self.tot_mem_p4 = gp.quicksum(mem_series_p4)
         if(len(mem_series_cpu) > 0):
             self.max_mem_cpu = self.m.addVar(vtype=GRB.CONTINUOUS,
                                              name='max_mem_cpu')
             self.m.addGenConstrMax(self.max_mem_cpu, mem_series_cpu,
                                    name='mem_overall_cpu')
+            self.tot_mem_cpu = gp.quicksum(mem_series_cpu)
         self.tot_mem = self.m.addVar(vtype=GRB.CONTINUOUS,
                                      name='tot_mem')
         self.m.addConstr(self.tot_mem == gp.quicksum(mem_series_cpu)
@@ -296,10 +299,12 @@ class univmon_greedy(univmon):
 
     def add_objective(self):
         if(hasattr(self, 'max_mem_cpu')):
-            self.m.setObjectiveN(self.max_mem_cpu, 0, 10, name='cpu_mem_load')
+            self.m.setObjectiveN(self.tot_mem_cpu, 0, 20, name='tot_mem_cpu')
+            self.m.setObjectiveN(self.max_mem_cpu, 1, 15, name='cpu_mem_load')
         if(hasattr(self, 'max_mem_p4')):
-            self.m.setObjectiveN(self.max_mem_p4, 1, 5, name='p4_mem_load')
-        self.m.setObjectiveN(self.tot_mem, 2, 1, name='mem_load')
+            self.m.setObjectiveN(self.tot_mem_p4, 2, 10, name='tot_mem_p4')
+            self.m.setObjectiveN(self.max_mem_p4, 3, 5, name='p4_mem_load')
+        # self.m.setObjectiveN(self.tot_mem, 2, 1, name='mem_load')
 
     def post_optimize(self):
         super(univmon_greedy, self).post_optimize(True)
@@ -322,11 +327,13 @@ class univmon_greedy_rows(univmon_greedy):
                                              name='max_rows_p4')
             self.m.addGenConstrMax(self.max_rows_p4, rows_series_p4,
                                    name='rows_overall_p4')
+            self.tot_rows_p4 = gp.quicksum(rows_series_p4)
         if(len(rows_series_cpu) > 0):
             self.max_rows_cpu = self.m.addVar(vtype=GRB.CONTINUOUS,
                                               name='max_rows_cpu')
             self.m.addGenConstrMax(self.max_rows_cpu, rows_series_cpu,
                                    name='rows_overall_cpu')
+            self.tot_rows_cpu = gp.quicksum(rows_series_cpu)
         self.tot_rows = self.m.addVar(vtype=GRB.CONTINUOUS,
                                       name='tot_rows')
         self.m.addConstr(self.tot_rows == gp.quicksum(rows_series_cpu)
@@ -334,15 +341,19 @@ class univmon_greedy_rows(univmon_greedy):
 
     def add_objective(self):
         if(hasattr(self, 'max_rows_cpu')):
-            self.m.setObjectiveN(self.max_rows_cpu, 0, 30, name='cpu_rows_load')
+            self.m.setObjectiveN(self.tot_rows_cpu, 0, 100, name='tot_rows_cpu')
+            self.m.setObjectiveN(self.max_rows_cpu, 1, 90, name='cpu_rows_load')
         if(hasattr(self, 'max_rows_p4')):
-            self.m.setObjectiveN(self.max_rows_p4, 1, 25, name='p4_rows_load')
-        self.m.setObjectiveN(self.tot_rows, 2, 20, name='rows_load')
+            self.m.setObjectiveN(self.tot_rows_p4, 2, 80, name='tot_rows_p4')
+            self.m.setObjectiveN(self.max_rows_p4, 3, 70, name='p4_rows_load')
+        # self.m.setObjectiveN(self.tot_rows, 2, 20, name='rows_load')
         if(hasattr(self, 'max_mem_cpu')):
-            self.m.setObjectiveN(self.max_mem_cpu, 3, 15, name='cpu_load_mem')
+            self.m.setObjectiveN(self.tot_mem_cpu, 4, 60, name='tot_mem_cpu')
+            self.m.setObjectiveN(self.max_mem_cpu, 5, 50, name='cpu_load_mem')
         if(hasattr(self, 'max_mem_p4')):
-            self.m.setObjectiveN(self.max_mem_p4, 4, 10, name='p4_load_mem')
-        self.m.setObjectiveN(self.tot_mem, 5, 5, name='mem_load')
+            self.m.setObjectiveN(self.tot_mem_p4, 6, 40, name='tot_mem_p4')
+            self.m.setObjectiveN(self.max_mem_p4, 7, 30, name='p4_load_mem')
+        # self.m.setObjectiveN(self.tot_mem, 5, 5, name='mem_load')
 
 
 def log_results(ns, res):
