@@ -19,7 +19,7 @@ def get_partitions(queries):
         q.sketch_id = i
         num_rows = q.rows()
         start_idx = len(partitions)
-        if(common_config.partition):
+        if(common_config.horizontal_partition):
             q.partitions = [start_idx + r for r in range(num_rows)]
             partitions += [param(partition_id=start_idx+r,
                                  sketch=q, num_rows=1)
@@ -53,9 +53,13 @@ def solve(devices, queries, flows):
         m.setParam(GRB.Param.LogToConsole, 0)
 
     # Fraction of partition on device
-    frac = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
-                     lb=0, ub=1,
-                     name='frac')
+    if(common_config.vertical_partition):
+        frac = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
+                         lb=0, ub=1,
+                         name='frac')
+    else:
+        frac = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
+                         name='frac')
     # Memory taken by partition
     mem = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
                     lb=0, name='mem')

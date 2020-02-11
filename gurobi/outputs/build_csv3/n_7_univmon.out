@@ -1,0 +1,84 @@
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------
+Model update took: 3.62396240234375e-05 seconds
+Model optimize took: 0.0019915103912353516 seconds
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 3
+-0.000    -0.000    0.000    1.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+1.000    -0.000    0.000    0.000    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 4
+-0.000    -0.000    0.000    1.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+Rows total: 3.0
+Mem total: 25486.44682834575
+
+Device (1) cpu_2:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (2) p4_1:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (3) p4_2:
+Rows total: 7.0
+Mem total: 492.703125
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 53.32800053328044 Mpps, ns per packet: 18.75187499999985
+Resources: 105.1257869663508
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 3
+-0.000    -0.000    0.000    1.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+1.000    -0.000    0.000    0.000    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 4
+-0.000    -0.000    0.000    1.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 5.0, cores_dpdk: 1.9999999999999996
+Rows total: 3.0
+Mem total: 25486.44682834575
+Throughput: 56.00000000000044
+
+Device (1) cpu_2:
+cores_sketch: 0.0, cores_dpdk: 2.0
+Rows total: 0
+Mem total: 0.0
+Throughput: 53.32800053328044
+
+Device (2) p4_1:
+Rows total: 0
+Mem total: 0.0
+Throughput: 148.0
+
+Device (3) p4_2:
+Rows total: 7.0
+Mem total: 492.703125
+Throughput: 148.0
+--------------------------------------------------

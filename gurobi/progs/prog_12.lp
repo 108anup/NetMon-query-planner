@@ -166,27 +166,6 @@ Subject To
  pdt_nsc_dpdk_cpu_1: pdt_nsc_dpdk_cpu_1 + [
    - cores_dpdk_cpu_1 * ns_dpdk_cpu_1 ] = 0
 Bounds
- frac[0,0] <= 1
- frac[1,0] <= 1
- frac[2,0] <= 1
- frac[3,0] <= 1
- frac[4,0] <= 1
- frac[5,0] <= 1
- frac[6,0] <= 1
- frac[7,0] <= 1
- frac[8,0] <= 1
- frac[9,0] <= 1
- frac[10,0] <= 1
- frac[11,0] <= 1
- frac[12,0] <= 1
- frac[13,0] <= 1
- frac[14,0] <= 1
- frac[15,0] <= 1
- frac[16,0] <= 1
- frac[17,0] <= 1
- frac[18,0] <= 1
- frac[19,0] <= 1
- frac[20,0] <= 1
  mem_tot_p4_0 <= 576
  mem_tot_p4_1 <= 576
  mem_tot_p4_2 <= 576
@@ -210,6 +189,11 @@ Bounds
  mem_tot_cpu_1 <= 32768
  cores_sketch_cpu_1 <= 7
  1 <= cores_dpdk_cpu_1 <= 7
+Binaries
+ frac[0,0] frac[1,0] frac[2,0] frac[3,0] frac[4,0] frac[5,0] frac[6,0]
+ frac[7,0] frac[8,0] frac[9,0] frac[10,0] frac[11,0] frac[12,0] frac[13,0]
+ frac[14,0] frac[15,0] frac[16,0] frac[17,0] frac[18,0] frac[19,0]
+ frac[20,0]
 Generals
  cores_sketch_cpu_1 cores_dpdk_cpu_1
 General Constraints

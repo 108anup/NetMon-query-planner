@@ -1,0 +1,226 @@
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------
+Model update took: 0.00017023086547851562 seconds
+Model optimize took: 0.0028069019317626953 seconds
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 6.25e-06, del0: 0.05, min_mem: 1698.9296875)
+Par: 1, Rows: 1
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.661    
+Total frac: 4.049
+Par: 3, Rows: 1
+0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.661    
+Total frac: 4.051
+
+Device (0) p4_0:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000002
+
+Device (1) p4_1:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (2) p4_2:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000002
+
+Device (3) p4_3:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (4) p4_4:
+Rows total: 0.33903698560214857
+Mem total: 576.0
+
+Device (5) p4_5:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (6) p4_6:
+Rows total: 0.33903698560214857
+Mem total: 576.0
+
+Device (7) p4_7:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (8) p4_8:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000002
+
+Device (9) p4_9:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (10) p4_10:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000002
+
+Device (11) p4_11:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (12) p4_12:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000002
+
+Device (13) p4_13:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (14) p4_14:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000002
+
+Device (15) p4_15:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (16) p4_16:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000002
+
+Device (17) p4_17:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (18) p4_18:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000002
+
+Device (19) p4_19:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+
+Device (20) cpu_1:
+Rows total: 2.3221582219871886
+Mem total: 3945.1835424062497
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 312.09401091912144
+
+Sketch (0) (cm: eps0: 6.25e-06, del0: 0.05, min_mem: 1698.9296875)
+Par: 1, Rows: 1
+0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    0.000    1.000    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.661    
+Total frac: 4.049
+Par: 3, Rows: 1
+0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.339    0.000    0.661    
+Total frac: 4.051
+
+Device (0) p4_0:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000001
+Throughput: 148.0
+
+Device (1) p4_1:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (2) p4_2:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000001
+Throughput: 148.0
+
+Device (3) p4_3:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (4) p4_4:
+Rows total: 0.33903698560214857
+Mem total: 576.0
+Throughput: 148.0
+
+Device (5) p4_5:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (6) p4_6:
+Rows total: 0.33903698560214857
+Mem total: 576.0
+Throughput: 148.0
+
+Device (7) p4_7:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (8) p4_8:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000001
+Throughput: 148.0
+
+Device (9) p4_9:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (10) p4_10:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000001
+Throughput: 148.0
+
+Device (11) p4_11:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (12) p4_12:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000001
+Throughput: 148.0
+
+Device (13) p4_13:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (14) p4_14:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000001
+Throughput: 148.0
+
+Device (15) p4_15:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (16) p4_16:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000001
+Throughput: 148.0
+
+Device (17) p4_17:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (18) p4_18:
+Rows total: 0.33903698560214857
+Mem total: 576.0000000000001
+Throughput: 148.0
+
+Device (19) p4_19:
+Rows total: 0.3388047924106631
+Mem total: 575.6055200937502
+Throughput: 148.0
+
+Device (20) cpu_1:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.3221582219871886
+Mem total: 3945.1835424062497
+Throughput: 87.49999999999999
+--------------------------------------------------

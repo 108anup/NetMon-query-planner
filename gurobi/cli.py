@@ -36,7 +36,7 @@ def generate_parser():
     )
 
     p.add_argument(
-        '-p', '--partition',
+        '--horizontal-partition', '--hp',
         action='store_true',
         default=False
     )
@@ -45,6 +45,12 @@ def generate_parser():
         '-o', '--output-file',
         action='store',
         default=None
+    )
+
+    p.add_argument(
+        '--vertical-partition', '--vp',
+        action='store_true',
+        default=False
     )
 
     return p

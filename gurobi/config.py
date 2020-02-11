@@ -355,7 +355,8 @@ def update_config(args):
     common_config.solver = args.scheme
     common_config.mipout = args.mipout
     common_config.cfg_num = int(args.config)
-    common_config.partition = args.partition
+    common_config.horizontal_partition = args.horizontal_partition
+    common_config.vertical_partition = args.vertical_partition
     common_config.output_file = args.output_file
 
 

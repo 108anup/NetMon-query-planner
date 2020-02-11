@@ -1,0 +1,69 @@
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------
+Model update took: 2.3603439331054688e-05 seconds
+Model optimize took: 0.061737060546875 seconds
+--------------------------------------------------
+
+Throughput: 83.32500083324999 Mpps, ns per packet: 12.001200000000003
+Resources: 154.96564143427102
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 1
+0.000    0.000    0.500    0.500    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.000    0.000    0.500    0.500    
+Total frac: 1.000
+Par: 3, Rows: 1
+0.000    0.050    0.475    0.475    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 1
+0.757    0.243    0.000    0.000    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.757    0.243    0.000    0.000    
+Total frac: 1.000
+Par: 3, Rows: 1
+0.000    1.000    0.000    0.000    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 1
+0.000    0.000    0.500    0.500    
+Total frac: 1.000
+Par: 2, Rows: 1
+0.000    0.000    0.500    0.500    
+Total frac: 1.000
+Par: 3, Rows: 1
+0.000    0.000    0.500    0.500    
+Total frac: 1.000
+Par: 4, Rows: 1
+0.000    0.000    0.500    0.500    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 1.9999999999795113, cores_dpdk: 5.0
+Rows total: 1.5144703036906841
+Mem total: 12864.869135287725
+Throughput: 83.32500083324999
+
+Device (1) cpu_2:
+cores_sketch: 1.9999999999708722, cores_dpdk: 5.0
+Rows total: 1.5357563776830838
+Mem total: 12626.140301586147
+Throughput: 83.32500083324999
+
+Device (2) p4_1:
+Rows total: 3.4748866593131114
+Mem total: 242.79606281306405
+Throughput: 148.0
+
+Device (3) p4_2:
+Rows total: 3.4748866593131114
+Mem total: 242.79606281306405
+Throughput: 148.0
+--------------------------------------------------
