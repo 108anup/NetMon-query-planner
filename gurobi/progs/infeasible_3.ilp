@@ -1,385 +1,245 @@
 \ Model netmon_copy
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.05
+  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0
   
-  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
+  res: Priority=5 Weight=1 AbsTol=0 RelTol=0
   
 Subject To
- cov_1_91: frac[6,91] + frac[7,91] + frac[11,91] >= 0.7
- cov_3_1: frac[4,1] + frac[6,1] + frac[10,1] + frac[11,1] + frac[13,1]
+ cov_0_78: frac[2,78] + frac[5,78] + frac[9,78] + frac[10,78] + frac[12,78]
+   + frac[13,78] + frac[14,78] >= 0.8
+ cov_1_72: frac[6,72] + frac[7,72] + frac[11,72] >= 1
+ cov_2_28: frac[1,28] + frac[5,28] + frac[8,28] + frac[10,28] + frac[12,28]
+   + frac[13,28] + frac[14,28] >= 1
+ cov_4_23: frac[3,23] + frac[5,23] + frac[9,23] + frac[10,23] + frac[12,23]
+   + frac[13,23] + frac[14,23] >= 0.9
+ cov_6_68: frac[0,68] + frac[1,68] + frac[8,68] >= 1
+ cov_7_77: frac[3,77] + frac[4,77] + frac[9,77] + frac[10,77] + frac[12,77]
+   + frac[13,77] + frac[14,77] >= 0.7
+ cov_8_56: frac[3,56] + frac[7,56] + frac[9,56] + frac[11,56] + frac[12,56]
+   + frac[13,56] + frac[14,56] >= 1
+ cov_9_44: frac[2,44] + frac[4,44] + frac[9,44] + frac[10,44] + frac[12,44]
+   + frac[13,44] + frac[14,44] >= 1
+ cov_10_23: frac[0,23] + frac[1,23] + frac[8,23] >= 0.7
+ cov_13_75: frac[2,75] + frac[6,75] + frac[9,75] + frac[11,75]
+   + frac[12,75] + frac[13,75] + frac[14,75] >= 0.8
+ cov_14_15: frac[1,15] + frac[3,15] + frac[8,15] + frac[9,15] + frac[12,15]
    >= 0.9
- cov_7_105: frac[2,105] + frac[3,105] + frac[9,105] >= 1
- cov_9_5: frac[4,5] + frac[5,5] + frac[10,5] >= 1
- cov_10_94: frac[0,94] + frac[1,94] + frac[8,94] >= 1
- cov_11_10: frac[4,10] + frac[6,10] + frac[10,10] + frac[11,10]
-   + frac[13,10] >= 0.8
- cov_13_40: frac[3,40] + frac[5,40] + frac[9,40] + frac[10,40]
-   + frac[12,40] + frac[13,40] + frac[14,40] >= 1
- cov_15_70: frac[4,70] + frac[5,70] + frac[10,70] >= 0.9
- cov_17_119: frac[0,119] + frac[7,119] + frac[8,119] + frac[11,119]
-   + frac[12,119] + frac[13,119] + frac[14,119] >= 1
- cov_18_35: frac[5,35] + frac[6,35] + frac[10,35] + frac[11,35]
-   + frac[13,35] >= 1
- cov_19_69: frac[1,69] + frac[4,69] + frac[8,69] + frac[10,69]
-   + frac[12,69] + frac[13,69] + frac[14,69] >= 0.9
- cov_21_47: frac[1,47] + frac[3,47] + frac[8,47] + frac[9,47] + frac[12,47]
-   >= 1
- cov_25_1: frac[2,1] + frac[3,1] + frac[9,1] >= 1
- cov_28_13: frac[2,13] + frac[5,13] + frac[9,13] + frac[10,13]
-   + frac[12,13] + frac[13,13] + frac[14,13] >= 0.9
- cov_30_86: frac[4,86] + frac[5,86] + frac[10,86] >= 0.8
- cov_33_83: frac[3,83] + frac[5,83] + frac[9,83] + frac[10,83]
-   + frac[12,83] + frac[13,83] + frac[14,83] >= 0.9
- cov_36_90: frac[2,90] + frac[3,90] + frac[9,90] >= 0.9
- cov_37_92: frac[1,92] + frac[2,92] + frac[8,92] + frac[9,92] + frac[12,92]
-   >= 1
- cov_41_127: frac[2,127] + frac[4,127] + frac[9,127] + frac[10,127]
-   + frac[12,127] + frac[13,127] + frac[14,127] >= 0.8
- cov_42_111: frac[1,111] + frac[7,111] + frac[8,111] + frac[11,111]
-   + frac[12,111] + frac[13,111] + frac[14,111] >= 0.8
- cov_46_85: frac[2,85] + frac[5,85] + frac[9,85] + frac[10,85]
-   + frac[12,85] + frac[13,85] + frac[14,85] >= 0.8
- cov_48_83: frac[0,83] + frac[1,83] + frac[8,83] >= 0.9
- cov_51_14: frac[0,14] + frac[6,14] + frac[8,14] + frac[11,14]
-   + frac[12,14] + frac[13,14] + frac[14,14] >= 0.9
- cov_52_124: frac[1,124] + frac[6,124] + frac[8,124] + frac[11,124]
-   + frac[12,124] + frac[13,124] + frac[14,124] >= 0.9
- cov_53_86: frac[2,86] + frac[6,86] + frac[9,86] + frac[11,86]
-   + frac[12,86] + frac[13,86] + frac[14,86] >= 1
- cov_55_115: frac[0,115] + frac[1,115] + frac[8,115] >= 0.8
- cov_56_3: frac[1,3] + frac[3,3] + frac[8,3] + frac[9,3] + frac[12,3] >= 1
- cov_61_50: frac[0,50] + frac[2,50] + frac[8,50] + frac[9,50] + frac[12,50]
-   >= 1
- cov_65_68: frac[0,68] + frac[1,68] + frac[8,68] >= 0.7
- cov_72_101: frac[0,101] + frac[5,101] + frac[8,101] + frac[10,101]
-   + frac[12,101] + frac[13,101] + frac[14,101] >= 0.8
- cov_73_120: frac[0,120] + frac[4,120] + frac[8,120] + frac[10,120]
-   + frac[12,120] + frac[13,120] + frac[14,120] >= 1
- cov_77_41: frac[1,41] + frac[3,41] + frac[8,41] + frac[9,41] + frac[12,41]
-   >= 1
- cov_82_33: frac[2,33] + frac[3,33] + frac[9,33] >= 0.9
- cov_83_51: frac[1,51] + frac[5,51] + frac[8,51] + frac[10,51]
-   + frac[12,51] + frac[13,51] + frac[14,51] >= 1
- cov_91_81: frac[3,81] + frac[7,81] + frac[9,81] + frac[11,81]
-   + frac[12,81] + frac[13,81] + frac[14,81] >= 1
- cov_92_32: frac[4,32] + frac[5,32] + frac[10,32] >= 1
- cov_93_12: frac[2,12] + frac[4,12] + frac[9,12] + frac[10,12]
-   + frac[12,12] + frac[13,12] + frac[14,12] >= 0.9
- cov_99_92: frac[4,92] + frac[6,92] + frac[10,92] + frac[11,92]
-   + frac[13,92] >= 0.8
- cov_104_104: frac[4,104] + frac[6,104] + frac[10,104] + frac[11,104]
-   + frac[13,104] >= 0.9
- cov_106_22: frac[6,22] + frac[7,22] + frac[11,22] >= 0.8
- cov_107_58: frac[2,58] + frac[3,58] + frac[9,58] >= 0.8
- cov_108_103: frac[5,103] + frac[6,103] + frac[10,103] + frac[11,103]
-   + frac[13,103] >= 0.9
- cov_109_102: frac[5,102] + frac[7,102] + frac[10,102] + frac[11,102]
-   + frac[13,102] >= 0.8
- cov_112_48: frac[2,48] + frac[3,48] + frac[9,48] >= 0.9
- cov_113_123: frac[5,123] + frac[6,123] + frac[10,123] + frac[11,123]
-   + frac[13,123] >= 0.9
- cov_115_34: frac[2,34] + frac[7,34] + frac[9,34] + frac[11,34]
-   + frac[12,34] + frac[13,34] + frac[14,34] >= 1
- cov_117_100: frac[4,100] + frac[6,100] + frac[10,100] + frac[11,100]
-   + frac[13,100] >= 0.9
- cov_118_59: frac[2,59] + frac[3,59] + frac[9,59] >= 0.8
- cov_121_109: frac[3,109] + frac[6,109] + frac[9,109] + frac[11,109]
-   + frac[12,109] + frac[13,109] + frac[14,109] >= 1
- cov_137_93: frac[1,93] + frac[6,93] + frac[8,93] + frac[11,93]
-   + frac[12,93] + frac[13,93] + frac[14,93] >= 1
- cov_140_37: frac[6,37] + frac[7,37] + frac[11,37] >= 1
- cov_141_23: frac[3,23] + frac[4,23] + frac[9,23] + frac[10,23]
-   + frac[12,23] + frac[13,23] + frac[14,23] >= 0.8
- cov_143_54: frac[3,54] + frac[6,54] + frac[9,54] + frac[11,54]
-   + frac[12,54] + frac[13,54] + frac[14,54] >= 0.9
- cov_144_8: frac[2,8] + frac[3,8] + frac[9,8] >= 0.8
- cov_145_117: frac[1,117] + frac[4,117] + frac[8,117] + frac[10,117]
-   + frac[12,117] + frac[13,117] + frac[14,117] >= 1
- cov_147_2: frac[6,2] + frac[7,2] + frac[11,2] >= 0.9
- cov_150_33: frac[0,33] + frac[6,33] + frac[8,33] + frac[11,33]
-   + frac[12,33] + frac[13,33] + frac[14,33] >= 1
- cov_152_99: frac[2,99] + frac[7,99] + frac[9,99] + frac[11,99]
-   + frac[12,99] + frac[13,99] + frac[14,99] >= 1
- cov_157_72: frac[1,72] + frac[7,72] + frac[8,72] + frac[11,72]
-   + frac[12,72] + frac[13,72] + frac[14,72] >= 1
- cov_162_55: frac[4,55] + frac[6,55] + frac[10,55] + frac[11,55]
-   + frac[13,55] >= 0.9
- cov_163_63: frac[5,63] + frac[6,63] + frac[10,63] + frac[11,63]
-   + frac[13,63] >= 1
- cov_166_18: frac[1,18] + frac[2,18] + frac[8,18] + frac[9,18]
-   + frac[12,18] >= 1
- cov_170_18: frac[4,18] + frac[6,18] + frac[10,18] + frac[11,18]
-   + frac[13,18] >= 1
- cov_171_94: frac[2,94] + frac[4,94] + frac[9,94] + frac[10,94]
-   + frac[12,94] + frac[13,94] + frac[14,94] >= 1
- cov_172_127: frac[6,127] + frac[7,127] + frac[11,127] >= 0.9
- cov_174_5: frac[2,5] + frac[3,5] + frac[9,5] >= 0.9
- cov_179_59: frac[0,59] + frac[4,59] + frac[8,59] + frac[10,59]
-   + frac[12,59] + frac[13,59] + frac[14,59] >= 1
- cov_181_79: frac[1,79] + frac[2,79] + frac[8,79] + frac[9,79]
-   + frac[12,79] >= 1
- cov_184_114: frac[0,114] + frac[1,114] + frac[8,114] >= 0.7
- cov_188_102: frac[1,102] + frac[3,102] + frac[8,102] + frac[9,102]
-   + frac[12,102] >= 0.8
- cov_189_16: frac[0,16] + frac[2,16] + frac[8,16] + frac[9,16]
-   + frac[12,16] >= 0.8
- cov_190_25: frac[5,25] + frac[6,25] + frac[10,25] + frac[11,25]
-   + frac[13,25] >= 1
- cov_193_81: frac[0,81] + frac[3,81] + frac[8,81] + frac[9,81]
-   + frac[12,81] >= 1
- cov_195_118: frac[3,118] + frac[5,118] + frac[9,118] + frac[10,118]
-   + frac[12,118] + frac[13,118] + frac[14,118] >= 1
- cov_197_60: frac[0,60] + frac[2,60] + frac[8,60] + frac[9,60]
-   + frac[12,60] >= 1
- cov_199_57: frac[0,57] + frac[6,57] + frac[8,57] + frac[11,57]
-   + frac[12,57] + frac[13,57] + frac[14,57] >= 1
- cov_201_58: frac[6,58] + frac[7,58] + frac[11,58] >= 0.9
- cov_206_71: frac[5,71] + frac[7,71] + frac[10,71] + frac[11,71]
-   + frac[13,71] >= 0.9
- cov_212_100: frac[2,100] + frac[3,100] + frac[9,100] >= 1
- cov_215_72: frac[4,72] + frac[5,72] + frac[10,72] >= 0.9
- cov_218_107: frac[5,107] + frac[6,107] + frac[10,107] + frac[11,107]
-   + frac[13,107] >= 1
- cov_219_57: frac[2,57] + frac[3,57] + frac[9,57] >= 0.8
- cov_225_41: frac[4,41] + frac[6,41] + frac[10,41] + frac[11,41]
-   + frac[13,41] >= 0.8
- cov_228_120: frac[6,120] + frac[7,120] + frac[11,120] >= 0.9
- cov_229_71: frac[0,71] + frac[1,71] + frac[8,71] >= 0.7
- cov_232_42: frac[6,42] + frac[7,42] + frac[11,42] >= 0.8
- cov_237_25: frac[1,25] + frac[2,25] + frac[8,25] + frac[9,25]
-   + frac[12,25] >= 0.9
- cov_240_108: frac[1,108] + frac[4,108] + frac[8,108] + frac[10,108]
-   + frac[12,108] + frac[13,108] + frac[14,108] >= 0.8
- cov_241_55: frac[0,55] + frac[2,55] + frac[8,55] + frac[9,55]
-   + frac[12,55] >= 1
- cov_243_105: frac[0,105] + frac[1,105] + frac[8,105] >= 1
- cov_248_107: frac[1,107] + frac[2,107] + frac[8,107] + frac[9,107]
-   + frac[12,107] >= 1
- cov_249_68: frac[3,68] + frac[6,68] + frac[9,68] + frac[11,68]
-   + frac[12,68] + frac[13,68] + frac[14,68] >= 0.9
- cov_250_43: frac[0,43] + frac[1,43] + frac[8,43] >= 0.8
- cov_252_49: frac[4,49] + frac[6,49] + frac[10,49] + frac[11,49]
-   + frac[13,49] >= 1
- cov_256_7: frac[0,7] + frac[7,7] + frac[8,7] + frac[11,7] + frac[12,7]
-   + frac[13,7] + frac[14,7] >= 1
- cov_264_96: frac[3,96] + frac[6,96] + frac[9,96] + frac[11,96]
-   + frac[12,96] + frac[13,96] + frac[14,96] >= 1
- cov_267_81: frac[0,81] + frac[6,81] + frac[8,81] + frac[11,81]
-   + frac[12,81] + frac[13,81] + frac[14,81] >= 0.9
- cov_269_19: frac[0,19] + frac[1,19] + frac[8,19] >= 0.9
- cov_271_31: frac[2,31] + frac[4,31] + frac[9,31] + frac[10,31]
-   + frac[12,31] + frac[13,31] + frac[14,31] >= 0.9
- cov_272_126: frac[2,126] + frac[6,126] + frac[9,126] + frac[11,126]
-   + frac[12,126] + frac[13,126] + frac[14,126] >= 0.9
- cov_275_86: frac[0,86] + frac[1,86] + frac[8,86] >= 0.8
- cov_277_38: frac[3,38] + frac[7,38] + frac[9,38] + frac[11,38]
-   + frac[12,38] + frac[13,38] + frac[14,38] >= 0.9
- cov_279_5: frac[1,5] + frac[7,5] + frac[8,5] + frac[11,5] + frac[12,5]
-   + frac[13,5] + frac[14,5] >= 0.7
- cov_284_61: frac[1,61] + frac[2,61] + frac[8,61] + frac[9,61]
-   + frac[12,61] >= 0.9
- cov_285_87: frac[3,87] + frac[6,87] + frac[9,87] + frac[11,87]
-   + frac[12,87] + frac[13,87] + frac[14,87] >= 1
- cov_291_88: frac[0,88] + frac[1,88] + frac[8,88] >= 0.7
- cov_292_4: frac[0,4] + frac[2,4] + frac[8,4] + frac[9,4] + frac[12,4]
-   >= 0.7
- cov_293_77: frac[5,77] + frac[7,77] + frac[10,77] + frac[11,77]
-   + frac[13,77] >= 0.9
- cov_296_80: frac[0,80] + frac[5,80] + frac[8,80] + frac[10,80]
-   + frac[12,80] + frac[13,80] + frac[14,80] >= 0.9
- cov_302_113: frac[1,113] + frac[4,113] + frac[8,113] + frac[10,113]
-   + frac[12,113] + frac[13,113] + frac[14,113] >= 0.8
- cov_304_60: frac[4,60] + frac[7,60] + frac[10,60] + frac[11,60]
-   + frac[13,60] >= 0.9
- cov_308_16: frac[5,16] + frac[6,16] + frac[10,16] + frac[11,16]
-   + frac[13,16] >= 0.7
- cov_312_106: frac[2,106] + frac[4,106] + frac[9,106] + frac[10,106]
-   + frac[12,106] + frac[13,106] + frac[14,106] >= 1
- cov_313_32: frac[2,32] + frac[6,32] + frac[9,32] + frac[11,32]
-   + frac[12,32] + frac[13,32] + frac[14,32] >= 1
- cov_316_21: frac[0,21] + frac[4,21] + frac[8,21] + frac[10,21]
-   + frac[12,21] + frac[13,21] + frac[14,21] >= 0.9
- cov_317_82: frac[1,82] + frac[3,82] + frac[8,82] + frac[9,82]
-   + frac[12,82] >= 1
- cov_323_8: frac[0,8] + frac[7,8] + frac[8,8] + frac[11,8] + frac[12,8]
-   + frac[13,8] + frac[14,8] >= 1
- cov_331_114: frac[3,114] + frac[4,114] + frac[9,114] + frac[10,114]
-   + frac[12,114] + frac[13,114] + frac[14,114] >= 1
- cov_333_88: frac[2,88] + frac[3,88] + frac[9,88] >= 0.8
- cov_334_89: frac[1,89] + frac[2,89] + frac[8,89] + frac[9,89]
-   + frac[12,89] >= 1
- cov_338_93: frac[4,93] + frac[5,93] + frac[10,93] >= 1
- cov_340_37: frac[3,37] + frac[4,37] + frac[9,37] + frac[10,37]
-   + frac[12,37] + frac[13,37] + frac[14,37] >= 1
- cov_341_90: frac[0,90] + frac[6,90] + frac[8,90] + frac[11,90]
-   + frac[12,90] + frac[13,90] + frac[14,90] >= 1
- cov_342_95: frac[3,95] + frac[7,95] + frac[9,95] + frac[11,95]
-   + frac[12,95] + frac[13,95] + frac[14,95] >= 1
- cov_347_20: frac[4,20] + frac[7,20] + frac[10,20] + frac[11,20]
-   + frac[13,20] >= 0.7
- cov_350_104: frac[2,104] + frac[3,104] + frac[9,104] >= 1
- cov_353_48: frac[6,48] + frac[7,48] + frac[11,48] >= 1
- cov_361_29: frac[1,29] + frac[4,29] + frac[8,29] + frac[10,29]
-   + frac[12,29] + frac[13,29] + frac[14,29] >= 1
- cov_364_6: frac[4,6] + frac[6,6] + frac[10,6] + frac[11,6] + frac[13,6]
-   >= 0.7
- cov_369_56: frac[2,56] + frac[3,56] + frac[9,56] >= 1
- cov_374_53: frac[1,53] + frac[6,53] + frac[8,53] + frac[11,53]
-   + frac[12,53] + frac[13,53] + frac[14,53] >= 1
- cov_376_36: frac[3,36] + frac[7,36] + frac[9,36] + frac[11,36]
-   + frac[12,36] + frac[13,36] + frac[14,36] >= 1
- cov_377_54: frac[0,54] + frac[1,54] + frac[8,54] >= 0.9
- cov_379_20: frac[1,20] + frac[3,20] + frac[8,20] + frac[9,20]
-   + frac[12,20] >= 0.9
- cov_384_78: frac[1,78] + frac[6,78] + frac[8,78] + frac[11,78]
-   + frac[12,78] + frac[13,78] + frac[14,78] >= 0.9
- cov_388_9: frac[3,9] + frac[6,9] + frac[9,9] + frac[11,9] + frac[12,9]
-   + frac[13,9] + frac[14,9] >= 0.9
- cov_390_35: frac[1,35] + frac[3,35] + frac[8,35] + frac[9,35]
-   + frac[12,35] >= 0.9
- cov_392_27: frac[2,27] + frac[7,27] + frac[9,27] + frac[11,27]
-   + frac[12,27] + frac[13,27] + frac[14,27] >= 1
- cov_396_23: frac[6,23] + frac[7,23] + frac[11,23] >= 0.8
- cov_397_123: frac[1,123] + frac[3,123] + frac[8,123] + frac[9,123]
-   + frac[12,123] >= 0.9
- cov_401_42: frac[2,42] + frac[3,42] + frac[9,42] >= 0.7
- cov_404_9: frac[4,9] + frac[5,9] + frac[10,9] >= 0.8
- cov_407_66: frac[1,66] + frac[2,66] + frac[8,66] + frac[9,66]
-   + frac[12,66] >= 1
- cov_421_28: frac[4,28] + frac[7,28] + frac[10,28] + frac[11,28]
-   + frac[13,28] >= 0.7
- cov_423_28: frac[1,28] + frac[2,28] + frac[8,28] + frac[9,28]
-   + frac[12,28] >= 0.7
- cov_425_65: frac[0,65] + frac[7,65] + frac[8,65] + frac[11,65]
+ cov_18_65: frac[2,65] + frac[6,65] + frac[9,65] + frac[11,65]
    + frac[12,65] + frac[13,65] + frac[14,65] >= 0.9
- cov_427_0: frac[1,0] + frac[5,0] + frac[8,0] + frac[10,0] + frac[12,0]
-   + frac[13,0] + frac[14,0] >= 1
- cov_430_38: frac[4,38] + frac[5,38] + frac[10,38] >= 1
- cov_432_84: frac[3,84] + frac[7,84] + frac[9,84] + frac[11,84]
-   + frac[12,84] + frac[13,84] + frac[14,84] >= 1
- cov_433_17: frac[4,17] + frac[5,17] + frac[10,17] >= 0.8
- cov_434_119: frac[4,119] + frac[5,119] + frac[10,119] >= 1
- cov_435_75: frac[0,75] + frac[1,75] + frac[8,75] >= 0.9
- cov_440_66: frac[5,66] + frac[7,66] + frac[10,66] + frac[11,66]
-   + frac[13,66] >= 0.9
- cov_442_15: frac[3,15] + frac[4,15] + frac[9,15] + frac[10,15]
-   + frac[12,15] + frac[13,15] + frac[14,15] >= 0.9
- cov_445_85: frac[6,85] + frac[7,85] + frac[11,85] >= 1
- cov_451_26: frac[1,26] + frac[3,26] + frac[8,26] + frac[9,26]
-   + frac[12,26] >= 1
- cov_452_116: frac[2,116] + frac[6,116] + frac[9,116] + frac[11,116]
-   + frac[12,116] + frac[13,116] + frac[14,116] >= 1
- cov_458_98: frac[0,98] + frac[3,98] + frac[8,98] + frac[9,98]
-   + frac[12,98] >= 0.9
- cov_459_56: frac[0,56] + frac[6,56] + frac[8,56] + frac[11,56]
-   + frac[12,56] + frac[13,56] + frac[14,56] >= 1
- cov_460_70: frac[1,70] + frac[6,70] + frac[8,70] + frac[11,70]
-   + frac[12,70] + frac[13,70] + frac[14,70] >= 1
- cov_463_39: frac[4,39] + frac[6,39] + frac[10,39] + frac[11,39]
-   + frac[13,39] >= 0.8
- cov_465_73: frac[3,73] + frac[6,73] + frac[9,73] + frac[11,73]
-   + frac[12,73] + frac[13,73] + frac[14,73] >= 0.9
- cov_467_39: frac[0,39] + frac[2,39] + frac[8,39] + frac[9,39]
-   + frac[12,39] >= 0.7
- cov_468_6: frac[0,6] + frac[3,6] + frac[8,6] + frac[9,6] + frac[12,6]
+ cov_20_55: frac[4,55] + frac[6,55] + frac[10,55] + frac[11,55]
+   + frac[13,55] >= 1
+ cov_21_36: frac[3,36] + frac[5,36] + frac[9,36] + frac[10,36]
+   + frac[12,36] + frac[13,36] + frac[14,36] >= 0.7
+ cov_22_69: frac[3,69] + frac[6,69] + frac[9,69] + frac[11,69]
+   + frac[12,69] + frac[13,69] + frac[14,69] >= 0.7
+ cov_23_18: frac[6,18] + frac[7,18] + frac[11,18] >= 0.8
+ cov_24_2: frac[0,2] + frac[7,2] + frac[8,2] + frac[11,2] + frac[12,2]
+   + frac[13,2] + frac[14,2] >= 0.7
+ cov_28_3: frac[0,3] + frac[5,3] + frac[8,3] + frac[10,3] + frac[12,3]
+   + frac[13,3] + frac[14,3] >= 0.8
+ cov_29_1: frac[4,1] + frac[7,1] + frac[10,1] + frac[11,1] + frac[13,1]
+   >= 1
+ cov_31_55: frac[0,55] + frac[3,55] + frac[8,55] + frac[9,55] + frac[12,55]
+   >= 0.7
+ cov_33_12: frac[3,12] + frac[7,12] + frac[9,12] + frac[11,12]
+   + frac[12,12] + frac[13,12] + frac[14,12] >= 1
+ cov_34_47: frac[4,47] + frac[5,47] + frac[10,47] >= 0.7
+ cov_35_19: frac[2,19] + frac[7,19] + frac[9,19] + frac[11,19]
+   + frac[12,19] + frac[13,19] + frac[14,19] >= 1
+ cov_40_42: frac[0,42] + frac[7,42] + frac[8,42] + frac[11,42]
+   + frac[12,42] + frac[13,42] + frac[14,42] >= 0.7
+ cov_42_66: frac[0,66] + frac[2,66] + frac[8,66] + frac[9,66] + frac[12,66]
+   >= 1
+ cov_43_74: frac[5,74] + frac[7,74] + frac[10,74] + frac[11,74]
+   + frac[13,74] >= 0.8
+ cov_45_0: frac[5,0] + frac[6,0] + frac[10,0] + frac[11,0] + frac[13,0]
    >= 0.9
- cov_473_62: frac[5,62] + frac[7,62] + frac[10,62] + frac[11,62]
-   + frac[13,62] >= 0.9
- cov_474_48: frac[0,48] + frac[1,48] + frac[8,48] >= 0.9
- cov_475_117: frac[2,117] + frac[3,117] + frac[9,117] >= 0.7
- cov_480_14: frac[2,14] + frac[3,14] + frac[9,14] >= 1
- cov_483_3: frac[4,3] + frac[5,3] + frac[10,3] >= 0.9
- cov_486_52: frac[1,52] + frac[5,52] + frac[8,52] + frac[10,52]
-   + frac[12,52] + frac[13,52] + frac[14,52] >= 0.8
- cov_489_74: frac[0,74] + frac[2,74] + frac[8,74] + frac[9,74]
-   + frac[12,74] >= 0.9
- cov_493_43: frac[3,43] + frac[7,43] + frac[9,43] + frac[11,43]
-   + frac[12,43] + frac[13,43] + frac[14,43] >= 1
- cov_495_40: frac[1,40] + frac[4,40] + frac[8,40] + frac[10,40]
-   + frac[12,40] + frac[13,40] + frac[14,40] >= 0.9
- cov_496_30: frac[0,30] + frac[5,30] + frac[8,30] + frac[10,30]
-   + frac[12,30] + frac[13,30] + frac[14,30] >= 0.9
- cov_502_112: frac[5,112] + frac[6,112] + frac[10,112] + frac[11,112]
-   + frac[13,112] >= 0.8
- cov_506_40: frac[0,40] + frac[3,40] + frac[8,40] + frac[9,40]
-   + frac[12,40] >= 1
- cov_508_64: frac[0,64] + frac[7,64] + frac[8,64] + frac[11,64]
-   + frac[12,64] + frac[13,64] + frac[14,64] >= 1
- cov_510_75: frac[2,75] + frac[6,75] + frac[9,75] + frac[11,75]
-   + frac[12,75] + frac[13,75] + frac[14,75] >= 1
- cov_516_46: frac[4,46] + frac[6,46] + frac[10,46] + frac[11,46]
-   + frac[13,46] >= 1
- cov_517_67: frac[4,67] + frac[7,67] + frac[10,67] + frac[11,67]
-   + frac[13,67] >= 1
- cov_518_10: frac[0,10] + frac[3,10] + frac[8,10] + frac[9,10]
-   + frac[12,10] >= 0.7
- cov_520_115: frac[2,115] + frac[3,115] + frac[9,115] >= 1
- cov_522_45: frac[2,45] + frac[5,45] + frac[9,45] + frac[10,45]
-   + frac[12,45] + frac[13,45] + frac[14,45] >= 0.8
- cov_525_122: frac[3,122] + frac[7,122] + frac[9,122] + frac[11,122]
-   + frac[12,122] + frac[13,122] + frac[14,122] >= 0.8
- cov_530_46: frac[0,46] + frac[3,46] + frac[8,46] + frac[9,46]
-   + frac[12,46] >= 0.7
- cov_531_74: frac[6,74] + frac[7,74] + frac[11,74] >= 0.8
- cov_533_74: frac[4,74] + frac[5,74] + frac[10,74] >= 0.8
- cov_536_49: frac[2,49] + frac[3,49] + frac[9,49] >= 1
- cov_537_97: frac[5,97] + frac[7,97] + frac[10,97] + frac[11,97]
-   + frac[13,97] >= 0.9
- cov_539_106: frac[0,106] + frac[1,106] + frac[8,106] >= 0.7
- cov_541_110: frac[1,110] + frac[2,110] + frac[8,110] + frac[9,110]
-   + frac[12,110] >= 0.9
- cov_543_24: frac[4,24] + frac[5,24] + frac[10,24] >= 1
- cov_545_4: frac[4,4] + frac[6,4] + frac[10,4] + frac[11,4] + frac[13,4]
+ cov_47_10: frac[1,10] + frac[7,10] + frac[8,10] + frac[11,10]
+   + frac[12,10] + frac[13,10] + frac[14,10] >= 0.9
+ cov_48_34: frac[2,34] + frac[4,34] + frac[9,34] + frac[10,34]
+   + frac[12,34] + frac[13,34] + frac[14,34] >= 0.8
+ cov_49_29: frac[0,29] + frac[4,29] + frac[8,29] + frac[10,29]
+   + frac[12,29] + frac[13,29] + frac[14,29] >= 0.9
+ cov_50_53: frac[0,53] + frac[3,53] + frac[8,53] + frac[9,53] + frac[12,53]
+   >= 1
+ cov_53_62: frac[6,62] + frac[7,62] + frac[11,62] >= 1
+ cov_57_41: frac[2,41] + frac[7,41] + frac[9,41] + frac[11,41]
+   + frac[12,41] + frac[13,41] + frac[14,41] >= 0.7
+ cov_59_76: frac[2,76] + frac[3,76] + frac[9,76] >= 0.8
+ cov_60_22: frac[6,22] + frac[7,22] + frac[11,22] >= 1
+ cov_61_73: frac[0,73] + frac[1,73] + frac[8,73] >= 1
+ cov_70_4: frac[6,4] + frac[7,4] + frac[11,4] >= 0.7
+ cov_72_76: frac[4,76] + frac[6,76] + frac[10,76] + frac[11,76]
+   + frac[13,76] >= 0.8
+ cov_74_38: frac[0,38] + frac[1,38] + frac[8,38] >= 0.9
+ cov_75_52: frac[1,52] + frac[4,52] + frac[8,52] + frac[10,52]
+   + frac[12,52] + frac[13,52] + frac[14,52] >= 0.9
+ cov_79_11: frac[5,11] + frac[6,11] + frac[10,11] + frac[11,11]
+   + frac[13,11] >= 0.9
+ cov_80_6: frac[0,6] + frac[6,6] + frac[8,6] + frac[11,6] + frac[12,6]
+   + frac[13,6] + frac[14,6] >= 1
+ cov_81_3: frac[6,3] + frac[7,3] + frac[11,3] >= 0.9
+ cov_86_25: frac[4,25] + frac[6,25] + frac[10,25] + frac[11,25]
+   + frac[13,25] >= 1
+ cov_88_40: frac[0,40] + frac[6,40] + frac[8,40] + frac[11,40]
+   + frac[12,40] + frac[13,40] + frac[14,40] >= 1
+ cov_89_59: frac[0,59] + frac[2,59] + frac[8,59] + frac[9,59] + frac[12,59]
    >= 0.8
- cov_546_97: frac[1,97] + frac[2,97] + frac[8,97] + frac[9,97]
-   + frac[12,97] >= 0.7
- cov_550_61: frac[5,61] + frac[7,61] + frac[10,61] + frac[11,61]
-   + frac[13,61] >= 1
- cov_554_111: frac[2,111] + frac[3,111] + frac[9,111] >= 0.9
- cov_558_77: frac[0,77] + frac[2,77] + frac[8,77] + frac[9,77]
-   + frac[12,77] >= 1
- cov_567_64: frac[4,64] + frac[5,64] + frac[10,64] >= 0.7
- cov_570_22: frac[0,22] + frac[3,22] + frac[8,22] + frac[9,22]
-   + frac[12,22] >= 1
- cov_571_62: frac[2,62] + frac[3,62] + frac[9,62] >= 0.7
- cov_574_121: frac[1,121] + frac[3,121] + frac[8,121] + frac[9,121]
-   + frac[12,121] >= 0.9
- cov_576_100: frac[0,100] + frac[1,100] + frac[8,100] >= 0.8
- cov_582_76: frac[0,76] + frac[6,76] + frac[8,76] + frac[11,76]
-   + frac[12,76] + frac[13,76] + frac[14,76] >= 1
- cov_583_49: frac[0,49] + frac[1,49] + frac[8,49] >= 0.9
- cov_585_63: frac[2,63] + frac[3,63] + frac[9,63] >= 1
- cov_587_91: frac[0,91] + frac[3,91] + frac[8,91] + frac[9,91]
-   + frac[12,91] >= 1
- cov_589_52: frac[6,52] + frac[7,52] + frac[11,52] >= 1
- cov_595_89: frac[5,89] + frac[7,89] + frac[10,89] + frac[11,89]
-   + frac[13,89] >= 0.9
- cov_597_30: frac[6,30] + frac[7,30] + frac[11,30] >= 0.7
- cov_598_112: frac[1,112] + frac[2,112] + frac[8,112] + frac[9,112]
-   + frac[12,112] >= 0.9
- cov_602_19: frac[4,19] + frac[7,19] + frac[10,19] + frac[11,19]
-   + frac[13,19] >= 1
- cov_606_24: frac[0,24] + frac[7,24] + frac[8,24] + frac[11,24]
-   + frac[12,24] + frac[13,24] + frac[14,24] >= 1
- cov_607_125: frac[3,125] + frac[5,125] + frac[9,125] + frac[10,125]
-   + frac[12,125] + frac[13,125] + frac[14,125] >= 0.9
- cov_610_17: frac[3,17] + frac[6,17] + frac[9,17] + frac[11,17]
-   + frac[12,17] + frac[13,17] + frac[14,17] >= 0.9
- cov_612_0: frac[2,0] + frac[3,0] + frac[9,0] >= 0.8
- cov_615_62: frac[0,62] + frac[1,62] + frac[8,62] >= 0.7
- cov_616_45: frac[6,45] + frac[7,45] + frac[11,45] >= 1
- cov_618_82: frac[5,82] + frac[6,82] + frac[10,82] + frac[11,82]
-   + frac[13,82] >= 1
- cov_619_44: frac[2,44] + frac[4,44] + frac[9,44] + frac[10,44]
-   + frac[12,44] + frac[13,44] + frac[14,44] >= 1
- cov_622_121: frac[5,121] + frac[7,121] + frac[10,121] + frac[11,121]
-   + frac[13,121] >= 0.8
- cov_623_88: frac[5,88] + frac[7,88] + frac[10,88] + frac[11,88]
-   + frac[13,88] >= 0.9
- cov_627_23: frac[0,23] + frac[1,23] + frac[8,23] >= 0.7
- cov_632_58: frac[1,58] + frac[5,58] + frac[8,58] + frac[10,58]
-   + frac[12,58] + frac[13,58] + frac[14,58] >= 0.9
+ cov_90_43: frac[2,43] + frac[3,43] + frac[9,43] >= 0.8
+ cov_91_1: frac[0,1] + frac[1,1] + frac[8,1] >= 1
+ cov_92_44: frac[6,44] + frac[7,44] + frac[11,44] >= 0.8
+ cov_93_30: frac[4,30] + frac[7,30] + frac[10,30] + frac[11,30]
+   + frac[13,30] >= 0.7
+ cov_98_27: frac[0,27] + frac[3,27] + frac[8,27] + frac[9,27] + frac[12,27]
+   >= 1
+ cov_101_31: frac[0,31] + frac[5,31] + frac[8,31] + frac[10,31]
+   + frac[12,31] + frac[13,31] + frac[14,31] >= 0.9
+ cov_102_25: frac[2,25] + frac[3,25] + frac[9,25] >= 0.7
+ cov_104_49: frac[3,49] + frac[7,49] + frac[9,49] + frac[11,49]
+   + frac[12,49] + frac[13,49] + frac[14,49] >= 0.7
+ cov_106_47: frac[1,47] + frac[2,47] + frac[8,47] + frac[9,47]
+   + frac[12,47] >= 1
+ cov_108_39: frac[1,39] + frac[6,39] + frac[8,39] + frac[11,39]
+   + frac[12,39] + frac[13,39] + frac[14,39] >= 0.8
+ cov_110_79: frac[5,79] + frac[6,79] + frac[10,79] + frac[11,79]
+   + frac[13,79] >= 1
+ cov_112_58: frac[5,58] + frac[6,58] + frac[10,58] + frac[11,58]
+   + frac[13,58] >= 1
+ cov_113_46: frac[0,46] + frac[6,46] + frac[8,46] + frac[11,46]
+   + frac[12,46] + frac[13,46] + frac[14,46] >= 1
+ cov_115_52: frac[2,52] + frac[3,52] + frac[9,52] >= 0.8
+ cov_116_50: frac[3,50] + frac[5,50] + frac[9,50] + frac[10,50]
+   + frac[12,50] + frac[13,50] + frac[14,50] >= 0.7
+ cov_117_33: frac[1,33] + frac[4,33] + frac[8,33] + frac[10,33]
+   + frac[12,33] + frac[13,33] + frac[14,33] >= 0.9
+ cov_119_67: frac[2,67] + frac[3,67] + frac[9,67] >= 0.7
+ cov_121_27: frac[4,27] + frac[5,27] + frac[10,27] >= 0.9
+ cov_123_21: frac[2,21] + frac[3,21] + frac[9,21] >= 1
+ cov_126_37: frac[5,37] + frac[7,37] + frac[10,37] + frac[11,37]
+   + frac[13,37] >= 0.7
+ cov_132_76: frac[0,76] + frac[1,76] + frac[8,76] >= 1
+ cov_140_5: frac[0,5] + frac[1,5] + frac[8,5] >= 0.9
+ cov_142_9: frac[2,9] + frac[5,9] + frac[9,9] + frac[10,9] + frac[12,9]
+   + frac[13,9] + frac[14,9] >= 0.9
+ cov_145_8: frac[3,8] + frac[7,8] + frac[9,8] + frac[11,8] + frac[12,8]
+   + frac[13,8] + frac[14,8] >= 0.7
+ cov_153_71: frac[0,71] + frac[2,71] + frac[8,71] + frac[9,71]
+   + frac[12,71] >= 1
+ cov_154_0: frac[0,0] + frac[3,0] + frac[8,0] + frac[9,0] + frac[12,0]
+   >= 0.9
+ cov_159_13: frac[4,13] + frac[6,13] + frac[10,13] + frac[11,13]
+   + frac[13,13] >= 0.8
+ cov_160_63: frac[5,63] + frac[7,63] + frac[10,63] + frac[11,63]
+   + frac[13,63] >= 0.7
+ cov_166_44: frac[0,44] + frac[1,44] + frac[8,44] >= 0.8
+ cov_168_24: frac[0,24] + frac[1,24] + frac[8,24] >= 0.8
+ cov_169_14: frac[1,14] + frac[7,14] + frac[8,14] + frac[11,14]
+   + frac[12,14] + frac[13,14] + frac[14,14] >= 0.9
+ cov_170_32: frac[0,32] + frac[3,32] + frac[8,32] + frac[9,32]
+   + frac[12,32] >= 0.7
+ cov_172_67: frac[0,67] + frac[6,67] + frac[8,67] + frac[11,67]
+   + frac[12,67] + frac[13,67] + frac[14,67] >= 1
+ cov_174_43: frac[4,43] + frac[7,43] + frac[10,43] + frac[11,43]
+   + frac[13,43] >= 0.8
+ cov_175_5: frac[3,5] + frac[5,5] + frac[9,5] + frac[10,5] + frac[12,5]
+   + frac[13,5] + frac[14,5] >= 0.7
+ cov_177_48: frac[1,48] + frac[7,48] + frac[8,48] + frac[11,48]
+   + frac[12,48] + frac[13,48] + frac[14,48] >= 0.9
+ cov_181_63: frac[0,63] + frac[3,63] + frac[8,63] + frac[9,63]
+   + frac[12,63] >= 0.8
+ cov_182_42: frac[4,42] + frac[5,42] + frac[10,42] >= 0.8
+ cov_183_16: frac[1,16] + frac[7,16] + frac[8,16] + frac[11,16]
+   + frac[12,16] + frac[13,16] + frac[14,16] >= 0.7
+ cov_184_71: frac[5,71] + frac[7,71] + frac[10,71] + frac[11,71]
+   + frac[13,71] >= 1
+ cov_188_22: frac[0,22] + frac[1,22] + frac[8,22] >= 0.8
+ cov_191_35: frac[4,35] + frac[5,35] + frac[10,35] >= 0.7
+ cov_195_45: frac[1,45] + frac[2,45] + frac[8,45] + frac[9,45]
+   + frac[12,45] >= 0.9
+ cov_198_60: frac[6,60] + frac[7,60] + frac[11,60] >= 0.8
+ cov_199_73: frac[3,73] + frac[6,73] + frac[9,73] + frac[11,73]
+   + frac[12,73] + frac[13,73] + frac[14,73] >= 0.7
+ cov_202_31: frac[6,31] + frac[7,31] + frac[11,31] >= 0.9
+ cov_204_62: frac[3,62] + frac[4,62] + frac[9,62] + frac[10,62]
+   + frac[12,62] + frac[13,62] + frac[14,62] >= 1
+ cov_207_32: frac[5,32] + frac[7,32] + frac[10,32] + frac[11,32]
+   + frac[13,32] >= 0.7
+ cov_211_18: frac[2,18] + frac[5,18] + frac[9,18] + frac[10,18]
+   + frac[12,18] + frac[13,18] + frac[14,18] >= 0.9
+ cov_212_57: frac[0,57] + frac[2,57] + frac[8,57] + frac[9,57]
+   + frac[12,57] >= 0.8
+ cov_215_53: frac[4,53] + frac[7,53] + frac[10,53] + frac[11,53]
+   + frac[13,53] >= 0.7
+ cov_217_46: frac[2,46] + frac[3,46] + frac[9,46] >= 0.8
+ cov_218_35: frac[6,35] + frac[7,35] + frac[11,35] >= 1
+ cov_228_58: frac[0,58] + frac[3,58] + frac[8,58] + frac[9,58]
+   + frac[12,58] >= 0.8
+ cov_229_61: frac[1,61] + frac[6,61] + frac[8,61] + frac[11,61]
+   + frac[12,61] + frac[13,61] + frac[14,61] >= 0.8
+ cov_230_22: frac[4,22] + frac[5,22] + frac[10,22] >= 0.9
+ cov_231_30: frac[2,30] + frac[3,30] + frac[9,30] >= 0.8
+ cov_234_7: frac[2,7] + frac[3,7] + frac[9,7] >= 1
+ cov_235_26: frac[6,26] + frac[7,26] + frac[11,26] >= 1
+ cov_244_7: frac[4,7] + frac[5,7] + frac[10,7] >= 1
+ cov_245_4: frac[3,4] + frac[5,4] + frac[9,4] + frac[10,4] + frac[12,4]
+   + frac[13,4] + frac[14,4] >= 0.9
+ cov_246_21: frac[6,21] + frac[7,21] + frac[11,21] >= 1
+ cov_249_17: frac[3,17] + frac[6,17] + frac[9,17] + frac[11,17]
+   + frac[12,17] + frac[13,17] + frac[14,17] >= 0.8
+ cov_253_70: frac[4,70] + frac[7,70] + frac[10,70] + frac[11,70]
+   + frac[13,70] >= 0.7
+ cov_259_59: frac[5,59] + frac[7,59] + frac[10,59] + frac[11,59]
+   + frac[13,59] >= 0.8
+ cov_264_54: frac[1,54] + frac[2,54] + frac[8,54] + frac[9,54]
+   + frac[12,54] >= 1
+ cov_269_68: frac[4,68] + frac[5,68] + frac[10,68] >= 0.9
+ cov_271_9: frac[6,9] + frac[7,9] + frac[11,9] >= 0.8
+ cov_274_26: frac[3,26] + frac[4,26] + frac[9,26] + frac[10,26]
+   + frac[12,26] + frac[13,26] + frac[14,26] >= 0.7
+ cov_277_23: frac[6,23] + frac[7,23] + frac[11,23] >= 0.8
+ cov_283_14: frac[2,14] + frac[3,14] + frac[9,14] >= 0.9
+ cov_285_20: frac[0,20] + frac[2,20] + frac[8,20] + frac[9,20]
+   + frac[12,20] >= 0.8
+ cov_288_51: frac[4,51] + frac[5,51] + frac[10,51] >= 0.9
+ cov_290_11: frac[1,11] + frac[2,11] + frac[8,11] + frac[9,11]
+   + frac[12,11] >= 1
+ cov_292_34: frac[0,34] + frac[1,34] + frac[8,34] >= 0.9
+ cov_294_48: frac[2,48] + frac[3,48] + frac[9,48] >= 0.7
+ cov_298_60: frac[3,60] + frac[4,60] + frac[9,60] + frac[10,60]
+   + frac[12,60] + frac[13,60] + frac[14,60] >= 1
+ cov_299_45: frac[4,45] + frac[7,45] + frac[10,45] + frac[11,45]
+   + frac[13,45] >= 0.9
+ cov_312_73: frac[4,73] + frac[5,73] + frac[10,73] >= 0.7
+ cov_314_35: frac[0,35] + frac[2,35] + frac[8,35] + frac[9,35]
+   + frac[12,35] >= 0.9
+ cov_318_19: frac[0,19] + frac[1,19] + frac[8,19] >= 1
+ cov_319_74: frac[0,74] + frac[2,74] + frac[8,74] + frac[9,74]
+   + frac[12,74] >= 0.7
+ cov_322_6: frac[2,6] + frac[3,6] + frac[9,6] >= 1
+ cov_340_68: frac[3,68] + frac[6,68] + frac[9,68] + frac[11,68]
+   + frac[12,68] + frac[13,68] + frac[14,68] >= 0.8
+ cov_348_13: frac[0,13] + frac[3,13] + frac[8,13] + frac[9,13]
+   + frac[12,13] >= 1
+ cov_357_51: frac[1,51] + frac[6,51] + frac[8,51] + frac[11,51]
+   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.8
+ cov_358_69: frac[4,69] + frac[5,69] + frac[10,69] >= 0.8
+ cov_362_5: frac[6,5] + frac[7,5] + frac[11,5] >= 0.9
+ cov_367_64: frac[2,64] + frac[4,64] + frac[9,64] + frac[10,64]
+   + frac[12,64] + frac[13,64] + frac[14,64] >= 0.7
+ cov_370_72: frac[2,72] + frac[5,72] + frac[9,72] + frac[10,72]
+   + frac[12,72] + frac[13,72] + frac[14,72] >= 0.8
+ cov_376_1: frac[2,1] + frac[3,1] + frac[9,1] >= 0.8
+ cov_377_64: frac[6,64] + frac[7,64] + frac[11,64] >= 1
+ cov_381_17: frac[4,17] + frac[5,17] + frac[10,17] >= 1
+ cov_385_79: frac[1,79] + frac[3,79] + frac[8,79] + frac[9,79]
+   + frac[12,79] >= 1
+ cov_389_51: frac[2,51] + frac[3,51] + frac[9,51] >= 0.8
+ cov_392_70: frac[2,70] + frac[3,70] + frac[9,70] >= 0.8
+ cov_393_66: frac[5,66] + frac[6,66] + frac[10,66] + frac[11,66]
+   + frac[13,66] >= 0.7
+ cov_396_56: frac[4,56] + frac[5,56] + frac[10,56] >= 0.8
+ cov_397_40: frac[2,40] + frac[3,40] + frac[9,40] >= 0.9
  rows_tot_cpu1: - 3 frac[0,0] - 3 frac[0,1] - 3 frac[0,2] - 3 frac[0,3]
    - 3 frac[0,4] - 3 frac[0,5] - 3 frac[0,6] - 3 frac[0,7] - 3 frac[0,8]
    - 3 frac[0,9] - 3 frac[0,10] - 3 frac[0,11] - 3 frac[0,12]
@@ -399,19 +259,7 @@ Subject To
    - 3 frac[0,65] - 3 frac[0,66] - 3 frac[0,67] - 3 frac[0,68]
    - 3 frac[0,69] - 3 frac[0,70] - 3 frac[0,71] - 3 frac[0,72]
    - 3 frac[0,73] - 3 frac[0,74] - 3 frac[0,75] - 3 frac[0,76]
-   - 3 frac[0,77] - 3 frac[0,78] - 3 frac[0,79] - 3 frac[0,80]
-   - 3 frac[0,81] - 3 frac[0,82] - 3 frac[0,83] - 3 frac[0,84]
-   - 3 frac[0,85] - 3 frac[0,86] - 3 frac[0,87] - 3 frac[0,88]
-   - 3 frac[0,89] - 3 frac[0,90] - 3 frac[0,91] - 3 frac[0,92]
-   - 3 frac[0,93] - 3 frac[0,94] - 3 frac[0,95] - 3 frac[0,96]
-   - 3 frac[0,97] - 3 frac[0,98] - 3 frac[0,99] - 3 frac[0,100]
-   - 3 frac[0,101] - 3 frac[0,102] - 3 frac[0,103] - 3 frac[0,104]
-   - 3 frac[0,105] - 3 frac[0,106] - 3 frac[0,107] - 3 frac[0,108]
-   - 3 frac[0,109] - 3 frac[0,110] - 3 frac[0,111] - 3 frac[0,112]
-   - 3 frac[0,113] - 3 frac[0,114] - 3 frac[0,115] - 3 frac[0,116]
-   - 3 frac[0,117] - 3 frac[0,118] - 3 frac[0,119] - 3 frac[0,120]
-   - 3 frac[0,121] - 3 frac[0,122] - 3 frac[0,123] - 3 frac[0,124]
-   - 3 frac[0,125] - 3 frac[0,126] - 3 frac[0,127] + rows_tot_cpu1 = 0
+   - 3 frac[0,77] - 3 frac[0,78] - 3 frac[0,79] + rows_tot_cpu1 = 0
  rows_tot_cpu2: - 3 frac[1,0] - 3 frac[1,1] - 3 frac[1,2] - 3 frac[1,3]
    - 3 frac[1,4] - 3 frac[1,5] - 3 frac[1,6] - 3 frac[1,7] - 3 frac[1,8]
    - 3 frac[1,9] - 3 frac[1,10] - 3 frac[1,11] - 3 frac[1,12]
@@ -431,19 +279,7 @@ Subject To
    - 3 frac[1,65] - 3 frac[1,66] - 3 frac[1,67] - 3 frac[1,68]
    - 3 frac[1,69] - 3 frac[1,70] - 3 frac[1,71] - 3 frac[1,72]
    - 3 frac[1,73] - 3 frac[1,74] - 3 frac[1,75] - 3 frac[1,76]
-   - 3 frac[1,77] - 3 frac[1,78] - 3 frac[1,79] - 3 frac[1,80]
-   - 3 frac[1,81] - 3 frac[1,82] - 3 frac[1,83] - 3 frac[1,84]
-   - 3 frac[1,85] - 3 frac[1,86] - 3 frac[1,87] - 3 frac[1,88]
-   - 3 frac[1,89] - 3 frac[1,90] - 3 frac[1,91] - 3 frac[1,92]
-   - 3 frac[1,93] - 3 frac[1,94] - 3 frac[1,95] - 3 frac[1,96]
-   - 3 frac[1,97] - 3 frac[1,98] - 3 frac[1,99] - 3 frac[1,100]
-   - 3 frac[1,101] - 3 frac[1,102] - 3 frac[1,103] - 3 frac[1,104]
-   - 3 frac[1,105] - 3 frac[1,106] - 3 frac[1,107] - 3 frac[1,108]
-   - 3 frac[1,109] - 3 frac[1,110] - 3 frac[1,111] - 3 frac[1,112]
-   - 3 frac[1,113] - 3 frac[1,114] - 3 frac[1,115] - 3 frac[1,116]
-   - 3 frac[1,117] - 3 frac[1,118] - 3 frac[1,119] - 3 frac[1,120]
-   - 3 frac[1,121] - 3 frac[1,122] - 3 frac[1,123] - 3 frac[1,124]
-   - 3 frac[1,125] - 3 frac[1,126] - 3 frac[1,127] + rows_tot_cpu2 = 0
+   - 3 frac[1,77] - 3 frac[1,78] - 3 frac[1,79] + rows_tot_cpu2 = 0
  rows_tot_cpu3: - 3 frac[2,0] - 3 frac[2,1] - 3 frac[2,2] - 3 frac[2,3]
    - 3 frac[2,4] - 3 frac[2,5] - 3 frac[2,6] - 3 frac[2,7] - 3 frac[2,8]
    - 3 frac[2,9] - 3 frac[2,10] - 3 frac[2,11] - 3 frac[2,12]
@@ -463,19 +299,7 @@ Subject To
    - 3 frac[2,65] - 3 frac[2,66] - 3 frac[2,67] - 3 frac[2,68]
    - 3 frac[2,69] - 3 frac[2,70] - 3 frac[2,71] - 3 frac[2,72]
    - 3 frac[2,73] - 3 frac[2,74] - 3 frac[2,75] - 3 frac[2,76]
-   - 3 frac[2,77] - 3 frac[2,78] - 3 frac[2,79] - 3 frac[2,80]
-   - 3 frac[2,81] - 3 frac[2,82] - 3 frac[2,83] - 3 frac[2,84]
-   - 3 frac[2,85] - 3 frac[2,86] - 3 frac[2,87] - 3 frac[2,88]
-   - 3 frac[2,89] - 3 frac[2,90] - 3 frac[2,91] - 3 frac[2,92]
-   - 3 frac[2,93] - 3 frac[2,94] - 3 frac[2,95] - 3 frac[2,96]
-   - 3 frac[2,97] - 3 frac[2,98] - 3 frac[2,99] - 3 frac[2,100]
-   - 3 frac[2,101] - 3 frac[2,102] - 3 frac[2,103] - 3 frac[2,104]
-   - 3 frac[2,105] - 3 frac[2,106] - 3 frac[2,107] - 3 frac[2,108]
-   - 3 frac[2,109] - 3 frac[2,110] - 3 frac[2,111] - 3 frac[2,112]
-   - 3 frac[2,113] - 3 frac[2,114] - 3 frac[2,115] - 3 frac[2,116]
-   - 3 frac[2,117] - 3 frac[2,118] - 3 frac[2,119] - 3 frac[2,120]
-   - 3 frac[2,121] - 3 frac[2,122] - 3 frac[2,123] - 3 frac[2,124]
-   - 3 frac[2,125] - 3 frac[2,126] - 3 frac[2,127] + rows_tot_cpu3 = 0
+   - 3 frac[2,77] - 3 frac[2,78] - 3 frac[2,79] + rows_tot_cpu3 = 0
  rows_tot_cpu4: - 3 frac[3,0] - 3 frac[3,1] - 3 frac[3,2] - 3 frac[3,3]
    - 3 frac[3,4] - 3 frac[3,5] - 3 frac[3,6] - 3 frac[3,7] - 3 frac[3,8]
    - 3 frac[3,9] - 3 frac[3,10] - 3 frac[3,11] - 3 frac[3,12]
@@ -495,19 +319,7 @@ Subject To
    - 3 frac[3,65] - 3 frac[3,66] - 3 frac[3,67] - 3 frac[3,68]
    - 3 frac[3,69] - 3 frac[3,70] - 3 frac[3,71] - 3 frac[3,72]
    - 3 frac[3,73] - 3 frac[3,74] - 3 frac[3,75] - 3 frac[3,76]
-   - 3 frac[3,77] - 3 frac[3,78] - 3 frac[3,79] - 3 frac[3,80]
-   - 3 frac[3,81] - 3 frac[3,82] - 3 frac[3,83] - 3 frac[3,84]
-   - 3 frac[3,85] - 3 frac[3,86] - 3 frac[3,87] - 3 frac[3,88]
-   - 3 frac[3,89] - 3 frac[3,90] - 3 frac[3,91] - 3 frac[3,92]
-   - 3 frac[3,93] - 3 frac[3,94] - 3 frac[3,95] - 3 frac[3,96]
-   - 3 frac[3,97] - 3 frac[3,98] - 3 frac[3,99] - 3 frac[3,100]
-   - 3 frac[3,101] - 3 frac[3,102] - 3 frac[3,103] - 3 frac[3,104]
-   - 3 frac[3,105] - 3 frac[3,106] - 3 frac[3,107] - 3 frac[3,108]
-   - 3 frac[3,109] - 3 frac[3,110] - 3 frac[3,111] - 3 frac[3,112]
-   - 3 frac[3,113] - 3 frac[3,114] - 3 frac[3,115] - 3 frac[3,116]
-   - 3 frac[3,117] - 3 frac[3,118] - 3 frac[3,119] - 3 frac[3,120]
-   - 3 frac[3,121] - 3 frac[3,122] - 3 frac[3,123] - 3 frac[3,124]
-   - 3 frac[3,125] - 3 frac[3,126] - 3 frac[3,127] + rows_tot_cpu4 = 0
+   - 3 frac[3,77] - 3 frac[3,78] - 3 frac[3,79] + rows_tot_cpu4 = 0
  rows_tot_cpu5: - 3 frac[4,0] - 3 frac[4,1] - 3 frac[4,2] - 3 frac[4,3]
    - 3 frac[4,4] - 3 frac[4,5] - 3 frac[4,6] - 3 frac[4,7] - 3 frac[4,8]
    - 3 frac[4,9] - 3 frac[4,10] - 3 frac[4,11] - 3 frac[4,12]
@@ -527,19 +339,7 @@ Subject To
    - 3 frac[4,65] - 3 frac[4,66] - 3 frac[4,67] - 3 frac[4,68]
    - 3 frac[4,69] - 3 frac[4,70] - 3 frac[4,71] - 3 frac[4,72]
    - 3 frac[4,73] - 3 frac[4,74] - 3 frac[4,75] - 3 frac[4,76]
-   - 3 frac[4,77] - 3 frac[4,78] - 3 frac[4,79] - 3 frac[4,80]
-   - 3 frac[4,81] - 3 frac[4,82] - 3 frac[4,83] - 3 frac[4,84]
-   - 3 frac[4,85] - 3 frac[4,86] - 3 frac[4,87] - 3 frac[4,88]
-   - 3 frac[4,89] - 3 frac[4,90] - 3 frac[4,91] - 3 frac[4,92]
-   - 3 frac[4,93] - 3 frac[4,94] - 3 frac[4,95] - 3 frac[4,96]
-   - 3 frac[4,97] - 3 frac[4,98] - 3 frac[4,99] - 3 frac[4,100]
-   - 3 frac[4,101] - 3 frac[4,102] - 3 frac[4,103] - 3 frac[4,104]
-   - 3 frac[4,105] - 3 frac[4,106] - 3 frac[4,107] - 3 frac[4,108]
-   - 3 frac[4,109] - 3 frac[4,110] - 3 frac[4,111] - 3 frac[4,112]
-   - 3 frac[4,113] - 3 frac[4,114] - 3 frac[4,115] - 3 frac[4,116]
-   - 3 frac[4,117] - 3 frac[4,118] - 3 frac[4,119] - 3 frac[4,120]
-   - 3 frac[4,121] - 3 frac[4,122] - 3 frac[4,123] - 3 frac[4,124]
-   - 3 frac[4,125] - 3 frac[4,126] - 3 frac[4,127] + rows_tot_cpu5 = 0
+   - 3 frac[4,77] - 3 frac[4,78] - 3 frac[4,79] + rows_tot_cpu5 = 0
  rows_tot_cpu6: - 3 frac[5,0] - 3 frac[5,1] - 3 frac[5,2] - 3 frac[5,3]
    - 3 frac[5,4] - 3 frac[5,5] - 3 frac[5,6] - 3 frac[5,7] - 3 frac[5,8]
    - 3 frac[5,9] - 3 frac[5,10] - 3 frac[5,11] - 3 frac[5,12]
@@ -559,19 +359,7 @@ Subject To
    - 3 frac[5,65] - 3 frac[5,66] - 3 frac[5,67] - 3 frac[5,68]
    - 3 frac[5,69] - 3 frac[5,70] - 3 frac[5,71] - 3 frac[5,72]
    - 3 frac[5,73] - 3 frac[5,74] - 3 frac[5,75] - 3 frac[5,76]
-   - 3 frac[5,77] - 3 frac[5,78] - 3 frac[5,79] - 3 frac[5,80]
-   - 3 frac[5,81] - 3 frac[5,82] - 3 frac[5,83] - 3 frac[5,84]
-   - 3 frac[5,85] - 3 frac[5,86] - 3 frac[5,87] - 3 frac[5,88]
-   - 3 frac[5,89] - 3 frac[5,90] - 3 frac[5,91] - 3 frac[5,92]
-   - 3 frac[5,93] - 3 frac[5,94] - 3 frac[5,95] - 3 frac[5,96]
-   - 3 frac[5,97] - 3 frac[5,98] - 3 frac[5,99] - 3 frac[5,100]
-   - 3 frac[5,101] - 3 frac[5,102] - 3 frac[5,103] - 3 frac[5,104]
-   - 3 frac[5,105] - 3 frac[5,106] - 3 frac[5,107] - 3 frac[5,108]
-   - 3 frac[5,109] - 3 frac[5,110] - 3 frac[5,111] - 3 frac[5,112]
-   - 3 frac[5,113] - 3 frac[5,114] - 3 frac[5,115] - 3 frac[5,116]
-   - 3 frac[5,117] - 3 frac[5,118] - 3 frac[5,119] - 3 frac[5,120]
-   - 3 frac[5,121] - 3 frac[5,122] - 3 frac[5,123] - 3 frac[5,124]
-   - 3 frac[5,125] - 3 frac[5,126] - 3 frac[5,127] + rows_tot_cpu6 = 0
+   - 3 frac[5,77] - 3 frac[5,78] - 3 frac[5,79] + rows_tot_cpu6 = 0
  rows_tot_cpu7: - 3 frac[6,0] - 3 frac[6,1] - 3 frac[6,2] - 3 frac[6,3]
    - 3 frac[6,4] - 3 frac[6,5] - 3 frac[6,6] - 3 frac[6,7] - 3 frac[6,8]
    - 3 frac[6,9] - 3 frac[6,10] - 3 frac[6,11] - 3 frac[6,12]
@@ -591,19 +379,7 @@ Subject To
    - 3 frac[6,65] - 3 frac[6,66] - 3 frac[6,67] - 3 frac[6,68]
    - 3 frac[6,69] - 3 frac[6,70] - 3 frac[6,71] - 3 frac[6,72]
    - 3 frac[6,73] - 3 frac[6,74] - 3 frac[6,75] - 3 frac[6,76]
-   - 3 frac[6,77] - 3 frac[6,78] - 3 frac[6,79] - 3 frac[6,80]
-   - 3 frac[6,81] - 3 frac[6,82] - 3 frac[6,83] - 3 frac[6,84]
-   - 3 frac[6,85] - 3 frac[6,86] - 3 frac[6,87] - 3 frac[6,88]
-   - 3 frac[6,89] - 3 frac[6,90] - 3 frac[6,91] - 3 frac[6,92]
-   - 3 frac[6,93] - 3 frac[6,94] - 3 frac[6,95] - 3 frac[6,96]
-   - 3 frac[6,97] - 3 frac[6,98] - 3 frac[6,99] - 3 frac[6,100]
-   - 3 frac[6,101] - 3 frac[6,102] - 3 frac[6,103] - 3 frac[6,104]
-   - 3 frac[6,105] - 3 frac[6,106] - 3 frac[6,107] - 3 frac[6,108]
-   - 3 frac[6,109] - 3 frac[6,110] - 3 frac[6,111] - 3 frac[6,112]
-   - 3 frac[6,113] - 3 frac[6,114] - 3 frac[6,115] - 3 frac[6,116]
-   - 3 frac[6,117] - 3 frac[6,118] - 3 frac[6,119] - 3 frac[6,120]
-   - 3 frac[6,121] - 3 frac[6,122] - 3 frac[6,123] - 3 frac[6,124]
-   - 3 frac[6,125] - 3 frac[6,126] - 3 frac[6,127] + rows_tot_cpu7 = 0
+   - 3 frac[6,77] - 3 frac[6,78] - 3 frac[6,79] + rows_tot_cpu7 = 0
  rows_tot_cpu8: - 3 frac[7,0] - 3 frac[7,1] - 3 frac[7,2] - 3 frac[7,3]
    - 3 frac[7,4] - 3 frac[7,5] - 3 frac[7,6] - 3 frac[7,7] - 3 frac[7,8]
    - 3 frac[7,9] - 3 frac[7,10] - 3 frac[7,11] - 3 frac[7,12]
@@ -623,19 +399,7 @@ Subject To
    - 3 frac[7,65] - 3 frac[7,66] - 3 frac[7,67] - 3 frac[7,68]
    - 3 frac[7,69] - 3 frac[7,70] - 3 frac[7,71] - 3 frac[7,72]
    - 3 frac[7,73] - 3 frac[7,74] - 3 frac[7,75] - 3 frac[7,76]
-   - 3 frac[7,77] - 3 frac[7,78] - 3 frac[7,79] - 3 frac[7,80]
-   - 3 frac[7,81] - 3 frac[7,82] - 3 frac[7,83] - 3 frac[7,84]
-   - 3 frac[7,85] - 3 frac[7,86] - 3 frac[7,87] - 3 frac[7,88]
-   - 3 frac[7,89] - 3 frac[7,90] - 3 frac[7,91] - 3 frac[7,92]
-   - 3 frac[7,93] - 3 frac[7,94] - 3 frac[7,95] - 3 frac[7,96]
-   - 3 frac[7,97] - 3 frac[7,98] - 3 frac[7,99] - 3 frac[7,100]
-   - 3 frac[7,101] - 3 frac[7,102] - 3 frac[7,103] - 3 frac[7,104]
-   - 3 frac[7,105] - 3 frac[7,106] - 3 frac[7,107] - 3 frac[7,108]
-   - 3 frac[7,109] - 3 frac[7,110] - 3 frac[7,111] - 3 frac[7,112]
-   - 3 frac[7,113] - 3 frac[7,114] - 3 frac[7,115] - 3 frac[7,116]
-   - 3 frac[7,117] - 3 frac[7,118] - 3 frac[7,119] - 3 frac[7,120]
-   - 3 frac[7,121] - 3 frac[7,122] - 3 frac[7,123] - 3 frac[7,124]
-   - 3 frac[7,125] - 3 frac[7,126] - 3 frac[7,127] + rows_tot_cpu8 = 0
+   - 3 frac[7,77] - 3 frac[7,78] - 3 frac[7,79] + rows_tot_cpu8 = 0
  rows_tot_tor_p41: - 3 frac[8,0] - 3 frac[8,1] - 3 frac[8,2] - 3 frac[8,3]
    - 3 frac[8,4] - 3 frac[8,5] - 3 frac[8,6] - 3 frac[8,7] - 3 frac[8,8]
    - 3 frac[8,9] - 3 frac[8,10] - 3 frac[8,11] - 3 frac[8,12]
@@ -655,19 +419,7 @@ Subject To
    - 3 frac[8,65] - 3 frac[8,66] - 3 frac[8,67] - 3 frac[8,68]
    - 3 frac[8,69] - 3 frac[8,70] - 3 frac[8,71] - 3 frac[8,72]
    - 3 frac[8,73] - 3 frac[8,74] - 3 frac[8,75] - 3 frac[8,76]
-   - 3 frac[8,77] - 3 frac[8,78] - 3 frac[8,79] - 3 frac[8,80]
-   - 3 frac[8,81] - 3 frac[8,82] - 3 frac[8,83] - 3 frac[8,84]
-   - 3 frac[8,85] - 3 frac[8,86] - 3 frac[8,87] - 3 frac[8,88]
-   - 3 frac[8,89] - 3 frac[8,90] - 3 frac[8,91] - 3 frac[8,92]
-   - 3 frac[8,93] - 3 frac[8,94] - 3 frac[8,95] - 3 frac[8,96]
-   - 3 frac[8,97] - 3 frac[8,98] - 3 frac[8,99] - 3 frac[8,100]
-   - 3 frac[8,101] - 3 frac[8,102] - 3 frac[8,103] - 3 frac[8,104]
-   - 3 frac[8,105] - 3 frac[8,106] - 3 frac[8,107] - 3 frac[8,108]
-   - 3 frac[8,109] - 3 frac[8,110] - 3 frac[8,111] - 3 frac[8,112]
-   - 3 frac[8,113] - 3 frac[8,114] - 3 frac[8,115] - 3 frac[8,116]
-   - 3 frac[8,117] - 3 frac[8,118] - 3 frac[8,119] - 3 frac[8,120]
-   - 3 frac[8,121] - 3 frac[8,122] - 3 frac[8,123] - 3 frac[8,124]
-   - 3 frac[8,125] - 3 frac[8,126] - 3 frac[8,127] + rows_tot_tor_p41 = 0
+   - 3 frac[8,77] - 3 frac[8,78] - 3 frac[8,79] + rows_tot_tor_p41 = 0
  rows_tot_tor_p42: - 3 frac[9,0] - 3 frac[9,1] - 3 frac[9,2] - 3 frac[9,3]
    - 3 frac[9,4] - 3 frac[9,5] - 3 frac[9,6] - 3 frac[9,7] - 3 frac[9,8]
    - 3 frac[9,9] - 3 frac[9,10] - 3 frac[9,11] - 3 frac[9,12]
@@ -687,19 +439,7 @@ Subject To
    - 3 frac[9,65] - 3 frac[9,66] - 3 frac[9,67] - 3 frac[9,68]
    - 3 frac[9,69] - 3 frac[9,70] - 3 frac[9,71] - 3 frac[9,72]
    - 3 frac[9,73] - 3 frac[9,74] - 3 frac[9,75] - 3 frac[9,76]
-   - 3 frac[9,77] - 3 frac[9,78] - 3 frac[9,79] - 3 frac[9,80]
-   - 3 frac[9,81] - 3 frac[9,82] - 3 frac[9,83] - 3 frac[9,84]
-   - 3 frac[9,85] - 3 frac[9,86] - 3 frac[9,87] - 3 frac[9,88]
-   - 3 frac[9,89] - 3 frac[9,90] - 3 frac[9,91] - 3 frac[9,92]
-   - 3 frac[9,93] - 3 frac[9,94] - 3 frac[9,95] - 3 frac[9,96]
-   - 3 frac[9,97] - 3 frac[9,98] - 3 frac[9,99] - 3 frac[9,100]
-   - 3 frac[9,101] - 3 frac[9,102] - 3 frac[9,103] - 3 frac[9,104]
-   - 3 frac[9,105] - 3 frac[9,106] - 3 frac[9,107] - 3 frac[9,108]
-   - 3 frac[9,109] - 3 frac[9,110] - 3 frac[9,111] - 3 frac[9,112]
-   - 3 frac[9,113] - 3 frac[9,114] - 3 frac[9,115] - 3 frac[9,116]
-   - 3 frac[9,117] - 3 frac[9,118] - 3 frac[9,119] - 3 frac[9,120]
-   - 3 frac[9,121] - 3 frac[9,122] - 3 frac[9,123] - 3 frac[9,124]
-   - 3 frac[9,125] - 3 frac[9,126] - 3 frac[9,127] + rows_tot_tor_p42 = 0
+   - 3 frac[9,77] - 3 frac[9,78] - 3 frac[9,79] + rows_tot_tor_p42 = 0
  rows_tot_tor_p43: - 3 frac[10,0] - 3 frac[10,1] - 3 frac[10,2]
    - 3 frac[10,3] - 3 frac[10,4] - 3 frac[10,5] - 3 frac[10,6]
    - 3 frac[10,7] - 3 frac[10,8] - 3 frac[10,9] - 3 frac[10,10]
@@ -720,19 +460,7 @@ Subject To
    - 3 frac[10,67] - 3 frac[10,68] - 3 frac[10,69] - 3 frac[10,70]
    - 3 frac[10,71] - 3 frac[10,72] - 3 frac[10,73] - 3 frac[10,74]
    - 3 frac[10,75] - 3 frac[10,76] - 3 frac[10,77] - 3 frac[10,78]
-   - 3 frac[10,79] - 3 frac[10,80] - 3 frac[10,81] - 3 frac[10,82]
-   - 3 frac[10,83] - 3 frac[10,84] - 3 frac[10,85] - 3 frac[10,86]
-   - 3 frac[10,87] - 3 frac[10,88] - 3 frac[10,89] - 3 frac[10,90]
-   - 3 frac[10,91] - 3 frac[10,92] - 3 frac[10,93] - 3 frac[10,94]
-   - 3 frac[10,95] - 3 frac[10,96] - 3 frac[10,97] - 3 frac[10,98]
-   - 3 frac[10,99] - 3 frac[10,100] - 3 frac[10,101] - 3 frac[10,102]
-   - 3 frac[10,103] - 3 frac[10,104] - 3 frac[10,105] - 3 frac[10,106]
-   - 3 frac[10,107] - 3 frac[10,108] - 3 frac[10,109] - 3 frac[10,110]
-   - 3 frac[10,111] - 3 frac[10,112] - 3 frac[10,113] - 3 frac[10,114]
-   - 3 frac[10,115] - 3 frac[10,116] - 3 frac[10,117] - 3 frac[10,118]
-   - 3 frac[10,119] - 3 frac[10,120] - 3 frac[10,121] - 3 frac[10,122]
-   - 3 frac[10,123] - 3 frac[10,124] - 3 frac[10,125] - 3 frac[10,126]
-   - 3 frac[10,127] + rows_tot_tor_p43 = 0
+   - 3 frac[10,79] + rows_tot_tor_p43 = 0
  rows_tot_tor_p44: - 3 frac[11,0] - 3 frac[11,1] - 3 frac[11,2]
    - 3 frac[11,3] - 3 frac[11,4] - 3 frac[11,5] - 3 frac[11,6]
    - 3 frac[11,7] - 3 frac[11,8] - 3 frac[11,9] - 3 frac[11,10]
@@ -753,19 +481,7 @@ Subject To
    - 3 frac[11,67] - 3 frac[11,68] - 3 frac[11,69] - 3 frac[11,70]
    - 3 frac[11,71] - 3 frac[11,72] - 3 frac[11,73] - 3 frac[11,74]
    - 3 frac[11,75] - 3 frac[11,76] - 3 frac[11,77] - 3 frac[11,78]
-   - 3 frac[11,79] - 3 frac[11,80] - 3 frac[11,81] - 3 frac[11,82]
-   - 3 frac[11,83] - 3 frac[11,84] - 3 frac[11,85] - 3 frac[11,86]
-   - 3 frac[11,87] - 3 frac[11,88] - 3 frac[11,89] - 3 frac[11,90]
-   - 3 frac[11,91] - 3 frac[11,92] - 3 frac[11,93] - 3 frac[11,94]
-   - 3 frac[11,95] - 3 frac[11,96] - 3 frac[11,97] - 3 frac[11,98]
-   - 3 frac[11,99] - 3 frac[11,100] - 3 frac[11,101] - 3 frac[11,102]
-   - 3 frac[11,103] - 3 frac[11,104] - 3 frac[11,105] - 3 frac[11,106]
-   - 3 frac[11,107] - 3 frac[11,108] - 3 frac[11,109] - 3 frac[11,110]
-   - 3 frac[11,111] - 3 frac[11,112] - 3 frac[11,113] - 3 frac[11,114]
-   - 3 frac[11,115] - 3 frac[11,116] - 3 frac[11,117] - 3 frac[11,118]
-   - 3 frac[11,119] - 3 frac[11,120] - 3 frac[11,121] - 3 frac[11,122]
-   - 3 frac[11,123] - 3 frac[11,124] - 3 frac[11,125] - 3 frac[11,126]
-   - 3 frac[11,127] + rows_tot_tor_p44 = 0
+   - 3 frac[11,79] + rows_tot_tor_p44 = 0
  rows_tot_l1_p41: - 3 frac[12,0] - 3 frac[12,1] - 3 frac[12,2]
    - 3 frac[12,3] - 3 frac[12,4] - 3 frac[12,5] - 3 frac[12,6]
    - 3 frac[12,7] - 3 frac[12,8] - 3 frac[12,9] - 3 frac[12,10]
@@ -786,19 +502,7 @@ Subject To
    - 3 frac[12,67] - 3 frac[12,68] - 3 frac[12,69] - 3 frac[12,70]
    - 3 frac[12,71] - 3 frac[12,72] - 3 frac[12,73] - 3 frac[12,74]
    - 3 frac[12,75] - 3 frac[12,76] - 3 frac[12,77] - 3 frac[12,78]
-   - 3 frac[12,79] - 3 frac[12,80] - 3 frac[12,81] - 3 frac[12,82]
-   - 3 frac[12,83] - 3 frac[12,84] - 3 frac[12,85] - 3 frac[12,86]
-   - 3 frac[12,87] - 3 frac[12,88] - 3 frac[12,89] - 3 frac[12,90]
-   - 3 frac[12,91] - 3 frac[12,92] - 3 frac[12,93] - 3 frac[12,94]
-   - 3 frac[12,95] - 3 frac[12,96] - 3 frac[12,97] - 3 frac[12,98]
-   - 3 frac[12,99] - 3 frac[12,100] - 3 frac[12,101] - 3 frac[12,102]
-   - 3 frac[12,103] - 3 frac[12,104] - 3 frac[12,105] - 3 frac[12,106]
-   - 3 frac[12,107] - 3 frac[12,108] - 3 frac[12,109] - 3 frac[12,110]
-   - 3 frac[12,111] - 3 frac[12,112] - 3 frac[12,113] - 3 frac[12,114]
-   - 3 frac[12,115] - 3 frac[12,116] - 3 frac[12,117] - 3 frac[12,118]
-   - 3 frac[12,119] - 3 frac[12,120] - 3 frac[12,121] - 3 frac[12,122]
-   - 3 frac[12,123] - 3 frac[12,124] - 3 frac[12,125] - 3 frac[12,126]
-   - 3 frac[12,127] + rows_tot_l1_p41 = 0
+   - 3 frac[12,79] + rows_tot_l1_p41 = 0
  rows_tot_l1_p42: - 3 frac[13,0] - 3 frac[13,1] - 3 frac[13,2]
    - 3 frac[13,3] - 3 frac[13,4] - 3 frac[13,5] - 3 frac[13,6]
    - 3 frac[13,7] - 3 frac[13,8] - 3 frac[13,9] - 3 frac[13,10]
@@ -819,19 +523,7 @@ Subject To
    - 3 frac[13,67] - 3 frac[13,68] - 3 frac[13,69] - 3 frac[13,70]
    - 3 frac[13,71] - 3 frac[13,72] - 3 frac[13,73] - 3 frac[13,74]
    - 3 frac[13,75] - 3 frac[13,76] - 3 frac[13,77] - 3 frac[13,78]
-   - 3 frac[13,79] - 3 frac[13,80] - 3 frac[13,81] - 3 frac[13,82]
-   - 3 frac[13,83] - 3 frac[13,84] - 3 frac[13,85] - 3 frac[13,86]
-   - 3 frac[13,87] - 3 frac[13,88] - 3 frac[13,89] - 3 frac[13,90]
-   - 3 frac[13,91] - 3 frac[13,92] - 3 frac[13,93] - 3 frac[13,94]
-   - 3 frac[13,95] - 3 frac[13,96] - 3 frac[13,97] - 3 frac[13,98]
-   - 3 frac[13,99] - 3 frac[13,100] - 3 frac[13,101] - 3 frac[13,102]
-   - 3 frac[13,103] - 3 frac[13,104] - 3 frac[13,105] - 3 frac[13,106]
-   - 3 frac[13,107] - 3 frac[13,108] - 3 frac[13,109] - 3 frac[13,110]
-   - 3 frac[13,111] - 3 frac[13,112] - 3 frac[13,113] - 3 frac[13,114]
-   - 3 frac[13,115] - 3 frac[13,116] - 3 frac[13,117] - 3 frac[13,118]
-   - 3 frac[13,119] - 3 frac[13,120] - 3 frac[13,121] - 3 frac[13,122]
-   - 3 frac[13,123] - 3 frac[13,124] - 3 frac[13,125] - 3 frac[13,126]
-   - 3 frac[13,127] + rows_tot_l1_p42 = 0
+   - 3 frac[13,79] + rows_tot_l1_p42 = 0
  rows_tot_l2_p4: - 3 frac[14,0] - 3 frac[14,1] - 3 frac[14,2]
    - 3 frac[14,3] - 3 frac[14,4] - 3 frac[14,5] - 3 frac[14,6]
    - 3 frac[14,7] - 3 frac[14,8] - 3 frac[14,9] - 3 frac[14,10]
@@ -852,19 +544,7 @@ Subject To
    - 3 frac[14,67] - 3 frac[14,68] - 3 frac[14,69] - 3 frac[14,70]
    - 3 frac[14,71] - 3 frac[14,72] - 3 frac[14,73] - 3 frac[14,74]
    - 3 frac[14,75] - 3 frac[14,76] - 3 frac[14,77] - 3 frac[14,78]
-   - 3 frac[14,79] - 3 frac[14,80] - 3 frac[14,81] - 3 frac[14,82]
-   - 3 frac[14,83] - 3 frac[14,84] - 3 frac[14,85] - 3 frac[14,86]
-   - 3 frac[14,87] - 3 frac[14,88] - 3 frac[14,89] - 3 frac[14,90]
-   - 3 frac[14,91] - 3 frac[14,92] - 3 frac[14,93] - 3 frac[14,94]
-   - 3 frac[14,95] - 3 frac[14,96] - 3 frac[14,97] - 3 frac[14,98]
-   - 3 frac[14,99] - 3 frac[14,100] - 3 frac[14,101] - 3 frac[14,102]
-   - 3 frac[14,103] - 3 frac[14,104] - 3 frac[14,105] - 3 frac[14,106]
-   - 3 frac[14,107] - 3 frac[14,108] - 3 frac[14,109] - 3 frac[14,110]
-   - 3 frac[14,111] - 3 frac[14,112] - 3 frac[14,113] - 3 frac[14,114]
-   - 3 frac[14,115] - 3 frac[14,116] - 3 frac[14,117] - 3 frac[14,118]
-   - 3 frac[14,119] - 3 frac[14,120] - 3 frac[14,121] - 3 frac[14,122]
-   - 3 frac[14,123] - 3 frac[14,124] - 3 frac[14,125] - 3 frac[14,126]
-   - 3 frac[14,127] + rows_tot_l2_p4 = 0
+   - 3 frac[14,79] + rows_tot_l2_p4 = 0
  row_capacity_cpu1: rows_tot_cpu1 <= 12
  row_capacity_cpu2: rows_tot_cpu2 <= 12
  row_capacity_cpu3: rows_tot_cpu3 <= 12
@@ -881,1110 +561,6 @@ Subject To
  row_capacity_l1_p42: rows_tot_l1_p42 <= 48
  row_capacity_l2_p4: rows_tot_l2_p4 <= 48
 Bounds
- frac[0,4] free
- frac[0,6] free
- frac[0,7] free
- frac[0,8] free
- frac[0,10] free
- frac[0,14] free
- frac[0,16] free
- frac[0,19] free
- frac[0,21] free
- frac[0,22] free
- frac[0,23] free
- frac[0,24] free
- frac[0,30] free
- frac[0,33] free
- frac[0,39] free
- frac[0,43] free
- frac[0,46] free
- frac[0,48] free
- frac[0,49] free
- frac[0,50] free
- frac[0,54] free
- frac[0,55] free
- frac[0,56] free
- frac[0,57] free
- frac[0,59] free
- frac[0,60] free
- frac[0,62] free
- frac[0,64] free
- frac[0,65] free
- frac[0,68] free
- frac[0,71] free
- frac[0,74] free
- frac[0,75] free
- frac[0,76] free
- frac[0,77] free
- frac[0,80] free
- frac[0,81] free
- frac[0,83] free
- frac[0,86] free
- frac[0,88] free
- frac[0,90] free
- frac[0,91] free
- frac[0,94] free
- frac[0,98] free
- frac[0,100] free
- frac[0,101] free
- frac[0,105] free
- frac[0,106] free
- frac[0,114] free
- frac[0,115] free
- frac[0,119] free
- frac[0,120] free
- frac[1,0] free
- frac[1,3] free
- frac[1,5] free
- frac[1,18] free
- frac[1,19] free
- frac[1,20] free
- frac[1,23] free
- frac[1,25] free
- frac[1,26] free
- frac[1,28] free
- frac[1,29] free
- frac[1,35] free
- frac[1,41] free
- frac[1,43] free
- frac[1,47] free
- frac[1,48] free
- frac[1,49] free
- frac[1,51] free
- frac[1,52] free
- frac[1,53] free
- frac[1,54] free
- frac[1,58] free
- frac[1,61] free
- frac[1,62] free
- frac[1,66] free
- frac[1,68] free
- frac[1,69] free
- frac[1,70] free
- frac[1,71] free
- frac[1,72] free
- frac[1,75] free
- frac[1,78] free
- frac[1,79] free
- frac[1,82] free
- frac[1,83] free
- frac[1,86] free
- frac[1,88] free
- frac[1,89] free
- frac[1,92] free
- frac[1,93] free
- frac[1,94] free
- frac[1,97] free
- frac[1,100] free
- frac[1,102] free
- frac[1,105] free
- frac[1,106] free
- frac[1,107] free
- frac[1,108] free
- frac[1,110] free
- frac[1,111] free
- frac[1,112] free
- frac[1,113] free
- frac[1,114] free
- frac[1,115] free
- frac[1,117] free
- frac[1,121] free
- frac[1,123] free
- frac[1,124] free
- frac[2,0] free
- frac[2,1] free
- frac[2,4] free
- frac[2,5] free
- frac[2,8] free
- frac[2,12] free
- frac[2,13] free
- frac[2,14] free
- frac[2,16] free
- frac[2,18] free
- frac[2,25] free
- frac[2,27] free
- frac[2,28] free
- frac[2,31] free
- frac[2,32] free
- frac[2,33] free
- frac[2,34] free
- frac[2,39] free
- frac[2,42] free
- frac[2,44] free
- frac[2,45] free
- frac[2,48] free
- frac[2,49] free
- frac[2,50] free
- frac[2,55] free
- frac[2,56] free
- frac[2,57] free
- frac[2,58] free
- frac[2,59] free
- frac[2,60] free
- frac[2,61] free
- frac[2,62] free
- frac[2,63] free
- frac[2,66] free
- frac[2,74] free
- frac[2,75] free
- frac[2,77] free
- frac[2,79] free
- frac[2,85] free
- frac[2,86] free
- frac[2,88] free
- frac[2,89] free
- frac[2,90] free
- frac[2,92] free
- frac[2,94] free
- frac[2,97] free
- frac[2,99] free
- frac[2,100] free
- frac[2,104] free
- frac[2,105] free
- frac[2,106] free
- frac[2,107] free
- frac[2,110] free
- frac[2,111] free
- frac[2,112] free
- frac[2,115] free
- frac[2,116] free
- frac[2,117] free
- frac[2,126] free
- frac[2,127] free
- frac[3,0] free
- frac[3,1] free
- frac[3,3] free
- frac[3,5] free
- frac[3,6] free
- frac[3,8] free
- frac[3,9] free
- frac[3,10] free
- frac[3,14] free
- frac[3,15] free
- frac[3,17] free
- frac[3,20] free
- frac[3,22] free
- frac[3,23] free
- frac[3,26] free
- frac[3,33] free
- frac[3,35] free
- frac[3,36] free
- frac[3,37] free
- frac[3,38] free
- frac[3,40] free
- frac[3,41] free
- frac[3,42] free
- frac[3,43] free
- frac[3,46] free
- frac[3,47] free
- frac[3,48] free
- frac[3,49] free
- frac[3,54] free
- frac[3,56] free
- frac[3,57] free
- frac[3,58] free
- frac[3,59] free
- frac[3,62] free
- frac[3,63] free
- frac[3,68] free
- frac[3,73] free
- frac[3,81] free
- frac[3,82] free
- frac[3,83] free
- frac[3,84] free
- frac[3,87] free
- frac[3,88] free
- frac[3,90] free
- frac[3,91] free
- frac[3,95] free
- frac[3,96] free
- frac[3,98] free
- frac[3,100] free
- frac[3,102] free
- frac[3,104] free
- frac[3,105] free
- frac[3,109] free
- frac[3,111] free
- frac[3,114] free
- frac[3,115] free
- frac[3,117] free
- frac[3,118] free
- frac[3,121] free
- frac[3,122] free
- frac[3,123] free
- frac[3,125] free
- frac[4,1] free
- frac[4,3] free
- frac[4,4] free
- frac[4,5] free
- frac[4,6] free
- frac[4,9] free
- frac[4,10] free
- frac[4,12] free
- frac[4,15] free
- frac[4,17] free
- frac[4,18] free
- frac[4,19] free
- frac[4,20] free
- frac[4,21] free
- frac[4,23] free
- frac[4,24] free
- frac[4,28] free
- frac[4,29] free
- frac[4,31] free
- frac[4,32] free
- frac[4,37] free
- frac[4,38] free
- frac[4,39] free
- frac[4,41] free
- frac[4,44] free
- frac[4,46] free
- frac[4,49] free
- frac[4,55] free
- frac[4,59] free
- frac[4,60] free
- frac[4,64] free
- frac[4,67] free
- frac[4,69] free
- frac[4,70] free
- frac[4,72] free
- frac[4,74] free
- frac[4,86] free
- frac[4,92] free
- frac[4,93] free
- frac[4,94] free
- frac[4,100] free
- frac[4,104] free
- frac[4,106] free
- frac[4,108] free
- frac[4,113] free
- frac[4,114] free
- frac[4,117] free
- frac[4,119] free
- frac[4,120] free
- frac[4,127] free
- frac[5,0] free
- frac[5,3] free
- frac[5,5] free
- frac[5,9] free
- frac[5,13] free
- frac[5,16] free
- frac[5,17] free
- frac[5,24] free
- frac[5,25] free
- frac[5,30] free
- frac[5,32] free
- frac[5,35] free
- frac[5,38] free
- frac[5,45] free
- frac[5,51] free
- frac[5,52] free
- frac[5,58] free
- frac[5,61] free
- frac[5,62] free
- frac[5,63] free
- frac[5,64] free
- frac[5,66] free
- frac[5,70] free
- frac[5,71] free
- frac[5,72] free
- frac[5,74] free
- frac[5,77] free
- frac[5,80] free
- frac[5,82] free
- frac[5,83] free
- frac[5,85] free
- frac[5,86] free
- frac[5,88] free
- frac[5,89] free
- frac[5,93] free
- frac[5,97] free
- frac[5,101] free
- frac[5,102] free
- frac[5,103] free
- frac[5,107] free
- frac[5,112] free
- frac[5,118] free
- frac[5,119] free
- frac[5,121] free
- frac[5,123] free
- frac[5,125] free
- frac[6,1] free
- frac[6,2] free
- frac[6,4] free
- frac[6,6] free
- frac[6,9] free
- frac[6,10] free
- frac[6,14] free
- frac[6,16] free
- frac[6,17] free
- frac[6,18] free
- frac[6,22] free
- frac[6,23] free
- frac[6,25] free
- frac[6,30] free
- frac[6,32] free
- frac[6,33] free
- frac[6,35] free
- frac[6,37] free
- frac[6,39] free
- frac[6,41] free
- frac[6,42] free
- frac[6,45] free
- frac[6,46] free
- frac[6,48] free
- frac[6,49] free
- frac[6,52] free
- frac[6,53] free
- frac[6,54] free
- frac[6,55] free
- frac[6,56] free
- frac[6,57] free
- frac[6,58] free
- frac[6,63] free
- frac[6,68] free
- frac[6,70] free
- frac[6,73] free
- frac[6,74] free
- frac[6,75] free
- frac[6,76] free
- frac[6,78] free
- frac[6,82] free
- frac[6,85] free
- frac[6,86] free
- frac[6,87] free
- frac[6,90] free
- frac[6,91] free
- frac[6,92] free
- frac[6,93] free
- frac[6,96] free
- frac[6,100] free
- frac[6,103] free
- frac[6,104] free
- frac[6,107] free
- frac[6,109] free
- frac[6,112] free
- frac[6,116] free
- frac[6,120] free
- frac[6,123] free
- frac[6,124] free
- frac[6,126] free
- frac[6,127] free
- frac[7,2] free
- frac[7,5] free
- frac[7,7] free
- frac[7,8] free
- frac[7,19] free
- frac[7,20] free
- frac[7,22] free
- frac[7,23] free
- frac[7,24] free
- frac[7,27] free
- frac[7,28] free
- frac[7,30] free
- frac[7,34] free
- frac[7,36] free
- frac[7,37] free
- frac[7,38] free
- frac[7,42] free
- frac[7,43] free
- frac[7,45] free
- frac[7,48] free
- frac[7,52] free
- frac[7,58] free
- frac[7,60] free
- frac[7,61] free
- frac[7,62] free
- frac[7,64] free
- frac[7,65] free
- frac[7,66] free
- frac[7,67] free
- frac[7,71] free
- frac[7,72] free
- frac[7,74] free
- frac[7,77] free
- frac[7,84] free
- frac[7,85] free
- frac[7,88] free
- frac[7,89] free
- frac[7,91] free
- frac[7,95] free
- frac[7,97] free
- frac[7,99] free
- frac[7,102] free
- frac[7,111] free
- frac[7,119] free
- frac[7,120] free
- frac[7,121] free
- frac[7,122] free
- frac[7,127] free
- frac[8,0] free
- frac[8,3] free
- frac[8,4] free
- frac[8,5] free
- frac[8,6] free
- frac[8,7] free
- frac[8,8] free
- frac[8,10] free
- frac[8,14] free
- frac[8,16] free
- frac[8,18] free
- frac[8,19] free
- frac[8,20] free
- frac[8,21] free
- frac[8,22] free
- frac[8,23] free
- frac[8,24] free
- frac[8,25] free
- frac[8,26] free
- frac[8,28] free
- frac[8,29] free
- frac[8,30] free
- frac[8,33] free
- frac[8,35] free
- frac[8,39] free
- frac[8,40] free
- frac[8,41] free
- frac[8,43] free
- frac[8,46] free
- frac[8,47] free
- frac[8,48] free
- frac[8,49] free
- frac[8,50] free
- frac[8,51] free
- frac[8,52] free
- frac[8,53] free
- frac[8,54] free
- frac[8,55] free
- frac[8,56] free
- frac[8,57] free
- frac[8,58] free
- frac[8,59] free
- frac[8,60] free
- frac[8,61] free
- frac[8,62] free
- frac[8,64] free
- frac[8,65] free
- frac[8,66] free
- frac[8,68] free
- frac[8,69] free
- frac[8,70] free
- frac[8,71] free
- frac[8,72] free
- frac[8,74] free
- frac[8,75] free
- frac[8,76] free
- frac[8,77] free
- frac[8,78] free
- frac[8,79] free
- frac[8,80] free
- frac[8,81] free
- frac[8,82] free
- frac[8,83] free
- frac[8,86] free
- frac[8,88] free
- frac[8,89] free
- frac[8,90] free
- frac[8,91] free
- frac[8,92] free
- frac[8,93] free
- frac[8,94] free
- frac[8,97] free
- frac[8,98] free
- frac[8,100] free
- frac[8,101] free
- frac[8,102] free
- frac[8,105] free
- frac[8,106] free
- frac[8,107] free
- frac[8,108] free
- frac[8,110] free
- frac[8,111] free
- frac[8,112] free
- frac[8,113] free
- frac[8,114] free
- frac[8,115] free
- frac[8,117] free
- frac[8,119] free
- frac[8,120] free
- frac[8,121] free
- frac[8,123] free
- frac[8,124] free
- frac[9,0] free
- frac[9,1] free
- frac[9,3] free
- frac[9,4] free
- frac[9,5] free
- frac[9,6] free
- frac[9,8] free
- frac[9,9] free
- frac[9,10] free
- frac[9,12] free
- frac[9,13] free
- frac[9,14] free
- frac[9,15] free
- frac[9,16] free
- frac[9,17] free
- frac[9,18] free
- frac[9,20] free
- frac[9,22] free
- frac[9,23] free
- frac[9,25] free
- frac[9,26] free
- frac[9,27] free
- frac[9,28] free
- frac[9,31] free
- frac[9,32] free
- frac[9,33] free
- frac[9,34] free
- frac[9,35] free
- frac[9,36] free
- frac[9,37] free
- frac[9,38] free
- frac[9,39] free
- frac[9,40] free
- frac[9,41] free
- frac[9,42] free
- frac[9,43] free
- frac[9,44] free
- frac[9,45] free
- frac[9,46] free
- frac[9,47] free
- frac[9,48] free
- frac[9,49] free
- frac[9,50] free
- frac[9,54] free
- frac[9,55] free
- frac[9,56] free
- frac[9,57] free
- frac[9,58] free
- frac[9,59] free
- frac[9,60] free
- frac[9,61] free
- frac[9,62] free
- frac[9,63] free
- frac[9,66] free
- frac[9,68] free
- frac[9,73] free
- frac[9,74] free
- frac[9,75] free
- frac[9,77] free
- frac[9,79] free
- frac[9,81] free
- frac[9,82] free
- frac[9,83] free
- frac[9,84] free
- frac[9,85] free
- frac[9,86] free
- frac[9,87] free
- frac[9,88] free
- frac[9,89] free
- frac[9,90] free
- frac[9,91] free
- frac[9,92] free
- frac[9,94] free
- frac[9,95] free
- frac[9,96] free
- frac[9,97] free
- frac[9,98] free
- frac[9,99] free
- frac[9,100] free
- frac[9,102] free
- frac[9,104] free
- frac[9,105] free
- frac[9,106] free
- frac[9,107] free
- frac[9,109] free
- frac[9,110] free
- frac[9,111] free
- frac[9,112] free
- frac[9,114] free
- frac[9,115] free
- frac[9,116] free
- frac[9,117] free
- frac[9,118] free
- frac[9,121] free
- frac[9,122] free
- frac[9,123] free
- frac[9,125] free
- frac[9,126] free
- frac[9,127] free
- frac[10,0] free
- frac[10,1] free
- frac[10,3] free
- frac[10,4] free
- frac[10,5] free
- frac[10,6] free
- frac[10,9] free
- frac[10,10] free
- frac[10,12] free
- frac[10,13] free
- frac[10,15] free
- frac[10,16] free
- frac[10,17] free
- frac[10,18] free
- frac[10,19] free
- frac[10,20] free
- frac[10,21] free
- frac[10,23] free
- frac[10,24] free
- frac[10,25] free
- frac[10,28] free
- frac[10,29] free
- frac[10,30] free
- frac[10,31] free
- frac[10,32] free
- frac[10,35] free
- frac[10,37] free
- frac[10,38] free
- frac[10,39] free
- frac[10,40] free
- frac[10,41] free
- frac[10,44] free
- frac[10,45] free
- frac[10,46] free
- frac[10,49] free
- frac[10,51] free
- frac[10,52] free
- frac[10,55] free
- frac[10,58] free
- frac[10,59] free
- frac[10,60] free
- frac[10,61] free
- frac[10,62] free
- frac[10,63] free
- frac[10,64] free
- frac[10,66] free
- frac[10,67] free
- frac[10,69] free
- frac[10,70] free
- frac[10,71] free
- frac[10,72] free
- frac[10,74] free
- frac[10,77] free
- frac[10,80] free
- frac[10,82] free
- frac[10,83] free
- frac[10,85] free
- frac[10,86] free
- frac[10,88] free
- frac[10,89] free
- frac[10,92] free
- frac[10,93] free
- frac[10,94] free
- frac[10,97] free
- frac[10,100] free
- frac[10,101] free
- frac[10,102] free
- frac[10,103] free
- frac[10,104] free
- frac[10,106] free
- frac[10,107] free
- frac[10,108] free
- frac[10,112] free
- frac[10,113] free
- frac[10,114] free
- frac[10,117] free
- frac[10,118] free
- frac[10,119] free
- frac[10,120] free
- frac[10,121] free
- frac[10,123] free
- frac[10,125] free
- frac[10,127] free
- frac[11,1] free
- frac[11,2] free
- frac[11,4] free
- frac[11,5] free
- frac[11,6] free
- frac[11,7] free
- frac[11,8] free
- frac[11,9] free
- frac[11,10] free
- frac[11,14] free
- frac[11,16] free
- frac[11,17] free
- frac[11,18] free
- frac[11,19] free
- frac[11,20] free
- frac[11,22] free
- frac[11,23] free
- frac[11,24] free
- frac[11,25] free
- frac[11,27] free
- frac[11,28] free
- frac[11,30] free
- frac[11,32] free
- frac[11,33] free
- frac[11,34] free
- frac[11,35] free
- frac[11,36] free
- frac[11,37] free
- frac[11,38] free
- frac[11,39] free
- frac[11,41] free
- frac[11,42] free
- frac[11,43] free
- frac[11,45] free
- frac[11,46] free
- frac[11,48] free
- frac[11,49] free
- frac[11,52] free
- frac[11,53] free
- frac[11,54] free
- frac[11,55] free
- frac[11,56] free
- frac[11,57] free
- frac[11,58] free
- frac[11,60] free
- frac[11,61] free
- frac[11,62] free
- frac[11,63] free
- frac[11,64] free
- frac[11,65] free
- frac[11,66] free
- frac[11,67] free
- frac[11,68] free
- frac[11,70] free
- frac[11,71] free
- frac[11,72] free
- frac[11,73] free
- frac[11,74] free
- frac[11,75] free
- frac[11,76] free
- frac[11,77] free
- frac[11,78] free
- frac[11,81] free
- frac[11,82] free
- frac[11,84] free
- frac[11,85] free
- frac[11,86] free
- frac[11,87] free
- frac[11,88] free
- frac[11,89] free
- frac[11,90] free
- frac[11,91] free
- frac[11,92] free
- frac[11,93] free
- frac[11,95] free
- frac[11,96] free
- frac[11,97] free
- frac[11,99] free
- frac[11,100] free
- frac[11,102] free
- frac[11,103] free
- frac[11,104] free
- frac[11,107] free
- frac[11,109] free
- frac[11,111] free
- frac[11,112] free
- frac[11,116] free
- frac[11,119] free
- frac[11,120] free
- frac[11,121] free
- frac[11,122] free
- frac[11,123] free
- frac[11,124] free
- frac[11,126] free
- frac[11,127] free
- frac[12,0] free
- frac[12,3] free
- frac[12,4] free
- frac[12,5] free
- frac[12,6] free
- frac[12,7] free
- frac[12,8] free
- frac[12,9] free
- frac[12,10] free
- frac[12,12] free
- frac[12,13] free
- frac[12,14] free
- frac[12,15] free
- frac[12,16] free
- frac[12,17] free
- frac[12,18] free
- frac[12,20] free
- frac[12,21] free
- frac[12,22] free
- frac[12,23] free
- frac[12,24] free
- frac[12,25] free
- frac[12,26] free
- frac[12,27] free
- frac[12,28] free
- frac[12,29] free
- frac[12,30] free
- frac[12,31] free
- frac[12,32] free
- frac[12,33] free
- frac[12,34] free
- frac[12,35] free
- frac[12,36] free
- frac[12,37] free
- frac[12,38] free
- frac[12,39] free
- -infinity <= frac[12,40] <= 1
- frac[12,41] free
- frac[12,43] free
- frac[12,44] free
- frac[12,45] free
- frac[12,46] free
- frac[12,47] free
- frac[12,50] free
- frac[12,51] free
- frac[12,52] free
- frac[12,53] free
- frac[12,54] free
- frac[12,55] free
- frac[12,56] free
- frac[12,57] free
- frac[12,58] free
- frac[12,59] free
- frac[12,60] free
- frac[12,61] free
- frac[12,64] free
- frac[12,65] free
- frac[12,66] free
- frac[12,68] free
- frac[12,69] free
- frac[12,70] free
- frac[12,72] free
- frac[12,73] free
- frac[12,74] free
- frac[12,75] free
- frac[12,76] free
- frac[12,77] free
- frac[12,78] free
- frac[12,79] free
- frac[12,80] free
- -infinity <= frac[12,81] <= 1
- frac[12,82] free
- frac[12,83] free
- frac[12,84] free
- frac[12,85] free
- frac[12,86] free
- frac[12,87] free
- frac[12,89] free
- frac[12,90] free
- frac[12,91] free
- frac[12,92] free
- frac[12,93] free
- frac[12,94] free
- frac[12,95] free
- frac[12,96] free
- frac[12,97] free
- frac[12,98] free
- frac[12,99] free
- frac[12,101] free
- frac[12,102] free
- frac[12,106] free
- frac[12,107] free
- frac[12,108] free
- frac[12,109] free
- frac[12,110] free
- frac[12,111] free
- frac[12,112] free
- frac[12,113] free
- frac[12,114] free
- frac[12,116] free
- frac[12,117] free
- frac[12,118] free
- frac[12,119] free
- frac[12,120] free
- frac[12,121] free
- frac[12,122] free
- frac[12,123] free
- frac[12,124] free
- frac[12,125] free
- frac[12,126] free
- frac[12,127] free
- frac[13,0] free
- frac[13,1] free
- frac[13,4] free
- frac[13,5] free
- frac[13,6] free
- frac[13,7] free
- frac[13,8] free
- frac[13,9] free
- frac[13,10] free
- frac[13,12] free
- frac[13,13] free
- frac[13,14] free
- frac[13,15] free
- frac[13,16] free
- frac[13,17] free
- frac[13,18] free
- frac[13,19] free
- frac[13,20] free
- frac[13,21] free
- frac[13,23] free
- frac[13,24] free
- frac[13,25] free
- frac[13,27] free
- frac[13,28] free
- frac[13,29] free
- frac[13,30] free
- frac[13,31] free
- frac[13,32] free
- frac[13,33] free
- frac[13,34] free
- frac[13,35] free
- frac[13,36] free
- frac[13,37] free
- frac[13,38] free
- frac[13,39] free
- frac[13,40] free
- frac[13,41] free
- frac[13,43] free
- frac[13,44] free
- frac[13,45] free
- frac[13,46] free
- frac[13,49] free
- frac[13,51] free
- frac[13,52] free
- frac[13,53] free
- frac[13,54] free
- frac[13,55] free
- frac[13,56] free
- frac[13,57] free
- frac[13,58] free
- frac[13,59] free
- frac[13,60] free
- frac[13,61] free
- frac[13,62] free
- frac[13,63] free
- frac[13,64] free
- frac[13,65] free
- frac[13,66] free
- frac[13,67] free
- frac[13,68] free
- frac[13,69] free
- frac[13,70] free
- frac[13,71] free
- frac[13,72] free
- frac[13,73] free
- frac[13,75] free
- frac[13,76] free
- frac[13,77] free
- frac[13,78] free
- frac[13,80] free
- frac[13,81] free
- frac[13,82] free
- frac[13,83] free
- frac[13,84] free
- frac[13,85] free
- frac[13,86] free
- frac[13,87] free
- frac[13,88] free
- frac[13,89] free
- frac[13,90] free
- frac[13,92] free
- frac[13,93] free
- frac[13,94] free
- frac[13,95] free
- frac[13,96] free
- frac[13,97] free
- frac[13,99] free
- frac[13,100] free
- frac[13,101] free
- frac[13,102] free
- frac[13,103] free
- frac[13,104] free
- frac[13,106] free
- frac[13,107] free
- frac[13,108] free
- frac[13,109] free
- frac[13,111] free
- frac[13,112] free
- frac[13,113] free
- frac[13,114] free
- frac[13,116] free
- frac[13,117] free
- frac[13,118] free
- frac[13,119] free
- frac[13,120] free
- frac[13,121] free
- frac[13,122] free
- frac[13,123] free
- frac[13,124] free
- frac[13,125] free
- frac[13,126] free
- frac[13,127] free
- frac[14,0] free
- frac[14,5] free
- frac[14,7] free
- frac[14,8] free
- frac[14,9] free
- frac[14,12] free
- frac[14,13] free
- frac[14,14] free
- frac[14,15] free
- frac[14,17] free
- frac[14,21] free
- frac[14,23] free
- frac[14,24] free
- frac[14,27] free
- frac[14,29] free
- frac[14,30] free
- frac[14,31] free
- frac[14,32] free
- frac[14,33] free
- frac[14,34] free
- frac[14,36] free
- frac[14,37] free
- frac[14,38] free
- frac[14,40] free
- frac[14,43] free
- frac[14,44] free
- frac[14,45] free
- frac[14,51] free
- frac[14,52] free
- frac[14,53] free
- frac[14,54] free
- frac[14,56] free
- frac[14,57] free
- frac[14,58] free
- frac[14,59] free
- frac[14,64] free
- frac[14,65] free
- frac[14,68] free
- frac[14,69] free
- frac[14,70] free
- frac[14,72] free
- frac[14,73] free
- frac[14,75] free
- frac[14,76] free
- frac[14,78] free
- frac[14,80] free
- frac[14,81] free
- frac[14,83] free
- frac[14,84] free
- frac[14,85] free
- frac[14,86] free
- frac[14,87] free
- frac[14,90] free
- frac[14,93] free
- frac[14,94] free
- frac[14,95] free
- frac[14,96] free
- frac[14,99] free
- frac[14,101] free
- frac[14,106] free
- frac[14,108] free
- frac[14,109] free
- frac[14,111] free
- frac[14,113] free
- frac[14,114] free
- frac[14,116] free
- frac[14,117] free
- frac[14,118] free
- frac[14,119] free
- frac[14,120] free
- frac[14,122] free
- frac[14,124] free
- frac[14,125] free
- frac[14,126] free
- frac[14,127] free
  rows_tot_cpu1 free
  rows_tot_cpu2 free
  rows_tot_cpu3 free
@@ -2000,4 +576,202 @@ Bounds
  rows_tot_l1_p41 free
  rows_tot_l1_p42 free
  rows_tot_l2_p4 free
+Binaries
+ frac[0,0] frac[0,1] frac[0,2] frac[0,3] frac[0,4] frac[0,5] frac[0,6]
+ frac[0,7] frac[0,8] frac[0,9] frac[0,10] frac[0,11] frac[0,12] frac[0,13]
+ frac[0,14] frac[0,15] frac[0,16] frac[0,17] frac[0,18] frac[0,19]
+ frac[0,20] frac[0,21] frac[0,22] frac[0,23] frac[0,24] frac[0,25]
+ frac[0,26] frac[0,27] frac[0,28] frac[0,29] frac[0,30] frac[0,31]
+ frac[0,32] frac[0,33] frac[0,34] frac[0,35] frac[0,36] frac[0,37]
+ frac[0,38] frac[0,39] frac[0,40] frac[0,41] frac[0,42] frac[0,43]
+ frac[0,44] frac[0,45] frac[0,46] frac[0,47] frac[0,48] frac[0,49]
+ frac[0,50] frac[0,51] frac[0,52] frac[0,53] frac[0,54] frac[0,55]
+ frac[0,56] frac[0,57] frac[0,58] frac[0,59] frac[0,60] frac[0,61]
+ frac[0,62] frac[0,63] frac[0,64] frac[0,65] frac[0,66] frac[0,67]
+ frac[0,68] frac[0,69] frac[0,70] frac[0,71] frac[0,72] frac[0,73]
+ frac[0,74] frac[0,75] frac[0,76] frac[0,77] frac[0,78] frac[0,79]
+ frac[1,0] frac[1,1] frac[1,2] frac[1,3] frac[1,4] frac[1,5] frac[1,6]
+ frac[1,7] frac[1,8] frac[1,9] frac[1,10] frac[1,11] frac[1,12] frac[1,13]
+ frac[1,14] frac[1,15] frac[1,16] frac[1,17] frac[1,18] frac[1,19]
+ frac[1,20] frac[1,21] frac[1,22] frac[1,23] frac[1,24] frac[1,25]
+ frac[1,26] frac[1,27] frac[1,28] frac[1,29] frac[1,30] frac[1,31]
+ frac[1,32] frac[1,33] frac[1,34] frac[1,35] frac[1,36] frac[1,37]
+ frac[1,38] frac[1,39] frac[1,40] frac[1,41] frac[1,42] frac[1,43]
+ frac[1,44] frac[1,45] frac[1,46] frac[1,47] frac[1,48] frac[1,49]
+ frac[1,50] frac[1,51] frac[1,52] frac[1,53] frac[1,54] frac[1,55]
+ frac[1,56] frac[1,57] frac[1,58] frac[1,59] frac[1,60] frac[1,61]
+ frac[1,62] frac[1,63] frac[1,64] frac[1,65] frac[1,66] frac[1,67]
+ frac[1,68] frac[1,69] frac[1,70] frac[1,71] frac[1,72] frac[1,73]
+ frac[1,74] frac[1,75] frac[1,76] frac[1,77] frac[1,78] frac[1,79]
+ frac[2,0] frac[2,1] frac[2,2] frac[2,3] frac[2,4] frac[2,5] frac[2,6]
+ frac[2,7] frac[2,8] frac[2,9] frac[2,10] frac[2,11] frac[2,12] frac[2,13]
+ frac[2,14] frac[2,15] frac[2,16] frac[2,17] frac[2,18] frac[2,19]
+ frac[2,20] frac[2,21] frac[2,22] frac[2,23] frac[2,24] frac[2,25]
+ frac[2,26] frac[2,27] frac[2,28] frac[2,29] frac[2,30] frac[2,31]
+ frac[2,32] frac[2,33] frac[2,34] frac[2,35] frac[2,36] frac[2,37]
+ frac[2,38] frac[2,39] frac[2,40] frac[2,41] frac[2,42] frac[2,43]
+ frac[2,44] frac[2,45] frac[2,46] frac[2,47] frac[2,48] frac[2,49]
+ frac[2,50] frac[2,51] frac[2,52] frac[2,53] frac[2,54] frac[2,55]
+ frac[2,56] frac[2,57] frac[2,58] frac[2,59] frac[2,60] frac[2,61]
+ frac[2,62] frac[2,63] frac[2,64] frac[2,65] frac[2,66] frac[2,67]
+ frac[2,68] frac[2,69] frac[2,70] frac[2,71] frac[2,72] frac[2,73]
+ frac[2,74] frac[2,75] frac[2,76] frac[2,77] frac[2,78] frac[2,79]
+ frac[3,0] frac[3,1] frac[3,2] frac[3,3] frac[3,4] frac[3,5] frac[3,6]
+ frac[3,7] frac[3,8] frac[3,9] frac[3,10] frac[3,11] frac[3,12] frac[3,13]
+ frac[3,14] frac[3,15] frac[3,16] frac[3,17] frac[3,18] frac[3,19]
+ frac[3,20] frac[3,21] frac[3,22] frac[3,23] frac[3,24] frac[3,25]
+ frac[3,26] frac[3,27] frac[3,28] frac[3,29] frac[3,30] frac[3,31]
+ frac[3,32] frac[3,33] frac[3,34] frac[3,35] frac[3,36] frac[3,37]
+ frac[3,38] frac[3,39] frac[3,40] frac[3,41] frac[3,42] frac[3,43]
+ frac[3,44] frac[3,45] frac[3,46] frac[3,47] frac[3,48] frac[3,49]
+ frac[3,50] frac[3,51] frac[3,52] frac[3,53] frac[3,54] frac[3,55]
+ frac[3,56] frac[3,57] frac[3,58] frac[3,59] frac[3,60] frac[3,61]
+ frac[3,62] frac[3,63] frac[3,64] frac[3,65] frac[3,66] frac[3,67]
+ frac[3,68] frac[3,69] frac[3,70] frac[3,71] frac[3,72] frac[3,73]
+ frac[3,74] frac[3,75] frac[3,76] frac[3,77] frac[3,78] frac[3,79]
+ frac[4,0] frac[4,1] frac[4,2] frac[4,3] frac[4,4] frac[4,5] frac[4,6]
+ frac[4,7] frac[4,8] frac[4,9] frac[4,10] frac[4,11] frac[4,12] frac[4,13]
+ frac[4,14] frac[4,15] frac[4,16] frac[4,17] frac[4,18] frac[4,19]
+ frac[4,20] frac[4,21] frac[4,22] frac[4,23] frac[4,24] frac[4,25]
+ frac[4,26] frac[4,27] frac[4,28] frac[4,29] frac[4,30] frac[4,31]
+ frac[4,32] frac[4,33] frac[4,34] frac[4,35] frac[4,36] frac[4,37]
+ frac[4,38] frac[4,39] frac[4,40] frac[4,41] frac[4,42] frac[4,43]
+ frac[4,44] frac[4,45] frac[4,46] frac[4,47] frac[4,48] frac[4,49]
+ frac[4,50] frac[4,51] frac[4,52] frac[4,53] frac[4,54] frac[4,55]
+ frac[4,56] frac[4,57] frac[4,58] frac[4,59] frac[4,60] frac[4,61]
+ frac[4,62] frac[4,63] frac[4,64] frac[4,65] frac[4,66] frac[4,67]
+ frac[4,68] frac[4,69] frac[4,70] frac[4,71] frac[4,72] frac[4,73]
+ frac[4,74] frac[4,75] frac[4,76] frac[4,77] frac[4,78] frac[4,79]
+ frac[5,0] frac[5,1] frac[5,2] frac[5,3] frac[5,4] frac[5,5] frac[5,6]
+ frac[5,7] frac[5,8] frac[5,9] frac[5,10] frac[5,11] frac[5,12] frac[5,13]
+ frac[5,14] frac[5,15] frac[5,16] frac[5,17] frac[5,18] frac[5,19]
+ frac[5,20] frac[5,21] frac[5,22] frac[5,23] frac[5,24] frac[5,25]
+ frac[5,26] frac[5,27] frac[5,28] frac[5,29] frac[5,30] frac[5,31]
+ frac[5,32] frac[5,33] frac[5,34] frac[5,35] frac[5,36] frac[5,37]
+ frac[5,38] frac[5,39] frac[5,40] frac[5,41] frac[5,42] frac[5,43]
+ frac[5,44] frac[5,45] frac[5,46] frac[5,47] frac[5,48] frac[5,49]
+ frac[5,50] frac[5,51] frac[5,52] frac[5,53] frac[5,54] frac[5,55]
+ frac[5,56] frac[5,57] frac[5,58] frac[5,59] frac[5,60] frac[5,61]
+ frac[5,62] frac[5,63] frac[5,64] frac[5,65] frac[5,66] frac[5,67]
+ frac[5,68] frac[5,69] frac[5,70] frac[5,71] frac[5,72] frac[5,73]
+ frac[5,74] frac[5,75] frac[5,76] frac[5,77] frac[5,78] frac[5,79]
+ frac[6,0] frac[6,1] frac[6,2] frac[6,3] frac[6,4] frac[6,5] frac[6,6]
+ frac[6,7] frac[6,8] frac[6,9] frac[6,10] frac[6,11] frac[6,12] frac[6,13]
+ frac[6,14] frac[6,15] frac[6,16] frac[6,17] frac[6,18] frac[6,19]
+ frac[6,20] frac[6,21] frac[6,22] frac[6,23] frac[6,24] frac[6,25]
+ frac[6,26] frac[6,27] frac[6,28] frac[6,29] frac[6,30] frac[6,31]
+ frac[6,32] frac[6,33] frac[6,34] frac[6,35] frac[6,36] frac[6,37]
+ frac[6,38] frac[6,39] frac[6,40] frac[6,41] frac[6,42] frac[6,43]
+ frac[6,44] frac[6,45] frac[6,46] frac[6,47] frac[6,48] frac[6,49]
+ frac[6,50] frac[6,51] frac[6,52] frac[6,53] frac[6,54] frac[6,55]
+ frac[6,56] frac[6,57] frac[6,58] frac[6,59] frac[6,60] frac[6,61]
+ frac[6,62] frac[6,63] frac[6,64] frac[6,65] frac[6,66] frac[6,67]
+ frac[6,68] frac[6,69] frac[6,70] frac[6,71] frac[6,72] frac[6,73]
+ frac[6,74] frac[6,75] frac[6,76] frac[6,77] frac[6,78] frac[6,79]
+ frac[7,0] frac[7,1] frac[7,2] frac[7,3] frac[7,4] frac[7,5] frac[7,6]
+ frac[7,7] frac[7,8] frac[7,9] frac[7,10] frac[7,11] frac[7,12] frac[7,13]
+ frac[7,14] frac[7,15] frac[7,16] frac[7,17] frac[7,18] frac[7,19]
+ frac[7,20] frac[7,21] frac[7,22] frac[7,23] frac[7,24] frac[7,25]
+ frac[7,26] frac[7,27] frac[7,28] frac[7,29] frac[7,30] frac[7,31]
+ frac[7,32] frac[7,33] frac[7,34] frac[7,35] frac[7,36] frac[7,37]
+ frac[7,38] frac[7,39] frac[7,40] frac[7,41] frac[7,42] frac[7,43]
+ frac[7,44] frac[7,45] frac[7,46] frac[7,47] frac[7,48] frac[7,49]
+ frac[7,50] frac[7,51] frac[7,52] frac[7,53] frac[7,54] frac[7,55]
+ frac[7,56] frac[7,57] frac[7,58] frac[7,59] frac[7,60] frac[7,61]
+ frac[7,62] frac[7,63] frac[7,64] frac[7,65] frac[7,66] frac[7,67]
+ frac[7,68] frac[7,69] frac[7,70] frac[7,71] frac[7,72] frac[7,73]
+ frac[7,74] frac[7,75] frac[7,76] frac[7,77] frac[7,78] frac[7,79]
+ frac[8,0] frac[8,1] frac[8,2] frac[8,3] frac[8,4] frac[8,5] frac[8,6]
+ frac[8,7] frac[8,8] frac[8,9] frac[8,10] frac[8,11] frac[8,12] frac[8,13]
+ frac[8,14] frac[8,15] frac[8,16] frac[8,17] frac[8,18] frac[8,19]
+ frac[8,20] frac[8,21] frac[8,22] frac[8,23] frac[8,24] frac[8,25]
+ frac[8,26] frac[8,27] frac[8,28] frac[8,29] frac[8,30] frac[8,31]
+ frac[8,32] frac[8,33] frac[8,34] frac[8,35] frac[8,36] frac[8,37]
+ frac[8,38] frac[8,39] frac[8,40] frac[8,41] frac[8,42] frac[8,43]
+ frac[8,44] frac[8,45] frac[8,46] frac[8,47] frac[8,48] frac[8,49]
+ frac[8,50] frac[8,51] frac[8,52] frac[8,53] frac[8,54] frac[8,55]
+ frac[8,56] frac[8,57] frac[8,58] frac[8,59] frac[8,60] frac[8,61]
+ frac[8,62] frac[8,63] frac[8,64] frac[8,65] frac[8,66] frac[8,67]
+ frac[8,68] frac[8,69] frac[8,70] frac[8,71] frac[8,72] frac[8,73]
+ frac[8,74] frac[8,75] frac[8,76] frac[8,77] frac[8,78] frac[8,79]
+ frac[9,0] frac[9,1] frac[9,2] frac[9,3] frac[9,4] frac[9,5] frac[9,6]
+ frac[9,7] frac[9,8] frac[9,9] frac[9,10] frac[9,11] frac[9,12] frac[9,13]
+ frac[9,14] frac[9,15] frac[9,16] frac[9,17] frac[9,18] frac[9,19]
+ frac[9,20] frac[9,21] frac[9,22] frac[9,23] frac[9,24] frac[9,25]
+ frac[9,26] frac[9,27] frac[9,28] frac[9,29] frac[9,30] frac[9,31]
+ frac[9,32] frac[9,33] frac[9,34] frac[9,35] frac[9,36] frac[9,37]
+ frac[9,38] frac[9,39] frac[9,40] frac[9,41] frac[9,42] frac[9,43]
+ frac[9,44] frac[9,45] frac[9,46] frac[9,47] frac[9,48] frac[9,49]
+ frac[9,50] frac[9,51] frac[9,52] frac[9,53] frac[9,54] frac[9,55]
+ frac[9,56] frac[9,57] frac[9,58] frac[9,59] frac[9,60] frac[9,61]
+ frac[9,62] frac[9,63] frac[9,64] frac[9,65] frac[9,66] frac[9,67]
+ frac[9,68] frac[9,69] frac[9,70] frac[9,71] frac[9,72] frac[9,73]
+ frac[9,74] frac[9,75] frac[9,76] frac[9,77] frac[9,78] frac[9,79]
+ frac[10,0] frac[10,1] frac[10,2] frac[10,3] frac[10,4] frac[10,5]
+ frac[10,6] frac[10,7] frac[10,8] frac[10,9] frac[10,10] frac[10,11]
+ frac[10,12] frac[10,13] frac[10,14] frac[10,15] frac[10,16] frac[10,17]
+ frac[10,18] frac[10,19] frac[10,20] frac[10,21] frac[10,22] frac[10,23]
+ frac[10,24] frac[10,25] frac[10,26] frac[10,27] frac[10,28] frac[10,29]
+ frac[10,30] frac[10,31] frac[10,32] frac[10,33] frac[10,34] frac[10,35]
+ frac[10,36] frac[10,37] frac[10,38] frac[10,39] frac[10,40] frac[10,41]
+ frac[10,42] frac[10,43] frac[10,44] frac[10,45] frac[10,46] frac[10,47]
+ frac[10,48] frac[10,49] frac[10,50] frac[10,51] frac[10,52] frac[10,53]
+ frac[10,54] frac[10,55] frac[10,56] frac[10,57] frac[10,58] frac[10,59]
+ frac[10,60] frac[10,61] frac[10,62] frac[10,63] frac[10,64] frac[10,65]
+ frac[10,66] frac[10,67] frac[10,68] frac[10,69] frac[10,70] frac[10,71]
+ frac[10,72] frac[10,73] frac[10,74] frac[10,75] frac[10,76] frac[10,77]
+ frac[10,78] frac[10,79] frac[11,0] frac[11,1] frac[11,2] frac[11,3]
+ frac[11,4] frac[11,5] frac[11,6] frac[11,7] frac[11,8] frac[11,9]
+ frac[11,10] frac[11,11] frac[11,12] frac[11,13] frac[11,14] frac[11,15]
+ frac[11,16] frac[11,17] frac[11,18] frac[11,19] frac[11,20] frac[11,21]
+ frac[11,22] frac[11,23] frac[11,24] frac[11,25] frac[11,26] frac[11,27]
+ frac[11,28] frac[11,29] frac[11,30] frac[11,31] frac[11,32] frac[11,33]
+ frac[11,34] frac[11,35] frac[11,36] frac[11,37] frac[11,38] frac[11,39]
+ frac[11,40] frac[11,41] frac[11,42] frac[11,43] frac[11,44] frac[11,45]
+ frac[11,46] frac[11,47] frac[11,48] frac[11,49] frac[11,50] frac[11,51]
+ frac[11,52] frac[11,53] frac[11,54] frac[11,55] frac[11,56] frac[11,57]
+ frac[11,58] frac[11,59] frac[11,60] frac[11,61] frac[11,62] frac[11,63]
+ frac[11,64] frac[11,65] frac[11,66] frac[11,67] frac[11,68] frac[11,69]
+ frac[11,70] frac[11,71] frac[11,72] frac[11,73] frac[11,74] frac[11,75]
+ frac[11,76] frac[11,77] frac[11,78] frac[11,79] frac[12,0] frac[12,1]
+ frac[12,2] frac[12,3] frac[12,4] frac[12,5] frac[12,6] frac[12,7]
+ frac[12,8] frac[12,9] frac[12,10] frac[12,11] frac[12,12] frac[12,13]
+ frac[12,14] frac[12,15] frac[12,16] frac[12,17] frac[12,18] frac[12,19]
+ frac[12,20] frac[12,21] frac[12,22] frac[12,23] frac[12,24] frac[12,25]
+ frac[12,26] frac[12,27] frac[12,28] frac[12,29] frac[12,30] frac[12,31]
+ frac[12,32] frac[12,33] frac[12,34] frac[12,35] frac[12,36] frac[12,37]
+ frac[12,38] frac[12,39] frac[12,40] frac[12,41] frac[12,42] frac[12,43]
+ frac[12,44] frac[12,45] frac[12,46] frac[12,47] frac[12,48] frac[12,49]
+ frac[12,50] frac[12,51] frac[12,52] frac[12,53] frac[12,54] frac[12,55]
+ frac[12,56] frac[12,57] frac[12,58] frac[12,59] frac[12,60] frac[12,61]
+ frac[12,62] frac[12,63] frac[12,64] frac[12,65] frac[12,66] frac[12,67]
+ frac[12,68] frac[12,69] frac[12,70] frac[12,71] frac[12,72] frac[12,73]
+ frac[12,74] frac[12,75] frac[12,76] frac[12,77] frac[12,78] frac[12,79]
+ frac[13,0] frac[13,1] frac[13,2] frac[13,3] frac[13,4] frac[13,5]
+ frac[13,6] frac[13,7] frac[13,8] frac[13,9] frac[13,10] frac[13,11]
+ frac[13,12] frac[13,13] frac[13,14] frac[13,15] frac[13,16] frac[13,17]
+ frac[13,18] frac[13,19] frac[13,20] frac[13,21] frac[13,22] frac[13,23]
+ frac[13,24] frac[13,25] frac[13,26] frac[13,27] frac[13,28] frac[13,29]
+ frac[13,30] frac[13,31] frac[13,32] frac[13,33] frac[13,34] frac[13,35]
+ frac[13,36] frac[13,37] frac[13,38] frac[13,39] frac[13,40] frac[13,41]
+ frac[13,42] frac[13,43] frac[13,44] frac[13,45] frac[13,46] frac[13,47]
+ frac[13,48] frac[13,49] frac[13,50] frac[13,51] frac[13,52] frac[13,53]
+ frac[13,54] frac[13,55] frac[13,56] frac[13,57] frac[13,58] frac[13,59]
+ frac[13,60] frac[13,61] frac[13,62] frac[13,63] frac[13,64] frac[13,65]
+ frac[13,66] frac[13,67] frac[13,68] frac[13,69] frac[13,70] frac[13,71]
+ frac[13,72] frac[13,73] frac[13,74] frac[13,75] frac[13,76] frac[13,77]
+ frac[13,78] frac[13,79] frac[14,0] frac[14,1] frac[14,2] frac[14,3]
+ frac[14,4] frac[14,5] frac[14,6] frac[14,7] frac[14,8] frac[14,9]
+ frac[14,10] frac[14,11] frac[14,12] frac[14,13] frac[14,14] frac[14,15]
+ frac[14,16] frac[14,17] frac[14,18] frac[14,19] frac[14,20] frac[14,21]
+ frac[14,22] frac[14,23] frac[14,24] frac[14,25] frac[14,26] frac[14,27]
+ frac[14,28] frac[14,29] frac[14,30] frac[14,31] frac[14,32] frac[14,33]
+ frac[14,34] frac[14,35] frac[14,36] frac[14,37] frac[14,38] frac[14,39]
+ frac[14,40] frac[14,41] frac[14,42] frac[14,43] frac[14,44] frac[14,45]
+ frac[14,46] frac[14,47] frac[14,48] frac[14,49] frac[14,50] frac[14,51]
+ frac[14,52] frac[14,53] frac[14,54] frac[14,55] frac[14,56] frac[14,57]
+ frac[14,58] frac[14,59] frac[14,60] frac[14,61] frac[14,62] frac[14,63]
+ frac[14,64] frac[14,65] frac[14,66] frac[14,67] frac[14,68] frac[14,69]
+ frac[14,70] frac[14,71] frac[14,72] frac[14,73] frac[14,74] frac[14,75]
+ frac[14,76] frac[14,77] frac[14,78] frac[14,79]
 End

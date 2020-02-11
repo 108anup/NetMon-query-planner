@@ -1,10 +1,10 @@
 \ Model netmon
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.05
+  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0
    0 m_access_time_cpu_1 + 0 ns_sketch_cpu_1 + 0 ns_dpdk_cpu_1 + 0 ns_cpu_1
    + ns
-  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
+  res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
  cov_0_0: frac[0,0] + frac[1,0] >= 1

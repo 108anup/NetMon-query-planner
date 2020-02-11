@@ -97,7 +97,7 @@ def solve(devices, queries, flows):
         sk = p.sketch
         num_rows = p.num_rows
         mm = sk.min_mem()
-        m.addConstrs((mem[dnum, pnum] >= mm * frac[dnum, pnum] * num_rows
+        m.addConstrs((mem[dnum, pnum] == mm * frac[dnum, pnum] * num_rows
                       for dnum in range(numdevices)),
                      name='accuracy_{}_{}'.format(pnum, sk))
 

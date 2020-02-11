@@ -1,0 +1,43 @@
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------
+Model update took: 3.0517578125e-05 seconds
+Model optimize took: 0.08152389526367188 seconds
+--------------------------------------------------
+
+Throughput: 87.49124322019418 Mpps, ns per packet: 11.429715285714288
+Resources: 154.51260408061574
+
+Sketch (0) (cm: eps0: 0.03125, del0: 0.05, min_mem: 0.33984375)
+Par: 1, Rows: 3
+0.000    1.000    0.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.491    0.018    0.491    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 4
+0.000    1.000    0.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 2.0, cores_dpdk: 5.0
+Rows total: 1.4726949204580004
+Mem total: 12510.002594124606
+Throughput: 87.49124322019418
+
+Device (1) p4_1:
+Rows total: 7.054652394095326
+Mem total: 465.3496764138329
+Throughput: 148.0
+
+Device (2) cpu_2:
+cores_sketch: 2.0, cores_dpdk: 5.0
+Rows total: 1.4726526854466742
+Mem total: 12509.64382321156
+Throughput: 87.49561078606494
+--------------------------------------------------

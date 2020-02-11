@@ -194,7 +194,7 @@ config = [
     # Full sketches only netmon is better than univmon*
     dc_topology(),
 
-    # 4
+    # 4 - same as 0
     # P4 priority over CPU when everything fits on P4
     # Bad for univmon
     param(
@@ -212,7 +212,7 @@ config = [
         ]
     ),
 
-    # 5
+    # 5 - same as 11
     # Skewed CPU allocation
     # Bad for univmon* -> does not know within CPU
     param(
@@ -231,7 +231,7 @@ config = [
         ]
     ),
 
-    # 6
+    # 6 - same as 11
     # Skewed CPU allocation 2
     # Bad for univmon* -> does not know within CPU
     param(
@@ -250,7 +250,7 @@ config = [
         ]
     ),
 
-    # 7
+    # 7 - has both effects of 11 and 12
     # Use small sketches for fully utilizing CPUs
     # Bad for univmon_greedy_rows exhausts P4 memory
     # Bad for univmon_greedy_ns / vanilla univmon (put many rows on cpu)
@@ -274,7 +274,7 @@ config = [
         #          cm_sketch(eps0=eps0*100, del0=del0/2)]
     ),
 
-    # 8
+    # 8 - sanity check
     # Multi P4
     # Nothing matters as continuous resource allocation
     param(
@@ -313,7 +313,7 @@ config = [
     ),
 
     # 11
-    # Pressure at core
+    # Pressure at network core
     param(
         devices=(
             [cpu(**beluga20, name='cpu_{}'.format(i)) for i in range(20)] +
@@ -327,7 +327,7 @@ config = [
     ),
 
     # 12
-    # Pressure at core, core is now cpu
+    # Pressure at network core, core is now cpu
     param(
         devices=(
             [p4(**tofino, name='p4_{}'.format(i)) for i in range(20)] +
@@ -335,6 +335,20 @@ config = [
         ),
         queries=[
             cm_sketch(eps0=eps0/1000, del0=del0)],
+        flows=[flow(path=(i, 20, (i + 1) % 20), queries=[(0, 1)])
+               for i in range(20)]
+    ),
+
+    # 13
+    # Pressure at network core, core is now cpu
+    # small sketches
+    param(
+        devices=(
+            [p4(**tofino, name='p4_{}'.format(i)) for i in range(20)] +
+            [cpu(**beluga20, name='cpu_1')]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0, del0=del0)],
         flows=[flow(path=(i, 20, (i + 1) % 20), queries=[(0, 1)])
                for i in range(20)]
     )
