@@ -1,0 +1,85 @@
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------
+Model update took: 0.00013184547424316406 seconds
+Model optimize took: 0.008708715438842773 seconds
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 3
+0.000    0.000    0.000    1.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.000    1.000    0.000    0.000    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 4
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (1) cpu_2:
+Rows total: 3.0
+Mem total: 25483.8984375
+
+Device (2) p4_1:
+Rows total: 4.0
+Mem total: 67.96875
+
+Device (3) p4_2:
+Rows total: 3.0
+Mem total: 424.734375
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 48.555141506729 Mpps, ns per packet: 20.595141296445718
+Resources: 95.12547588348389
+Total Cores: 8.0, Switch Memory: 492.703125
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 3
+0.000    0.000    0.000    1.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.000    1.000    0.000    0.000    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 4
+0.000    0.000    1.000    0.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 0.0, cores_dpdk: 2.0
+Rows total: 0
+Mem total: 0.0
+Throughput: 53.328000533280424
+
+Device (1) cpu_2:
+cores_sketch: 4.0, cores_dpdk: 2.0
+Rows total: 3.0
+Mem total: 25483.8984375
+Throughput: 48.555141506729
+
+Device (2) p4_1:
+Rows total: 4.0
+Mem total: 67.96875
+Throughput: 148.0
+
+Device (3) p4_2:
+Rows total: 3.0
+Mem total: 424.734375
+Throughput: 148.0
+--------------------------------------------------

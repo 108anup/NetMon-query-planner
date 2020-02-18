@@ -130,6 +130,7 @@ def solve(devices, queries, flows):
                         partitions=partitions, m=m, frac=frac, mem=mem)
     solver.add_constraints()
     m.ModelSense = GRB.MINIMIZE
+    m.setParam(GRB.Param.TimeLimit, 120)
     solver.add_objective()
 
     start = time.time()
@@ -149,10 +150,22 @@ def solve(devices, queries, flows):
     log.info("-"*50)
 
     if(m.Status == GRB.INFEASIBLE):
-        m.computeIIS()
-        m.write("progs/infeasible_{}.ilp".format(cfg_num))
+        # m.computeIIS()
+        # m.write("progs/infeasible_{}.ilp".format(cfg_num))
+
+        if(not (common_config.output_file is None)):
+            f = open(common_config.output_file, 'a')
+            f.write("-, -, -, -, -, ")
+            f.close()
+
     else:
         solver.post_optimize()
+
+    end = time.time()
+    if(not (common_config.output_file is None)):
+        f = open(common_config.output_file, 'a')
+        f.write("{:06f}, ".format(end - start))
+        f.close()
 
 
 parser = generate_parser()

@@ -356,8 +356,8 @@ config = [
 
 common_config = param(
     tolerance=0.999,
-    ns_tol=0.05,
-    res_tol=0.05,
+    ns_tol=0,
+    res_tol=0,
     fileout=False,
     solver='netmon',
     use_model=False,

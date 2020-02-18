@@ -1,95 +1,188 @@
 \ Model netmon
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.05
+  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.1
    0 m_access_time_cpu_1 + 0 ns_sketch_cpu_1 + 0 ns_dpdk_cpu_1 + 0 ns_cpu_1
    + ns
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
    res
 Subject To
  cov_0_0: frac[0,0] + frac[1,0] + frac[20,0] >= 1
+ cov_0_1: frac[0,1] + frac[1,1] + frac[20,1] >= 1
+ cov_0_2: frac[0,2] + frac[1,2] + frac[20,2] >= 1
  cov_1_0: frac[1,0] + frac[2,0] + frac[20,0] >= 1
+ cov_1_1: frac[1,1] + frac[2,1] + frac[20,1] >= 1
+ cov_1_2: frac[1,2] + frac[2,2] + frac[20,2] >= 1
  cov_2_0: frac[2,0] + frac[3,0] + frac[20,0] >= 1
+ cov_2_1: frac[2,1] + frac[3,1] + frac[20,1] >= 1
+ cov_2_2: frac[2,2] + frac[3,2] + frac[20,2] >= 1
  cov_3_0: frac[3,0] + frac[4,0] + frac[20,0] >= 1
+ cov_3_1: frac[3,1] + frac[4,1] + frac[20,1] >= 1
+ cov_3_2: frac[3,2] + frac[4,2] + frac[20,2] >= 1
  cov_4_0: frac[4,0] + frac[5,0] + frac[20,0] >= 1
+ cov_4_1: frac[4,1] + frac[5,1] + frac[20,1] >= 1
+ cov_4_2: frac[4,2] + frac[5,2] + frac[20,2] >= 1
  cov_5_0: frac[5,0] + frac[6,0] + frac[20,0] >= 1
+ cov_5_1: frac[5,1] + frac[6,1] + frac[20,1] >= 1
+ cov_5_2: frac[5,2] + frac[6,2] + frac[20,2] >= 1
  cov_6_0: frac[6,0] + frac[7,0] + frac[20,0] >= 1
+ cov_6_1: frac[6,1] + frac[7,1] + frac[20,1] >= 1
+ cov_6_2: frac[6,2] + frac[7,2] + frac[20,2] >= 1
  cov_7_0: frac[7,0] + frac[8,0] + frac[20,0] >= 1
+ cov_7_1: frac[7,1] + frac[8,1] + frac[20,1] >= 1
+ cov_7_2: frac[7,2] + frac[8,2] + frac[20,2] >= 1
  cov_8_0: frac[8,0] + frac[9,0] + frac[20,0] >= 1
+ cov_8_1: frac[8,1] + frac[9,1] + frac[20,1] >= 1
+ cov_8_2: frac[8,2] + frac[9,2] + frac[20,2] >= 1
  cov_9_0: frac[9,0] + frac[10,0] + frac[20,0] >= 1
+ cov_9_1: frac[9,1] + frac[10,1] + frac[20,1] >= 1
+ cov_9_2: frac[9,2] + frac[10,2] + frac[20,2] >= 1
  cov_10_0: frac[10,0] + frac[11,0] + frac[20,0] >= 1
+ cov_10_1: frac[10,1] + frac[11,1] + frac[20,1] >= 1
+ cov_10_2: frac[10,2] + frac[11,2] + frac[20,2] >= 1
  cov_11_0: frac[11,0] + frac[12,0] + frac[20,0] >= 1
+ cov_11_1: frac[11,1] + frac[12,1] + frac[20,1] >= 1
+ cov_11_2: frac[11,2] + frac[12,2] + frac[20,2] >= 1
  cov_12_0: frac[12,0] + frac[13,0] + frac[20,0] >= 1
+ cov_12_1: frac[12,1] + frac[13,1] + frac[20,1] >= 1
+ cov_12_2: frac[12,2] + frac[13,2] + frac[20,2] >= 1
  cov_13_0: frac[13,0] + frac[14,0] + frac[20,0] >= 1
+ cov_13_1: frac[13,1] + frac[14,1] + frac[20,1] >= 1
+ cov_13_2: frac[13,2] + frac[14,2] + frac[20,2] >= 1
  cov_14_0: frac[14,0] + frac[15,0] + frac[20,0] >= 1
+ cov_14_1: frac[14,1] + frac[15,1] + frac[20,1] >= 1
+ cov_14_2: frac[14,2] + frac[15,2] + frac[20,2] >= 1
  cov_15_0: frac[15,0] + frac[16,0] + frac[20,0] >= 1
+ cov_15_1: frac[15,1] + frac[16,1] + frac[20,1] >= 1
+ cov_15_2: frac[15,2] + frac[16,2] + frac[20,2] >= 1
  cov_16_0: frac[16,0] + frac[17,0] + frac[20,0] >= 1
+ cov_16_1: frac[16,1] + frac[17,1] + frac[20,1] >= 1
+ cov_16_2: frac[16,2] + frac[17,2] + frac[20,2] >= 1
  cov_17_0: frac[17,0] + frac[18,0] + frac[20,0] >= 1
+ cov_17_1: frac[17,1] + frac[18,1] + frac[20,1] >= 1
+ cov_17_2: frac[17,2] + frac[18,2] + frac[20,2] >= 1
  cov_18_0: frac[18,0] + frac[19,0] + frac[20,0] >= 1
+ cov_18_1: frac[18,1] + frac[19,1] + frac[20,1] >= 1
+ cov_18_2: frac[18,2] + frac[19,2] + frac[20,2] >= 1
  cov_19_0: frac[0,0] + frac[19,0] + frac[20,0] >= 1
- accuracy_0_sk_0[0]: - 5.09765625 frac[0,0] + mem[0,0] = 0
- accuracy_0_sk_0[1]: - 5.09765625 frac[1,0] + mem[1,0] = 0
- accuracy_0_sk_0[2]: - 5.09765625 frac[2,0] + mem[2,0] = 0
- accuracy_0_sk_0[3]: - 5.09765625 frac[3,0] + mem[3,0] = 0
- accuracy_0_sk_0[4]: - 5.09765625 frac[4,0] + mem[4,0] = 0
- accuracy_0_sk_0[5]: - 5.09765625 frac[5,0] + mem[5,0] = 0
- accuracy_0_sk_0[6]: - 5.09765625 frac[6,0] + mem[6,0] = 0
- accuracy_0_sk_0[7]: - 5.09765625 frac[7,0] + mem[7,0] = 0
- accuracy_0_sk_0[8]: - 5.09765625 frac[8,0] + mem[8,0] = 0
- accuracy_0_sk_0[9]: - 5.09765625 frac[9,0] + mem[9,0] = 0
- accuracy_0_sk_0[10]: - 5.09765625 frac[10,0] + mem[10,0] = 0
- accuracy_0_sk_0[11]: - 5.09765625 frac[11,0] + mem[11,0] = 0
- accuracy_0_sk_0[12]: - 5.09765625 frac[12,0] + mem[12,0] = 0
- accuracy_0_sk_0[13]: - 5.09765625 frac[13,0] + mem[13,0] = 0
- accuracy_0_sk_0[14]: - 5.09765625 frac[14,0] + mem[14,0] = 0
- accuracy_0_sk_0[15]: - 5.09765625 frac[15,0] + mem[15,0] = 0
- accuracy_0_sk_0[16]: - 5.09765625 frac[16,0] + mem[16,0] = 0
- accuracy_0_sk_0[17]: - 5.09765625 frac[17,0] + mem[17,0] = 0
- accuracy_0_sk_0[18]: - 5.09765625 frac[18,0] + mem[18,0] = 0
- accuracy_0_sk_0[19]: - 5.09765625 frac[19,0] + mem[19,0] = 0
- accuracy_0_sk_0[20]: - 5.09765625 frac[20,0] + mem[20,0] = 0
- mem_tot_p4_0: - mem[0,0] + mem_tot_p4_0 = 0
- rows_tot_p4_0: - 3 frac[0,0] + rows_tot_p4_0 = 0
- mem_tot_p4_1: - mem[1,0] + mem_tot_p4_1 = 0
- rows_tot_p4_1: - 3 frac[1,0] + rows_tot_p4_1 = 0
- mem_tot_p4_2: - mem[2,0] + mem_tot_p4_2 = 0
- rows_tot_p4_2: - 3 frac[2,0] + rows_tot_p4_2 = 0
- mem_tot_p4_3: - mem[3,0] + mem_tot_p4_3 = 0
- rows_tot_p4_3: - 3 frac[3,0] + rows_tot_p4_3 = 0
- mem_tot_p4_4: - mem[4,0] + mem_tot_p4_4 = 0
- rows_tot_p4_4: - 3 frac[4,0] + rows_tot_p4_4 = 0
- mem_tot_p4_5: - mem[5,0] + mem_tot_p4_5 = 0
- rows_tot_p4_5: - 3 frac[5,0] + rows_tot_p4_5 = 0
- mem_tot_p4_6: - mem[6,0] + mem_tot_p4_6 = 0
- rows_tot_p4_6: - 3 frac[6,0] + rows_tot_p4_6 = 0
- mem_tot_p4_7: - mem[7,0] + mem_tot_p4_7 = 0
- rows_tot_p4_7: - 3 frac[7,0] + rows_tot_p4_7 = 0
- mem_tot_p4_8: - mem[8,0] + mem_tot_p4_8 = 0
- rows_tot_p4_8: - 3 frac[8,0] + rows_tot_p4_8 = 0
- mem_tot_p4_9: - mem[9,0] + mem_tot_p4_9 = 0
- rows_tot_p4_9: - 3 frac[9,0] + rows_tot_p4_9 = 0
- mem_tot_p4_10: - mem[10,0] + mem_tot_p4_10 = 0
- rows_tot_p4_10: - 3 frac[10,0] + rows_tot_p4_10 = 0
- mem_tot_p4_11: - mem[11,0] + mem_tot_p4_11 = 0
- rows_tot_p4_11: - 3 frac[11,0] + rows_tot_p4_11 = 0
- mem_tot_p4_12: - mem[12,0] + mem_tot_p4_12 = 0
- rows_tot_p4_12: - 3 frac[12,0] + rows_tot_p4_12 = 0
- mem_tot_p4_13: - mem[13,0] + mem_tot_p4_13 = 0
- rows_tot_p4_13: - 3 frac[13,0] + rows_tot_p4_13 = 0
- mem_tot_p4_14: - mem[14,0] + mem_tot_p4_14 = 0
- rows_tot_p4_14: - 3 frac[14,0] + rows_tot_p4_14 = 0
- mem_tot_p4_15: - mem[15,0] + mem_tot_p4_15 = 0
- rows_tot_p4_15: - 3 frac[15,0] + rows_tot_p4_15 = 0
- mem_tot_p4_16: - mem[16,0] + mem_tot_p4_16 = 0
- rows_tot_p4_16: - 3 frac[16,0] + rows_tot_p4_16 = 0
- mem_tot_p4_17: - mem[17,0] + mem_tot_p4_17 = 0
- rows_tot_p4_17: - 3 frac[17,0] + rows_tot_p4_17 = 0
- mem_tot_p4_18: - mem[18,0] + mem_tot_p4_18 = 0
- rows_tot_p4_18: - 3 frac[18,0] + rows_tot_p4_18 = 0
- mem_tot_p4_19: - mem[19,0] + mem_tot_p4_19 = 0
- rows_tot_p4_19: - 3 frac[19,0] + rows_tot_p4_19 = 0
- mem_tot_cpu_1: - mem[20,0] + mem_tot_cpu_1 = 0
- rows_tot_cpu_1: - 3 frac[20,0] + rows_tot_cpu_1 = 0
+ cov_19_1: frac[0,1] + frac[19,1] + frac[20,1] >= 1
+ cov_19_2: frac[0,2] + frac[19,2] + frac[20,2] >= 1
+ accuracy_0_sk_0[0]: - 1.69921875 frac[0,0] + mem[0,0] = 0
+ accuracy_0_sk_0[1]: - 1.69921875 frac[1,0] + mem[1,0] = 0
+ accuracy_0_sk_0[2]: - 1.69921875 frac[2,0] + mem[2,0] = 0
+ accuracy_0_sk_0[3]: - 1.69921875 frac[3,0] + mem[3,0] = 0
+ accuracy_0_sk_0[4]: - 1.69921875 frac[4,0] + mem[4,0] = 0
+ accuracy_0_sk_0[5]: - 1.69921875 frac[5,0] + mem[5,0] = 0
+ accuracy_0_sk_0[6]: - 1.69921875 frac[6,0] + mem[6,0] = 0
+ accuracy_0_sk_0[7]: - 1.69921875 frac[7,0] + mem[7,0] = 0
+ accuracy_0_sk_0[8]: - 1.69921875 frac[8,0] + mem[8,0] = 0
+ accuracy_0_sk_0[9]: - 1.69921875 frac[9,0] + mem[9,0] = 0
+ accuracy_0_sk_0[10]: - 1.69921875 frac[10,0] + mem[10,0] = 0
+ accuracy_0_sk_0[11]: - 1.69921875 frac[11,0] + mem[11,0] = 0
+ accuracy_0_sk_0[12]: - 1.69921875 frac[12,0] + mem[12,0] = 0
+ accuracy_0_sk_0[13]: - 1.69921875 frac[13,0] + mem[13,0] = 0
+ accuracy_0_sk_0[14]: - 1.69921875 frac[14,0] + mem[14,0] = 0
+ accuracy_0_sk_0[15]: - 1.69921875 frac[15,0] + mem[15,0] = 0
+ accuracy_0_sk_0[16]: - 1.69921875 frac[16,0] + mem[16,0] = 0
+ accuracy_0_sk_0[17]: - 1.69921875 frac[17,0] + mem[17,0] = 0
+ accuracy_0_sk_0[18]: - 1.69921875 frac[18,0] + mem[18,0] = 0
+ accuracy_0_sk_0[19]: - 1.69921875 frac[19,0] + mem[19,0] = 0
+ accuracy_0_sk_0[20]: - 1.69921875 frac[20,0] + mem[20,0] = 0
+ accuracy_1_sk_0[0]: - 1.69921875 frac[0,1] + mem[0,1] = 0
+ accuracy_1_sk_0[1]: - 1.69921875 frac[1,1] + mem[1,1] = 0
+ accuracy_1_sk_0[2]: - 1.69921875 frac[2,1] + mem[2,1] = 0
+ accuracy_1_sk_0[3]: - 1.69921875 frac[3,1] + mem[3,1] = 0
+ accuracy_1_sk_0[4]: - 1.69921875 frac[4,1] + mem[4,1] = 0
+ accuracy_1_sk_0[5]: - 1.69921875 frac[5,1] + mem[5,1] = 0
+ accuracy_1_sk_0[6]: - 1.69921875 frac[6,1] + mem[6,1] = 0
+ accuracy_1_sk_0[7]: - 1.69921875 frac[7,1] + mem[7,1] = 0
+ accuracy_1_sk_0[8]: - 1.69921875 frac[8,1] + mem[8,1] = 0
+ accuracy_1_sk_0[9]: - 1.69921875 frac[9,1] + mem[9,1] = 0
+ accuracy_1_sk_0[10]: - 1.69921875 frac[10,1] + mem[10,1] = 0
+ accuracy_1_sk_0[11]: - 1.69921875 frac[11,1] + mem[11,1] = 0
+ accuracy_1_sk_0[12]: - 1.69921875 frac[12,1] + mem[12,1] = 0
+ accuracy_1_sk_0[13]: - 1.69921875 frac[13,1] + mem[13,1] = 0
+ accuracy_1_sk_0[14]: - 1.69921875 frac[14,1] + mem[14,1] = 0
+ accuracy_1_sk_0[15]: - 1.69921875 frac[15,1] + mem[15,1] = 0
+ accuracy_1_sk_0[16]: - 1.69921875 frac[16,1] + mem[16,1] = 0
+ accuracy_1_sk_0[17]: - 1.69921875 frac[17,1] + mem[17,1] = 0
+ accuracy_1_sk_0[18]: - 1.69921875 frac[18,1] + mem[18,1] = 0
+ accuracy_1_sk_0[19]: - 1.69921875 frac[19,1] + mem[19,1] = 0
+ accuracy_1_sk_0[20]: - 1.69921875 frac[20,1] + mem[20,1] = 0
+ accuracy_2_sk_0[0]: - 1.69921875 frac[0,2] + mem[0,2] = 0
+ accuracy_2_sk_0[1]: - 1.69921875 frac[1,2] + mem[1,2] = 0
+ accuracy_2_sk_0[2]: - 1.69921875 frac[2,2] + mem[2,2] = 0
+ accuracy_2_sk_0[3]: - 1.69921875 frac[3,2] + mem[3,2] = 0
+ accuracy_2_sk_0[4]: - 1.69921875 frac[4,2] + mem[4,2] = 0
+ accuracy_2_sk_0[5]: - 1.69921875 frac[5,2] + mem[5,2] = 0
+ accuracy_2_sk_0[6]: - 1.69921875 frac[6,2] + mem[6,2] = 0
+ accuracy_2_sk_0[7]: - 1.69921875 frac[7,2] + mem[7,2] = 0
+ accuracy_2_sk_0[8]: - 1.69921875 frac[8,2] + mem[8,2] = 0
+ accuracy_2_sk_0[9]: - 1.69921875 frac[9,2] + mem[9,2] = 0
+ accuracy_2_sk_0[10]: - 1.69921875 frac[10,2] + mem[10,2] = 0
+ accuracy_2_sk_0[11]: - 1.69921875 frac[11,2] + mem[11,2] = 0
+ accuracy_2_sk_0[12]: - 1.69921875 frac[12,2] + mem[12,2] = 0
+ accuracy_2_sk_0[13]: - 1.69921875 frac[13,2] + mem[13,2] = 0
+ accuracy_2_sk_0[14]: - 1.69921875 frac[14,2] + mem[14,2] = 0
+ accuracy_2_sk_0[15]: - 1.69921875 frac[15,2] + mem[15,2] = 0
+ accuracy_2_sk_0[16]: - 1.69921875 frac[16,2] + mem[16,2] = 0
+ accuracy_2_sk_0[17]: - 1.69921875 frac[17,2] + mem[17,2] = 0
+ accuracy_2_sk_0[18]: - 1.69921875 frac[18,2] + mem[18,2] = 0
+ accuracy_2_sk_0[19]: - 1.69921875 frac[19,2] + mem[19,2] = 0
+ accuracy_2_sk_0[20]: - 1.69921875 frac[20,2] + mem[20,2] = 0
+ mem_tot_p4_0: - mem[0,0] - mem[0,1] - mem[0,2] + mem_tot_p4_0 = 0
+ rows_tot_p4_0: - frac[0,0] - frac[0,1] - frac[0,2] + rows_tot_p4_0 = 0
+ mem_tot_p4_1: - mem[1,0] - mem[1,1] - mem[1,2] + mem_tot_p4_1 = 0
+ rows_tot_p4_1: - frac[1,0] - frac[1,1] - frac[1,2] + rows_tot_p4_1 = 0
+ mem_tot_p4_2: - mem[2,0] - mem[2,1] - mem[2,2] + mem_tot_p4_2 = 0
+ rows_tot_p4_2: - frac[2,0] - frac[2,1] - frac[2,2] + rows_tot_p4_2 = 0
+ mem_tot_p4_3: - mem[3,0] - mem[3,1] - mem[3,2] + mem_tot_p4_3 = 0
+ rows_tot_p4_3: - frac[3,0] - frac[3,1] - frac[3,2] + rows_tot_p4_3 = 0
+ mem_tot_p4_4: - mem[4,0] - mem[4,1] - mem[4,2] + mem_tot_p4_4 = 0
+ rows_tot_p4_4: - frac[4,0] - frac[4,1] - frac[4,2] + rows_tot_p4_4 = 0
+ mem_tot_p4_5: - mem[5,0] - mem[5,1] - mem[5,2] + mem_tot_p4_5 = 0
+ rows_tot_p4_5: - frac[5,0] - frac[5,1] - frac[5,2] + rows_tot_p4_5 = 0
+ mem_tot_p4_6: - mem[6,0] - mem[6,1] - mem[6,2] + mem_tot_p4_6 = 0
+ rows_tot_p4_6: - frac[6,0] - frac[6,1] - frac[6,2] + rows_tot_p4_6 = 0
+ mem_tot_p4_7: - mem[7,0] - mem[7,1] - mem[7,2] + mem_tot_p4_7 = 0
+ rows_tot_p4_7: - frac[7,0] - frac[7,1] - frac[7,2] + rows_tot_p4_7 = 0
+ mem_tot_p4_8: - mem[8,0] - mem[8,1] - mem[8,2] + mem_tot_p4_8 = 0
+ rows_tot_p4_8: - frac[8,0] - frac[8,1] - frac[8,2] + rows_tot_p4_8 = 0
+ mem_tot_p4_9: - mem[9,0] - mem[9,1] - mem[9,2] + mem_tot_p4_9 = 0
+ rows_tot_p4_9: - frac[9,0] - frac[9,1] - frac[9,2] + rows_tot_p4_9 = 0
+ mem_tot_p4_10: - mem[10,0] - mem[10,1] - mem[10,2] + mem_tot_p4_10 = 0
+ rows_tot_p4_10: - frac[10,0] - frac[10,1] - frac[10,2] + rows_tot_p4_10
+   = 0
+ mem_tot_p4_11: - mem[11,0] - mem[11,1] - mem[11,2] + mem_tot_p4_11 = 0
+ rows_tot_p4_11: - frac[11,0] - frac[11,1] - frac[11,2] + rows_tot_p4_11
+   = 0
+ mem_tot_p4_12: - mem[12,0] - mem[12,1] - mem[12,2] + mem_tot_p4_12 = 0
+ rows_tot_p4_12: - frac[12,0] - frac[12,1] - frac[12,2] + rows_tot_p4_12
+   = 0
+ mem_tot_p4_13: - mem[13,0] - mem[13,1] - mem[13,2] + mem_tot_p4_13 = 0
+ rows_tot_p4_13: - frac[13,0] - frac[13,1] - frac[13,2] + rows_tot_p4_13
+   = 0
+ mem_tot_p4_14: - mem[14,0] - mem[14,1] - mem[14,2] + mem_tot_p4_14 = 0
+ rows_tot_p4_14: - frac[14,0] - frac[14,1] - frac[14,2] + rows_tot_p4_14
+   = 0
+ mem_tot_p4_15: - mem[15,0] - mem[15,1] - mem[15,2] + mem_tot_p4_15 = 0
+ rows_tot_p4_15: - frac[15,0] - frac[15,1] - frac[15,2] + rows_tot_p4_15
+   = 0
+ mem_tot_p4_16: - mem[16,0] - mem[16,1] - mem[16,2] + mem_tot_p4_16 = 0
+ rows_tot_p4_16: - frac[16,0] - frac[16,1] - frac[16,2] + rows_tot_p4_16
+   = 0
+ mem_tot_p4_17: - mem[17,0] - mem[17,1] - mem[17,2] + mem_tot_p4_17 = 0
+ rows_tot_p4_17: - frac[17,0] - frac[17,1] - frac[17,2] + rows_tot_p4_17
+   = 0
+ mem_tot_p4_18: - mem[18,0] - mem[18,1] - mem[18,2] + mem_tot_p4_18 = 0
+ rows_tot_p4_18: - frac[18,0] - frac[18,1] - frac[18,2] + rows_tot_p4_18
+   = 0
+ mem_tot_p4_19: - mem[19,0] - mem[19,1] - mem[19,2] + mem_tot_p4_19 = 0
+ rows_tot_p4_19: - frac[19,0] - frac[19,1] - frac[19,2] + rows_tot_p4_19
+   = 0
+ mem_tot_cpu_1: - mem[20,0] - mem[20,1] - mem[20,2] + mem_tot_cpu_1 = 0
+ rows_tot_cpu_1: - frac[20,0] - frac[20,1] - frac[20,2] + rows_tot_cpu_1
+   = 0
  row_capacity_p4_0: rows_tot_p4_0 <= 48
  row_capacity_p4_1: rows_tot_p4_1 <= 48
  row_capacity_p4_2: rows_tot_p4_2 <= 48
@@ -166,6 +259,69 @@ Subject To
  pdt_nsc_dpdk_cpu_1: pdt_nsc_dpdk_cpu_1 + [
    - cores_dpdk_cpu_1 * ns_dpdk_cpu_1 ] = 0
 Bounds
+ frac[0,0] <= 1
+ frac[0,1] <= 1
+ frac[0,2] <= 1
+ frac[1,0] <= 1
+ frac[1,1] <= 1
+ frac[1,2] <= 1
+ frac[2,0] <= 1
+ frac[2,1] <= 1
+ frac[2,2] <= 1
+ frac[3,0] <= 1
+ frac[3,1] <= 1
+ frac[3,2] <= 1
+ frac[4,0] <= 1
+ frac[4,1] <= 1
+ frac[4,2] <= 1
+ frac[5,0] <= 1
+ frac[5,1] <= 1
+ frac[5,2] <= 1
+ frac[6,0] <= 1
+ frac[6,1] <= 1
+ frac[6,2] <= 1
+ frac[7,0] <= 1
+ frac[7,1] <= 1
+ frac[7,2] <= 1
+ frac[8,0] <= 1
+ frac[8,1] <= 1
+ frac[8,2] <= 1
+ frac[9,0] <= 1
+ frac[9,1] <= 1
+ frac[9,2] <= 1
+ frac[10,0] <= 1
+ frac[10,1] <= 1
+ frac[10,2] <= 1
+ frac[11,0] <= 1
+ frac[11,1] <= 1
+ frac[11,2] <= 1
+ frac[12,0] <= 1
+ frac[12,1] <= 1
+ frac[12,2] <= 1
+ frac[13,0] <= 1
+ frac[13,1] <= 1
+ frac[13,2] <= 1
+ frac[14,0] <= 1
+ frac[14,1] <= 1
+ frac[14,2] <= 1
+ frac[15,0] <= 1
+ frac[15,1] <= 1
+ frac[15,2] <= 1
+ frac[16,0] <= 1
+ frac[16,1] <= 1
+ frac[16,2] <= 1
+ frac[17,0] <= 1
+ frac[17,1] <= 1
+ frac[17,2] <= 1
+ frac[18,0] <= 1
+ frac[18,1] <= 1
+ frac[18,2] <= 1
+ frac[19,0] <= 1
+ frac[19,1] <= 1
+ frac[19,2] <= 1
+ frac[20,0] <= 1
+ frac[20,1] <= 1
+ frac[20,2] <= 1
  mem_tot_p4_0 <= 576
  mem_tot_p4_1 <= 576
  mem_tot_p4_2 <= 576
@@ -189,11 +345,6 @@ Bounds
  mem_tot_cpu_1 <= 32768
  cores_sketch_cpu_1 <= 7
  1 <= cores_dpdk_cpu_1 <= 7
-Binaries
- frac[0,0] frac[1,0] frac[2,0] frac[3,0] frac[4,0] frac[5,0] frac[6,0]
- frac[7,0] frac[8,0] frac[9,0] frac[10,0] frac[11,0] frac[12,0] frac[13,0]
- frac[14,0] frac[15,0] frac[16,0] frac[17,0] frac[18,0] frac[19,0]
- frac[20,0]
 Generals
  cores_sketch_cpu_1 cores_dpdk_cpu_1
 General Constraints

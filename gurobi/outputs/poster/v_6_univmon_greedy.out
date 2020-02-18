@@ -1,0 +1,76 @@
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------
+Model update took: 4.673004150390625e-05 seconds
+Model optimize took: 0.004342317581176758 seconds
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 0.03125, del0: 0.05, min_mem: 0.33984375)
+Par: 1, Rows: 3
+0.000    0.000    1.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.489    0.023    0.489    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 4
+0.000    1.000    0.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+Rows total: 1.466307464090837
+Mem total: 12455.743497679689
+
+Device (1) p4_1:
+Rows total: 4.067505092456358
+Mem total: 573.5090983906234
+
+Device (2) cpu_2:
+Rows total: 4.466187443452805
+Mem total: 12455.743497679689
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 56.0 Mpps, ns per packet: 17.857142857142858
+Resources: 116.00593549194862
+Total Cores: 10.0, Switch Memory: 573.5090983906234
+
+Sketch (0) (cm: eps0: 0.03125, del0: 0.05, min_mem: 0.33984375)
+Par: 1, Rows: 3
+0.000    0.000    1.000    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.489    0.023    0.489    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 4
+0.000    1.000    0.000    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 2.0, cores_dpdk: 2.0
+Rows total: 1.466307464090837
+Mem total: 12455.743497679689
+Throughput: 56.000000000000185
+
+Device (1) p4_1:
+Rows total: 4.067505092456358
+Mem total: 573.5090983906234
+Throughput: 148.0
+
+Device (2) cpu_2:
+cores_sketch: 4.0, cores_dpdk: 2.0
+Rows total: 4.466187443452805
+Mem total: 12455.743497679689
+Throughput: 56.0
+--------------------------------------------------

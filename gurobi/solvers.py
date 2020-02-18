@@ -111,7 +111,6 @@ class netmon(param):
             self.devices, self.queries, self.flows, self.partitions, self.m)
 
     def add_objective(self):
-        self.m.setParam(GRB.Param.TimeLimit, 120)
         self.m.setObjectiveN(self.ns, 0, 10, reltol=common_config.ns_tol,
                              name='ns')
         self.m.setObjectiveN(self.res, 1, 5, reltol=common_config.res_tol,
@@ -121,7 +120,17 @@ class netmon(param):
         self.m.printQuality()
         write_vars(self.m)
 
-        log_results(self.ns, self.res)
+        total_cpus = 0
+        used_cores = 0
+        switch_memory = 0
+        for d in self.devices:
+            if(isinstance(d, cpu)):
+                used_cores += d.cores_sketch.x + d.cores_dpdk.x
+                total_cpus += 1
+            if(isinstance(d, p4)):
+                switch_memory += d.mem_tot.x
+
+        log_results(self.ns, self.res, used_cores, total_cpus, switch_memory)
         log_placement(self.devices, self.queries, self.flows, self.partitions,
                       self.m, self.frac)
 
@@ -158,7 +167,7 @@ class univmon(param):
 
                 if(not (common_config.output_file is None)):
                     f = open(common_config.output_file, 'a')
-                    f.write("-, -, ")
+                    f.write("-, -, -, -, -, ")
                     f.close()
                 return
 
@@ -194,7 +203,11 @@ class univmon(param):
 
                 ns_max = max(ns_max, u.getObjective(0).getValue())
 
+
             res_acc = 0
+            used_cores = 0
+            total_cpus = 0
+            switch_memory = 0
             for d in self.devices:
                 u = d.u
                 if(isinstance(d, cpu)):
@@ -204,10 +217,17 @@ class univmon(param):
                     u.optimize()
                     write_vars(u)
 
+                    total_cpus += 1
+                    used_cores += d.cores_sketch.x + d.cores_dpdk.x
+
+                if(isinstance(d, p4)):
+                    switch_memory += d.mem_tot.x
+
                 ns_max = max(ns_max, u.getObjective(0).getValue())
                 res_acc += u.getObjective(1).getValue()
 
-            log_results(ns_max, res_acc)
+            log_results(ns_max, res_acc, used_cores, total_cpus,
+                        switch_memory)
 
         else:
             prefixes = ['frac', 'mem\[']
@@ -356,14 +376,25 @@ class univmon_greedy_rows(univmon_greedy):
         # self.m.setObjectiveN(self.tot_mem, 5, 5, name='mem_load')
 
 
-def log_results(ns, res):
+def log_results(ns, res, used_cores=None, total_cpus=None, switch_memory=None):
     log.info("\nThroughput: {} Mpps, ns per packet: {}".format(
         1000/get_val(ns), get_val(ns)))
     log.info("Resources: {}".format(get_val(res)))
+    if(total_cpus is not None and used_cores is not None
+       and switch_memory is not None):
+        log.info("Used Cores: {}, Total CPUS: {}, Switch Memory: {}"
+                 .format(used_cores, total_cpus, switch_memory))
 
     if(not (common_config.output_file is None)):
         f = open(common_config.output_file, 'a')
-        f.write("{:0.3f}, {:0.3f}, ".format(1000/get_val(ns), get_val(res)))
+        if(used_cores is not None and total_cpus is not None
+           and switch_memory is not None):
+            f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, ".format(
+                1000/get_val(ns), get_val(res),
+                used_cores, total_cpus, switch_memory))
+        else:
+            f.write("{:0.3f}, {:0.3f}, ".format(
+                1000/get_val(ns), get_val(res)))
         f.close()
 
 

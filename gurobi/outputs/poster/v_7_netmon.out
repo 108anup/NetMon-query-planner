@@ -1,0 +1,49 @@
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------
+Model update took: 2.9325485229492188e-05 seconds
+Model optimize took: 0.07355856895446777 seconds
+--------------------------------------------------
+
+Throughput: 83.3334831607751 Mpps, ns per packet: 11.999978424887175
+Resources: 154.9741308489318
+Total Cores: 14.0, Switch Memory: 485.96981779007353
+
+Sketch (0) (cm: eps0: 7.500000000000001e-05, del0: 0.05, min_mem: 141.578125)
+Par: 1, Rows: 3
+0.016    0.000    0.492    0.492    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+0.495    0.505    0.000    0.000    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.025, min_mem: 16.9921875)
+Par: 1, Rows: 4
+0.000    0.000    0.500    0.500    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 2.0, cores_dpdk: 5.0
+Rows total: 1.533176899126266
+Mem total: 12626.512270179492
+Throughput: 83.46335998985104
+
+Device (1) cpu_2:
+cores_sketch: 2.0, cores_dpdk: 5.0
+Rows total: 1.5143820525827392
+Mem total: 12864.119474530435
+Throughput: 83.3334831607751
+
+Device (2) p4_1:
+Rows total: 3.4762205241454973
+Mem total: 242.98490889503677
+Throughput: 148.0
+
+Device (3) p4_2:
+Rows total: 3.4762205241454973
+Mem total: 242.98490889503677
+Throughput: 148.0
+--------------------------------------------------
