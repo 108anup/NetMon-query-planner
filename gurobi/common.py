@@ -1,3 +1,4 @@
+import time
 import logging
 import sys
 
@@ -23,6 +24,18 @@ def memoize(func):
         return result
 
     return memoized_func
+
+
+def log_time(func):
+
+    def wrapped_func(*args, **kwargs):
+        timer_start = time.time()
+        results = func(*args, **kwargs)
+        timer_end = time.time()
+        log.info("Function: {} took {} seconds"
+                 .format(func.__name__, timer_end - timer_start))
+        return results
+    return wrapped_func
 
 
 class param:

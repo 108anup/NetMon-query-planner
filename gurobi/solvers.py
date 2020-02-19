@@ -54,6 +54,8 @@ def get_val(v):
 
 
 def write_vars(m):
+    if(not hasattr(m, 'objVal')):
+        import ipdb; ipdb.set_trace()
     log.debug("\nVARIABLES "+"-"*30)
     log.debug("Objective: {}".format(m.objVal))
     for v in m.getVars():
@@ -84,55 +86,25 @@ def check_device_aware_constraints(devices, partitions, mem):
     return True
 
 
-def add_device_model_constraints(devices, queries, flows, partitions, m):
+def add_device_model_constraints(devices, queries, flows, partitions, m,
+                                 ns_req=None):
     res_acc = gp.LinExpr()
     for d in devices:
         # Throughput
         # Simple total model
-        d.add_ns_constraints(m)
+        d.add_ns_constraints(m, ns_req)
 
         # Resources
         res_acc += d.res()
 
-    ns_series = [d.ns for d in devices]
-    ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns')
-    m.addGenConstrMax(ns, ns_series, name='ns_overall')
+    ns = None
+    if(ns_req is None):
+        ns_series = [d.ns for d in devices]
+        ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns')
+        m.addGenConstrMax(ns, ns_series, name='ns_overall')
     res = m.addVar(vtype=GRB.CONTINUOUS, name='res')
     m.addConstr(res_acc == res, name='res_acc')
     return (ns, res)
-
-
-class netmon(param):
-    def __init__(self, *args, **kwargs):
-        super(netmon, self).__init__(*args, **kwargs)
-
-    def add_constraints(self):
-        (self.ns, self.res) = add_device_model_constraints(
-            self.devices, self.queries, self.flows, self.partitions, self.m)
-
-    def add_objective(self):
-        self.m.setObjectiveN(self.ns, 0, 10, reltol=common_config.ns_tol,
-                             name='ns')
-        self.m.setObjectiveN(self.res, 1, 5, reltol=common_config.res_tol,
-                             name='res')
-
-    def post_optimize(self):
-        self.m.printQuality()
-        write_vars(self.m)
-
-        total_cpus = 0
-        used_cores = 0
-        switch_memory = 0
-        for d in self.devices:
-            if(isinstance(d, cpu)):
-                used_cores += d.cores_sketch.x + d.cores_dpdk.x
-                total_cpus += 1
-            if(isinstance(d, p4)):
-                switch_memory += d.mem_tot.x
-
-        log_results(self.ns, self.res, used_cores, total_cpus, switch_memory)
-        log_placement(self.devices, self.queries, self.flows, self.partitions,
-                      self.m, self.frac)
 
 
 class univmon(param):
@@ -211,10 +183,11 @@ class univmon(param):
             for d in self.devices:
                 u = d.u
                 if(isinstance(d, cpu)):
-                    u.addConstr(d.ns >= ns_max, name='ns_req_{}'.format(d))
+                    u.addConstr(d.ns >= ns_max, name='global_ns_req_{}'.format(d))
 
                     u.update()
                     u.optimize()
+                    # import ipdb; ipdb.set_trace()
                     write_vars(u)
 
                     total_cpus += 1
@@ -374,6 +347,65 @@ class univmon_greedy_rows(univmon_greedy):
             self.m.setObjectiveN(self.tot_mem_p4, 6, 40, name='tot_mem_p4')
             self.m.setObjectiveN(self.max_mem_p4, 7, 30, name='p4_load_mem')
         # self.m.setObjectiveN(self.tot_mem, 5, 5, name='mem_load')
+
+
+class netmon(univmon_greedy_rows):
+    def __init__(self, *args, **kwargs):
+        super(netmon, self).__init__(*args, **kwargs)
+
+    def add_constraints(self):
+
+        # Initialize with unimon_greedy_rows solution
+        super(netmon, self).add_constraints()
+        super(netmon, self).add_objective()
+        self.m.update()
+        self.m.optimize()
+
+        numdevices = len(self.devices)
+        numpartitions = len(self.partitions)
+
+        for dnum in range(numdevices):
+            for pnum in range(numpartitions):
+                self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
+                self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
+
+        self.ns_req = 14.3
+        (self.ns, self.res) = add_device_model_constraints(
+            self.devices, self.queries, self.flows, self.partitions, self.m,
+            self.ns_req)
+
+    def add_objective(self):
+        if(hasattr(self, 'ns_req') and self.ns_req):
+            self.m.NumObj = 1
+            self.m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
+            self.m.setObjectiveN(self.res, 0, 10, reltol=common_config.res_tol,
+                                 name='res')
+        else:
+            self.m.NumObj = 2
+            self.m.setObjectiveN(self.ns, 0, 10, reltol=common_config.ns_tol,
+                                 name='ns')
+            self.m.setObjectiveN(self.res, 1, 5, reltol=common_config.res_tol,
+                                 name='res')
+
+    def post_optimize(self):
+        self.m.printQuality()
+        write_vars(self.m)
+
+        total_cpus = 0
+        used_cores = 0
+        switch_memory = 0
+        for d in self.devices:
+            if(isinstance(d, cpu)):
+                used_cores += d.cores_sketch.x + d.cores_dpdk.x
+                total_cpus += 1
+            if(isinstance(d, p4)):
+                switch_memory += d.mem_tot.x
+
+        if(self.ns_req):
+            self.ns = self.ns_req
+        log_results(self.ns, self.res, used_cores, total_cpus, switch_memory)
+        log_placement(self.devices, self.queries, self.flows, self.partitions,
+                      self.m, self.frac)
 
 
 def log_results(ns, res, used_cores=None, total_cpus=None, switch_memory=None):

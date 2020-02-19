@@ -57,7 +57,7 @@ class cpu(param):
         #     sys.exit(-1)
         return pdt
 
-    def add_ns_constraints(self, m):
+    def add_ns_constraints(self, m, ns_req=None):
         rows = self.rows_tot
         mem = self.mem_tot
 
@@ -91,29 +91,41 @@ class cpu(param):
                                    name='cores_dpdk_{}'.format(self))
         m.addConstr(self.cores_sketch + self.cores_dpdk <= self.cores,
                     name='capacity_cores_{}'.format(self))
-        self.ns_sketch = m.addVar(vtype=GRB.CONTINUOUS,
-                                  name='ns_sketch_{}'.format(self), lb=0)
-        self.ns_dpdk = m.addVar(vtype=GRB.CONTINUOUS,
-                                name='ns_dpdk_{}'.format(self))
-        self.ns = m.addVar(vtype=GRB.CONTINUOUS,
-                           name='ns_{}'.format(self))
 
         # Multi-core sketching
-        self.pdt_nsk_c = self.get_pdt_var(self.ns_sketch,
-                                          self.cores_sketch, 'nsk_c', m, 0)
-        m.addConstr(self.pdt_nsk_c == self.ns_single,
-                    name='ns_sketch_{}'.format(self))
+        if(ns_req):
+            m.addConstr(self.cores_sketch * ns_req >= self.ns_single,
+                        name='ns_sketch_{}'.format(self))
+        else:
+            self.ns_sketch = m.addVar(vtype=GRB.CONTINUOUS,
+                                      name='ns_sketch_{}'.format(self), lb=0)
+            self.pdt_nsk_c = self.get_pdt_var(self.ns_sketch,
+                                              self.cores_sketch, 'nsk_c', m, 0)
+            m.addConstr(self.pdt_nsk_c == self.ns_single,
+                        name='ns_sketch_{}'.format(self))
 
         # Amdahl's law
-        self.dpdk_single_ns = 1000/self.dpdk_single_core_thr
-        self.pdt_nsc_dpdk = self.get_pdt_var(
-            self.ns_dpdk, self.cores_dpdk, 'nsc_dpdk', m, 0)
-        m.addConstr(
-            (self.cores_dpdk*(1-cpu.fraction_parallel)
-             + cpu.fraction_parallel)*self.dpdk_single_ns
-            == self.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))
-        m.addGenConstrMax(self.ns, [self.ns_dpdk, self.ns_sketch],
-                          name='ns_{}'.format(self))
+        dpdk_single_ns = 1000/self.dpdk_single_core_thr
+        if(ns_req):
+            m.addConstr(
+                (self.cores_dpdk*(1-cpu.fraction_parallel)
+                 + cpu.fraction_parallel)*dpdk_single_ns
+                <= self.cores_dpdk * ns_req, name='ns_dpdk_{}'.format(self))
+        else:
+            self.ns_dpdk = m.addVar(vtype=GRB.CONTINUOUS,
+                                    name='ns_dpdk_{}'.format(self))
+            self.pdt_nsc_dpdk = self.get_pdt_var(
+                self.ns_dpdk, self.cores_dpdk, 'nsc_dpdk', m, 0)
+            m.addConstr(
+                (self.cores_dpdk*(1-cpu.fraction_parallel)
+                 + cpu.fraction_parallel)*dpdk_single_ns
+                == self.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))
+
+        if(ns_req is None):
+            self.ns = m.addVar(vtype=GRB.CONTINUOUS,
+                           name='ns_{}'.format(self))
+            m.addGenConstrMax(self.ns, [self.ns_dpdk, self.ns_sketch],
+                              name='ns_{}'.format(self))
 
     def res(self):
         return 10*(self.cores_dpdk + self.cores_sketch) + self.mem_tot/self.Li_size[2]
@@ -135,9 +147,12 @@ class cpu(param):
 
 class p4(param):
 
-    def add_ns_constraints(self, m):
+    def add_ns_constraints(self, m, ns_req=None):
         self.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
         m.addConstr(self.ns == 1000 / self.line_thr, name='ns_{}'.format(self))
+
+        if(ns_req):
+            m.addConstr(self.ns <= ns_req, name='max_ns_{}'.format(self))
 
     def res(self):
         return self.rows_tot/self.meter_alus + self.mem_tot/self.sram

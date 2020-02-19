@@ -351,7 +351,15 @@ config = [
             cm_sketch(eps0=eps0, del0=del0)],
         flows=[flow(path=(i, 20, (i + 1) % 20), queries=[(0, 1)])
                for i in range(20)]
-    )
+    ),
+
+    # 14
+    # Large Topo
+    dc_topology(64, num_queries=320),
+
+    # 15
+    # Very Large
+    dc_topology(1024, num_queries=2048)
 ]
 
 common_config = param(
@@ -361,7 +369,10 @@ common_config = param(
     fileout=False,
     solver='netmon',
     use_model=False,
-    ftol=6e-5
+    ftol=6e-5,
+    # mipgap=0.01,
+    mipgapabs=10
+
 )
 
 
