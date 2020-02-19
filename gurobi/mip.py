@@ -3,16 +3,18 @@ import pickle
 import sys
 import time
 
+import numpy as np
 import gurobipy as gp
 from gurobipy import GRB
 
 from cli import generate_parser
-from common import log, param, setup_logging
+from common import log, param, setup_logging, log_time
 from config import common_config, config, eps0, update_config
 from solvers import (add_device_aware_constraints, solver_to_class,
                      solver_to_num)
 
 
+@log_time
 def get_partitions(queries):
     partitions = []
     for (i, q) in enumerate(queries):
@@ -31,6 +33,7 @@ def get_partitions(queries):
     return partitions
 
 
+@log_time
 def map_flows_partitions(flows, queries):
     for f in flows:
         f.partitions = []
@@ -41,6 +44,7 @@ def map_flows_partitions(flows, queries):
                 f.partitions.append((p_idx, coverage_requirement))
 
 
+@log_time
 def solve(devices, queries, flows):
 
     partitions = get_partitions(queries)
@@ -52,7 +56,12 @@ def solve(devices, queries, flows):
     if(not common_config.mipout):
         m.setParam(GRB.Param.LogToConsole, 0)
 
+    log.info("Building model with:\n"
+             "{} devices, {} partitions and {} flows"
+             .format(numdevices, numpartitions, len(flows)))
+
     # Fraction of partition on device
+    start = time.time()
     if(common_config.vertical_partition):
         frac = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
                          lb=0, ub=1,
@@ -63,6 +72,8 @@ def solve(devices, queries, flows):
     # Memory taken by partition
     mem = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
                     lb=0, name='mem')
+    end = time.time()
+    log.info("Adding frac and mem vars took: {}s".format(end - start))
     # Ceiling
     # rows = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
     #                  name='rows', lb=0)
@@ -84,6 +95,8 @@ def solve(devices, queries, flows):
     # for pnum in range(numpartitions):
     #     m.addConstr(frac.sum('*', pnum) == 1,
     #                 name='cov_{}'.format(pnum))
+    start = time.time()
+    keep = np.zeros((numdevices, numpartitions))
     for (fnum, f) in enumerate(flows):
         for p in f.partitions:
             pnum = p[0]
@@ -91,8 +104,21 @@ def solve(devices, queries, flows):
             sum_expr = gp.quicksum(frac[dnum, pnum] for dnum in f.path)
             m.addConstr(sum_expr >= coverage_requirement,
                         name='cov_{}_{}'.format(fnum, pnum))
+            for dnum in f.path:
+                keep[dnum][pnum] = 1
+    end = time.time()
+    log.info("Adding coverage constraints took: {}s".format(end - start))
+
+    # for dnum in range(numdevices):
+    #     for pnum in range(numpartitions):
+    #         if(keep[dnum][pnum] == 0):
+    #             m.addConstr(frac[dnum, pnum] == 0,
+    #                         name='frac_not_reqd_{}_{}' .format(dnum, pnum))
+    #             m.addConstr(mem[dnum, pnum] == 0,
+    #                         name='mem_not_reqd_{}_{}'.format(dnum, pnum))
 
     # Accuracy constraints
+    start = time.time()
     for (pnum, p) in enumerate(partitions):
         sk = p.sketch
         num_rows = p.num_rows
@@ -100,8 +126,11 @@ def solve(devices, queries, flows):
         m.addConstrs((mem[dnum, pnum] == mm * frac[dnum, pnum] * num_rows
                       for dnum in range(numdevices)),
                      name='accuracy_{}_{}'.format(pnum, sk))
+    end = time.time()
+    log.info("Adding accuracy constraints took {}s".format(end - start))
 
     # Load constraints
+    start = time.time()
     for (dnum, d) in enumerate(devices):
         # Memory constraints
         # Capacity constraints included in bounds
@@ -120,6 +149,8 @@ def solve(devices, queries, flows):
         m.addConstr(rows_tot == gp.quicksum(rows_series),
                     name='rows_tot_{}'.format(d))
         d.rows_tot = rows_tot
+    end = time.time()
+    log.info("Adding load constraints took: {}s".format(end-start))
 
     if(solver_to_num[common_config.solver] > 0):
         add_device_aware_constraints(devices, queries, flows,
@@ -128,11 +159,14 @@ def solve(devices, queries, flows):
     solver_cls = solver_to_class[common_config.solver]
     solver = solver_cls(devices=devices, queries=queries, flows=flows,
                         partitions=partitions, m=m, frac=frac, mem=mem)
+    m.setParam(GRB.Param.TimeLimit, 120)
+    # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
+    # m.setParam(GRB.Param.MIPGap, common_config.mipgap)
     solver.add_constraints()
     m.ModelSense = GRB.MINIMIZE
-    m.setParam(GRB.Param.TimeLimit, 120)
     solver.add_objective()
 
+    log.info("Starting model update")
     start = time.time()
     m.update()
     end = time.time()

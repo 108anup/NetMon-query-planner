@@ -2,7 +2,8 @@
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
   ns: Priority=10 Weight=1 AbsTol=0 RelTol=0
-   0 m_access_time_cpu1 + 0 ns_sketch_cpu1 + 0 ns_dpdk_cpu1 + 0 ns_cpu1
+   0 max_mem_p4 + 0 max_mem_cpu + 0 max_rows_p4 + 0 max_rows_cpu
+   + 0 m_access_time_cpu1 + 0 ns_sketch_cpu1 + 0 ns_dpdk_cpu1 + 0 ns_cpu1
    + 0 m_access_time_cpu2 + 0 ns_sketch_cpu2 + 0 ns_dpdk_cpu2 + 0 ns_cpu2
    + 0 m_access_time_cpu3 + 0 ns_sketch_cpu3 + 0 ns_dpdk_cpu3 + 0 ns_cpu3
    + 0 m_access_time_cpu4 + 0 ns_sketch_cpu4 + 0 ns_dpdk_cpu4 + 0 ns_cpu4
@@ -14,601 +15,932 @@ Minimize multi-objectives
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
- cov_0_11: frac[3,11] + frac[7,11] + frac[9,11] + frac[11,11] + frac[12,11]
-   + frac[13,11] + frac[14,11] >= 1
- cov_1_32: frac[0,32] + frac[4,32] + frac[8,32] + frac[10,32] + frac[12,32]
-   + frac[13,32] + frac[14,32] >= 1
- cov_2_17: frac[1,17] + frac[2,17] + frac[8,17] + frac[9,17] + frac[12,17]
-   >= 1
- cov_3_46: frac[2,46] + frac[6,46] + frac[9,46] + frac[11,46] + frac[12,46]
-   + frac[13,46] + frac[14,46] >= 1
- cov_4_33: frac[2,33] + frac[4,33] + frac[9,33] + frac[10,33] + frac[12,33]
-   + frac[13,33] + frac[14,33] >= 1
- cov_5_63: frac[1,63] + frac[7,63] + frac[8,63] + frac[11,63] + frac[12,63]
-   + frac[13,63] + frac[14,63] >= 0.8
- cov_6_19: frac[4,19] + frac[5,19] + frac[10,19] >= 0.8
- cov_7_12: frac[0,12] + frac[6,12] + frac[8,12] + frac[11,12] + frac[12,12]
-   + frac[13,12] + frac[14,12] >= 1
- cov_8_11: frac[1,11] + frac[2,11] + frac[8,11] + frac[9,11] + frac[12,11]
-   >= 0.8
- cov_9_54: frac[1,54] + frac[3,54] + frac[8,54] + frac[9,54] + frac[12,54]
-   >= 0.9
- cov_10_63: frac[0,63] + frac[2,63] + frac[8,63] + frac[9,63] + frac[12,63]
-   >= 1
- cov_11_41: frac[4,41] + frac[6,41] + frac[10,41] + frac[11,41]
-   + frac[13,41] >= 1
- cov_12_49: frac[0,49] + frac[7,49] + frac[8,49] + frac[11,49]
-   + frac[12,49] + frac[13,49] + frac[14,49] >= 1
- cov_13_35: frac[1,35] + frac[6,35] + frac[8,35] + frac[11,35]
-   + frac[12,35] + frac[13,35] + frac[14,35] >= 1
- cov_14_29: frac[3,29] + frac[6,29] + frac[9,29] + frac[11,29]
-   + frac[12,29] + frac[13,29] + frac[14,29] >= 0.8
- cov_15_28: frac[0,28] + frac[6,28] + frac[8,28] + frac[11,28]
-   + frac[12,28] + frac[13,28] + frac[14,28] >= 0.7
- cov_16_14: frac[0,14] + frac[4,14] + frac[8,14] + frac[10,14]
-   + frac[12,14] + frac[13,14] + frac[14,14] >= 0.7
- cov_17_27: frac[1,27] + frac[3,27] + frac[8,27] + frac[9,27] + frac[12,27]
-   >= 1
- cov_18_21: frac[1,21] + frac[5,21] + frac[8,21] + frac[10,21]
-   + frac[12,21] + frac[13,21] + frac[14,21] >= 0.7
- cov_19_26: frac[3,26] + frac[7,26] + frac[9,26] + frac[11,26]
-   + frac[12,26] + frac[13,26] + frac[14,26] >= 0.8
- cov_20_2: frac[3,2] + frac[6,2] + frac[9,2] + frac[11,2] + frac[12,2]
-   + frac[13,2] + frac[14,2] >= 1
- cov_21_6: frac[1,6] + frac[4,6] + frac[8,6] + frac[10,6] + frac[12,6]
-   + frac[13,6] + frac[14,6] >= 1
- cov_22_27: frac[5,27] + frac[6,27] + frac[10,27] + frac[11,27]
-   + frac[13,27] >= 0.7
- cov_23_53: frac[3,53] + frac[5,53] + frac[9,53] + frac[10,53]
-   + frac[12,53] + frac[13,53] + frac[14,53] >= 1
- cov_24_43: frac[0,43] + frac[2,43] + frac[8,43] + frac[9,43] + frac[12,43]
-   >= 1
- cov_25_3: frac[1,3] + frac[2,3] + frac[8,3] + frac[9,3] + frac[12,3]
-   >= 0.9
- cov_26_2: frac[4,2] + frac[7,2] + frac[10,2] + frac[11,2] + frac[13,2]
-   >= 1
- cov_27_51: frac[0,51] + frac[5,51] + frac[8,51] + frac[10,51]
-   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.8
- cov_28_59: frac[3,59] + frac[5,59] + frac[9,59] + frac[10,59]
-   + frac[12,59] + frac[13,59] + frac[14,59] >= 0.9
- cov_29_22: frac[1,22] + frac[2,22] + frac[8,22] + frac[9,22] + frac[12,22]
-   >= 0.9
- cov_30_46: frac[2,46] + frac[4,46] + frac[9,46] + frac[10,46]
-   + frac[12,46] + frac[13,46] + frac[14,46] >= 0.9
- cov_31_61: frac[4,61] + frac[5,61] + frac[10,61] >= 1
- cov_32_60: frac[2,60] + frac[6,60] + frac[9,60] + frac[11,60]
-   + frac[12,60] + frac[13,60] + frac[14,60] >= 0.8
- cov_33_19: frac[1,19] + frac[4,19] + frac[8,19] + frac[10,19]
-   + frac[12,19] + frac[13,19] + frac[14,19] >= 0.9
- cov_34_28: frac[0,28] + frac[1,28] + frac[8,28] >= 0.8
- cov_35_45: frac[3,45] + frac[7,45] + frac[9,45] + frac[11,45]
-   + frac[12,45] + frac[13,45] + frac[14,45] >= 1
- cov_36_3: frac[2,3] + frac[4,3] + frac[9,3] + frac[10,3] + frac[12,3]
-   + frac[13,3] + frac[14,3] >= 0.7
- cov_37_56: frac[0,56] + frac[2,56] + frac[8,56] + frac[9,56] + frac[12,56]
-   >= 0.7
- cov_38_16: frac[0,16] + frac[6,16] + frac[8,16] + frac[11,16]
-   + frac[12,16] + frac[13,16] + frac[14,16] >= 0.7
- cov_39_52: frac[3,52] + frac[6,52] + frac[9,52] + frac[11,52]
-   + frac[12,52] + frac[13,52] + frac[14,52] >= 0.8
- cov_40_27: frac[5,27] + frac[7,27] + frac[10,27] + frac[11,27]
-   + frac[13,27] >= 0.8
- cov_41_7: frac[2,7] + frac[6,7] + frac[9,7] + frac[11,7] + frac[12,7]
-   + frac[13,7] + frac[14,7] >= 0.8
- cov_42_53: frac[1,53] + frac[4,53] + frac[8,53] + frac[10,53]
-   + frac[12,53] + frac[13,53] + frac[14,53] >= 0.7
- cov_43_17: frac[1,17] + frac[4,17] + frac[8,17] + frac[10,17]
-   + frac[12,17] + frac[13,17] + frac[14,17] >= 0.8
- cov_44_62: frac[2,62] + frac[3,62] + frac[9,62] >= 1
- cov_45_20: frac[2,20] + frac[4,20] + frac[9,20] + frac[10,20]
-   + frac[12,20] + frac[13,20] + frac[14,20] >= 0.9
- cov_46_58: frac[4,58] + frac[7,58] + frac[10,58] + frac[11,58]
-   + frac[13,58] >= 0.7
- cov_47_18: frac[1,18] + frac[4,18] + frac[8,18] + frac[10,18]
-   + frac[12,18] + frac[13,18] + frac[14,18] >= 0.7
- cov_48_0: frac[0,0] + frac[3,0] + frac[8,0] + frac[9,0] + frac[12,0]
-   >= 0.7
- cov_49_35: frac[5,35] + frac[6,35] + frac[10,35] + frac[11,35]
-   + frac[13,35] >= 0.7
- cov_50_17: frac[4,17] + frac[6,17] + frac[10,17] + frac[11,17]
-   + frac[13,17] >= 0.8
- cov_51_54: frac[1,54] + frac[3,54] + frac[8,54] + frac[9,54] + frac[12,54]
-   >= 0.8
- cov_52_52: frac[4,52] + frac[5,52] + frac[10,52] >= 0.9
- cov_53_23: frac[3,23] + frac[6,23] + frac[9,23] + frac[11,23]
-   + frac[12,23] + frac[13,23] + frac[14,23] >= 0.8
- cov_54_48: frac[5,48] + frac[7,48] + frac[10,48] + frac[11,48]
-   + frac[13,48] >= 0.7
- cov_55_4: frac[4,4] + frac[6,4] + frac[10,4] + frac[11,4] + frac[13,4]
-   >= 1
- cov_56_11: frac[0,11] + frac[7,11] + frac[8,11] + frac[11,11]
-   + frac[12,11] + frac[13,11] + frac[14,11] >= 0.9
- cov_57_29: frac[3,29] + frac[5,29] + frac[9,29] + frac[10,29]
-   + frac[12,29] + frac[13,29] + frac[14,29] >= 1
- cov_58_41: frac[1,41] + frac[2,41] + frac[8,41] + frac[9,41] + frac[12,41]
-   >= 0.8
- cov_59_41: frac[2,41] + frac[5,41] + frac[9,41] + frac[10,41]
-   + frac[12,41] + frac[13,41] + frac[14,41] >= 0.9
- cov_60_3: frac[2,3] + frac[4,3] + frac[9,3] + frac[10,3] + frac[12,3]
-   + frac[13,3] + frac[14,3] >= 0.7
- cov_61_1: frac[3,1] + frac[6,1] + frac[9,1] + frac[11,1] + frac[12,1]
-   + frac[13,1] + frac[14,1] >= 0.7
- cov_62_22: frac[2,22] + frac[4,22] + frac[9,22] + frac[10,22]
-   + frac[12,22] + frac[13,22] + frac[14,22] >= 0.7
- cov_63_29: frac[0,29] + frac[3,29] + frac[8,29] + frac[9,29] + frac[12,29]
-   >= 0.9
- cov_64_30: frac[2,30] + frac[3,30] + frac[9,30] >= 0.7
- cov_65_15: frac[2,15] + frac[5,15] + frac[9,15] + frac[10,15]
-   + frac[12,15] + frac[13,15] + frac[14,15] >= 0.9
- cov_66_35: frac[0,35] + frac[5,35] + frac[8,35] + frac[10,35]
-   + frac[12,35] + frac[13,35] + frac[14,35] >= 1
- cov_67_54: frac[3,54] + frac[5,54] + frac[9,54] + frac[10,54]
-   + frac[12,54] + frac[13,54] + frac[14,54] >= 1
- cov_68_5: frac[4,5] + frac[5,5] + frac[10,5] >= 0.9
- cov_69_49: frac[4,49] + frac[7,49] + frac[10,49] + frac[11,49]
-   + frac[13,49] >= 0.7
- cov_70_53: frac[3,53] + frac[7,53] + frac[9,53] + frac[11,53]
-   + frac[12,53] + frac[13,53] + frac[14,53] >= 1
- cov_71_33: frac[2,33] + frac[3,33] + frac[9,33] >= 0.8
- cov_72_5: frac[1,5] + frac[5,5] + frac[8,5] + frac[10,5] + frac[12,5]
-   + frac[13,5] + frac[14,5] >= 0.9
- cov_73_34: frac[2,34] + frac[3,34] + frac[9,34] >= 0.8
- cov_74_52: frac[2,52] + frac[5,52] + frac[9,52] + frac[10,52]
-   + frac[12,52] + frac[13,52] + frac[14,52] >= 0.8
- cov_75_51: frac[0,51] + frac[7,51] + frac[8,51] + frac[11,51]
-   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.7
- cov_76_54: frac[0,54] + frac[7,54] + frac[8,54] + frac[11,54]
-   + frac[12,54] + frac[13,54] + frac[14,54] >= 0.8
- cov_77_7: frac[2,7] + frac[4,7] + frac[9,7] + frac[10,7] + frac[12,7]
-   + frac[13,7] + frac[14,7] >= 0.9
- cov_78_6: frac[0,6] + frac[6,6] + frac[8,6] + frac[11,6] + frac[12,6]
-   + frac[13,6] + frac[14,6] >= 0.7
- cov_79_4: frac[6,4] + frac[7,4] + frac[11,4] >= 0.9
- cov_80_10: frac[0,10] + frac[2,10] + frac[8,10] + frac[9,10] + frac[12,10]
-   >= 0.7
- cov_81_14: frac[3,14] + frac[6,14] + frac[9,14] + frac[11,14]
-   + frac[12,14] + frac[13,14] + frac[14,14] >= 1
- cov_82_59: frac[1,59] + frac[7,59] + frac[8,59] + frac[11,59]
-   + frac[12,59] + frac[13,59] + frac[14,59] >= 0.7
- cov_83_21: frac[5,21] + frac[6,21] + frac[10,21] + frac[11,21]
-   + frac[13,21] >= 0.9
- cov_84_39: frac[0,39] + frac[6,39] + frac[8,39] + frac[11,39]
-   + frac[12,39] + frac[13,39] + frac[14,39] >= 0.9
- cov_85_60: frac[1,60] + frac[4,60] + frac[8,60] + frac[10,60]
-   + frac[12,60] + frac[13,60] + frac[14,60] >= 1
- cov_86_41: frac[0,41] + frac[3,41] + frac[8,41] + frac[9,41] + frac[12,41]
-   >= 0.8
- cov_87_11: frac[2,11] + frac[6,11] + frac[9,11] + frac[11,11]
-   + frac[12,11] + frac[13,11] + frac[14,11] >= 0.9
- cov_88_1: frac[1,1] + frac[2,1] + frac[8,1] + frac[9,1] + frac[12,1]
-   >= 0.7
- cov_89_63: frac[1,63] + frac[5,63] + frac[8,63] + frac[10,63]
-   + frac[12,63] + frac[13,63] + frac[14,63] >= 0.8
- cov_90_43: frac[1,43] + frac[6,43] + frac[8,43] + frac[11,43]
-   + frac[12,43] + frac[13,43] + frac[14,43] >= 0.7
- cov_91_4: frac[4,4] + frac[7,4] + frac[10,4] + frac[11,4] + frac[13,4]
-   >= 0.7
- cov_92_48: frac[0,48] + frac[4,48] + frac[8,48] + frac[10,48]
-   + frac[12,48] + frac[13,48] + frac[14,48] >= 0.8
- cov_93_7: frac[0,7] + frac[5,7] + frac[8,7] + frac[10,7] + frac[12,7]
-   + frac[13,7] + frac[14,7] >= 0.8
- cov_94_18: frac[3,18] + frac[6,18] + frac[9,18] + frac[11,18]
-   + frac[12,18] + frac[13,18] + frac[14,18] >= 1
- cov_95_44: frac[0,44] + frac[5,44] + frac[8,44] + frac[10,44]
-   + frac[12,44] + frac[13,44] + frac[14,44] >= 0.8
- cov_96_3: frac[3,3] + frac[7,3] + frac[9,3] + frac[11,3] + frac[12,3]
-   + frac[13,3] + frac[14,3] >= 1
- cov_97_57: frac[5,57] + frac[7,57] + frac[10,57] + frac[11,57]
-   + frac[13,57] >= 0.9
- cov_98_14: frac[3,14] + frac[6,14] + frac[9,14] + frac[11,14]
-   + frac[12,14] + frac[13,14] + frac[14,14] >= 1
- cov_99_42: frac[2,42] + frac[3,42] + frac[9,42] >= 0.9
- cov_100_15: frac[2,15] + frac[3,15] + frac[9,15] >= 0.8
- cov_101_44: frac[6,44] + frac[7,44] + frac[11,44] >= 0.7
- cov_102_41: frac[0,41] + frac[2,41] + frac[8,41] + frac[9,41]
-   + frac[12,41] >= 0.8
- cov_103_53: frac[0,53] + frac[6,53] + frac[8,53] + frac[11,53]
-   + frac[12,53] + frac[13,53] + frac[14,53] >= 0.8
- cov_104_20: frac[0,20] + frac[3,20] + frac[8,20] + frac[9,20]
-   + frac[12,20] >= 0.9
- cov_105_15: frac[1,15] + frac[2,15] + frac[8,15] + frac[9,15]
-   + frac[12,15] >= 1
- cov_106_56: frac[1,56] + frac[7,56] + frac[8,56] + frac[11,56]
-   + frac[12,56] + frac[13,56] + frac[14,56] >= 1
- cov_107_42: frac[1,42] + frac[6,42] + frac[8,42] + frac[11,42]
-   + frac[12,42] + frac[13,42] + frac[14,42] >= 0.9
- cov_108_13: frac[4,13] + frac[7,13] + frac[10,13] + frac[11,13]
-   + frac[13,13] >= 0.9
- cov_109_20: frac[1,20] + frac[3,20] + frac[8,20] + frac[9,20]
-   + frac[12,20] >= 1
- cov_110_32: frac[3,32] + frac[7,32] + frac[9,32] + frac[11,32]
-   + frac[12,32] + frac[13,32] + frac[14,32] >= 0.7
- cov_111_18: frac[0,18] + frac[3,18] + frac[8,18] + frac[9,18]
-   + frac[12,18] >= 1
- cov_112_60: frac[3,60] + frac[4,60] + frac[9,60] + frac[10,60]
-   + frac[12,60] + frac[13,60] + frac[14,60] >= 0.8
- cov_113_59: frac[1,59] + frac[6,59] + frac[8,59] + frac[11,59]
-   + frac[12,59] + frac[13,59] + frac[14,59] >= 0.9
- cov_114_24: frac[1,24] + frac[6,24] + frac[8,24] + frac[11,24]
-   + frac[12,24] + frac[13,24] + frac[14,24] >= 1
- cov_115_3: frac[3,3] + frac[4,3] + frac[9,3] + frac[10,3] + frac[12,3]
-   + frac[13,3] + frac[14,3] >= 1
- cov_116_18: frac[4,18] + frac[6,18] + frac[10,18] + frac[11,18]
-   + frac[13,18] >= 0.8
- cov_117_9: frac[2,9] + frac[7,9] + frac[9,9] + frac[11,9] + frac[12,9]
-   + frac[13,9] + frac[14,9] >= 1
- cov_118_3: frac[0,3] + frac[4,3] + frac[8,3] + frac[10,3] + frac[12,3]
-   + frac[13,3] + frac[14,3] >= 1
- cov_119_54: frac[0,54] + frac[6,54] + frac[8,54] + frac[11,54]
-   + frac[12,54] + frac[13,54] + frac[14,54] >= 0.7
- cov_120_33: frac[1,33] + frac[6,33] + frac[8,33] + frac[11,33]
-   + frac[12,33] + frac[13,33] + frac[14,33] >= 0.8
- cov_121_24: frac[4,24] + frac[6,24] + frac[10,24] + frac[11,24]
-   + frac[13,24] >= 0.9
- cov_122_60: frac[6,60] + frac[7,60] + frac[11,60] >= 0.9
- cov_123_35: frac[2,35] + frac[5,35] + frac[9,35] + frac[10,35]
-   + frac[12,35] + frac[13,35] + frac[14,35] >= 1
- cov_124_40: frac[1,40] + frac[2,40] + frac[8,40] + frac[9,40]
-   + frac[12,40] >= 0.7
- cov_125_14: frac[5,14] + frac[7,14] + frac[10,14] + frac[11,14]
-   + frac[13,14] >= 0.8
- cov_126_38: frac[3,38] + frac[5,38] + frac[9,38] + frac[10,38]
-   + frac[12,38] + frac[13,38] + frac[14,38] >= 1
- cov_127_4: frac[4,4] + frac[5,4] + frac[10,4] >= 1
- cov_128_41: frac[3,41] + frac[4,41] + frac[9,41] + frac[10,41]
-   + frac[12,41] + frac[13,41] + frac[14,41] >= 0.9
- cov_129_46: frac[0,46] + frac[7,46] + frac[8,46] + frac[11,46]
-   + frac[12,46] + frac[13,46] + frac[14,46] >= 0.9
- cov_130_52: frac[0,52] + frac[2,52] + frac[8,52] + frac[9,52]
-   + frac[12,52] >= 0.8
- cov_131_52: frac[0,52] + frac[4,52] + frac[8,52] + frac[10,52]
-   + frac[12,52] + frac[13,52] + frac[14,52] >= 1
- cov_132_11: frac[0,11] + frac[7,11] + frac[8,11] + frac[11,11]
-   + frac[12,11] + frac[13,11] + frac[14,11] >= 0.7
- cov_133_22: frac[2,22] + frac[3,22] + frac[9,22] >= 0.7
- cov_134_8: frac[0,8] + frac[1,8] + frac[8,8] >= 0.7
- cov_135_38: frac[3,38] + frac[7,38] + frac[9,38] + frac[11,38]
-   + frac[12,38] + frac[13,38] + frac[14,38] >= 0.8
- cov_136_24: frac[5,24] + frac[7,24] + frac[10,24] + frac[11,24]
-   + frac[13,24] >= 0.9
- cov_137_53: frac[4,53] + frac[7,53] + frac[10,53] + frac[11,53]
-   + frac[13,53] >= 0.7
- cov_138_1: frac[4,1] + frac[6,1] + frac[10,1] + frac[11,1] + frac[13,1]
-   >= 1
- cov_139_61: frac[4,61] + frac[6,61] + frac[10,61] + frac[11,61]
-   + frac[13,61] >= 0.7
- cov_140_3: frac[2,3] + frac[3,3] + frac[9,3] >= 0.7
- cov_141_21: frac[3,21] + frac[6,21] + frac[9,21] + frac[11,21]
-   + frac[12,21] + frac[13,21] + frac[14,21] >= 0.9
- cov_142_58: frac[3,58] + frac[7,58] + frac[9,58] + frac[11,58]
-   + frac[12,58] + frac[13,58] + frac[14,58] >= 0.9
- cov_143_39: frac[0,39] + frac[4,39] + frac[8,39] + frac[10,39]
-   + frac[12,39] + frac[13,39] + frac[14,39] >= 0.8
- cov_144_63: frac[5,63] + frac[7,63] + frac[10,63] + frac[11,63]
-   + frac[13,63] >= 0.8
- cov_145_45: frac[4,45] + frac[6,45] + frac[10,45] + frac[11,45]
-   + frac[13,45] >= 0.7
- cov_146_50: frac[0,50] + frac[1,50] + frac[8,50] >= 1
- cov_147_4: frac[1,4] + frac[4,4] + frac[8,4] + frac[10,4] + frac[12,4]
-   + frac[13,4] + frac[14,4] >= 1
- cov_148_52: frac[1,52] + frac[4,52] + frac[8,52] + frac[10,52]
-   + frac[12,52] + frac[13,52] + frac[14,52] >= 0.8
- cov_149_1: frac[2,1] + frac[4,1] + frac[9,1] + frac[10,1] + frac[12,1]
-   + frac[13,1] + frac[14,1] >= 0.8
- cov_150_7: frac[3,7] + frac[6,7] + frac[9,7] + frac[11,7] + frac[12,7]
-   + frac[13,7] + frac[14,7] >= 0.9
- cov_151_53: frac[2,53] + frac[7,53] + frac[9,53] + frac[11,53]
-   + frac[12,53] + frac[13,53] + frac[14,53] >= 0.9
- cov_152_51: frac[3,51] + frac[4,51] + frac[9,51] + frac[10,51]
-   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.7
- cov_153_29: frac[0,29] + frac[3,29] + frac[8,29] + frac[9,29]
-   + frac[12,29] >= 1
- cov_154_1: frac[0,1] + frac[1,1] + frac[8,1] >= 1
- cov_155_24: frac[1,24] + frac[7,24] + frac[8,24] + frac[11,24]
-   + frac[12,24] + frac[13,24] + frac[14,24] >= 0.9
- cov_156_53: frac[1,53] + frac[7,53] + frac[8,53] + frac[11,53]
-   + frac[12,53] + frac[13,53] + frac[14,53] >= 1
- cov_157_49: frac[0,49] + frac[4,49] + frac[8,49] + frac[10,49]
-   + frac[12,49] + frac[13,49] + frac[14,49] >= 0.9
- cov_158_52: frac[4,52] + frac[7,52] + frac[10,52] + frac[11,52]
-   + frac[13,52] >= 0.8
- cov_159_6: frac[4,6] + frac[6,6] + frac[10,6] + frac[11,6] + frac[13,6]
-   >= 1
- cov_160_2: frac[0,2] + frac[3,2] + frac[8,2] + frac[9,2] + frac[12,2]
-   >= 1
- cov_161_46: frac[2,46] + frac[6,46] + frac[9,46] + frac[11,46]
-   + frac[12,46] + frac[13,46] + frac[14,46] >= 0.9
- cov_162_17: frac[0,17] + frac[3,17] + frac[8,17] + frac[9,17]
-   + frac[12,17] >= 0.7
- cov_163_24: frac[0,24] + frac[5,24] + frac[8,24] + frac[10,24]
-   + frac[12,24] + frac[13,24] + frac[14,24] >= 0.7
- cov_164_27: frac[1,27] + frac[2,27] + frac[8,27] + frac[9,27]
-   + frac[12,27] >= 1
- cov_165_5: frac[0,5] + frac[7,5] + frac[8,5] + frac[11,5] + frac[12,5]
-   + frac[13,5] + frac[14,5] >= 1
- cov_166_16: frac[6,16] + frac[7,16] + frac[11,16] >= 1
- cov_167_60: frac[1,60] + frac[6,60] + frac[8,60] + frac[11,60]
-   + frac[12,60] + frac[13,60] + frac[14,60] >= 1
- cov_168_60: frac[6,60] + frac[7,60] + frac[11,60] >= 1
- cov_169_44: frac[4,44] + frac[6,44] + frac[10,44] + frac[11,44]
-   + frac[13,44] >= 0.7
- cov_170_18: frac[4,18] + frac[7,18] + frac[10,18] + frac[11,18]
-   + frac[13,18] >= 0.8
- cov_171_5: frac[4,5] + frac[7,5] + frac[10,5] + frac[11,5] + frac[13,5]
-   >= 1
- cov_172_17: frac[3,17] + frac[5,17] + frac[9,17] + frac[10,17]
-   + frac[12,17] + frac[13,17] + frac[14,17] >= 1
- cov_173_56: frac[5,56] + frac[6,56] + frac[10,56] + frac[11,56]
-   + frac[13,56] >= 1
- cov_174_56: frac[5,56] + frac[7,56] + frac[10,56] + frac[11,56]
-   + frac[13,56] >= 0.7
- cov_175_10: frac[1,10] + frac[2,10] + frac[8,10] + frac[9,10]
-   + frac[12,10] >= 0.7
- cov_176_52: frac[3,52] + frac[6,52] + frac[9,52] + frac[11,52]
-   + frac[12,52] + frac[13,52] + frac[14,52] >= 1
- cov_177_37: frac[5,37] + frac[7,37] + frac[10,37] + frac[11,37]
-   + frac[13,37] >= 1
- cov_178_36: frac[1,36] + frac[4,36] + frac[8,36] + frac[10,36]
-   + frac[12,36] + frac[13,36] + frac[14,36] >= 1
- cov_179_5: frac[2,5] + frac[3,5] + frac[9,5] >= 1
- cov_180_11: frac[4,11] + frac[6,11] + frac[10,11] + frac[11,11]
-   + frac[13,11] >= 1
- cov_181_33: frac[0,33] + frac[6,33] + frac[8,33] + frac[11,33]
-   + frac[12,33] + frac[13,33] + frac[14,33] >= 1
- cov_182_20: frac[4,20] + frac[5,20] + frac[10,20] >= 1
- cov_183_12: frac[1,12] + frac[7,12] + frac[8,12] + frac[11,12]
-   + frac[12,12] + frac[13,12] + frac[14,12] >= 0.8
- cov_184_9: frac[2,9] + frac[3,9] + frac[9,9] >= 0.9
- cov_185_36: frac[2,36] + frac[4,36] + frac[9,36] + frac[10,36]
-   + frac[12,36] + frac[13,36] + frac[14,36] >= 0.9
- cov_186_3: frac[0,3] + frac[5,3] + frac[8,3] + frac[10,3] + frac[12,3]
-   + frac[13,3] + frac[14,3] >= 0.8
- cov_187_44: frac[2,44] + frac[3,44] + frac[9,44] >= 0.7
- cov_188_26: frac[6,26] + frac[7,26] + frac[11,26] >= 0.7
- cov_189_45: frac[3,45] + frac[6,45] + frac[9,45] + frac[11,45]
-   + frac[12,45] + frac[13,45] + frac[14,45] >= 0.9
- cov_190_20: frac[3,20] + frac[7,20] + frac[9,20] + frac[11,20]
-   + frac[12,20] + frac[13,20] + frac[14,20] >= 0.8
- cov_191_48: frac[2,48] + frac[3,48] + frac[9,48] >= 1
- cov_192_9: frac[4,9] + frac[5,9] + frac[10,9] >= 0.7
- cov_193_26: frac[3,26] + frac[7,26] + frac[9,26] + frac[11,26]
-   + frac[12,26] + frac[13,26] + frac[14,26] >= 0.8
- cov_194_40: frac[0,40] + frac[2,40] + frac[8,40] + frac[9,40]
-   + frac[12,40] >= 0.7
- cov_195_63: frac[1,63] + frac[5,63] + frac[8,63] + frac[10,63]
-   + frac[12,63] + frac[13,63] + frac[14,63] >= 0.7
- cov_196_51: frac[4,51] + frac[5,51] + frac[10,51] >= 0.8
- cov_197_39: frac[4,39] + frac[6,39] + frac[10,39] + frac[11,39]
-   + frac[13,39] >= 0.7
- cov_198_38: frac[0,38] + frac[5,38] + frac[8,38] + frac[10,38]
-   + frac[12,38] + frac[13,38] + frac[14,38] >= 0.7
- cov_199_9: frac[5,9] + frac[6,9] + frac[10,9] + frac[11,9] + frac[13,9]
-   >= 1
- cov_200_52: frac[2,52] + frac[3,52] + frac[9,52] >= 0.7
- cov_201_62: frac[1,62] + frac[3,62] + frac[8,62] + frac[9,62]
-   + frac[12,62] >= 1
- cov_202_41: frac[1,41] + frac[7,41] + frac[8,41] + frac[11,41]
-   + frac[12,41] + frac[13,41] + frac[14,41] >= 0.8
- cov_203_49: frac[2,49] + frac[7,49] + frac[9,49] + frac[11,49]
-   + frac[12,49] + frac[13,49] + frac[14,49] >= 0.9
- cov_204_51: frac[1,51] + frac[7,51] + frac[8,51] + frac[11,51]
-   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.8
- cov_205_27: frac[3,27] + frac[6,27] + frac[9,27] + frac[11,27]
-   + frac[12,27] + frac[13,27] + frac[14,27] >= 0.9
- cov_206_15: frac[1,15] + frac[3,15] + frac[8,15] + frac[9,15]
-   + frac[12,15] >= 1
- cov_207_4: frac[0,4] + frac[1,4] + frac[8,4] >= 0.9
- cov_208_48: frac[4,48] + frac[5,48] + frac[10,48] >= 1
- cov_209_32: frac[2,32] + frac[5,32] + frac[9,32] + frac[10,32]
-   + frac[12,32] + frac[13,32] + frac[14,32] >= 0.7
- cov_210_53: frac[3,53] + frac[6,53] + frac[9,53] + frac[11,53]
-   + frac[12,53] + frac[13,53] + frac[14,53] >= 1
- cov_211_51: frac[2,51] + frac[5,51] + frac[9,51] + frac[10,51]
-   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.7
- cov_212_61: frac[1,61] + frac[7,61] + frac[8,61] + frac[11,61]
-   + frac[12,61] + frac[13,61] + frac[14,61] >= 0.7
- cov_213_2: frac[2,2] + frac[4,2] + frac[9,2] + frac[10,2] + frac[12,2]
-   + frac[13,2] + frac[14,2] >= 1
- cov_214_62: frac[2,62] + frac[4,62] + frac[9,62] + frac[10,62]
-   + frac[12,62] + frac[13,62] + frac[14,62] >= 0.7
- cov_215_14: frac[2,14] + frac[5,14] + frac[9,14] + frac[10,14]
-   + frac[12,14] + frac[13,14] + frac[14,14] >= 0.9
- cov_216_62: frac[0,62] + frac[1,62] + frac[8,62] >= 0.9
- cov_217_17: frac[1,17] + frac[4,17] + frac[8,17] + frac[10,17]
-   + frac[12,17] + frac[13,17] + frac[14,17] >= 0.8
- cov_218_7: frac[2,7] + frac[7,7] + frac[9,7] + frac[11,7] + frac[12,7]
-   + frac[13,7] + frac[14,7] >= 0.7
- cov_219_4: frac[1,4] + frac[2,4] + frac[8,4] + frac[9,4] + frac[12,4]
-   >= 0.8
- cov_220_0: frac[1,0] + frac[3,0] + frac[8,0] + frac[9,0] + frac[12,0]
-   >= 1
- cov_221_20: frac[2,20] + frac[6,20] + frac[9,20] + frac[11,20]
-   + frac[12,20] + frac[13,20] + frac[14,20] >= 0.7
- cov_222_22: frac[2,22] + frac[3,22] + frac[9,22] >= 1
- cov_223_33: frac[1,33] + frac[2,33] + frac[8,33] + frac[9,33]
-   + frac[12,33] >= 0.9
- cov_224_42: frac[1,42] + frac[4,42] + frac[8,42] + frac[10,42]
-   + frac[12,42] + frac[13,42] + frac[14,42] >= 0.8
- cov_225_18: frac[0,18] + frac[5,18] + frac[8,18] + frac[10,18]
-   + frac[12,18] + frac[13,18] + frac[14,18] >= 0.9
- cov_226_15: frac[0,15] + frac[2,15] + frac[8,15] + frac[9,15]
-   + frac[12,15] >= 1
- cov_227_29: frac[0,29] + frac[1,29] + frac[8,29] >= 0.9
- cov_228_15: frac[5,15] + frac[6,15] + frac[10,15] + frac[11,15]
-   + frac[13,15] >= 1
- cov_229_19: frac[4,19] + frac[7,19] + frac[10,19] + frac[11,19]
-   + frac[13,19] >= 0.7
- cov_230_41: frac[4,41] + frac[6,41] + frac[10,41] + frac[11,41]
-   + frac[13,41] >= 1
- cov_231_62: frac[3,62] + frac[4,62] + frac[9,62] + frac[10,62]
-   + frac[12,62] + frac[13,62] + frac[14,62] >= 1
- cov_232_27: frac[3,27] + frac[4,27] + frac[9,27] + frac[10,27]
-   + frac[12,27] + frac[13,27] + frac[14,27] >= 1
- cov_233_20: frac[2,20] + frac[6,20] + frac[9,20] + frac[11,20]
-   + frac[12,20] + frac[13,20] + frac[14,20] >= 1
- cov_234_0: frac[2,0] + frac[3,0] + frac[9,0] >= 0.9
- cov_235_4: frac[1,4] + frac[2,4] + frac[8,4] + frac[9,4] + frac[12,4]
-   >= 0.9
- cov_236_17: frac[1,17] + frac[4,17] + frac[8,17] + frac[10,17]
-   + frac[12,17] + frac[13,17] + frac[14,17] >= 1
- cov_237_47: frac[1,47] + frac[5,47] + frac[8,47] + frac[10,47]
-   + frac[12,47] + frac[13,47] + frac[14,47] >= 0.8
- cov_238_37: frac[0,37] + frac[2,37] + frac[8,37] + frac[9,37]
-   + frac[12,37] >= 1
- cov_239_3: frac[3,3] + frac[6,3] + frac[9,3] + frac[11,3] + frac[12,3]
-   + frac[13,3] + frac[14,3] >= 1
- cov_240_0: frac[3,0] + frac[5,0] + frac[9,0] + frac[10,0] + frac[12,0]
-   + frac[13,0] + frac[14,0] >= 0.8
- cov_241_16: frac[3,16] + frac[5,16] + frac[9,16] + frac[10,16]
-   + frac[12,16] + frac[13,16] + frac[14,16] >= 0.8
- cov_242_2: frac[3,2] + frac[6,2] + frac[9,2] + frac[11,2] + frac[12,2]
+ cov_0_57: frac[2,57] + frac[6,57] + frac[9,57] + frac[11,57] + frac[12,57]
+   + frac[13,57] + frac[14,57] >= 0.9
+ cov_1_35: frac[1,35] + frac[4,35] + frac[8,35] + frac[10,35] + frac[12,35]
+   + frac[13,35] + frac[14,35] >= 0.7
+ cov_2_2: frac[2,2] + frac[4,2] + frac[9,2] + frac[10,2] + frac[12,2]
    + frac[13,2] + frac[14,2] >= 0.9
- cov_243_46: frac[1,46] + frac[6,46] + frac[8,46] + frac[11,46]
+ cov_3_21: frac[3,21] + frac[5,21] + frac[9,21] + frac[10,21] + frac[12,21]
+   + frac[13,21] + frac[14,21] >= 1
+ cov_4_56: frac[6,56] + frac[7,56] + frac[11,56] >= 1
+ cov_5_61: frac[6,61] + frac[7,61] + frac[11,61] >= 0.8
+ cov_6_18: frac[1,18] + frac[6,18] + frac[8,18] + frac[11,18] + frac[12,18]
+   + frac[13,18] + frac[14,18] >= 1
+ cov_7_13: frac[1,13] + frac[2,13] + frac[8,13] + frac[9,13] + frac[12,13]
+   >= 0.8
+ cov_8_52: frac[0,52] + frac[2,52] + frac[8,52] + frac[9,52] + frac[12,52]
+   >= 0.8
+ cov_9_31: frac[2,31] + frac[7,31] + frac[9,31] + frac[11,31] + frac[12,31]
+   + frac[13,31] + frac[14,31] >= 1
+ cov_10_46: frac[0,46] + frac[7,46] + frac[8,46] + frac[11,46]
    + frac[12,46] + frac[13,46] + frac[14,46] >= 0.9
- cov_244_29: frac[1,29] + frac[5,29] + frac[8,29] + frac[10,29]
-   + frac[12,29] + frac[13,29] + frac[14,29] >= 0.7
- cov_245_36: frac[0,36] + frac[3,36] + frac[8,36] + frac[9,36]
-   + frac[12,36] >= 0.9
- cov_246_23: frac[3,23] + frac[4,23] + frac[9,23] + frac[10,23]
-   + frac[12,23] + frac[13,23] + frac[14,23] >= 0.8
- cov_247_22: frac[2,22] + frac[4,22] + frac[9,22] + frac[10,22]
-   + frac[12,22] + frac[13,22] + frac[14,22] >= 0.8
- cov_248_6: frac[0,6] + frac[3,6] + frac[8,6] + frac[9,6] + frac[12,6]
+ cov_11_39: frac[4,39] + frac[6,39] + frac[10,39] + frac[11,39]
+   + frac[13,39] >= 0.8
+ cov_12_59: frac[1,59] + frac[4,59] + frac[8,59] + frac[10,59]
+   + frac[12,59] + frac[13,59] + frac[14,59] >= 1
+ cov_13_25: frac[5,25] + frac[7,25] + frac[10,25] + frac[11,25]
+   + frac[13,25] >= 1
+ cov_14_30: frac[4,30] + frac[7,30] + frac[10,30] + frac[11,30]
+   + frac[13,30] >= 0.8
+ cov_15_35: frac[1,35] + frac[2,35] + frac[8,35] + frac[9,35] + frac[12,35]
    >= 0.7
- cov_249_29: frac[2,29] + frac[5,29] + frac[9,29] + frac[10,29]
-   + frac[12,29] + frac[13,29] + frac[14,29] >= 0.7
- cov_250_43: frac[4,43] + frac[6,43] + frac[10,43] + frac[11,43]
-   + frac[13,43] >= 0.9
- cov_251_12: frac[6,12] + frac[7,12] + frac[11,12] >= 0.8
- cov_252_33: frac[0,33] + frac[5,33] + frac[8,33] + frac[10,33]
-   + frac[12,33] + frac[13,33] + frac[14,33] >= 0.7
- cov_253_32: frac[2,32] + frac[5,32] + frac[9,32] + frac[10,32]
-   + frac[12,32] + frac[13,32] + frac[14,32] >= 1
- cov_254_15: frac[0,15] + frac[5,15] + frac[8,15] + frac[10,15]
-   + frac[12,15] + frac[13,15] + frac[14,15] >= 0.8
- cov_255_21: frac[1,21] + frac[3,21] + frac[8,21] + frac[9,21]
-   + frac[12,21] >= 0.8
- cov_256_25: frac[0,25] + frac[6,25] + frac[8,25] + frac[11,25]
-   + frac[12,25] + frac[13,25] + frac[14,25] >= 0.8
- cov_257_59: frac[0,59] + frac[1,59] + frac[8,59] >= 0.9
- cov_258_26: frac[2,26] + frac[5,26] + frac[9,26] + frac[10,26]
-   + frac[12,26] + frac[13,26] + frac[14,26] >= 0.9
- cov_259_36: frac[3,36] + frac[7,36] + frac[9,36] + frac[11,36]
-   + frac[12,36] + frac[13,36] + frac[14,36] >= 0.7
- cov_260_20: frac[1,20] + frac[7,20] + frac[8,20] + frac[11,20]
-   + frac[12,20] + frac[13,20] + frac[14,20] >= 0.9
- cov_261_51: frac[5,51] + frac[7,51] + frac[10,51] + frac[11,51]
-   + frac[13,51] >= 1
- cov_262_38: frac[3,38] + frac[5,38] + frac[9,38] + frac[10,38]
-   + frac[12,38] + frac[13,38] + frac[14,38] >= 1
- cov_263_43: frac[4,43] + frac[6,43] + frac[10,43] + frac[11,43]
-   + frac[13,43] >= 0.7
- cov_264_41: frac[0,41] + frac[4,41] + frac[8,41] + frac[10,41]
-   + frac[12,41] + frac[13,41] + frac[14,41] >= 1
- cov_265_31: frac[2,31] + frac[7,31] + frac[9,31] + frac[11,31]
-   + frac[12,31] + frac[13,31] + frac[14,31] >= 1
- cov_266_7: frac[2,7] + frac[5,7] + frac[9,7] + frac[10,7] + frac[12,7]
-   + frac[13,7] + frac[14,7] >= 0.9
- cov_267_19: frac[0,19] + frac[4,19] + frac[8,19] + frac[10,19]
-   + frac[12,19] + frac[13,19] + frac[14,19] >= 0.7
- cov_268_48: frac[0,48] + frac[3,48] + frac[8,48] + frac[9,48]
-   + frac[12,48] >= 0.7
- cov_269_40: frac[4,40] + frac[5,40] + frac[10,40] >= 1
- cov_270_38: frac[3,38] + frac[5,38] + frac[9,38] + frac[10,38]
-   + frac[12,38] + frac[13,38] + frac[14,38] >= 1
- cov_271_47: frac[3,47] + frac[5,47] + frac[9,47] + frac[10,47]
-   + frac[12,47] + frac[13,47] + frac[14,47] >= 0.9
- cov_272_22: frac[5,22] + frac[7,22] + frac[10,22] + frac[11,22]
-   + frac[13,22] >= 0.7
- cov_273_36: frac[1,36] + frac[4,36] + frac[8,36] + frac[10,36]
-   + frac[12,36] + frac[13,36] + frac[14,36] >= 0.8
- cov_274_33: frac[4,33] + frac[7,33] + frac[10,33] + frac[11,33]
-   + frac[13,33] >= 1
- cov_275_19: frac[1,19] + frac[5,19] + frac[8,19] + frac[10,19]
-   + frac[12,19] + frac[13,19] + frac[14,19] >= 0.8
- cov_276_6: frac[2,6] + frac[4,6] + frac[9,6] + frac[10,6] + frac[12,6]
-   + frac[13,6] + frac[14,6] >= 0.7
- cov_277_15: frac[5,15] + frac[7,15] + frac[10,15] + frac[11,15]
-   + frac[13,15] >= 0.7
- cov_278_50: frac[2,50] + frac[6,50] + frac[9,50] + frac[11,50]
-   + frac[12,50] + frac[13,50] + frac[14,50] >= 1
- cov_279_31: frac[2,31] + frac[3,31] + frac[9,31] >= 0.9
- cov_280_40: frac[0,40] + frac[6,40] + frac[8,40] + frac[11,40]
-   + frac[12,40] + frac[13,40] + frac[14,40] >= 0.7
- cov_281_44: frac[3,44] + frac[4,44] + frac[9,44] + frac[10,44]
-   + frac[12,44] + frac[13,44] + frac[14,44] >= 0.9
- cov_282_35: frac[2,35] + frac[7,35] + frac[9,35] + frac[11,35]
-   + frac[12,35] + frac[13,35] + frac[14,35] >= 0.8
- cov_283_54: frac[0,54] + frac[2,54] + frac[8,54] + frac[9,54]
-   + frac[12,54] >= 0.8
- cov_284_49: frac[2,49] + frac[3,49] + frac[9,49] >= 0.8
- cov_285_6: frac[4,6] + frac[5,6] + frac[10,6] >= 1
- cov_286_2: frac[0,2] + frac[5,2] + frac[8,2] + frac[10,2] + frac[12,2]
-   + frac[13,2] + frac[14,2] >= 1
- cov_287_26: frac[3,26] + frac[7,26] + frac[9,26] + frac[11,26]
-   + frac[12,26] + frac[13,26] + frac[14,26] >= 0.9
- cov_288_62: frac[2,62] + frac[4,62] + frac[9,62] + frac[10,62]
-   + frac[12,62] + frac[13,62] + frac[14,62] >= 0.8
- cov_289_17: frac[2,17] + frac[4,17] + frac[9,17] + frac[10,17]
-   + frac[12,17] + frac[13,17] + frac[14,17] >= 0.9
- cov_290_43: frac[0,43] + frac[3,43] + frac[8,43] + frac[9,43]
-   + frac[12,43] >= 0.9
- cov_291_33: frac[0,33] + frac[1,33] + frac[8,33] >= 1
- cov_292_12: frac[6,12] + frac[7,12] + frac[11,12] >= 0.8
- cov_293_11: frac[1,11] + frac[3,11] + frac[8,11] + frac[9,11]
-   + frac[12,11] >= 1
- cov_294_19: frac[0,19] + frac[2,19] + frac[8,19] + frac[9,19]
-   + frac[12,19] >= 0.8
- cov_295_36: frac[0,36] + frac[3,36] + frac[8,36] + frac[9,36]
-   + frac[12,36] >= 0.9
- cov_296_56: frac[3,56] + frac[6,56] + frac[9,56] + frac[11,56]
+ cov_16_5: frac[0,5] + frac[5,5] + frac[8,5] + frac[10,5] + frac[12,5]
+   + frac[13,5] + frac[14,5] >= 0.9
+ cov_17_26: frac[6,26] + frac[7,26] + frac[11,26] >= 1
+ cov_18_53: frac[1,53] + frac[5,53] + frac[8,53] + frac[10,53]
+   + frac[12,53] + frac[13,53] + frac[14,53] >= 1
+ cov_19_56: frac[3,56] + frac[7,56] + frac[9,56] + frac[11,56]
    + frac[12,56] + frac[13,56] + frac[14,56] >= 0.7
- cov_297_5: frac[0,5] + frac[7,5] + frac[8,5] + frac[11,5] + frac[12,5]
-   + frac[13,5] + frac[14,5] >= 0.7
- cov_298_52: frac[0,52] + frac[5,52] + frac[8,52] + frac[10,52]
-   + frac[12,52] + frac[13,52] + frac[14,52] >= 1
- cov_299_62: frac[0,62] + frac[3,62] + frac[8,62] + frac[9,62]
-   + frac[12,62] >= 0.7
- cov_300_28: frac[5,28] + frac[6,28] + frac[10,28] + frac[11,28]
-   + frac[13,28] >= 0.7
- cov_301_43: frac[1,43] + frac[7,43] + frac[8,43] + frac[11,43]
-   + frac[12,43] + frac[13,43] + frac[14,43] >= 0.7
- cov_302_53: frac[5,53] + frac[6,53] + frac[10,53] + frac[11,53]
-   + frac[13,53] >= 1
- cov_303_56: frac[2,56] + frac[6,56] + frac[9,56] + frac[11,56]
-   + frac[12,56] + frac[13,56] + frac[14,56] >= 1
- cov_304_24: frac[1,24] + frac[7,24] + frac[8,24] + frac[11,24]
-   + frac[12,24] + frac[13,24] + frac[14,24] >= 0.9
- cov_305_13: frac[0,13] + frac[2,13] + frac[8,13] + frac[9,13]
-   + frac[12,13] >= 1
- cov_306_10: frac[0,10] + frac[7,10] + frac[8,10] + frac[11,10]
-   + frac[12,10] + frac[13,10] + frac[14,10] >= 0.7
- cov_307_41: frac[0,41] + frac[5,41] + frac[8,41] + frac[10,41]
-   + frac[12,41] + frac[13,41] + frac[14,41] >= 0.9
- cov_308_44: frac[5,44] + frac[6,44] + frac[10,44] + frac[11,44]
-   + frac[13,44] >= 0.9
- cov_309_62: frac[3,62] + frac[6,62] + frac[9,62] + frac[11,62]
-   + frac[12,62] + frac[13,62] + frac[14,62] >= 1
- cov_310_21: frac[0,21] + frac[5,21] + frac[8,21] + frac[10,21]
+ cov_20_53: frac[2,53] + frac[4,53] + frac[9,53] + frac[10,53]
+   + frac[12,53] + frac[13,53] + frac[14,53] >= 0.7
+ cov_21_18: frac[0,18] + frac[5,18] + frac[8,18] + frac[10,18]
+   + frac[12,18] + frac[13,18] + frac[14,18] >= 0.7
+ cov_22_17: frac[0,17] + frac[6,17] + frac[8,17] + frac[11,17]
+   + frac[12,17] + frac[13,17] + frac[14,17] >= 0.7
+ cov_23_51: frac[0,51] + frac[7,51] + frac[8,51] + frac[11,51]
+   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.9
+ cov_24_21: frac[1,21] + frac[7,21] + frac[8,21] + frac[11,21]
    + frac[12,21] + frac[13,21] + frac[14,21] >= 1
- cov_311_16: frac[2,16] + frac[4,16] + frac[9,16] + frac[10,16]
-   + frac[12,16] + frac[13,16] + frac[14,16] >= 0.8
- cov_312_14: frac[0,14] + frac[2,14] + frac[8,14] + frac[9,14]
-   + frac[12,14] >= 0.7
- cov_313_47: frac[1,47] + frac[7,47] + frac[8,47] + frac[11,47]
-   + frac[12,47] + frac[13,47] + frac[14,47] >= 1
- cov_314_28: frac[1,28] + frac[3,28] + frac[8,28] + frac[9,28]
-   + frac[12,28] >= 0.8
- cov_315_9: frac[1,9] + frac[4,9] + frac[8,9] + frac[10,9] + frac[12,9]
-   + frac[13,9] + frac[14,9] >= 1
- cov_316_27: frac[1,27] + frac[2,27] + frac[8,27] + frac[9,27]
-   + frac[12,27] >= 1
- cov_317_25: frac[3,25] + frac[5,25] + frac[9,25] + frac[10,25]
+ cov_25_13: frac[1,13] + frac[7,13] + frac[8,13] + frac[11,13]
+   + frac[12,13] + frac[13,13] + frac[14,13] >= 0.8
+ cov_26_50: frac[2,50] + frac[6,50] + frac[9,50] + frac[11,50]
+   + frac[12,50] + frac[13,50] + frac[14,50] >= 0.9
+ cov_27_8: frac[1,8] + frac[6,8] + frac[8,8] + frac[11,8] + frac[12,8]
+   + frac[13,8] + frac[14,8] >= 0.7
+ cov_28_57: frac[0,57] + frac[5,57] + frac[8,57] + frac[10,57]
+   + frac[12,57] + frac[13,57] + frac[14,57] >= 1
+ cov_29_16: frac[6,16] + frac[7,16] + frac[11,16] >= 0.9
+ cov_30_50: frac[4,50] + frac[5,50] + frac[10,50] >= 0.9
+ cov_31_8: frac[2,8] + frac[5,8] + frac[9,8] + frac[10,8] + frac[12,8]
+   + frac[13,8] + frac[14,8] >= 0.9
+ cov_32_16: frac[0,16] + frac[1,16] + frac[8,16] >= 0.9
+ cov_33_35: frac[4,35] + frac[7,35] + frac[10,35] + frac[11,35]
+   + frac[13,35] >= 0.9
+ cov_34_32: frac[1,32] + frac[6,32] + frac[8,32] + frac[11,32]
+   + frac[12,32] + frac[13,32] + frac[14,32] >= 0.8
+ cov_35_41: frac[4,41] + frac[6,41] + frac[10,41] + frac[11,41]
+   + frac[13,41] >= 0.9
+ cov_36_28: frac[1,28] + frac[4,28] + frac[8,28] + frac[10,28]
+   + frac[12,28] + frac[13,28] + frac[14,28] >= 0.9
+ cov_37_13: frac[2,13] + frac[6,13] + frac[9,13] + frac[11,13]
+   + frac[12,13] + frac[13,13] + frac[14,13] >= 1
+ cov_38_33: frac[0,33] + frac[6,33] + frac[8,33] + frac[11,33]
+   + frac[12,33] + frac[13,33] + frac[14,33] >= 0.8
+ cov_39_55: frac[0,55] + frac[5,55] + frac[8,55] + frac[10,55]
+   + frac[12,55] + frac[13,55] + frac[14,55] >= 0.9
+ cov_40_26: frac[4,26] + frac[6,26] + frac[10,26] + frac[11,26]
+   + frac[13,26] >= 0.7
+ cov_41_23: frac[2,23] + frac[6,23] + frac[9,23] + frac[11,23]
+   + frac[12,23] + frac[13,23] + frac[14,23] >= 0.7
+ cov_42_29: frac[1,29] + frac[5,29] + frac[8,29] + frac[10,29]
+   + frac[12,29] + frac[13,29] + frac[14,29] >= 0.8
+ cov_43_63: frac[0,63] + frac[6,63] + frac[8,63] + frac[11,63]
+   + frac[12,63] + frac[13,63] + frac[14,63] >= 0.8
+ cov_44_8: frac[0,8] + frac[7,8] + frac[8,8] + frac[11,8] + frac[12,8]
+   + frac[13,8] + frac[14,8] >= 0.7
+ cov_45_56: frac[4,56] + frac[6,56] + frac[10,56] + frac[11,56]
+   + frac[13,56] >= 0.7
+ cov_46_12: frac[3,12] + frac[5,12] + frac[9,12] + frac[10,12]
+   + frac[12,12] + frac[13,12] + frac[14,12] >= 0.8
+ cov_47_25: frac[3,25] + frac[4,25] + frac[9,25] + frac[10,25]
    + frac[12,25] + frac[13,25] + frac[14,25] >= 0.8
- cov_318_38: frac[0,38] + frac[5,38] + frac[8,38] + frac[10,38]
-   + frac[12,38] + frac[13,38] + frac[14,38] >= 1
- cov_319_42: frac[0,42] + frac[3,42] + frac[8,42] + frac[9,42]
-   + frac[12,42] >= 0.7
+ cov_48_36: frac[0,36] + frac[3,36] + frac[8,36] + frac[9,36] + frac[12,36]
+   >= 1
+ cov_49_39: frac[1,39] + frac[5,39] + frac[8,39] + frac[10,39]
+   + frac[12,39] + frac[13,39] + frac[14,39] >= 0.8
+ cov_50_23: frac[1,23] + frac[3,23] + frac[8,23] + frac[9,23] + frac[12,23]
+   >= 0.9
+ cov_51_14: frac[0,14] + frac[2,14] + frac[8,14] + frac[9,14] + frac[12,14]
+   >= 1
+ cov_52_17: frac[0,17] + frac[2,17] + frac[8,17] + frac[9,17] + frac[12,17]
+   >= 0.7
+ cov_53_24: frac[1,24] + frac[6,24] + frac[8,24] + frac[11,24]
+   + frac[12,24] + frac[13,24] + frac[14,24] >= 0.9
+ cov_54_38: frac[2,38] + frac[6,38] + frac[9,38] + frac[11,38]
+   + frac[12,38] + frac[13,38] + frac[14,38] >= 0.9
+ cov_55_7: frac[4,7] + frac[6,7] + frac[10,7] + frac[11,7] + frac[13,7]
+   >= 0.9
+ cov_56_15: frac[1,15] + frac[4,15] + frac[8,15] + frac[10,15]
+   + frac[12,15] + frac[13,15] + frac[14,15] >= 0.9
+ cov_57_1: frac[2,1] + frac[6,1] + frac[9,1] + frac[11,1] + frac[12,1]
+   + frac[13,1] + frac[14,1] >= 0.9
+ cov_58_21: frac[0,21] + frac[1,21] + frac[8,21] >= 0.7
+ cov_59_61: frac[0,61] + frac[7,61] + frac[8,61] + frac[11,61]
+   + frac[12,61] + frac[13,61] + frac[14,61] >= 1
+ cov_60_22: frac[5,22] + frac[7,22] + frac[10,22] + frac[11,22]
+   + frac[13,22] >= 0.8
+ cov_61_37: frac[1,37] + frac[7,37] + frac[8,37] + frac[11,37]
+   + frac[12,37] + frac[13,37] + frac[14,37] >= 0.7
+ cov_62_6: frac[1,6] + frac[7,6] + frac[8,6] + frac[11,6] + frac[12,6]
+   + frac[13,6] + frac[14,6] >= 1
+ cov_63_35: frac[0,35] + frac[6,35] + frac[8,35] + frac[11,35]
+   + frac[12,35] + frac[13,35] + frac[14,35] >= 0.7
+ cov_64_27: frac[3,27] + frac[5,27] + frac[9,27] + frac[10,27]
+   + frac[12,27] + frac[13,27] + frac[14,27] >= 1
+ cov_65_40: frac[1,40] + frac[4,40] + frac[8,40] + frac[10,40]
+   + frac[12,40] + frac[13,40] + frac[14,40] >= 0.7
+ cov_66_18: frac[2,18] + frac[4,18] + frac[9,18] + frac[10,18]
+   + frac[12,18] + frac[13,18] + frac[14,18] >= 1
+ cov_67_5: frac[0,5] + frac[5,5] + frac[8,5] + frac[10,5] + frac[12,5]
+   + frac[13,5] + frac[14,5] >= 1
+ cov_68_12: frac[5,12] + frac[7,12] + frac[10,12] + frac[11,12]
+   + frac[13,12] >= 0.8
+ cov_69_58: frac[1,58] + frac[3,58] + frac[8,58] + frac[9,58] + frac[12,58]
+   >= 1
+ cov_70_56: frac[3,56] + frac[5,56] + frac[9,56] + frac[10,56]
+   + frac[12,56] + frac[13,56] + frac[14,56] >= 0.7
+ cov_71_11: frac[2,11] + frac[6,11] + frac[9,11] + frac[11,11]
+   + frac[12,11] + frac[13,11] + frac[14,11] >= 0.8
+ cov_72_30: frac[2,30] + frac[6,30] + frac[9,30] + frac[11,30]
+   + frac[12,30] + frac[13,30] + frac[14,30] >= 1
+ cov_73_49: frac[1,49] + frac[7,49] + frac[8,49] + frac[11,49]
+   + frac[12,49] + frac[13,49] + frac[14,49] >= 0.9
+ cov_74_55: frac[2,55] + frac[6,55] + frac[9,55] + frac[11,55]
+   + frac[12,55] + frac[13,55] + frac[14,55] >= 0.9
+ cov_75_51: frac[3,51] + frac[5,51] + frac[9,51] + frac[10,51]
+   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.9
+ cov_76_25: frac[4,25] + frac[6,25] + frac[10,25] + frac[11,25]
+   + frac[13,25] >= 0.8
+ cov_77_31: frac[1,31] + frac[3,31] + frac[8,31] + frac[9,31] + frac[12,31]
+   >= 0.8
+ cov_78_57: frac[3,57] + frac[4,57] + frac[9,57] + frac[10,57]
+   + frac[12,57] + frac[13,57] + frac[14,57] >= 0.8
+ cov_79_14: frac[0,14] + frac[2,14] + frac[8,14] + frac[9,14] + frac[12,14]
+   >= 1
+ cov_80_59: frac[0,59] + frac[3,59] + frac[8,59] + frac[9,59] + frac[12,59]
+   >= 0.9
+ cov_81_16: frac[2,16] + frac[4,16] + frac[9,16] + frac[10,16]
+   + frac[12,16] + frac[13,16] + frac[14,16] >= 0.9
+ cov_82_49: frac[0,49] + frac[6,49] + frac[8,49] + frac[11,49]
+   + frac[12,49] + frac[13,49] + frac[14,49] >= 1
+ cov_83_31: frac[5,31] + frac[7,31] + frac[10,31] + frac[11,31]
+   + frac[13,31] >= 0.9
+ cov_84_29: frac[3,29] + frac[4,29] + frac[9,29] + frac[10,29]
+   + frac[12,29] + frac[13,29] + frac[14,29] >= 0.9
+ cov_85_48: frac[2,48] + frac[3,48] + frac[9,48] >= 0.7
+ cov_86_24: frac[4,24] + frac[5,24] + frac[10,24] >= 0.7
+ cov_87_0: frac[2,0] + frac[4,0] + frac[9,0] + frac[10,0] + frac[12,0]
+   + frac[13,0] + frac[14,0] >= 1
+ cov_88_26: frac[6,26] + frac[7,26] + frac[11,26] >= 1
+ cov_89_62: frac[0,62] + frac[2,62] + frac[8,62] + frac[9,62] + frac[12,62]
+   >= 0.9
+ cov_90_26: frac[6,26] + frac[7,26] + frac[11,26] >= 1
+ cov_91_13: frac[1,13] + frac[2,13] + frac[8,13] + frac[9,13] + frac[12,13]
+   >= 0.7
+ cov_92_56: frac[0,56] + frac[5,56] + frac[8,56] + frac[10,56]
+   + frac[12,56] + frac[13,56] + frac[14,56] >= 0.8
+ cov_93_7: frac[3,7] + frac[7,7] + frac[9,7] + frac[11,7] + frac[12,7]
+   + frac[13,7] + frac[14,7] >= 1
+ cov_94_44: frac[1,44] + frac[6,44] + frac[8,44] + frac[11,44]
+   + frac[12,44] + frac[13,44] + frac[14,44] >= 1
+ cov_95_38: frac[0,38] + frac[3,38] + frac[8,38] + frac[9,38] + frac[12,38]
+   >= 0.7
+ cov_96_35: frac[2,35] + frac[6,35] + frac[9,35] + frac[11,35]
+   + frac[12,35] + frac[13,35] + frac[14,35] >= 0.7
+ cov_97_43: frac[1,43] + frac[6,43] + frac[8,43] + frac[11,43]
+   + frac[12,43] + frac[13,43] + frac[14,43] >= 0.9
+ cov_98_16: frac[4,16] + frac[6,16] + frac[10,16] + frac[11,16]
+   + frac[13,16] >= 1
+ cov_99_4: frac[0,4] + frac[7,4] + frac[8,4] + frac[11,4] + frac[12,4]
+   + frac[13,4] + frac[14,4] >= 0.8
+ cov_100_36: frac[2,36] + frac[4,36] + frac[9,36] + frac[10,36]
+   + frac[12,36] + frac[13,36] + frac[14,36] >= 0.8
+ cov_101_3: frac[3,3] + frac[6,3] + frac[9,3] + frac[11,3] + frac[12,3]
+   + frac[13,3] + frac[14,3] >= 0.7
+ cov_102_49: frac[1,49] + frac[5,49] + frac[8,49] + frac[10,49]
+   + frac[12,49] + frac[13,49] + frac[14,49] >= 0.9
+ cov_103_60: frac[4,60] + frac[6,60] + frac[10,60] + frac[11,60]
+   + frac[13,60] >= 0.9
+ cov_104_49: frac[3,49] + frac[7,49] + frac[9,49] + frac[11,49]
+   + frac[12,49] + frac[13,49] + frac[14,49] >= 0.7
+ cov_105_19: frac[2,19] + frac[5,19] + frac[9,19] + frac[10,19]
+   + frac[12,19] + frac[13,19] + frac[14,19] >= 0.9
+ cov_106_62: frac[3,62] + frac[5,62] + frac[9,62] + frac[10,62]
+   + frac[12,62] + frac[13,62] + frac[14,62] >= 0.7
+ cov_107_40: frac[2,40] + frac[5,40] + frac[9,40] + frac[10,40]
+   + frac[12,40] + frac[13,40] + frac[14,40] >= 0.7
+ cov_108_32: frac[1,32] + frac[3,32] + frac[8,32] + frac[9,32]
+   + frac[12,32] >= 1
+ cov_109_46: frac[0,46] + frac[3,46] + frac[8,46] + frac[9,46]
+   + frac[12,46] >= 0.9
+ cov_110_1: frac[0,1] + frac[5,1] + frac[8,1] + frac[10,1] + frac[12,1]
+   + frac[13,1] + frac[14,1] >= 0.8
+ cov_111_1: frac[4,1] + frac[7,1] + frac[10,1] + frac[11,1] + frac[13,1]
+   >= 0.8
+ cov_112_9: frac[4,9] + frac[7,9] + frac[10,9] + frac[11,9] + frac[13,9]
+   >= 1
+ cov_113_42: frac[4,42] + frac[7,42] + frac[10,42] + frac[11,42]
+   + frac[13,42] >= 0.7
+ cov_114_45: frac[3,45] + frac[6,45] + frac[9,45] + frac[11,45]
+   + frac[12,45] + frac[13,45] + frac[14,45] >= 0.7
+ cov_115_23: frac[2,23] + frac[6,23] + frac[9,23] + frac[11,23]
+   + frac[12,23] + frac[13,23] + frac[14,23] >= 0.8
+ cov_116_5: frac[1,5] + frac[7,5] + frac[8,5] + frac[11,5] + frac[12,5]
+   + frac[13,5] + frac[14,5] >= 0.8
+ cov_117_11: frac[0,11] + frac[5,11] + frac[8,11] + frac[10,11]
+   + frac[12,11] + frac[13,11] + frac[14,11] >= 0.7
+ cov_118_2: frac[6,2] + frac[7,2] + frac[11,2] >= 0.9
+ cov_119_50: frac[0,50] + frac[4,50] + frac[8,50] + frac[10,50]
+   + frac[12,50] + frac[13,50] + frac[14,50] >= 0.9
+ cov_120_9: frac[2,9] + frac[3,9] + frac[9,9] >= 0.7
+ cov_121_55: frac[2,55] + frac[3,55] + frac[9,55] >= 0.8
+ cov_122_11: frac[3,11] + frac[7,11] + frac[9,11] + frac[11,11]
+   + frac[12,11] + frac[13,11] + frac[14,11] >= 1
+ cov_123_42: frac[3,42] + frac[7,42] + frac[9,42] + frac[11,42]
+   + frac[12,42] + frac[13,42] + frac[14,42] >= 0.7
+ cov_124_22: frac[1,22] + frac[2,22] + frac[8,22] + frac[9,22]
+   + frac[12,22] >= 0.9
+ cov_125_62: frac[3,62] + frac[4,62] + frac[9,62] + frac[10,62]
+   + frac[12,62] + frac[13,62] + frac[14,62] >= 1
+ cov_126_57: frac[1,57] + frac[3,57] + frac[8,57] + frac[9,57]
+   + frac[12,57] >= 0.9
+ cov_127_7: frac[2,7] + frac[6,7] + frac[9,7] + frac[11,7] + frac[12,7]
+   + frac[13,7] + frac[14,7] >= 0.9
+ cov_128_30: frac[2,30] + frac[3,30] + frac[9,30] >= 1
+ cov_129_58: frac[3,58] + frac[4,58] + frac[9,58] + frac[10,58]
+   + frac[12,58] + frac[13,58] + frac[14,58] >= 0.8
+ cov_130_1: frac[4,1] + frac[6,1] + frac[10,1] + frac[11,1] + frac[13,1]
+   >= 0.9
+ cov_131_48: frac[1,48] + frac[5,48] + frac[8,48] + frac[10,48]
+   + frac[12,48] + frac[13,48] + frac[14,48] >= 1
+ cov_132_32: frac[0,32] + frac[2,32] + frac[8,32] + frac[9,32]
+   + frac[12,32] >= 1
+ cov_133_26: frac[0,26] + frac[3,26] + frac[8,26] + frac[9,26]
+   + frac[12,26] >= 0.8
+ cov_134_55: frac[0,55] + frac[1,55] + frac[8,55] >= 0.9
+ cov_135_27: frac[1,27] + frac[2,27] + frac[8,27] + frac[9,27]
+   + frac[12,27] >= 0.8
+ cov_136_3: frac[1,3] + frac[6,3] + frac[8,3] + frac[11,3] + frac[12,3]
+   + frac[13,3] + frac[14,3] >= 1
+ cov_137_39: frac[5,39] + frac[7,39] + frac[10,39] + frac[11,39]
+   + frac[13,39] >= 1
+ cov_138_47: frac[6,47] + frac[7,47] + frac[11,47] >= 0.7
+ cov_139_9: frac[2,9] + frac[4,9] + frac[9,9] + frac[10,9] + frac[12,9]
+   + frac[13,9] + frac[14,9] >= 0.8
+ cov_140_15: frac[4,15] + frac[6,15] + frac[10,15] + frac[11,15]
+   + frac[13,15] >= 0.9
+ cov_141_1: frac[1,1] + frac[2,1] + frac[8,1] + frac[9,1] + frac[12,1]
+   >= 0.9
+ cov_142_8: frac[3,8] + frac[7,8] + frac[9,8] + frac[11,8] + frac[12,8]
+   + frac[13,8] + frac[14,8] >= 0.9
+ cov_143_44: frac[0,44] + frac[4,44] + frac[8,44] + frac[10,44]
+   + frac[12,44] + frac[13,44] + frac[14,44] >= 0.7
+ cov_144_4: frac[0,4] + frac[1,4] + frac[8,4] >= 0.9
+ cov_145_60: frac[3,60] + frac[7,60] + frac[9,60] + frac[11,60]
+   + frac[12,60] + frac[13,60] + frac[14,60] >= 1
+ cov_146_47: frac[0,47] + frac[6,47] + frac[8,47] + frac[11,47]
+   + frac[12,47] + frac[13,47] + frac[14,47] >= 0.7
+ cov_147_22: frac[4,22] + frac[6,22] + frac[10,22] + frac[11,22]
+   + frac[13,22] >= 0.7
+ cov_148_28: frac[2,28] + frac[4,28] + frac[9,28] + frac[10,28]
+   + frac[12,28] + frac[13,28] + frac[14,28] >= 0.7
+ cov_149_45: frac[1,45] + frac[4,45] + frac[8,45] + frac[10,45]
+   + frac[12,45] + frac[13,45] + frac[14,45] >= 1
+ cov_150_61: frac[5,61] + frac[7,61] + frac[10,61] + frac[11,61]
+   + frac[13,61] >= 0.9
+ cov_151_12: frac[5,12] + frac[6,12] + frac[10,12] + frac[11,12]
+   + frac[13,12] >= 0.8
+ cov_152_44: frac[2,44] + frac[5,44] + frac[9,44] + frac[10,44]
+   + frac[12,44] + frac[13,44] + frac[14,44] >= 0.9
+ cov_153_19: frac[0,19] + frac[7,19] + frac[8,19] + frac[11,19]
+   + frac[12,19] + frac[13,19] + frac[14,19] >= 0.8
+ cov_154_29: frac[3,29] + frac[6,29] + frac[9,29] + frac[11,29]
+   + frac[12,29] + frac[13,29] + frac[14,29] >= 0.9
+ cov_155_62: frac[2,62] + frac[6,62] + frac[9,62] + frac[11,62]
+   + frac[12,62] + frac[13,62] + frac[14,62] >= 0.8
+ cov_156_39: frac[3,39] + frac[6,39] + frac[9,39] + frac[11,39]
+   + frac[12,39] + frac[13,39] + frac[14,39] >= 0.8
+ cov_157_53: frac[1,53] + frac[3,53] + frac[8,53] + frac[9,53]
+   + frac[12,53] >= 0.7
+ cov_158_59: frac[3,59] + frac[7,59] + frac[9,59] + frac[11,59]
+   + frac[12,59] + frac[13,59] + frac[14,59] >= 0.8
+ cov_159_35: frac[0,35] + frac[2,35] + frac[8,35] + frac[9,35]
+   + frac[12,35] >= 0.7
+ cov_160_14: frac[4,14] + frac[5,14] + frac[10,14] >= 0.8
+ cov_161_28: frac[0,28] + frac[6,28] + frac[8,28] + frac[11,28]
+   + frac[12,28] + frac[13,28] + frac[14,28] >= 0.7
+ cov_162_35: frac[1,35] + frac[7,35] + frac[8,35] + frac[11,35]
+   + frac[12,35] + frac[13,35] + frac[14,35] >= 0.7
+ cov_163_40: frac[3,40] + frac[5,40] + frac[9,40] + frac[10,40]
+   + frac[12,40] + frac[13,40] + frac[14,40] >= 0.7
+ cov_164_60: frac[0,60] + frac[4,60] + frac[8,60] + frac[10,60]
+   + frac[12,60] + frac[13,60] + frac[14,60] >= 1
+ cov_165_1: frac[2,1] + frac[4,1] + frac[9,1] + frac[10,1] + frac[12,1]
+   + frac[13,1] + frac[14,1] >= 1
+ cov_166_39: frac[3,39] + frac[6,39] + frac[9,39] + frac[11,39]
+   + frac[12,39] + frac[13,39] + frac[14,39] >= 0.8
+ cov_167_51: frac[3,51] + frac[7,51] + frac[9,51] + frac[11,51]
+   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.9
+ cov_168_35: frac[4,35] + frac[7,35] + frac[10,35] + frac[11,35]
+   + frac[13,35] >= 1
+ cov_169_33: frac[3,33] + frac[5,33] + frac[9,33] + frac[10,33]
+   + frac[12,33] + frac[13,33] + frac[14,33] >= 0.9
+ cov_170_22: frac[0,22] + frac[4,22] + frac[8,22] + frac[10,22]
+   + frac[12,22] + frac[13,22] + frac[14,22] >= 1
+ cov_171_25: frac[2,25] + frac[4,25] + frac[9,25] + frac[10,25]
+   + frac[12,25] + frac[13,25] + frac[14,25] >= 0.7
+ cov_172_28: frac[1,28] + frac[6,28] + frac[8,28] + frac[11,28]
+   + frac[12,28] + frac[13,28] + frac[14,28] >= 0.8
+ cov_173_34: frac[0,34] + frac[6,34] + frac[8,34] + frac[11,34]
+   + frac[12,34] + frac[13,34] + frac[14,34] >= 1
+ cov_174_36: frac[3,36] + frac[4,36] + frac[9,36] + frac[10,36]
+   + frac[12,36] + frac[13,36] + frac[14,36] >= 0.8
+ cov_175_5: frac[1,5] + frac[2,5] + frac[8,5] + frac[9,5] + frac[12,5]
+   >= 0.7
+ cov_176_58: frac[3,58] + frac[4,58] + frac[9,58] + frac[10,58]
+   + frac[12,58] + frac[13,58] + frac[14,58] >= 0.7
+ cov_177_19: frac[4,19] + frac[5,19] + frac[10,19] >= 0.8
+ cov_178_6: frac[0,6] + frac[5,6] + frac[8,6] + frac[10,6] + frac[12,6]
+   + frac[13,6] + frac[14,6] >= 1
+ cov_179_56: frac[0,56] + frac[5,56] + frac[8,56] + frac[10,56]
+   + frac[12,56] + frac[13,56] + frac[14,56] >= 0.7
+ cov_180_37: frac[4,37] + frac[7,37] + frac[10,37] + frac[11,37]
+   + frac[13,37] >= 0.7
+ cov_181_14: frac[5,14] + frac[7,14] + frac[10,14] + frac[11,14]
+   + frac[13,14] >= 0.9
+ cov_182_45: frac[4,45] + frac[5,45] + frac[10,45] >= 0.7
+ cov_183_29: frac[1,29] + frac[7,29] + frac[8,29] + frac[11,29]
+   + frac[12,29] + frac[13,29] + frac[14,29] >= 0.7
+ cov_184_9: frac[0,9] + frac[3,9] + frac[8,9] + frac[9,9] + frac[12,9]
+   >= 0.8
+ cov_185_55: frac[3,55] + frac[4,55] + frac[9,55] + frac[10,55]
+   + frac[12,55] + frac[13,55] + frac[14,55] >= 1
+ cov_186_3: frac[0,3] + frac[3,3] + frac[8,3] + frac[9,3] + frac[12,3]
+   >= 0.8
+ cov_187_31: frac[3,31] + frac[5,31] + frac[9,31] + frac[10,31]
+   + frac[12,31] + frac[13,31] + frac[14,31] >= 0.7
+ cov_188_43: frac[1,43] + frac[6,43] + frac[8,43] + frac[11,43]
+   + frac[12,43] + frac[13,43] + frac[14,43] >= 0.9
+ cov_189_11: frac[1,11] + frac[5,11] + frac[8,11] + frac[10,11]
+   + frac[12,11] + frac[13,11] + frac[14,11] >= 0.9
+ cov_190_12: frac[5,12] + frac[7,12] + frac[10,12] + frac[11,12]
+   + frac[13,12] >= 1
+ cov_191_26: frac[1,26] + frac[4,26] + frac[8,26] + frac[10,26]
+   + frac[12,26] + frac[13,26] + frac[14,26] >= 1
+ cov_192_28: frac[2,28] + frac[4,28] + frac[9,28] + frac[10,28]
+   + frac[12,28] + frac[13,28] + frac[14,28] >= 0.8
+ cov_193_44: frac[1,44] + frac[4,44] + frac[8,44] + frac[10,44]
+   + frac[12,44] + frac[13,44] + frac[14,44] >= 1
+ cov_194_47: frac[1,47] + frac[3,47] + frac[8,47] + frac[9,47]
+   + frac[12,47] >= 0.9
+ cov_195_62: frac[1,62] + frac[4,62] + frac[8,62] + frac[10,62]
+   + frac[12,62] + frac[13,62] + frac[14,62] >= 0.9
+ cov_196_34: frac[2,34] + frac[5,34] + frac[9,34] + frac[10,34]
+   + frac[12,34] + frac[13,34] + frac[14,34] >= 0.7
+ cov_197_48: frac[1,48] + frac[2,48] + frac[8,48] + frac[9,48]
+   + frac[12,48] >= 0.7
+ cov_198_29: frac[1,29] + frac[6,29] + frac[8,29] + frac[11,29]
+   + frac[12,29] + frac[13,29] + frac[14,29] >= 0.8
+ cov_199_6: frac[2,6] + frac[6,6] + frac[9,6] + frac[11,6] + frac[12,6]
+   + frac[13,6] + frac[14,6] >= 1
+ cov_200_56: frac[1,56] + frac[5,56] + frac[8,56] + frac[10,56]
+   + frac[12,56] + frac[13,56] + frac[14,56] >= 0.8
+ cov_201_21: frac[0,21] + frac[5,21] + frac[8,21] + frac[10,21]
+   + frac[12,21] + frac[13,21] + frac[14,21] >= 1
+ cov_202_2: frac[2,2] + frac[5,2] + frac[9,2] + frac[10,2] + frac[12,2]
+   + frac[13,2] + frac[14,2] >= 0.7
+ cov_203_46: frac[4,46] + frac[5,46] + frac[10,46] >= 0.7
+ cov_204_4: frac[0,4] + frac[6,4] + frac[8,4] + frac[11,4] + frac[12,4]
+   + frac[13,4] + frac[14,4] >= 0.9
+ cov_205_17: frac[1,17] + frac[3,17] + frac[8,17] + frac[9,17]
+   + frac[12,17] >= 0.9
+ cov_206_28: frac[1,28] + frac[2,28] + frac[8,28] + frac[9,28]
+   + frac[12,28] >= 1
+ cov_207_26: frac[4,26] + frac[7,26] + frac[10,26] + frac[11,26]
+   + frac[13,26] >= 0.8
+ cov_208_16: frac[2,16] + frac[6,16] + frac[9,16] + frac[11,16]
+   + frac[12,16] + frac[13,16] + frac[14,16] >= 1
+ cov_209_21: frac[4,21] + frac[5,21] + frac[10,21] >= 0.7
+ cov_210_9: frac[5,9] + frac[7,9] + frac[10,9] + frac[11,9] + frac[13,9]
+   >= 0.7
+ cov_211_38: frac[3,38] + frac[6,38] + frac[9,38] + frac[11,38]
+   + frac[12,38] + frac[13,38] + frac[14,38] >= 0.7
+ cov_212_51: frac[2,51] + frac[7,51] + frac[9,51] + frac[11,51]
+   + frac[12,51] + frac[13,51] + frac[14,51] >= 0.8
+ cov_213_47: frac[3,47] + frac[5,47] + frac[9,47] + frac[10,47]
+   + frac[12,47] + frac[13,47] + frac[14,47] >= 0.7
+ cov_214_24: frac[2,24] + frac[4,24] + frac[9,24] + frac[10,24]
+   + frac[12,24] + frac[13,24] + frac[14,24] >= 1
+ cov_215_20: frac[3,20] + frac[6,20] + frac[9,20] + frac[11,20]
+   + frac[12,20] + frac[13,20] + frac[14,20] >= 0.9
+ cov_216_48: frac[5,48] + frac[6,48] + frac[10,48] + frac[11,48]
+   + frac[13,48] >= 0.8
+ cov_217_25: frac[0,25] + frac[5,25] + frac[8,25] + frac[10,25]
+   + frac[12,25] + frac[13,25] + frac[14,25] >= 0.7
+ cov_218_4: frac[3,4] + frac[4,4] + frac[9,4] + frac[10,4] + frac[12,4]
+   + frac[13,4] + frac[14,4] >= 0.8
+ cov_219_61: frac[4,61] + frac[5,61] + frac[10,61] >= 0.7
+ cov_220_3: frac[3,3] + frac[5,3] + frac[9,3] + frac[10,3] + frac[12,3]
+   + frac[13,3] + frac[14,3] >= 0.7
+ cov_221_30: frac[2,30] + frac[4,30] + frac[9,30] + frac[10,30]
+   + frac[12,30] + frac[13,30] + frac[14,30] >= 0.9
+ cov_222_53: frac[3,53] + frac[7,53] + frac[9,53] + frac[11,53]
+   + frac[12,53] + frac[13,53] + frac[14,53] >= 0.9
+ cov_223_23: frac[0,23] + frac[1,23] + frac[8,23] >= 0.8
+ cov_224_23: frac[4,23] + frac[7,23] + frac[10,23] + frac[11,23]
+   + frac[13,23] >= 1
+ cov_225_38: frac[2,38] + frac[3,38] + frac[9,38] >= 1
+ cov_226_9: frac[4,9] + frac[6,9] + frac[10,9] + frac[11,9] + frac[13,9]
+   >= 0.7
+ cov_227_33: frac[1,33] + frac[6,33] + frac[8,33] + frac[11,33]
+   + frac[12,33] + frac[13,33] + frac[14,33] >= 0.7
+ cov_228_28: frac[5,28] + frac[7,28] + frac[10,28] + frac[11,28]
+   + frac[13,28] >= 0.7
+ cov_229_37: frac[5,37] + frac[7,37] + frac[10,37] + frac[11,37]
+   + frac[13,37] >= 1
+ cov_230_21: frac[3,21] + frac[6,21] + frac[9,21] + frac[11,21]
+   + frac[12,21] + frac[13,21] + frac[14,21] >= 0.8
+ cov_231_22: frac[2,22] + frac[7,22] + frac[9,22] + frac[11,22]
+   + frac[12,22] + frac[13,22] + frac[14,22] >= 0.9
+ cov_232_1: frac[0,1] + frac[5,1] + frac[8,1] + frac[10,1] + frac[12,1]
+   + frac[13,1] + frac[14,1] >= 0.8
+ cov_233_15: frac[1,15] + frac[3,15] + frac[8,15] + frac[9,15]
+   + frac[12,15] >= 0.9
+ cov_234_13: frac[4,13] + frac[5,13] + frac[10,13] >= 0.8
+ cov_235_0: frac[1,0] + frac[2,0] + frac[8,0] + frac[9,0] + frac[12,0]
+   >= 1
+ cov_236_13: frac[6,13] + frac[7,13] + frac[11,13] >= 0.9
+ cov_237_19: frac[1,19] + frac[7,19] + frac[8,19] + frac[11,19]
+   + frac[12,19] + frac[13,19] + frac[14,19] >= 0.9
+ cov_238_61: frac[0,61] + frac[6,61] + frac[8,61] + frac[11,61]
+   + frac[12,61] + frac[13,61] + frac[14,61] >= 0.7
+ cov_239_43: frac[0,43] + frac[7,43] + frac[8,43] + frac[11,43]
+   + frac[12,43] + frac[13,43] + frac[14,43] >= 1
+ cov_240_56: frac[2,56] + frac[5,56] + frac[9,56] + frac[10,56]
+   + frac[12,56] + frac[13,56] + frac[14,56] >= 1
+ cov_241_32: frac[1,32] + frac[3,32] + frac[8,32] + frac[9,32]
+   + frac[12,32] >= 1
+ cov_242_41: frac[4,41] + frac[6,41] + frac[10,41] + frac[11,41]
+   + frac[13,41] >= 0.9
+ cov_243_39: frac[1,39] + frac[2,39] + frac[8,39] + frac[9,39]
+   + frac[12,39] >= 1
+ cov_244_37: frac[0,37] + frac[4,37] + frac[8,37] + frac[10,37]
+   + frac[12,37] + frac[13,37] + frac[14,37] >= 1
+ cov_245_36: frac[0,36] + frac[5,36] + frac[8,36] + frac[10,36]
+   + frac[12,36] + frac[13,36] + frac[14,36] >= 0.7
+ cov_246_50: frac[1,50] + frac[3,50] + frac[8,50] + frac[9,50]
+   + frac[12,50] >= 1
+ cov_247_17: frac[2,17] + frac[5,17] + frac[9,17] + frac[10,17]
+   + frac[12,17] + frac[13,17] + frac[14,17] >= 0.9
+ cov_248_8: frac[0,8] + frac[3,8] + frac[8,8] + frac[9,8] + frac[12,8]
+   >= 0.9
+ cov_249_48: frac[1,48] + frac[7,48] + frac[8,48] + frac[11,48]
+   + frac[12,48] + frac[13,48] + frac[14,48] >= 0.7
+ cov_250_57: frac[0,57] + frac[4,57] + frac[8,57] + frac[10,57]
+   + frac[12,57] + frac[13,57] + frac[14,57] >= 0.7
+ cov_251_9: frac[1,9] + frac[4,9] + frac[8,9] + frac[10,9] + frac[12,9]
+   + frac[13,9] + frac[14,9] >= 0.8
+ cov_252_49: frac[1,49] + frac[7,49] + frac[8,49] + frac[11,49]
+   + frac[12,49] + frac[13,49] + frac[14,49] >= 0.8
+ cov_253_31: frac[3,31] + frac[7,31] + frac[9,31] + frac[11,31]
+   + frac[12,31] + frac[13,31] + frac[14,31] >= 0.9
+ cov_254_47: frac[5,47] + frac[6,47] + frac[10,47] + frac[11,47]
+   + frac[13,47] >= 0.8
+ cov_255_22: frac[2,22] + frac[6,22] + frac[9,22] + frac[11,22]
+   + frac[12,22] + frac[13,22] + frac[14,22] >= 1
+ cov_256_54: frac[0,54] + frac[1,54] + frac[8,54] >= 0.7
+ cov_257_7: frac[0,7] + frac[6,7] + frac[8,7] + frac[11,7] + frac[12,7]
+   + frac[13,7] + frac[14,7] >= 0.7
+ cov_258_30: frac[5,30] + frac[7,30] + frac[10,30] + frac[11,30]
+   + frac[13,30] >= 0.9
+ cov_259_56: frac[2,56] + frac[6,56] + frac[9,56] + frac[11,56]
+   + frac[12,56] + frac[13,56] + frac[14,56] >= 1
+ cov_260_27: frac[1,27] + frac[6,27] + frac[8,27] + frac[11,27]
+   + frac[12,27] + frac[13,27] + frac[14,27] >= 1
+ cov_261_54: frac[4,54] + frac[6,54] + frac[10,54] + frac[11,54]
+   + frac[13,54] >= 0.8
+ cov_262_3: frac[0,3] + frac[4,3] + frac[8,3] + frac[10,3] + frac[12,3]
+   + frac[13,3] + frac[14,3] >= 1
+ cov_263_16: frac[2,16] + frac[7,16] + frac[9,16] + frac[11,16]
+   + frac[12,16] + frac[13,16] + frac[14,16] >= 0.9
+ cov_264_29: frac[0,29] + frac[2,29] + frac[8,29] + frac[9,29]
+   + frac[12,29] >= 0.9
+ cov_265_40: frac[0,40] + frac[7,40] + frac[8,40] + frac[11,40]
+   + frac[12,40] + frac[13,40] + frac[14,40] >= 0.9
+ cov_266_61: frac[1,61] + frac[5,61] + frac[8,61] + frac[10,61]
+   + frac[12,61] + frac[13,61] + frac[14,61] >= 0.9
+ cov_267_14: frac[1,14] + frac[2,14] + frac[8,14] + frac[9,14]
+   + frac[12,14] >= 1
+ cov_268_61: frac[5,61] + frac[6,61] + frac[10,61] + frac[11,61]
+   + frac[13,61] >= 0.9
+ cov_269_22: frac[4,22] + frac[7,22] + frac[10,22] + frac[11,22]
+   + frac[13,22] >= 0.7
+ cov_270_11: frac[6,11] + frac[7,11] + frac[11,11] >= 0.9
+ cov_271_35: frac[2,35] + frac[6,35] + frac[9,35] + frac[11,35]
+   + frac[12,35] + frac[13,35] + frac[14,35] >= 1
+ cov_272_39: frac[6,39] + frac[7,39] + frac[11,39] >= 1
+ cov_273_58: frac[0,58] + frac[4,58] + frac[8,58] + frac[10,58]
+   + frac[12,58] + frac[13,58] + frac[14,58] >= 1
+ cov_274_25: frac[0,25] + frac[6,25] + frac[8,25] + frac[11,25]
+   + frac[12,25] + frac[13,25] + frac[14,25] >= 0.9
+ cov_275_39: frac[2,39] + frac[4,39] + frac[9,39] + frac[10,39]
+   + frac[12,39] + frac[13,39] + frac[14,39] >= 1
+ cov_276_24: frac[2,24] + frac[4,24] + frac[9,24] + frac[10,24]
+   + frac[12,24] + frac[13,24] + frac[14,24] >= 0.9
+ cov_277_25: frac[0,25] + frac[4,25] + frac[8,25] + frac[10,25]
+   + frac[12,25] + frac[13,25] + frac[14,25] >= 0.9
+ cov_278_10: frac[0,10] + frac[3,10] + frac[8,10] + frac[9,10]
+   + frac[12,10] >= 0.8
+ cov_279_42: frac[5,42] + frac[6,42] + frac[10,42] + frac[11,42]
+   + frac[13,42] >= 0.7
+ cov_280_26: frac[6,26] + frac[7,26] + frac[11,26] >= 0.7
+ cov_281_45: frac[4,45] + frac[6,45] + frac[10,45] + frac[11,45]
+   + frac[13,45] >= 0.9
+ cov_282_49: frac[5,49] + frac[6,49] + frac[10,49] + frac[11,49]
+   + frac[13,49] >= 0.8
+ cov_283_22: frac[3,22] + frac[5,22] + frac[9,22] + frac[10,22]
+   + frac[12,22] + frac[13,22] + frac[14,22] >= 0.7
+ cov_284_42: frac[0,42] + frac[6,42] + frac[8,42] + frac[11,42]
+   + frac[12,42] + frac[13,42] + frac[14,42] >= 0.8
+ cov_285_58: frac[2,58] + frac[6,58] + frac[9,58] + frac[11,58]
+   + frac[12,58] + frac[13,58] + frac[14,58] >= 0.9
+ cov_286_40: frac[2,40] + frac[4,40] + frac[9,40] + frac[10,40]
+   + frac[12,40] + frac[13,40] + frac[14,40] >= 0.8
+ cov_287_17: frac[1,17] + frac[2,17] + frac[8,17] + frac[9,17]
+   + frac[12,17] >= 1
+ cov_288_54: frac[6,54] + frac[7,54] + frac[11,54] >= 0.7
+ cov_289_24: frac[2,24] + frac[4,24] + frac[9,24] + frac[10,24]
+   + frac[12,24] + frac[13,24] + frac[14,24] >= 1
+ cov_290_61: frac[0,61] + frac[4,61] + frac[8,61] + frac[10,61]
+   + frac[12,61] + frac[13,61] + frac[14,61] >= 1
+ cov_291_40: frac[2,40] + frac[5,40] + frac[9,40] + frac[10,40]
+   + frac[12,40] + frac[13,40] + frac[14,40] >= 0.8
+ cov_292_58: frac[2,58] + frac[3,58] + frac[9,58] >= 0.8
+ cov_293_61: frac[1,61] + frac[6,61] + frac[8,61] + frac[11,61]
+   + frac[12,61] + frac[13,61] + frac[14,61] >= 0.8
+ cov_294_6: frac[0,6] + frac[6,6] + frac[8,6] + frac[11,6] + frac[12,6]
+   + frac[13,6] + frac[14,6] >= 1
+ cov_295_33: frac[2,33] + frac[4,33] + frac[9,33] + frac[10,33]
+   + frac[12,33] + frac[13,33] + frac[14,33] >= 1
+ cov_296_45: frac[3,45] + frac[7,45] + frac[9,45] + frac[11,45]
+   + frac[12,45] + frac[13,45] + frac[14,45] >= 0.9
+ cov_297_6: frac[1,6] + frac[6,6] + frac[8,6] + frac[11,6] + frac[12,6]
+   + frac[13,6] + frac[14,6] >= 0.7
+ cov_298_22: frac[1,22] + frac[7,22] + frac[8,22] + frac[11,22]
+   + frac[12,22] + frac[13,22] + frac[14,22] >= 0.8
+ cov_299_13: frac[1,13] + frac[4,13] + frac[8,13] + frac[10,13]
+   + frac[12,13] + frac[13,13] + frac[14,13] >= 1
+ cov_300_22: frac[0,22] + frac[6,22] + frac[8,22] + frac[11,22]
+   + frac[12,22] + frac[13,22] + frac[14,22] >= 0.7
+ cov_301_15: frac[2,15] + frac[7,15] + frac[9,15] + frac[11,15]
+   + frac[12,15] + frac[13,15] + frac[14,15] >= 0.9
+ cov_302_38: frac[1,38] + frac[2,38] + frac[8,38] + frac[9,38]
+   + frac[12,38] >= 1
+ cov_303_32: frac[2,32] + frac[5,32] + frac[9,32] + frac[10,32]
+   + frac[12,32] + frac[13,32] + frac[14,32] >= 0.8
+ cov_304_20: frac[1,20] + frac[3,20] + frac[8,20] + frac[9,20]
+   + frac[12,20] >= 0.9
+ cov_305_36: frac[1,36] + frac[6,36] + frac[8,36] + frac[11,36]
+   + frac[12,36] + frac[13,36] + frac[14,36] >= 0.7
+ cov_306_47: frac[3,47] + frac[7,47] + frac[9,47] + frac[11,47]
+   + frac[12,47] + frac[13,47] + frac[14,47] >= 1
+ cov_307_11: frac[5,11] + frac[7,11] + frac[10,11] + frac[11,11]
+   + frac[13,11] >= 0.8
+ cov_308_15: frac[3,15] + frac[4,15] + frac[9,15] + frac[10,15]
+   + frac[12,15] + frac[13,15] + frac[14,15] >= 0.8
+ cov_309_41: frac[3,41] + frac[4,41] + frac[9,41] + frac[10,41]
+   + frac[12,41] + frac[13,41] + frac[14,41] >= 0.9
+ cov_310_57: frac[0,57] + frac[5,57] + frac[8,57] + frac[10,57]
+   + frac[12,57] + frac[13,57] + frac[14,57] >= 0.7
+ cov_311_53: frac[0,53] + frac[2,53] + frac[8,53] + frac[9,53]
+   + frac[12,53] >= 0.9
+ cov_312_54: frac[3,54] + frac[5,54] + frac[9,54] + frac[10,54]
+   + frac[12,54] + frac[13,54] + frac[14,54] >= 0.7
+ cov_313_15: frac[1,15] + frac[2,15] + frac[8,15] + frac[9,15]
+   + frac[12,15] >= 0.9
+ cov_314_34: frac[1,34] + frac[6,34] + frac[8,34] + frac[11,34]
+   + frac[12,34] + frac[13,34] + frac[14,34] >= 1
+ cov_315_62: frac[0,62] + frac[4,62] + frac[8,62] + frac[10,62]
+   + frac[12,62] + frac[13,62] + frac[14,62] >= 0.8
+ cov_316_5: frac[0,5] + frac[4,5] + frac[8,5] + frac[10,5] + frac[12,5]
+   + frac[13,5] + frac[14,5] >= 0.8
+ cov_317_23: frac[5,23] + frac[6,23] + frac[10,23] + frac[11,23]
+   + frac[13,23] >= 0.9
+ cov_318_19: frac[5,19] + frac[7,19] + frac[10,19] + frac[11,19]
+   + frac[13,19] >= 0.8
+ cov_319_26: frac[0,26] + frac[3,26] + frac[8,26] + frac[9,26]
+   + frac[12,26] >= 0.7
+ frac_not_reqd_0_0: frac[0,0] = 0
+ mem_not_reqd_0_0: mem[0,0] = 0
+ frac_not_reqd_0_2: frac[0,2] = 0
+ mem_not_reqd_0_2: mem[0,2] = 0
+ frac_not_reqd_0_12: frac[0,12] = 0
+ mem_not_reqd_0_12: mem[0,12] = 0
+ frac_not_reqd_0_13: frac[0,13] = 0
+ mem_not_reqd_0_13: mem[0,13] = 0
+ frac_not_reqd_0_15: frac[0,15] = 0
+ mem_not_reqd_0_15: mem[0,15] = 0
+ frac_not_reqd_0_20: frac[0,20] = 0
+ mem_not_reqd_0_20: mem[0,20] = 0
+ frac_not_reqd_0_24: frac[0,24] = 0
+ mem_not_reqd_0_24: mem[0,24] = 0
+ frac_not_reqd_0_27: frac[0,27] = 0
+ mem_not_reqd_0_27: mem[0,27] = 0
+ frac_not_reqd_0_30: frac[0,30] = 0
+ mem_not_reqd_0_30: mem[0,30] = 0
+ frac_not_reqd_0_31: frac[0,31] = 0
+ mem_not_reqd_0_31: mem[0,31] = 0
+ frac_not_reqd_0_39: frac[0,39] = 0
+ mem_not_reqd_0_39: mem[0,39] = 0
+ frac_not_reqd_0_41: frac[0,41] = 0
+ mem_not_reqd_0_41: mem[0,41] = 0
+ frac_not_reqd_0_45: frac[0,45] = 0
+ mem_not_reqd_0_45: mem[0,45] = 0
+ frac_not_reqd_0_48: frac[0,48] = 0
+ mem_not_reqd_0_48: mem[0,48] = 0
+ frac_not_reqd_1_2: frac[1,2] = 0
+ mem_not_reqd_1_2: mem[1,2] = 0
+ frac_not_reqd_1_7: frac[1,7] = 0
+ mem_not_reqd_1_7: mem[1,7] = 0
+ frac_not_reqd_1_10: frac[1,10] = 0
+ mem_not_reqd_1_10: mem[1,10] = 0
+ frac_not_reqd_1_12: frac[1,12] = 0
+ mem_not_reqd_1_12: mem[1,12] = 0
+ frac_not_reqd_1_25: frac[1,25] = 0
+ mem_not_reqd_1_25: mem[1,25] = 0
+ frac_not_reqd_1_30: frac[1,30] = 0
+ mem_not_reqd_1_30: mem[1,30] = 0
+ frac_not_reqd_1_41: frac[1,41] = 0
+ mem_not_reqd_1_41: mem[1,41] = 0
+ frac_not_reqd_1_42: frac[1,42] = 0
+ mem_not_reqd_1_42: mem[1,42] = 0
+ frac_not_reqd_1_46: frac[1,46] = 0
+ mem_not_reqd_1_46: mem[1,46] = 0
+ frac_not_reqd_1_51: frac[1,51] = 0
+ mem_not_reqd_1_51: mem[1,51] = 0
+ frac_not_reqd_1_52: frac[1,52] = 0
+ mem_not_reqd_1_52: mem[1,52] = 0
+ frac_not_reqd_1_60: frac[1,60] = 0
+ mem_not_reqd_1_60: mem[1,60] = 0
+ frac_not_reqd_1_63: frac[1,63] = 0
+ mem_not_reqd_1_63: mem[1,63] = 0
+ frac_not_reqd_2_3: frac[2,3] = 0
+ mem_not_reqd_2_3: mem[2,3] = 0
+ frac_not_reqd_2_4: frac[2,4] = 0
+ mem_not_reqd_2_4: mem[2,4] = 0
+ frac_not_reqd_2_10: frac[2,10] = 0
+ mem_not_reqd_2_10: mem[2,10] = 0
+ frac_not_reqd_2_12: frac[2,12] = 0
+ mem_not_reqd_2_12: mem[2,12] = 0
+ frac_not_reqd_2_20: frac[2,20] = 0
+ mem_not_reqd_2_20: mem[2,20] = 0
+ frac_not_reqd_2_21: frac[2,21] = 0
+ mem_not_reqd_2_21: mem[2,21] = 0
+ frac_not_reqd_2_26: frac[2,26] = 0
+ mem_not_reqd_2_26: mem[2,26] = 0
+ frac_not_reqd_2_37: frac[2,37] = 0
+ mem_not_reqd_2_37: mem[2,37] = 0
+ frac_not_reqd_2_41: frac[2,41] = 0
+ mem_not_reqd_2_41: mem[2,41] = 0
+ frac_not_reqd_2_42: frac[2,42] = 0
+ mem_not_reqd_2_42: mem[2,42] = 0
+ frac_not_reqd_2_43: frac[2,43] = 0
+ mem_not_reqd_2_43: mem[2,43] = 0
+ frac_not_reqd_2_45: frac[2,45] = 0
+ mem_not_reqd_2_45: mem[2,45] = 0
+ frac_not_reqd_2_46: frac[2,46] = 0
+ mem_not_reqd_2_46: mem[2,46] = 0
+ frac_not_reqd_2_47: frac[2,47] = 0
+ mem_not_reqd_2_47: mem[2,47] = 0
+ frac_not_reqd_2_49: frac[2,49] = 0
+ mem_not_reqd_2_49: mem[2,49] = 0
+ frac_not_reqd_2_54: frac[2,54] = 0
+ mem_not_reqd_2_54: mem[2,54] = 0
+ frac_not_reqd_2_59: frac[2,59] = 0
+ mem_not_reqd_2_59: mem[2,59] = 0
+ frac_not_reqd_2_60: frac[2,60] = 0
+ mem_not_reqd_2_60: mem[2,60] = 0
+ frac_not_reqd_2_61: frac[2,61] = 0
+ mem_not_reqd_2_61: mem[2,61] = 0
+ frac_not_reqd_2_63: frac[2,63] = 0
+ mem_not_reqd_2_63: mem[2,63] = 0
+ frac_not_reqd_3_0: frac[3,0] = 0
+ mem_not_reqd_3_0: mem[3,0] = 0
+ frac_not_reqd_3_1: frac[3,1] = 0
+ mem_not_reqd_3_1: mem[3,1] = 0
+ frac_not_reqd_3_2: frac[3,2] = 0
+ mem_not_reqd_3_2: mem[3,2] = 0
+ frac_not_reqd_3_5: frac[3,5] = 0
+ mem_not_reqd_3_5: mem[3,5] = 0
+ frac_not_reqd_3_6: frac[3,6] = 0
+ mem_not_reqd_3_6: mem[3,6] = 0
+ frac_not_reqd_3_13: frac[3,13] = 0
+ mem_not_reqd_3_13: mem[3,13] = 0
+ frac_not_reqd_3_14: frac[3,14] = 0
+ mem_not_reqd_3_14: mem[3,14] = 0
+ frac_not_reqd_3_16: frac[3,16] = 0
+ mem_not_reqd_3_16: mem[3,16] = 0
+ frac_not_reqd_3_18: frac[3,18] = 0
+ mem_not_reqd_3_18: mem[3,18] = 0
+ frac_not_reqd_3_19: frac[3,19] = 0
+ mem_not_reqd_3_19: mem[3,19] = 0
+ frac_not_reqd_3_24: frac[3,24] = 0
+ mem_not_reqd_3_24: mem[3,24] = 0
+ frac_not_reqd_3_28: frac[3,28] = 0
+ mem_not_reqd_3_28: mem[3,28] = 0
+ frac_not_reqd_3_34: frac[3,34] = 0
+ mem_not_reqd_3_34: mem[3,34] = 0
+ frac_not_reqd_3_35: frac[3,35] = 0
+ mem_not_reqd_3_35: mem[3,35] = 0
+ frac_not_reqd_3_37: frac[3,37] = 0
+ mem_not_reqd_3_37: mem[3,37] = 0
+ frac_not_reqd_3_43: frac[3,43] = 0
+ mem_not_reqd_3_43: mem[3,43] = 0
+ frac_not_reqd_3_44: frac[3,44] = 0
+ mem_not_reqd_3_44: mem[3,44] = 0
+ frac_not_reqd_3_52: frac[3,52] = 0
+ mem_not_reqd_3_52: mem[3,52] = 0
+ frac_not_reqd_3_61: frac[3,61] = 0
+ mem_not_reqd_3_61: mem[3,61] = 0
+ frac_not_reqd_3_63: frac[3,63] = 0
+ mem_not_reqd_3_63: mem[3,63] = 0
+ frac_not_reqd_4_6: frac[4,6] = 0
+ mem_not_reqd_4_6: mem[4,6] = 0
+ frac_not_reqd_4_8: frac[4,8] = 0
+ mem_not_reqd_4_8: mem[4,8] = 0
+ frac_not_reqd_4_10: frac[4,10] = 0
+ mem_not_reqd_4_10: mem[4,10] = 0
+ frac_not_reqd_4_11: frac[4,11] = 0
+ mem_not_reqd_4_11: mem[4,11] = 0
+ frac_not_reqd_4_12: frac[4,12] = 0
+ mem_not_reqd_4_12: mem[4,12] = 0
+ frac_not_reqd_4_17: frac[4,17] = 0
+ mem_not_reqd_4_17: mem[4,17] = 0
+ frac_not_reqd_4_20: frac[4,20] = 0
+ mem_not_reqd_4_20: mem[4,20] = 0
+ frac_not_reqd_4_27: frac[4,27] = 0
+ mem_not_reqd_4_27: mem[4,27] = 0
+ frac_not_reqd_4_31: frac[4,31] = 0
+ mem_not_reqd_4_31: mem[4,31] = 0
+ frac_not_reqd_4_32: frac[4,32] = 0
+ mem_not_reqd_4_32: mem[4,32] = 0
+ frac_not_reqd_4_34: frac[4,34] = 0
+ mem_not_reqd_4_34: mem[4,34] = 0
+ frac_not_reqd_4_38: frac[4,38] = 0
+ mem_not_reqd_4_38: mem[4,38] = 0
+ frac_not_reqd_4_43: frac[4,43] = 0
+ mem_not_reqd_4_43: mem[4,43] = 0
+ frac_not_reqd_4_47: frac[4,47] = 0
+ mem_not_reqd_4_47: mem[4,47] = 0
+ frac_not_reqd_4_48: frac[4,48] = 0
+ mem_not_reqd_4_48: mem[4,48] = 0
+ frac_not_reqd_4_49: frac[4,49] = 0
+ mem_not_reqd_4_49: mem[4,49] = 0
+ frac_not_reqd_4_51: frac[4,51] = 0
+ mem_not_reqd_4_51: mem[4,51] = 0
+ frac_not_reqd_4_52: frac[4,52] = 0
+ mem_not_reqd_4_52: mem[4,52] = 0
+ frac_not_reqd_4_63: frac[4,63] = 0
+ mem_not_reqd_4_63: mem[4,63] = 0
+ frac_not_reqd_5_0: frac[5,0] = 0
+ mem_not_reqd_5_0: mem[5,0] = 0
+ frac_not_reqd_5_4: frac[5,4] = 0
+ mem_not_reqd_5_4: mem[5,4] = 0
+ frac_not_reqd_5_7: frac[5,7] = 0
+ mem_not_reqd_5_7: mem[5,7] = 0
+ frac_not_reqd_5_10: frac[5,10] = 0
+ mem_not_reqd_5_10: mem[5,10] = 0
+ frac_not_reqd_5_15: frac[5,15] = 0
+ mem_not_reqd_5_15: mem[5,15] = 0
+ frac_not_reqd_5_16: frac[5,16] = 0
+ mem_not_reqd_5_16: mem[5,16] = 0
+ frac_not_reqd_5_20: frac[5,20] = 0
+ mem_not_reqd_5_20: mem[5,20] = 0
+ frac_not_reqd_5_26: frac[5,26] = 0
+ mem_not_reqd_5_26: mem[5,26] = 0
+ frac_not_reqd_5_35: frac[5,35] = 0
+ mem_not_reqd_5_35: mem[5,35] = 0
+ frac_not_reqd_5_38: frac[5,38] = 0
+ mem_not_reqd_5_38: mem[5,38] = 0
+ frac_not_reqd_5_41: frac[5,41] = 0
+ mem_not_reqd_5_41: mem[5,41] = 0
+ frac_not_reqd_5_43: frac[5,43] = 0
+ mem_not_reqd_5_43: mem[5,43] = 0
+ frac_not_reqd_5_52: frac[5,52] = 0
+ mem_not_reqd_5_52: mem[5,52] = 0
+ frac_not_reqd_5_58: frac[5,58] = 0
+ mem_not_reqd_5_58: mem[5,58] = 0
+ frac_not_reqd_5_59: frac[5,59] = 0
+ mem_not_reqd_5_59: mem[5,59] = 0
+ frac_not_reqd_5_60: frac[5,60] = 0
+ mem_not_reqd_5_60: mem[5,60] = 0
+ frac_not_reqd_5_63: frac[5,63] = 0
+ mem_not_reqd_5_63: mem[5,63] = 0
+ frac_not_reqd_6_0: frac[6,0] = 0
+ mem_not_reqd_6_0: mem[6,0] = 0
+ frac_not_reqd_6_5: frac[6,5] = 0
+ mem_not_reqd_6_5: mem[6,5] = 0
+ frac_not_reqd_6_10: frac[6,10] = 0
+ mem_not_reqd_6_10: mem[6,10] = 0
+ frac_not_reqd_6_14: frac[6,14] = 0
+ mem_not_reqd_6_14: mem[6,14] = 0
+ frac_not_reqd_6_19: frac[6,19] = 0
+ mem_not_reqd_6_19: mem[6,19] = 0
+ frac_not_reqd_6_31: frac[6,31] = 0
+ mem_not_reqd_6_31: mem[6,31] = 0
+ frac_not_reqd_6_37: frac[6,37] = 0
+ mem_not_reqd_6_37: mem[6,37] = 0
+ frac_not_reqd_6_40: frac[6,40] = 0
+ mem_not_reqd_6_40: mem[6,40] = 0
+ frac_not_reqd_6_46: frac[6,46] = 0
+ mem_not_reqd_6_46: mem[6,46] = 0
+ frac_not_reqd_6_51: frac[6,51] = 0
+ mem_not_reqd_6_51: mem[6,51] = 0
+ frac_not_reqd_6_52: frac[6,52] = 0
+ mem_not_reqd_6_52: mem[6,52] = 0
+ frac_not_reqd_6_53: frac[6,53] = 0
+ mem_not_reqd_6_53: mem[6,53] = 0
+ frac_not_reqd_6_59: frac[6,59] = 0
+ mem_not_reqd_6_59: mem[6,59] = 0
+ frac_not_reqd_7_0: frac[7,0] = 0
+ mem_not_reqd_7_0: mem[7,0] = 0
+ frac_not_reqd_7_3: frac[7,3] = 0
+ mem_not_reqd_7_3: mem[7,3] = 0
+ frac_not_reqd_7_10: frac[7,10] = 0
+ mem_not_reqd_7_10: mem[7,10] = 0
+ frac_not_reqd_7_17: frac[7,17] = 0
+ mem_not_reqd_7_17: mem[7,17] = 0
+ frac_not_reqd_7_18: frac[7,18] = 0
+ mem_not_reqd_7_18: mem[7,18] = 0
+ frac_not_reqd_7_20: frac[7,20] = 0
+ mem_not_reqd_7_20: mem[7,20] = 0
+ frac_not_reqd_7_24: frac[7,24] = 0
+ mem_not_reqd_7_24: mem[7,24] = 0
+ frac_not_reqd_7_27: frac[7,27] = 0
+ mem_not_reqd_7_27: mem[7,27] = 0
+ frac_not_reqd_7_32: frac[7,32] = 0
+ mem_not_reqd_7_32: mem[7,32] = 0
+ frac_not_reqd_7_33: frac[7,33] = 0
+ mem_not_reqd_7_33: mem[7,33] = 0
+ frac_not_reqd_7_34: frac[7,34] = 0
+ mem_not_reqd_7_34: mem[7,34] = 0
+ frac_not_reqd_7_36: frac[7,36] = 0
+ mem_not_reqd_7_36: mem[7,36] = 0
+ frac_not_reqd_7_38: frac[7,38] = 0
+ mem_not_reqd_7_38: mem[7,38] = 0
+ frac_not_reqd_7_41: frac[7,41] = 0
+ mem_not_reqd_7_41: mem[7,41] = 0
+ frac_not_reqd_7_44: frac[7,44] = 0
+ mem_not_reqd_7_44: mem[7,44] = 0
+ frac_not_reqd_7_50: frac[7,50] = 0
+ mem_not_reqd_7_50: mem[7,50] = 0
+ frac_not_reqd_7_52: frac[7,52] = 0
+ mem_not_reqd_7_52: mem[7,52] = 0
+ frac_not_reqd_7_55: frac[7,55] = 0
+ mem_not_reqd_7_55: mem[7,55] = 0
+ frac_not_reqd_7_57: frac[7,57] = 0
+ mem_not_reqd_7_57: mem[7,57] = 0
+ frac_not_reqd_7_58: frac[7,58] = 0
+ mem_not_reqd_7_58: mem[7,58] = 0
+ frac_not_reqd_7_62: frac[7,62] = 0
+ mem_not_reqd_7_62: mem[7,62] = 0
+ frac_not_reqd_7_63: frac[7,63] = 0
+ mem_not_reqd_7_63: mem[7,63] = 0
+ frac_not_reqd_8_2: frac[8,2] = 0
+ mem_not_reqd_8_2: mem[8,2] = 0
+ frac_not_reqd_8_12: frac[8,12] = 0
+ mem_not_reqd_8_12: mem[8,12] = 0
+ frac_not_reqd_8_30: frac[8,30] = 0
+ mem_not_reqd_8_30: mem[8,30] = 0
+ frac_not_reqd_8_41: frac[8,41] = 0
+ mem_not_reqd_8_41: mem[8,41] = 0
+ frac_not_reqd_9_37: frac[9,37] = 0
+ mem_not_reqd_9_37: mem[9,37] = 0
+ frac_not_reqd_9_43: frac[9,43] = 0
+ mem_not_reqd_9_43: mem[9,43] = 0
+ frac_not_reqd_9_61: frac[9,61] = 0
+ mem_not_reqd_9_61: mem[9,61] = 0
+ frac_not_reqd_9_63: frac[9,63] = 0
+ mem_not_reqd_9_63: mem[9,63] = 0
+ frac_not_reqd_10_10: frac[10,10] = 0
+ mem_not_reqd_10_10: mem[10,10] = 0
+ frac_not_reqd_10_20: frac[10,20] = 0
+ mem_not_reqd_10_20: mem[10,20] = 0
+ frac_not_reqd_10_38: frac[10,38] = 0
+ mem_not_reqd_10_38: mem[10,38] = 0
+ frac_not_reqd_10_43: frac[10,43] = 0
+ mem_not_reqd_10_43: mem[10,43] = 0
+ frac_not_reqd_10_52: frac[10,52] = 0
+ mem_not_reqd_10_52: mem[10,52] = 0
+ frac_not_reqd_10_63: frac[10,63] = 0
+ mem_not_reqd_10_63: mem[10,63] = 0
+ frac_not_reqd_11_0: frac[11,0] = 0
+ mem_not_reqd_11_0: mem[11,0] = 0
+ frac_not_reqd_11_10: frac[11,10] = 0
+ mem_not_reqd_11_10: mem[11,10] = 0
+ frac_not_reqd_11_52: frac[11,52] = 0
+ mem_not_reqd_11_52: mem[11,52] = 0
+ frac_not_reqd_13_10: frac[13,10] = 0
+ mem_not_reqd_13_10: mem[13,10] = 0
+ frac_not_reqd_13_52: frac[13,52] = 0
+ mem_not_reqd_13_52: mem[13,52] = 0
+ frac_not_reqd_14_10: frac[14,10] = 0
+ mem_not_reqd_14_10: mem[14,10] = 0
+ frac_not_reqd_14_14: frac[14,14] = 0
+ mem_not_reqd_14_14: mem[14,14] = 0
+ frac_not_reqd_14_52: frac[14,52] = 0
+ mem_not_reqd_14_52: mem[14,52] = 0
  accuracy_0_sk_0[0]: - 50.9765625 frac[0,0] + mem[0,0] = 0
  accuracy_0_sk_0[1]: - 50.9765625 frac[1,0] + mem[1,0] = 0
  accuracy_0_sk_0[2]: - 50.9765625 frac[2,0] + mem[2,0] = 0
@@ -2018,6 +2350,15 @@ Subject To
  row_capacity_l1_p41: rows_tot_l1_p41 <= 48
  row_capacity_l1_p42: rows_tot_l1_p42 <= 48
  row_capacity_l2_p4: rows_tot_l2_p4 <= 48
+ tot_mem: - mem_tot_cpu1 - mem_tot_cpu2 - mem_tot_cpu3 - mem_tot_cpu4
+   - mem_tot_cpu5 - mem_tot_cpu6 - mem_tot_cpu7 - mem_tot_cpu8
+   - mem_tot_tor_p41 - mem_tot_tor_p42 - mem_tot_tor_p43 - mem_tot_tor_p44
+   - mem_tot_l1_p41 - mem_tot_l1_p42 - mem_tot_l2_p4 + tot_mem = 0
+ tot_rows: - rows_tot_cpu1 - rows_tot_cpu2 - rows_tot_cpu3 - rows_tot_cpu4
+   - rows_tot_cpu5 - rows_tot_cpu6 - rows_tot_cpu7 - rows_tot_cpu8
+   - rows_tot_tor_p41 - rows_tot_tor_p42 - rows_tot_tor_p43
+   - rows_tot_tor_p44 - rows_tot_l1_p41 - rows_tot_l1_p42 - rows_tot_l2_p4
+   + tot_rows = 0
  ns_single_cpu1: 3.5 rows_tot_cpu1 - ns_single_cpu1 + pdt_m_rows_cpu1 = 0
  capacity_cores_cpu1: cores_sketch_cpu1 + cores_dpdk_cpu1 <= 7
  ns_sketch_cpu1: - ns_single_cpu1 + pdt_nsk_c_cpu1 = 0
@@ -2131,6 +2472,966 @@ Subject To
  pdt_nsc_dpdk_cpu8: pdt_nsc_dpdk_cpu8 + [ - cores_dpdk_cpu8 * ns_dpdk_cpu8
    ] = 0
 Bounds
+ frac[0,0] <= 1
+ frac[0,1] <= 1
+ frac[0,2] <= 1
+ frac[0,3] <= 1
+ frac[0,4] <= 1
+ frac[0,5] <= 1
+ frac[0,6] <= 1
+ frac[0,7] <= 1
+ frac[0,8] <= 1
+ frac[0,9] <= 1
+ frac[0,10] <= 1
+ frac[0,11] <= 1
+ frac[0,12] <= 1
+ frac[0,13] <= 1
+ frac[0,14] <= 1
+ frac[0,15] <= 1
+ frac[0,16] <= 1
+ frac[0,17] <= 1
+ frac[0,18] <= 1
+ frac[0,19] <= 1
+ frac[0,20] <= 1
+ frac[0,21] <= 1
+ frac[0,22] <= 1
+ frac[0,23] <= 1
+ frac[0,24] <= 1
+ frac[0,25] <= 1
+ frac[0,26] <= 1
+ frac[0,27] <= 1
+ frac[0,28] <= 1
+ frac[0,29] <= 1
+ frac[0,30] <= 1
+ frac[0,31] <= 1
+ frac[0,32] <= 1
+ frac[0,33] <= 1
+ frac[0,34] <= 1
+ frac[0,35] <= 1
+ frac[0,36] <= 1
+ frac[0,37] <= 1
+ frac[0,38] <= 1
+ frac[0,39] <= 1
+ frac[0,40] <= 1
+ frac[0,41] <= 1
+ frac[0,42] <= 1
+ frac[0,43] <= 1
+ frac[0,44] <= 1
+ frac[0,45] <= 1
+ frac[0,46] <= 1
+ frac[0,47] <= 1
+ frac[0,48] <= 1
+ frac[0,49] <= 1
+ frac[0,50] <= 1
+ frac[0,51] <= 1
+ frac[0,52] <= 1
+ frac[0,53] <= 1
+ frac[0,54] <= 1
+ frac[0,55] <= 1
+ frac[0,56] <= 1
+ frac[0,57] <= 1
+ frac[0,58] <= 1
+ frac[0,59] <= 1
+ frac[0,60] <= 1
+ frac[0,61] <= 1
+ frac[0,62] <= 1
+ frac[0,63] <= 1
+ frac[1,0] <= 1
+ frac[1,1] <= 1
+ frac[1,2] <= 1
+ frac[1,3] <= 1
+ frac[1,4] <= 1
+ frac[1,5] <= 1
+ frac[1,6] <= 1
+ frac[1,7] <= 1
+ frac[1,8] <= 1
+ frac[1,9] <= 1
+ frac[1,10] <= 1
+ frac[1,11] <= 1
+ frac[1,12] <= 1
+ frac[1,13] <= 1
+ frac[1,14] <= 1
+ frac[1,15] <= 1
+ frac[1,16] <= 1
+ frac[1,17] <= 1
+ frac[1,18] <= 1
+ frac[1,19] <= 1
+ frac[1,20] <= 1
+ frac[1,21] <= 1
+ frac[1,22] <= 1
+ frac[1,23] <= 1
+ frac[1,24] <= 1
+ frac[1,25] <= 1
+ frac[1,26] <= 1
+ frac[1,27] <= 1
+ frac[1,28] <= 1
+ frac[1,29] <= 1
+ frac[1,30] <= 1
+ frac[1,31] <= 1
+ frac[1,32] <= 1
+ frac[1,33] <= 1
+ frac[1,34] <= 1
+ frac[1,35] <= 1
+ frac[1,36] <= 1
+ frac[1,37] <= 1
+ frac[1,38] <= 1
+ frac[1,39] <= 1
+ frac[1,40] <= 1
+ frac[1,41] <= 1
+ frac[1,42] <= 1
+ frac[1,43] <= 1
+ frac[1,44] <= 1
+ frac[1,45] <= 1
+ frac[1,46] <= 1
+ frac[1,47] <= 1
+ frac[1,48] <= 1
+ frac[1,49] <= 1
+ frac[1,50] <= 1
+ frac[1,51] <= 1
+ frac[1,52] <= 1
+ frac[1,53] <= 1
+ frac[1,54] <= 1
+ frac[1,55] <= 1
+ frac[1,56] <= 1
+ frac[1,57] <= 1
+ frac[1,58] <= 1
+ frac[1,59] <= 1
+ frac[1,60] <= 1
+ frac[1,61] <= 1
+ frac[1,62] <= 1
+ frac[1,63] <= 1
+ frac[2,0] <= 1
+ frac[2,1] <= 1
+ frac[2,2] <= 1
+ frac[2,3] <= 1
+ frac[2,4] <= 1
+ frac[2,5] <= 1
+ frac[2,6] <= 1
+ frac[2,7] <= 1
+ frac[2,8] <= 1
+ frac[2,9] <= 1
+ frac[2,10] <= 1
+ frac[2,11] <= 1
+ frac[2,12] <= 1
+ frac[2,13] <= 1
+ frac[2,14] <= 1
+ frac[2,15] <= 1
+ frac[2,16] <= 1
+ frac[2,17] <= 1
+ frac[2,18] <= 1
+ frac[2,19] <= 1
+ frac[2,20] <= 1
+ frac[2,21] <= 1
+ frac[2,22] <= 1
+ frac[2,23] <= 1
+ frac[2,24] <= 1
+ frac[2,25] <= 1
+ frac[2,26] <= 1
+ frac[2,27] <= 1
+ frac[2,28] <= 1
+ frac[2,29] <= 1
+ frac[2,30] <= 1
+ frac[2,31] <= 1
+ frac[2,32] <= 1
+ frac[2,33] <= 1
+ frac[2,34] <= 1
+ frac[2,35] <= 1
+ frac[2,36] <= 1
+ frac[2,37] <= 1
+ frac[2,38] <= 1
+ frac[2,39] <= 1
+ frac[2,40] <= 1
+ frac[2,41] <= 1
+ frac[2,42] <= 1
+ frac[2,43] <= 1
+ frac[2,44] <= 1
+ frac[2,45] <= 1
+ frac[2,46] <= 1
+ frac[2,47] <= 1
+ frac[2,48] <= 1
+ frac[2,49] <= 1
+ frac[2,50] <= 1
+ frac[2,51] <= 1
+ frac[2,52] <= 1
+ frac[2,53] <= 1
+ frac[2,54] <= 1
+ frac[2,55] <= 1
+ frac[2,56] <= 1
+ frac[2,57] <= 1
+ frac[2,58] <= 1
+ frac[2,59] <= 1
+ frac[2,60] <= 1
+ frac[2,61] <= 1
+ frac[2,62] <= 1
+ frac[2,63] <= 1
+ frac[3,0] <= 1
+ frac[3,1] <= 1
+ frac[3,2] <= 1
+ frac[3,3] <= 1
+ frac[3,4] <= 1
+ frac[3,5] <= 1
+ frac[3,6] <= 1
+ frac[3,7] <= 1
+ frac[3,8] <= 1
+ frac[3,9] <= 1
+ frac[3,10] <= 1
+ frac[3,11] <= 1
+ frac[3,12] <= 1
+ frac[3,13] <= 1
+ frac[3,14] <= 1
+ frac[3,15] <= 1
+ frac[3,16] <= 1
+ frac[3,17] <= 1
+ frac[3,18] <= 1
+ frac[3,19] <= 1
+ frac[3,20] <= 1
+ frac[3,21] <= 1
+ frac[3,22] <= 1
+ frac[3,23] <= 1
+ frac[3,24] <= 1
+ frac[3,25] <= 1
+ frac[3,26] <= 1
+ frac[3,27] <= 1
+ frac[3,28] <= 1
+ frac[3,29] <= 1
+ frac[3,30] <= 1
+ frac[3,31] <= 1
+ frac[3,32] <= 1
+ frac[3,33] <= 1
+ frac[3,34] <= 1
+ frac[3,35] <= 1
+ frac[3,36] <= 1
+ frac[3,37] <= 1
+ frac[3,38] <= 1
+ frac[3,39] <= 1
+ frac[3,40] <= 1
+ frac[3,41] <= 1
+ frac[3,42] <= 1
+ frac[3,43] <= 1
+ frac[3,44] <= 1
+ frac[3,45] <= 1
+ frac[3,46] <= 1
+ frac[3,47] <= 1
+ frac[3,48] <= 1
+ frac[3,49] <= 1
+ frac[3,50] <= 1
+ frac[3,51] <= 1
+ frac[3,52] <= 1
+ frac[3,53] <= 1
+ frac[3,54] <= 1
+ frac[3,55] <= 1
+ frac[3,56] <= 1
+ frac[3,57] <= 1
+ frac[3,58] <= 1
+ frac[3,59] <= 1
+ frac[3,60] <= 1
+ frac[3,61] <= 1
+ frac[3,62] <= 1
+ frac[3,63] <= 1
+ frac[4,0] <= 1
+ frac[4,1] <= 1
+ frac[4,2] <= 1
+ frac[4,3] <= 1
+ frac[4,4] <= 1
+ frac[4,5] <= 1
+ frac[4,6] <= 1
+ frac[4,7] <= 1
+ frac[4,8] <= 1
+ frac[4,9] <= 1
+ frac[4,10] <= 1
+ frac[4,11] <= 1
+ frac[4,12] <= 1
+ frac[4,13] <= 1
+ frac[4,14] <= 1
+ frac[4,15] <= 1
+ frac[4,16] <= 1
+ frac[4,17] <= 1
+ frac[4,18] <= 1
+ frac[4,19] <= 1
+ frac[4,20] <= 1
+ frac[4,21] <= 1
+ frac[4,22] <= 1
+ frac[4,23] <= 1
+ frac[4,24] <= 1
+ frac[4,25] <= 1
+ frac[4,26] <= 1
+ frac[4,27] <= 1
+ frac[4,28] <= 1
+ frac[4,29] <= 1
+ frac[4,30] <= 1
+ frac[4,31] <= 1
+ frac[4,32] <= 1
+ frac[4,33] <= 1
+ frac[4,34] <= 1
+ frac[4,35] <= 1
+ frac[4,36] <= 1
+ frac[4,37] <= 1
+ frac[4,38] <= 1
+ frac[4,39] <= 1
+ frac[4,40] <= 1
+ frac[4,41] <= 1
+ frac[4,42] <= 1
+ frac[4,43] <= 1
+ frac[4,44] <= 1
+ frac[4,45] <= 1
+ frac[4,46] <= 1
+ frac[4,47] <= 1
+ frac[4,48] <= 1
+ frac[4,49] <= 1
+ frac[4,50] <= 1
+ frac[4,51] <= 1
+ frac[4,52] <= 1
+ frac[4,53] <= 1
+ frac[4,54] <= 1
+ frac[4,55] <= 1
+ frac[4,56] <= 1
+ frac[4,57] <= 1
+ frac[4,58] <= 1
+ frac[4,59] <= 1
+ frac[4,60] <= 1
+ frac[4,61] <= 1
+ frac[4,62] <= 1
+ frac[4,63] <= 1
+ frac[5,0] <= 1
+ frac[5,1] <= 1
+ frac[5,2] <= 1
+ frac[5,3] <= 1
+ frac[5,4] <= 1
+ frac[5,5] <= 1
+ frac[5,6] <= 1
+ frac[5,7] <= 1
+ frac[5,8] <= 1
+ frac[5,9] <= 1
+ frac[5,10] <= 1
+ frac[5,11] <= 1
+ frac[5,12] <= 1
+ frac[5,13] <= 1
+ frac[5,14] <= 1
+ frac[5,15] <= 1
+ frac[5,16] <= 1
+ frac[5,17] <= 1
+ frac[5,18] <= 1
+ frac[5,19] <= 1
+ frac[5,20] <= 1
+ frac[5,21] <= 1
+ frac[5,22] <= 1
+ frac[5,23] <= 1
+ frac[5,24] <= 1
+ frac[5,25] <= 1
+ frac[5,26] <= 1
+ frac[5,27] <= 1
+ frac[5,28] <= 1
+ frac[5,29] <= 1
+ frac[5,30] <= 1
+ frac[5,31] <= 1
+ frac[5,32] <= 1
+ frac[5,33] <= 1
+ frac[5,34] <= 1
+ frac[5,35] <= 1
+ frac[5,36] <= 1
+ frac[5,37] <= 1
+ frac[5,38] <= 1
+ frac[5,39] <= 1
+ frac[5,40] <= 1
+ frac[5,41] <= 1
+ frac[5,42] <= 1
+ frac[5,43] <= 1
+ frac[5,44] <= 1
+ frac[5,45] <= 1
+ frac[5,46] <= 1
+ frac[5,47] <= 1
+ frac[5,48] <= 1
+ frac[5,49] <= 1
+ frac[5,50] <= 1
+ frac[5,51] <= 1
+ frac[5,52] <= 1
+ frac[5,53] <= 1
+ frac[5,54] <= 1
+ frac[5,55] <= 1
+ frac[5,56] <= 1
+ frac[5,57] <= 1
+ frac[5,58] <= 1
+ frac[5,59] <= 1
+ frac[5,60] <= 1
+ frac[5,61] <= 1
+ frac[5,62] <= 1
+ frac[5,63] <= 1
+ frac[6,0] <= 1
+ frac[6,1] <= 1
+ frac[6,2] <= 1
+ frac[6,3] <= 1
+ frac[6,4] <= 1
+ frac[6,5] <= 1
+ frac[6,6] <= 1
+ frac[6,7] <= 1
+ frac[6,8] <= 1
+ frac[6,9] <= 1
+ frac[6,10] <= 1
+ frac[6,11] <= 1
+ frac[6,12] <= 1
+ frac[6,13] <= 1
+ frac[6,14] <= 1
+ frac[6,15] <= 1
+ frac[6,16] <= 1
+ frac[6,17] <= 1
+ frac[6,18] <= 1
+ frac[6,19] <= 1
+ frac[6,20] <= 1
+ frac[6,21] <= 1
+ frac[6,22] <= 1
+ frac[6,23] <= 1
+ frac[6,24] <= 1
+ frac[6,25] <= 1
+ frac[6,26] <= 1
+ frac[6,27] <= 1
+ frac[6,28] <= 1
+ frac[6,29] <= 1
+ frac[6,30] <= 1
+ frac[6,31] <= 1
+ frac[6,32] <= 1
+ frac[6,33] <= 1
+ frac[6,34] <= 1
+ frac[6,35] <= 1
+ frac[6,36] <= 1
+ frac[6,37] <= 1
+ frac[6,38] <= 1
+ frac[6,39] <= 1
+ frac[6,40] <= 1
+ frac[6,41] <= 1
+ frac[6,42] <= 1
+ frac[6,43] <= 1
+ frac[6,44] <= 1
+ frac[6,45] <= 1
+ frac[6,46] <= 1
+ frac[6,47] <= 1
+ frac[6,48] <= 1
+ frac[6,49] <= 1
+ frac[6,50] <= 1
+ frac[6,51] <= 1
+ frac[6,52] <= 1
+ frac[6,53] <= 1
+ frac[6,54] <= 1
+ frac[6,55] <= 1
+ frac[6,56] <= 1
+ frac[6,57] <= 1
+ frac[6,58] <= 1
+ frac[6,59] <= 1
+ frac[6,60] <= 1
+ frac[6,61] <= 1
+ frac[6,62] <= 1
+ frac[6,63] <= 1
+ frac[7,0] <= 1
+ frac[7,1] <= 1
+ frac[7,2] <= 1
+ frac[7,3] <= 1
+ frac[7,4] <= 1
+ frac[7,5] <= 1
+ frac[7,6] <= 1
+ frac[7,7] <= 1
+ frac[7,8] <= 1
+ frac[7,9] <= 1
+ frac[7,10] <= 1
+ frac[7,11] <= 1
+ frac[7,12] <= 1
+ frac[7,13] <= 1
+ frac[7,14] <= 1
+ frac[7,15] <= 1
+ frac[7,16] <= 1
+ frac[7,17] <= 1
+ frac[7,18] <= 1
+ frac[7,19] <= 1
+ frac[7,20] <= 1
+ frac[7,21] <= 1
+ frac[7,22] <= 1
+ frac[7,23] <= 1
+ frac[7,24] <= 1
+ frac[7,25] <= 1
+ frac[7,26] <= 1
+ frac[7,27] <= 1
+ frac[7,28] <= 1
+ frac[7,29] <= 1
+ frac[7,30] <= 1
+ frac[7,31] <= 1
+ frac[7,32] <= 1
+ frac[7,33] <= 1
+ frac[7,34] <= 1
+ frac[7,35] <= 1
+ frac[7,36] <= 1
+ frac[7,37] <= 1
+ frac[7,38] <= 1
+ frac[7,39] <= 1
+ frac[7,40] <= 1
+ frac[7,41] <= 1
+ frac[7,42] <= 1
+ frac[7,43] <= 1
+ frac[7,44] <= 1
+ frac[7,45] <= 1
+ frac[7,46] <= 1
+ frac[7,47] <= 1
+ frac[7,48] <= 1
+ frac[7,49] <= 1
+ frac[7,50] <= 1
+ frac[7,51] <= 1
+ frac[7,52] <= 1
+ frac[7,53] <= 1
+ frac[7,54] <= 1
+ frac[7,55] <= 1
+ frac[7,56] <= 1
+ frac[7,57] <= 1
+ frac[7,58] <= 1
+ frac[7,59] <= 1
+ frac[7,60] <= 1
+ frac[7,61] <= 1
+ frac[7,62] <= 1
+ frac[7,63] <= 1
+ frac[8,0] <= 1
+ frac[8,1] <= 1
+ frac[8,2] <= 1
+ frac[8,3] <= 1
+ frac[8,4] <= 1
+ frac[8,5] <= 1
+ frac[8,6] <= 1
+ frac[8,7] <= 1
+ frac[8,8] <= 1
+ frac[8,9] <= 1
+ frac[8,10] <= 1
+ frac[8,11] <= 1
+ frac[8,12] <= 1
+ frac[8,13] <= 1
+ frac[8,14] <= 1
+ frac[8,15] <= 1
+ frac[8,16] <= 1
+ frac[8,17] <= 1
+ frac[8,18] <= 1
+ frac[8,19] <= 1
+ frac[8,20] <= 1
+ frac[8,21] <= 1
+ frac[8,22] <= 1
+ frac[8,23] <= 1
+ frac[8,24] <= 1
+ frac[8,25] <= 1
+ frac[8,26] <= 1
+ frac[8,27] <= 1
+ frac[8,28] <= 1
+ frac[8,29] <= 1
+ frac[8,30] <= 1
+ frac[8,31] <= 1
+ frac[8,32] <= 1
+ frac[8,33] <= 1
+ frac[8,34] <= 1
+ frac[8,35] <= 1
+ frac[8,36] <= 1
+ frac[8,37] <= 1
+ frac[8,38] <= 1
+ frac[8,39] <= 1
+ frac[8,40] <= 1
+ frac[8,41] <= 1
+ frac[8,42] <= 1
+ frac[8,43] <= 1
+ frac[8,44] <= 1
+ frac[8,45] <= 1
+ frac[8,46] <= 1
+ frac[8,47] <= 1
+ frac[8,48] <= 1
+ frac[8,49] <= 1
+ frac[8,50] <= 1
+ frac[8,51] <= 1
+ frac[8,52] <= 1
+ frac[8,53] <= 1
+ frac[8,54] <= 1
+ frac[8,55] <= 1
+ frac[8,56] <= 1
+ frac[8,57] <= 1
+ frac[8,58] <= 1
+ frac[8,59] <= 1
+ frac[8,60] <= 1
+ frac[8,61] <= 1
+ frac[8,62] <= 1
+ frac[8,63] <= 1
+ frac[9,0] <= 1
+ frac[9,1] <= 1
+ frac[9,2] <= 1
+ frac[9,3] <= 1
+ frac[9,4] <= 1
+ frac[9,5] <= 1
+ frac[9,6] <= 1
+ frac[9,7] <= 1
+ frac[9,8] <= 1
+ frac[9,9] <= 1
+ frac[9,10] <= 1
+ frac[9,11] <= 1
+ frac[9,12] <= 1
+ frac[9,13] <= 1
+ frac[9,14] <= 1
+ frac[9,15] <= 1
+ frac[9,16] <= 1
+ frac[9,17] <= 1
+ frac[9,18] <= 1
+ frac[9,19] <= 1
+ frac[9,20] <= 1
+ frac[9,21] <= 1
+ frac[9,22] <= 1
+ frac[9,23] <= 1
+ frac[9,24] <= 1
+ frac[9,25] <= 1
+ frac[9,26] <= 1
+ frac[9,27] <= 1
+ frac[9,28] <= 1
+ frac[9,29] <= 1
+ frac[9,30] <= 1
+ frac[9,31] <= 1
+ frac[9,32] <= 1
+ frac[9,33] <= 1
+ frac[9,34] <= 1
+ frac[9,35] <= 1
+ frac[9,36] <= 1
+ frac[9,37] <= 1
+ frac[9,38] <= 1
+ frac[9,39] <= 1
+ frac[9,40] <= 1
+ frac[9,41] <= 1
+ frac[9,42] <= 1
+ frac[9,43] <= 1
+ frac[9,44] <= 1
+ frac[9,45] <= 1
+ frac[9,46] <= 1
+ frac[9,47] <= 1
+ frac[9,48] <= 1
+ frac[9,49] <= 1
+ frac[9,50] <= 1
+ frac[9,51] <= 1
+ frac[9,52] <= 1
+ frac[9,53] <= 1
+ frac[9,54] <= 1
+ frac[9,55] <= 1
+ frac[9,56] <= 1
+ frac[9,57] <= 1
+ frac[9,58] <= 1
+ frac[9,59] <= 1
+ frac[9,60] <= 1
+ frac[9,61] <= 1
+ frac[9,62] <= 1
+ frac[9,63] <= 1
+ frac[10,0] <= 1
+ frac[10,1] <= 1
+ frac[10,2] <= 1
+ frac[10,3] <= 1
+ frac[10,4] <= 1
+ frac[10,5] <= 1
+ frac[10,6] <= 1
+ frac[10,7] <= 1
+ frac[10,8] <= 1
+ frac[10,9] <= 1
+ frac[10,10] <= 1
+ frac[10,11] <= 1
+ frac[10,12] <= 1
+ frac[10,13] <= 1
+ frac[10,14] <= 1
+ frac[10,15] <= 1
+ frac[10,16] <= 1
+ frac[10,17] <= 1
+ frac[10,18] <= 1
+ frac[10,19] <= 1
+ frac[10,20] <= 1
+ frac[10,21] <= 1
+ frac[10,22] <= 1
+ frac[10,23] <= 1
+ frac[10,24] <= 1
+ frac[10,25] <= 1
+ frac[10,26] <= 1
+ frac[10,27] <= 1
+ frac[10,28] <= 1
+ frac[10,29] <= 1
+ frac[10,30] <= 1
+ frac[10,31] <= 1
+ frac[10,32] <= 1
+ frac[10,33] <= 1
+ frac[10,34] <= 1
+ frac[10,35] <= 1
+ frac[10,36] <= 1
+ frac[10,37] <= 1
+ frac[10,38] <= 1
+ frac[10,39] <= 1
+ frac[10,40] <= 1
+ frac[10,41] <= 1
+ frac[10,42] <= 1
+ frac[10,43] <= 1
+ frac[10,44] <= 1
+ frac[10,45] <= 1
+ frac[10,46] <= 1
+ frac[10,47] <= 1
+ frac[10,48] <= 1
+ frac[10,49] <= 1
+ frac[10,50] <= 1
+ frac[10,51] <= 1
+ frac[10,52] <= 1
+ frac[10,53] <= 1
+ frac[10,54] <= 1
+ frac[10,55] <= 1
+ frac[10,56] <= 1
+ frac[10,57] <= 1
+ frac[10,58] <= 1
+ frac[10,59] <= 1
+ frac[10,60] <= 1
+ frac[10,61] <= 1
+ frac[10,62] <= 1
+ frac[10,63] <= 1
+ frac[11,0] <= 1
+ frac[11,1] <= 1
+ frac[11,2] <= 1
+ frac[11,3] <= 1
+ frac[11,4] <= 1
+ frac[11,5] <= 1
+ frac[11,6] <= 1
+ frac[11,7] <= 1
+ frac[11,8] <= 1
+ frac[11,9] <= 1
+ frac[11,10] <= 1
+ frac[11,11] <= 1
+ frac[11,12] <= 1
+ frac[11,13] <= 1
+ frac[11,14] <= 1
+ frac[11,15] <= 1
+ frac[11,16] <= 1
+ frac[11,17] <= 1
+ frac[11,18] <= 1
+ frac[11,19] <= 1
+ frac[11,20] <= 1
+ frac[11,21] <= 1
+ frac[11,22] <= 1
+ frac[11,23] <= 1
+ frac[11,24] <= 1
+ frac[11,25] <= 1
+ frac[11,26] <= 1
+ frac[11,27] <= 1
+ frac[11,28] <= 1
+ frac[11,29] <= 1
+ frac[11,30] <= 1
+ frac[11,31] <= 1
+ frac[11,32] <= 1
+ frac[11,33] <= 1
+ frac[11,34] <= 1
+ frac[11,35] <= 1
+ frac[11,36] <= 1
+ frac[11,37] <= 1
+ frac[11,38] <= 1
+ frac[11,39] <= 1
+ frac[11,40] <= 1
+ frac[11,41] <= 1
+ frac[11,42] <= 1
+ frac[11,43] <= 1
+ frac[11,44] <= 1
+ frac[11,45] <= 1
+ frac[11,46] <= 1
+ frac[11,47] <= 1
+ frac[11,48] <= 1
+ frac[11,49] <= 1
+ frac[11,50] <= 1
+ frac[11,51] <= 1
+ frac[11,52] <= 1
+ frac[11,53] <= 1
+ frac[11,54] <= 1
+ frac[11,55] <= 1
+ frac[11,56] <= 1
+ frac[11,57] <= 1
+ frac[11,58] <= 1
+ frac[11,59] <= 1
+ frac[11,60] <= 1
+ frac[11,61] <= 1
+ frac[11,62] <= 1
+ frac[11,63] <= 1
+ frac[12,0] <= 1
+ frac[12,1] <= 1
+ frac[12,2] <= 1
+ frac[12,3] <= 1
+ frac[12,4] <= 1
+ frac[12,5] <= 1
+ frac[12,6] <= 1
+ frac[12,7] <= 1
+ frac[12,8] <= 1
+ frac[12,9] <= 1
+ frac[12,10] <= 1
+ frac[12,11] <= 1
+ frac[12,12] <= 1
+ frac[12,13] <= 1
+ frac[12,14] <= 1
+ frac[12,15] <= 1
+ frac[12,16] <= 1
+ frac[12,17] <= 1
+ frac[12,18] <= 1
+ frac[12,19] <= 1
+ frac[12,20] <= 1
+ frac[12,21] <= 1
+ frac[12,22] <= 1
+ frac[12,23] <= 1
+ frac[12,24] <= 1
+ frac[12,25] <= 1
+ frac[12,26] <= 1
+ frac[12,27] <= 1
+ frac[12,28] <= 1
+ frac[12,29] <= 1
+ frac[12,30] <= 1
+ frac[12,31] <= 1
+ frac[12,32] <= 1
+ frac[12,33] <= 1
+ frac[12,34] <= 1
+ frac[12,35] <= 1
+ frac[12,36] <= 1
+ frac[12,37] <= 1
+ frac[12,38] <= 1
+ frac[12,39] <= 1
+ frac[12,40] <= 1
+ frac[12,41] <= 1
+ frac[12,42] <= 1
+ frac[12,43] <= 1
+ frac[12,44] <= 1
+ frac[12,45] <= 1
+ frac[12,46] <= 1
+ frac[12,47] <= 1
+ frac[12,48] <= 1
+ frac[12,49] <= 1
+ frac[12,50] <= 1
+ frac[12,51] <= 1
+ frac[12,52] <= 1
+ frac[12,53] <= 1
+ frac[12,54] <= 1
+ frac[12,55] <= 1
+ frac[12,56] <= 1
+ frac[12,57] <= 1
+ frac[12,58] <= 1
+ frac[12,59] <= 1
+ frac[12,60] <= 1
+ frac[12,61] <= 1
+ frac[12,62] <= 1
+ frac[12,63] <= 1
+ frac[13,0] <= 1
+ frac[13,1] <= 1
+ frac[13,2] <= 1
+ frac[13,3] <= 1
+ frac[13,4] <= 1
+ frac[13,5] <= 1
+ frac[13,6] <= 1
+ frac[13,7] <= 1
+ frac[13,8] <= 1
+ frac[13,9] <= 1
+ frac[13,10] <= 1
+ frac[13,11] <= 1
+ frac[13,12] <= 1
+ frac[13,13] <= 1
+ frac[13,14] <= 1
+ frac[13,15] <= 1
+ frac[13,16] <= 1
+ frac[13,17] <= 1
+ frac[13,18] <= 1
+ frac[13,19] <= 1
+ frac[13,20] <= 1
+ frac[13,21] <= 1
+ frac[13,22] <= 1
+ frac[13,23] <= 1
+ frac[13,24] <= 1
+ frac[13,25] <= 1
+ frac[13,26] <= 1
+ frac[13,27] <= 1
+ frac[13,28] <= 1
+ frac[13,29] <= 1
+ frac[13,30] <= 1
+ frac[13,31] <= 1
+ frac[13,32] <= 1
+ frac[13,33] <= 1
+ frac[13,34] <= 1
+ frac[13,35] <= 1
+ frac[13,36] <= 1
+ frac[13,37] <= 1
+ frac[13,38] <= 1
+ frac[13,39] <= 1
+ frac[13,40] <= 1
+ frac[13,41] <= 1
+ frac[13,42] <= 1
+ frac[13,43] <= 1
+ frac[13,44] <= 1
+ frac[13,45] <= 1
+ frac[13,46] <= 1
+ frac[13,47] <= 1
+ frac[13,48] <= 1
+ frac[13,49] <= 1
+ frac[13,50] <= 1
+ frac[13,51] <= 1
+ frac[13,52] <= 1
+ frac[13,53] <= 1
+ frac[13,54] <= 1
+ frac[13,55] <= 1
+ frac[13,56] <= 1
+ frac[13,57] <= 1
+ frac[13,58] <= 1
+ frac[13,59] <= 1
+ frac[13,60] <= 1
+ frac[13,61] <= 1
+ frac[13,62] <= 1
+ frac[13,63] <= 1
+ frac[14,0] <= 1
+ frac[14,1] <= 1
+ frac[14,2] <= 1
+ frac[14,3] <= 1
+ frac[14,4] <= 1
+ frac[14,5] <= 1
+ frac[14,6] <= 1
+ frac[14,7] <= 1
+ frac[14,8] <= 1
+ frac[14,9] <= 1
+ frac[14,10] <= 1
+ frac[14,11] <= 1
+ frac[14,12] <= 1
+ frac[14,13] <= 1
+ frac[14,14] <= 1
+ frac[14,15] <= 1
+ frac[14,16] <= 1
+ frac[14,17] <= 1
+ frac[14,18] <= 1
+ frac[14,19] <= 1
+ frac[14,20] <= 1
+ frac[14,21] <= 1
+ frac[14,22] <= 1
+ frac[14,23] <= 1
+ frac[14,24] <= 1
+ frac[14,25] <= 1
+ frac[14,26] <= 1
+ frac[14,27] <= 1
+ frac[14,28] <= 1
+ frac[14,29] <= 1
+ frac[14,30] <= 1
+ frac[14,31] <= 1
+ frac[14,32] <= 1
+ frac[14,33] <= 1
+ frac[14,34] <= 1
+ frac[14,35] <= 1
+ frac[14,36] <= 1
+ frac[14,37] <= 1
+ frac[14,38] <= 1
+ frac[14,39] <= 1
+ frac[14,40] <= 1
+ frac[14,41] <= 1
+ frac[14,42] <= 1
+ frac[14,43] <= 1
+ frac[14,44] <= 1
+ frac[14,45] <= 1
+ frac[14,46] <= 1
+ frac[14,47] <= 1
+ frac[14,48] <= 1
+ frac[14,49] <= 1
+ frac[14,50] <= 1
+ frac[14,51] <= 1
+ frac[14,52] <= 1
+ frac[14,53] <= 1
+ frac[14,54] <= 1
+ frac[14,55] <= 1
+ frac[14,56] <= 1
+ frac[14,57] <= 1
+ frac[14,58] <= 1
+ frac[14,59] <= 1
+ frac[14,60] <= 1
+ frac[14,61] <= 1
+ frac[14,62] <= 1
+ frac[14,63] <= 1
  mem_tot_cpu1 <= 32768
  mem_tot_cpu2 <= 32768
  mem_tot_cpu3 <= 32768
@@ -2162,170 +3463,24 @@ Bounds
  1 <= cores_dpdk_cpu7 <= 7
  cores_sketch_cpu8 <= 7
  1 <= cores_dpdk_cpu8 <= 7
-Binaries
- frac[0,0] frac[0,1] frac[0,2] frac[0,3] frac[0,4] frac[0,5] frac[0,6]
- frac[0,7] frac[0,8] frac[0,9] frac[0,10] frac[0,11] frac[0,12] frac[0,13]
- frac[0,14] frac[0,15] frac[0,16] frac[0,17] frac[0,18] frac[0,19]
- frac[0,20] frac[0,21] frac[0,22] frac[0,23] frac[0,24] frac[0,25]
- frac[0,26] frac[0,27] frac[0,28] frac[0,29] frac[0,30] frac[0,31]
- frac[0,32] frac[0,33] frac[0,34] frac[0,35] frac[0,36] frac[0,37]
- frac[0,38] frac[0,39] frac[0,40] frac[0,41] frac[0,42] frac[0,43]
- frac[0,44] frac[0,45] frac[0,46] frac[0,47] frac[0,48] frac[0,49]
- frac[0,50] frac[0,51] frac[0,52] frac[0,53] frac[0,54] frac[0,55]
- frac[0,56] frac[0,57] frac[0,58] frac[0,59] frac[0,60] frac[0,61]
- frac[0,62] frac[0,63] frac[1,0] frac[1,1] frac[1,2] frac[1,3] frac[1,4]
- frac[1,5] frac[1,6] frac[1,7] frac[1,8] frac[1,9] frac[1,10] frac[1,11]
- frac[1,12] frac[1,13] frac[1,14] frac[1,15] frac[1,16] frac[1,17]
- frac[1,18] frac[1,19] frac[1,20] frac[1,21] frac[1,22] frac[1,23]
- frac[1,24] frac[1,25] frac[1,26] frac[1,27] frac[1,28] frac[1,29]
- frac[1,30] frac[1,31] frac[1,32] frac[1,33] frac[1,34] frac[1,35]
- frac[1,36] frac[1,37] frac[1,38] frac[1,39] frac[1,40] frac[1,41]
- frac[1,42] frac[1,43] frac[1,44] frac[1,45] frac[1,46] frac[1,47]
- frac[1,48] frac[1,49] frac[1,50] frac[1,51] frac[1,52] frac[1,53]
- frac[1,54] frac[1,55] frac[1,56] frac[1,57] frac[1,58] frac[1,59]
- frac[1,60] frac[1,61] frac[1,62] frac[1,63] frac[2,0] frac[2,1] frac[2,2]
- frac[2,3] frac[2,4] frac[2,5] frac[2,6] frac[2,7] frac[2,8] frac[2,9]
- frac[2,10] frac[2,11] frac[2,12] frac[2,13] frac[2,14] frac[2,15]
- frac[2,16] frac[2,17] frac[2,18] frac[2,19] frac[2,20] frac[2,21]
- frac[2,22] frac[2,23] frac[2,24] frac[2,25] frac[2,26] frac[2,27]
- frac[2,28] frac[2,29] frac[2,30] frac[2,31] frac[2,32] frac[2,33]
- frac[2,34] frac[2,35] frac[2,36] frac[2,37] frac[2,38] frac[2,39]
- frac[2,40] frac[2,41] frac[2,42] frac[2,43] frac[2,44] frac[2,45]
- frac[2,46] frac[2,47] frac[2,48] frac[2,49] frac[2,50] frac[2,51]
- frac[2,52] frac[2,53] frac[2,54] frac[2,55] frac[2,56] frac[2,57]
- frac[2,58] frac[2,59] frac[2,60] frac[2,61] frac[2,62] frac[2,63]
- frac[3,0] frac[3,1] frac[3,2] frac[3,3] frac[3,4] frac[3,5] frac[3,6]
- frac[3,7] frac[3,8] frac[3,9] frac[3,10] frac[3,11] frac[3,12] frac[3,13]
- frac[3,14] frac[3,15] frac[3,16] frac[3,17] frac[3,18] frac[3,19]
- frac[3,20] frac[3,21] frac[3,22] frac[3,23] frac[3,24] frac[3,25]
- frac[3,26] frac[3,27] frac[3,28] frac[3,29] frac[3,30] frac[3,31]
- frac[3,32] frac[3,33] frac[3,34] frac[3,35] frac[3,36] frac[3,37]
- frac[3,38] frac[3,39] frac[3,40] frac[3,41] frac[3,42] frac[3,43]
- frac[3,44] frac[3,45] frac[3,46] frac[3,47] frac[3,48] frac[3,49]
- frac[3,50] frac[3,51] frac[3,52] frac[3,53] frac[3,54] frac[3,55]
- frac[3,56] frac[3,57] frac[3,58] frac[3,59] frac[3,60] frac[3,61]
- frac[3,62] frac[3,63] frac[4,0] frac[4,1] frac[4,2] frac[4,3] frac[4,4]
- frac[4,5] frac[4,6] frac[4,7] frac[4,8] frac[4,9] frac[4,10] frac[4,11]
- frac[4,12] frac[4,13] frac[4,14] frac[4,15] frac[4,16] frac[4,17]
- frac[4,18] frac[4,19] frac[4,20] frac[4,21] frac[4,22] frac[4,23]
- frac[4,24] frac[4,25] frac[4,26] frac[4,27] frac[4,28] frac[4,29]
- frac[4,30] frac[4,31] frac[4,32] frac[4,33] frac[4,34] frac[4,35]
- frac[4,36] frac[4,37] frac[4,38] frac[4,39] frac[4,40] frac[4,41]
- frac[4,42] frac[4,43] frac[4,44] frac[4,45] frac[4,46] frac[4,47]
- frac[4,48] frac[4,49] frac[4,50] frac[4,51] frac[4,52] frac[4,53]
- frac[4,54] frac[4,55] frac[4,56] frac[4,57] frac[4,58] frac[4,59]
- frac[4,60] frac[4,61] frac[4,62] frac[4,63] frac[5,0] frac[5,1] frac[5,2]
- frac[5,3] frac[5,4] frac[5,5] frac[5,6] frac[5,7] frac[5,8] frac[5,9]
- frac[5,10] frac[5,11] frac[5,12] frac[5,13] frac[5,14] frac[5,15]
- frac[5,16] frac[5,17] frac[5,18] frac[5,19] frac[5,20] frac[5,21]
- frac[5,22] frac[5,23] frac[5,24] frac[5,25] frac[5,26] frac[5,27]
- frac[5,28] frac[5,29] frac[5,30] frac[5,31] frac[5,32] frac[5,33]
- frac[5,34] frac[5,35] frac[5,36] frac[5,37] frac[5,38] frac[5,39]
- frac[5,40] frac[5,41] frac[5,42] frac[5,43] frac[5,44] frac[5,45]
- frac[5,46] frac[5,47] frac[5,48] frac[5,49] frac[5,50] frac[5,51]
- frac[5,52] frac[5,53] frac[5,54] frac[5,55] frac[5,56] frac[5,57]
- frac[5,58] frac[5,59] frac[5,60] frac[5,61] frac[5,62] frac[5,63]
- frac[6,0] frac[6,1] frac[6,2] frac[6,3] frac[6,4] frac[6,5] frac[6,6]
- frac[6,7] frac[6,8] frac[6,9] frac[6,10] frac[6,11] frac[6,12] frac[6,13]
- frac[6,14] frac[6,15] frac[6,16] frac[6,17] frac[6,18] frac[6,19]
- frac[6,20] frac[6,21] frac[6,22] frac[6,23] frac[6,24] frac[6,25]
- frac[6,26] frac[6,27] frac[6,28] frac[6,29] frac[6,30] frac[6,31]
- frac[6,32] frac[6,33] frac[6,34] frac[6,35] frac[6,36] frac[6,37]
- frac[6,38] frac[6,39] frac[6,40] frac[6,41] frac[6,42] frac[6,43]
- frac[6,44] frac[6,45] frac[6,46] frac[6,47] frac[6,48] frac[6,49]
- frac[6,50] frac[6,51] frac[6,52] frac[6,53] frac[6,54] frac[6,55]
- frac[6,56] frac[6,57] frac[6,58] frac[6,59] frac[6,60] frac[6,61]
- frac[6,62] frac[6,63] frac[7,0] frac[7,1] frac[7,2] frac[7,3] frac[7,4]
- frac[7,5] frac[7,6] frac[7,7] frac[7,8] frac[7,9] frac[7,10] frac[7,11]
- frac[7,12] frac[7,13] frac[7,14] frac[7,15] frac[7,16] frac[7,17]
- frac[7,18] frac[7,19] frac[7,20] frac[7,21] frac[7,22] frac[7,23]
- frac[7,24] frac[7,25] frac[7,26] frac[7,27] frac[7,28] frac[7,29]
- frac[7,30] frac[7,31] frac[7,32] frac[7,33] frac[7,34] frac[7,35]
- frac[7,36] frac[7,37] frac[7,38] frac[7,39] frac[7,40] frac[7,41]
- frac[7,42] frac[7,43] frac[7,44] frac[7,45] frac[7,46] frac[7,47]
- frac[7,48] frac[7,49] frac[7,50] frac[7,51] frac[7,52] frac[7,53]
- frac[7,54] frac[7,55] frac[7,56] frac[7,57] frac[7,58] frac[7,59]
- frac[7,60] frac[7,61] frac[7,62] frac[7,63] frac[8,0] frac[8,1] frac[8,2]
- frac[8,3] frac[8,4] frac[8,5] frac[8,6] frac[8,7] frac[8,8] frac[8,9]
- frac[8,10] frac[8,11] frac[8,12] frac[8,13] frac[8,14] frac[8,15]
- frac[8,16] frac[8,17] frac[8,18] frac[8,19] frac[8,20] frac[8,21]
- frac[8,22] frac[8,23] frac[8,24] frac[8,25] frac[8,26] frac[8,27]
- frac[8,28] frac[8,29] frac[8,30] frac[8,31] frac[8,32] frac[8,33]
- frac[8,34] frac[8,35] frac[8,36] frac[8,37] frac[8,38] frac[8,39]
- frac[8,40] frac[8,41] frac[8,42] frac[8,43] frac[8,44] frac[8,45]
- frac[8,46] frac[8,47] frac[8,48] frac[8,49] frac[8,50] frac[8,51]
- frac[8,52] frac[8,53] frac[8,54] frac[8,55] frac[8,56] frac[8,57]
- frac[8,58] frac[8,59] frac[8,60] frac[8,61] frac[8,62] frac[8,63]
- frac[9,0] frac[9,1] frac[9,2] frac[9,3] frac[9,4] frac[9,5] frac[9,6]
- frac[9,7] frac[9,8] frac[9,9] frac[9,10] frac[9,11] frac[9,12] frac[9,13]
- frac[9,14] frac[9,15] frac[9,16] frac[9,17] frac[9,18] frac[9,19]
- frac[9,20] frac[9,21] frac[9,22] frac[9,23] frac[9,24] frac[9,25]
- frac[9,26] frac[9,27] frac[9,28] frac[9,29] frac[9,30] frac[9,31]
- frac[9,32] frac[9,33] frac[9,34] frac[9,35] frac[9,36] frac[9,37]
- frac[9,38] frac[9,39] frac[9,40] frac[9,41] frac[9,42] frac[9,43]
- frac[9,44] frac[9,45] frac[9,46] frac[9,47] frac[9,48] frac[9,49]
- frac[9,50] frac[9,51] frac[9,52] frac[9,53] frac[9,54] frac[9,55]
- frac[9,56] frac[9,57] frac[9,58] frac[9,59] frac[9,60] frac[9,61]
- frac[9,62] frac[9,63] frac[10,0] frac[10,1] frac[10,2] frac[10,3]
- frac[10,4] frac[10,5] frac[10,6] frac[10,7] frac[10,8] frac[10,9]
- frac[10,10] frac[10,11] frac[10,12] frac[10,13] frac[10,14] frac[10,15]
- frac[10,16] frac[10,17] frac[10,18] frac[10,19] frac[10,20] frac[10,21]
- frac[10,22] frac[10,23] frac[10,24] frac[10,25] frac[10,26] frac[10,27]
- frac[10,28] frac[10,29] frac[10,30] frac[10,31] frac[10,32] frac[10,33]
- frac[10,34] frac[10,35] frac[10,36] frac[10,37] frac[10,38] frac[10,39]
- frac[10,40] frac[10,41] frac[10,42] frac[10,43] frac[10,44] frac[10,45]
- frac[10,46] frac[10,47] frac[10,48] frac[10,49] frac[10,50] frac[10,51]
- frac[10,52] frac[10,53] frac[10,54] frac[10,55] frac[10,56] frac[10,57]
- frac[10,58] frac[10,59] frac[10,60] frac[10,61] frac[10,62] frac[10,63]
- frac[11,0] frac[11,1] frac[11,2] frac[11,3] frac[11,4] frac[11,5]
- frac[11,6] frac[11,7] frac[11,8] frac[11,9] frac[11,10] frac[11,11]
- frac[11,12] frac[11,13] frac[11,14] frac[11,15] frac[11,16] frac[11,17]
- frac[11,18] frac[11,19] frac[11,20] frac[11,21] frac[11,22] frac[11,23]
- frac[11,24] frac[11,25] frac[11,26] frac[11,27] frac[11,28] frac[11,29]
- frac[11,30] frac[11,31] frac[11,32] frac[11,33] frac[11,34] frac[11,35]
- frac[11,36] frac[11,37] frac[11,38] frac[11,39] frac[11,40] frac[11,41]
- frac[11,42] frac[11,43] frac[11,44] frac[11,45] frac[11,46] frac[11,47]
- frac[11,48] frac[11,49] frac[11,50] frac[11,51] frac[11,52] frac[11,53]
- frac[11,54] frac[11,55] frac[11,56] frac[11,57] frac[11,58] frac[11,59]
- frac[11,60] frac[11,61] frac[11,62] frac[11,63] frac[12,0] frac[12,1]
- frac[12,2] frac[12,3] frac[12,4] frac[12,5] frac[12,6] frac[12,7]
- frac[12,8] frac[12,9] frac[12,10] frac[12,11] frac[12,12] frac[12,13]
- frac[12,14] frac[12,15] frac[12,16] frac[12,17] frac[12,18] frac[12,19]
- frac[12,20] frac[12,21] frac[12,22] frac[12,23] frac[12,24] frac[12,25]
- frac[12,26] frac[12,27] frac[12,28] frac[12,29] frac[12,30] frac[12,31]
- frac[12,32] frac[12,33] frac[12,34] frac[12,35] frac[12,36] frac[12,37]
- frac[12,38] frac[12,39] frac[12,40] frac[12,41] frac[12,42] frac[12,43]
- frac[12,44] frac[12,45] frac[12,46] frac[12,47] frac[12,48] frac[12,49]
- frac[12,50] frac[12,51] frac[12,52] frac[12,53] frac[12,54] frac[12,55]
- frac[12,56] frac[12,57] frac[12,58] frac[12,59] frac[12,60] frac[12,61]
- frac[12,62] frac[12,63] frac[13,0] frac[13,1] frac[13,2] frac[13,3]
- frac[13,4] frac[13,5] frac[13,6] frac[13,7] frac[13,8] frac[13,9]
- frac[13,10] frac[13,11] frac[13,12] frac[13,13] frac[13,14] frac[13,15]
- frac[13,16] frac[13,17] frac[13,18] frac[13,19] frac[13,20] frac[13,21]
- frac[13,22] frac[13,23] frac[13,24] frac[13,25] frac[13,26] frac[13,27]
- frac[13,28] frac[13,29] frac[13,30] frac[13,31] frac[13,32] frac[13,33]
- frac[13,34] frac[13,35] frac[13,36] frac[13,37] frac[13,38] frac[13,39]
- frac[13,40] frac[13,41] frac[13,42] frac[13,43] frac[13,44] frac[13,45]
- frac[13,46] frac[13,47] frac[13,48] frac[13,49] frac[13,50] frac[13,51]
- frac[13,52] frac[13,53] frac[13,54] frac[13,55] frac[13,56] frac[13,57]
- frac[13,58] frac[13,59] frac[13,60] frac[13,61] frac[13,62] frac[13,63]
- frac[14,0] frac[14,1] frac[14,2] frac[14,3] frac[14,4] frac[14,5]
- frac[14,6] frac[14,7] frac[14,8] frac[14,9] frac[14,10] frac[14,11]
- frac[14,12] frac[14,13] frac[14,14] frac[14,15] frac[14,16] frac[14,17]
- frac[14,18] frac[14,19] frac[14,20] frac[14,21] frac[14,22] frac[14,23]
- frac[14,24] frac[14,25] frac[14,26] frac[14,27] frac[14,28] frac[14,29]
- frac[14,30] frac[14,31] frac[14,32] frac[14,33] frac[14,34] frac[14,35]
- frac[14,36] frac[14,37] frac[14,38] frac[14,39] frac[14,40] frac[14,41]
- frac[14,42] frac[14,43] frac[14,44] frac[14,45] frac[14,46] frac[14,47]
- frac[14,48] frac[14,49] frac[14,50] frac[14,51] frac[14,52] frac[14,53]
- frac[14,54] frac[14,55] frac[14,56] frac[14,57] frac[14,58] frac[14,59]
- frac[14,60] frac[14,61] frac[14,62] frac[14,63]
 Generals
  cores_sketch_cpu1 cores_dpdk_cpu1 cores_sketch_cpu2 cores_dpdk_cpu2
  cores_sketch_cpu3 cores_dpdk_cpu3 cores_sketch_cpu4 cores_dpdk_cpu4
  cores_sketch_cpu5 cores_dpdk_cpu5 cores_sketch_cpu6 cores_dpdk_cpu6
  cores_sketch_cpu7 cores_dpdk_cpu7 cores_sketch_cpu8 cores_dpdk_cpu8
 General Constraints
+ mem_overall_p4: max_mem_p4 = MAX ( mem_tot_tor_p41 , mem_tot_tor_p42 ,
+   mem_tot_tor_p43 , mem_tot_tor_p44 , mem_tot_l1_p41 , mem_tot_l1_p42 ,
+   mem_tot_l2_p4 )
+ mem_overall_cpu: max_mem_cpu = MAX ( mem_tot_cpu1 , mem_tot_cpu2 ,
+   mem_tot_cpu3 , mem_tot_cpu4 , mem_tot_cpu5 , mem_tot_cpu6 ,
+   mem_tot_cpu7 , mem_tot_cpu8 )
+ rows_overall_p4: max_rows_p4 = MAX ( rows_tot_tor_p41 , rows_tot_tor_p42 ,
+   rows_tot_tor_p43 , rows_tot_tor_p44 , rows_tot_l1_p41 ,
+   rows_tot_l1_p42 , rows_tot_l2_p4 )
+ rows_overall_cpu: max_rows_cpu = MAX ( rows_tot_cpu1 , rows_tot_cpu2 ,
+   rows_tot_cpu3 , rows_tot_cpu4 , rows_tot_cpu5 , rows_tot_cpu6 ,
+   rows_tot_cpu7 , rows_tot_cpu8 )
  mem_access_time_cpu1: m_access_time_cpu1 = PWL ( mem_tot_cpu1 ) : (0, 0) 
   (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
   (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
