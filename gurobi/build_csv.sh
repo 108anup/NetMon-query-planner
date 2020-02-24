@@ -4,7 +4,7 @@ output_file="outputs/poster2.csv"
 params=('h' 'v' 'hv' 'n')
 param_args=('--hp' '--vp' '--hp --vp' '')
 
-cfgs=($(echo "3 9 11 12"))
+cfgs=($(echo "0 1 2"))
 
 for param in {0..3}; do
     for cfg in ${cfgs[@]}; do

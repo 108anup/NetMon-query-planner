@@ -1,25 +1,19 @@
 \ Model netmon
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.1
+  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0
    0 m_access_time_cpu_1 + 0 ns_sketch_cpu_1 + 0 ns_dpdk_cpu_1 + 0 ns_cpu_1
    + ns
-  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
+  res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
  cov_0_0: frac[0,0] + frac[1,0] >= 1
- cov_0_1: frac[0,1] + frac[1,1] >= 1
- cov_0_2: frac[0,2] + frac[1,2] >= 1
- accuracy_0_sk_0[0]: - 1.69921875 frac[0,0] + mem[0,0] = 0
- accuracy_0_sk_0[1]: - 1.69921875 frac[1,0] + mem[1,0] = 0
- accuracy_1_sk_0[0]: - 1.69921875 frac[0,1] + mem[0,1] = 0
- accuracy_1_sk_0[1]: - 1.69921875 frac[1,1] + mem[1,1] = 0
- accuracy_2_sk_0[0]: - 1.69921875 frac[0,2] + mem[0,2] = 0
- accuracy_2_sk_0[1]: - 1.69921875 frac[1,2] + mem[1,2] = 0
- mem_tot_cpu_1: - mem[0,0] - mem[0,1] - mem[0,2] + mem_tot_cpu_1 = 0
- rows_tot_cpu_1: - frac[0,0] - frac[0,1] - frac[0,2] + rows_tot_cpu_1 = 0
- mem_tot_p4_1: - mem[1,0] - mem[1,1] - mem[1,2] + mem_tot_p4_1 = 0
- rows_tot_p4_1: - frac[1,0] - frac[1,1] - frac[1,2] + rows_tot_p4_1 = 0
+ accuracy_0_sk_0[0]: - 5.09765625 frac[0,0] + mem[0,0] = 0
+ accuracy_0_sk_0[1]: - 5.09765625 frac[1,0] + mem[1,0] = 0
+ mem_tot_cpu_1: - mem[0,0] + mem_tot_cpu_1 = 0
+ rows_tot_cpu_1: - 3 frac[0,0] + rows_tot_cpu_1 = 0
+ mem_tot_p4_1: - mem[1,0] + mem_tot_p4_1 = 0
+ rows_tot_p4_1: - 3 frac[1,0] + rows_tot_p4_1 = 0
  row_capacity_cpu_1: rows_tot_cpu_1 <= 12
  row_capacity_p4_1: rows_tot_p4_1 <= 48
  ns_single_cpu_1: 3.5 rows_tot_cpu_1 - ns_single_cpu_1 + pdt_m_rows_cpu_1
@@ -44,7 +38,7 @@ Bounds
  cores_sketch_cpu_1 <= 7
  1 <= cores_dpdk_cpu_1 <= 7
 Binaries
- frac[0,0] frac[0,1] frac[0,2] frac[1,0] frac[1,1] frac[1,2]
+ frac[0,0] frac[1,0]
 Generals
  cores_sketch_cpu_1 cores_dpdk_cpu_1
 General Constraints

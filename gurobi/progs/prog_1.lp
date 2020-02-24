@@ -1,48 +1,27 @@
 \ Model netmon
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0.1
+  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0
    0 m_access_time_cpu_1 + 0 ns_sketch_cpu_1 + 0 ns_dpdk_cpu_1 + 0 ns_cpu_1
    + ns
-  res: Priority=5 Weight=1 AbsTol=0 RelTol=0.05
+  res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
  cov_0_0: frac[0,0] + frac[1,0] >= 1
  cov_0_1: frac[0,1] + frac[1,1] >= 1
  cov_0_2: frac[0,2] + frac[1,2] >= 1
- cov_0_3: frac[0,3] + frac[1,3] >= 1
- cov_0_4: frac[0,4] + frac[1,4] >= 1
- cov_0_5: frac[0,5] + frac[1,5] >= 1
- cov_0_6: frac[0,6] + frac[1,6] >= 1
- cov_0_7: frac[0,7] + frac[1,7] >= 1
- cov_0_8: frac[0,8] + frac[1,8] >= 1
- accuracy_0_sk_0[0]: - 1698.9296875 frac[0,0] + mem[0,0] = 0
- accuracy_0_sk_0[1]: - 1698.9296875 frac[1,0] + mem[1,0] = 0
- accuracy_1_sk_0[0]: - 1698.9296875 frac[0,1] + mem[0,1] = 0
- accuracy_1_sk_0[1]: - 1698.9296875 frac[1,1] + mem[1,1] = 0
- accuracy_2_sk_0[0]: - 1698.9296875 frac[0,2] + mem[0,2] = 0
- accuracy_2_sk_0[1]: - 1698.9296875 frac[1,2] + mem[1,2] = 0
- accuracy_3_sk_1[0]: - 16.9921875 frac[0,3] + mem[0,3] = 0
- accuracy_3_sk_1[1]: - 16.9921875 frac[1,3] + mem[1,3] = 0
- accuracy_4_sk_1[0]: - 16.9921875 frac[0,4] + mem[0,4] = 0
- accuracy_4_sk_1[1]: - 16.9921875 frac[1,4] + mem[1,4] = 0
- accuracy_5_sk_1[0]: - 16.9921875 frac[0,5] + mem[0,5] = 0
- accuracy_5_sk_1[1]: - 16.9921875 frac[1,5] + mem[1,5] = 0
- accuracy_6_sk_2[0]: - 16.9921875 frac[0,6] + mem[0,6] = 0
- accuracy_6_sk_2[1]: - 16.9921875 frac[1,6] + mem[1,6] = 0
- accuracy_7_sk_2[0]: - 16.9921875 frac[0,7] + mem[0,7] = 0
- accuracy_7_sk_2[1]: - 16.9921875 frac[1,7] + mem[1,7] = 0
- accuracy_8_sk_2[0]: - 16.9921875 frac[0,8] + mem[0,8] = 0
- accuracy_8_sk_2[1]: - 16.9921875 frac[1,8] + mem[1,8] = 0
- mem_tot_cpu_1: - mem[0,0] - mem[0,1] - mem[0,2] - mem[0,3] - mem[0,4]
-   - mem[0,5] - mem[0,6] - mem[0,7] - mem[0,8] + mem_tot_cpu_1 = 0
- rows_tot_cpu_1: - frac[0,0] - frac[0,1] - frac[0,2] - frac[0,3]
-   - frac[0,4] - frac[0,5] - frac[0,6] - frac[0,7] - frac[0,8]
-   + rows_tot_cpu_1 = 0
- mem_tot_p4_1: - mem[1,0] - mem[1,1] - mem[1,2] - mem[1,3] - mem[1,4]
-   - mem[1,5] - mem[1,6] - mem[1,7] - mem[1,8] + mem_tot_p4_1 = 0
- rows_tot_p4_1: - frac[1,0] - frac[1,1] - frac[1,2] - frac[1,3] - frac[1,4]
-   - frac[1,5] - frac[1,6] - frac[1,7] - frac[1,8] + rows_tot_p4_1 = 0
+ accuracy_0_sk_0[0]: - 5096.7890625 frac[0,0] + mem[0,0] = 0
+ accuracy_0_sk_0[1]: - 5096.7890625 frac[1,0] + mem[1,0] = 0
+ accuracy_1_sk_1[0]: - 50.9765625 frac[0,1] + mem[0,1] = 0
+ accuracy_1_sk_1[1]: - 50.9765625 frac[1,1] + mem[1,1] = 0
+ accuracy_2_sk_2[0]: - 50.9765625 frac[0,2] + mem[0,2] = 0
+ accuracy_2_sk_2[1]: - 50.9765625 frac[1,2] + mem[1,2] = 0
+ mem_tot_cpu_1: - mem[0,0] - mem[0,1] - mem[0,2] + mem_tot_cpu_1 = 0
+ rows_tot_cpu_1: - 3 frac[0,0] - 3 frac[0,1] - 3 frac[0,2] + rows_tot_cpu_1
+   = 0
+ mem_tot_p4_1: - mem[1,0] - mem[1,1] - mem[1,2] + mem_tot_p4_1 = 0
+ rows_tot_p4_1: - 3 frac[1,0] - 3 frac[1,1] - 3 frac[1,2] + rows_tot_p4_1
+   = 0
  row_capacity_cpu_1: rows_tot_cpu_1 <= 12
  row_capacity_p4_1: rows_tot_p4_1 <= 48
  ns_single_cpu_1: 3.5 rows_tot_cpu_1 - ns_single_cpu_1 + pdt_m_rows_cpu_1
@@ -67,9 +46,7 @@ Bounds
  cores_sketch_cpu_1 <= 7
  1 <= cores_dpdk_cpu_1 <= 7
 Binaries
- frac[0,0] frac[0,1] frac[0,2] frac[0,3] frac[0,4] frac[0,5] frac[0,6]
- frac[0,7] frac[0,8] frac[1,0] frac[1,1] frac[1,2] frac[1,3] frac[1,4]
- frac[1,5] frac[1,6] frac[1,7] frac[1,8]
+ frac[0,0] frac[0,1] frac[0,2] frac[1,0] frac[1,1] frac[1,2]
 Generals
  cores_sketch_cpu_1 cores_dpdk_cpu_1
 General Constraints
