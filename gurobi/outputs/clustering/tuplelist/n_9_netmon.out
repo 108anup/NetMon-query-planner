@@ -1,0 +1,18 @@
+Function: get_partitions took 0.00012254714965820312 seconds
+Function: map_flows_partitions took 0.0002582073211669922 seconds
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+Building model with:
+15 devices, 64 partitions and 320 flows
+Adding frac and mem vars took: 0.0047016143798828125s
+Adding coverage constraints took: 0.005525827407836914s
+Adding accuracy constraints took 0.013475656509399414s
+Adding load constraints took: 0.004851341247558594s
+Starting model update
+Model update complete, took: 0.00016307830810546875 s
+Starting model optimize
+--------------------------------------------------
+Model update took: 0.00016307830810546875 seconds
+Model optimize took: 0.023969650268554688 seconds
+--------------------------------------------------
+Function: solve took 0.0692298412322998 seconds

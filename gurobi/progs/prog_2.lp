@@ -7,9 +7,9 @@ Minimize multi-objectives
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
- cov_0_0: frac[0,0] + frac[1,0] >= 1
- accuracy_0_sk_0[0]: - 25483.8984375 frac[0,0] + mem[0,0] = 0
- accuracy_0_sk_0[1]: - 25483.8984375 frac[1,0] + mem[1,0] = 0
+ cov_0_0: frac[1,0] + frac[0,0] >= 1
+ accuracy_1_0: - 25483.8984375 frac[1,0] + mem[1,0] = 0
+ accuracy_0_0: - 25483.8984375 frac[0,0] + mem[0,0] = 0
  mem_tot_cpu_1: - mem[0,0] + mem_tot_cpu_1 = 0
  rows_tot_cpu_1: - 3 frac[0,0] + rows_tot_cpu_1 = 0
  mem_tot_p4_1: - mem[1,0] + mem_tot_p4_1 = 0
@@ -38,7 +38,7 @@ Bounds
  cores_sketch_cpu_1 <= 7
  1 <= cores_dpdk_cpu_1 <= 7
 Binaries
- frac[0,0] frac[1,0]
+ frac[1,0] frac[0,0]
 Generals
  cores_sketch_cpu_1 cores_dpdk_cpu_1
 General Constraints

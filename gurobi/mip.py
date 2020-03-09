@@ -5,7 +5,7 @@ import time
 
 import numpy as np
 import gurobipy as gp
-from gurobipy import GRB
+from gurobipy import GRB, tuplelist
 
 from cli import generate_parser
 from common import log, param, setup_logging, log_time
@@ -60,17 +60,25 @@ def solve(devices, queries, flows):
              "{} devices, {} partitions and {} flows"
              .format(numdevices, numpartitions, len(flows)))
 
+    dev_par_tuplelist = []
+    for (fnum, f) in enumerate(flows):
+        for p in f.partitions:
+            pnum = p[0]
+            dev_par_tuplelist.extend([(dnum, pnum) for dnum in f.path])
+
+    dev_par_tuplelist = tuplelist(set(dev_par_tuplelist))
+
     # Fraction of partition on device
     start = time.time()
     if(common_config.vertical_partition):
-        frac = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
+        frac = m.addVars(dev_par_tuplelist, vtype=GRB.CONTINUOUS,
                          lb=0, ub=1,
                          name='frac')
     else:
-        frac = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
+        frac = m.addVars(dev_par_tuplelist, vtype=GRB.BINARY,
                          name='frac')
     # Memory taken by partition
-    mem = m.addVars(numdevices, numpartitions, vtype=GRB.CONTINUOUS,
+    mem = m.addVars(dev_par_tuplelist, vtype=GRB.CONTINUOUS,
                     lb=0, name='mem')
     end = time.time()
     log.info("Adding frac and mem vars took: {}s".format(end - start))
@@ -96,7 +104,7 @@ def solve(devices, queries, flows):
     #     m.addConstr(frac.sum('*', pnum) == 1,
     #                 name='cov_{}'.format(pnum))
     start = time.time()
-    keep = np.zeros((numdevices, numpartitions))
+    # keep = np.zeros((numdevices, numpartitions))
     for (fnum, f) in enumerate(flows):
         for p in f.partitions:
             pnum = p[0]
@@ -104,8 +112,8 @@ def solve(devices, queries, flows):
             sum_expr = gp.quicksum(frac[dnum, pnum] for dnum in f.path)
             m.addConstr(sum_expr >= coverage_requirement,
                         name='cov_{}_{}'.format(fnum, pnum))
-            for dnum in f.path:
-                keep[dnum][pnum] = 1
+            # for dnum in f.path:
+            #     keep[dnum][pnum] = 1
     end = time.time()
     log.info("Adding coverage constraints took: {}s".format(end - start))
 
@@ -119,13 +127,20 @@ def solve(devices, queries, flows):
 
     # Accuracy constraints
     start = time.time()
-    for (pnum, p) in enumerate(partitions):
+    for (dnum, pnum) in dev_par_tuplelist:
+        p = partitions[pnum]
         sk = p.sketch
         num_rows = p.num_rows
         mm = sk.min_mem()
-        m.addConstrs((mem[dnum, pnum] == mm * frac[dnum, pnum] * num_rows
-                      for dnum in range(numdevices)),
-                     name='accuracy_{}_{}'.format(pnum, sk))
+        m.addConstr(mem[dnum, pnum] == mm * frac[dnum, pnum] * num_rows,
+                    name='accuracy_{}_{}'.format(dnum, pnum))
+    # for (pnum, p) in enumerate(partitions):
+    #     sk = p.sketch
+    #     num_rows = p.num_rows
+    #     mm = sk.min_mem()
+    #     m.addConstrs((mem[dnum, pnum] == mm * frac[dnum, pnum] * num_rows
+    #                   for dnum in range(numdevices)),
+    #                  name='accuracy_{}_{}'.format(pnum, sk))
     end = time.time()
     log.info("Adding accuracy constraints took {}s".format(end - start))
 
@@ -144,8 +159,12 @@ def solve(devices, queries, flows):
         # Row constraints
         rows_tot = m.addVar(vtype=GRB.CONTINUOUS,
                             name='rows_tot_{}'.format(d), lb=0)
-        rows_series = [p.num_rows * frac[dnum, p.partition_id]
-                       for p in partitions]
+        rows_series = []
+        for (_, pnum) in dev_par_tuplelist.select(dnum, '*'):
+            p = partitions[pnum]
+            rows_series.append(p.num_rows * frac[dnum, p.partition_id])
+        # rows_series = [p.num_rows * frac[dnum, p.partition_id]
+        #                for p in partitions]
         m.addConstr(rows_tot == gp.quicksum(rows_series),
                     name='rows_tot_{}'.format(d))
         d.rows_tot = rows_tot
@@ -158,7 +177,8 @@ def solve(devices, queries, flows):
 
     solver_cls = solver_to_class[common_config.solver]
     solver = solver_cls(devices=devices, queries=queries, flows=flows,
-                        partitions=partitions, m=m, frac=frac, mem=mem)
+                        partitions=partitions, m=m, frac=frac, mem=mem,
+                        dev_par_tuplelist=dev_par_tuplelist)
     m.setParam(GRB.Param.TimeLimit, 120)
     # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
     # m.setParam(GRB.Param.MIPGap, common_config.mipgap)
@@ -171,9 +191,11 @@ def solve(devices, queries, flows):
     m.update()
     end = time.time()
     update_time = end - start
+    log.info("Model update complete, took: {} s".format(update_time))
 
     m.write("progs/prog_{}.lp".format(cfg_num))
-    log.info("")
+    # log.info("")
+    log.info("Starting model optimize")
     start = time.time()
     m.optimize()
     end = time.time()

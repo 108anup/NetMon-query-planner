@@ -7,47 +7,47 @@ Minimize multi-objectives
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
- cov_0_0: frac[0,0] + frac[1,0] + frac[20,0] >= 1
- cov_1_0: frac[1,0] + frac[2,0] + frac[20,0] >= 1
- cov_2_0: frac[2,0] + frac[3,0] + frac[20,0] >= 1
+ cov_0_0: frac[20,0] + frac[0,0] + frac[1,0] >= 1
+ cov_1_0: frac[20,0] + frac[1,0] + frac[2,0] >= 1
+ cov_2_0: frac[3,0] + frac[20,0] + frac[2,0] >= 1
  cov_3_0: frac[3,0] + frac[4,0] + frac[20,0] >= 1
- cov_4_0: frac[4,0] + frac[5,0] + frac[20,0] >= 1
- cov_5_0: frac[5,0] + frac[6,0] + frac[20,0] >= 1
- cov_6_0: frac[6,0] + frac[7,0] + frac[20,0] >= 1
- cov_7_0: frac[7,0] + frac[8,0] + frac[20,0] >= 1
+ cov_4_0: frac[4,0] + frac[20,0] + frac[5,0] >= 1
+ cov_5_0: frac[20,0] + frac[5,0] + frac[6,0] >= 1
+ cov_6_0: frac[20,0] + frac[6,0] + frac[7,0] >= 1
+ cov_7_0: frac[8,0] + frac[20,0] + frac[7,0] >= 1
  cov_8_0: frac[8,0] + frac[9,0] + frac[20,0] >= 1
- cov_9_0: frac[9,0] + frac[10,0] + frac[20,0] >= 1
- cov_10_0: frac[10,0] + frac[11,0] + frac[20,0] >= 1
- cov_11_0: frac[11,0] + frac[12,0] + frac[20,0] >= 1
- cov_12_0: frac[12,0] + frac[13,0] + frac[20,0] >= 1
- cov_13_0: frac[13,0] + frac[14,0] + frac[20,0] >= 1
+ cov_9_0: frac[9,0] + frac[20,0] + frac[10,0] >= 1
+ cov_10_0: frac[20,0] + frac[10,0] + frac[11,0] >= 1
+ cov_11_0: frac[20,0] + frac[11,0] + frac[12,0] >= 1
+ cov_12_0: frac[20,0] + frac[12,0] + frac[13,0] >= 1
+ cov_13_0: frac[14,0] + frac[20,0] + frac[13,0] >= 1
  cov_14_0: frac[14,0] + frac[15,0] + frac[20,0] >= 1
- cov_15_0: frac[15,0] + frac[16,0] + frac[20,0] >= 1
- cov_16_0: frac[16,0] + frac[17,0] + frac[20,0] >= 1
- cov_17_0: frac[17,0] + frac[18,0] + frac[20,0] >= 1
+ cov_15_0: frac[15,0] + frac[20,0] + frac[16,0] >= 1
+ cov_16_0: frac[20,0] + frac[16,0] + frac[17,0] >= 1
+ cov_17_0: frac[18,0] + frac[20,0] + frac[17,0] >= 1
  cov_18_0: frac[18,0] + frac[19,0] + frac[20,0] >= 1
- cov_19_0: frac[0,0] + frac[19,0] + frac[20,0] >= 1
- accuracy_0_sk_0[0]: - 5096.7890625 frac[0,0] + mem[0,0] = 0
- accuracy_0_sk_0[1]: - 5096.7890625 frac[1,0] + mem[1,0] = 0
- accuracy_0_sk_0[2]: - 5096.7890625 frac[2,0] + mem[2,0] = 0
- accuracy_0_sk_0[3]: - 5096.7890625 frac[3,0] + mem[3,0] = 0
- accuracy_0_sk_0[4]: - 5096.7890625 frac[4,0] + mem[4,0] = 0
- accuracy_0_sk_0[5]: - 5096.7890625 frac[5,0] + mem[5,0] = 0
- accuracy_0_sk_0[6]: - 5096.7890625 frac[6,0] + mem[6,0] = 0
- accuracy_0_sk_0[7]: - 5096.7890625 frac[7,0] + mem[7,0] = 0
- accuracy_0_sk_0[8]: - 5096.7890625 frac[8,0] + mem[8,0] = 0
- accuracy_0_sk_0[9]: - 5096.7890625 frac[9,0] + mem[9,0] = 0
- accuracy_0_sk_0[10]: - 5096.7890625 frac[10,0] + mem[10,0] = 0
- accuracy_0_sk_0[11]: - 5096.7890625 frac[11,0] + mem[11,0] = 0
- accuracy_0_sk_0[12]: - 5096.7890625 frac[12,0] + mem[12,0] = 0
- accuracy_0_sk_0[13]: - 5096.7890625 frac[13,0] + mem[13,0] = 0
- accuracy_0_sk_0[14]: - 5096.7890625 frac[14,0] + mem[14,0] = 0
- accuracy_0_sk_0[15]: - 5096.7890625 frac[15,0] + mem[15,0] = 0
- accuracy_0_sk_0[16]: - 5096.7890625 frac[16,0] + mem[16,0] = 0
- accuracy_0_sk_0[17]: - 5096.7890625 frac[17,0] + mem[17,0] = 0
- accuracy_0_sk_0[18]: - 5096.7890625 frac[18,0] + mem[18,0] = 0
- accuracy_0_sk_0[19]: - 5096.7890625 frac[19,0] + mem[19,0] = 0
- accuracy_0_sk_0[20]: - 5096.7890625 frac[20,0] + mem[20,0] = 0
+ cov_19_0: frac[19,0] + frac[20,0] + frac[0,0] >= 1
+ accuracy_18_0: - 5096.7890625 frac[18,0] + mem[18,0] = 0
+ accuracy_3_0: - 5096.7890625 frac[3,0] + mem[3,0] = 0
+ accuracy_8_0: - 5096.7890625 frac[8,0] + mem[8,0] = 0
+ accuracy_14_0: - 5096.7890625 frac[14,0] + mem[14,0] = 0
+ accuracy_19_0: - 5096.7890625 frac[19,0] + mem[19,0] = 0
+ accuracy_4_0: - 5096.7890625 frac[4,0] + mem[4,0] = 0
+ accuracy_9_0: - 5096.7890625 frac[9,0] + mem[9,0] = 0
+ accuracy_15_0: - 5096.7890625 frac[15,0] + mem[15,0] = 0
+ accuracy_20_0: - 5096.7890625 frac[20,0] + mem[20,0] = 0
+ accuracy_5_0: - 5096.7890625 frac[5,0] + mem[5,0] = 0
+ accuracy_10_0: - 5096.7890625 frac[10,0] + mem[10,0] = 0
+ accuracy_0_0: - 5096.7890625 frac[0,0] + mem[0,0] = 0
+ accuracy_6_0: - 5096.7890625 frac[6,0] + mem[6,0] = 0
+ accuracy_11_0: - 5096.7890625 frac[11,0] + mem[11,0] = 0
+ accuracy_16_0: - 5096.7890625 frac[16,0] + mem[16,0] = 0
+ accuracy_1_0: - 5096.7890625 frac[1,0] + mem[1,0] = 0
+ accuracy_7_0: - 5096.7890625 frac[7,0] + mem[7,0] = 0
+ accuracy_12_0: - 5096.7890625 frac[12,0] + mem[12,0] = 0
+ accuracy_17_0: - 5096.7890625 frac[17,0] + mem[17,0] = 0
+ accuracy_2_0: - 5096.7890625 frac[2,0] + mem[2,0] = 0
+ accuracy_13_0: - 5096.7890625 frac[13,0] + mem[13,0] = 0
  mem_tot_p4_0: - mem[0,0] + mem_tot_p4_0 = 0
  rows_tot_p4_0: - 3 frac[0,0] + rows_tot_p4_0 = 0
  mem_tot_p4_1: - mem[1,0] + mem_tot_p4_1 = 0
@@ -190,10 +190,9 @@ Bounds
  cores_sketch_cpu_1 <= 7
  1 <= cores_dpdk_cpu_1 <= 7
 Binaries
- frac[0,0] frac[1,0] frac[2,0] frac[3,0] frac[4,0] frac[5,0] frac[6,0]
- frac[7,0] frac[8,0] frac[9,0] frac[10,0] frac[11,0] frac[12,0] frac[13,0]
- frac[14,0] frac[15,0] frac[16,0] frac[17,0] frac[18,0] frac[19,0]
- frac[20,0]
+ frac[18,0] frac[3,0] frac[8,0] frac[14,0] frac[19,0] frac[4,0] frac[9,0]
+ frac[15,0] frac[20,0] frac[5,0] frac[10,0] frac[0,0] frac[6,0] frac[11,0]
+ frac[16,0] frac[1,0] frac[7,0] frac[12,0] frac[17,0] frac[2,0] frac[13,0]
 Generals
  cores_sketch_cpu_1 cores_dpdk_cpu_1
 General Constraints

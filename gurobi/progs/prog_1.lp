@@ -9,18 +9,18 @@ Minimize multi-objectives
 Subject To
  cov_0_0: frac[0,0] + frac[1,0] >= 1
  cov_0_1: frac[0,1] + frac[1,1] >= 1
- cov_0_2: frac[0,2] + frac[1,2] >= 1
- accuracy_0_sk_0[0]: - 5096.7890625 frac[0,0] + mem[0,0] = 0
- accuracy_0_sk_0[1]: - 5096.7890625 frac[1,0] + mem[1,0] = 0
- accuracy_1_sk_1[0]: - 50.9765625 frac[0,1] + mem[0,1] = 0
- accuracy_1_sk_1[1]: - 50.9765625 frac[1,1] + mem[1,1] = 0
- accuracy_2_sk_2[0]: - 50.9765625 frac[0,2] + mem[0,2] = 0
- accuracy_2_sk_2[1]: - 50.9765625 frac[1,2] + mem[1,2] = 0
- mem_tot_cpu_1: - mem[0,0] - mem[0,1] - mem[0,2] + mem_tot_cpu_1 = 0
- rows_tot_cpu_1: - 3 frac[0,0] - 3 frac[0,1] - 3 frac[0,2] + rows_tot_cpu_1
+ cov_0_2: frac[1,2] + frac[0,2] >= 1
+ accuracy_0_1: - 50.9765625 frac[0,1] + mem[0,1] = 0
+ accuracy_1_2: - 50.9765625 frac[1,2] + mem[1,2] = 0
+ accuracy_0_0: - 5096.7890625 frac[0,0] + mem[0,0] = 0
+ accuracy_1_1: - 50.9765625 frac[1,1] + mem[1,1] = 0
+ accuracy_1_0: - 5096.7890625 frac[1,0] + mem[1,0] = 0
+ accuracy_0_2: - 50.9765625 frac[0,2] + mem[0,2] = 0
+ mem_tot_cpu_1: - mem[0,1] - mem[0,0] - mem[0,2] + mem_tot_cpu_1 = 0
+ rows_tot_cpu_1: - 3 frac[0,1] - 3 frac[0,0] - 3 frac[0,2] + rows_tot_cpu_1
    = 0
- mem_tot_p4_1: - mem[1,0] - mem[1,1] - mem[1,2] + mem_tot_p4_1 = 0
- rows_tot_p4_1: - 3 frac[1,0] - 3 frac[1,1] - 3 frac[1,2] + rows_tot_p4_1
+ mem_tot_p4_1: - mem[1,2] - mem[1,1] - mem[1,0] + mem_tot_p4_1 = 0
+ rows_tot_p4_1: - 3 frac[1,2] - 3 frac[1,1] - 3 frac[1,0] + rows_tot_p4_1
    = 0
  row_capacity_cpu_1: rows_tot_cpu_1 <= 12
  row_capacity_p4_1: rows_tot_p4_1 <= 48
@@ -46,7 +46,7 @@ Bounds
  cores_sketch_cpu_1 <= 7
  1 <= cores_dpdk_cpu_1 <= 7
 Binaries
- frac[0,0] frac[0,1] frac[0,2] frac[1,0] frac[1,1] frac[1,2]
+ frac[0,1] frac[1,2] frac[0,0] frac[1,1] frac[1,0] frac[0,2]
 Generals
  cores_sketch_cpu_1 cores_dpdk_cpu_1
 General Constraints

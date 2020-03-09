@@ -129,7 +129,7 @@ class univmon(param):
         write_vars(self.m)
 
         log_placement(self.devices, self.queries, self.flows, self.partitions,
-                      self.m, self.frac)
+                      self.m, self.frac, self.dev_par_tuplelist)
 
         if(not common_config.use_model):
             if (not aware and
@@ -259,7 +259,8 @@ class univmon(param):
             log_results(ns, res)
 
         log_placement(self.devices, self.queries, self.flows,
-                      self.partitions, self.m, self.frac)
+                      self.partitions, self.m, self.frac,
+                      self.dev_par_tuplelist)
 
 
 class univmon_greedy(univmon):
@@ -355,24 +356,24 @@ class netmon(univmon_greedy_rows):
 
     def add_constraints(self):
 
-        # Initialize with unimon_greedy_rows solution
-        super(netmon, self).add_constraints()
-        super(netmon, self).add_objective()
-        self.m.update()
-        self.m.optimize()
+        # # Initialize with unimon_greedy_rows solution
+        # super(netmon, self).add_constraints()
+        # super(netmon, self).add_objective()
+        # self.m.update()
+        # self.m.optimize()
 
-        numdevices = len(self.devices)
-        numpartitions = len(self.partitions)
+        # # numdevices = len(self.devices)
+        # # numpartitions = len(self.partitions)
 
-        for dnum in range(numdevices):
-            for pnum in range(numpartitions):
-                self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
-                self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
+        # # for dnum in range(numdevices):
+        # #     for pnum in range(numpartitions):
+        # for (dnum, pnum) in self.dev_par_tuplelist:
+        #     self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
+        #     self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
 
-        self.ns_req = 14.3
+        # self.ns_req = 14.3
         (self.ns, self.res) = add_device_model_constraints(
-            self.devices, self.queries, self.flows, self.partitions, self.m,
-            self.ns_req)
+            self.devices, self.queries, self.flows, self.partitions, self.m)
 
     def add_objective(self):
         if(hasattr(self, 'ns_req') and self.ns_req):
@@ -401,11 +402,11 @@ class netmon(univmon_greedy_rows):
             if(isinstance(d, p4)):
                 switch_memory += d.mem_tot.x
 
-        if(self.ns_req):
+        if('ns_req' in self.__dict__):
             self.ns = self.ns_req
         log_results(self.ns, self.res, used_cores, total_cpus, switch_memory)
         log_placement(self.devices, self.queries, self.flows, self.partitions,
-                      self.m, self.frac)
+                      self.m, self.frac, self.dev_par_tuplelist)
 
 
 def log_results(ns, res, used_cores=None, total_cpus=None, switch_memory=None):
@@ -430,7 +431,8 @@ def log_results(ns, res, used_cores=None, total_cpus=None, switch_memory=None):
         f.close()
 
 
-def log_placement(devices, queries, flows, partitions, m, frac):
+def log_placement(devices, queries, flows, partitions, m, frac,
+                  dev_par_tuplelist):
     for (qnum, q) in enumerate(queries):
         log.info("\nSketch ({}) ({})".format(q.sketch_id,
                                              q.details()))
@@ -441,9 +443,12 @@ def log_placement(devices, queries, flows, partitions, m, frac):
             row += 1
             par_info = ""
             total_frac = 0
-            for (dnum, d) in enumerate(devices):
-                par_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
+            for (dnum, _) in dev_par_tuplelist.select('*', pnum):
+                par_info += "({:0.3f},{})    ".format(frac[dnum, pnum].x, dnum)
                 total_frac += (frac[dnum, pnum].x)
+            # for (dnum, d) in enumerate(devices):
+            #     par_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
+            #     total_frac += (frac[dnum, pnum].x)
             log.info(par_info)
             log.info("Total frac: {:0.3f}".format(total_frac))
 

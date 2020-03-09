@@ -1,0 +1,111 @@
+Function: get_partitions took 4.76837158203125e-05 seconds
+Function: map_flows_partitions took 6.9141387939453125e-06 seconds
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+Building model with:
+2 devices, 9 partitions and 1 flows
+Adding frac and mem vars took: 0.0003311634063720703s
+Adding coverage constraints took: 0.0003120899200439453s
+Adding accuracy constraints took 0.0003998279571533203s
+Adding load constraints took: 0.0003688335418701172s
+Starting model update
+Model update complete, took: 7.748603820800781e-05 s
+Starting model optimize
+--------------------------------------------------
+Model update took: 7.748603820800781e-05 seconds
+Model optimize took: 0.0009729862213134766 seconds
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 6.25e-06, del0: 0.05, min_mem: 1698.9296875)
+Par: 1, Rows: 1
+(1.000,0)    (0.000,1)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(1.000,0)    (0.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,1)    (1.000,0)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.000625, del0: 0.05, min_mem: 16.9921875)
+Par: 1, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.05, min_mem: 16.9921875)
+Par: 1, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+
+Device (0) cpu_1:
+Rows total: 3.0
+Mem total: 5096.7890625
+
+Device (1) p4_1:
+Rows total: 6.0
+Mem total: 101.953125
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 80.0 Mpps, ns per packet: 12.5
+Resources: 74.24619007110596
+Used Cores: 7.000000000000001, Total CPUS: 1, Switch Memory: 101.953125
+
+Sketch (0) (cm: eps0: 6.25e-06, del0: 0.05, min_mem: 1698.9296875)
+Par: 1, Rows: 1
+(1.000,0)    (0.000,1)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(1.000,0)    (0.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,1)    (1.000,0)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.000625, del0: 0.05, min_mem: 16.9921875)
+Par: 1, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.000625, del0: 0.05, min_mem: 16.9921875)
+Par: 1, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 3.000000000000001, cores_dpdk: 4.0
+Rows total: 3.0
+Mem total: 5096.7890625
+Throughput: 80.0
+
+Device (1) p4_1:
+Rows total: 6.0
+Mem total: 101.953125
+Throughput: 148.0
+--------------------------------------------------
+Function: solve took 0.019252538681030273 seconds

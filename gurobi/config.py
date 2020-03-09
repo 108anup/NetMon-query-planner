@@ -355,11 +355,11 @@ config = [
 
     # 14
     # Large Topo
-    dc_topology(64, num_queries=320),
+    dc_topology(hosts_per_tors=48, num_queries=256),
 
     # 15
     # Very Large
-    dc_topology(1024, num_queries=2048)
+    dc_topology(hosts_per_tors=48, tors_per_l1s=20, l1s=10, num_queries=2048)
 ]
 
 common_config = param(

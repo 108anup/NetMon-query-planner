@@ -3,7 +3,25 @@ from gurobipy import GRB
 from common import param
 
 
-class cpu(param):
+class device(param):
+
+    def add_ns_constraints(self, m):
+        pass
+
+    def __init__(self, *args, **kwargs):
+        super(device, self).__init__(*args, **kwargs)
+
+    def res(self):
+        return 0
+
+    def __repr__(self):
+        return self.name
+
+    def resource_stats(self):
+        return ""
+
+
+class cpu(device):
     # TODO:: update with OVS
     fraction_parallel = 3/4
     static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
@@ -130,9 +148,6 @@ class cpu(param):
     def res(self):
         return 10*(self.cores_dpdk + self.cores_sketch) + self.mem_tot/self.Li_size[2]
 
-    def __repr__(self):
-        return self.name
-
     def resource_stats(self):
         if(hasattr(self, 'cores_sketch')):
             return "cores_sketch: {}, cores_dpdk: {}".format(
@@ -145,7 +160,7 @@ class cpu(param):
         self.weight = 10
 
 
-class p4(param):
+class p4(device):
 
     def add_ns_constraints(self, m, ns_req=None):
         self.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
@@ -157,12 +172,13 @@ class p4(param):
     def res(self):
         return self.rows_tot/self.meter_alus + self.mem_tot/self.sram
 
-    def __repr__(self):
-        return self.name
-
     def resource_stats(self):
         return ""
 
     def __init__(self, *args, **kwargs):
         super(p4, self).__init__(*args, **kwargs)
         self.weight = 1
+
+
+class cluster(device):
+    pass

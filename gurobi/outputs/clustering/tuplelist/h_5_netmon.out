@@ -1,0 +1,76 @@
+Function: get_partitions took 5.4836273193359375e-05 seconds
+Function: map_flows_partitions took 8.821487426757812e-06 seconds
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+Building model with:
+3 devices, 10 partitions and 1 flows
+Adding frac and mem vars took: 0.0003647804260253906s
+Adding coverage constraints took: 0.00030422210693359375s
+Adding accuracy constraints took 0.0005908012390136719s
+Adding load constraints took: 0.0005714893341064453s
+Starting model update
+Model update complete, took: 5.054473876953125e-05 s
+Starting model optimize
+--------------------------------------------------
+Model update took: 5.054473876953125e-05 seconds
+Model optimize took: 0.0473942756652832 seconds
+--------------------------------------------------
+
+Throughput: 87.50000000000001 Mpps, ns per packet: 11.428571428571427
+Resources: 133.01719967524213
+Used Cores: 13.0, Total CPUS: 2, Switch Memory: 1.09765625
+
+Sketch (0) (cm: eps0: 0.03125, del0: 0.05, min_mem: 0.33984375)
+Par: 1, Rows: 1
+(0.000,0)    (1.000,1)    (0.000,2)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,2)    (1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(1.000,1)    (0.000,2)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 3.125e-06, del0: 0.05, min_mem: 3397.85546875)
+Par: 1, Rows: 1
+(0.000,1)    (-0.000,0)    (1.000,2)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(1.000,2)    (-0.000,0)    (0.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(-0.000,2)    (0.000,1)    (1.000,0)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 1
+(1.000,1)    (-0.000,2)    (0.000,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(-0.000,0)    (0.000,2)    (1.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(-0.000,2)    (-0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 4, Rows: 1
+(-0.000,2)    (1.000,1)    (-0.000,0)    
+Total frac: 1.000
+
+Device (0) cpu_1:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 1.0
+Mem total: 3397.85546875
+Throughput: 87.50000000000001
+
+Device (1) p4_1:
+Rows total: 7.0
+Mem total: 1.09765625
+Throughput: 148.0
+
+Device (2) cpu_2:
+cores_sketch: 2.0, cores_dpdk: 5.0
+Rows total: 2.0
+Mem total: 6795.7109375
+Throughput: 87.50000000000001
+--------------------------------------------------
+Function: solve took 0.05862593650817871 seconds
