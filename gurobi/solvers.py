@@ -4,7 +4,7 @@ import sys
 import gurobipy as gp
 from gurobipy import GRB
 
-from common import log, param
+from common import log, namespace
 from config import common_config
 from devices import cpu, p4
 
@@ -107,7 +107,7 @@ def add_device_model_constraints(devices, queries, flows, partitions, m,
     return (ns, res)
 
 
-class univmon(param):
+class univmon(namespace):
     def __init__(self, *args, **kwargs):
         super(univmon, self).__init__(*args, **kwargs)
 

@@ -1,9 +1,9 @@
 from gurobipy import GRB
 
-from common import param
+from common import namespace
 
 
-class device(param):
+class device(namespace):
 
     def add_ns_constraints(self, m):
         pass
@@ -181,4 +181,6 @@ class p4(device):
 
 
 class cluster(device):
-    pass
+
+    def add_ns_constraints():
+        pass

@@ -38,7 +38,7 @@ def log_time(func):
     return wrapped_func
 
 
-class param:
+class namespace:
     def __init__(self, **kw):
         self.__dict__.update(kw)
 
@@ -75,7 +75,7 @@ def setup_logging(args):
 
 
 log = logging.getLogger('mip')
-constants = param(
+constants = namespace(
     cell_size=4,
     KB2B=1024
 )

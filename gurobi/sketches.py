@@ -1,9 +1,9 @@
 import math
 
-from common import constants, memoize, param
+from common import constants, memoize, namespace
 
 
-class cm_sketch(param):
+class cm_sketch(namespace):
 
     def __repr__(self):
         return 'sk_{}'.format(self.sketch_id)

@@ -8,7 +8,7 @@ import gurobipy as gp
 from gurobipy import GRB, tuplelist
 
 from cli import generate_parser
-from common import log, param, setup_logging, log_time
+from common import log, namespace, setup_logging, log_time
 from config import common_config, config, eps0, update_config
 from solvers import (add_device_aware_constraints, solver_to_class,
                      solver_to_num)
@@ -23,12 +23,12 @@ def get_partitions(queries):
         start_idx = len(partitions)
         if(common_config.horizontal_partition):
             q.partitions = [start_idx + r for r in range(num_rows)]
-            partitions += [param(partition_id=start_idx+r,
+            partitions += [namespace(partition_id=start_idx+r,
                                  sketch=q, num_rows=1)
                            for r in range(num_rows)]
         else:
             q.partitions = [start_idx]
-            partitions += [param(partition_id=start_idx, sketch=q,
+            partitions += [namespace(partition_id=start_idx, sketch=q,
                                  num_rows=num_rows)]
     return partitions
 
@@ -218,6 +218,10 @@ def solve(devices, queries, flows):
         solver.post_optimize()
 
     end = time.time()
+
+    # Clustering
+    # for (dnum, d) in enumerate(devices):
+
     if(not (common_config.output_file is None)):
         f = open(common_config.output_file, 'a')
         f.write("{:06f}, ".format(end - start))

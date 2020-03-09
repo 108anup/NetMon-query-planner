@@ -1,5 +1,5 @@
-from common import param
+from common import namespace
 
 
-class flow(param):
+class flow(namespace):
     pass

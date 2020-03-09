@@ -2,7 +2,7 @@ import os
 import random
 import pickle
 
-from common import param
+from common import namespace
 from devices import cpu, p4
 from flows import flow
 from sketches import cm_sketch
@@ -51,7 +51,7 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
         else:
             return (h1, tor1, l11, l2, l12, tor2, h2)
 
-    cfg = param(
+    cfg = namespace(
         devices=(
             [cpu(**beluga20, name='cpu'+str(i+1))
              for i in range(hosts)] +
@@ -135,7 +135,7 @@ config = [
 
     # 0
     # Bad for vanilla univmon (puts much load on cpu)
-    param(
+    namespace(
         # Change when devices are added / removed
         devices=[
             cpu(**beluga20, name='cpu_1'),
@@ -153,7 +153,7 @@ config = [
 
     # 1
     # Bad for univmon_greedy (puts too many rows on cpu)
-    param(
+    namespace(
         devices=[
             cpu(**beluga20, name='cpu_1'),
             p4(**tofino, name='p4_1'),
@@ -172,7 +172,7 @@ config = [
     # Bad for univmon_greedy_rows (puts too much load on P4)
     # CPU can handle extra memory load with same core budget
     # P4 memory exhausted!
-    param(
+    namespace(
         devices=[
             cpu(**beluga20, name='cpu_1'),
             p4(**tofino, name='p4_1'),
@@ -188,7 +188,7 @@ config = [
     # 3
     # small dc topology, more sketches
 
-    # Bad for netmon when very large params
+    # Bad for netmon when very large inputs
     # Partitioning helps for univmon_greedy_rows
 
     # Full sketches only netmon is better than univmon*
@@ -197,7 +197,7 @@ config = [
     # 4 - same as 0
     # P4 priority over CPU when everything fits on P4
     # Bad for univmon
-    param(
+    namespace(
         devices=[
             cpu(**beluga20, name='cpu_1'),
             p4(**tofino, name='p4_1'),
@@ -215,7 +215,7 @@ config = [
     # 5 - same as 11
     # Skewed CPU allocation
     # Bad for univmon* -> does not know within CPU
-    param(
+    namespace(
         devices=[
             cpu(**beluga20, name='cpu_1'),
             p4(**tofino, name='p4_1'),
@@ -234,7 +234,7 @@ config = [
     # 6 - same as 11
     # Skewed CPU allocation 2
     # Bad for univmon* -> does not know within CPU
-    param(
+    namespace(
         devices=[
             cpu(**beluga20, name='cpu_1'),
             p4(**tofino, name='p4_1'),
@@ -254,7 +254,7 @@ config = [
     # Use small sketches for fully utilizing CPUs
     # Bad for univmon_greedy_rows exhausts P4 memory
     # Bad for univmon_greedy_ns / vanilla univmon (put many rows on cpu)
-    param(
+    namespace(
         devices=[
             cpu(**beluga20, name='cpu_1'),
             cpu(**beluga20, name='cpu_2'),
@@ -277,7 +277,7 @@ config = [
     # 8 - sanity check
     # Multi P4
     # Nothing matters as continuous resource allocation
-    param(
+    namespace(
         devices=[
             p4(**tofino, name='p4_1'),
             p4(**tofino, name='p4_2'),
@@ -296,7 +296,7 @@ config = [
 
     # 10
     # Mem vary - CPU - P4
-    param(
+    namespace(
         devices=[
             cpu(mem_par=[1.1875, 32, 1448.15625,
                          5792.625, 32768.0, 440871.90625],
@@ -314,7 +314,7 @@ config = [
 
     # 11
     # Pressure at network core
-    param(
+    namespace(
         devices=(
             [cpu(**beluga20, name='cpu_{}'.format(i)) for i in range(20)] +
             [p4(**tofino, name='p4_1')]
@@ -328,7 +328,7 @@ config = [
 
     # 12
     # Pressure at network core, core is now cpu
-    param(
+    namespace(
         devices=(
             [p4(**tofino, name='p4_{}'.format(i)) for i in range(20)] +
             [cpu(**beluga20, name='cpu_1')]
@@ -342,7 +342,7 @@ config = [
     # 13
     # Pressure at network core, core is now cpu
     # small sketches
-    param(
+    namespace(
         devices=(
             [p4(**tofino, name='p4_{}'.format(i)) for i in range(20)] +
             [cpu(**beluga20, name='cpu_1')]
@@ -362,7 +362,7 @@ config = [
     dc_topology(hosts_per_tors=48, tors_per_l1s=20, l1s=10, num_queries=2048)
 ]
 
-common_config = param(
+common_config = namespace(
     tolerance=0.999,
     ns_tol=0,
     res_tol=0,
