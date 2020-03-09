@@ -3,16 +3,6 @@ import logging
 import sys
 
 
-class InfoFilter(logging.Filter):
-    def filter(self, rec):
-        return rec.levelno == logging.INFO
-
-
-class DebugFilter(logging.Filter):
-    def filter(self, rec):
-        return rec.levelno == logging.DEBUG
-
-
 def memoize(func):
     cache = dict()
 
@@ -49,6 +39,16 @@ class namespace:
             raise AttributeError("Not found key: {}".format(attr))
 
 
+class InfoFilter(logging.Filter):
+    def filter(self, rec):
+        return rec.levelno == logging.INFO
+
+
+class DebugFilter(logging.Filter):
+    def filter(self, rec):
+        return rec.levelno == logging.DEBUG
+
+
 def setup_logging(args):
     if(args.verbose >= 2):
         log.setLevel(logging.DEBUG)
@@ -75,6 +75,7 @@ def setup_logging(args):
 
 
 log = logging.getLogger('mip')
+
 constants = namespace(
     cell_size=4,
     KB2B=1024

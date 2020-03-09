@@ -107,9 +107,13 @@ def add_device_model_constraints(devices, queries, flows, partitions, m,
     return (ns, res)
 
 
-class univmon(namespace):
-    def __init__(self, *args, **kwargs):
-        super(univmon, self).__init__(*args, **kwargs)
+class mip(namespace):
+
+    def solve(self):
+        self.m = gp.Model(self.__name__)
+
+
+class univmon(mip):
 
     def add_constraints(self):
         mem_series = [d.mem_tot for d in self.devices]
