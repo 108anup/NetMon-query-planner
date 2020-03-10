@@ -1,11 +1,12 @@
-from argparse import ArgumentParser
+from argparse import ArgumentParser, SUPPRESS
 
 from solvers import solver_names
 
 
 def generate_parser():
     p = ArgumentParser(
-        description="Control"
+        description="Control",
+        argument_default=SUPPRESS
     )
 
     p.add_argument(
@@ -16,10 +17,10 @@ def generate_parser():
     )
 
     p.add_argument(
-        '-c', '--cfg_num',
+        '-i', '--input_num',
         action='store',
         type=int,
-        help='Which configuration to use'
+        help='Which input to use'
     )
 
     p.add_argument(
@@ -48,8 +49,13 @@ def generate_parser():
     )
 
     p.add_argument(
-        '--config-file',
+        '-c', '--config-file',
         action='append'
+    )
+
+    p.add_argument(
+        '-p', '--prog-dir',
+        action='store'
     )
 
     return p

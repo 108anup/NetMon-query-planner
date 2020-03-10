@@ -1,9 +1,9 @@
 import sys
-import time
 
 from cli import generate_parser
 from common import Namespace, setup_logging, log_time
-from config import common_config, config
+from config import common_config
+from input import input_generator
 from solvers import solver_to_class
 
 
@@ -42,24 +42,24 @@ def solve(devices, queries, flows):
 
     partitions = get_partitions(queries)
     map_flows_partitions(flows, queries)
+
+    # Clustering
+    # for (dnum, d) in enumerate(self.devices):
+
     Solver = solver_to_class[common_config.solver]
     solver = Solver(devices=devices, flows=flows,
                     partitions=partitions, queries=queries)
     solver.solve()
 
-    # Clustering
-    # for (dnum, d) in enumerate(self.devices):
-
 
 parser = generate_parser()
 args = parser.parse_args(sys.argv[1:])
-if(args.config_file):
+if('config_file' in args.__dict__):
     for fpath in args.config_file:
-        common_config.update(fpath)
+        common_config.load_config_file(fpath)
 common_config.update(args)
-
 setup_logging(args)
 
-cfg_num = common_config.cfg_num
-cfg = config[cfg_num]
-solve(cfg.devices, cfg.queries, cfg.flows)
+input_num = common_config.input_num
+inp = input_generator[input_num]
+solve(inp.devices, inp.queries, inp.flows)

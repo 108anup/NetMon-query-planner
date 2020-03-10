@@ -1,26 +1,25 @@
 #!/bin/bash
 
-output_file="outputs/clustering/tuplelist/tuplelist.csv"
+output_file="outputs/clustering/modular/modular.csv"
 params=('h' 'v' 'hv' 'n')
 param_args=('--hp' '--vp' '--hp --vp' '')
 
-cfgs=($(echo "3"))
-cfgs=({0..13})
+#inps=($(echo "3"))
+inps=({0..13})
 
 for param in {0..3}; do
-    for cfg in ${cfgs[@]}; do
-        echo -n "${params[$param]}, ${cfg}, " >> $output_file
-        args="-c ${cfg} -o ${output_file} -v ${param_args[$param]}"
-        python mip.py -s univmon $args \
-            | tee "outputs/clustering/tuplelist/${params[$param]}_${cfg}_univmon.out"
-        python mip.py -s univmon_greedy $args \
-            | tee "outputs/clustering/tuplelist/${params[$param]}_${cfg}_univmon_greedy.out"
-        python mip.py -s univmon_greedy_rows $args \
-            | tee "outputs/clustering/tuplelist/${params[$param]}_${cfg}_univmon_greedy_rows.out"
-        python mip.py -s netmon $args \
-            | tee "outputs/clustering/tuplelist/${params[$param]}_${cfg}_netmon.out"
+    for inp in ${inps[@]}; do
+        echo -n "${params[$param]}, ${inp}, " >> $output_file
+        args="-i ${inp} -o ${output_file} -v ${param_args[$param]} --mipout"
+        python main.py -s Univmon $args \
+            | tee "outputs/clustering/modular/${params[$param]}_${inp}_univmon.out"
+        python main.py -s UnivmonGreedy $args \
+            | tee "outputs/clustering/modular/${params[$param]}_${inp}_univmon_greedy.out"
+        python main.py -s UnivmonGreedyRows $args \
+            | tee "outputs/clustering/modular/${params[$param]}_${inp}_univmon_greedy_rows.out"
+        python main.py -s Netmon $args \
+            | tee "outputs/clustering/modular/${params[$param]}_${inp}_netmon.out"
         echo "" >> $output_file
-        rm pickle_objs/cfg-*
+        rm pickle_objs/inp-*
     done
-
 done

@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 import time
@@ -272,7 +273,8 @@ class MIP(Namespace):
         if(not isinstance(self, Univmon)):
             self.add_device_aware_constraints()
 
-        self.m.setParam(GRB.Param.TimeLimit, common_config.time_limit)
+        if(common_config.time_limit):
+            self.m.setParam(GRB.Param.TimeLimit, common_config.time_limit)
         # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
         # m.setParam(GRB.Param.MIPGap, common_config.mipgap)
 
@@ -288,8 +290,10 @@ class MIP(Namespace):
         update_time = end - start
         log.info("Model update took: {} s".format(update_time))
         log.info("-"*50)
-
-        self.m.write("progs/prog_{}.lp".format(common_config.cfg_num))
+        if(common_config.prog_dir):
+            self.m.write(os.path.join(
+                common_config.prog_dir,
+                "prog_{}.lp".format(common_config.input_num)))
 
         log.info("Starting model optimize")
         start = time.time()
@@ -435,8 +439,10 @@ class Univmon(MIP):
 
             if(self.m.Status == GRB.INFEASIBLE):
                 self.m.computeIIS()
-                self.m.write("progs/infeasible_placement_{}.ilp"
-                             "".format(common_config.cfg_num))
+                if(common_config.prog_dir):
+                    self.m.write(os.path.join(
+                        common_config.prog_dir, "infeasible_placement_{}.ilp"
+                        "".format(common_config.cfg_num)))
                 return
 
             # optimal_ns = ns.x * (1 + common_config.ns_tol)
