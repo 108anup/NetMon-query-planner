@@ -1,7 +1,0 @@
-tolerance: 0.999 # used for ceiling
-ns_tol: 0
-res_tol: 0
-use_model: False
-ftol: 6e-5
-# mipgap: 0.01
-mipgapabs: 10

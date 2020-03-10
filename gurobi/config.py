@@ -3,8 +3,8 @@ import random
 import pickle
 import yaml
 
-from common import namespace
-from devices import cpu, p4
+from common import Namespace
+from devices import CPU, P4
 from flows import flow
 from sketches import cm_sketch
 
@@ -52,17 +52,17 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
         else:
             return (h1, tor1, l11, l2, l12, tor2, h2)
 
-    cfg = namespace(
+    cfg = Namespace(
         devices=(
-            [cpu(**beluga20, name='cpu'+str(i+1))
+            [CPU(**beluga20, name='CPU'+str(i+1))
              for i in range(hosts)] +
-            [p4(**tofino, name='tor_p4'+str(i+1))
+            [P4(**tofino, name='tor_P4'+str(i+1))
              for i in range(int(tors))] +
-            # [cpu(**beluga20, name='tor_cpu'+str(i+1))
+            # [CPU(**beluga20, name='tor_CPU'+str(i+1))
             #  for i in range(int(tors/2))] +
-            [p4(**tofino, name='l1_p4'+str(i+1))
+            [P4(**tofino, name='l1_P4'+str(i+1))
              for i in range(l1s)] +
-            [p4(**tofino, name='l2_p4')]
+            [P4(**tofino, name='l2_P4')]
         ),
         queries=(
             [cm_sketch(eps0=eps, del0=del0) for i in range(num_queries)]
@@ -135,12 +135,12 @@ tofino = {
 config = [
 
     # 0
-    # Bad for vanilla univmon (puts much load on cpu)
-    namespace(
+    # Bad for vanilla Univmon (puts much load on CPU)
+    Namespace(
         # Change when devices are added / removed
         devices=[
-            cpu(**beluga20, name='cpu_1'),
-            p4(**tofino, name='p4_1'),
+            CPU(**beluga20, name='CPU_1'),
+            P4(**tofino, name='P4_1'),
         ],
         # Change when metrics are added / removed
         queries=[
@@ -153,11 +153,11 @@ config = [
     ),
 
     # 1
-    # Bad for univmon_greedy (puts too many rows on cpu)
-    namespace(
+    # Bad for UnivmonGreedy (puts too many rows on CPU)
+    Namespace(
         devices=[
-            cpu(**beluga20, name='cpu_1'),
-            p4(**tofino, name='p4_1'),
+            CPU(**beluga20, name='CPU_1'),
+            P4(**tofino, name='P4_1'),
         ],
         queries=[
             cm_sketch(eps0=eps0/1000, del0=del0),
@@ -170,13 +170,13 @@ config = [
     ),
 
     # 2
-    # Bad for univmon_greedy_rows (puts too much load on P4)
+    # Bad for UnivmonGreedyRows (puts too much load on P4)
     # CPU can handle extra memory load with same core budget
     # P4 memory exhausted!
-    namespace(
+    Namespace(
         devices=[
-            cpu(**beluga20, name='cpu_1'),
-            p4(**tofino, name='p4_1'),
+            CPU(**beluga20, name='CPU_1'),
+            P4(**tofino, name='P4_1'),
         ],
         queries=[
             cm_sketch(eps0=eps0/5000, del0=del0),
@@ -189,19 +189,19 @@ config = [
     # 3
     # small dc topology, more sketches
 
-    # Bad for netmon when very large inputs
-    # Partitioning helps for univmon_greedy_rows
+    # Bad for Netmon when very large inputs
+    # Partitioning helps for UnivmonGreedyRows
 
-    # Full sketches only netmon is better than univmon*
+    # Full sketches only Netmon is better than Univmon*
     dc_topology(),
 
     # 4 - same as 0
     # P4 priority over CPU when everything fits on P4
-    # Bad for univmon
-    namespace(
+    # Bad for Univmon
+    Namespace(
         devices=[
-            cpu(**beluga20, name='cpu_1'),
-            p4(**tofino, name='p4_1'),
+            CPU(**beluga20, name='CPU_1'),
+            P4(**tofino, name='P4_1'),
         ],
         queries=[
             cm_sketch(eps0=eps0*50, del0=del0),
@@ -215,12 +215,12 @@ config = [
 
     # 5 - same as 11
     # Skewed CPU allocation
-    # Bad for univmon* -> does not know within CPU
-    namespace(
+    # Bad for Univmon* -> does not know within CPU
+    Namespace(
         devices=[
-            cpu(**beluga20, name='cpu_1'),
-            p4(**tofino, name='p4_1'),
-            cpu(**beluga20, name='cpu_2'),
+            CPU(**beluga20, name='CPU_1'),
+            P4(**tofino, name='P4_1'),
+            CPU(**beluga20, name='CPU_2'),
         ],
         queries=[
             cm_sketch(eps0=eps0*5, del0=del0),
@@ -234,12 +234,12 @@ config = [
 
     # 6 - same as 11
     # Skewed CPU allocation 2
-    # Bad for univmon* -> does not know within CPU
-    namespace(
+    # Bad for Univmon* -> does not know within CPU
+    Namespace(
         devices=[
-            cpu(**beluga20, name='cpu_1'),
-            p4(**tofino, name='p4_1'),
-            cpu(**beluga20, name='cpu_2'),
+            CPU(**beluga20, name='CPU_1'),
+            P4(**tofino, name='P4_1'),
+            CPU(**beluga20, name='CPU_2'),
         ],
         queries=[
             cm_sketch(eps0=eps0*5, del0=del0),
@@ -253,14 +253,14 @@ config = [
 
     # 7 - has both effects of 11 and 12
     # Use small sketches for fully utilizing CPUs
-    # Bad for univmon_greedy_rows exhausts P4 memory
-    # Bad for univmon_greedy_ns / vanilla univmon (put many rows on cpu)
-    namespace(
+    # Bad for UnivmonGreedyRows exhausts P4 memory
+    # Bad for UnivmonGreedy_ns / vanilla Univmon (put many rows on CPU)
+    Namespace(
         devices=[
-            cpu(**beluga20, name='cpu_1'),
-            cpu(**beluga20, name='cpu_2'),
-            p4(**tofino, name='p4_1'),
-            p4(**tofino, name='p4_2'),
+            CPU(**beluga20, name='CPU_1'),
+            CPU(**beluga20, name='CPU_2'),
+            P4(**tofino, name='P4_1'),
+            P4(**tofino, name='P4_2'),
         ],
         queries=[
             cm_sketch(eps0=eps0*12/1000, del0=del0),
@@ -278,10 +278,10 @@ config = [
     # 8 - sanity check
     # Multi P4
     # Nothing matters as continuous resource allocation
-    namespace(
+    Namespace(
         devices=[
-            p4(**tofino, name='p4_1'),
-            p4(**tofino, name='p4_2'),
+            P4(**tofino, name='P4_1'),
+            P4(**tofino, name='P4_2'),
         ],
         queries=[
             cm_sketch(eps0=eps0/20, del0=del0),
@@ -297,28 +297,28 @@ config = [
 
     # 10
     # Mem vary - CPU - P4
-    namespace(
+    Namespace(
         devices=[
-            cpu(mem_par=[1.1875, 32, 1448.15625,
+            CPU(mem_par=[1.1875, 32, 1448.15625,
                          5792.625, 32768.0, 440871.90625],
                 mem_ns=[0.50, 0.510892, 5.04469,
                         5.84114, 30.6627, 39.6981],
                 Li_size=[32, 256, 8192, 32768],
                 Li_ns=[0.53, 1.5, 3.7, 36],
                 hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
-                max_mem=32768, max_rows=9, name='cpu_1'),
-            p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpr=48, max_mem=48*12, max_rows=12, name='p4_1'),
+                max_mem=32768, max_rows=9, name='CPU_1'),
+            P4(meter_alus=4, sram=48, stages=12, line_thr=148,
+               max_mpr=48, max_mem=48*12, max_rows=12, name='P4_1'),
         ],
         queries=[cm_sketch(eps0=eps0*5, del0=del0)]
     ),
 
     # 11
     # Pressure at network core
-    namespace(
+    Namespace(
         devices=(
-            [cpu(**beluga20, name='cpu_{}'.format(i)) for i in range(20)] +
-            [p4(**tofino, name='p4_1')]
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(20)] +
+            [P4(**tofino, name='P4_1')]
         ),
         queries=[
             cm_sketch(eps0=eps0, del0=del0) for i in range(20)
@@ -328,11 +328,11 @@ config = [
     ),
 
     # 12
-    # Pressure at network core, core is now cpu
-    namespace(
+    # Pressure at network core, core is now CPU
+    Namespace(
         devices=(
-            [p4(**tofino, name='p4_{}'.format(i)) for i in range(20)] +
-            [cpu(**beluga20, name='cpu_1')]
+            [P4(**tofino, name='P4_{}'.format(i)) for i in range(20)] +
+            [CPU(**beluga20, name='CPU_1')]
         ),
         queries=[
             cm_sketch(eps0=eps0/1000, del0=del0)],
@@ -341,12 +341,12 @@ config = [
     ),
 
     # 13
-    # Pressure at network core, core is now cpu
+    # Pressure at network core, core is now CPU
     # small sketches
-    namespace(
+    Namespace(
         devices=(
-            [p4(**tofino, name='p4_{}'.format(i)) for i in range(20)] +
-            [cpu(**beluga20, name='cpu_1')]
+            [P4(**tofino, name='P4_{}'.format(i)) for i in range(20)] +
+            [CPU(**beluga20, name='CPU_1')]
         ),
         queries=[
             cm_sketch(eps0=eps0, del0=del0)],
@@ -364,7 +364,7 @@ config = [
 ]
 
 
-class Config(namespace):
+class Config(Namespace):
 
     def __init__(self, *args, **kwargs):
         super(Config, self).__init__(*args, **kwargs)
@@ -372,7 +372,7 @@ class Config(namespace):
     def load_config_file(self, fpath='config.yml'):
         if(os.path.exists(fpath)):
             f = open(fpath)
-            config_data = yaml.load(f)
+            config_data = yaml.safe_load(f)
             f.close()
             self.update(config_data)
 
@@ -381,6 +381,7 @@ class Config(namespace):
             self.__dict__.update(config)
         else:
             self.__dict__.update(config.__dict__)
+
 
 '''
 Config Priorities:
@@ -395,11 +396,11 @@ default_config = Config(
     ns_tol=0,
     res_tol=0,
     use_model=False,
-    ftol=6e-5,
+    ftol=6.0e-5,
     mipgapabs=10,
     # mipgap=0.01,
 
-    solver='netmon',
+    solver='Netmon',
     cfg_num=0,
     verbose=0,
     mipout=False,
@@ -430,15 +431,15 @@ Above are not relevant any more
 
 
 '''
-    cpu(mem_par=[0, 1.1875, 32, 1448.15625,
+    CPU(mem_par=[0, 1.1875, 32, 1448.15625,
                  5792.625, 32768.0, 440871.90625],
         mem_ns=[0, 0.539759, 0.510892, 5.04469,
                 5.84114, 30.6627, 39.6981],
         Li_size=[32, 256, 8192, 32768],
         Li_ns=[0.53, 1.5, 3.7, 36],
         hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
-        max_mem=32768, max_rows=9, name='cpu_1'),
-    p4(meter_alus=4, sram=48, stages=12, line_thr=148,
-       max_mpr=48, max_mem=48*12, max_rows=12, name='p4_1'),
+        max_mem=32768, max_rows=9, name='CPU_1'),
+    P4(meter_alus=4, sram=48, stages=12, line_thr=148,
+       max_mpr=48, max_mem=48*12, max_rows=12, name='P4_1'),
 
 '''

@@ -28,7 +28,7 @@ def log_time(func):
     return wrapped_func
 
 
-class namespace:
+class Namespace:
     def __init__(self, **kw):
         self.__dict__.update(kw)
 
@@ -76,7 +76,7 @@ def setup_logging(args):
 
 log = logging.getLogger('control')
 
-constants = namespace(
+constants = Namespace(
     cell_size=4,
     KB2B=1024
 )

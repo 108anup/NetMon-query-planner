@@ -8,7 +8,7 @@ import gurobipy as gp
 from gurobipy import GRB, tuplelist
 
 from cli import generate_parser
-from common import log, namespace, setup_logging, log_time
+from common import log, Namespace, setup_logging, log_time
 from config import common_config, config, eps0
 from solvers import (add_device_aware_constraints, solver_to_class,
                      solver_to_num)
@@ -23,12 +23,12 @@ def get_partitions(queries):
         start_idx = len(partitions)
         if(common_config.horizontal_partition):
             q.partitions = [start_idx + r for r in range(num_rows)]
-            partitions += [namespace(partition_id=start_idx+r,
+            partitions += [Namespace(partition_id=start_idx+r,
                                  sketch=q, num_rows=1)
                            for r in range(num_rows)]
         else:
             q.partitions = [start_idx]
-            partitions += [namespace(partition_id=start_idx, sketch=q,
+            partitions += [Namespace(partition_id=start_idx, sketch=q,
                                  num_rows=num_rows)]
     return partitions
 
@@ -52,7 +52,7 @@ def solve(devices, queries, flows):
     numdevices = len(devices)
     numpartitions = len(partitions)
 
-    m = gp.Model('netmon')
+    m = gp.Model('Netmon')
     if(not common_config.mipout):
         m.setParam(GRB.Param.LogToConsole, 0)
 

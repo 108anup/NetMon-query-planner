@@ -1,9 +1,9 @@
 from gurobipy import GRB
 
-from common import namespace
+from common import Namespace
 
 
-class device(namespace):
+class device(Namespace):
 
     def add_ns_constraints(self, m):
         pass
@@ -21,7 +21,7 @@ class device(namespace):
         return ""
 
 
-class cpu(device):
+class CPU(device):
     # TODO:: update with OVS
     fraction_parallel = 3/4
     static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
@@ -90,7 +90,7 @@ class cpu(device):
 
         # single core ns model
         # self.t = m.addVar(vtype=GRB.CONTINUOUS, lb=0)
-        # m.addGenConstrPWL(rows, self.t, cpu.s_rows, cpu.static_loads)
+        # m.addGenConstrPWL(rows, self.t, CPU.s_rows, CPU.static_loads)
         self.ns_single = m.addVar(vtype=GRB.CONTINUOUS,
                                   name='ns_single_{}'.format(self))
         self.pdt_m_rows = self.get_pdt_var(self.m_access_time,
@@ -126,8 +126,8 @@ class cpu(device):
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
         if(ns_req):
             m.addConstr(
-                (self.cores_dpdk*(1-cpu.fraction_parallel)
-                 + cpu.fraction_parallel)*dpdk_single_ns
+                (self.cores_dpdk*(1-CPU.fraction_parallel)
+                 + CPU.fraction_parallel)*dpdk_single_ns
                 <= self.cores_dpdk * ns_req, name='ns_dpdk_{}'.format(self))
         else:
             self.ns_dpdk = m.addVar(vtype=GRB.CONTINUOUS,
@@ -135,8 +135,8 @@ class cpu(device):
             self.pdt_nsc_dpdk = self.get_pdt_var(
                 self.ns_dpdk, self.cores_dpdk, 'nsc_dpdk', m, 0)
             m.addConstr(
-                (self.cores_dpdk*(1-cpu.fraction_parallel)
-                 + cpu.fraction_parallel)*dpdk_single_ns
+                (self.cores_dpdk*(1-CPU.fraction_parallel)
+                 + CPU.fraction_parallel)*dpdk_single_ns
                 == self.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))
 
         if(ns_req is None):
@@ -156,11 +156,11 @@ class cpu(device):
             return ""
 
     def __init__(self, *args, **kwargs):
-        super(cpu, self).__init__(*args, **kwargs)
+        super(CPU, self).__init__(*args, **kwargs)
         self.weight = 10
 
 
-class p4(device):
+class P4(device):
 
     def add_ns_constraints(self, m, ns_req=None):
         self.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
@@ -176,7 +176,7 @@ class p4(device):
         return ""
 
     def __init__(self, *args, **kwargs):
-        super(p4, self).__init__(*args, **kwargs)
+        super(P4, self).__init__(*args, **kwargs)
         self.weight = 1
 
 

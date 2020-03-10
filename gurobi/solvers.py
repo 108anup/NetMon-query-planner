@@ -4,9 +4,9 @@ import sys
 import gurobipy as gp
 from gurobipy import GRB
 
-from common import log, namespace
+from common import log, Namespace
 from config import common_config
-from devices import cpu, p4
+from devices import CPU, P4
 
 """
 TODO:
@@ -107,13 +107,13 @@ def add_device_model_constraints(devices, queries, flows, partitions, m,
     return (ns, res)
 
 
-class mip(namespace):
+class MIP(Namespace):
 
     def solve(self):
         self.m = gp.Model(self.__name__)
 
 
-class univmon(mip):
+class Univmon(MIP):
 
     def add_constraints(self):
         mem_series = [d.mem_tot for d in self.devices]
@@ -182,11 +182,11 @@ class univmon(mip):
 
             res_acc = 0
             used_cores = 0
-            total_cpus = 0
+            total_CPUs = 0
             switch_memory = 0
             for d in self.devices:
                 u = d.u
-                if(isinstance(d, cpu)):
+                if(isinstance(d, CPU)):
                     u.addConstr(d.ns >= ns_max, name='global_ns_req_{}'.format(d))
 
                     u.update()
@@ -194,16 +194,16 @@ class univmon(mip):
                     # import ipdb; ipdb.set_trace()
                     write_vars(u)
 
-                    total_cpus += 1
+                    total_CPUs += 1
                     used_cores += d.cores_sketch.x + d.cores_dpdk.x
 
-                if(isinstance(d, p4)):
+                if(isinstance(d, P4)):
                     switch_memory += d.mem_tot.x
 
                 ns_max = max(ns_max, u.getObjective(0).getValue())
                 res_acc += u.getObjective(1).getValue()
 
-            log_results(ns_max, res_acc, used_cores, total_cpus,
+            log_results(ns_max, res_acc, used_cores, total_CPUs,
                         switch_memory)
 
         else:
@@ -267,102 +267,102 @@ class univmon(mip):
                       self.dev_par_tuplelist)
 
 
-class univmon_greedy(univmon):
+class UnivmonGreedy(Univmon):
     def __init__(self, *args, **kwargs):
-        super(univmon_greedy, self).__init__(*args, **kwargs)
+        super(UnivmonGreedy, self).__init__(*args, **kwargs)
 
     def add_constraints(self):
-        mem_series_p4 = [d.mem_tot
+        mem_series_P4 = [d.mem_tot
                          for d in self.devices
-                         if isinstance(d, p4)]
-        mem_series_cpu = [d.mem_tot
+                         if isinstance(d, P4)]
+        mem_series_CPU = [d.mem_tot
                           for d in self.devices
-                          if isinstance(d, cpu)]
-        if(len(mem_series_p4) > 0):
-            self.max_mem_p4 = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                            name='max_mem_p4')
-            self.m.addGenConstrMax(self.max_mem_p4, mem_series_p4,
-                                   name='mem_overall_p4')
-            self.tot_mem_p4 = gp.quicksum(mem_series_p4)
-        if(len(mem_series_cpu) > 0):
-            self.max_mem_cpu = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                             name='max_mem_cpu')
-            self.m.addGenConstrMax(self.max_mem_cpu, mem_series_cpu,
-                                   name='mem_overall_cpu')
-            self.tot_mem_cpu = gp.quicksum(mem_series_cpu)
+                          if isinstance(d, CPU)]
+        if(len(mem_series_P4) > 0):
+            self.max_mem_P4 = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                            name='max_mem_P4')
+            self.m.addGenConstrMax(self.max_mem_P4, mem_series_P4,
+                                   name='mem_overall_P4')
+            self.tot_mem_P4 = gp.quicksum(mem_series_P4)
+        if(len(mem_series_CPU) > 0):
+            self.max_mem_CPU = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                             name='max_mem_CPU')
+            self.m.addGenConstrMax(self.max_mem_CPU, mem_series_CPU,
+                                   name='mem_overall_CPU')
+            self.tot_mem_CPU = gp.quicksum(mem_series_CPU)
         self.tot_mem = self.m.addVar(vtype=GRB.CONTINUOUS,
                                      name='tot_mem')
-        self.m.addConstr(self.tot_mem == gp.quicksum(mem_series_cpu)
-                         + gp.quicksum(mem_series_p4), name='tot_mem')
+        self.m.addConstr(self.tot_mem == gp.quicksum(mem_series_CPU)
+                         + gp.quicksum(mem_series_P4), name='tot_mem')
 
     def add_objective(self):
-        if(hasattr(self, 'max_mem_cpu')):
-            self.m.setObjectiveN(self.tot_mem_cpu, 0, 20, name='tot_mem_cpu')
-            self.m.setObjectiveN(self.max_mem_cpu, 1, 15, name='cpu_mem_load')
-        if(hasattr(self, 'max_mem_p4')):
-            self.m.setObjectiveN(self.tot_mem_p4, 2, 10, name='tot_mem_p4')
-            self.m.setObjectiveN(self.max_mem_p4, 3, 5, name='p4_mem_load')
+        if(hasattr(self, 'max_mem_CPU')):
+            self.m.setObjectiveN(self.tot_mem_CPU, 0, 20, name='tot_mem_CPU')
+            self.m.setObjectiveN(self.max_mem_CPU, 1, 15, name='CPU_mem_load')
+        if(hasattr(self, 'max_mem_P4')):
+            self.m.setObjectiveN(self.tot_mem_P4, 2, 10, name='tot_mem_P4')
+            self.m.setObjectiveN(self.max_mem_P4, 3, 5, name='P4_mem_load')
         # self.m.setObjectiveN(self.tot_mem, 2, 1, name='mem_load')
 
     def post_optimize(self):
-        super(univmon_greedy, self).post_optimize(True)
+        super(UnivmonGreedy, self).post_optimize(True)
 
 
-class univmon_greedy_rows(univmon_greedy):
+class UnivmonGreedyRows(UnivmonGreedy):
     def __init__(self, *args, **kwargs):
-        super(univmon_greedy_rows, self).__init__(*args, **kwargs)
+        super(UnivmonGreedyRows, self).__init__(*args, **kwargs)
 
     def add_constraints(self):
-        super(univmon_greedy_rows, self).add_constraints()
-        rows_series_p4 = [d.rows_tot
+        super(UnivmonGreedyRows, self).add_constraints()
+        rows_series_P4 = [d.rows_tot
                           for d in self.devices
-                          if isinstance(d, p4)]
-        rows_series_cpu = [d.rows_tot
+                          if isinstance(d, P4)]
+        rows_series_CPU = [d.rows_tot
                            for d in self.devices
-                           if isinstance(d, cpu)]
-        if(len(rows_series_p4) > 0):
-            self.max_rows_p4 = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                             name='max_rows_p4')
-            self.m.addGenConstrMax(self.max_rows_p4, rows_series_p4,
-                                   name='rows_overall_p4')
-            self.tot_rows_p4 = gp.quicksum(rows_series_p4)
-        if(len(rows_series_cpu) > 0):
-            self.max_rows_cpu = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                              name='max_rows_cpu')
-            self.m.addGenConstrMax(self.max_rows_cpu, rows_series_cpu,
-                                   name='rows_overall_cpu')
-            self.tot_rows_cpu = gp.quicksum(rows_series_cpu)
+                           if isinstance(d, CPU)]
+        if(len(rows_series_P4) > 0):
+            self.max_rows_P4 = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                             name='max_rows_P4')
+            self.m.addGenConstrMax(self.max_rows_P4, rows_series_P4,
+                                   name='rows_overall_P4')
+            self.tot_rows_P4 = gp.quicksum(rows_series_P4)
+        if(len(rows_series_CPU) > 0):
+            self.max_rows_CPU = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                              name='max_rows_CPU')
+            self.m.addGenConstrMax(self.max_rows_CPU, rows_series_CPU,
+                                   name='rows_overall_CPU')
+            self.tot_rows_CPU = gp.quicksum(rows_series_CPU)
         self.tot_rows = self.m.addVar(vtype=GRB.CONTINUOUS,
                                       name='tot_rows')
-        self.m.addConstr(self.tot_rows == gp.quicksum(rows_series_cpu)
-                         + gp.quicksum(rows_series_p4), name='tot_rows')
+        self.m.addConstr(self.tot_rows == gp.quicksum(rows_series_CPU)
+                         + gp.quicksum(rows_series_P4), name='tot_rows')
 
     def add_objective(self):
-        if(hasattr(self, 'max_rows_cpu')):
-            self.m.setObjectiveN(self.tot_rows_cpu, 0, 100, name='tot_rows_cpu')
-            self.m.setObjectiveN(self.max_rows_cpu, 1, 90, name='cpu_rows_load')
-        if(hasattr(self, 'max_rows_p4')):
-            self.m.setObjectiveN(self.tot_rows_p4, 2, 80, name='tot_rows_p4')
-            self.m.setObjectiveN(self.max_rows_p4, 3, 70, name='p4_rows_load')
+        if(hasattr(self, 'max_rows_CPU')):
+            self.m.setObjectiveN(self.tot_rows_CPU, 0, 100, name='tot_rows_CPU')
+            self.m.setObjectiveN(self.max_rows_CPU, 1, 90, name='CPU_rows_load')
+        if(hasattr(self, 'max_rows_P4')):
+            self.m.setObjectiveN(self.tot_rows_P4, 2, 80, name='tot_rows_P4')
+            self.m.setObjectiveN(self.max_rows_P4, 3, 70, name='P4_rows_load')
         # self.m.setObjectiveN(self.tot_rows, 2, 20, name='rows_load')
-        if(hasattr(self, 'max_mem_cpu')):
-            self.m.setObjectiveN(self.tot_mem_cpu, 4, 60, name='tot_mem_cpu')
-            self.m.setObjectiveN(self.max_mem_cpu, 5, 50, name='cpu_load_mem')
-        if(hasattr(self, 'max_mem_p4')):
-            self.m.setObjectiveN(self.tot_mem_p4, 6, 40, name='tot_mem_p4')
-            self.m.setObjectiveN(self.max_mem_p4, 7, 30, name='p4_load_mem')
+        if(hasattr(self, 'max_mem_CPU')):
+            self.m.setObjectiveN(self.tot_mem_CPU, 4, 60, name='tot_mem_CPU')
+            self.m.setObjectiveN(self.max_mem_CPU, 5, 50, name='CPU_load_mem')
+        if(hasattr(self, 'max_mem_P4')):
+            self.m.setObjectiveN(self.tot_mem_P4, 6, 40, name='tot_mem_P4')
+            self.m.setObjectiveN(self.max_mem_P4, 7, 30, name='P4_load_mem')
         # self.m.setObjectiveN(self.tot_mem, 5, 5, name='mem_load')
 
 
-class netmon(univmon_greedy_rows):
+class Netmon(UnivmonGreedyRows):
     def __init__(self, *args, **kwargs):
-        super(netmon, self).__init__(*args, **kwargs)
+        super(Netmon, self).__init__(*args, **kwargs)
 
     def add_constraints(self):
 
         # # Initialize with unimon_greedy_rows solution
-        # super(netmon, self).add_constraints()
-        # super(netmon, self).add_objective()
+        # super(Netmon, self).add_constraints()
+        # super(Netmon, self).add_objective()
         # self.m.update()
         # self.m.optimize()
 
@@ -396,39 +396,39 @@ class netmon(univmon_greedy_rows):
         self.m.printQuality()
         write_vars(self.m)
 
-        total_cpus = 0
+        total_CPUs = 0
         used_cores = 0
         switch_memory = 0
         for d in self.devices:
-            if(isinstance(d, cpu)):
+            if(isinstance(d, CPU)):
                 used_cores += d.cores_sketch.x + d.cores_dpdk.x
-                total_cpus += 1
-            if(isinstance(d, p4)):
+                total_CPUs += 1
+            if(isinstance(d, P4)):
                 switch_memory += d.mem_tot.x
 
         if('ns_req' in self.__dict__):
             self.ns = self.ns_req
-        log_results(self.ns, self.res, used_cores, total_cpus, switch_memory)
+        log_results(self.ns, self.res, used_cores, total_CPUs, switch_memory)
         log_placement(self.devices, self.queries, self.flows, self.partitions,
                       self.m, self.frac, self.dev_par_tuplelist)
 
 
-def log_results(ns, res, used_cores=None, total_cpus=None, switch_memory=None):
+def log_results(ns, res, used_cores=None, total_CPUs=None, switch_memory=None):
     log.info("\nThroughput: {} Mpps, ns per packet: {}".format(
         1000/get_val(ns), get_val(ns)))
     log.info("Resources: {}".format(get_val(res)))
-    if(total_cpus is not None and used_cores is not None
+    if(total_CPUs is not None and used_cores is not None
        and switch_memory is not None):
         log.info("Used Cores: {}, Total CPUS: {}, Switch Memory: {}"
-                 .format(used_cores, total_cpus, switch_memory))
+                 .format(used_cores, total_CPUs, switch_memory))
 
     if(not (common_config.output_file is None)):
         f = open(common_config.output_file, 'a')
-        if(used_cores is not None and total_cpus is not None
+        if(used_cores is not None and total_CPUs is not None
            and switch_memory is not None):
             f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, ".format(
                 1000/get_val(ns), get_val(res),
-                used_cores, total_cpus, switch_memory))
+                used_cores, total_CPUs, switch_memory))
         else:
             f.write("{:0.3f}, {:0.3f}, ".format(
                 1000/get_val(ns), get_val(res)))
@@ -474,7 +474,7 @@ def log_placement(devices, queries, flows, partitions, m, frac,
     log.info("-"*50)
 
 
-solver_names = ['univmon', 'univmon_greedy', 'univmon_greedy_rows', 'netmon']
+solver_names = ['Univmon', 'UnivmonGreedy', 'UnivmonGreedyRows', 'Netmon']
 solver_list = [getattr(sys.modules[__name__], s) for s in solver_names]
 solver_to_num = {}
 solver_to_class = {}

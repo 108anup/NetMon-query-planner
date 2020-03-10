@@ -1,5 +1,5 @@
-from common import namespace
+from common import Namespace
 
 
-class flow(namespace):
+class flow(Namespace):
     pass
