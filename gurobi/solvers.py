@@ -37,6 +37,24 @@ Need to include cost of branch i.e. if hash lies in relevant range.
 (2) is more efficient overall. But has different tradeoff than (1)
 """
 
+'''
+Tricks performed:
+1. Remove Ceiling
+2. Make variables continuous (remove binary and integer variables)
+3. Log -INFINITY -> removed
+4. Allow non convex problem
+5. Use UnivmonGreedyRows output as start
+6. Convert ns to constraint
+
+NOTES:
+1. With logarithmic constraints, if I make variables integral it seems to
+perform better, as long as those vars are not involved in other constraints.
+2. We want log to be able to take negative values to allow variables
+to take value 0 but some problem take a ton of time to solve in those
+scenarios.
+Above are not relevant any more
+'''
+
 
 def get_rounded_val(v):
     if(v < 0):
@@ -161,7 +179,8 @@ class Univmon(MIP):
 
                 # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
                 #                     name='rows_tot_{}'.format(d), lb=0)
-                # u.addConstr(rows_tot == d.rows_tot.x, name='rows_tot_{}'.format(d))
+                # u.addConstr(rows_tot == d.rows_tot.x,
+                #             name='rows_tot_{}'.format(d))
                 d.rows_tot = get_rounded_val(d.rows_tot.x)
                 d.add_ns_constraints(u)
 
@@ -179,7 +198,6 @@ class Univmon(MIP):
 
                 ns_max = max(ns_max, u.getObjective(0).getValue())
 
-
             res_acc = 0
             used_cores = 0
             total_CPUs = 0
@@ -187,11 +205,10 @@ class Univmon(MIP):
             for d in self.devices:
                 u = d.u
                 if(isinstance(d, CPU)):
-                    u.addConstr(d.ns >= ns_max, name='global_ns_req_{}'.format(d))
-
+                    u.addConstr(d.ns >= ns_max,
+                                name='global_ns_req_{}'.format(d))
                     u.update()
                     u.optimize()
-                    # import ipdb; ipdb.set_trace()
                     write_vars(u)
 
                     total_CPUs += 1
@@ -339,8 +356,10 @@ class UnivmonGreedyRows(UnivmonGreedy):
 
     def add_objective(self):
         if(hasattr(self, 'max_rows_CPU')):
-            self.m.setObjectiveN(self.tot_rows_CPU, 0, 100, name='tot_rows_CPU')
-            self.m.setObjectiveN(self.max_rows_CPU, 1, 90, name='CPU_rows_load')
+            self.m.setObjectiveN(self.tot_rows_CPU, 0, 100,
+                                 name='tot_rows_CPU')
+            self.m.setObjectiveN(self.max_rows_CPU, 1, 90,
+                                 name='CPU_rows_load')
         if(hasattr(self, 'max_rows_P4')):
             self.m.setObjectiveN(self.tot_rows_P4, 2, 80, name='tot_rows_P4')
             self.m.setObjectiveN(self.max_rows_P4, 3, 70, name='P4_rows_load')

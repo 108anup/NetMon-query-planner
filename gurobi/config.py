@@ -90,6 +90,7 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
 
 """
 TODO:
+Provide wrapper over flow abstraction.
 How to convert to flow abstraction below:
 
 1. specify monitoring based on OD pairs. Then ingress routers figure out
@@ -299,16 +300,8 @@ config = [
     # Mem vary - CPU - P4
     Namespace(
         devices=[
-            CPU(mem_par=[1.1875, 32, 1448.15625,
-                         5792.625, 32768.0, 440871.90625],
-                mem_ns=[0.50, 0.510892, 5.04469,
-                        5.84114, 30.6627, 39.6981],
-                Li_size=[32, 256, 8192, 32768],
-                Li_ns=[0.53, 1.5, 3.7, 36],
-                hash_ns=3.5, cores=7, dpdk_single_core_thr=35,
-                max_mem=32768, max_rows=9, name='CPU_1'),
-            P4(meter_alus=4, sram=48, stages=12, line_thr=148,
-               max_mpr=48, max_mem=48*12, max_rows=12, name='P4_1'),
+            CPU(**beluga20, name='CPU_1'),
+            P4(**tofino, name='P4_1'),
         ],
         queries=[cm_sketch(eps0=eps0*5, del0=del0)]
     ),
@@ -412,22 +405,6 @@ default_config = Config(
 common_config = Config()
 common_config.update(default_config)
 common_config.load_config_file()
-
-'''
-Tricks performed:
-1. Remove Ceiling
-2. Make variables continuous (remove binary and integer variables)
-3. Log -INFINITY -> removed
-4. Allow non convex problem
-
-NOTES:
-1. With logarithmic constraints, if I make variables integral it seems to
-perform better, as long as those vars are not involved in other constraints.
-2. We want log to be able to take negative values to allow variables
-to take value 0 but some problem take a ton of time to solve in those
-scenarios.
-Above are not relevant any more
-'''
 
 
 '''
