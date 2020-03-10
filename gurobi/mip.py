@@ -9,7 +9,7 @@ from gurobipy import GRB, tuplelist
 
 from cli import generate_parser
 from common import log, namespace, setup_logging, log_time
-from config import common_config, config, eps0, update_config
+from config import common_config, config, eps0
 from solvers import (add_device_aware_constraints, solver_to_class,
                      solver_to_num)
 
@@ -230,7 +230,11 @@ def solve(devices, queries, flows):
 
 parser = generate_parser()
 args = parser.parse_args(sys.argv[1:])
-update_config(args)
+if(args.config_file):
+    for fpath in args.config_file:
+        common_config.update(fpath)
+common_config.update(args)
+
 setup_logging(args)
 
 cfg_num = common_config.cfg_num

@@ -74,7 +74,7 @@ def setup_logging(args):
         log.addHandler(h_warn)
 
 
-log = logging.getLogger('mip')
+log = logging.getLogger('control')
 
 constants = namespace(
     cell_size=4,

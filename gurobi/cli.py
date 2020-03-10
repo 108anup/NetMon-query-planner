@@ -5,52 +5,51 @@ from solvers import solver_names
 
 def generate_parser():
     p = ArgumentParser(
-        description="NetMon"
+        description="Control"
     )
 
     p.add_argument(
-        '-s', '--scheme',
+        '-s', '--solver',
         action='store',
-        default='netmon',
         help='Technique to use for placement',
         choices=solver_names
     )
 
     p.add_argument(
-        '-c', '--config',
+        '-c', '--cfg_num',
         action='store',
-        default=0,
+        type=int,
         help='Which configuration to use'
     )
 
     p.add_argument(
         '-v', '--verbose',
         action='count',
-        default=0
     )
 
     p.add_argument(
         '--mipout',
         action='store_true',
-        default=False
     )
 
     p.add_argument(
         '--horizontal-partition', '--hp',
         action='store_true',
-        default=False
-    )
-
-    p.add_argument(
-        '-o', '--output-file',
-        action='store',
-        default=None
     )
 
     p.add_argument(
         '--vertical-partition', '--vp',
         action='store_true',
-        default=False
+    )
+
+    p.add_argument(
+        '-o', '--output-file',
+        action='store',
+    )
+
+    p.add_argument(
+        '--config-file',
+        action='append'
     )
 
     return p

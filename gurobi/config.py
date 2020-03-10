@@ -1,6 +1,7 @@
 import os
 import random
 import pickle
+import yaml
 
 from common import namespace
 from devices import cpu, p4
@@ -362,28 +363,54 @@ config = [
     dc_topology(hosts_per_tors=48, tors_per_l1s=20, l1s=10, num_queries=2048)
 ]
 
-common_config = namespace(
+
+class Config(namespace):
+
+    def __init__(self, *args, **kwargs):
+        super(Config, self).__init__(*args, **kwargs)
+
+    def load_config_file(self, fpath='config.yml'):
+        if(os.path.exists(fpath)):
+            f = open(fpath)
+            config_data = yaml.load(f)
+            f.close()
+            self.update(config_data)
+
+    def update(self, config):
+        if(isinstance(config, dict)):
+            self.__dict__.update(config)
+        else:
+            self.__dict__.update(config.__dict__)
+
+'''
+Config Priorities:
+cli input overrides
+cli provided config file overrides
+default config file overrides
+default config values
+'''
+
+default_config = Config(
     tolerance=0.999,
     ns_tol=0,
     res_tol=0,
-    fileout=False,
-    solver='netmon',
     use_model=False,
     ftol=6e-5,
+    mipgapabs=10,
     # mipgap=0.01,
-    mipgapabs=10
 
+    solver='netmon',
+    cfg_num=0,
+    verbose=0,
+    mipout=False,
+    horizontal_partition=False,
+    vertical_partition=False,
+    output_file=None,
+    config_file=[]
 )
-
-
-def update_config(args):
-    common_config.solver = args.scheme
-    common_config.mipout = args.mipout
-    common_config.cfg_num = int(args.config)
-    common_config.horizontal_partition = args.horizontal_partition
-    common_config.vertical_partition = args.vertical_partition
-    common_config.output_file = args.output_file
-
+common_config = Config()
+common_config.update(default_config)
+common_config.load_config_file()
 
 '''
 Tricks performed:
