@@ -1,17 +1,10 @@
-import os
-import pickle
 import sys
 import time
 
-import numpy as np
-import gurobipy as gp
-from gurobipy import GRB, tuplelist
-
 from cli import generate_parser
-from common import log, Namespace, setup_logging, log_time
-from config import common_config, config, eps0
-from solvers import (add_device_aware_constraints, solver_to_class,
-                     solver_to_num)
+from common import Namespace, setup_logging, log_time
+from config import common_config, config
+from solvers import solver_to_class
 
 
 @log_time
@@ -24,12 +17,12 @@ def get_partitions(queries):
         if(common_config.horizontal_partition):
             q.partitions = [start_idx + r for r in range(num_rows)]
             partitions += [Namespace(partition_id=start_idx+r,
-                                 sketch=q, num_rows=1)
+                                     sketch=q, num_rows=1)
                            for r in range(num_rows)]
         else:
             q.partitions = [start_idx]
             partitions += [Namespace(partition_id=start_idx, sketch=q,
-                                 num_rows=num_rows)]
+                                     num_rows=num_rows)]
     return partitions
 
 
@@ -49,183 +42,13 @@ def solve(devices, queries, flows):
 
     partitions = get_partitions(queries)
     map_flows_partitions(flows, queries)
-    numdevices = len(devices)
-    numpartitions = len(partitions)
-
-    m = gp.Model('Netmon')
-    if(not common_config.mipout):
-        m.setParam(GRB.Param.LogToConsole, 0)
-
-    log.info("Building model with:\n"
-             "{} devices, {} partitions and {} flows"
-             .format(numdevices, numpartitions, len(flows)))
-
-    dev_par_tuplelist = []
-    for (fnum, f) in enumerate(flows):
-        for p in f.partitions:
-            pnum = p[0]
-            dev_par_tuplelist.extend([(dnum, pnum) for dnum in f.path])
-
-    dev_par_tuplelist = tuplelist(set(dev_par_tuplelist))
-
-    # Fraction of partition on device
-    start = time.time()
-    if(common_config.vertical_partition):
-        frac = m.addVars(dev_par_tuplelist, vtype=GRB.CONTINUOUS,
-                         lb=0, ub=1,
-                         name='frac')
-    else:
-        frac = m.addVars(dev_par_tuplelist, vtype=GRB.BINARY,
-                         name='frac')
-    # Memory taken by partition
-    mem = m.addVars(dev_par_tuplelist, vtype=GRB.CONTINUOUS,
-                    lb=0, name='mem')
-    end = time.time()
-    log.info("Adding frac and mem vars took: {}s".format(end - start))
-    # Ceiling
-    # rows = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
-    #                  name='rows', lb=0)
-    # m.addConstrs((rows[i, j] >= frac[i, j]
-    #               for i in range(numdevices)
-    #               for j in range(numpartitions)), name='r_ceil0')
-
-    # m.addConstrs((rows[i, j] <= frac[i, j] + common_config.tolerance
-    #               for i in range(numdevices)
-    #               for j in range(numpartitions)), name='r_ceil1')
-
-    # No memory if not mapped
-    # Frac == 0 -> mem == 0
-    # m.addConstrs(((frac[i, j] == 0) >> (mem[i, j] == 0)
-    #               for i in range(numdevices)
-    #               for j in range(numpartitions)), name='frac_mem')
-
-    # Coverage Constraints
-    # for pnum in range(numpartitions):
-    #     m.addConstr(frac.sum('*', pnum) == 1,
-    #                 name='cov_{}'.format(pnum))
-    start = time.time()
-    # keep = np.zeros((numdevices, numpartitions))
-    for (fnum, f) in enumerate(flows):
-        for p in f.partitions:
-            pnum = p[0]
-            coverage_requirement = p[1]
-            sum_expr = gp.quicksum(frac[dnum, pnum] for dnum in f.path)
-            m.addConstr(sum_expr >= coverage_requirement,
-                        name='cov_{}_{}'.format(fnum, pnum))
-            # for dnum in f.path:
-            #     keep[dnum][pnum] = 1
-    end = time.time()
-    log.info("Adding coverage constraints took: {}s".format(end - start))
-
-    # for dnum in range(numdevices):
-    #     for pnum in range(numpartitions):
-    #         if(keep[dnum][pnum] == 0):
-    #             m.addConstr(frac[dnum, pnum] == 0,
-    #                         name='frac_not_reqd_{}_{}' .format(dnum, pnum))
-    #             m.addConstr(mem[dnum, pnum] == 0,
-    #                         name='mem_not_reqd_{}_{}'.format(dnum, pnum))
-
-    # Accuracy constraints
-    start = time.time()
-    for (dnum, pnum) in dev_par_tuplelist:
-        p = partitions[pnum]
-        sk = p.sketch
-        num_rows = p.num_rows
-        mm = sk.min_mem()
-        m.addConstr(mem[dnum, pnum] == mm * frac[dnum, pnum] * num_rows,
-                    name='accuracy_{}_{}'.format(dnum, pnum))
-    # for (pnum, p) in enumerate(partitions):
-    #     sk = p.sketch
-    #     num_rows = p.num_rows
-    #     mm = sk.min_mem()
-    #     m.addConstrs((mem[dnum, pnum] == mm * frac[dnum, pnum] * num_rows
-    #                   for dnum in range(numdevices)),
-    #                  name='accuracy_{}_{}'.format(pnum, sk))
-    end = time.time()
-    log.info("Adding accuracy constraints took {}s".format(end - start))
-
-    # Load constraints
-    start = time.time()
-    for (dnum, d) in enumerate(devices):
-        # Memory constraints
-        # Capacity constraints included in bounds
-        mem_tot = m.addVar(vtype=GRB.CONTINUOUS,
-                           name='mem_tot_{}'.format(d),
-                           lb=0, ub=d.max_mem)
-        m.addConstr(mem_tot == mem.sum(dnum, '*'),
-                    name='mem_tot_{}'.format(d))
-        d.mem_tot = mem_tot
-
-        # Row constraints
-        rows_tot = m.addVar(vtype=GRB.CONTINUOUS,
-                            name='rows_tot_{}'.format(d), lb=0)
-        rows_series = []
-        for (_, pnum) in dev_par_tuplelist.select(dnum, '*'):
-            p = partitions[pnum]
-            rows_series.append(p.num_rows * frac[dnum, p.partition_id])
-        # rows_series = [p.num_rows * frac[dnum, p.partition_id]
-        #                for p in partitions]
-        m.addConstr(rows_tot == gp.quicksum(rows_series),
-                    name='rows_tot_{}'.format(d))
-        d.rows_tot = rows_tot
-    end = time.time()
-    log.info("Adding load constraints took: {}s".format(end-start))
-
-    if(solver_to_num[common_config.solver] > 0):
-        add_device_aware_constraints(devices, queries, flows,
-                                     partitions, m, frac, mem)
-
-    solver_cls = solver_to_class[common_config.solver]
-    solver = solver_cls(devices=devices, queries=queries, flows=flows,
-                        partitions=partitions, m=m, frac=frac, mem=mem,
-                        dev_par_tuplelist=dev_par_tuplelist)
-    m.setParam(GRB.Param.TimeLimit, 120)
-    # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
-    # m.setParam(GRB.Param.MIPGap, common_config.mipgap)
-    solver.add_constraints()
-    m.ModelSense = GRB.MINIMIZE
-    solver.add_objective()
-
-    log.info("Starting model update")
-    start = time.time()
-    m.update()
-    end = time.time()
-    update_time = end - start
-    log.info("Model update complete, took: {} s".format(update_time))
-
-    m.write("progs/prog_{}.lp".format(cfg_num))
-    # log.info("")
-    log.info("Starting model optimize")
-    start = time.time()
-    m.optimize()
-    end = time.time()
-
-    log.info("-"*50)
-    log.info("Model update took: {} seconds".format(update_time))
-    log.info("Model optimize took: {} seconds".format(end - start))
-    log.info("-"*50)
-
-    if(m.Status == GRB.INFEASIBLE):
-        # m.computeIIS()
-        # m.write("progs/infeasible_{}.ilp".format(cfg_num))
-
-        if(not (common_config.output_file is None)):
-            f = open(common_config.output_file, 'a')
-            f.write("-, -, -, -, -, ")
-            f.close()
-
-    else:
-        solver.post_optimize()
-
-    end = time.time()
+    Solver = solver_to_class[common_config.solver]
+    solver = Solver(devices=devices, flows=flows,
+                    partitions=partitions, queries=queries)
+    solver.solve()
 
     # Clustering
-    # for (dnum, d) in enumerate(devices):
-
-    if(not (common_config.output_file is None)):
-        f = open(common_config.output_file, 'a')
-        f.write("{:06f}, ".format(end - start))
-        f.close()
+    # for (dnum, d) in enumerate(self.devices):
 
 
 parser = generate_parser()
@@ -239,21 +62,4 @@ setup_logging(args)
 
 cfg_num = common_config.cfg_num
 cfg = config[cfg_num]
-# if(cfg_num == 3):
-#     for eps0_mul in [1, 4, 10, 23]:
-#         cfg.queries[0].eps0 = eps0 * eps0_mul
-#         solve(cfg.devices, cfg.queries)
-# else:
-
-
-# if (cfg_num == 3):
-#     if(os.path.exists('pickle_objs/cfg_3')):
-#         cfg_file = open('pickle_objs/cfg_3', 'rb')
-#         cfg = pickle.load(cfg_file)
-#         cfg_file.close()
-#     else:
-#         cfg_file = open('pickle_objs/cfg_3', 'wb')
-#         pickle.dump(cfg, cfg_file)
-#         cfg_file.close()
-
 solve(cfg.devices, cfg.queries, cfg.flows)

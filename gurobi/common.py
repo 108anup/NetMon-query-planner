@@ -23,7 +23,7 @@ def log_time(func):
         results = func(*args, **kwargs)
         timer_end = time.time()
         log.info("Function: {} took {} seconds"
-                 .format(func.__name__, timer_end - timer_start))
+                 .format(func.__qualname__, timer_end - timer_start))
         return results
     return wrapped_func
 

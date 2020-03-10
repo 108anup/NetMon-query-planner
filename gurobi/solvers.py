@@ -1,10 +1,11 @@
 import re
 import sys
+import time
 
 import gurobipy as gp
-from gurobipy import GRB
+from gurobipy import GRB, tuplelist
 
-from common import log, Namespace
+from common import log, Namespace, log_time
 from config import common_config
 from devices import CPU, P4
 
@@ -72,8 +73,6 @@ def get_val(v):
 
 
 def write_vars(m):
-    if(not hasattr(m, 'objVal')):
-        import ipdb; ipdb.set_trace()
     log.debug("\nVARIABLES "+"-"*30)
     log.debug("Objective: {}".format(m.objVal))
     for v in m.getVars():
@@ -81,54 +80,240 @@ def write_vars(m):
     log.debug("-"*50)
 
 
-def add_device_aware_constraints(devices, queries, flows,
-                                 partitions, m, frac, mem):
-    for (dnum, d) in enumerate(devices):
-        m.addConstr(d.rows_tot <= d.max_rows,
-                    name='row_capacity_{}'.format(d))
-
-        if hasattr(d, 'max_mpp'):
-            for (pnum, p) in enumerate(partitions):
-                m.addConstr(mem[dnum, pnum] <= d.max_mpr * p.num_rows,
-                            'capacity_mem_par_{}'.format(d))
-
-
-def check_device_aware_constraints(devices, partitions, mem):
-    for (dnum, d) in enumerate(devices):
-        if not (d.rows_tot.x <= d.max_rows):
-            return False
-        if hasattr(d, 'max_mpp'):
-            for (pnum, p) in enumerate(partitions):
-                if not (mem[dnum, pnum].x <= d.max_mpr * p.num_rows):
-                    return False
-    return True
-
-
-def add_device_model_constraints(devices, queries, flows, partitions, m,
-                                 ns_req=None):
-    res_acc = gp.LinExpr()
-    for d in devices:
-        # Throughput
-        # Simple total model
-        d.add_ns_constraints(m, ns_req)
-
-        # Resources
-        res_acc += d.res()
-
-    ns = None
-    if(ns_req is None):
-        ns_series = [d.ns for d in devices]
-        ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns')
-        m.addGenConstrMax(ns, ns_series, name='ns_overall')
-    res = m.addVar(vtype=GRB.CONTINUOUS, name='res')
-    m.addConstr(res_acc == res, name='res_acc')
-    return (ns, res)
-
-
 class MIP(Namespace):
 
+    def compute_dev_par_tuplelist(self):
+        dev_par_tuplelist = []
+        for (fnum, f) in enumerate(self.flows):
+            for p in f.partitions:
+                pnum = p[0]
+                dev_par_tuplelist.extend([(dnum, pnum) for dnum in f.path])
+        self.dev_par_tuplelist = tuplelist(set(dev_par_tuplelist))
+
+    @log_time
+    def add_frac_mem_var(self):
+        # Fraction of partition on device
+        if(common_config.vertical_partition):
+            self.frac = self.m.addVars(
+                self.dev_par_tuplelist, vtype=GRB.CONTINUOUS,
+                lb=0, ub=1, name='frac')
+        else:
+            self.frac = self.m.addVars(
+                self.dev_par_tuplelist, vtype=GRB.BINARY,
+                name='frac')
+
+        # Memory taken by partition
+        self.mem = self.m.addVars(
+            self.dev_par_tuplelist, vtype=GRB.CONTINUOUS,
+            lb=0, name='mem')
+
+        # Ceiling
+        # rows = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
+        #                  name='rows', lb=0)
+        # m.addConstrs((rows[i, j] >= frac[i, j]
+        #               for i in range(numdevices)
+        #               for j in range(numpartitions)), name='r_ceil0')
+        # m.addConstrs((rows[i, j] <= frac[i, j] + common_config.tolerance
+        #               for i in range(numdevices)
+        #               for j in range(numpartitions)), name='r_ceil1')
+
+        # No memory if not mapped
+        # Frac == 0 -> mem == 0
+        # m.addConstrs(((frac[i, j] == 0) >> (mem[i, j] == 0)
+        #               for i in range(numdevices)
+        #               for j in range(numpartitions)), name='frac_mem')
+
+    @log_time
+    def add_coverage_constraints(self):
+
+        # for pnum in range(numpartitions):
+        #     m.addConstr(frac.sum('*', pnum) == 1,
+        #                 name='cov_{}'.format(pnum))
+
+        # keep = np.zeros((numdevices, numpartitions))
+        for (fnum, f) in enumerate(self.flows):
+            for p in f.partitions:
+                pnum = p[0]
+                coverage_requirement = p[1]
+                sum_expr = gp.quicksum(self.frac[dnum, pnum]
+                                       for dnum in f.path)
+                self.m.addConstr(sum_expr >= coverage_requirement,
+                                 name='cov_{}_{}'.format(fnum, pnum))
+                # for dnum in f.path:
+                #     keep[dnum][pnum] = 1
+
+        # numdevices = len(self.devices)
+        # numpartitions = len(self.partitions)
+        # for dnum in range(numdevices):
+        #     for pnum in range(numpartitions):
+        #         if(keep[dnum][pnum] == 0):
+        #             self.m.addConstr(self.frac[dnum, pnum] == 0,
+        #                              name='frac_not_reqd_{}_{}'
+        #                              .format(dnum, pnum))
+        #             self.m.addConstr(self.mem[dnum, pnum] == 0,
+        #                         name='mem_not_reqd_{}_{}'.format(dnum, pnum))
+
+    @log_time
+    def add_accuracy_constraints(self):
+
+        for (dnum, pnum) in self.dev_par_tuplelist:
+            p = self.partitions[pnum]
+            sk = p.sketch
+            num_rows = p.num_rows
+            mm = sk.min_mem()
+            self.m.addConstr(self.mem[dnum, pnum] ==
+                             mm * self.frac[dnum, pnum] * num_rows,
+                             name='accuracy_{}_{}'.format(dnum, pnum))
+
+        # numdevices = len(self.devices)
+        # for (pnum, p) in enumerate(self.partitions):
+        #     sk = p.sketch
+        #     num_rows = p.num_rows
+        #     mm = sk.min_mem()
+        #     self.m.addConstrs((self.mem[dnum, pnum] ==
+        #                        mm * self.frac[dnum, pnum] * num_rows
+        #                        for dnum in range(numdevices)),
+        #                       name='accuracy_{}_{}'.format(pnum, sk))
+
+    @log_time
+    def add_capacity_constraints(self):
+
+        for (dnum, d) in enumerate(self.devices):
+            # Memory constraints
+            # Capacity constraints included in bounds
+            mem_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                    name='mem_tot_{}'.format(d),
+                                    lb=0, ub=d.max_mem)
+            self.m.addConstr(mem_tot == self.mem.sum(dnum, '*'),
+                             name='mem_tot_{}'.format(d))
+            d.mem_tot = mem_tot
+
+            # Row constraints
+            rows_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                     name='rows_tot_{}'.format(d), lb=0)
+            rows_series = []
+            for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
+                p = self.partitions[pnum]
+                rows_series.append(
+                    p.num_rows * self.frac[dnum, p.partition_id]
+                )
+            # rows_series = [p.num_rows * frac[dnum, p.partition_id]
+            #                for p in self.partitions]
+            self.m.addConstr(rows_tot == gp.quicksum(rows_series),
+                             name='rows_tot_{}'.format(d))
+            d.rows_tot = rows_tot
+
+    def add_device_aware_constraints(self):
+        for (dnum, d) in enumerate(self.devices):
+            self.m.addConstr(d.rows_tot <= d.max_rows,
+                             name='row_capacity_{}'.format(d))
+
+            if hasattr(d, 'max_mpp'):
+                for (pnum, p) in enumerate(self.partitions):
+                    self.m.addConstr(
+                        self.mem[dnum, pnum] <= d.max_mpr * p.num_rows,
+                        'capacity_mem_par_{}'.format(d))
+
+    def add_constraints(self):
+        pass
+
+    def add_objective(self):
+        pass
+
+    def post_optimize(self):
+        pass
+
+    def check_device_aware_constraints(self):
+        for (dnum, d) in enumerate(self.devices):
+            if not (d.rows_tot.x <= d.max_rows):
+                return False
+            if hasattr(d, 'max_mpp'):
+                for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
+                    p = self.partitions[pnum]
+                    if not (self.mem[dnum, pnum].x <= d.max_mpr * p.num_rows):
+                        return False
+        return True
+
+    def add_device_model_constraints(self, ns_req=None):
+        res_acc = gp.LinExpr()
+        for d in self.devices:
+            # Throughput
+            # Simple total model
+            d.add_ns_constraints(self.m, ns_req)
+
+            # Resources
+            res_acc += d.res()
+
+        ns = None
+        if(ns_req is None):
+            ns_series = [d.ns for d in self.devices]
+            ns = self.m.addVar(vtype=GRB.CONTINUOUS, name='ns')
+            self.m.addGenConstrMax(ns, ns_series, name='ns_overall')
+        res = self.m.addVar(vtype=GRB.CONTINUOUS, name='res')
+        self.m.addConstr(res_acc == res, name='res_acc')
+        return (ns, res)
+
+    @log_time
     def solve(self):
-        self.m = gp.Model(self.__name__)
+        log.info("Building model with:\n"
+                 "{} devices, {} partitions and {} flows"
+                 .format(len(self.devices), len(self.partitions),
+                         len(self.flows)))
+
+        self.m = gp.Model(self.__class__.__name__)
+        if(not common_config.mipout):
+            self.m.setParam(GRB.Param.LogToConsole, 0)
+
+        self.compute_dev_par_tuplelist()
+        self.add_frac_mem_var()
+        self.add_coverage_constraints()
+        self.add_accuracy_constraints()
+        self.add_capacity_constraints()
+        if(not isinstance(self, Univmon)):
+            self.add_device_aware_constraints()
+
+        self.m.setParam(GRB.Param.TimeLimit, common_config.time_limit)
+        # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
+        # m.setParam(GRB.Param.MIPGap, common_config.mipgap)
+
+        self.add_constraints()
+        self.m.ModelSense = GRB.MINIMIZE
+        self.add_objective()
+
+        log.info("-"*50)
+        log.info("Starting model update")
+        start = time.time()
+        self.m.update()
+        end = time.time()
+        update_time = end - start
+        log.info("Model update took: {} s".format(update_time))
+        log.info("-"*50)
+
+        self.m.write("progs/prog_{}.lp".format(common_config.cfg_num))
+
+        log.info("Starting model optimize")
+        start = time.time()
+        self.m.optimize()
+        end = time.time()
+        log.info("Model optimize took: {} seconds".format(end - start))
+        log.info("-"*50)
+
+        if(self.m.Status == GRB.INFEASIBLE):
+            # m.computeIIS()
+            # m.write("progs/infeasible_{}.ilp".format(cfg_num))
+            if(not (common_config.output_file is None)):
+                f = open(common_config.output_file, 'a')
+                f.write("-, -, -, -, -, ")
+                f.close()
+        else:
+            self.post_optimize()
+
+        end = time.time()
+
+        if(not (common_config.output_file is None)):
+            f = open(common_config.output_file, 'a')
+            f.write("{:06f}, ".format(end - start))
+            f.close()
 
 
 class Univmon(MIP):
@@ -146,7 +331,7 @@ class Univmon(MIP):
         self.m.setObjectiveN(self.max_mem, 0, 10, name='max_mem')
         self.m.setObjectiveN(self.tot_mem, 1, 5, name='tot_mem')
 
-    def post_optimize(self, aware=False):
+    def post_optimize(self):
         self.m.printQuality()
         write_vars(self.m)
 
@@ -154,9 +339,7 @@ class Univmon(MIP):
                       self.m, self.frac, self.dev_par_tuplelist)
 
         if(not common_config.use_model):
-            if (not aware and
-                not check_device_aware_constraints(
-                    self.devices, self.partitions, self.mem)):
+            if (not self.check_device_aware_constraints()):
                 log.info("Infeasible placement")
 
                 if(not (common_config.output_file is None)):
@@ -236,15 +419,12 @@ class Univmon(MIP):
                     self.m.addConstr(v == get_rounded_val(v.x))
 
             self.m.setParam(GRB.Param.FeasibilityTol, common_config.ftol)
-            if(not aware):
-                add_device_aware_constraints(
+            if(isinstance(self, Univmon)):
+                self.add_device_aware_constraints(
                     self.devices, self.queries, self.flows,
                     self.partitions, self.m, self.frac, self.mem)
 
-            (ns, res) = add_device_model_constraints(
-                self.devices, self.queries, self.flows,
-                self.partitions, self.m)
-
+            (ns, res) = self.add_device_model_constraints()
             self.m.NumObj = 2
             self.m.setObjectiveN(ns, 0, 10, reltol=common_config.ns_tol,
                                  name='ns')
@@ -285,8 +465,6 @@ class Univmon(MIP):
 
 
 class UnivmonGreedy(Univmon):
-    def __init__(self, *args, **kwargs):
-        super(UnivmonGreedy, self).__init__(*args, **kwargs)
 
     def add_constraints(self):
         mem_series_P4 = [d.mem_tot
@@ -321,13 +499,8 @@ class UnivmonGreedy(Univmon):
             self.m.setObjectiveN(self.max_mem_P4, 3, 5, name='P4_mem_load')
         # self.m.setObjectiveN(self.tot_mem, 2, 1, name='mem_load')
 
-    def post_optimize(self):
-        super(UnivmonGreedy, self).post_optimize(True)
-
 
 class UnivmonGreedyRows(UnivmonGreedy):
-    def __init__(self, *args, **kwargs):
-        super(UnivmonGreedyRows, self).__init__(*args, **kwargs)
 
     def add_constraints(self):
         super(UnivmonGreedyRows, self).add_constraints()
@@ -374,8 +547,6 @@ class UnivmonGreedyRows(UnivmonGreedy):
 
 
 class Netmon(UnivmonGreedyRows):
-    def __init__(self, *args, **kwargs):
-        super(Netmon, self).__init__(*args, **kwargs)
 
     def add_constraints(self):
 
@@ -395,8 +566,7 @@ class Netmon(UnivmonGreedyRows):
         #     self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
 
         # self.ns_req = 14.3
-        (self.ns, self.res) = add_device_model_constraints(
-            self.devices, self.queries, self.flows, self.partitions, self.m)
+        (self.ns, self.res) = self.add_device_model_constraints()
 
     def add_objective(self):
         if(hasattr(self, 'ns_req') and self.ns_req):
@@ -495,7 +665,7 @@ def log_placement(devices, queries, flows, partitions, m, frac,
 
 solver_names = ['Univmon', 'UnivmonGreedy', 'UnivmonGreedyRows', 'Netmon']
 solver_list = [getattr(sys.modules[__name__], s) for s in solver_names]
-solver_to_num = {}
+solver_to_num = {}  # unused
 solver_to_class = {}
 for (solver_num, solver) in enumerate(solver_list):
     solver_to_num[solver.__name__] = solver_num

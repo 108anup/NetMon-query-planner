@@ -385,12 +385,13 @@ default config values
 '''
 
 default_config = Config(
+    time_limit=120,
     tolerance=0.999,
     ns_tol=0,
     res_tol=0,
     use_model=False,
     ftol=6.0e-5,
-    mipgapabs=10,
+    # mipgapabs=10,
     # mipgap=0.01,
 
     solver='Netmon',

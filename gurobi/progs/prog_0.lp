@@ -1,4 +1,4 @@
-\ Model Netmon
+\ Model UnivmonGreedyRows
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
   tot_rows_CPU: Priority=100 Weight=1 AbsTol=0 RelTol=0
@@ -25,8 +25,6 @@ Subject To
  rows_tot_CPU_1: - 3 frac[0,0] + rows_tot_CPU_1 = 0
  mem_tot_P4_1: - mem[1,0] + mem_tot_P4_1 = 0
  rows_tot_P4_1: - 3 frac[1,0] + rows_tot_P4_1 = 0
- row_capacity_CPU_1: rows_tot_CPU_1 <= 12
- row_capacity_P4_1: rows_tot_P4_1 <= 48
  tot_mem: - mem_tot_CPU_1 - mem_tot_P4_1 + tot_mem = 0
  tot_rows: - rows_tot_CPU_1 - rows_tot_P4_1 + tot_rows = 0
 Bounds
