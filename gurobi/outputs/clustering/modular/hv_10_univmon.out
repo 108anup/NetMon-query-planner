@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "main.py", line 65, in <module>
+    solve(inp.devices, inp.queries, inp.flows)
+  File "/home/anup/NetMon/query-planner/gurobi/common.py", line 39, in __getattr__
+    raise AttributeError("Not found key: {}".format(attr))
+AttributeError: Not found key: flows

@@ -1,0 +1,173 @@
+Function: get_partitions took 2.0503997802734375e-05 seconds
+Function: map_flows_partitions took 5.7220458984375e-06 seconds
+Building model with:
+3 devices, 3 partitions and 1 flows
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+Function: MIP.add_frac_mem_var took 0.00032448768615722656 seconds
+Function: MIP.add_coverage_constraints took 0.00020885467529296875 seconds
+Function: MIP.add_accuracy_constraints took 0.00022339820861816406 seconds
+Function: MIP.add_capacity_constraints took 0.0003840923309326172 seconds
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+--------------------------------------------------
+Starting model update
+Model update took: 6.0558319091796875e-05 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 19 rows, 26 columns and 55 nonzeros
+Model fingerprint: 0x7e9bbf56
+Model has 1 general constraint
+Variable types: 26 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [8e-02, 1e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 1e+00]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 2 objectives ... 
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 12 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 7 rows and 16 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (max_mem) ...
+---------------------------------------------------------------------------
+
+Presolve removed 0 rows and 1 columns
+Presolve time: 0.00s
+Presolved: 7 rows, 15 columns, 27 nonzeros
+Presolved model has 2 SOS constraint(s)
+Variable types: 13 continuous, 2 integer (2 binary)
+
+Root relaxation: objective 4.809332e+03, 7 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0    4809.3320312 4809.33203  0.00%     -    0s
+
+Explored 0 nodes (7 simplex iterations) in 0.00 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 4809.33 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.809332031250e+03, best bound 4.809332031250e+03, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (tot_mem) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 10194.7
+
+Presolve removed 0 rows and 3 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 13 columns, 29 nonzeros
+Variable types: 12 continuous, 1 integer (1 binary)
+
+Root relaxation: cutoff, 4 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0     cutoff    0      10194.6641 10194.6641  0.00%     -    0s
+
+Explored 0 nodes (4 simplex iterations) in 0.00 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 10194.7 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.019466406250e+04, best bound 1.019466406250e+04, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 1
+
+Model optimize took: 0.004053354263305664 seconds
+--------------------------------------------------
+
+Solution quality statistics for model Univmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 9.09494702e-13 (mem_tot_CPU_1)
+    Integrality : 0.00000000e+00
+
+Sketch (0) (cm: eps0: 0.03125, del0: 0.05, min_mem: 0.33984375)
+Par: 1, Rows: 3
+(1.000,0)    (0.000,2)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 3.125e-06, del0: 0.05, min_mem: 3397.85546875)
+Par: 1, Rows: 3
+(0.472,0)    (0.472,2)    (0.056,1)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 4
+(1.000,1)    (0.000,0)    (0.000,2)    
+Total frac: 1.000
+
+Device (0) CPU_1:
+Rows total: 4.415102126686065
+Mem total: 4809.33203125
+
+Device (1) P4_1:
+Rows total: 4.1694956952397595
+Mem total: 576.0
+
+Device (2) CPU_2:
+Rows total: 1.415402178074176
+Mem total: 4809.33203125
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 70.00000000000061 Mpps, ns per packet: 14.285714285714162
+Resources: 124.21652725175178
+Used Cores: 10.999999999999996, Total CPUS: 2, Switch Memory: 576.0
+
+Sketch (0) (cm: eps0: 0.03125, del0: 0.05, min_mem: 0.33984375)
+Par: 1, Rows: 3
+(1.000,0)    (0.000,2)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 3.125e-06, del0: 0.05, min_mem: 3397.85546875)
+Par: 1, Rows: 3
+(0.472,0)    (0.472,2)    (0.056,1)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 4
+(1.000,1)    (0.000,0)    (0.000,2)    
+Total frac: 1.000
+
+Device (0) CPU_1:
+cores_sketch: 3.0, cores_dpdk: 3.999999999999996
+Rows total: 4.415102126686065
+Mem total: 4809.33203125
+Throughput: 74.1725846731728
+
+Device (1) P4_1:
+Rows total: 4.1694956952397595
+Mem total: 576.0
+Throughput: 148.0
+
+Device (2) CPU_2:
+cores_sketch: 1.0, cores_dpdk: 3.0
+Rows total: 1.415402178074176
+Mem total: 4809.33203125
+Throughput: 70.00000000000061
+--------------------------------------------------
+Function: MIP.solve took 0.0273587703704834 seconds
+Function: solve took 0.02767634391784668 seconds

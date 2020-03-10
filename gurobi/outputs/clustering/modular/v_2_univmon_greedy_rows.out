@@ -1,0 +1,233 @@
+Function: get_partitions took 1.33514404296875e-05 seconds
+Function: map_flows_partitions took 2.384185791015625e-06 seconds
+Building model with:
+2 devices, 1 partitions and 1 flows
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+Function: MIP.add_frac_mem_var took 0.00020432472229003906 seconds
+Function: MIP.add_coverage_constraints took 0.00015664100646972656 seconds
+Function: MIP.add_accuracy_constraints took 8.225440979003906e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0002315044403076172 seconds
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+--------------------------------------------------
+Starting model update
+Model update took: 4.601478576660156e-05 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 9 rows, 14 columns and 20 nonzeros
+Model fingerprint: 0xbb44baa7
+Model has 4 general constraints
+Variable types: 14 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 1e+00]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 8 objectives ... 
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 6 rows and 2 columns
+Presolve time: 0.00s
+Presolved: 3 rows and 12 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (tot_rows_CPU) ...
+---------------------------------------------------------------------------
+
+Found heuristic solution: objective 3.0000000
+Presolve removed 3 rows and 12 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 8 available processors)
+
+Solution count 2: 2.93219 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.932192478155e+00, best bound 2.932192478155e+00, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (CPU_rows_load) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 2.93219
+
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 8 available processors)
+
+Solution count 1: 2.93219 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.932192478155e+00, best bound 2.932192478155e+00, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 3 (tot_rows_P4) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0.0678075
+
+Presolve removed 5 rows and 12 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 8 available processors)
+
+Solution count 2: 0.0675133 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 6.751330259732e-02, best bound 6.751330259732e-02, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 4 (P4_rows_load) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0.0675133
+
+Presolve removed 6 rows and 12 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 8 available processors)
+
+Solution count 1: 0.0675133 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 6.751330259732e-02, best bound 6.751330259732e-02, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 5 (tot_mem_CPU) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 24910.4
+
+Presolve removed 7 rows and 12 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 8 available processors)
+
+Solution count 2: 24910.3 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.491033187727e+04, best bound 2.491033187727e+04, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 6 (CPU_load_mem) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 24910.3
+
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 8 available processors)
+
+Solution count 1: 24910.3 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.491033187727e+04, best bound 2.490789843750e+04, gap 0.0098%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 7 (tot_mem_P4) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 573.567
+
+Presolve removed 9 rows and 12 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 8 available processors)
+
+Solution count 2: 573.509 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.735089658123e+02, best bound 5.735089658123e+02, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 8 (P4_load_mem) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 573.509
+
+Presolve removed 10 rows and 12 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 8 available processors)
+
+Solution count 1: 573.509 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.735089658123e+02, best bound 5.735089658123e+02, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 5
+
+Model optimize took: 0.0034792423248291016 seconds
+--------------------------------------------------
+
+Solution quality statistics for model UnivmonGreedyRows :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 2.22044605e-16 (cov_0_0)
+    Integrality : 0.00000000e+00
+
+Sketch (0) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+(0.023,1)    (0.977,0)    
+Total frac: 1.000
+
+Device (0) CPU_1:
+Rows total: 2.932485726167193
+Mem total: 24910.389471687726
+
+Device (1) P4_1:
+Rows total: 0.06751427383280645
+Mem total: 573.5089658122678
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 56.00000000000043 Mpps, ns per packet: 17.85714285714272
+Resources: 85.00580105018608
+Used Cores: 7.0, Total CPUS: 1, Switch Memory: 573.5089658122678
+
+Sketch (0) (cm: eps0: 1.25e-06, del0: 0.05, min_mem: 8494.6328125)
+Par: 1, Rows: 3
+(0.023,1)    (0.977,0)    
+Total frac: 1.000
+
+Device (0) CPU_1:
+cores_sketch: 5.000000000000001, cores_dpdk: 1.9999999999999993
+Rows total: 2.932485726167193
+Mem total: 24910.389471687726
+Throughput: 56.00000000000043
+
+Device (1) P4_1:
+Rows total: 0.06751427383280645
+Mem total: 573.5089658122678
+Throughput: 148.0
+--------------------------------------------------
+Function: MIP.solve took 0.01667308807373047 seconds
+Function: solve took 0.016907453536987305 seconds

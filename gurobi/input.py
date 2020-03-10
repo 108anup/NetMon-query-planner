@@ -73,7 +73,7 @@ tofino = {
 class Input(Namespace):
 
     # Tree of device hierarchy
-    # List of list of list of ... devices
+    # List of cluster devices
     @property
     def clusters():
         pass

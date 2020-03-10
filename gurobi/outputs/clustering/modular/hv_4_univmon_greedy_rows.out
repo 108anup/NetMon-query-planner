@@ -1,0 +1,263 @@
+Function: get_partitions took 3.24249267578125e-05 seconds
+Function: map_flows_partitions took 5.245208740234375e-06 seconds
+Building model with:
+2 devices, 10 partitions and 1 flows
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+Function: MIP.add_frac_mem_var took 0.00033020973205566406 seconds
+Function: MIP.add_coverage_constraints took 0.0003440380096435547 seconds
+Function: MIP.add_accuracy_constraints took 0.00043773651123046875 seconds
+Function: MIP.add_capacity_constraints took 0.00037097930908203125 seconds
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+--------------------------------------------------
+Starting model update
+Model update took: 7.152557373046875e-05 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 36 rows, 50 columns and 110 nonzeros
+Model fingerprint: 0x3f269f66
+Model has 4 general constraints
+Variable types: 50 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [2e-02, 8e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 1e+00]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 8 objectives ... 
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 26 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 10 rows and 20 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (tot_rows_CPU) ...
+---------------------------------------------------------------------------
+
+Presolve removed 10 rows and 20 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (CPU_rows_load) ...
+---------------------------------------------------------------------------
+
+Presolve removed 11 rows and 20 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 3 (tot_rows_P4) ...
+---------------------------------------------------------------------------
+
+Presolve removed 12 rows and 20 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    9.9999990e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  9.999999000e+00
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 4 (P4_rows_load) ...
+---------------------------------------------------------------------------
+
+Presolve removed 13 rows and 20 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    9.9999990e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  9.999999000e+00
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 5 (tot_mem_CPU) ...
+---------------------------------------------------------------------------
+
+Presolve removed 14 rows and 20 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 6 (CPU_load_mem) ...
+---------------------------------------------------------------------------
+
+Presolve removed 15 rows and 20 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 7 (tot_mem_P4) ...
+---------------------------------------------------------------------------
+
+Presolve removed 14 rows and 17 columns
+Presolve time: 0.00s
+Presolved: 2 rows, 3 columns, 6 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5671867e+01   0.000000e+00   0.000000e+00      0s
+       0    2.5671867e+01   1.499369e-05   0.000000e+00      0s
+Extra one simplex iteration after uncrush
+       1    2.5671874e+01   0.000000e+00   0.000000e+00      0s
+
+Solved in 1 iterations and 0.00 seconds
+Optimal objective  2.567187400e+01
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 8 (P4_load_mem) ...
+---------------------------------------------------------------------------
+
+Presolve removed 15 rows and 17 columns
+Presolve time: 0.00s
+Presolved: 2 rows, 3 columns, 6 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5671867e+01   0.000000e+00   0.000000e+00      0s
+       0    2.5671867e+01   3.748422e-06   4.659952e+07      0s
+Extra 2 simplex iterations after uncrush
+       2    2.5671874e+01   0.000000e+00   0.000000e+00      0s
+
+Solved in 2 iterations and 0.00 seconds
+Optimal objective  2.567187400e+01
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 4
+
+Model optimize took: 0.0032303333282470703 seconds
+--------------------------------------------------
+
+Solution quality statistics for model UnivmonGreedyRows :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 0.00000000e+00
+    Integrality : 0.00000000e+00
+
+Sketch (0) (cm: eps0: 0.3125, del0: 0.05, min_mem: 0.03515625)
+Par: 1, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00125, del0: 0.05, min_mem: 8.49609375)
+Par: 1, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 4, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+
+Device (0) CPU_1:
+Rows total: 1.1771291954022989e-07
+Mem total: 1.0001e-06
+
+Device (1) P4_1:
+Rows total: 9.999999882287081
+Mem total: 25.6718739999
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 97.99999999999999 Mpps, ns per packet: 10.204081632653063
+Resources: 73.03483067890275
+Used Cores: 6.999999999999973, Total CPUS: 1, Switch Memory: 25.6718739999
+
+Sketch (0) (cm: eps0: 0.3125, del0: 0.05, min_mem: 0.03515625)
+Par: 1, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00125, del0: 0.05, min_mem: 8.49609375)
+Par: 1, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par: 1, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,0)    (1.000,1)    
+Total frac: 1.000
+Par: 4, Rows: 1
+(1.000,1)    (0.000,0)    
+Total frac: 1.000
+
+Device (0) CPU_1:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (1) P4_1:
+Rows total: 9.999999882287081
+Mem total: 25.6718739999
+Throughput: 148.0
+--------------------------------------------------
+Function: MIP.solve took 0.01677846908569336 seconds
+Function: solve took 0.01708841323852539 seconds

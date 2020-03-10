@@ -1,0 +1,799 @@
+Function: get_partitions took 0.0001163482666015625 seconds
+Function: map_flows_partitions took 6.914138793945312e-05 seconds
+Building model with:
+21 devices, 60 partitions and 20 flows
+Using license file /home/anup/gurobi.lic
+Academic license - for non-commercial use only
+Function: MIP.add_frac_mem_var took 0.0013227462768554688 seconds
+Function: MIP.add_coverage_constraints took 0.0010907649993896484 seconds
+Function: MIP.add_accuracy_constraints took 0.0036606788635253906 seconds
+Function: MIP.add_capacity_constraints took 0.002801656723022461 seconds
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+--------------------------------------------------
+Starting model update
+Model update took: 0.0002942085266113281 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 283 rows, 404 columns and 964 nonzeros
+Model fingerprint: 0xcd830c8f
+Model has 1 general constraint
+Variable types: 404 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 1e+00]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 2 objectives ... 
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 201 rows and 181 columns
+Presolve time: 0.00s
+Presolved: 82 rows and 223 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (max_mem) ...
+---------------------------------------------------------------------------
+
+Presolve removed 40 rows and 120 columns
+Presolve time: 0.00s
+Presolved: 42 rows, 103 columns, 183 nonzeros
+Presolved model has 21 SOS constraint(s)
+Variable types: 82 continuous, 21 integer (21 binary)
+
+Root relaxation: objective 4.854911e+00, 48 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       4.8549107    4.85491  0.00%     -    0s
+
+Explored 0 nodes (48 simplex iterations) in 0.00 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 4.85491 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.854910714286e+00, best bound 4.854910714286e+00, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (tot_mem) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 101.953
+
+Presolve removed 20 rows and 120 columns
+Presolve time: 0.00s
+Presolved: 63 rows, 103 columns, 225 nonzeros
+Variable types: 82 continuous, 21 integer (21 binary)
+
+Root relaxation: cutoff, 39 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0     cutoff    0       101.95312  101.95312  0.00%     -    0s
+
+Explored 0 nodes (39 simplex iterations) in 0.01 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 101.953 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.019531250000e+02, best bound 1.019531250000e+02, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.01 seconds, solution count 1
+
+Model optimize took: 0.006461381912231445 seconds
+--------------------------------------------------
+
+Solution quality statistics for model Univmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 1.42108547e-14 (tot_mem)
+    Integrality : 0.00000000e+00
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.429,1)    (0.571,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.429,1)    (0.571,0)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.571,0)    (0.429,1)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.524,1)    (0.476,2)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.524,1)    (0.476,2)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.476,2)    (0.524,1)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.476,2)    (0.524,3)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.524,3)    (0.476,2)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.476,2)    (0.000,20)    (0.524,3)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.429,3)    (0.571,4)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.571,4)    (0.000,20)    (0.429,3)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.429,3)    (0.571,4)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.381,4)    (0.000,20)    (0.619,5)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.619,5)    (0.381,4)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.619,5)    (0.381,4)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.667,6)    (0.333,5)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.667,6)    (0.000,20)    (0.333,5)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.333,5)    (0.667,6)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.714,7)    (0.286,6)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.714,7)    (0.000,20)    (0.286,6)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.286,6)    (0.714,7)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,8)    (0.238,7)    (0.762,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.238,7)    (0.000,8)    (0.762,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,8)    (0.238,7)    (0.762,20)    
+Total frac: 1.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.952,8)    (0.048,9)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.048,9)    (0.952,8)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.048,9)    (0.000,20)    (0.952,8)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.905,9)    (0.095,10)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.905,9)    (0.095,10)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.095,10)    (0.905,9)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.857,10)    (0.143,11)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.143,11)    (0.000,20)    (0.857,10)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.857,10)    (0.143,11)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.190,20)    (0.810,11)    (0.000,12)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,12)    (0.810,11)    (0.190,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.190,20)    (0.810,11)    (0.000,12)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.952,12)    (0.048,13)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.048,13)    (0.952,12)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.048,13)    (0.000,20)    (0.952,12)    
+Total frac: 1.000
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.095,14)    (0.905,13)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.095,14)    (0.905,13)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.905,13)    (0.095,14)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.143,15)    (0.857,14)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.857,14)    (0.143,15)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.857,14)    (0.143,15)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.190,16)    (0.810,15)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.810,15)    (0.190,16)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.190,16)    (0.810,15)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.762,16)    (0.238,17)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.238,17)    (0.762,16)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.762,16)    (0.238,17)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.714,17)    (0.286,18)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.714,17)    (0.286,18)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.286,18)    (0.714,17)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.333,19)    (0.000,20)    (0.667,18)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.667,18)    (0.333,19)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.667,18)    (0.000,20)    (0.333,19)    
+Total frac: 1.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.619,19)    (0.000,20)    (0.381,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.381,0)    (0.619,19)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.619,19)    (0.000,20)    (0.381,0)    
+Total frac: 1.000
+
+Device (0) CPU_0:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (1) CPU_1:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (2) CPU_2:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (3) CPU_3:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (4) CPU_4:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (5) CPU_5:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (6) CPU_6:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (7) CPU_7:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (8) CPU_8:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (9) CPU_9:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (10) CPU_10:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (11) CPU_11:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (12) CPU_12:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (13) CPU_13:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (14) CPU_14:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (15) CPU_15:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (16) CPU_16:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (17) CPU_17:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (18) CPU_18:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (19) CPU_19:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+
+Device (20) P4_1:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 1400.8272824968603
+Used Cores: 139.99999999999997, Total CPUS: 20, Switch Memory: 4.854910714285714
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.429,1)    (0.571,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.429,1)    (0.571,0)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.571,0)    (0.429,1)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.524,1)    (0.476,2)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.524,1)    (0.476,2)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.476,2)    (0.524,1)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.476,2)    (0.524,3)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.524,3)    (0.476,2)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.476,2)    (0.000,20)    (0.524,3)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.429,3)    (0.571,4)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.571,4)    (0.000,20)    (0.429,3)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.429,3)    (0.571,4)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.381,4)    (0.000,20)    (0.619,5)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.619,5)    (0.381,4)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.619,5)    (0.381,4)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.667,6)    (0.333,5)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.667,6)    (0.000,20)    (0.333,5)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.333,5)    (0.667,6)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.714,7)    (0.286,6)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.714,7)    (0.000,20)    (0.286,6)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.286,6)    (0.714,7)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,8)    (0.238,7)    (0.762,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.238,7)    (0.000,8)    (0.762,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,8)    (0.238,7)    (0.762,20)    
+Total frac: 1.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.952,8)    (0.048,9)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.048,9)    (0.952,8)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.048,9)    (0.000,20)    (0.952,8)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.905,9)    (0.095,10)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.905,9)    (0.095,10)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.095,10)    (0.905,9)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.857,10)    (0.143,11)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.143,11)    (0.000,20)    (0.857,10)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.857,10)    (0.143,11)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.190,20)    (0.810,11)    (0.000,12)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,12)    (0.810,11)    (0.190,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.190,20)    (0.810,11)    (0.000,12)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.952,12)    (0.048,13)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.048,13)    (0.952,12)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.048,13)    (0.000,20)    (0.952,12)    
+Total frac: 1.000
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.095,14)    (0.905,13)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.095,14)    (0.905,13)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.905,13)    (0.095,14)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.143,15)    (0.857,14)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.857,14)    (0.143,15)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.857,14)    (0.143,15)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.190,16)    (0.810,15)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.810,15)    (0.190,16)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.190,16)    (0.810,15)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.000,20)    (0.762,16)    (0.238,17)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.238,17)    (0.762,16)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.762,16)    (0.238,17)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.714,17)    (0.286,18)    (0.000,20)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.714,17)    (0.286,18)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.000,20)    (0.286,18)    (0.714,17)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.333,19)    (0.000,20)    (0.667,18)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.667,18)    (0.333,19)    (0.000,20)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.667,18)    (0.000,20)    (0.333,19)    
+Total frac: 1.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par: 1, Rows: 1
+(0.619,19)    (0.000,20)    (0.381,0)    
+Total frac: 1.000
+Par: 2, Rows: 1
+(0.000,20)    (0.381,0)    (0.619,19)    
+Total frac: 1.000
+Par: 3, Rows: 1
+(0.619,19)    (0.000,20)    (0.381,0)    
+Total frac: 1.000
+
+Device (0) CPU_0:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (1) CPU_1:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (2) CPU_2:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (3) CPU_3:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (4) CPU_4:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (5) CPU_5:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (6) CPU_6:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (7) CPU_7:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (8) CPU_8:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (9) CPU_9:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (10) CPU_10:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (11) CPU_11:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (12) CPU_12:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (13) CPU_13:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (14) CPU_14:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (15) CPU_15:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (16) CPU_16:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (17) CPU_17:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (18) CPU_18:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (19) CPU_19:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 87.49999999999999
+
+Device (20) P4_1:
+Rows total: 2.857142857142857
+Mem total: 4.854910714285714
+Throughput: 148.0
+--------------------------------------------------
+Function: MIP.solve took 0.17712664604187012 seconds
+Function: solve took 0.1778726577758789 seconds
