@@ -2,11 +2,12 @@ import os
 import random
 import pickle
 
-from common import Namespace
+from common import Namespace, memoize
 from devices import CPU, P4
 from flows import flow
 from sketches import cm_sketch
 
+# Stub file for providing input to solver
 
 """
 TODO:
@@ -72,11 +73,13 @@ tofino = {
 
 class Input(Namespace):
 
-    # Tree of device hierarchy
-    # List of cluster devices
     @property
-    def clusters():
-        pass
+    @memoize
+    def device_to_id(self):
+        _device_to_id = {}
+        for (dnum, d) in enumerate(self.devices):
+            _device_to_id[d] = dnum
+        return _device_to_id
 
 
 def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,

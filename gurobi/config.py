@@ -6,9 +6,6 @@ from common import Namespace
 
 class Config(Namespace):
 
-    def __init__(self, *args, **kwargs):
-        super(Config, self).__init__(*args, **kwargs)
-
     def load_config_file(self, fpath='config.yml'):
         if(os.path.exists(fpath)):
             f = open(fpath)

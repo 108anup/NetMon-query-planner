@@ -1,10 +1,12 @@
 import sys
+from queue import Queue
 
 from cli import generate_parser
 from common import Namespace, setup_logging, log_time
 from config import common_config
 from input import input_generator
 from solvers import solver_to_class
+from devices import Cluster
 
 
 @log_time
@@ -38,28 +40,58 @@ def map_flows_partitions(flows, queries):
 
 
 @log_time
-def solve(devices, queries, flows):
+def get_cluster_from_overlay(inp, overlay):
+    if(isinstance(overlay, list)):
+        return Cluster(
+            device_tree=[
+                get_cluster_from_overlay(inp, roots) for roots in overlay
+            ],
+            overlay=overlay
+        )
+    else:
+        return inp.devices[overlay]
 
-    partitions = get_partitions(queries)
-    map_flows_partitions(flows, queries)
+
+@log_time
+def solve(inp):
+
+    inp.partitions = get_partitions(inp.queries)
+    map_flows_partitions(inp.flows, inp.queries)
+    Solver = solver_to_class[common_config.solver]
 
     # Clustering
-    # for (dnum, d) in enumerate(self.devices):
+    if (hasattr(inp, 'overlay')):
+        inp.cluster = get_cluster_from_overlay(inp.overlay)
+        inp.cluster.build_closures()
+        queue = Queue()
+        queue.put(Namespace(root=inp.cluster, partitions=inp.partitions))
 
-    Solver = solver_to_class[common_config.solver]
-    solver = Solver(devices=devices, flows=flows,
-                    partitions=partitions, queries=queries)
-    solver.solve()
+        while(queue.not_empty()):
+            front = queue.get()
+            root = front.root  # list of devices (clusters)
+            partitions = front.partitions
+            # TODO: implement get_flows
+            flows = get_flows(inp, root, partitions)
+            solver = Solver(devices=root.device_tree, partitions=partitions,
+                            flows=flows, queries=inp.queries)
+            for d in root.device_tree:
+                if(isinstance(d, Cluster)):
+                    # TODO: implement d.partitions
+                    queue.put(Namespace(root=d, partitions=d.partitions))
+    else:
+        solver = Solver(devices=inp.devices, flows=inp.flows,
+                        partitions=inp.partitions, queries=inp.queries)
+        solver.solve()
 
 
 parser = generate_parser()
 args = parser.parse_args(sys.argv[1:])
-if('config_file' in args.__dict__):
+if(hasattr(args, 'config_file')):
     for fpath in args.config_file:
         common_config.load_config_file(fpath)
 common_config.update(args)
-setup_logging(args)
+setup_logging(common_config)
 
 input_num = common_config.input_num
 inp = input_generator[input_num]
-solve(inp.devices, inp.queries, inp.flows)
+solve(inp)

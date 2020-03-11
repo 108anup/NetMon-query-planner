@@ -1,6 +1,6 @@
 from gurobipy import GRB
 
-from common import Namespace
+from common import Namespace, memoize
 
 
 class device(Namespace):
@@ -180,7 +180,19 @@ class P4(device):
         self.weight = 1
 
 
-class cluster(device):
+class Cluster(device):
+
+    # Tree of devices
+
+    @property
+    @memoize
+    def overlay_closure():
+        pass
+
+    @property
+    @memoize
+    def device_tree_closure():
+        pass
 
     def add_ns_constraints():
         pass

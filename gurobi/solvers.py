@@ -601,7 +601,7 @@ class Netmon(UnivmonGreedyRows):
             if(isinstance(d, P4)):
                 switch_memory += d.mem_tot.x
 
-        if('ns_req' in self.__dict__):
+        if(hasattr(self, 'ns_req')):
             self.ns = self.ns_req
         log_results(self.ns, self.res, used_cores, total_CPUs, switch_memory)
         log_placement(self.devices, self.queries, self.flows, self.partitions,
