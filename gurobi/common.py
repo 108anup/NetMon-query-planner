@@ -38,6 +38,9 @@ class Namespace:
         else:
             raise AttributeError("Not found key: {}".format(attr))
 
+    def __repr__(self):
+        return repr(self.__dict__)
+
 
 class InfoFilter(logging.Filter):
     def filter(self, rec):

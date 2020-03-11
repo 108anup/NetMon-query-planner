@@ -379,5 +379,40 @@ input_generator = [
 
     # 15
     # Very Large
-    dc_topology(hosts_per_tors=48, tors_per_l1s=20, l1s=10, num_queries=2048)
+    dc_topology(hosts_per_tors=48, tors_per_l1s=20, l1s=10, num_queries=2048),
+
+    # 16
+    # Overlay test 1
+    Input(
+        devices=(
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(2)] +
+            [P4(**tofino, name='P4_{}'.format(i+2)) for i in range(4)]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0, del0=del0) for i in range(3)
+        ],
+        flows=[
+            flow(path=(0, 3, 5, 1), queries=[(0, 0.6), (1, 0.8)]),
+            flow(path=(2, 3, 4), queries=[(1, 0.6), (2, 0.9)]),
+            flow(path=(5, 1), queries=[(0, 1)])
+        ],
+    ),
+
+    # 17
+    # Overlay test 2
+    Input(
+        devices=(
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(2)] +
+            [P4(**tofino, name='P4_{}'.format(i+2)) for i in range(4)]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0, del0=del0) for i in range(3)
+        ],
+        flows=[
+            flow(path=(0, 3, 5, 1), queries=[(0, 0.6), (1, 0.8)]),
+            flow(path=(2, 3, 4), queries=[(1, 0.6), (2, 0.9)]),
+            flow(path=(5, 1), queries=[(0, 1)])
+        ],
+        overlay=[[0, 3, 2], [4, 5, 1]]
+    ),
 ]

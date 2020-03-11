@@ -172,9 +172,6 @@ class P4(device):
     def res(self):
         return self.rows_tot/self.meter_alus + self.mem_tot/self.sram
 
-    def resource_stats(self):
-        return ""
-
     def __init__(self, *args, **kwargs):
         super(P4, self).__init__(*args, **kwargs)
         self.weight = 1
@@ -184,15 +181,59 @@ class Cluster(device):
 
     # Tree of devices
 
-    @property
     @memoize
-    def overlay_closure():
-        pass
+    def transitive_closure(self):
+        closure = []
+        self.overlay_closure = []
+        for child in self.device_tree:
+            if(not isinstance(child, Cluster)):
+                closure.append(child)
+            else:
+                closure.extend(child.transitive_closure())
+        return closure
+
+    @memoize
+    def dev_id_to_cluster_id(self, inp):
+        this_dict = {}
+        clusters = self.device_tree
+        for (cnum, c) in enumerate(clusters):
+            if(isinstance(c, Cluster)):
+                for d in c.transitive_closure():
+                    this_dict[d.dev_id] = cnum
+            else:
+                d = c
+                this_dict[d.dev_id] = cnum
+
+        return this_dict
 
     @property
     @memoize
-    def device_tree_closure():
-        pass
+    def max_mem(self):
+        mm = 0
+        for d in self.transitive_closure():
+            mm += d.max_mem
+        return mm
 
-    def add_ns_constraints():
-        pass
+    @property
+    @memoize
+    def max_rows(self):
+        mr = 0
+        for d in self.transitive_closure():
+            mr += d.max_rows
+        return mr
+
+    @property
+    @memoize
+    def name(self):
+        return '{' + ','.join(d.name for d in self.device_tree) + '}'
+
+    def res(self):
+        return self.mem_tot
+
+    def add_ns_constraints(self, m, ns_req=None):
+        # TODO:: Hardcoding here!!
+        self.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
+        m.addConstr(self.ns == 1000 / 148, name='ns_{}'.format(self))
+
+        if(ns_req):
+            m.addConstr(self.ns <= ns_req, name='max_ns_{}'.format(self))

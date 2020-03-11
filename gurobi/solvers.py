@@ -126,6 +126,7 @@ class MIP(Namespace):
 
     @log_time
     def add_coverage_constraints(self):
+        #import ipdb; ipdb.set_trace()
 
         # for pnum in range(numpartitions):
         #     m.addConstr(frac.sum('*', pnum) == 1,
@@ -196,7 +197,7 @@ class MIP(Namespace):
             for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
                 p = self.partitions[pnum]
                 rows_series.append(
-                    p.num_rows * self.frac[dnum, p.partition_id]
+                    p.num_rows * self.frac[dnum, pnum]
                 )
             # rows_series = [p.num_rows * frac[dnum, p.partition_id]
             #                for p in self.partitions]
@@ -244,6 +245,7 @@ class MIP(Namespace):
 
             # Resources
             res_acc += d.res()
+            d.m = self.m
 
         ns = None
         if(ns_req is None):
@@ -303,8 +305,14 @@ class MIP(Namespace):
         log.info("-"*50)
 
         if(self.m.Status == GRB.INFEASIBLE):
-            # m.computeIIS()
-            # m.write("progs/infeasible_{}.ilp".format(cfg_num))
+            if(common_config.prog_dir):
+                self.m.computeIIS()
+                self.m.write(
+                    os.path.join(
+                        common_config.prog_dir,
+                        "infeasible_{}.ilp".format(common_config.input_num)
+                    )
+                )
             if(not (common_config.output_file is None)):
                 f = open(common_config.output_file, 'a')
                 f.write("-, -, -, -, -, ")
@@ -632,24 +640,39 @@ def log_results(ns, res, used_cores=None, total_CPUs=None, switch_memory=None):
 
 def log_placement(devices, queries, flows, partitions, m, frac,
                   dev_par_tuplelist):
-    for (qnum, q) in enumerate(queries):
-        log.info("\nSketch ({}) ({})".format(q.sketch_id,
-                                             q.details()))
-        row = 1
-        for pnum in q.partitions:
-            num_rows = partitions[pnum].num_rows
-            log.info("Par: {}, Rows: {}".format(row, num_rows))
-            row += 1
-            par_info = ""
-            total_frac = 0
-            for (dnum, _) in dev_par_tuplelist.select('*', pnum):
-                par_info += "({:0.3f},{})    ".format(frac[dnum, pnum].x, dnum)
-                total_frac += (frac[dnum, pnum].x)
-            # for (dnum, d) in enumerate(devices):
-            #     par_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
-            #     total_frac += (frac[dnum, pnum].x)
-            log.info(par_info)
-            log.info("Total frac: {:0.3f}".format(total_frac))
+    # for (qnum, q) in enumerate(queries):
+    #     log.info("\nSketch ({}) ({})".format(q.sketch_id,
+    #                                          q.details()))
+    #     row = 1
+    #     for pnum in q.partitions:
+    #         num_rows = partitions[pnum].num_rows
+    #         log.info("Par: {}, Rows: {}".format(row, num_rows))
+    #         row += 1
+    #         par_info = ""
+    #         total_frac = 0
+    #         for (dnum, _) in dev_par_tuplelist.select('*', pnum):
+    #             par_info += "({:0.3f},{})    ".format(frac[dnum, pnum].x, dnum)
+    #             total_frac += (frac[dnum, pnum].x)
+    #         # for (dnum, d) in enumerate(devices):
+    #         #     par_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
+    #         #     total_frac += (frac[dnum, pnum].x)
+    #         log.info(par_info)
+    #         log.info("Total frac: {:0.3f}".format(total_frac))
+
+    for (pnum, p) in enumerate(partitions):
+        q = p.sketch
+        log.info("\nPartition of Sketch ({}) ({})".format(q.sketch_id,
+                                                          q.details()))
+        par_info = ""
+        total_frac = 0
+        for (dnum, _) in dev_par_tuplelist.select('*', pnum):
+            par_info += "({:0.3f},{})    ".format(frac[dnum, pnum].x, dnum)
+            total_frac += (frac[dnum, pnum].x)
+        # for (dnum, d) in enumerate(devices):
+        #     par_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
+        #     total_frac += (frac[dnum, pnum].x)
+        log.info(par_info)
+        log.info("Total frac: {:0.3f}".format(total_frac))
 
     for (dnum, d) in enumerate(devices):
         log.info("\nDevice ({}) {}:".format(dnum, d))
@@ -664,7 +687,7 @@ def log_placement(devices, queries, flows, partitions, m, frac,
     log.debug("")
     for (fnum, f) in enumerate(flows):
         log.debug("Flow {}:".format(fnum))
-        log.debug("queries: {}".format(f.queries))
+        log.debug("partitions: {}".format(f.partitions))
         log.debug("path: {}".format(f.path))
     log.info("-"*50)
 
