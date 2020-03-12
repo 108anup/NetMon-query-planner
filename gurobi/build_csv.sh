@@ -6,8 +6,8 @@ output_file="${path_prefix}/testing.csv"
 params=('h' 'v' 'hv' 'n')
 param_args=('--hp' '--vp' '--hp --vp' '')
 
-# inps=($(echo "16 17"))
-inps=({0..13})
+inps=($(echo "18 19"))
+# inps=({0..13})
 
 for param in {0..3}; do
     for inp in ${inps[@]}; do

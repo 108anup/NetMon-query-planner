@@ -415,4 +415,33 @@ input_generator = [
         ],
         overlay=[[0, 3, 2], [4, 5, 1]]
     ),
+
+    # 18 overlay on 11
+    # Pressure at network core
+    Input(
+        devices=(
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(20)] +
+            [P4(**tofino, name='P4_1')]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0, del0=del0) for i in range(20)
+        ],
+        flows=[flow(path=(i, 20, (i + 1) % 20), queries=[(i, 1)])
+               for i in range(20)],
+        overlay=[[i + j*4 for i in range(4)] for j in range(5)] + [20]
+    ),
+
+    # 19 overlay on 12
+    # Pressure at network core, core is now CPU
+    Input(
+        devices=(
+            [P4(**tofino, name='P4_{}'.format(i)) for i in range(20)] +
+            [CPU(**beluga20, name='CPU_1')]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0/1000, del0=del0)],
+        flows=[flow(path=(i, 20, (i + 1) % 20), queries=[(0, 1)])
+               for i in range(20)],
+        overlay=[[i + j*4 for i in range(4)] for j in range(5)] + [20]
+    ),
 ]
