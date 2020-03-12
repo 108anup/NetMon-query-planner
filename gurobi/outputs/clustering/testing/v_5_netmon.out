@@ -1,0 +1,185 @@
+Building model with:
+3 devices, 3 partitions and 1 flows
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+--------------------------------------------------
+Starting model update
+Model update took: 3.814697265625e-05 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 28 rows, 47 columns and 79 nonzeros
+Model fingerprint: 0xf3d7ada6
+Model has 6 quadratic constraints
+Model has 5 general constraints
+Variable types: 43 continuous, 4 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-04, 1e+04]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 2e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 2 objectives ... 
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve added 0 rows and 9 columns
+Presolve removed 1 rows and 0 columns
+Presolve time: 0.00s
+Presolved: 51 rows and 57 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (ns) ...
+---------------------------------------------------------------------------
+
+Presolve added 0 rows and 4 columns
+Presolve removed 1 rows and 0 columns
+Presolve time: 0.00s
+Presolved: 74 rows, 62 columns, 214 nonzeros
+Presolved model has 6 SOS constraint(s)
+Presolved model has 6 bilinear constraint(s)
+Variable types: 42 continuous, 20 integer (16 binary)
+
+Root relaxation: objective 1.020408e+01, 29 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   10.20408    0    6          -   10.20408      -     -    0s
+     0     0   10.20408    0    4          -   10.20408      -     -    0s
+     0     0   10.20408    0    3          -   10.20408      -     -    0s
+     0     0   10.20408    0    3          -   10.20408      -     -    0s
+H    0     0                      12.5000000   10.20408  18.4%     -    0s
+     0     2   10.26655    0   12   12.50000   10.26655  17.9%     -    0s
+*  111    61              19      11.4285714   10.71429  6.25%   3.6    0s
+
+Cutting planes:
+  Gomory: 1
+  Implied bound: 5
+  Flow cover: 3
+  RLT: 6
+  Relax-and-lift: 3
+
+Explored 191 nodes (530 simplex iterations) in 0.02 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 11.4286 12.5 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.142857142857e+01, best bound 1.142857142857e+01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (res) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 154.803
+
+Presolve added 0 rows and 2 columns
+Presolve removed 2 rows and 0 columns
+Presolve time: 0.00s
+Presolved: 74 rows, 59 columns, 230 nonzeros
+Presolved model has 6 bilinear constraint(s)
+Variable types: 42 continuous, 17 integer (13 binary)
+
+Root relaxation: objective 1.122038e+02, 43 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  112.20378    0    8  154.80293  112.20378  27.5%     -    0s
+H    0     0                     151.5338119  112.20378  26.0%     -    0s
+     0     0  116.38924    0   11  151.53381  116.38924  23.2%     -    0s
+     0     0  116.38924    0   11  151.53381  116.38924  23.2%     -    0s
+     0     0  117.04274    0   11  151.53381  117.04274  22.8%     -    0s
+     0     0  117.12040    0   11  151.53381  117.12040  22.7%     -    0s
+     0     0  118.19905    0   11  151.53381  118.19905  22.0%     -    0s
+     0     0  118.98769    0    8  151.53381  118.98769  21.5%     -    0s
+     0     0  122.53920    0    7  151.53381  122.53920  19.1%     -    0s
+     0     0  122.57784    0    6  151.53381  122.57784  19.1%     -    0s
+     0     0  122.60212    0    8  151.53381  122.60212  19.1%     -    0s
+     0     0  122.62873    0    6  151.53381  122.62873  19.1%     -    0s
+     0     0  122.62873    0    6  151.53381  122.62873  19.1%     -    0s
+     0     0  122.62873    0    6  151.53381  122.62873  19.1%     -    0s
+     0     2  122.62873    0    6  151.53381  122.62873  19.1%     -    0s
+*   45    28              10     135.3402830  132.59678  2.03%   2.4    0s
+*   69    14              12     135.2550721  132.59678  1.97%   1.9    0s
+*   78    14              12     135.2539858  132.59678  1.96%   1.9    0s
+*   88    21              12     132.8545568  132.59678  0.19%   1.9    0s
+*   96    21              11     132.8476390  132.59678  0.19%   1.9    0s
+*  111    19              14     132.8458325  132.59678  0.19%   1.9    0s
+*  121    11              15     132.8423468  132.59678  0.18%   1.8    0s
+
+Cutting planes:
+  Implied bound: 3
+  Flow cover: 2
+  RLT: 5
+  Relax-and-lift: 4
+
+Explored 150 nodes (393 simplex iterations) in 0.05 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 9: 132.842 132.846 132.848 ... 154.803
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.328423467539e+02, best bound 1.328423467539e+02, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.05 seconds, solution count 10
+
+Model optimize took: 0.05188798904418945 seconds
+--------------------------------------------------
+
+Solution quality statistics for model Netmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 5.16067246e-07
+    Integrality : 5.24025268e-14 (cores_sketch_CPU_1)
+
+Throughput: 87.49124322019418 Mpps, ns per packet: 11.429715285714288
+Resources: 132.8423467538548
+Used Cores: 13.000000000000027, Total CPUS: 2, Switch Memory: 0.8664743417048166
+
+Sketch (0) (cm: eps0: 0.03125, del0: 0.05, min_mem: 0.33984375)
+Par0 id: 0, Rows: 3
+(0.227,0)    (0.000,2)    (0.773,1)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 3.125e-06, del0: 0.05, min_mem: 3397.85546875)
+Par0 id: 1, Rows: 3
+(0.580,0)    (0.420,2)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.625, del0: 0.025, min_mem: 0.01953125)
+Par0 id: 2, Rows: 4
+(1.000,1)    (0.000,0)    (0.000,2)    
+Total frac: 1.000
+
+Device (0) CPU_1:
+cores_sketch: 2.0000000000000524, cores_dpdk: 5.0
+Rows total: 2.4193476694899823
+Mem total: 5909.401740774315
+Throughput: 87.49124322019418
+
+Device (1) P4_1:
+Rows total: 6.319740591683139
+Mem total: 0.8664743417048166
+Throughput: 148.0
+
+Device (2) CPU_2:
+cores_sketch: 0.9999999999999739, cores_dpdk: 5.0
+Rows total: 1.2609117388268785
+Mem total: 4284.39584738398
+Throughput: 87.49124322019418
+--------------------------------------------------

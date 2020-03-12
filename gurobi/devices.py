@@ -149,12 +149,13 @@ class CPU(device):
 
         if(ns_req is None):
             self.ns = m.addVar(vtype=GRB.CONTINUOUS,
-                           name='ns_{}'.format(self))
+                               name='ns_{}'.format(self))
             m.addGenConstrMax(self.ns, [self.ns_dpdk, self.ns_sketch],
                               name='ns_{}'.format(self))
 
     def res(self):
-        return 10*(self.cores_dpdk + self.cores_sketch) + self.mem_tot/self.Li_size[2]
+        return 10*(self.cores_dpdk + self.cores_sketch) \
+            + self.mem_tot/self.Li_size[2]
 
     def resource_stats(self):
         if(hasattr(self, 'cores_sketch')):

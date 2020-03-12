@@ -1,5 +1,6 @@
 import sys
 from queue import Queue
+import time
 
 from cli import generate_parser
 from common import Namespace, setup_logging, log_time, log
@@ -112,6 +113,7 @@ def map_flows_to_cluster(inp):
 
 @log_time
 def solve(inp):
+    start = time.time()
 
     for (dnum, d) in enumerate(inp.devices):
         d.dev_id = dnum
@@ -140,6 +142,7 @@ def solve(inp):
                             flows=flows, queries=inp.queries, overlay=True)
             solver.solve()
 
+            # TODO: Modify Infeasible handling
             # TODO: This breaks abstraction of any type of solver
             if(solver.m.Status == GRB.INFEASIBLE):
                 return
@@ -175,6 +178,13 @@ def solve(inp):
                         partitions=inp.partitions, queries=inp.queries,
                         overlay=False)
         solver.solve()
+
+    # Move this outside this function
+    end = time.time()
+    if(not (common_config.output_file is None)):
+        f = open(common_config.output_file, 'a')
+        f.write("{:06f}, ".format(end - start))
+        f.close()
 
 
 parser = generate_parser()

@@ -1,31 +1,24 @@
-Function: get_partitions took 1.2874603271484375e-05 seconds
-Function: map_flows_partitions took 2.6226043701171875e-06 seconds
-Function: map_flows_to_cluster took 2.0503997802734375e-05 seconds
 Building model with:
 2 devices, 3 partitions and 3 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.00023627281188964844 seconds
-Function: MIP.add_coverage_constraints took 0.00023984909057617188 seconds
-Function: MIP.add_accuracy_constraints took 0.00015544891357421875 seconds
-Function: MIP.add_capacity_constraints took 0.00026726722717285156 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 5.4836273193359375e-05 s
+Model update took: 3.6716461181640625e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
 Optimize a model with 18 rows, 20 columns and 42 nonzeros
-Model fingerprint: 0xcfee4e88
+Model fingerprint: 0x5e4b116a
 Model has 1 general constraint
 Variable types: 20 continuous, 0 integer (0 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 5e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 3e+04]
-  RHS range        [6e-01, 7e+00]
+  RHS range        [6e-01, 1e+02]
 
 ---------------------------------------------------------------------------
 Multi-objectives: starting optimization with 2 objectives ... 
@@ -46,10 +39,10 @@ Presolve removed 2 rows and 5 columns
 Presolve time: 0.00s
 Presolve: All rows and columns removed
 Iteration    Objective       Primal Inf.    Dual Inf.      Time
-       0    6.7567568e+00   0.000000e+00   0.000000e+00      0s
+       0    1.4800000e+02   0.000000e+00   0.000000e+00      0s
 
 Solved in 0 iterations and 0.00 seconds
-Optimal objective  6.756756757e+00
+Optimal objective  1.480000000e+02
 ---------------------------------------------------------------------------
 
 Multi-objectives: optimize objective 2 (res) ...
@@ -67,7 +60,7 @@ Optimal objective  1.376367188e+01
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0010683536529541016 seconds
+Model optimize took: 0.0005578994750976562 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
@@ -76,82 +69,44 @@ Solution quality statistics for model Netmon :
     Constraint  : 4.44089210e-16 (rows_tot_{CPU_0,P4_3,P4_2})
     Integrality : 0.00000000e+00
 
-VARIABLES ------------------------------
-Objective: 6.756756756756757
-frac[0,1] 0.8
-frac[1,2] 0.9
-frac[0,0] 0
-frac[1,1] 0
-frac[1,0] 1
-frac[0,2] 0
-mem[0,1] 4.07812
-mem[1,2] 4.58789
-mem[0,0] 0
-mem[1,1] 0
-mem[1,0] 5.09766
-mem[0,2] 0
-mem_tot_{CPU_0,P4_3,P4_2} 4.07812
-rows_tot_{CPU_0,P4_3,P4_2} 2.4
-mem_tot_{P4_4,P4_5,CPU_1} 9.68555
-rows_tot_{P4_4,P4_5,CPU_1} 5.7
-ns_{CPU_0,P4_3,P4_2} 6.75676
-ns_{P4_4,P4_5,CPU_1} 6.75676
-ns 6.75676
-res 13.7637
---------------------------------------------------
-
-Throughput: 148.0 Mpps, ns per packet: 6.756756756756757
+Throughput: 6.756756756756757 Mpps, ns per packet: 148.0
 Resources: 13.763671875
 Used Cores: 0, Total CPUS: 0, Switch Memory: 0
 
-Partition of Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
 (0.000,0)    (1.000,1)    
 Total frac: 1.000
 
-Partition of Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
 (0.800,0)    (0.000,1)    
 Total frac: 0.800
 
-Partition of Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
 (0.900,1)    (0.000,0)    
 Total frac: 0.900
 
 Device (0) {CPU_0,P4_3,P4_2}:
 Rows total: 2.4
 Mem total: 4.078125
-Throughput: 148.0
+Throughput: 6.756756756756757
 
 Device (1) {P4_4,P4_5,CPU_1}:
 Rows total: 5.7
 Mem total: 9.685546875
-Throughput: 148.0
-
-Flow 0:
-partitions: [(0, 0.6), (1, 0.8)]
-path: {0, 1}
-Flow 1:
-partitions: [(1, 0.6), (2, 0.9)]
-path: {0, 1}
-Flow 2:
-partitions: [(0, 1)]
-path: {1}
+Throughput: 6.756756756756757
 --------------------------------------------------
-Function: MIP.solve took 0.024852752685546875 seconds
-Function: get_partitions_flows took 4.315376281738281e-05 seconds
-Function: get_partitions_flows took 4.029273986816406e-05 seconds
 Building model with:
 3 devices, 1 partitions and 2 flows
-Function: MIP.add_frac_mem_var took 8.106231689453125e-05 seconds
-Function: MIP.add_coverage_constraints took 4.696846008300781e-05 seconds
-Function: MIP.add_accuracy_constraints took 6.556510925292969e-05 seconds
-Function: MIP.add_capacity_constraints took 0.00021314620971679688 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 Changed value of parameter NonConvex to 2
    Prev: -1  Min: -1  Max: 2  Default: -1
 --------------------------------------------------
 Starting model update
-Model update took: 2.956390380859375e-05 s
+Model update took: 1.811981201171875e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -227,7 +182,7 @@ Best objective 7.068496093750e+01, best bound 7.068496093750e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0025529861450195312 seconds
+Model optimize took: 0.0015130043029785156 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
@@ -236,41 +191,12 @@ Solution quality statistics for model Netmon :
     Constraint  : 0.00000000e+00
     Integrality : 0.00000000e+00
 
-VARIABLES ------------------------------
-Objective: 10.204081632653061
-frac[2,0] 0
-frac[1,0] 0.8
-frac[0,0] 0
-mem[2,0] 0
-mem[1,0] 4.07812
-mem[0,0] 0
-mem_tot_CPU_0 0
-rows_tot_CPU_0 0
-mem_tot_P4_3 4.07812
-rows_tot_P4_3 2.4
-mem_tot_P4_2 0
-rows_tot_P4_2 0
-m_access_time_CPU_0 0
-ns_single_CPU_0 0
-pdt_m_rows_CPU_0 0
-cores_sketch_CPU_0 0
-cores_dpdk_CPU_0 7
-ns_sketch_CPU_0 10.2041
-pdt_nsk_c_CPU_0 0
-ns_dpdk_CPU_0 10.2041
-pdt_nsc_dpdk_CPU_0 71.4286
-ns_CPU_0 10.2041
-ns_P4_3 6.75676
-ns_P4_2 6.75676
-ns 10.2041
-res 70.685
---------------------------------------------------
-
 Throughput: 98.0 Mpps, ns per packet: 10.204081632653061
 Resources: 70.6849609375
 Used Cores: 7.0, Total CPUS: 1, Switch Memory: 4.078125
 
-Partition of Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
 (0.000,2)    (0.800,1)    (0.000,0)    
 Total frac: 0.800
 
@@ -289,28 +215,16 @@ Device (2) P4_2:
 Rows total: 0.0
 Mem total: 0.0
 Throughput: 148.0
-
-Flow 0:
-partitions: [(0, 0.8)]
-path: {0, 1}
-Flow 1:
-partitions: [(0, 0.6)]
-path: {1, 2}
 --------------------------------------------------
-Function: MIP.solve took 0.005721092224121094 seconds
 Building model with:
 3 devices, 2 partitions and 3 flows
-Function: MIP.add_frac_mem_var took 8.392333984375e-05 seconds
-Function: MIP.add_coverage_constraints took 5.364418029785156e-05 seconds
-Function: MIP.add_accuracy_constraints took 6.127357482910156e-05 seconds
-Function: MIP.add_capacity_constraints took 0.0002033710479736328 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 Changed value of parameter NonConvex to 2
    Prev: -1  Min: -1  Max: 2  Default: -1
 --------------------------------------------------
 Starting model update
-Model update took: 2.47955322265625e-05 s
+Model update took: 1.6927719116210938e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -386,7 +300,7 @@ Best objective 7.162678222656e+01, best bound 7.162678222656e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0018267631530761719 seconds
+Model optimize took: 0.0012428760528564453 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
@@ -395,45 +309,17 @@ Solution quality statistics for model Netmon :
     Constraint  : 8.88178420e-16 (mem_tot_P4_4)
     Integrality : 0.00000000e+00
 
-VARIABLES ------------------------------
-Objective: 10.204081632653061
-frac[0,0] 0.9
-frac[1,1] 1
-frac[2,1] 0
-mem[0,0] 4.58789
-mem[1,1] 5.09766
-mem[2,1] 0
-mem_tot_P4_4 4.58789
-rows_tot_P4_4 2.7
-mem_tot_P4_5 5.09766
-rows_tot_P4_5 3
-mem_tot_CPU_1 0
-rows_tot_CPU_1 0
-ns_P4_4 6.75676
-ns_P4_5 6.75676
-m_access_time_CPU_1 0
-ns_single_CPU_1 0
-pdt_m_rows_CPU_1 0
-cores_sketch_CPU_1 0
-cores_dpdk_CPU_1 7
-ns_sketch_CPU_1 10.2041
-pdt_nsk_c_CPU_1 0
-ns_dpdk_CPU_1 10.2041
-pdt_nsc_dpdk_CPU_1 71.4286
-ns_CPU_1 10.2041
-ns 10.2041
-res 71.6268
---------------------------------------------------
-
 Throughput: 98.0 Mpps, ns per packet: 10.204081632653061
 Resources: 71.6267822265625
 Used Cores: 7.0, Total CPUS: 1, Switch Memory: 9.685546875
 
-Partition of Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
 (0.900,0)    
 Total frac: 0.900
 
-Partition of Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
 (1.000,1)    (0.000,2)    
 Total frac: 1.000
 
@@ -452,18 +338,7 @@ cores_sketch: 0.0, cores_dpdk: 7.0
 Rows total: 0.0
 Mem total: 0.0
 Throughput: 98.0
-
-Flow 0:
-partitions: [(1, 0.6)]
-path: {1, 2}
-Flow 1:
-partitions: [(0, 0.9)]
-path: {0}
-Flow 2:
-partitions: [(1, 1.0)]
-path: {1, 2}
 --------------------------------------------------
-Function: MIP.solve took 0.004845380783081055 seconds
 --------------------------------------------------
 Clustered Optimization complete
 --------------------------------------------------
@@ -472,15 +347,18 @@ Throughput: 98.0 Mpps, ns per packet: 10.204081632653061
 Resources: 142.3117431640625
 Used Cores: 14.0, Total CPUS: 2, Switch Memory: 13.763671875
 
-Partition of Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
 (1.000,5)    (0.000,1)    
 Total frac: 1.000
 
-Partition of Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
 (0.000,0)    (0.800,3)    (0.000,2)    
 Total frac: 0.800
 
-Partition of Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
 (0.900,4)    
 Total frac: 0.900
 
@@ -515,15 +393,4 @@ Device (5) P4_5:
 Rows total: 3.0
 Mem total: 5.09765625
 Throughput: 148.0
-
-Flow 0:
-partitions: [(0, 0.6), (1, 0.8)]
-path: (0, 3, 5, 1)
-Flow 1:
-partitions: [(1, 0.6), (2, 0.9)]
-path: (2, 3, 4)
-Flow 2:
-partitions: [(0, 1)]
-path: (5, 1)
 --------------------------------------------------
-Function: solve took 0.036978721618652344 seconds

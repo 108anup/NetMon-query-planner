@@ -323,11 +323,6 @@ class MIP(Namespace):
 
         end = time.time()
 
-        if(not (common_config.output_file is None)):
-            f = open(common_config.output_file, 'a')
-            f.write("{:06f}, ".format(end - start))
-            f.close()
-
 
 class Univmon(MIP):
 
