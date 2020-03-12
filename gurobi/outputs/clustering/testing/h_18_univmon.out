@@ -1,12 +1,12 @@
 Building model with:
 6 devices, 60 partitions and 20 flows
-Using license file /home/anupa/gurobi.lic
+Using license file /home/anup/gurobi.lic
 Academic license - for non-commercial use only
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 0.00035381317138671875 s
+Model update took: 0.0002079010009765625 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -49,7 +49,7 @@ Root relaxation: objective 1.699219e+01, 72 iterations, 0.00 seconds
 *    0     0               0      16.9921875   16.99219  0.00%     -    0s
 
 Explored 0 nodes (72 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 16.9922 45.8789 
 
@@ -76,7 +76,7 @@ Root relaxation: cutoff, 79 iterations, 0.00 seconds
      0     0     cutoff    0       101.95312  101.95312  0.00%     -    0s
 
 Explored 0 nodes (79 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 101.953 
 
@@ -86,7 +86,7 @@ Best objective 1.019531250000e+02, best bound 1.019531250000e+02, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.01 seconds, solution count 2
 
-Model optimize took: 0.005649566650390625 seconds
+Model optimize took: 0.006630659103393555 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -600,7 +600,7 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.0517578125e-05 s
+Model update took: 7.987022399902344e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -645,7 +645,7 @@ H    0     0                       5.0976562    4.24805  16.7%     -    0s
      0     0 infeasible    0         5.09766    5.09766  0.00%     -    0s
 
 Explored 1 nodes (13 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 5.09766 
 
@@ -673,8 +673,8 @@ Root relaxation: objective 1.699219e+01, 13 iterations, 0.00 seconds
 H    0     0                      16.9921875   16.99219  0.00%     -    0s
      0     0   16.99219    0    4   16.99219   16.99219  0.00%     -    0s
 
-Explored 1 nodes (13 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Explored 1 nodes (13 simplex iterations) in 0.01 seconds
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 16.9922 20.3906 
 
@@ -682,9 +682,9 @@ Optimal solution found (tolerance 1.00e-04)
 Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 0.00 seconds, solution count 2
+Multi-objectives: solved in 0.01 seconds, solution count 2
 
-Model optimize took: 0.0033156871795654297 seconds
+Model optimize took: 0.005888938903808594 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -852,7 +852,7 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.218650817871094e-05 s
+Model update took: 6.532669067382812e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -900,7 +900,7 @@ Cutting planes:
   MIR: 1
 
 Explored 1 nodes (9 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 5.09766 6.79688 
 
@@ -927,7 +927,7 @@ Root relaxation: cutoff, 6 iterations, 0.00 seconds
      0     0     cutoff    0        16.99219   16.99219  0.00%     -    0s
 
 Explored 0 nodes (6 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 16.9922 
 
@@ -937,7 +937,7 @@ Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.002721548080444336 seconds
+Model optimize took: 0.003864288330078125 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -1097,7 +1097,7 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.337860107421875e-05 s
+Model update took: 6.031990051269531e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1147,7 +1147,7 @@ Cutting planes:
   MIR: 3
 
 Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 5.09766 
 
@@ -1173,8 +1173,8 @@ Root relaxation: objective 1.699219e+01, 14 iterations, 0.00 seconds
 
 *    0     0               0      16.9921875   16.99219  0.00%     -    0s
 
-Explored 0 nodes (14 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Explored 0 nodes (14 simplex iterations) in 0.01 seconds
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 16.9922 20.3906 
 
@@ -1182,9 +1182,9 @@ Optimal solution found (tolerance 1.00e-04)
 Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 0.00 seconds, solution count 2
+Multi-objectives: solved in 0.01 seconds, solution count 2
 
-Model optimize took: 0.0037932395935058594 seconds
+Model optimize took: 0.005752086639404297 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -1352,7 +1352,7 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.9577484130859375e-05 s
+Model update took: 0.00010323524475097656 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1398,7 +1398,7 @@ Cutting planes:
   Gomory: 1
 
 Explored 1 nodes (11 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 5.09766 
 
@@ -1425,7 +1425,7 @@ Root relaxation: objective 1.699219e+01, 12 iterations, 0.00 seconds
 *    0     0               0      16.9921875   16.99219  0.00%     -    0s
 
 Explored 0 nodes (12 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 16.9922 20.3906 
 
@@ -1435,7 +1435,7 @@ Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.002653837203979492 seconds
+Model optimize took: 0.00413823127746582 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -1591,7 +1591,7 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 4.1484832763671875e-05 s
+Model update took: 6.794929504394531e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1643,7 +1643,7 @@ Cutting planes:
   MIR: 2
 
 Explored 1 nodes (23 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 5.09766 5.09766 
 
@@ -1669,8 +1669,8 @@ Root relaxation: objective 1.699219e+01, 16 iterations, 0.00 seconds
 
 *    0     0               0      16.9921875   16.99219  0.00%     -    0s
 
-Explored 0 nodes (16 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Explored 0 nodes (16 simplex iterations) in 0.01 seconds
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 16.9922 18.6914 
 
@@ -1678,9 +1678,9 @@ Optimal solution found (tolerance 1.00e-04)
 Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 0.00 seconds, solution count 4
+Multi-objectives: solved in 0.01 seconds, solution count 4
 
-Model optimize took: 0.004376649856567383 seconds
+Model optimize took: 0.0055997371673583984 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :

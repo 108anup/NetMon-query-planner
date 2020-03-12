@@ -1,12 +1,12 @@
 Building model with:
 21 devices, 20 partitions and 20 flows
-Using license file /home/anupa/gurobi.lic
+Using license file /home/anup/gurobi.lic
 Academic license - for non-commercial use only
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 0.00014710426330566406 s
+Model update took: 0.0001347064971923828 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -48,7 +48,7 @@ Root relaxation: objective 4.854911e+00, 49 iterations, 0.00 seconds
 *    0     0               0       4.8549107    4.85491  0.00%     -    0s
 
 Explored 0 nodes (49 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 4.85491 
 
@@ -75,7 +75,7 @@ Root relaxation: cutoff, 39 iterations, 0.00 seconds
      0     0     cutoff    0       101.95312  101.95312  0.00%     -    0s
 
 Explored 0 nodes (39 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 101.953 
 
@@ -83,9 +83,9 @@ Optimal solution found (tolerance 1.00e-04)
 Best objective 1.019531250000e+02, best bound 1.019531250000e+02, gap 0.0000%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 0.00 seconds, solution count 1
+Multi-objectives: solved in 0.01 seconds, solution count 1
 
-Model optimize took: 0.0038962364196777344 seconds
+Model optimize took: 0.005143404006958008 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :

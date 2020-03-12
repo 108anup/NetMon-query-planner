@@ -11,14 +11,21 @@ Minimize multi-objectives
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
- mem_tot_CPU_16: mem_tot_CPU_16 = 0
- rows_tot_CPU_16: rows_tot_CPU_16 = 0
- mem_tot_CPU_17: mem_tot_CPU_17 = 0
- rows_tot_CPU_17: rows_tot_CPU_17 = 0
+ cov_0_0: frac[1,0] + frac[0,0] >= 1
+ accuracy_1_0: - 5.09765625 frac[1,0] + mem[1,0] = 0
+ accuracy_0_0: - 5.09765625 frac[0,0] + mem[0,0] = 0
+ mem_tot_CPU_16: - mem[0,0] + mem_tot_CPU_16 = 0
+ rows_tot_CPU_16: - 3 frac[0,0] + rows_tot_CPU_16 = 0
+ mem_tot_CPU_17: - mem[1,0] + mem_tot_CPU_17 = 0
+ rows_tot_CPU_17: - 3 frac[1,0] + rows_tot_CPU_17 = 0
  mem_tot_CPU_18: mem_tot_CPU_18 = 0
  rows_tot_CPU_18: rows_tot_CPU_18 = 0
  mem_tot_CPU_19: mem_tot_CPU_19 = 0
  rows_tot_CPU_19: rows_tot_CPU_19 = 0
+ row_capacity_CPU_16: rows_tot_CPU_16 <= 12
+ row_capacity_CPU_17: rows_tot_CPU_17 <= 12
+ row_capacity_CPU_18: rows_tot_CPU_18 <= 12
+ row_capacity_CPU_19: rows_tot_CPU_19 <= 12
  ns_single_CPU_16: 3.5 rows_tot_CPU_16 - ns_single_CPU_16
    + pdt_m_rows_CPU_16 = 0
  capacity_cores_CPU_16: cores_sketch_CPU_16 + cores_dpdk_CPU_16 <= 7
@@ -85,6 +92,8 @@ Bounds
  1 <= cores_dpdk_CPU_18 <= 7
  cores_sketch_CPU_19 <= 7
  1 <= cores_dpdk_CPU_19 <= 7
+Binaries
+ frac[1,0] frac[0,0]
 Generals
  cores_sketch_CPU_16 cores_dpdk_CPU_16 cores_sketch_CPU_17
  cores_dpdk_CPU_17 cores_sketch_CPU_18 cores_dpdk_CPU_18

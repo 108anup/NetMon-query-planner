@@ -273,7 +273,7 @@ class MIP(Namespace):
         self.add_coverage_constraints()
         self.add_accuracy_constraints()
         self.add_capacity_constraints()
-        if(not isinstance(self, Univmon)):
+        if(not type(self).__name__ == 'Univmon'):
             self.add_device_aware_constraints()
 
         if(common_config.time_limit):
@@ -426,7 +426,7 @@ class Univmon(MIP):
                     self.m.addConstr(v == get_rounded_val(v.x))
 
             self.m.setParam(GRB.Param.FeasibilityTol, common_config.ftol)
-            if(isinstance(self, Univmon)):
+            if(type(self).__name__ == 'Univmon'):
                 self.add_device_aware_constraints(
                     self.devices, self.queries, self.flows,
                     self.partitions, self.m, self.frac, self.mem)

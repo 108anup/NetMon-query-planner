@@ -1,24 +1,24 @@
 Building model with:
 6 devices, 60 partitions and 20 flows
-Using license file /home/anupa/gurobi.lic
+Using license file /home/anup/gurobi.lic
 Academic license - for non-commercial use only
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 0.0001251697540283203 s
+Model update took: 0.00018405914306640625 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 208 rows, 284 columns and 689 nonzeros
-Model fingerprint: 0x82a7cf2a
+Optimize a model with 214 rows, 284 columns and 695 nonzeros
+Model fingerprint: 0x8764f369
 Model has 1 general constraint
 Variable types: 149 continuous, 135 integer (135 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 2e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 1e+05]
-  RHS range        [1e+00, 1e+00]
+  RHS range        [1e+00, 5e+01]
 
 ---------------------------------------------------------------------------
 Multi-objectives: starting optimization with 4 objectives (3 combined) ...
@@ -27,9 +27,9 @@ Multi-objectives: starting optimization with 4 objectives (3 combined) ...
 Multi-objectives: applying initial presolve ...
 ---------------------------------------------------------------------------
 
-Presolve removed 148 rows and 149 columns
+Presolve removed 153 rows and 148 columns
 Presolve time: 0.00s
-Presolved: 60 rows and 135 columns
+Presolved: 61 rows and 136 columns
 ---------------------------------------------------------------------------
 
 Multi-objectives: optimize objective 1 (tot_mem_P4) ...
@@ -38,7 +38,7 @@ Multi-objectives: optimize objective 1 (tot_mem_P4) ...
 Found heuristic solution: objective 0.0000000
 
 Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-Thread count was 1 (of 12 available processors)
+Thread count was 1 (of 8 available processors)
 
 Solution count 1: 0 
 
@@ -54,7 +54,7 @@ Loaded user MIP start with objective 0
 
 
 Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-Thread count was 1 (of 12 available processors)
+Thread count was 1 (of 8 available processors)
 
 Solution count 1: 0 
 
@@ -70,7 +70,7 @@ Loaded user MIP start with objective 0
 
 
 Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-Thread count was 1 (of 12 available processors)
+Thread count was 1 (of 8 available processors)
 
 Solution count 1: 0 
 
@@ -80,7 +80,7 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.0010063648223876953 seconds
+Model optimize took: 0.0018758773803710938 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedy :
@@ -594,19 +594,19 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.910064697265625e-05 s
+Model update took: 0.00011515617370605469 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 48 rows, 58 columns and 133 nonzeros
-Model fingerprint: 0xe1669358
+Optimize a model with 52 rows, 58 columns and 137 nonzeros
+Model fingerprint: 0xeab8f58f
 Model has 1 general constraint
 Variable types: 34 continuous, 24 integer (24 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 2e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 3e+04]
-  RHS range        [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+01]
 
 ---------------------------------------------------------------------------
 Multi-objectives: starting optimization with 2 objectives ... 
@@ -615,7 +615,7 @@ Multi-objectives: starting optimization with 2 objectives ...
 Multi-objectives: applying initial presolve ...
 ---------------------------------------------------------------------------
 
-Presolve removed 34 rows and 31 columns
+Presolve removed 38 rows and 31 columns
 Presolve time: 0.00s
 Presolved: 14 rows and 27 columns
 ---------------------------------------------------------------------------
@@ -637,7 +637,7 @@ Root relaxation: cutoff, 10 iterations, 0.00 seconds
      0     0     cutoff    0        25.48828   25.48828  0.00%     -    0s
 
 Explored 0 nodes (10 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 25.4883 
 
@@ -670,7 +670,7 @@ Cutting planes:
   RLT: 2
 
 Explored 1 nodes (18 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 6.79687 10.1953 
 
@@ -680,7 +680,7 @@ Best objective 6.796875000000e+00, best bound 6.796875000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.002800464630126953 seconds
+Model optimize took: 0.004483938217163086 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedy :
@@ -898,19 +898,19 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.600120544433594e-05 s
+Model update took: 0.00012302398681640625 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 48 rows, 58 columns and 133 nonzeros
-Model fingerprint: 0x9e985290
+Optimize a model with 52 rows, 58 columns and 137 nonzeros
+Model fingerprint: 0x44606c28
 Model has 1 general constraint
 Variable types: 34 continuous, 24 integer (24 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 2e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 3e+04]
-  RHS range        [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+01]
 
 ---------------------------------------------------------------------------
 Multi-objectives: starting optimization with 2 objectives ... 
@@ -919,7 +919,7 @@ Multi-objectives: starting optimization with 2 objectives ...
 Multi-objectives: applying initial presolve ...
 ---------------------------------------------------------------------------
 
-Presolve removed 34 rows and 31 columns
+Presolve removed 38 rows and 31 columns
 Presolve time: 0.00s
 Presolved: 14 rows and 27 columns
 ---------------------------------------------------------------------------
@@ -940,7 +940,7 @@ Root relaxation: objective 2.548828e+01, 13 iterations, 0.00 seconds
 *    0     0               0      25.4882812   25.48828  0.00%     -    0s
 
 Explored 0 nodes (13 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 25.4883 
 
@@ -971,7 +971,7 @@ Cutting planes:
   RLT: 2
 
 Explored 1 nodes (15 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 6.79688 
 
@@ -981,7 +981,7 @@ Best objective 6.796875000000e+00, best bound 6.796875000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.0025060176849365234 seconds
+Model optimize took: 0.0036149024963378906 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedy :
@@ -1191,19 +1191,19 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.6716461181640625e-05 s
+Model update took: 0.00017642974853515625 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 48 rows, 58 columns and 133 nonzeros
-Model fingerprint: 0x93d7b848
+Optimize a model with 52 rows, 58 columns and 137 nonzeros
+Model fingerprint: 0x16b327dd
 Model has 1 general constraint
 Variable types: 34 continuous, 24 integer (24 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 2e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 3e+04]
-  RHS range        [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+01]
 
 ---------------------------------------------------------------------------
 Multi-objectives: starting optimization with 2 objectives ... 
@@ -1212,7 +1212,7 @@ Multi-objectives: starting optimization with 2 objectives ...
 Multi-objectives: applying initial presolve ...
 ---------------------------------------------------------------------------
 
-Presolve removed 34 rows and 31 columns
+Presolve removed 38 rows and 31 columns
 Presolve time: 0.00s
 Presolved: 14 rows and 27 columns
 ---------------------------------------------------------------------------
@@ -1234,7 +1234,7 @@ Root relaxation: cutoff, 8 iterations, 0.00 seconds
      0     0     cutoff    0        25.48828   25.48828  0.00%     -    0s
 
 Explored 0 nodes (8 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 25.4883 
 
@@ -1267,7 +1267,7 @@ Cutting planes:
   RLT: 2
 
 Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 6.79687 10.1953 
 
@@ -1277,7 +1277,7 @@ Best objective 6.796875000000e+00, best bound 6.796875000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.002321004867553711 seconds
+Model optimize took: 0.0035495758056640625 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedy :
@@ -1491,19 +1491,19 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 4.076957702636719e-05 s
+Model update took: 0.00012755393981933594 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 48 rows, 58 columns and 133 nonzeros
-Model fingerprint: 0x40070280
+Optimize a model with 52 rows, 58 columns and 137 nonzeros
+Model fingerprint: 0xd6c5c7c3
 Model has 1 general constraint
 Variable types: 34 continuous, 24 integer (24 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 2e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 3e+04]
-  RHS range        [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+01]
 
 ---------------------------------------------------------------------------
 Multi-objectives: starting optimization with 2 objectives ... 
@@ -1512,7 +1512,7 @@ Multi-objectives: starting optimization with 2 objectives ...
 Multi-objectives: applying initial presolve ...
 ---------------------------------------------------------------------------
 
-Presolve removed 34 rows and 31 columns
+Presolve removed 38 rows and 31 columns
 Presolve time: 0.00s
 Presolved: 14 rows and 27 columns
 ---------------------------------------------------------------------------
@@ -1534,7 +1534,7 @@ Root relaxation: cutoff, 9 iterations, 0.00 seconds
      0     0     cutoff    0        25.48828   25.48828  0.00%     -    0s
 
 Explored 0 nodes (9 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 25.4883 
 
@@ -1567,7 +1567,7 @@ Cutting planes:
   RLT: 2
 
 Explored 1 nodes (18 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 6.79687 8.49609 
 
@@ -1577,7 +1577,7 @@ Best objective 6.796875000000e+00, best bound 6.796875000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0024297237396240234 seconds
+Model optimize took: 0.003939628601074219 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedy :
@@ -1787,19 +1787,19 @@ Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.647804260253906e-05 s
+Model update took: 0.00017905235290527344 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 48 rows, 58 columns and 133 nonzeros
-Model fingerprint: 0xfc2a6c99
+Optimize a model with 52 rows, 58 columns and 137 nonzeros
+Model fingerprint: 0x9710a69b
 Model has 1 general constraint
 Variable types: 34 continuous, 24 integer (24 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 2e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 3e+04]
-  RHS range        [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+01]
 
 ---------------------------------------------------------------------------
 Multi-objectives: starting optimization with 2 objectives ... 
@@ -1808,7 +1808,7 @@ Multi-objectives: starting optimization with 2 objectives ...
 Multi-objectives: applying initial presolve ...
 ---------------------------------------------------------------------------
 
-Presolve removed 34 rows and 31 columns
+Presolve removed 38 rows and 31 columns
 Presolve time: 0.00s
 Presolved: 14 rows and 27 columns
 ---------------------------------------------------------------------------
@@ -1830,7 +1830,7 @@ Root relaxation: cutoff, 9 iterations, 0.00 seconds
      0     0     cutoff    0        25.48828   25.48828  0.00%     -    0s
 
 Explored 0 nodes (9 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 1: 25.4883 
 
@@ -1863,7 +1863,7 @@ Cutting planes:
   RLT: 2
 
 Explored 1 nodes (18 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Thread count was 8 (of 8 available processors)
 
 Solution count 2: 6.79687 8.49609 
 
@@ -1873,7 +1873,7 @@ Best objective 6.796875000000e+00, best bound 6.796875000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0024645328521728516 seconds
+Model optimize took: 0.0036988258361816406 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedy :

@@ -163,6 +163,27 @@ Subject To
    - 3 frac[20,10] - 3 frac[20,5] - 3 frac[20,19] - 3 frac[20,14]
    - 3 frac[20,2] - 3 frac[20,11] - 3 frac[20,6] - 3 frac[20,15]
    - 3 frac[20,16] + rows_tot_P4_1 = 0
+ row_capacity_CPU_0: rows_tot_CPU_0 <= 12
+ row_capacity_CPU_1: rows_tot_CPU_1 <= 12
+ row_capacity_CPU_2: rows_tot_CPU_2 <= 12
+ row_capacity_CPU_3: rows_tot_CPU_3 <= 12
+ row_capacity_CPU_4: rows_tot_CPU_4 <= 12
+ row_capacity_CPU_5: rows_tot_CPU_5 <= 12
+ row_capacity_CPU_6: rows_tot_CPU_6 <= 12
+ row_capacity_CPU_7: rows_tot_CPU_7 <= 12
+ row_capacity_CPU_8: rows_tot_CPU_8 <= 12
+ row_capacity_CPU_9: rows_tot_CPU_9 <= 12
+ row_capacity_CPU_10: rows_tot_CPU_10 <= 12
+ row_capacity_CPU_11: rows_tot_CPU_11 <= 12
+ row_capacity_CPU_12: rows_tot_CPU_12 <= 12
+ row_capacity_CPU_13: rows_tot_CPU_13 <= 12
+ row_capacity_CPU_14: rows_tot_CPU_14 <= 12
+ row_capacity_CPU_15: rows_tot_CPU_15 <= 12
+ row_capacity_CPU_16: rows_tot_CPU_16 <= 12
+ row_capacity_CPU_17: rows_tot_CPU_17 <= 12
+ row_capacity_CPU_18: rows_tot_CPU_18 <= 12
+ row_capacity_CPU_19: rows_tot_CPU_19 <= 12
+ row_capacity_P4_1: rows_tot_P4_1 <= 48
  ns_single_CPU_0: 3.5 rows_tot_CPU_0 - ns_single_CPU_0 + pdt_m_rows_CPU_0
    = 0
  capacity_cores_CPU_0: cores_sketch_CPU_0 + cores_dpdk_CPU_0 <= 7
