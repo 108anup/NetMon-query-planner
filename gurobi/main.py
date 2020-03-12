@@ -5,8 +5,8 @@ from cli import generate_parser
 from common import Namespace, setup_logging, log_time, log
 from config import common_config
 from input import input_generator
-from solvers import solver_to_class, get_val
-from devices import Cluster, CPU, P4
+from solvers import solver_to_class, log_results, log_placement
+from devices import Cluster
 from flows import flow
 from gurobipy import GRB, tuplelist, tupledict
 
@@ -99,12 +99,13 @@ def get_partitions_flows(inp, cluster, solver, dnum):
 
 @log_time
 def map_flows_to_cluster(inp):
-    # import ipdb; ipdb.set_trace()
     dev_id_to_cluster_id = inp.cluster.dev_id_to_cluster_id(inp)
     flows = []
     for f in inp.flows:
-        f_new = flow(path=set(map(lambda dnum: dev_id_to_cluster_id[dnum], f.path)),
-                     partitions=f.partitions, queries=f.queries)
+        f_new = flow(
+            path=set(map(lambda dnum: dev_id_to_cluster_id[dnum], f.path)),
+            partitions=f.partitions, queries=f.queries
+        )
         flows.append(f_new)
     return flows
 
@@ -136,7 +137,7 @@ def solve(inp):
             partitions = front.partitions
             flows = front.flows
             solver = Solver(devices=devices, partitions=partitions,
-                            flows=flows, queries=inp.queries)
+                            flows=flows, queries=inp.queries, overlay=True)
             solver.solve()
 
             # TODO: This breaks abstraction of any type of solver
@@ -152,79 +153,28 @@ def solve(inp):
                                         flows=flows))
                 else:
                     # Clusters never overlap!!
-                    for (_, pnum) in solver.dev_par_tuplelist.select(dnum, '*'):
+                    for (_, pnum)in solver.dev_par_tuplelist.select(dnum, '*'):
                         p = solver.partitions[pnum]
-                        placement.frac[d.dev_id, p.partition_id] = solver.frac[dnum, pnum].x
-                        placement.mem[d.dev_id, p.partition_id] = solver.mem[dnum, pnum].x
+                        placement.frac[d.dev_id, p.partition_id] \
+                            = solver.frac[dnum, pnum].x
+                        placement.mem[d.dev_id, p.partition_id] \
+                            = solver.mem[dnum, pnum].x
                         placement.res[d] = d.res().getValue()
-                        placement.dev_par_tuplelist.append((d.dev_id, p.partition_id))
+                        placement.dev_par_tuplelist.append(
+                            (d.dev_id, p.partition_id))
         log.info('-'*50)
         log.info('Clustered Optimization complete')
         log.info('-'*50)
 
-        log_results(inp, placement)
-        log_placement(inp, placement)
+        log_results(inp.devices)
+        log_placement(inp.devices, inp.partitions, inp.flows,
+                      placement.dev_par_tuplelist, placement.frac)
 
     else:
         solver = Solver(devices=inp.devices, flows=inp.flows,
-                        partitions=inp.partitions, queries=inp.queries)
+                        partitions=inp.partitions, queries=inp.queries,
+                        overlay=False)
         solver.solve()
-
-
-# TODO:: Redundancy in Output Logging!!
-def log_results(inp, placement):
-    ns_max = 0
-    res = 0
-    total_CPUs = 0
-    used_cores = 0
-    switch_memory = 0
-    for d in inp.devices:
-        # import ipdb; ipdb.set_trace()
-        ns_max = max(ns_max, get_val(d.ns))
-        res += placement.res[d]
-        # TODO:: There is a lot of redundancy here, classes calculate this
-        if(isinstance(d, CPU)):
-            total_CPUs += 1
-            used_cores += d.cores_sketch.x + d.cores_dpdk.x
-        if(isinstance(d, P4)):
-            switch_memory += d.mem_tot.x
-
-    log.info("\nThroughput: {} Mpps, ns per packet: {}".format(
-        1000/ns_max, ns_max))
-    log.info("Resources: {}".format(res))
-    log.info("Used Cores: {}, Total CPUS: {}, Switch Memory: {}"
-             .format(used_cores, total_CPUs, switch_memory))
-
-
-def log_placement(inp, placement):
-    for (pnum, p) in enumerate(inp.partitions):
-        q = p.sketch
-        log.info("\nPartition of Sketch ({}) ({})".format(q.sketch_id,
-                                                          q.details()))
-        par_info = ""
-        total_frac = 0
-        for (dnum, _) in placement.dev_par_tuplelist.select('*', pnum):
-            par_info += "({:0.3f},{})    ".format(placement.frac[dnum, pnum], dnum)
-            total_frac += (placement.frac[dnum, pnum])
-        log.info(par_info)
-        log.info("Total frac: {:0.3f}".format(total_frac))
-
-    for (dnum, d) in enumerate(inp.devices):
-        log.info("\nDevice ({}) {}:".format(dnum, d))
-        res_stats = d.resource_stats()
-        if(res_stats != ""):
-            log.info(res_stats)
-        log.info("Rows total: {}".format(get_val(d.rows_tot)))
-        log.info("Mem total: {}".format(d.mem_tot.x))
-        if(hasattr(d, 'ns')):
-            log.info("Throughput: {}".format(1000/d.ns.x))
-
-    log.debug("")
-    for (fnum, f) in enumerate(inp.flows):
-        log.debug("Flow {}:".format(fnum))
-        log.debug("partitions: {}".format(f.partitions))
-        log.debug("path: {}".format(f.path))
-    log.info("-"*50)
 
 
 parser = generate_parser()

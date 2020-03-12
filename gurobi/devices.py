@@ -20,6 +20,14 @@ class device(Namespace):
     def resource_stats(self):
         return ""
 
+    @property
+    @memoize
+    def min_ns(self):
+        if(hasattr(self, 'line_thr')):
+            return 1000/self.line_thr
+        else:
+            pass
+
 
 class CPU(device):
     # TODO:: update with OVS
@@ -230,10 +238,17 @@ class Cluster(device):
     def res(self):
         return self.mem_tot
 
+    @property
+    @memoize
+    def min_ns(self):
+        mns = self.device_tree[0].min_ns
+        for d in self.device_tree:
+            mns = min(mns, d.min_ns)
+        return mns
+
     def add_ns_constraints(self, m, ns_req=None):
-        # TODO:: Hardcoding here!!
         self.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
-        m.addConstr(self.ns == 1000 / 148, name='ns_{}'.format(self))
+        m.addConstr(self.ns == 1000 / self.min_ns, name='ns_{}'.format(self))
 
         if(ns_req):
             m.addConstr(self.ns <= ns_req, name='max_ns_{}'.format(self))

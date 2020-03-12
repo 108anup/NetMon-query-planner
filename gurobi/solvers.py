@@ -69,8 +69,10 @@ def get_rounded_val(v):
 def get_val(v):
     if(isinstance(v, (float, int))):
         return v
-    else:
+    if(isinstance(v, gp.Var)):
         return v.x
+    else:
+        return v.getValue()
 
 
 def write_vars(m):
@@ -126,7 +128,6 @@ class MIP(Namespace):
 
     @log_time
     def add_coverage_constraints(self):
-        #import ipdb; ipdb.set_trace()
 
         # for pnum in range(numpartitions):
         #     m.addConstr(frac.sum('*', pnum) == 1,
@@ -347,8 +348,8 @@ class Univmon(MIP):
         self.m.printQuality()
         write_vars(self.m)
 
-        log_placement(self.devices, self.queries, self.flows, self.partitions,
-                      self.m, self.frac, self.dev_par_tuplelist)
+        log_placement(self.devices, self.partitions, self.flows,
+                      self.dev_par_tuplelist, self.frac)
 
         if(not common_config.use_model):
             if (not self.check_device_aware_constraints()):
@@ -415,8 +416,7 @@ class Univmon(MIP):
                 ns_max = max(ns_max, u.getObjective(0).getValue())
                 res_acc += u.getObjective(1).getValue()
 
-            log_results(ns_max, res_acc, used_cores, total_CPUs,
-                        switch_memory)
+            log_results(self.devices, self.overlay)
 
         else:
             prefixes = ['frac', 'mem\[']
@@ -471,11 +471,10 @@ class Univmon(MIP):
             self.m.printQuality()
             write_vars(self.m)
 
-            log_results(ns, res)
+            log_results(self.devices, self.overlay)
 
-        log_placement(self.devices, self.queries, self.flows,
-                      self.partitions, self.m, self.frac,
-                      self.dev_par_tuplelist)
+        log_placement(self.devices, self.partitions, self.flows,
+                      self.dev_par_tuplelist, self.frac)
 
 
 class UnivmonGreedy(Univmon):
@@ -596,6 +595,7 @@ class Netmon(UnivmonGreedyRows):
                                  name='res')
 
     def post_optimize(self):
+
         self.m.printQuality()
         write_vars(self.m)
 
@@ -611,35 +611,46 @@ class Netmon(UnivmonGreedyRows):
 
         if(hasattr(self, 'ns_req')):
             self.ns = self.ns_req
-        log_results(self.ns, self.res, used_cores, total_CPUs, switch_memory)
-        log_placement(self.devices, self.queries, self.flows, self.partitions,
-                      self.m, self.frac, self.dev_par_tuplelist)
+        log_results(self.devices, self.overlay)
+        log_placement(self.devices, self.partitions, self.flows,
+                      self.dev_par_tuplelist, self.frac)
 
 
-def log_results(ns, res, used_cores=None, total_CPUs=None, switch_memory=None):
+def log_results(devices, overlay=False):
+
+    ns_max = 0
+    res = 0
+    total_CPUs = 0
+    used_cores = 0
+    switch_memory = 0
+
+    for d in devices:
+        ns_max = max(ns_max, get_val(d.ns))
+        res += get_val(d.res())
+        if(isinstance(d, CPU)):
+            total_CPUs += 1
+            used_cores += d.cores_sketch.x + d.cores_dpdk.x
+        if(isinstance(d, P4)):
+            switch_memory += d.mem_tot.x
+
     log.info("\nThroughput: {} Mpps, ns per packet: {}".format(
-        1000/get_val(ns), get_val(ns)))
-    log.info("Resources: {}".format(get_val(res)))
+        1000/ns_max, ns_max))
+    log.info("Resources: {}".format(res))
     if(total_CPUs is not None and used_cores is not None
        and switch_memory is not None):
         log.info("Used Cores: {}, Total CPUS: {}, Switch Memory: {}"
                  .format(used_cores, total_CPUs, switch_memory))
 
-    if(not (common_config.output_file is None)):
+    if((not (common_config.output_file is None)) and not overlay):
         f = open(common_config.output_file, 'a')
-        if(used_cores is not None and total_CPUs is not None
-           and switch_memory is not None):
-            f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, ".format(
-                1000/get_val(ns), get_val(res),
-                used_cores, total_CPUs, switch_memory))
-        else:
-            f.write("{:0.3f}, {:0.3f}, ".format(
-                1000/get_val(ns), get_val(res)))
+        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, ".format(
+            1000/ns_max, res,
+            used_cores, total_CPUs, switch_memory))
         f.close()
 
 
-def log_placement(devices, queries, flows, partitions, m, frac,
-                  dev_par_tuplelist):
+def log_placement(devices, partitions, flows, dev_par_tuplelist, frac):
+
     # for (qnum, q) in enumerate(queries):
     #     log.info("\nSketch ({}) ({})".format(q.sketch_id,
     #                                          q.details()))
@@ -659,18 +670,23 @@ def log_placement(devices, queries, flows, partitions, m, frac,
     #         log.info(par_info)
     #         log.info("Total frac: {:0.3f}".format(total_frac))
 
+    prev_q_id = None
     for (pnum, p) in enumerate(partitions):
         q = p.sketch
-        log.info("\nPartition of Sketch ({}) ({})".format(q.sketch_id,
-                                                          q.details()))
+        if(q.sketch_id != prev_q_id):
+            log.info("\nSketch ({}) ({})"
+                     .format(q.sketch_id, q.details()))
+            prev_q_id = q.sketch_id
+
+        log.info("Par{} id: {}, Rows: {}"
+                 .format(p.partition_id - q.partitions[0],
+                         p.partition_id, p.num_rows))
         par_info = ""
         total_frac = 0
         for (dnum, _) in dev_par_tuplelist.select('*', pnum):
-            par_info += "({:0.3f},{})    ".format(frac[dnum, pnum].x, dnum)
-            total_frac += (frac[dnum, pnum].x)
-        # for (dnum, d) in enumerate(devices):
-        #     par_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
-        #     total_frac += (frac[dnum, pnum].x)
+            par_info += "({:0.3f},{})    ".format(
+                get_val(frac[dnum, pnum]), dnum)
+            total_frac += (get_val(frac[dnum, pnum]))
         log.info(par_info)
         log.info("Total frac: {:0.3f}".format(total_frac))
 

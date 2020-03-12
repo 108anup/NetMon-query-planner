@@ -48,7 +48,7 @@ beluga20 = {
     'Li_size': [32, 256, 8192, 32768],
     'Li_ns': [0.53, 1.5, 3.7, 36],
     'hash_ns': 3.5, 'cores': 7, 'dpdk_single_core_thr': 35,
-    'max_mem': 32768, 'max_rows': 12
+    'max_mem': 32768, 'max_rows': 12, 'line_thr': 98
 }
 
 tofino = {

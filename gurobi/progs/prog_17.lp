@@ -7,18 +7,46 @@ Minimize multi-objectives
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
- cov_0_1: frac[1,1] + frac[2,1] >= 0.6
- cov_1_0: frac[0,0] >= 0.9
- cov_2_1: frac[1,1] + frac[2,1] >= 1
- accuracy_0_0: - 5.09765625 frac[0,0] + mem[0,0] = 0
- accuracy_1_1: - 5.09765625 frac[1,1] + mem[1,1] = 0
- accuracy_2_1: - 5.09765625 frac[2,1] + mem[2,1] = 0
- mem_tot_P4_4: - mem[0,0] + mem_tot_P4_4 = 0
- rows_tot_P4_4: - 3 frac[0,0] + rows_tot_P4_4 = 0
- mem_tot_P4_5: - mem[1,1] + mem_tot_P4_5 = 0
- rows_tot_P4_5: - 3 frac[1,1] + rows_tot_P4_5 = 0
- mem_tot_CPU_1: - mem[2,1] + mem_tot_CPU_1 = 0
- rows_tot_CPU_1: - 3 frac[2,1] + rows_tot_CPU_1 = 0
+ cov_0_6: frac[2,6] + frac[1,6] >= 0.6
+ cov_0_3: frac[1,3] + frac[2,3] >= 0.6
+ cov_0_0: frac[2,0] + frac[1,0] >= 0.6
+ cov_0_1: frac[2,1] + frac[1,1] >= 0.8
+ cov_0_2: frac[1,2] + frac[2,2] >= 0.8
+ cov_1_1: frac[0,1] >= 0.6
+ cov_1_2: frac[0,2] >= 0.6
+ cov_1_4: frac[0,4] >= 0.9
+ cov_1_7: frac[0,7] >= 0.9
+ cov_1_5: frac[0,5] >= 0.9
+ cov_2_6: frac[2,6] + frac[1,6] >= 1
+ cov_2_3: frac[1,3] + frac[2,3] >= 1
+ cov_2_0: frac[2,0] + frac[1,0] >= 1
+ accuracy_1_2: - 1.69921875 frac[1,2] + mem[1,2] = 0
+ accuracy_0_1: - 1.69921875 frac[0,1] + mem[0,1] = 0
+ accuracy_1_3: - 1.69921875 frac[1,3] + mem[1,3] = 0
+ accuracy_2_6: - 1.69921875 frac[2,6] + mem[2,6] = 0
+ accuracy_0_2: - 1.69921875 frac[0,2] + mem[0,2] = 0
+ accuracy_2_1: - 1.69921875 frac[2,1] + mem[2,1] = 0
+ accuracy_0_7: - 1.69921875 frac[0,7] + mem[0,7] = 0
+ accuracy_2_0: - 1.69921875 frac[2,0] + mem[2,0] = 0
+ accuracy_1_6: - 1.69921875 frac[1,6] + mem[1,6] = 0
+ accuracy_2_3: - 1.69921875 frac[2,3] + mem[2,3] = 0
+ accuracy_0_4: - 1.69921875 frac[0,4] + mem[0,4] = 0
+ accuracy_2_2: - 1.69921875 frac[2,2] + mem[2,2] = 0
+ accuracy_0_5: - 1.69921875 frac[0,5] + mem[0,5] = 0
+ accuracy_1_0: - 1.69921875 frac[1,0] + mem[1,0] = 0
+ accuracy_1_1: - 1.69921875 frac[1,1] + mem[1,1] = 0
+ mem_tot_P4_4: - mem[0,1] - mem[0,2] - mem[0,7] - mem[0,4] - mem[0,5]
+   + mem_tot_P4_4 = 0
+ rows_tot_P4_4: - frac[0,1] - frac[0,2] - frac[0,7] - frac[0,4] - frac[0,5]
+   + rows_tot_P4_4 = 0
+ mem_tot_P4_5: - mem[1,2] - mem[1,3] - mem[1,6] - mem[1,0] - mem[1,1]
+   + mem_tot_P4_5 = 0
+ rows_tot_P4_5: - frac[1,2] - frac[1,3] - frac[1,6] - frac[1,0] - frac[1,1]
+   + rows_tot_P4_5 = 0
+ mem_tot_CPU_1: - mem[2,6] - mem[2,1] - mem[2,0] - mem[2,3] - mem[2,2]
+   + mem_tot_CPU_1 = 0
+ rows_tot_CPU_1: - frac[2,6] - frac[2,1] - frac[2,0] - frac[2,3]
+   - frac[2,2] + rows_tot_CPU_1 = 0
  ns_P4_4: ns_P4_4 = 6.756756756756757
  ns_P4_5: ns_P4_5 = 6.756756756756757
  ns_single_CPU_1: 3.5 rows_tot_CPU_1 - ns_single_CPU_1 + pdt_m_rows_CPU_1
@@ -38,9 +66,21 @@ Subject To
  pdt_nsc_dpdk_CPU_1: pdt_nsc_dpdk_CPU_1 + [
    - cores_dpdk_CPU_1 * ns_dpdk_CPU_1 ] = 0
 Bounds
- frac[0,0] <= 1
- frac[1,1] <= 1
+ frac[1,2] <= 1
+ frac[0,1] <= 1
+ frac[1,3] <= 1
+ frac[2,6] <= 1
+ frac[0,2] <= 1
  frac[2,1] <= 1
+ frac[0,7] <= 1
+ frac[2,0] <= 1
+ frac[1,6] <= 1
+ frac[2,3] <= 1
+ frac[0,4] <= 1
+ frac[2,2] <= 1
+ frac[0,5] <= 1
+ frac[1,0] <= 1
+ frac[1,1] <= 1
  mem_tot_P4_4 <= 576
  mem_tot_P4_5 <= 576
  mem_tot_CPU_1 <= 32768
