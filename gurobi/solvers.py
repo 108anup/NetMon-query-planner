@@ -521,9 +521,9 @@ class UnivmonGreedy(Univmon):
             self.m.setObjectiveN(self.tot_mem_CPU, 0, 20, name='tot_mem_CPU')
             self.m.setObjectiveN(self.max_mem_CPU, 1, 15, name='CPU_mem_load')
         if(hasattr(self, 'max_mem_Cluster')):
-            self.m.setObjectiveN(self.tot_mem_Cluster, 2, 10,
+            self.m.setObjectiveN(self.tot_mem_Cluster, 2, 20,
                                  name='tot_mem_Cluster')
-            self.m.setObjectiveN(self.max_mem_Cluster, 3, 5,
+            self.m.setObjectiveN(self.max_mem_Cluster, 3, 15,
                                  name='Cluster_mem_load')
         if(hasattr(self, 'max_mem_P4')):
             self.m.setObjectiveN(self.tot_mem_P4, 4, 10, name='tot_mem_P4')
@@ -605,7 +605,10 @@ class Netmon(UnivmonGreedyRows):
         super(Netmon, self).add_constraints()
         super(Netmon, self).add_objective()
         self.m.update()
+        # import ipdb; ipdb.set_trace()
         self.m.optimize()
+        log_placement(self.devices, self.partitions, self.flows,
+                      self.dev_par_tuplelist, self.frac)
 
         # numdevices = len(self.devices)
         # numpartitions = len(self.partitions)
