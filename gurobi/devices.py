@@ -226,7 +226,10 @@ class Cluster(device):
     @property
     @memoize
     def name(self):
-        return '{' + ','.join(d.name for d in self.device_tree) + '}'
+        name_str = '{' + ','.join(d.name for d in self.device_tree) + '}'
+        if(len(name_str) > 200):
+            name_str = name_str[:200]
+        return name_str
 
     def res(self):
         return self.mem_tot

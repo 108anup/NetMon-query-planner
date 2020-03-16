@@ -83,20 +83,28 @@ class Input(Namespace):
 
 
 def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
-                num_queries=64, eps=eps0):
-
+                num_queries=80, eps=eps0, overlay='none'):
     pickle_name = "pickle_objs/inp-{}-{}-{}-{}-{}".format(
         hosts_per_tors, tors_per_l1s, l1s, num_queries, eps0/eps)
+    pickle_loaded = False
     if(os.path.exists(pickle_name)):
         inp_file = open(pickle_name, 'rb')
         inp = pickle.load(inp_file)
         inp_file.close()
-        return inp
+        pickle_loaded = True
 
     hosts = hosts_per_tors * tors_per_l1s * l1s
     tors = tors_per_l1s * l1s
     hosts_tors = hosts + tors
     hosts_tors_l1s = hosts_tors + l1s
+
+    if(overlay == 'tor'):
+        inp.overlay = ([[i + j*hosts_per_tors for i in range(hosts_per_tors)]
+                        for j in range(tors)]
+                       + [hosts + j for j in range(tors + l1s + 1)])
+
+    if(pickle_loaded):
+        return inp
 
     def get_path(h1, h2):
         while(h1 == h2):
@@ -151,6 +159,9 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             for flownum in range(max(hosts, num_queries) * 5)
         ]
     )
+
+    if(hasattr(inp, 'overlay')):
+        delattr(inp, 'overlay')
 
     inp_file = open(pickle_name, 'wb')
     pickle.dump(inp, inp_file)
@@ -379,7 +390,8 @@ input_generator = [
 
     # 15
     # Very Large
-    dc_topology(hosts_per_tors=48, tors_per_l1s=20, l1s=10, num_queries=2048),
+    dc_topology(hosts_per_tors=48, tors_per_l1s=20,
+                l1s=10, num_queries=1024, overlay='tor'),
 
     # 16
     # Overlay test 1
@@ -444,4 +456,34 @@ input_generator = [
                for i in range(20)],
         overlay=[[i + j*4 for i in range(4)] for j in range(5)] + [20]
     ),
+
+    # 20
+    # overlay, small dc
+    dc_topology(overlay='tor'),
+
+    # 21
+    Input(
+        devices=(
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(5)]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0, del0=del0) for i in range(4)
+        ],
+        flows=[flow(path=(i, 4, (i + 1) % 4), queries=[(i, 1)])
+               for i in range(4)],
+    ),
+
+    # 22
+    Input(
+        devices=(
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(5)]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0, del0=del0) for i in range(4)
+        ],
+        flows=[flow(path=(i, 4, (i + 1) % 4), queries=[(i, 1)])
+               for i in range(4)],
+        overlay=[[i + j*2 for i in range(2)] for j in range(2)] + [4]
+    ),
+
 ]

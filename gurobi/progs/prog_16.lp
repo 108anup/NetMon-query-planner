@@ -2,9 +2,10 @@
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
   ns: Priority=10 Weight=1 AbsTol=0 RelTol=0
-   0 m_access_time_CPU_0 + 0 ns_sketch_CPU_0 + 0 ns_dpdk_CPU_0 + 0 ns_CPU_0
-   + 0 m_access_time_CPU_1 + 0 ns_sketch_CPU_1 + 0 ns_dpdk_CPU_1
-   + 0 ns_CPU_1 + ns
+   0 max_mem_P4 + 0 max_mem_CPU + 0 max_rows_P4 + 0 max_rows_CPU
+   + 0 m_access_time_CPU_0 + 0 ns_sketch_CPU_0 + 0 ns_dpdk_CPU_0
+   + 0 ns_CPU_0 + 0 m_access_time_CPU_1 + 0 ns_sketch_CPU_1
+   + 0 ns_dpdk_CPU_1 + 0 ns_CPU_1 + ns
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
@@ -39,6 +40,16 @@ Subject To
  rows_tot_P4_4: - 3 frac[4,2] - 3 frac[4,1] + rows_tot_P4_4 = 0
  mem_tot_P4_5: - mem[5,0] - mem[5,1] + mem_tot_P4_5 = 0
  rows_tot_P4_5: - 3 frac[5,0] - 3 frac[5,1] + rows_tot_P4_5 = 0
+ row_capacity_CPU_0: rows_tot_CPU_0 <= 12
+ row_capacity_CPU_1: rows_tot_CPU_1 <= 12
+ row_capacity_P4_2: rows_tot_P4_2 <= 48
+ row_capacity_P4_3: rows_tot_P4_3 <= 48
+ row_capacity_P4_4: rows_tot_P4_4 <= 48
+ row_capacity_P4_5: rows_tot_P4_5 <= 48
+ tot_mem: - mem_tot_CPU_0 - mem_tot_CPU_1 - mem_tot_P4_2 - mem_tot_P4_3
+   - mem_tot_P4_4 - mem_tot_P4_5 + tot_mem = 0
+ tot_rows: - rows_tot_CPU_0 - rows_tot_CPU_1 - rows_tot_P4_2
+   - rows_tot_P4_3 - rows_tot_P4_4 - rows_tot_P4_5 + tot_rows = 0
  ns_single_CPU_0: 3.5 rows_tot_CPU_0 - ns_single_CPU_0 + pdt_m_rows_CPU_0
    = 0
  capacity_cores_CPU_0: cores_sketch_CPU_0 + cores_dpdk_CPU_0 <= 7
@@ -91,6 +102,12 @@ Binaries
 Generals
  cores_sketch_CPU_0 cores_dpdk_CPU_0 cores_sketch_CPU_1 cores_dpdk_CPU_1
 General Constraints
+ mem_overall_P4: max_mem_P4 = MAX ( mem_tot_P4_2 , mem_tot_P4_3 ,
+   mem_tot_P4_4 , mem_tot_P4_5 )
+ mem_overall_CPU: max_mem_CPU = MAX ( mem_tot_CPU_0 , mem_tot_CPU_1 )
+ rows_overall_P4: max_rows_P4 = MAX ( rows_tot_P4_2 , rows_tot_P4_3 ,
+   rows_tot_P4_4 , rows_tot_P4_5 )
+ rows_overall_CPU: max_rows_CPU = MAX ( rows_tot_CPU_0 , rows_tot_CPU_1 )
  mem_access_time_CPU_0: m_access_time_CPU_0 = PWL ( mem_tot_CPU_0 ) : 
   (0, 0) (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
   (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)

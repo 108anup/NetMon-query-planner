@@ -22,6 +22,9 @@ Subject To
  rows_tot_P4_5: - 3 frac[1,0] - 3 frac[1,1] + rows_tot_P4_5 = 0
  mem_tot_CPU_1: - mem[2,1] - mem[2,0] + mem_tot_CPU_1 = 0
  rows_tot_CPU_1: - 3 frac[2,1] - 3 frac[2,0] + rows_tot_CPU_1 = 0
+ row_capacity_P4_4: rows_tot_P4_4 <= 48
+ row_capacity_P4_5: rows_tot_P4_5 <= 48
+ row_capacity_CPU_1: rows_tot_CPU_1 <= 12
  ns_P4_4: ns_P4_4 = 6.756756756756757
  ns_P4_5: ns_P4_5 = 6.756756756756757
  ns_single_CPU_1: 3.5 rows_tot_CPU_1 - ns_single_CPU_1 + pdt_m_rows_CPU_1

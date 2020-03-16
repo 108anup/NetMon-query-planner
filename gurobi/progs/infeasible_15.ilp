@@ -1,0 +1,36 @@
+\ Model UnivmonGreedyRows_copy
+\ LP format - for model browsing. Use MPS format to capture full model detail.
+Minimize multi-objectives
+  tot_rows_CPU: Priority=100 Weight=1 AbsTol=0 RelTol=0
+  
+  CPU_rows_load: Priority=90 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ2: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ3: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ4: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ5: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_mem_CPU: Priority=60 Weight=1 AbsTol=0 RelTol=0
+  
+  CPU_load_mem: Priority=50 Weight=1 AbsTol=0 RelTol=0
+  
+Subject To
+ cov_46_32: frac[46,32] >= 1
+ cov_55_98: frac[46,98] >= 0.9
+ cov_75_28: frac[46,28] >= 1
+ cov_80_151: frac[46,151] >= 1
+ cov_83_26: frac[46,26] >= 1
+ rows_tot_CPU47: - 3 frac[46,25] - 3 frac[46,78] - 3 frac[46,26]
+   - 3 frac[46,32] - 3 frac[46,98] - 3 frac[46,130] - 3 frac[46,106]
+   - 3 frac[46,37] - 3 frac[46,60] - 3 frac[46,151] - 3 frac[46,28]
+   - 3 frac[46,55] + rows_tot_CPU47 = 0
+ row_capacity_CPU47: rows_tot_CPU47 <= 12
+Bounds
+ rows_tot_CPU47 free
+Binaries
+ frac[46,25] frac[46,78] frac[46,26] frac[46,32] frac[46,98] frac[46,130]
+ frac[46,106] frac[46,37] frac[46,60] frac[46,151] frac[46,28] frac[46,55]
+End

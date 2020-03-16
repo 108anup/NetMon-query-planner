@@ -6,7 +6,7 @@ from cli import generate_parser
 from common import Namespace, setup_logging, log_time, log
 from config import common_config
 from input import input_generator
-from solvers import solver_to_class, log_results, log_placement
+from solvers import solver_to_class, log_results, log_placement, UnivmonGreedyRows
 from devices import Cluster
 from flows import flow
 from gurobipy import GRB, tuplelist, tupledict
@@ -112,7 +112,24 @@ def map_flows_to_cluster(inp):
 
 
 @log_time
+def map_leaf_solution_to_cluster(solver, cluster):
+    dev_id_to_cluster_id = cluster.dev_id_to_cluster_id(inp)
+    mem = tupledict()
+    frac = tupledict()
+
+    for (dnum, pnum) in solver.dev_par_tuplelist:
+        cnum = dev_id_to_cluster_id[dnum]
+        mem.setdefault((cnum, pnum), 0)
+        frac.setdefault((cnum, pnum), 0)
+        mem[cnum, pnum] += solver.mem[dnum, pnum].x
+        frac[cnum, pnum] += solver.frac[dnum, pnum].x
+
+    init = Namespace(mem=mem, frac=frac)
+    return init
+
+@log_time
 def solve(inp):
+    #import ipdb; ipdb.set_trace()
     start = time.time()
 
     for (dnum, d) in enumerate(inp.devices):
@@ -123,7 +140,15 @@ def solve(inp):
 
     # Clustering
     if (hasattr(inp, 'overlay')):
+        solver = UnivmonGreedyRows(devices=inp.devices,
+                                   partitions=inp.partitions,
+                                   flows=inp.flows, queries=inp.queries,
+                                   overlay=True)
+        solver.solve()
+
         inp.cluster = get_cluster_from_overlay(inp, inp.overlay)
+        init = map_leaf_solution_to_cluster(solver, inp.cluster)
+
         queue = Queue()
         flows = map_flows_to_cluster(inp)
         queue.put(Namespace(devices=inp.cluster.device_tree,
@@ -133,20 +158,28 @@ def solve(inp):
         placement = Namespace(frac=tupledict(), mem=tupledict(), res={},
                               dev_par_tuplelist=tuplelist())
         # BFS over device tree
+        first_run = True
         while(queue.qsize() > 0):
             front = queue.get()
             devices = front.devices
             partitions = front.partitions
             flows = front.flows
+            #import ipdb; ipdb.set_trace()
             solver = Solver(devices=devices, partitions=partitions,
                             flows=flows, queries=inp.queries, overlay=True)
+            if(first_run):
+                solver = Solver(devices=devices, partitions=partitions,
+                                flows=flows, queries=inp.queries, init=init,
+                                overlay=True)
             solver.solve()
+            first_run = False
 
             # TODO: Modify Infeasible handling
             # TODO: This breaks abstraction of any type of solver
             if(solver.m.Status == GRB.INFEASIBLE):
                 return
 
+            #import ipdb; ipdb.set_trace()
             for (dnum, d) in enumerate(devices):
                 if(isinstance(d, Cluster)):
                     (partitions, flows) = get_partitions_flows(
