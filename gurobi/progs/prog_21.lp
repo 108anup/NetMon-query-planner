@@ -2,13 +2,14 @@
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
   ns: Priority=10 Weight=1 AbsTol=0 RelTol=0
-   0 max_mem_CPU + 0 max_rows_CPU + 0 m_access_time_CPU_0 + 0 ns_sketch_CPU_0
-   + 0 ns_dpdk_CPU_0 + 0 ns_CPU_0 + 0 m_access_time_CPU_1
-   + 0 ns_sketch_CPU_1 + 0 ns_dpdk_CPU_1 + 0 ns_CPU_1
-   + 0 m_access_time_CPU_2 + 0 ns_sketch_CPU_2 + 0 ns_dpdk_CPU_2
-   + 0 ns_CPU_2 + 0 m_access_time_CPU_3 + 0 ns_sketch_CPU_3
-   + 0 ns_dpdk_CPU_3 + 0 ns_CPU_3 + 0 m_access_time_CPU_4
-   + 0 ns_sketch_CPU_4 + 0 ns_dpdk_CPU_4 + 0 ns_CPU_4 + ns
+   0 max_mem_CPU_Cluster + 0 max_rows_CPU_Cluster + 0 m_access_time_CPU_0
+   + 0 ns_sketch_CPU_0 + 0 ns_dpdk_CPU_0 + 0 ns_CPU_0
+   + 0 m_access_time_CPU_1 + 0 ns_sketch_CPU_1 + 0 ns_dpdk_CPU_1
+   + 0 ns_CPU_1 + 0 m_access_time_CPU_2 + 0 ns_sketch_CPU_2
+   + 0 ns_dpdk_CPU_2 + 0 ns_CPU_2 + 0 m_access_time_CPU_3
+   + 0 ns_sketch_CPU_3 + 0 ns_dpdk_CPU_3 + 0 ns_CPU_3
+   + 0 m_access_time_CPU_4 + 0 ns_sketch_CPU_4 + 0 ns_dpdk_CPU_4
+   + 0 ns_CPU_4 + ns
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
@@ -29,26 +30,32 @@ Subject To
  accuracy_1_1: - 5.09765625 frac[1,1] + mem[1,1] = 0
  accuracy_4_0: - 5.09765625 frac[4,0] + mem[4,0] = 0
  mem_tot_CPU_0: - mem[0,0] - mem[0,3] + mem_tot_CPU_0 = 0
+ R17: - 3.05176e-05 mem_tot_CPU_0 + normalized_mem_tot_CPU_0 = 0
  rows_tot_CPU_0: - 3 frac[0,0] - 3 frac[0,3] + rows_tot_CPU_0 = 0
+ R19: - 0.0833333333333333 rows_tot_CPU_0 + normalized_rows_tot_CPU_0 = 0
  mem_tot_CPU_1: - mem[1,0] - mem[1,1] + mem_tot_CPU_1 = 0
+ R21: - 3.05176e-05 mem_tot_CPU_1 + normalized_mem_tot_CPU_1 = 0
  rows_tot_CPU_1: - 3 frac[1,0] - 3 frac[1,1] + rows_tot_CPU_1 = 0
+ R23: - 0.0833333333333333 rows_tot_CPU_1 + normalized_rows_tot_CPU_1 = 0
  mem_tot_CPU_2: - mem[2,1] - mem[2,2] + mem_tot_CPU_2 = 0
+ R25: - 3.05176e-05 mem_tot_CPU_2 + normalized_mem_tot_CPU_2 = 0
  rows_tot_CPU_2: - 3 frac[2,1] - 3 frac[2,2] + rows_tot_CPU_2 = 0
+ R27: - 0.0833333333333333 rows_tot_CPU_2 + normalized_rows_tot_CPU_2 = 0
  mem_tot_CPU_3: - mem[3,2] - mem[3,3] + mem_tot_CPU_3 = 0
+ R29: - 3.05176e-05 mem_tot_CPU_3 + normalized_mem_tot_CPU_3 = 0
  rows_tot_CPU_3: - 3 frac[3,2] - 3 frac[3,3] + rows_tot_CPU_3 = 0
+ R31: - 0.0833333333333333 rows_tot_CPU_3 + normalized_rows_tot_CPU_3 = 0
  mem_tot_CPU_4: - mem[4,3] - mem[4,2] - mem[4,1] - mem[4,0] + mem_tot_CPU_4
    = 0
+ R33: - 3.05176e-05 mem_tot_CPU_4 + normalized_mem_tot_CPU_4 = 0
  rows_tot_CPU_4: - 3 frac[4,3] - 3 frac[4,2] - 3 frac[4,1] - 3 frac[4,0]
    + rows_tot_CPU_4 = 0
+ R35: - 0.0833333333333333 rows_tot_CPU_4 + normalized_rows_tot_CPU_4 = 0
  row_capacity_CPU_0: rows_tot_CPU_0 <= 12
  row_capacity_CPU_1: rows_tot_CPU_1 <= 12
  row_capacity_CPU_2: rows_tot_CPU_2 <= 12
  row_capacity_CPU_3: rows_tot_CPU_3 <= 12
  row_capacity_CPU_4: rows_tot_CPU_4 <= 12
- tot_mem: - mem_tot_CPU_0 - mem_tot_CPU_1 - mem_tot_CPU_2 - mem_tot_CPU_3
-   - mem_tot_CPU_4 + tot_mem = 0
- tot_rows: - rows_tot_CPU_0 - rows_tot_CPU_1 - rows_tot_CPU_2
-   - rows_tot_CPU_3 - rows_tot_CPU_4 + tot_rows = 0
  ns_single_CPU_0: 3.5 rows_tot_CPU_0 - ns_single_CPU_0 + pdt_m_rows_CPU_0
    = 0
  capacity_cores_CPU_0: cores_sketch_CPU_0 + cores_dpdk_CPU_0 <= 7
@@ -118,10 +125,20 @@ Subject To
    - cores_dpdk_CPU_4 * ns_dpdk_CPU_4 ] = 0
 Bounds
  mem_tot_CPU_0 <= 32768
+ normalized_mem_tot_CPU_0 <= 1
+ normalized_rows_tot_CPU_0 <= 1
  mem_tot_CPU_1 <= 32768
+ normalized_mem_tot_CPU_1 <= 1
+ normalized_rows_tot_CPU_1 <= 1
  mem_tot_CPU_2 <= 32768
+ normalized_mem_tot_CPU_2 <= 1
+ normalized_rows_tot_CPU_2 <= 1
  mem_tot_CPU_3 <= 32768
+ normalized_mem_tot_CPU_3 <= 1
+ normalized_rows_tot_CPU_3 <= 1
  mem_tot_CPU_4 <= 32768
+ normalized_mem_tot_CPU_4 <= 1
+ normalized_rows_tot_CPU_4 <= 1
  cores_sketch_CPU_0 <= 7
  1 <= cores_dpdk_CPU_0 <= 7
  cores_sketch_CPU_1 <= 7
@@ -140,10 +157,13 @@ Generals
  cores_sketch_CPU_2 cores_dpdk_CPU_2 cores_sketch_CPU_3 cores_dpdk_CPU_3
  cores_sketch_CPU_4 cores_dpdk_CPU_4
 General Constraints
- mem_overall_CPU: max_mem_CPU = MAX ( mem_tot_CPU_0 , mem_tot_CPU_1 ,
-   mem_tot_CPU_2 , mem_tot_CPU_3 , mem_tot_CPU_4 )
- rows_overall_CPU: max_rows_CPU = MAX ( rows_tot_CPU_0 , rows_tot_CPU_1 ,
-   rows_tot_CPU_2 , rows_tot_CPU_3 , rows_tot_CPU_4 )
+ mem_overall_CPU_Cluster: max_mem_CPU_Cluster = MAX (
+   normalized_mem_tot_CPU_0 , normalized_mem_tot_CPU_1 ,
+   normalized_mem_tot_CPU_2 , normalized_mem_tot_CPU_3 ,
+   normalized_mem_tot_CPU_4 )
+ rows_overall_CPU: max_rows_CPU_Cluster = MAX ( normalized_rows_tot_CPU_0 ,
+   normalized_rows_tot_CPU_1 , normalized_rows_tot_CPU_2 ,
+   normalized_rows_tot_CPU_3 , normalized_rows_tot_CPU_4 )
  mem_access_time_CPU_0: m_access_time_CPU_0 = PWL ( mem_tot_CPU_0 ) : 
   (0, 0) (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
   (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)

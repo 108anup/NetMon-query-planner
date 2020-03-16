@@ -1,27 +1,27 @@
-Function: get_partitions took 1.4066696166992188e-05 seconds
+Function: get_partitions took 1.9073486328125e-05 seconds
 Function: map_flows_partitions took 2.86102294921875e-06 seconds
 Building model with:
 5 devices, 4 partitions and 4 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.00016927719116210938 seconds
+Function: MIP.add_frac_mem_var took 0.00018143653869628906 seconds
 Function: MIP.add_coverage_constraints took 0.00013875961303710938 seconds
-Function: MIP.add_accuracy_constraints took 0.00016069412231445312 seconds
-Function: MIP.add_capacity_constraints took 0.00033211708068847656 seconds
+Function: MIP.add_accuracy_constraints took 0.00014734268188476562 seconds
+Function: MIP.add_capacity_constraints took 0.0006704330444335938 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 4.315376281738281e-05 s
+Model update took: 4.506111145019531e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 33 rows, 38 columns and 87 nonzeros
-Model fingerprint: 0x2e4587b4
+Optimize a model with 41 rows, 46 columns and 95 nonzeros
+Model fingerprint: 0x135503c4
 Model has 2 general constraints
-Variable types: 26 continuous, 12 integer (12 binary)
+Variable types: 34 continuous, 12 integer (12 binary)
 Coefficient statistics:
-  Matrix range     [1e+00, 5e+00]
+  Matrix range     [3e-05, 5e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 3e+04]
   RHS range        [1e+00, 1e+01]
@@ -33,12 +33,12 @@ Multi-objectives: starting optimization with 8 objectives (5 combined) ...
 Multi-objectives: applying initial presolve ...
 ---------------------------------------------------------------------------
 
-Presolve removed 16 rows and 3 columns
+Presolve removed 24 rows and 11 columns
 Presolve time: 0.00s
 Presolved: 17 rows and 35 columns
 ---------------------------------------------------------------------------
 
-Multi-objectives: optimize objective 1 (tot_rows_CPU) ...
+Multi-objectives: optimize objective 1 (tot_rows_CPU_Clust) ...
 ---------------------------------------------------------------------------
 
 Presolve time: 0.00s
@@ -63,39 +63,39 @@ Optimal solution found (tolerance 1.00e-04)
 Best objective 1.200000000000e+01, best bound 1.200000000000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 
-Multi-objectives: optimize objective 2 (CPU_rows_load) ...
+Multi-objectives: optimize objective 2 (CPU_Cluster_rows_l) ...
 ---------------------------------------------------------------------------
 
 
-Loaded user MIP start with objective 9
+Loaded user MIP start with objective 0.75
 
 Presolve time: 0.00s
 Presolved: 18 rows, 35 columns, 74 nonzeros
 Presolved model has 10 SOS constraint(s)
 Variable types: 12 continuous, 23 integer (22 binary)
 
-Root relaxation: objective 2.400000e+00, 15 iterations, 0.00 seconds
+Root relaxation: objective 2.000000e-01, 15 iterations, 0.00 seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    2.40000    0    9    9.00000    2.40000  73.3%     -    0s
-H    0     0                       3.0000000    2.40000  20.0%     -    0s
+     0     0    0.20000    0    9    0.75000    0.20000  73.3%     -    0s
+H    0     0                       0.2500000    0.20000  20.0%     -    0s
 
 Cutting planes:
   Gomory: 1
-  MIR: 3
+  MIR: 2
 
 Explored 1 nodes (15 simplex iterations) in 0.00 seconds
 Thread count was 12 (of 12 available processors)
 
-Solution count 2: 3 9 
+Solution count 2: 0.25 0.75 
 
 Optimal solution found (tolerance 1.00e-04)
-Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%
+Best objective 2.500000000000e-01, best bound 2.500000000000e-01, gap 0.0000%
 ---------------------------------------------------------------------------
 
-Multi-objectives: optimize objective 3 (tot_mem_CPU) ...
+Multi-objectives: optimize objective 3 (tot_mem_CPU_Cluste) ...
 ---------------------------------------------------------------------------
 
 
@@ -123,11 +123,11 @@ Optimal solution found (tolerance 1.00e-04)
 Best objective 2.039062500000e+01, best bound 2.039062500000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 
-Multi-objectives: optimize objective 4 (CPU_load_mem) ...
+Multi-objectives: optimize objective 4 (CPU_Cluster_load_m) ...
 ---------------------------------------------------------------------------
 
 
-Loaded user MIP start with objective 5.09766
+Loaded user MIP start with objective 0.000155568
 
 Presolve added 3 rows and 0 columns
 Presolve time: 0.00s
@@ -135,24 +135,23 @@ Presolved: 23 rows, 35 columns, 84 nonzeros
 Presolved model has 5 SOS constraint(s)
 Variable types: 12 continuous, 23 integer (23 binary)
 
-Root relaxation: objective 4.078125e+00, 25 iterations, 0.00 seconds
+Root relaxation: objective 1.244545e-04, 25 iterations, 0.00 seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    4.07812    0    9    5.09766    4.07812  20.0%     -    0s
+     0     0    0.00012    0    9    0.00016    0.00012  20.0%     -    0s
 
 Cutting planes:
-  Gomory: 1
-  MIR: 1
+  Flow cover: 1
 
 Explored 1 nodes (25 simplex iterations) in 0.01 seconds
 Thread count was 12 (of 12 available processors)
 
-Solution count 1: 5.09766 
+Solution count 1: 0.000155568 
 
 Optimal solution found (tolerance 1.00e-04)
-Best objective 5.097656250000e+00, best bound 5.097656250000e+00, gap 0.0000%
+Best objective 1.555681228638e-04, best bound 1.555681228638e-04, gap 0.0000%
 ---------------------------------------------------------------------------
 
 Multi-objectives: optimize objective 5 (weighted) ...
@@ -173,13 +172,13 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.01 seconds, solution count 2
 
-Model optimize took: 0.006684064865112305 seconds
+Model optimize took: 0.0071218013763427734 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedyRows :
   Maximum violation:
     Bound       : 0.00000000e+00
-    Constraint  : 8.88178420e-16
+    Constraint  : 2.71050543e-20
     Integrality : 0.00000000e+00
 
 VARIABLES ------------------------------
@@ -209,19 +208,27 @@ mem[4,1] 0
 mem[1,1] 5.09766
 mem[4,0] 5.09766
 mem_tot_CPU_0 5.09766
+normalized_mem_tot_CPU_0 0.000155568
 rows_tot_CPU_0 3
+normalized_rows_tot_CPU_0 0.25
 mem_tot_CPU_1 5.09766
+normalized_mem_tot_CPU_1 0.000155568
 rows_tot_CPU_1 3
+normalized_rows_tot_CPU_1 0.25
 mem_tot_CPU_2 5.09766
+normalized_mem_tot_CPU_2 0.000155568
 rows_tot_CPU_2 3
+normalized_rows_tot_CPU_2 0.25
 mem_tot_CPU_3 0
+normalized_mem_tot_CPU_3 0
 rows_tot_CPU_3 0
+normalized_rows_tot_CPU_3 0
 mem_tot_CPU_4 5.09766
+normalized_mem_tot_CPU_4 0.000155568
 rows_tot_CPU_4 3
-max_mem_CPU 5.09766
-tot_mem 20.3906
-max_rows_CPU 3
-tot_rows 12
+normalized_rows_tot_CPU_4 0.25
+max_mem_CPU_Cluster 0.000155568
+max_rows_CPU_Cluster 0.25
 --------------------------------------------------
 
 Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
@@ -505,5 +512,5 @@ Flow 3:
 partitions: [(3, 1)]
 path: (3, 4, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.03329801559448242 seconds
-Function: solve took 0.0335233211517334 seconds
+Function: MIP.solve took 0.030176162719726562 seconds
+Function: solve took 0.030401945114135742 seconds

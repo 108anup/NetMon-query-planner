@@ -1,6 +1,8 @@
 import sys
 from queue import Queue
 import time
+import ipdb
+import traceback
 
 from cli import generate_parser
 from common import Namespace, setup_logging, log_time, log
@@ -230,4 +232,10 @@ setup_logging(common_config)
 
 input_num = common_config.input_num
 inp = input_generator[input_num]
-solve(inp)
+
+try:
+    solve(inp)
+except:
+    extype, value, tb = sys.exc_info()
+    traceback.print_exc()
+    ipdb.post_mortem(tb)

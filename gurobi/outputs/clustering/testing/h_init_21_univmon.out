@@ -1,27 +1,27 @@
-Function: get_partitions took 2.3365020751953125e-05 seconds
-Function: map_flows_partitions took 3.337860107421875e-06 seconds
+Function: get_partitions took 2.8848648071289062e-05 seconds
+Function: map_flows_partitions took 3.5762786865234375e-06 seconds
 Building model with:
 5 devices, 12 partitions and 4 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.0004448890686035156 seconds
-Function: MIP.add_coverage_constraints took 0.0003619194030761719 seconds
-Function: MIP.add_accuracy_constraints took 0.0008471012115478516 seconds
-Function: MIP.add_capacity_constraints took 0.0006804466247558594 seconds
+Function: MIP.add_frac_mem_var took 0.0004665851593017578 seconds
+Function: MIP.add_coverage_constraints took 0.00037741661071777344 seconds
+Function: MIP.add_accuracy_constraints took 0.0007379055023193359 seconds
+Function: MIP.add_capacity_constraints took 0.0012602806091308594 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 9.72747802734375e-05 s
+Model update took: 9.417533874511719e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 59 rows, 84 columns and 196 nonzeros
-Model fingerprint: 0xd0f2c65e
+Optimize a model with 69 rows, 94 columns and 216 nonzeros
+Model fingerprint: 0xebf2d24c
 Model has 1 general constraint
-Variable types: 48 continuous, 36 integer (36 binary)
+Variable types: 58 continuous, 36 integer (36 binary)
 Coefficient statistics:
-  Matrix range     [1e+00, 2e+00]
+  Matrix range     [3e-05, 2e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 3e+04]
   RHS range        [1e+00, 1e+00]
@@ -33,7 +33,7 @@ Multi-objectives: starting optimization with 2 objectives ...
 Multi-objectives: applying initial presolve ...
 ---------------------------------------------------------------------------
 
-Presolve removed 41 rows and 37 columns
+Presolve removed 51 rows and 47 columns
 Presolve time: 0.00s
 Presolved: 18 rows and 47 columns
 ---------------------------------------------------------------------------
@@ -110,7 +110,7 @@ Best objective 2.039062500000e+01, best bound 2.039062500000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.02 seconds, solution count 6
 
-Model optimize took: 0.021575212478637695 seconds
+Model optimize took: 0.019728660583496094 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -194,15 +194,25 @@ mem[4,3] 0
 mem[0,9] 0
 mem[0,2] 0
 mem_tot_CPU_0 1.69922
+normalized_mem_tot_CPU_0 5.1856e-05
 rows_tot_CPU_0 1
+normalized_rows_tot_CPU_0 0.0833333
 mem_tot_CPU_1 5.09766
+normalized_mem_tot_CPU_1 0.000155568
 rows_tot_CPU_1 3
+normalized_rows_tot_CPU_1 0.25
 mem_tot_CPU_2 5.09766
+normalized_mem_tot_CPU_2 0.000155568
 rows_tot_CPU_2 3
+normalized_rows_tot_CPU_2 0.25
 mem_tot_CPU_3 3.39844
+normalized_mem_tot_CPU_3 0.000103712
 rows_tot_CPU_3 2
+normalized_rows_tot_CPU_3 0.166667
 mem_tot_CPU_4 5.09766
+normalized_mem_tot_CPU_4 0.000155568
 rows_tot_CPU_4 3
+normalized_rows_tot_CPU_4 0.25
 max_mem 5.09766
 tot_mem 20.3906
 --------------------------------------------------
@@ -536,5 +546,5 @@ Flow 3:
 partitions: [(9, 1), (10, 1), (11, 1)]
 path: (3, 4, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.07054018974304199 seconds
-Function: solve took 0.07077860832214355 seconds
+Function: MIP.solve took 0.06709957122802734 seconds
+Function: solve took 0.06737518310546875 seconds

@@ -6,7 +6,7 @@ import time
 import gurobipy as gp
 from gurobipy import GRB, tuplelist
 
-from common import log, Namespace, log_time
+from common import log, Namespace, log_time, memoize
 from config import common_config
 from devices import CPU, P4, Cluster
 
@@ -190,10 +190,18 @@ class MIP(Namespace):
             self.m.addConstr(mem_tot == self.mem.sum(dnum, '*'),
                              name='mem_tot_{}'.format(d))
             d.mem_tot = mem_tot
+            normalized_mem_tot = self.m.addVar(
+                vtype=GRB.CONTINUOUS, name='normalized_mem_tot_{}'.format(d),
+                lb=0, ub=1)
+            self.m.addConstr(normalized_mem_tot == mem_tot / d.max_mem)
+            d.normalized_mem_tot = normalized_mem_tot
 
             # Row constraints
             rows_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
                                      name='rows_tot_{}'.format(d), lb=0)
+            normalized_rows_tot = self.m.addVar(
+                vtype=GRB.CONTINUOUS, name='normalized_rows_tot_{}'.format(d),
+                lb=0, ub=1)
             rows_series = []
             for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
                 p = self.partitions[pnum]
@@ -205,6 +213,8 @@ class MIP(Namespace):
             self.m.addConstr(rows_tot == gp.quicksum(rows_series),
                              name='rows_tot_{}'.format(d))
             d.rows_tot = rows_tot
+            self.m.addConstr(normalized_rows_tot == rows_tot / d.max_rows)
+            d.normalized_rows_tot = normalized_rows_tot
 
     def add_device_aware_constraints(self):
         for (dnum, d) in enumerate(self.devices):
@@ -492,39 +502,41 @@ class UnivmonGreedy(Univmon):
         mem_series_Cluster = [d.mem_tot
                               for d in self.devices
                               if isinstance(d, Cluster)]
+
+        normalized_mem_series_CPU_Cluster = [
+            d.normalized_mem_tot
+            for d in self.devices
+            if (isinstance(d, Cluster) or isinstance(d, CPU))]
+
         if(len(mem_series_P4) > 0):
             self.max_mem_P4 = self.m.addVar(vtype=GRB.CONTINUOUS,
                                             name='max_mem_P4')
             self.m.addGenConstrMax(self.max_mem_P4, mem_series_P4,
                                    name='mem_overall_P4')
             self.tot_mem_P4 = gp.quicksum(mem_series_P4)
-        if(len(mem_series_CPU) > 0):
-            self.max_mem_CPU = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                             name='max_mem_CPU')
-            self.m.addGenConstrMax(self.max_mem_CPU, mem_series_CPU,
-                                   name='mem_overall_CPU')
-            self.tot_mem_CPU = gp.quicksum(mem_series_CPU)
-        if(len(mem_series_Cluster) > 0):
-            self.max_mem_Cluster = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                                 name='max_mem_Cluster')
-            self.m.addGenConstrMax(self.max_mem_Cluster, mem_series_Cluster,
-                                   name='mem_overall_Cluster')
-            self.tot_mem_Cluster = gp.quicksum(mem_series_Cluster)
-        self.tot_mem = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                     name='tot_mem')
-        self.m.addConstr(self.tot_mem == gp.quicksum(mem_series_CPU)
-                         + gp.quicksum(mem_series_Cluster)
-                         + gp.quicksum(mem_series_P4), name='tot_mem')
+
+        if(len(mem_series_CPU) > 0 or len(mem_series_Cluster) > 0):
+            self.max_mem_CPU_Cluster = self.m.addVar(
+                vtype=GRB.CONTINUOUS, name='max_mem_CPU_Cluster')
+            self.m.addGenConstrMax(self.max_mem_CPU_Cluster,
+                                   normalized_mem_series_CPU_Cluster,
+                                   name='mem_overall_CPU_Cluster')
+            self.tot_mem_CPU_Cluster = gp.quicksum(
+                mem_series_CPU + mem_series_Cluster)
+
+        # self.tot_mem = self.m.addVar(vtype=GRB.CONTINUOUS,
+        #                              name='tot_mem')
+        # self.m.addConstr(self.tot_mem == gp.quicksum(mem_series_CPU)
+        #                  + gp.quicksum(mem_series_Cluster)
+        #                  + gp.quicksum(mem_series_P4), name='tot_mem')
 
     def add_objective(self):
-        if(hasattr(self, 'max_mem_CPU')):
-            self.m.setObjectiveN(self.tot_mem_CPU, 0, 20, name='tot_mem_CPU')
-            self.m.setObjectiveN(self.max_mem_CPU, 1, 15, name='CPU_mem_load')
-        if(hasattr(self, 'max_mem_Cluster')):
-            self.m.setObjectiveN(self.tot_mem_Cluster, 2, 20,
-                                 name='tot_mem_Cluster')
-            self.m.setObjectiveN(self.max_mem_Cluster, 3, 15,
-                                 name='Cluster_mem_load')
+        if(hasattr(self, 'max_mem_CPU_Cluster')):
+            self.m.setObjectiveN(self.tot_mem_CPU_Cluster, 0, 20,
+                                 name='tot_mem_CPU_Cluster')
+            self.m.setObjectiveN(self.max_mem_CPU_Cluster, 1, 15,
+                                 name='Cluster_CPU_mem_load')
+
         if(hasattr(self, 'max_mem_P4')):
             self.m.setObjectiveN(self.tot_mem_P4, 4, 10, name='tot_mem_P4')
             self.m.setObjectiveN(self.max_mem_P4, 5, 5, name='P4_mem_load')
@@ -544,62 +556,67 @@ class UnivmonGreedyRows(UnivmonGreedy):
         rows_series_Cluster = [d.rows_tot
                                for d in self.devices
                                if isinstance(d, Cluster)]
+        normalized_rows_series_CPU_Cluster = [
+            d.normalized_rows_tot
+            for d in self.devices
+            if (isinstance(d, Cluster) or isinstance(d, CPU))]
+
         if(len(rows_series_P4) > 0):
             self.max_rows_P4 = self.m.addVar(vtype=GRB.CONTINUOUS,
                                              name='max_rows_P4')
             self.m.addGenConstrMax(self.max_rows_P4, rows_series_P4,
                                    name='rows_overall_P4')
             self.tot_rows_P4 = gp.quicksum(rows_series_P4)
-        if(len(rows_series_CPU) > 0):
-            self.max_rows_CPU = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                              name='max_rows_CPU')
-            self.m.addGenConstrMax(self.max_rows_CPU, rows_series_CPU,
+
+        if(len(rows_series_CPU) > 0 or len(rows_series_Cluster) > 0):
+            self.max_rows_CPU_Cluster = self.m.addVar(
+                vtype=GRB.CONTINUOUS, name='max_rows_CPU_Cluster')
+            self.m.addGenConstrMax(self.max_rows_CPU_Cluster,
+                                   normalized_rows_series_CPU_Cluster,
                                    name='rows_overall_CPU')
-            self.tot_rows_CPU = gp.quicksum(rows_series_CPU)
-        if(len(rows_series_Cluster) > 0):
-            self.max_rows_Cluster = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                                  name='max_rows_Cluster')
-            self.m.addGenConstrMax(self.max_rows_Cluster, rows_series_Cluster,
-                                   name='rows_overall_Cluster')
-            self.tot_rows_Cluster = gp.quicksum(rows_series_Cluster)
-        self.tot_rows = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                      name='tot_rows')
-        self.m.addConstr(self.tot_rows == gp.quicksum(rows_series_CPU)
-                         + gp.quicksum(rows_series_P4)
-                         + gp.quicksum(rows_series_Cluster), name='tot_rows')
+            self.tot_rows_CPU_Cluster = gp.quicksum(
+                rows_series_CPU + rows_series_Cluster)
+
+        # self.tot_rows = self.m.addVar(vtype=GRB.CONTINUOUS,
+        #                               name='tot_rows')
+        # self.m.addConstr(self.tot_rows == gp.quicksum(rows_series_CPU)
+        #                  + gp.quicksum(rows_series_P4)
+        #                  + gp.quicksum(rows_series_Cluster), name='tot_rows')
 
     def add_objective(self):
-        if(hasattr(self, 'max_rows_CPU')):
-            self.m.setObjectiveN(self.tot_rows_CPU, 0, 100,
-                                 name='tot_rows_CPU')
-            self.m.setObjectiveN(self.max_rows_CPU, 1, 90,
-                                 name='CPU_rows_load')
-        if(hasattr(self, 'max_rows_Cluster')):
-            self.m.setObjectiveN(self.tot_rows_Cluster, 2, 100,
-                                 name='tot_rows_Cluster')
-            self.m.setObjectiveN(self.max_rows_Cluster, 3, 90,
-                                 name='Cluster_rows_load')
+        if(hasattr(self, 'max_rows_CPU_Cluster')):
+            self.m.setObjectiveN(self.tot_rows_CPU_Cluster, 0, 100,
+                                 name='tot_rows_CPU_Cluster')
+            self.m.setObjectiveN(self.max_rows_CPU_Cluster, 1, 90,
+                                 name='CPU_Cluster_rows_load')
         if(hasattr(self, 'max_rows_P4')):
             self.m.setObjectiveN(self.tot_rows_P4, 4, 80, name='tot_rows_P4')
             self.m.setObjectiveN(self.max_rows_P4, 5, 70, name='P4_rows_load')
         # self.m.setObjectiveN(self.tot_rows, 2, 20, name='rows_load')
-        if(hasattr(self, 'max_mem_CPU')):
-            self.m.setObjectiveN(self.tot_mem_CPU, 6, 60, name='tot_mem_CPU')
-            self.m.setObjectiveN(self.max_mem_CPU, 7, 50, name='CPU_load_mem')
-        if(hasattr(self, 'max_mem_Cluster')):
-            self.m.setObjectiveN(self.tot_mem_Cluster, 8, 60,
-                                 name='tot_mem_Cluster')
-            self.m.setObjectiveN(self.max_mem_Cluster, 9, 50,
-                                 name='Cluster_load_mem')
+        if(hasattr(self, 'max_mem_CPU_Cluster')):
+            self.m.setObjectiveN(self.tot_mem_CPU_Cluster, 6, 60,
+                                 name='tot_mem_CPU_Cluster')
+            self.m.setObjectiveN(self.max_mem_CPU_Cluster, 7, 50,
+                                 name='CPU_Cluster_load_mem')
         if(hasattr(self, 'max_mem_P4')):
-            self.m.setObjectiveN(self.tot_mem_P4, 10, 40, name='tot_mem_P4')
-            self.m.setObjectiveN(self.max_mem_P4, 11, 30, name='P4_load_mem')
+            self.m.setObjectiveN(self.tot_mem_P4, 8, 40, name='tot_mem_P4')
+            self.m.setObjectiveN(self.max_mem_P4, 9, 30, name='P4_load_mem')
         # self.m.setObjectiveN(self.tot_mem, 5, 5, name='mem_load')
 
 
 class Netmon(UnivmonGreedyRows):
 
+    @memoize
+    def is_clustered(self):
+        for d in self.devices:
+            if(isinstance(d, Cluster)):
+                return True
+        return False
+
     def add_constraints(self):
+        if(self.is_clustered()):
+            log.info("Netmon behaving like UnivmonGreedyRows")
+            return super(Netmon, self).add_constraints()
 
         # Initialize with unimon_greedy_rows solution
         super(Netmon, self).add_constraints()
@@ -623,6 +640,9 @@ class Netmon(UnivmonGreedyRows):
         (self.ns, self.res) = self.add_device_model_constraints()
 
     def add_objective(self):
+        if(self.is_clustered()):
+            return super(Netmon, self).add_objective()
+
         if(hasattr(self, 'ns_req') and self.ns_req):
             self.m.NumObj = 1
             self.m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
@@ -636,6 +656,8 @@ class Netmon(UnivmonGreedyRows):
                                  name='res')
 
     def post_optimize(self):
+        if(self.is_clustered()):
+            return super(Netmon, self).post_optimize()
 
         self.m.printQuality()
         write_vars(self.m)
