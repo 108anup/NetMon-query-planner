@@ -76,6 +76,10 @@ class CPU(device):
         return pdt
 
     def add_ns_constraints(self, m, ns_req=None):
+
+        # TODO:: When both rows and mem fixed then handle separately
+        # Also consider memoizing here!
+
         rows = self.rows_tot
         mem = self.mem_tot
 

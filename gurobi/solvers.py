@@ -87,6 +87,17 @@ def refine_devices(devices):
     res_acc = 0
     ns_max = 0
     for d in devices:
+
+        if(not hasattr(d, 'mem_tot')):
+            d.mem_tot = 0
+        if(not hasattr(d, 'rows_tot')):
+            d.rows_tot = 0
+
+        # TODO: Memoize for faster solution!
+        # Also consider memoizing cluster solutions
+        # TODO: Alternate approach for removing side effects only
+        # when necessary
+
         u = gp.Model(d.name)
         mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
                            name='mem_tot_{}'.format(d),
@@ -113,6 +124,13 @@ def refine_devices(devices):
         u.setParam(GRB.Param.LogToConsole, 0)
         u.update()
         u.optimize()
+
+        # Need to keep these to retain model values.
+        if(hasattr(d, 'u')):
+            if(hasattr(d, 'old_u')):
+                d.old_u.append(d.u)
+            else:
+                d.old_u = [d.u]
         d.u = u
 
         write_vars(u)
@@ -269,6 +287,7 @@ class MIP(Namespace):
             d.rows_tot = rows_tot
             self.m.addConstr(normalized_rows_tot == rows_tot / d.max_rows)
             d.normalized_rows_tot = normalized_rows_tot
+            d.m = self.m
 
     def add_device_aware_constraints(self):
         for (dnum, d) in enumerate(self.devices):
@@ -310,7 +329,6 @@ class MIP(Namespace):
 
             # Resources
             res_acc += d.res()
-            d.m = self.m
 
         ns = None
         if(ns_req is None):

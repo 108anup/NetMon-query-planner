@@ -190,9 +190,10 @@ def solve(inp):
                 if(isinstance(d, Cluster)):
                     (partitions, flows) = get_partitions_flows(
                         inp, d, solver, dnum)
-                    queue.put(Namespace(devices=d.device_tree,
-                                        partitions=partitions,
-                                        flows=flows))
+                    if(len(partitions) > 0 and len(flows) > 0):
+                        queue.put(Namespace(devices=d.device_tree,
+                                            partitions=partitions,
+                                            flows=flows))
                 else:
                     # Clusters never overlap!!
                     for (_, pnum)in solver.dev_par_tuplelist.select(dnum, '*'):
