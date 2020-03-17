@@ -58,4 +58,9 @@ def generate_parser():
         action='store'
     )
 
+    p.add_argument(
+        '--init',
+        action='store_true'
+    )
+
     return p

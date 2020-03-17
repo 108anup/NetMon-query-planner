@@ -99,9 +99,48 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
     hosts_tors_l1s = hosts_tors + l1s
 
     if(overlay == 'tor'):
-        inp.overlay = ([[i + j*hosts_per_tors for i in range(hosts_per_tors)]
-                        for j in range(tors)]
-                       + [hosts + j for j in range(tors + l1s + 1)])
+        if('inp' not in locals()):
+            inp = Input()
+
+        # TODO: Remove redundancy =>
+        if(hosts_per_tors <= 8):
+            inp.overlay = (
+                [
+                    [
+                        i + j*hosts_per_tors for i in range(hosts_per_tors)
+                    ] for j in range(tors)
+                ]
+                + [hosts + j for j in range(tors + l1s + 1)])
+
+        elif(tors <= 20):  # Assuming hosts_per_tors multiple of 8
+            inp.overlay = (
+                [
+                    [
+                        [
+                            i + 8*j + k*hosts_per_tors
+                            for i in range(8)
+                        ] for j in range(int(hosts_per_tors/8))
+                    ] for k in range(tors)
+                ]
+                + [hosts + j for j in range(tors + l1s + 1)]
+            )
+
+        else:  # Assuming tors multiple of 20
+            inp.overlay = (
+                [
+                    [
+                        [
+                            i + 8*j + k*hosts_per_tors
+                            for i in range(8)
+                        ] for j in range(int(hosts_per_tors/8))
+                    ] for k in range(tors)
+                ]
+                + [
+                    [hosts + i + j*20 for i in range(20)]
+                    for j in range(int(tors/20))
+                ]
+                + [hosts + tors + j for j in range(l1s + 1)]
+            )
 
     if(pickle_loaded):
         return inp
@@ -391,7 +430,7 @@ input_generator = [
     # 15
     # Very Large
     dc_topology(hosts_per_tors=48, tors_per_l1s=20,
-                l1s=10, num_queries=1024, overlay='tor'),
+                l1s=10, num_queries=5, overlay='tor'),
 
     # 16
     # Overlay test 1

@@ -1,9 +1,9 @@
 \ Model UnivmonGreedyRows_copy
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  tot_rows_CPU: Priority=100 Weight=1 AbsTol=0 RelTol=0
+  tot_rows_CPU_Cluster: Priority=100 Weight=1 AbsTol=0 RelTol=0
   
-  CPU_rows_load: Priority=90 Weight=1 AbsTol=0 RelTol=0
+  CPU_Cluster_rows_load: Priority=90 Weight=1 AbsTol=0 RelTol=0
   
   OBJ2: Priority=0 Weight=1 AbsTol=0 RelTol=0
   
@@ -13,24 +13,33 @@ Minimize multi-objectives
   
   OBJ5: Priority=0 Weight=1 AbsTol=0 RelTol=0
   
-  tot_mem_CPU: Priority=60 Weight=1 AbsTol=0 RelTol=0
+  tot_mem_CPU_Cluster: Priority=60 Weight=1 AbsTol=0 RelTol=0
   
-  CPU_load_mem: Priority=50 Weight=1 AbsTol=0 RelTol=0
+  CPU_Cluster_load_mem: Priority=50 Weight=1 AbsTol=0 RelTol=0
   
 Subject To
- cov_46_32: frac[46,32] >= 1
- cov_55_98: frac[46,98] >= 0.9
- cov_75_28: frac[46,28] >= 1
- cov_80_151: frac[46,151] >= 1
- cov_83_26: frac[46,26] >= 1
- rows_tot_CPU47: - 3 frac[46,25] - 3 frac[46,78] - 3 frac[46,26]
-   - 3 frac[46,32] - 3 frac[46,98] - 3 frac[46,130] - 3 frac[46,106]
-   - 3 frac[46,37] - 3 frac[46,60] - 3 frac[46,151] - 3 frac[46,28]
-   - 3 frac[46,55] + rows_tot_CPU47 = 0
- row_capacity_CPU47: rows_tot_CPU47 <= 12
+ cov_67_128: frac[4,128] >= 0.9
+ cov_74_43: frac[4,43] >= 0.8
+ cov_107_119: frac[4,119] >= 0.9
+ cov_114_7: frac[4,7] >= 0.8
+ cov_135_88: frac[4,88] >= 0.7
+ cov_137_49: frac[4,49] >= 0.7
+ cov_169_104: frac[4,104] >= 0.9
+ cov_197_124: frac[4,124] >= 0.8
+ cov_221_50: frac[4,50] >= 0.9932683135431899
+ rows_tot_CPU5: - 3 frac[4,104] - 3 frac[4,128] - 3 frac[4,119]
+   - 3 frac[4,43] - 3 frac[4,49] - 3 frac[4,7] - 3 frac[4,124]
+   - 3 frac[4,50] - 3 frac[4,88] + rows_tot_CPU5 = 0
+ row_capacity_CPU5: rows_tot_CPU5 <= 12
 Bounds
- rows_tot_CPU47 free
-Binaries
- frac[46,25] frac[46,78] frac[46,26] frac[46,32] frac[46,98] frac[46,130]
- frac[46,106] frac[46,37] frac[46,60] frac[46,151] frac[46,28] frac[46,55]
+ frac[4,104] free
+ frac[4,128] free
+ frac[4,119] free
+ frac[4,43] free
+ frac[4,49] free
+ frac[4,7] free
+ frac[4,124] free
+ frac[4,50] free
+ frac[4,88] free
+ rows_tot_CPU5 free
 End

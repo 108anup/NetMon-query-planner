@@ -1,18 +1,18 @@
 Function: get_partitions took 1.9550323486328125e-05 seconds
-Function: map_flows_partitions took 3.5762786865234375e-06 seconds
+Function: map_flows_partitions took 3.0994415283203125e-06 seconds
 Building model with:
 5 devices, 4 partitions and 4 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.00018715858459472656 seconds
-Function: MIP.add_coverage_constraints took 0.000148773193359375 seconds
-Function: MIP.add_accuracy_constraints took 0.00016570091247558594 seconds
-Function: MIP.add_capacity_constraints took 0.0007395744323730469 seconds
+Function: MIP.add_frac_mem_var took 0.0001842975616455078 seconds
+Function: MIP.add_coverage_constraints took 0.00014400482177734375 seconds
+Function: MIP.add_accuracy_constraints took 0.0001552104949951172 seconds
+Function: MIP.add_capacity_constraints took 0.0007083415985107422 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 4.76837158203125e-05 s
+Model update took: 4.410743713378906e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -91,7 +91,7 @@ Best objective 2.039062500000e+01, best bound 2.039062500000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.002264738082885742 seconds
+Model optimize took: 0.002140522003173828 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -431,5 +431,5 @@ Flow 3:
 partitions: [(3, 1)]
 path: (3, 4, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.02890610694885254 seconds
-Function: solve took 0.02914571762084961 seconds
+Function: MIP.solve took 0.02652597427368164 seconds
+Function: solve took 0.026749372482299805 seconds

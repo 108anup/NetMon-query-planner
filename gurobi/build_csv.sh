@@ -6,13 +6,13 @@ output_file="${path_prefix}/testing.csv"
 params=('h' 'v' 'hv' 'n')
 param_args=('--hp' '--vp' '--hp --vp' '')
 
-inps=($(echo "21 22"))
+inps=($(echo "11 18 16 17 21 22"))
 # inps=({0..13})
 
 for param in {0..3}; do
     for inp in ${inps[@]}; do
         echo -n "${params[$param]}, ${inp}, " >> $output_file
-        args="-i ${inp} -o ${output_file} -vvv ${param_args[$param]} --mipout"
+        args="-i ${inp} -o ${output_file} --init -vvv ${param_args[$param]} --mipout"
         filepath="${path_prefix}/${params[$param]}_init_${inp}"
         python main.py -s Univmon $args 2>&1 | tee "${filepath}_univmon.out"
         python main.py -s UnivmonGreedy $args 2>&1 | tee "${filepath}_univmon_greedy.out"

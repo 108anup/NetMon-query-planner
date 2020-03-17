@@ -1,0 +1,10 @@
+Function: get_partitions took 0.0005519390106201172 seconds
+Function: map_flows_partitions took 0.0002257823944091797 seconds
+Function: map_flows_to_cluster took 0.0006625652313232422 seconds
+Building model with:
+11 devices, 240 partitions and 400 flows
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+Function: MIP.add_frac_mem_var took 0.01056218147277832 seconds
+Function: MIP.add_coverage_constraints took 0.011976003646850586 seconds
+Function: MIP.add_accuracy_constraints took 0.02660655975341797 seconds

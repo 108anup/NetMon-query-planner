@@ -1,18 +1,18 @@
-Function: get_partitions took 2.86102294921875e-05 seconds
-Function: map_flows_partitions took 3.5762786865234375e-06 seconds
+Function: get_partitions took 2.8133392333984375e-05 seconds
+Function: map_flows_partitions took 3.814697265625e-06 seconds
 Building model with:
 5 devices, 12 partitions and 4 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.0002682209014892578 seconds
-Function: MIP.add_coverage_constraints took 0.00022721290588378906 seconds
-Function: MIP.add_accuracy_constraints took 0.0004143714904785156 seconds
-Function: MIP.add_capacity_constraints took 0.0008025169372558594 seconds
+Function: MIP.add_frac_mem_var took 0.00027561187744140625 seconds
+Function: MIP.add_coverage_constraints took 0.00020742416381835938 seconds
+Function: MIP.add_accuracy_constraints took 0.0006992816925048828 seconds
+Function: MIP.add_capacity_constraints took 0.0004994869232177734 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 6.67572021484375e-05 s
+Model update took: 5.936622619628906e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -92,7 +92,7 @@ Best objective 2.039062500000e+01, best bound 2.039062500000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.0027303695678710938 seconds
+Model optimize took: 0.002437114715576172 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -528,5 +528,5 @@ Flow 3:
 partitions: [(9, 1), (10, 1), (11, 1)]
 path: (3, 4, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.032485008239746094 seconds
-Function: solve took 0.03275322914123535 seconds
+Function: MIP.solve took 0.03337407112121582 seconds
+Function: solve took 0.03365063667297363 seconds

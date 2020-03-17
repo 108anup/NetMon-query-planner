@@ -1,13 +1,13 @@
 Function: get_partitions took 2.8848648071289062e-05 seconds
-Function: map_flows_partitions took 3.337860107421875e-06 seconds
+Function: map_flows_partitions took 4.5299530029296875e-06 seconds
 Building model with:
 5 devices, 12 partitions and 4 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
 Function: MIP.add_frac_mem_var took 0.00027108192443847656 seconds
-Function: MIP.add_coverage_constraints took 0.000209808349609375 seconds
-Function: MIP.add_accuracy_constraints took 0.00039696693420410156 seconds
-Function: MIP.add_capacity_constraints took 0.0007984638214111328 seconds
+Function: MIP.add_coverage_constraints took 0.00022172927856445312 seconds
+Function: MIP.add_accuracy_constraints took 0.0007283687591552734 seconds
+Function: MIP.add_capacity_constraints took 0.0005390644073486328 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -260,7 +260,7 @@ Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
 --------------------------------------------------
 Starting model update
-Model update took: 3.0517578125e-05 s
+Model update took: 2.4080276489257812e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -332,7 +332,7 @@ Cutting planes:
   RLT: 12
   Relax-and-lift: 3
 
-Explored 5404 nodes (42935 simplex iterations) in 0.34 seconds
+Explored 5404 nodes (42935 simplex iterations) in 0.33 seconds
 Thread count was 12 (of 12 available processors)
 
 Solution count 3: 11.4286 11.4286 17.8571 
@@ -409,9 +409,9 @@ Optimal solution found (tolerance 1.00e-04)
 Best objective 3.000024890900e+02, best bound 3.000024890900e+02, gap 0.0000%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 0.42 seconds, solution count 4
+Multi-objectives: solved in 0.41 seconds, solution count 4
 
-Model optimize took: 0.41519713401794434 seconds
+Model optimize took: 0.4112393856048584 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
@@ -661,5 +661,5 @@ Flow 3:
 partitions: [(9, 1), (10, 1), (11, 1)]
 path: (3, 4, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.4388394355773926 seconds
-Function: solve took 0.4390251636505127 seconds
+Function: MIP.solve took 0.43579745292663574 seconds
+Function: solve took 0.43599629402160645 seconds

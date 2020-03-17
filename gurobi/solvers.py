@@ -83,6 +83,60 @@ def write_vars(m):
     log.debug("-"*50)
 
 
+def refine_devices(devices):
+    res_acc = 0
+    ns_max = 0
+    for d in devices:
+        u = gp.Model(d.name)
+        mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
+                           name='mem_tot_{}'.format(d),
+                           lb=0, ub=d.max_mem)
+        u.addConstr(mem_tot == get_rounded_val(get_val(d.mem_tot)),
+                    name='mem_tot_{}'.format(d))
+        d.mem_tot_old = d.mem_tot
+        d.mem_tot = mem_tot
+
+        # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
+        #                     name='rows_tot_{}'.format(d), lb=0)
+        # u.addConstr(rows_tot == d.rows_tot.x,
+        #             name='rows_tot_{}'.format(d))
+        d.rows_tot_old = d.rows_tot
+        d.rows_tot = get_rounded_val(get_val(d.rows_tot))
+        d.add_ns_constraints(u)
+
+        u.setObjectiveN(d.ns, 0, 10, reltol=common_config.ns_tol,
+                        name='ns')
+        u.setObjectiveN(d.res(), 1, 5, reltol=common_config.res_tol,
+                        name='res')
+
+        u.ModelSense = GRB.MINIMIZE
+        u.setParam(GRB.Param.LogToConsole, 0)
+        u.update()
+        u.optimize()
+        d.u = u
+
+        write_vars(u)
+
+        ns_max = max(ns_max, u.getObjective(0).getValue())
+
+    res_acc = 0
+    for d in devices:
+        u = d.u
+        if(isinstance(d, CPU)):
+            u.addConstr(d.ns >= ns_max,
+                        name='global_ns_req_{}'.format(d))
+            u.update()
+            u.optimize()
+            write_vars(u)
+
+        d.mem_tot = d.mem_tot_old
+        d.rows_tot = d.rows_tot_old
+        ns_max = max(ns_max, u.getObjective(0).getValue())
+        res_acc += u.getObjective(1).getValue()
+
+    return ns_max
+
+
 class MIP(Namespace):
 
     def compute_dev_par_tuplelist(self):
@@ -363,6 +417,7 @@ class Univmon(MIP):
         log_placement(self.devices, self.partitions, self.flows,
                       self.dev_par_tuplelist, self.frac)
 
+        # TODO: Fix for overlay
         if(not common_config.use_model):
             if (not self.check_device_aware_constraints()):
                 log.info("Infeasible placement")
@@ -373,61 +428,7 @@ class Univmon(MIP):
                     f.close()
                 return
 
-            res_acc = 0
-            ns_max = 0
-            for d in self.devices:
-                u = gp.Model(d.name)
-                d.u = u
-                mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
-                                   name='mem_tot_{}'.format(d),
-                                   lb=0, ub=d.max_mem)
-                u.addConstr(mem_tot == get_rounded_val(d.mem_tot.x),
-                            name='mem_tot_{}'.format(d))
-                d.mem_tot = mem_tot
-
-                # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
-                #                     name='rows_tot_{}'.format(d), lb=0)
-                # u.addConstr(rows_tot == d.rows_tot.x,
-                #             name='rows_tot_{}'.format(d))
-                d.rows_tot = get_rounded_val(d.rows_tot.x)
-                d.add_ns_constraints(u)
-
-                u.setObjectiveN(d.ns, 0, 10, reltol=common_config.ns_tol,
-                                name='ns')
-                u.setObjectiveN(d.res(), 1, 5, reltol=common_config.res_tol,
-                                name='res')
-
-                u.ModelSense = GRB.MINIMIZE
-                u.setParam(GRB.Param.LogToConsole, 0)
-                u.update()
-                u.optimize()
-
-                write_vars(u)
-
-                ns_max = max(ns_max, u.getObjective(0).getValue())
-
-            res_acc = 0
-            used_cores = 0
-            total_CPUs = 0
-            switch_memory = 0
-            for d in self.devices:
-                u = d.u
-                if(isinstance(d, CPU)):
-                    u.addConstr(d.ns >= ns_max,
-                                name='global_ns_req_{}'.format(d))
-                    u.update()
-                    u.optimize()
-                    write_vars(u)
-
-                    total_CPUs += 1
-                    used_cores += d.cores_sketch.x + d.cores_dpdk.x
-
-                if(isinstance(d, P4)):
-                    switch_memory += d.mem_tot.x
-
-                ns_max = max(ns_max, u.getObjective(0).getValue())
-                res_acc += u.getObjective(1).getValue()
-
+            refine_devices(self.devices)
             log_results(self.devices, self.overlay)
 
         else:
@@ -485,6 +486,7 @@ class Univmon(MIP):
 
             log_results(self.devices, self.overlay)
 
+        # TODO: Redundancy in logging
         log_placement(self.devices, self.partitions, self.flows,
                       self.dev_par_tuplelist, self.frac)
 
@@ -622,8 +624,10 @@ class Netmon(UnivmonGreedyRows):
         super(Netmon, self).add_constraints()
         super(Netmon, self).add_objective()
         self.m.update()
-        # import ipdb; ipdb.set_trace()
+        # TODO:: Redundancy here. Consider running univmon at Obj init time
         self.m.optimize()
+        ns_max = refine_devices(self.devices)
+
         log_placement(self.devices, self.partitions, self.flows,
                       self.dev_par_tuplelist, self.frac)
 
@@ -636,8 +640,8 @@ class Netmon(UnivmonGreedyRows):
             self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
             self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
 
-        # self.ns_req = 14.3
-        (self.ns, self.res) = self.add_device_model_constraints()
+        self.ns_req = ns_max
+        (self.ns, self.res) = self.add_device_model_constraints(self.ns_req)
 
     def add_objective(self):
         if(self.is_clustered()):
@@ -659,18 +663,10 @@ class Netmon(UnivmonGreedyRows):
         if(self.is_clustered()):
             return super(Netmon, self).post_optimize()
 
+        if(self.m.Status == GRB.TIME_LIMIT):
+            refine_devices(self.devices)
         self.m.printQuality()
         write_vars(self.m)
-
-        total_CPUs = 0
-        used_cores = 0
-        switch_memory = 0
-        for d in self.devices:
-            if(isinstance(d, CPU)):
-                used_cores += d.cores_sketch.x + d.cores_dpdk.x
-                total_CPUs += 1
-            if(isinstance(d, P4)):
-                switch_memory += d.mem_tot.x
 
         if(hasattr(self, 'ns_req')):
             self.ns = self.ns_req

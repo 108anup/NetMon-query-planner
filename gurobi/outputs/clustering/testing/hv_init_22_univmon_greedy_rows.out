@@ -1,18 +1,18 @@
-Function: get_partitions took 2.956390380859375e-05 seconds
-Function: map_flows_partitions took 3.337860107421875e-06 seconds
+Function: get_partitions took 2.9087066650390625e-05 seconds
+Function: map_flows_partitions took 4.0531158447265625e-06 seconds
 Building model with:
 5 devices, 12 partitions and 4 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.0002696514129638672 seconds
-Function: MIP.add_coverage_constraints took 0.00020813941955566406 seconds
-Function: MIP.add_accuracy_constraints took 0.0003933906555175781 seconds
-Function: MIP.add_capacity_constraints took 0.0007832050323486328 seconds
+Function: MIP.add_frac_mem_var took 0.00027942657470703125 seconds
+Function: MIP.add_coverage_constraints took 0.00021648406982421875 seconds
+Function: MIP.add_accuracy_constraints took 0.0007653236389160156 seconds
+Function: MIP.add_capacity_constraints took 0.0005395412445068359 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 6.771087646484375e-05 s
+Model update took: 7.748603820800781e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -165,7 +165,7 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.004439353942871094 seconds
+Model optimize took: 0.004531383514404297 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedyRows :
@@ -601,20 +601,20 @@ Flow 3:
 partitions: [(9, 1), (10, 1), (11, 1)]
 path: (3, 4, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.0371854305267334 seconds
-Function: map_leaf_solution_to_cluster took 0.00024366378784179688 seconds
-Function: map_flows_to_cluster took 1.4781951904296875e-05 seconds
+Function: MIP.solve took 0.043791770935058594 seconds
+Function: map_leaf_solution_to_cluster took 0.0002396106719970703 seconds
+Function: map_flows_to_cluster took 1.0728836059570312e-05 seconds
 Building model with:
 3 devices, 12 partitions and 4 flows
-Function: MIP.add_frac_mem_var took 0.00016760826110839844 seconds
-Function: MIP.add_coverage_constraints took 0.00012445449829101562 seconds
-Function: MIP.add_accuracy_constraints took 0.0003399848937988281 seconds
-Function: MIP.add_capacity_constraints took 0.0003693103790283203 seconds
+Function: MIP.add_frac_mem_var took 0.0001690387725830078 seconds
+Function: MIP.add_coverage_constraints took 0.00011944770812988281 seconds
+Function: MIP.add_accuracy_constraints took 0.00033926963806152344 seconds
+Function: MIP.add_capacity_constraints took 0.00037479400634765625 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 5.412101745605469e-05 s
+Model update took: 4.553794860839844e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -771,7 +771,7 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 3
 
-Model optimize took: 0.00425267219543457 seconds
+Model optimize took: 0.0037081241607666016 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedyRows :
@@ -1051,20 +1051,20 @@ Flow 3:
 partitions: [(9, 1), (10, 1), (11, 1)]
 path: {0, 1, 2}
 --------------------------------------------------
-Function: MIP.solve took 0.017493486404418945 seconds
-Function: get_partitions_flows took 6.818771362304688e-05 seconds
-Function: get_partitions_flows took 6.389617919921875e-05 seconds
+Function: MIP.solve took 0.015635967254638672 seconds
+Function: get_partitions_flows took 6.413459777832031e-05 seconds
+Function: get_partitions_flows took 5.7697296142578125e-05 seconds
 Building model with:
 2 devices, 9 partitions and 3 flows
-Function: MIP.add_frac_mem_var took 9.202957153320312e-05 seconds
-Function: MIP.add_coverage_constraints took 9.274482727050781e-05 seconds
-Function: MIP.add_accuracy_constraints took 0.00014972686767578125 seconds
-Function: MIP.add_capacity_constraints took 0.00021195411682128906 seconds
+Function: MIP.add_frac_mem_var took 9.679794311523438e-05 seconds
+Function: MIP.add_coverage_constraints took 8.821487426757812e-05 seconds
+Function: MIP.add_accuracy_constraints took 0.00014448165893554688 seconds
+Function: MIP.add_capacity_constraints took 0.00021386146545410156 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.743171691894531e-05 s
+Model update took: 3.075599670410156e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1209,7 +1209,7 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0029752254486083984 seconds
+Model optimize took: 0.002816438674926758 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedyRows :
@@ -1459,18 +1459,18 @@ Flow 2:
 partitions: [(8, 0.30008399999999996), (1, 0.30008399999999996), (3, 0.30008399999999996)]
 path: {0}
 --------------------------------------------------
-Function: MIP.solve took 0.019081830978393555 seconds
+Function: MIP.solve took 0.015799522399902344 seconds
 Building model with:
 2 devices, 9 partitions and 3 flows
-Function: MIP.add_frac_mem_var took 9.250640869140625e-05 seconds
-Function: MIP.add_coverage_constraints took 9.202957153320312e-05 seconds
-Function: MIP.add_accuracy_constraints took 0.00014710426330566406 seconds
-Function: MIP.add_capacity_constraints took 0.0002148151397705078 seconds
+Function: MIP.add_frac_mem_var took 9.441375732421875e-05 seconds
+Function: MIP.add_coverage_constraints took 8.654594421386719e-05 seconds
+Function: MIP.add_accuracy_constraints took 0.0001430511474609375 seconds
+Function: MIP.add_capacity_constraints took 0.00021147727966308594 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.5762786865234375e-05 s
+Model update took: 3.0517578125e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1615,7 +1615,7 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0028350353240966797 seconds
+Model optimize took: 0.002798795700073242 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedyRows :
@@ -1861,9 +1861,169 @@ Flow 2:
 partitions: [(6, 0.699916), (4, 0.699916), (2, 0.699916)]
 path: {1}
 --------------------------------------------------
-Function: MIP.solve took 0.016695499420166016 seconds
+Function: MIP.solve took 0.015733718872070312 seconds
 --------------------------------------------------
 Clustered Optimization complete
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_0 4.07898
+m_access_time_CPU_0 0.53705
+ns_single_CPU_0 9.69095
+pdt_m_rows_CPU_0 1.28919
+cores_sketch_CPU_0 1
+cores_dpdk_CPU_0 6
+ns_sketch_CPU_0 9.69095
+pdt_nsk_c_CPU_0 9.69095
+ns_dpdk_CPU_0 10.7143
+pdt_nsc_dpdk_CPU_0 64.2857
+ns_CPU_0 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_1 4.07812
+m_access_time_CPU_1 0.537051
+ns_single_CPU_1 9.68892
+pdt_m_rows_CPU_1 1.28892
+cores_sketch_CPU_1 1
+cores_dpdk_CPU_1 6
+ns_sketch_CPU_1 9.68892
+pdt_nsk_c_CPU_1 9.68892
+ns_dpdk_CPU_1 10.7143
+pdt_nsc_dpdk_CPU_1 64.2857
+ns_CPU_1 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 4.07898
+m_access_time_CPU_2 0.53705
+ns_single_CPU_2 9.69095
+pdt_m_rows_CPU_2 1.28919
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 9.69095
+pdt_nsk_c_CPU_2 9.69095
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_3 4.07812
+m_access_time_CPU_3 0.537051
+ns_single_CPU_3 9.68892
+pdt_m_rows_CPU_3 1.28892
+cores_sketch_CPU_3 1
+cores_dpdk_CPU_3 6
+ns_sketch_CPU_3 9.68892
+pdt_nsk_c_CPU_3 9.68892
+ns_dpdk_CPU_3 10.7143
+pdt_nsc_dpdk_CPU_3 64.2857
+ns_CPU_3 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_4 4.07641
+m_access_time_CPU_4 0.537052
+ns_single_CPU_4 9.68486
+pdt_m_rows_CPU_4 1.28838
+cores_sketch_CPU_4 1
+cores_dpdk_CPU_4 6
+ns_sketch_CPU_4 9.68486
+pdt_nsk_c_CPU_4 9.68486
+ns_dpdk_CPU_4 10.7143
+pdt_nsc_dpdk_CPU_4 64.2857
+ns_CPU_4 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_0 4.07898
+m_access_time_CPU_0 0.53705
+ns_single_CPU_0 9.69095
+pdt_m_rows_CPU_0 1.28919
+cores_sketch_CPU_0 1
+cores_dpdk_CPU_0 6
+ns_sketch_CPU_0 9.69095
+pdt_nsk_c_CPU_0 9.69095
+ns_dpdk_CPU_0 10.7143
+pdt_nsc_dpdk_CPU_0 64.2857
+ns_CPU_0 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_1 4.07812
+m_access_time_CPU_1 0.537051
+ns_single_CPU_1 9.68892
+pdt_m_rows_CPU_1 1.28892
+cores_sketch_CPU_1 1
+cores_dpdk_CPU_1 6
+ns_sketch_CPU_1 9.68892
+pdt_nsk_c_CPU_1 9.68892
+ns_dpdk_CPU_1 10.7143
+pdt_nsc_dpdk_CPU_1 64.2857
+ns_CPU_1 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 4.07898
+m_access_time_CPU_2 0.53705
+ns_single_CPU_2 9.69095
+pdt_m_rows_CPU_2 1.28919
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 9.69095
+pdt_nsk_c_CPU_2 9.69095
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_3 4.07812
+m_access_time_CPU_3 0.537051
+ns_single_CPU_3 9.68892
+pdt_m_rows_CPU_3 1.28892
+cores_sketch_CPU_3 1
+cores_dpdk_CPU_3 6
+ns_sketch_CPU_3 9.68892
+pdt_nsk_c_CPU_3 9.68892
+ns_dpdk_CPU_3 10.7143
+pdt_nsc_dpdk_CPU_3 64.2857
+ns_CPU_3 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_4 4.07641
+m_access_time_CPU_4 0.537052
+ns_single_CPU_4 9.68486
+pdt_m_rows_CPU_4 1.28838
+cores_sketch_CPU_4 1
+cores_dpdk_CPU_4 6
+ns_sketch_CPU_4 9.68486
+pdt_nsk_c_CPU_4 9.68486
+ns_dpdk_CPU_4 10.7143
+pdt_nsc_dpdk_CPU_4 64.2857
+ns_CPU_4 10.7143
 --------------------------------------------------
 
 Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
@@ -1957,4 +2117,4 @@ Flow 3:
 partitions: [(9, 1), (10, 1), (11, 1)]
 path: (3, 4, 0)
 --------------------------------------------------
-Function: solve took 0.09498929977416992 seconds
+Function: solve took 0.11501622200012207 seconds

@@ -35,7 +35,7 @@ default_config = Config(
     res_tol=0,
     use_model=False,
     ftol=6.0e-5,
-    # mipgapabs=10,
+    mipgapabs=10,
     # mipgap=0.01,
 
     solver='Netmon',
@@ -46,7 +46,8 @@ default_config = Config(
     vertical_partition=False,
     output_file=None,
     config_file=[],
-    prog_dir=None
+    prog_dir=None,
+    init=False
 )
 common_config = Config()
 common_config.update(default_config)

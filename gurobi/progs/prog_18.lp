@@ -2,26 +2,35 @@
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
   ns: Priority=10 Weight=1 AbsTol=0 RelTol=0
-   0 m_access_time_CPU_16 + 0 ns_sketch_CPU_16 + 0 ns_dpdk_CPU_16
-   + 0 ns_CPU_16 + 0 m_access_time_CPU_17 + 0 ns_sketch_CPU_17
-   + 0 ns_dpdk_CPU_17 + 0 ns_CPU_17 + 0 m_access_time_CPU_18
-   + 0 ns_sketch_CPU_18 + 0 ns_dpdk_CPU_18 + 0 ns_CPU_18
-   + 0 m_access_time_CPU_19 + 0 ns_sketch_CPU_19 + 0 ns_dpdk_CPU_19
-   + 0 ns_CPU_19 + ns
+   0 max_mem_CPU_Cluster + 0 max_rows_CPU_Cluster + 0 m_access_time_CPU_16
+   + 0 ns_sketch_CPU_16 + 0 ns_dpdk_CPU_16 + 0 ns_CPU_16
+   + 0 m_access_time_CPU_17 + 0 ns_sketch_CPU_17 + 0 ns_dpdk_CPU_17
+   + 0 ns_CPU_17 + 0 m_access_time_CPU_18 + 0 ns_sketch_CPU_18
+   + 0 ns_dpdk_CPU_18 + 0 ns_CPU_18 + 0 m_access_time_CPU_19
+   + 0 ns_sketch_CPU_19 + 0 ns_dpdk_CPU_19 + 0 ns_CPU_19 + ns
   res: Priority=5 Weight=1 AbsTol=0 RelTol=0
    res
 Subject To
- cov_0_0: frac[1,0] + frac[0,0] >= 1
- accuracy_1_0: - 5.09765625 frac[1,0] + mem[1,0] = 0
+ cov_0_0: frac[0,0] >= 1
  accuracy_0_0: - 5.09765625 frac[0,0] + mem[0,0] = 0
  mem_tot_CPU_16: - mem[0,0] + mem_tot_CPU_16 = 0
+ R3: - 3.05176e-05 mem_tot_CPU_16 + normalized_mem_tot_CPU_16 = 0
  rows_tot_CPU_16: - 3 frac[0,0] + rows_tot_CPU_16 = 0
- mem_tot_CPU_17: - mem[1,0] + mem_tot_CPU_17 = 0
- rows_tot_CPU_17: - 3 frac[1,0] + rows_tot_CPU_17 = 0
+ R5: - 0.0833333333333333 rows_tot_CPU_16 + normalized_rows_tot_CPU_16 = 0
+ mem_tot_CPU_17: mem_tot_CPU_17 = 0
+ R7: - 3.05176e-05 mem_tot_CPU_17 + normalized_mem_tot_CPU_17 = 0
+ rows_tot_CPU_17: rows_tot_CPU_17 = 0
+ R9: - 0.0833333333333333 rows_tot_CPU_17 + normalized_rows_tot_CPU_17 = 0
  mem_tot_CPU_18: mem_tot_CPU_18 = 0
+ R11: - 3.05176e-05 mem_tot_CPU_18 + normalized_mem_tot_CPU_18 = 0
  rows_tot_CPU_18: rows_tot_CPU_18 = 0
+ R13: - 0.0833333333333333 rows_tot_CPU_18 + normalized_rows_tot_CPU_18
+   = 0
  mem_tot_CPU_19: mem_tot_CPU_19 = 0
+ R15: - 3.05176e-05 mem_tot_CPU_19 + normalized_mem_tot_CPU_19 = 0
  rows_tot_CPU_19: rows_tot_CPU_19 = 0
+ R17: - 0.0833333333333333 rows_tot_CPU_19 + normalized_rows_tot_CPU_19
+   = 0
  row_capacity_CPU_16: rows_tot_CPU_16 <= 12
  row_capacity_CPU_17: rows_tot_CPU_17 <= 12
  row_capacity_CPU_18: rows_tot_CPU_18 <= 12
@@ -81,9 +90,17 @@ Subject To
    - cores_dpdk_CPU_19 * ns_dpdk_CPU_19 ] = 0
 Bounds
  mem_tot_CPU_16 <= 32768
+ normalized_mem_tot_CPU_16 <= 1
+ normalized_rows_tot_CPU_16 <= 1
  mem_tot_CPU_17 <= 32768
+ normalized_mem_tot_CPU_17 <= 1
+ normalized_rows_tot_CPU_17 <= 1
  mem_tot_CPU_18 <= 32768
+ normalized_mem_tot_CPU_18 <= 1
+ normalized_rows_tot_CPU_18 <= 1
  mem_tot_CPU_19 <= 32768
+ normalized_mem_tot_CPU_19 <= 1
+ normalized_rows_tot_CPU_19 <= 1
  cores_sketch_CPU_16 <= 7
  1 <= cores_dpdk_CPU_16 <= 7
  cores_sketch_CPU_17 <= 7
@@ -93,12 +110,18 @@ Bounds
  cores_sketch_CPU_19 <= 7
  1 <= cores_dpdk_CPU_19 <= 7
 Binaries
- frac[1,0] frac[0,0]
+ frac[0,0]
 Generals
  cores_sketch_CPU_16 cores_dpdk_CPU_16 cores_sketch_CPU_17
  cores_dpdk_CPU_17 cores_sketch_CPU_18 cores_dpdk_CPU_18
  cores_sketch_CPU_19 cores_dpdk_CPU_19
 General Constraints
+ mem_overall_CPU_Cluster: max_mem_CPU_Cluster = MAX (
+   normalized_mem_tot_CPU_16 , normalized_mem_tot_CPU_17 ,
+   normalized_mem_tot_CPU_18 , normalized_mem_tot_CPU_19 )
+ rows_overall_CPU: max_rows_CPU_Cluster = MAX (
+   normalized_rows_tot_CPU_16 , normalized_rows_tot_CPU_17 ,
+   normalized_rows_tot_CPU_18 , normalized_rows_tot_CPU_19 )
  mem_access_time_CPU_16: m_access_time_CPU_16 = PWL ( mem_tot_CPU_16 ) : 
   (0, 0) (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
   (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)

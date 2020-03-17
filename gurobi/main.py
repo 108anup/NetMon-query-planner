@@ -8,7 +8,8 @@ from cli import generate_parser
 from common import Namespace, setup_logging, log_time, log
 from config import common_config
 from input import input_generator
-from solvers import solver_to_class, log_results, log_placement, UnivmonGreedyRows
+from solvers import (refine_devices, solver_to_class, log_results,
+                     log_placement, UnivmonGreedyRows)
 from devices import Cluster
 from flows import flow
 from gurobipy import GRB, tuplelist, tupledict
@@ -129,9 +130,10 @@ def map_leaf_solution_to_cluster(solver, cluster):
     init = Namespace(mem=mem, frac=frac)
     return init
 
+
 @log_time
 def solve(inp):
-    #import ipdb; ipdb.set_trace()
+    #ipdb.set_trace()
     start = time.time()
 
     for (dnum, d) in enumerate(inp.devices):
@@ -142,14 +144,16 @@ def solve(inp):
 
     # Clustering
     if (hasattr(inp, 'overlay')):
-        solver = UnivmonGreedyRows(devices=inp.devices,
-                                   partitions=inp.partitions,
-                                   flows=inp.flows, queries=inp.queries,
-                                   overlay=True)
-        solver.solve()
+        if(common_config.init is True):
+            solver = UnivmonGreedyRows(devices=inp.devices,
+                                       partitions=inp.partitions,
+                                       flows=inp.flows, queries=inp.queries,
+                                       overlay=True)
+            solver.solve()
 
         inp.cluster = get_cluster_from_overlay(inp, inp.overlay)
-        init = map_leaf_solution_to_cluster(solver, inp.cluster)
+        if(common_config.init is True):
+            init = map_leaf_solution_to_cluster(solver, inp.cluster)
 
         queue = Queue()
         flows = map_flows_to_cluster(inp)
@@ -169,7 +173,7 @@ def solve(inp):
             #import ipdb; ipdb.set_trace()
             solver = Solver(devices=devices, partitions=partitions,
                             flows=flows, queries=inp.queries, overlay=True)
-            if(first_run):
+            if(first_run and common_config.init):
                 solver = Solver(devices=devices, partitions=partitions,
                                 flows=flows, queries=inp.queries, init=init,
                                 overlay=True)
@@ -204,6 +208,7 @@ def solve(inp):
         log.info('Clustered Optimization complete')
         log.info('-'*50)
 
+        refine_devices(inp.devices)
         log_results(inp.devices)
         log_placement(inp.devices, inp.partitions, inp.flows,
                       placement.dev_par_tuplelist, placement.frac)
