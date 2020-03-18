@@ -224,8 +224,8 @@ def solve(inp):
 
     # Move this outside this function
     end = time.time()
-    if(not (common_config.output_file is None)):
-        f = open(common_config.output_file, 'a')
+    if(not (common_config.results_file is None)):
+        f = open(common_config.results_file, 'a')
         f.write("{:06f}, ".format(end - start))
         f.close()
 

@@ -403,8 +403,8 @@ class MIP(Namespace):
                         "infeasible_{}.ilp".format(common_config.input_num)
                     )
                 )
-            if(not (common_config.output_file is None)):
-                f = open(common_config.output_file, 'a')
+            if(not (common_config.results_file is None)):
+                f = open(common_config.results_file, 'a')
                 f.write("-, -, -, -, -, ")
                 f.close()
         else:
@@ -440,8 +440,8 @@ class Univmon(MIP):
             if (not self.check_device_aware_constraints()):
                 log.info("Infeasible placement")
 
-                if(not (common_config.output_file is None)):
-                    f = open(common_config.output_file, 'a')
+                if(not (common_config.results_file is None)):
+                    f = open(common_config.results_file, 'a')
                     f.write("-, -, -, -, -, ")
                     f.close()
                 return
@@ -718,8 +718,8 @@ def log_results(devices, overlay=False):
         log.info("Used Cores: {}, Total CPUS: {}, Switch Memory: {}"
                  .format(used_cores, total_CPUs, switch_memory))
 
-    if((not (common_config.output_file is None)) and not overlay):
-        f = open(common_config.output_file, 'a')
+    if((not (common_config.results_file is None)) and not overlay):
+        f = open(common_config.results_file, 'a')
         f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, ".format(
             1000/ns_max, res,
             used_cores, total_CPUs, switch_memory))

@@ -49,6 +49,11 @@ def generate_parser():
     )
 
     p.add_argument(
+        '-r', '--results-file',
+        action='store',
+    )
+
+    p.add_argument(
         '-c', '--config-file',
         action='append'
     )
