@@ -1,19 +1,19 @@
-Function: get_partitions took 3.981590270996094e-05 seconds
-Function: map_flows_partitions took 8.344650268554688e-06 seconds
-Function: map_flows_to_cluster took 3.981590270996094e-05 seconds
+Function: get_partitions took 3.9577484130859375e-05 seconds
+Function: map_flows_partitions took 7.867813110351562e-06 seconds
+Function: map_flows_to_cluster took 4.00543212890625e-05 seconds
 Building model with:
 6 devices, 20 partitions and 20 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.0006022453308105469 seconds
-Function: MIP.add_coverage_constraints took 0.0002613067626953125 seconds
-Function: MIP.add_accuracy_constraints took 0.0004961490631103516 seconds
-Function: MIP.add_capacity_constraints took 0.0006041526794433594 seconds
+Function: MIP.add_frac_mem_var took 0.000370025634765625 seconds
+Function: MIP.add_coverage_constraints took 0.00026702880859375 seconds
+Function: MIP.add_accuracy_constraints took 0.0005035400390625 seconds
+Function: MIP.add_capacity_constraints took 0.0006728172302246094 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 6.699562072753906e-05 s
+Model update took: 0.00018072128295898438 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -93,7 +93,7 @@ Best objective 1.019531250000e+02, best bound 1.019531250000e+02, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.002481698989868164 seconds
+Model optimize took: 0.00438237190246582 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -639,23 +639,23 @@ Flow 19:
 partitions: [(19, 1)]
 path: {0, 4, 5}
 --------------------------------------------------
-Function: MIP.solve took 0.03683757781982422 seconds
-Function: get_partitions_flows took 6.246566772460938e-05 seconds
-Function: get_partitions_flows took 5.793571472167969e-05 seconds
-Function: get_partitions_flows took 5.316734313964844e-05 seconds
-Function: get_partitions_flows took 5.2928924560546875e-05 seconds
-Function: get_partitions_flows took 5.2928924560546875e-05 seconds
+Function: MIP.solve took 0.027434110641479492 seconds
+Function: get_partitions_flows took 7.2479248046875e-05 seconds
+Function: get_partitions_flows took 5.459785461425781e-05 seconds
+Function: get_partitions_flows took 5.650520324707031e-05 seconds
+Function: get_partitions_flows took 5.6743621826171875e-05 seconds
+Function: get_partitions_flows took 5.6743621826171875e-05 seconds
 Building model with:
 4 devices, 4 partitions and 4 flows
-Function: MIP.add_frac_mem_var took 7.796287536621094e-05 seconds
-Function: MIP.add_coverage_constraints took 5.364418029785156e-05 seconds
-Function: MIP.add_accuracy_constraints took 9.512901306152344e-05 seconds
-Function: MIP.add_capacity_constraints took 0.0003190040588378906 seconds
+Function: MIP.add_frac_mem_var took 8.177757263183594e-05 seconds
+Function: MIP.add_coverage_constraints took 5.888938903808594e-05 seconds
+Function: MIP.add_accuracy_constraints took 0.00010371208190917969 seconds
+Function: MIP.add_capacity_constraints took 0.0003230571746826172 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.123283386230469e-05 s
+Model update took: 3.528594970703125e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -727,7 +727,7 @@ Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.0015790462493896484 seconds
+Model optimize took: 0.001573324203491211 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -1011,18 +1011,18 @@ Flow 3:
 partitions: [(0, 0.33333333333333337)]
 path: {3}
 --------------------------------------------------
-Function: MIP.solve took 0.026577472686767578 seconds
+Function: MIP.solve took 0.022894620895385742 seconds
 Building model with:
 4 devices, 4 partitions and 4 flows
-Function: MIP.add_frac_mem_var took 0.00014472007751464844 seconds
-Function: MIP.add_coverage_constraints took 8.869171142578125e-05 seconds
-Function: MIP.add_accuracy_constraints took 0.0001728534698486328 seconds
-Function: MIP.add_capacity_constraints took 0.0004439353942871094 seconds
+Function: MIP.add_frac_mem_var took 7.534027099609375e-05 seconds
+Function: MIP.add_coverage_constraints took 5.7697296142578125e-05 seconds
+Function: MIP.add_accuracy_constraints took 0.00010180473327636719 seconds
+Function: MIP.add_capacity_constraints took 0.00031876564025878906 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.981590270996094e-05 s
+Model update took: 3.504753112792969e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1094,7 +1094,7 @@ Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.0016832351684570312 seconds
+Model optimize took: 0.0015571117401123047 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -1378,18 +1378,18 @@ Flow 3:
 partitions: [(1, 0.8888888888888888)]
 path: {2, 3}
 --------------------------------------------------
-Function: MIP.solve took 0.02721714973449707 seconds
+Function: MIP.solve took 0.02643752098083496 seconds
 Building model with:
 4 devices, 4 partitions and 4 flows
-Function: MIP.add_frac_mem_var took 9.632110595703125e-05 seconds
-Function: MIP.add_coverage_constraints took 6.437301635742188e-05 seconds
-Function: MIP.add_accuracy_constraints took 0.0001277923583984375 seconds
-Function: MIP.add_capacity_constraints took 0.0004341602325439453 seconds
+Function: MIP.add_frac_mem_var took 7.414817810058594e-05 seconds
+Function: MIP.add_coverage_constraints took 5.030632019042969e-05 seconds
+Function: MIP.add_accuracy_constraints took 9.036064147949219e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0002980232238769531 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.910064697265625e-05 s
+Model update took: 3.0517578125e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1463,7 +1463,7 @@ Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0014522075653076172 seconds
+Model optimize took: 0.0012195110321044922 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -1747,18 +1747,18 @@ Flow 3:
 partitions: [(3, 1.0)]
 path: {3}
 --------------------------------------------------
-Function: MIP.solve took 0.02171778678894043 seconds
+Function: MIP.solve took 0.01955389976501465 seconds
 Building model with:
 4 devices, 4 partitions and 4 flows
-Function: MIP.add_frac_mem_var took 8.034706115722656e-05 seconds
-Function: MIP.add_coverage_constraints took 5.650520324707031e-05 seconds
-Function: MIP.add_accuracy_constraints took 9.72747802734375e-05 seconds
-Function: MIP.add_capacity_constraints took 0.0003120899200439453 seconds
+Function: MIP.add_frac_mem_var took 7.224082946777344e-05 seconds
+Function: MIP.add_coverage_constraints took 4.601478576660156e-05 seconds
+Function: MIP.add_accuracy_constraints took 8.511543273925781e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0002918243408203125 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.0279159545898438e-05 s
+Model update took: 2.6702880859375e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1832,7 +1832,7 @@ Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0012993812561035156 seconds
+Model optimize took: 0.00118255615234375 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -2116,18 +2116,18 @@ Flow 3:
 partitions: [(0, 1.0)]
 path: {3}
 --------------------------------------------------
-Function: MIP.solve took 0.021805524826049805 seconds
+Function: MIP.solve took 0.019485950469970703 seconds
 Building model with:
 4 devices, 4 partitions and 4 flows
-Function: MIP.add_frac_mem_var took 8.177757263183594e-05 seconds
-Function: MIP.add_coverage_constraints took 5.6743621826171875e-05 seconds
-Function: MIP.add_accuracy_constraints took 9.72747802734375e-05 seconds
-Function: MIP.add_capacity_constraints took 0.00031638145446777344 seconds
+Function: MIP.add_frac_mem_var took 7.653236389160156e-05 seconds
+Function: MIP.add_coverage_constraints took 5.0067901611328125e-05 seconds
+Function: MIP.add_accuracy_constraints took 8.821487426757812e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0002944469451904297 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 3.337860107421875e-05 s
+Model update took: 2.6226043701171875e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -2201,7 +2201,7 @@ Best objective 1.699218750000e+01, best bound 1.699218750000e+01, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 2
 
-Model optimize took: 0.0013499259948730469 seconds
+Model optimize took: 0.0011341571807861328 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -2485,7 +2485,7 @@ Flow 3:
 partitions: [(1, 1.0)]
 path: {3}
 --------------------------------------------------
-Function: MIP.solve took 0.02110147476196289 seconds
+Function: MIP.solve took 0.019366025924682617 seconds
 --------------------------------------------------
 Clustered Optimization complete
 --------------------------------------------------
@@ -3426,4 +3426,4 @@ Flow 19:
 partitions: [(19, 1)]
 path: (19, 20, 0)
 --------------------------------------------------
-Function: solve took 0.2505178451538086 seconds
+Function: solve took 0.21195101737976074 seconds

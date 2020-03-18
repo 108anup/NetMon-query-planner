@@ -1,18 +1,18 @@
-Function: get_partitions took 7.772445678710938e-05 seconds
+Function: get_partitions took 8.20159912109375e-05 seconds
 Function: map_flows_partitions took 1.5735626220703125e-05 seconds
 Building model with:
 21 devices, 60 partitions and 20 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.001177072525024414 seconds
-Function: MIP.add_coverage_constraints took 0.0006458759307861328 seconds
-Function: MIP.add_accuracy_constraints took 0.0021524429321289062 seconds
-Function: MIP.add_capacity_constraints took 0.002076864242553711 seconds
+Function: MIP.add_frac_mem_var took 0.0009267330169677734 seconds
+Function: MIP.add_coverage_constraints took 0.000637054443359375 seconds
+Function: MIP.add_accuracy_constraints took 0.0019762516021728516 seconds
+Function: MIP.add_capacity_constraints took 0.002335786819458008 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 0.00021505355834960938 s
+Model update took: 0.0002002716064453125 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -275,7 +275,7 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.02 seconds, solution count 6
 
-Model optimize took: 0.016329526901245117 seconds
+Model optimize took: 0.01570439338684082 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedyRows :
@@ -2158,5 +2158,5 @@ Flow 19:
 partitions: [(57, 1), (58, 1), (59, 1)]
 path: (19, 20, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.13589978218078613 seconds
-Function: solve took 0.13646864891052246 seconds
+Function: MIP.solve took 0.1320483684539795 seconds
+Function: solve took 0.1323699951171875 seconds

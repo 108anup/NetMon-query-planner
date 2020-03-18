@@ -1,18 +1,18 @@
-Function: get_partitions took 4.00543212890625e-05 seconds
-Function: map_flows_partitions took 1.1920928955078125e-05 seconds
+Function: get_partitions took 4.124641418457031e-05 seconds
+Function: map_flows_partitions took 1.2159347534179688e-05 seconds
 Building model with:
 21 devices, 20 partitions and 20 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.0003714561462402344 seconds
-Function: MIP.add_coverage_constraints took 0.0005702972412109375 seconds
-Function: MIP.add_accuracy_constraints took 0.0006802082061767578 seconds
-Function: MIP.add_capacity_constraints took 0.0015344619750976562 seconds
+Function: MIP.add_frac_mem_var took 0.0003712177276611328 seconds
+Function: MIP.add_coverage_constraints took 0.00034236907958984375 seconds
+Function: MIP.add_accuracy_constraints took 0.0006585121154785156 seconds
+Function: MIP.add_capacity_constraints took 0.0015168190002441406 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 0.00010442733764648438 s
+Model update took: 0.00010323524475097656 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -97,7 +97,7 @@ Best objective 1.019531250000e+02, best bound 1.019531250000e+02, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.01 seconds, solution count 2
 
-Model optimize took: 0.0068209171295166016 seconds
+Model optimize took: 0.0068700313568115234 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Univmon :
@@ -1433,7 +1433,7 @@ Mem total: 5.09765625
 Throughput: 87.49999999999999
 
 Device (20) P4_1:
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 148.0
 
@@ -1498,5 +1498,5 @@ Flow 19:
 partitions: [(19, 1)]
 path: (19, 20, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.10142135620117188 seconds
-Function: solve took 0.10183310508728027 seconds
+Function: MIP.solve took 0.10214662551879883 seconds
+Function: solve took 0.10239815711975098 seconds

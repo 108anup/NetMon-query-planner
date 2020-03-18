@@ -1,18 +1,18 @@
-Function: get_partitions took 4.38690185546875e-05 seconds
-Function: map_flows_partitions took 1.5735626220703125e-05 seconds
+Function: get_partitions took 4.220008850097656e-05 seconds
+Function: map_flows_partitions took 1.1920928955078125e-05 seconds
 Building model with:
 21 devices, 20 partitions and 20 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.0003859996795654297 seconds
-Function: MIP.add_coverage_constraints took 0.0006039142608642578 seconds
-Function: MIP.add_accuracy_constraints took 0.000698089599609375 seconds
-Function: MIP.add_capacity_constraints took 0.001575469970703125 seconds
+Function: MIP.add_frac_mem_var took 0.0003771781921386719 seconds
+Function: MIP.add_coverage_constraints took 0.00033092498779296875 seconds
+Function: MIP.add_accuracy_constraints took 0.0006678104400634766 seconds
+Function: MIP.add_capacity_constraints took 0.0015244483947753906 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 0.00011873245239257812 s
+Model update took: 0.00010991096496582031 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -169,7 +169,7 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.01 seconds, solution count 2
 
-Model optimize took: 0.010983705520629883 seconds
+Model optimize took: 0.010750293731689453 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedy :
@@ -1386,91 +1386,91 @@ Total frac: 1.000
 
 Device (0) CPU_0:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (1) CPU_1:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (2) CPU_2:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (3) CPU_3:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (4) CPU_4:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (5) CPU_5:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (6) CPU_6:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (7) CPU_7:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (8) CPU_8:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (9) CPU_9:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (10) CPU_10:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (11) CPU_11:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (12) CPU_12:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (13) CPU_13:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (14) CPU_14:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
@@ -1494,7 +1494,7 @@ Throughput: 87.49999999999999
 
 Device (18) CPU_18:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
@@ -1570,5 +1570,5 @@ Flow 19:
 partitions: [(19, 1)]
 path: (19, 20, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.08997964859008789 seconds
-Function: solve took 0.09039568901062012 seconds
+Function: MIP.solve took 0.08253145217895508 seconds
+Function: solve took 0.08276224136352539 seconds

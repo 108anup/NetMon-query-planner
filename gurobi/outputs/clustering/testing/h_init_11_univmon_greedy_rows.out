@@ -1,18 +1,18 @@
-Function: get_partitions took 8.058547973632812e-05 seconds
-Function: map_flows_partitions took 1.7881393432617188e-05 seconds
+Function: get_partitions took 8.225440979003906e-05 seconds
+Function: map_flows_partitions took 1.5497207641601562e-05 seconds
 Building model with:
 21 devices, 60 partitions and 20 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.0012340545654296875 seconds
-Function: MIP.add_coverage_constraints took 0.0006356239318847656 seconds
-Function: MIP.add_accuracy_constraints took 0.0018916130065917969 seconds
-Function: MIP.add_capacity_constraints took 0.0020093917846679688 seconds
+Function: MIP.add_frac_mem_var took 0.0009241104125976562 seconds
+Function: MIP.add_coverage_constraints took 0.0006258487701416016 seconds
+Function: MIP.add_accuracy_constraints took 0.0019578933715820312 seconds
+Function: MIP.add_capacity_constraints took 0.002338886260986328 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 --------------------------------------------------
 Starting model update
-Model update took: 0.0002033710479736328 s
+Model update took: 0.00019598007202148438 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -149,7 +149,7 @@ Root relaxation: infeasible, 130 iterations, 0.00 seconds
 
      0     0 infeasible    0        48.00000   48.00000  0.00%     -    0s
 
-Explored 0 nodes (130 simplex iterations) in 0.02 seconds
+Explored 0 nodes (130 simplex iterations) in 0.03 seconds
 Thread count was 12 (of 12 available processors)
 
 Solution count 1: 48 
@@ -288,7 +288,7 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.04 seconds, solution count 5
 
-Model optimize took: 0.04205179214477539 seconds
+Model optimize took: 0.04449105262756348 seconds
 --------------------------------------------------
 
 Solution quality statistics for model UnivmonGreedyRows :
@@ -2011,7 +2011,7 @@ Throughput: 93.33333333333333
 
 Device (4) CPU_4:
 cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 93.33333333333333
 
@@ -2023,7 +2023,7 @@ Throughput: 93.33333333333333
 
 Device (6) CPU_6:
 cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 93.33333333333333
 
@@ -2065,7 +2065,7 @@ Throughput: 93.33333333333333
 
 Device (13) CPU_13:
 cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 93.33333333333333
 
@@ -2077,31 +2077,31 @@ Throughput: 93.33333333333333
 
 Device (15) CPU_15:
 cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (16) CPU_16:
 cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (17) CPU_17:
 cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (18) CPU_18:
 cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (19) CPU_19:
 cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 93.33333333333333
 
@@ -2171,5 +2171,5 @@ Flow 19:
 partitions: [(57, 1), (58, 1), (59, 1)]
 path: (19, 20, 0)
 --------------------------------------------------
-Function: MIP.solve took 0.1508326530456543 seconds
-Function: solve took 0.15143084526062012 seconds
+Function: MIP.solve took 0.14631319046020508 seconds
+Function: solve took 0.14662981033325195 seconds

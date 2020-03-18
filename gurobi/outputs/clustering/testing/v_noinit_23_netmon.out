@@ -1,0 +1,3981 @@
+Function: get_partitions took 3.933906555175781e-05 seconds
+Function: map_flows_partitions took 8.344650268554688e-06 seconds
+Function: map_flows_to_cluster took 5.745887756347656e-05 seconds
+Building model with:
+5 devices, 20 partitions and 20 flows
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+Function: MIP.add_frac_mem_var took 0.0003693103790283203 seconds
+Function: MIP.add_coverage_constraints took 0.0002770423889160156 seconds
+Function: MIP.add_accuracy_constraints took 0.00051116943359375 seconds
+Function: MIP.add_capacity_constraints took 0.0005857944488525391 seconds
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+Netmon behaving like UnivmonGreedyRows
+--------------------------------------------------
+Starting model update
+Model update took: 7.414817810058594e-05 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 89 rows, 112 columns and 255 nonzeros
+Model fingerprint: 0x794a1a41
+Model has 4 general constraints
+Variable types: 112 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [6e-06, 5e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 2e+05]
+  RHS range        [1e+00, 6e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 10 objectives (9 combined) ...
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 58 rows and 49 columns
+Presolve time: 0.00s
+Presolved: 31 rows and 63 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (tot_rows_CPU_Clust) ...
+---------------------------------------------------------------------------
+
+Presolve removed 16 rows and 29 columns
+Presolve time: 0.00s
+Presolved: 15 rows, 34 columns, 64 nonzeros
+Presolved model has 8 SOS constraint(s)
+Variable types: 26 continuous, 8 integer (8 binary)
+
+Root relaxation: objective 1.200000e+01, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0      12.0000000   12.00000  0.00%     -    0s
+
+Explored 0 nodes (15 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 12 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.200000000000e+01, best bound 1.200000000000e+01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (CPU_Cluster_rows_l) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0.05
+
+Presolve removed 16 rows and 29 columns
+Presolve time: 0.00s
+Presolved: 16 rows, 34 columns, 69 nonzeros
+Presolved model has 8 SOS constraint(s)
+Variable types: 26 continuous, 8 integer (8 binary)
+
+Root relaxation: cutoff, 9 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0     cutoff    0         0.05000    0.05000  0.00%     -    0s
+
+Explored 0 nodes (9 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 0.05 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.000000000000e-02, best bound 5.000000000000e-02, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 3 (tot_rows_P4) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 48
+
+Presolve removed 13 rows and 29 columns
+Presolve time: 0.00s
+Presolved: 20 rows, 34 columns, 77 nonzeros
+Presolved model has 4 SOS constraint(s)
+Variable types: 26 continuous, 8 integer (8 binary)
+
+Root relaxation: objective 4.799880e+01, 16 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0      47.9987990   47.99880  0.00%     -    0s
+
+Explored 0 nodes (16 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 47.9988 48 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.799879900000e+01, best bound 4.799879900000e+01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 4 (P4_rows_load) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 47.9988
+
+Presolve removed 14 rows and 29 columns
+Presolve time: 0.00s
+Presolved: 20 rows, 34 columns, 77 nonzeros
+Presolved model has 4 SOS constraint(s)
+Variable types: 26 continuous, 8 integer (8 binary)
+
+Root relaxation: cutoff, 11 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0     cutoff    0        47.99880   47.99880  0.00%     -    0s
+
+Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 47.9988 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.799879900000e+01, best bound 4.799879900000e+01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 5 (tot_mem_CPU_Cluste) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 20.3927
+
+Presolve removed 15 rows and 29 columns
+Presolve time: 0.00s
+Presolved: 20 rows, 34 columns, 77 nonzeros
+Presolved model has 4 SOS constraint(s)
+Variable types: 26 continuous, 8 integer (8 binary)
+
+Root relaxation: objective 2.039062e+01, 14 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   20.39062    0    2   20.39267   20.39062  0.01%     -    0s
+H    0     0                      20.3906250   20.39062  0.00%     -    0s
+     0     0   20.39062    0    2   20.39062   20.39062  0.00%     -    0s
+
+Explored 1 nodes (14 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 20.3906 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.039062500000e+01, best bound 2.039062500000e+01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 6 (CPU_Cluster_load_m) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 3.11136e-05
+
+Presolve removed 16 rows and 29 columns
+Presolve time: 0.00s
+Presolved: 20 rows, 34 columns, 77 nonzeros
+Presolved model has 4 SOS constraint(s)
+Variable types: 26 continuous, 8 integer (8 binary)
+
+Root relaxation: objective 3.110242e-05, 13 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       0.0000311    0.00003  0.00%     -    0s
+
+Explored 0 nodes (13 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 3.11024e-05 3.11136e-05 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.110242366791e-05, best bound 3.110242366791e-05, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 7 (tot_mem_P4) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 81.5625
+
+Presolve removed 13 rows and 29 columns
+Presolve time: 0.00s
+Presolved: 24 rows, 34 columns, 85 nonzeros
+Variable types: 26 continuous, 8 integer (8 binary)
+
+Root relaxation: objective 8.156046e+01, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0      81.5604599   81.56046  0.00%     -    0s
+
+Explored 0 nodes (15 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 81.5605 81.5625 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 8.156045993750e+01, best bound 8.156045993750e+01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 8 (P4_load_mem) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 81.5605
+
+Presolve removed 14 rows and 29 columns
+Presolve time: 0.00s
+Presolved: 24 rows, 34 columns, 85 nonzeros
+Variable types: 26 continuous, 8 integer (8 binary)
+
+Root relaxation: cutoff, 13 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0     cutoff    0        81.56046   81.56046  0.00%     -    0s
+
+Explored 0 nodes (13 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 81.5605 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 8.156045993750e+01, best bound 8.156045993750e+01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 9 (weighted) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0
+
+
+Explored 0 nodes (0 simplex iterations) in 0.01 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 1: 0 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.01 seconds, solution count 5
+
+Model optimize took: 0.007988452911376953 seconds
+--------------------------------------------------
+
+Solution quality statistics for model Netmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 1.42108547e-14 (mem_tot_P4_1)
+    Integrality : 0.00000000e+00
+
+VARIABLES ------------------------------
+Objective: 12.001200588505746
+frac[3,15] 0.00012
+frac[4,7] 0.99988
+frac[4,8] 0
+frac[4,18] 1
+frac[4,12] 0.99988
+frac[1,6] 0
+frac[2,12] 0.00012
+frac[0,3] 0
+frac[3,17] 0
+frac[3,14] 0
+frac[4,0] 0.99996
+frac[4,9] 1
+frac[2,9] 0
+frac[4,19] 1
+frac[4,4] 1
+frac[4,13] 1
+frac[1,5] 0
+frac[2,13] 0
+frac[0,4] 0
+frac[3,16] 1
+frac[4,1] 0
+frac[4,10] 1
+frac[0,0] 4.01962e-05
+frac[4,5] 1
+frac[4,14] 0
+frac[1,4] 0
+frac[2,10] 0
+frac[4,16] 0
+frac[1,9] 0
+frac[3,19] 0
+frac[4,2] 1
+frac[2,14] 1
+frac[4,11] 1
+frac[0,1] 1
+frac[4,6] 1
+frac[4,15] 0.99988
+frac[0,19] 0
+frac[2,11] 0
+frac[4,17] 1
+frac[1,8] 1
+frac[3,18] 0
+frac[4,3] 1
+frac[1,7] 0.00012
+frac[0,2] 0
+mem[3,15] 0.000611719
+mem[4,7] 5.09704
+mem[4,8] 0
+mem[4,18] 5.09766
+mem[4,12] 5.09704
+mem[1,6] 0
+mem[2,12] 0.000611719
+mem[0,3] 0
+mem[3,17] 0
+mem[3,14] 0
+mem[4,0] 5.09745
+mem[4,9] 5.09766
+mem[2,9] 0
+mem[4,19] 5.09766
+mem[4,4] 5.09766
+mem[4,13] 5.09766
+mem[1,5] 0
+mem[2,13] 0
+mem[0,4] 0
+mem[3,16] 5.09766
+mem[4,1] 0
+mem[4,10] 5.09766
+mem[0,0] 0.000204906
+mem[4,5] 5.09766
+mem[4,14] 0
+mem[1,4] 0
+mem[2,10] 0
+mem[4,16] 0
+mem[1,9] 0
+mem[3,19] 0
+mem[4,2] 5.09766
+mem[2,14] 5.09766
+mem[4,11] 5.09766
+mem[0,1] 5.09766
+mem[4,6] 5.09766
+mem[4,15] 5.09704
+mem[0,19] 0
+mem[2,11] 0
+mem[4,17] 5.09766
+mem[1,8] 5.09766
+mem[3,18] 0
+mem[4,3] 5.09766
+mem[1,7] 0.000611719
+mem[0,2] 0
+mem_tot_{CPU_0,CPU_1,CPU_2,CPU_3,CPU_4} 5.09786
+normalized_mem_tot_{CPU_0,CPU_1,CPU_2,CPU_3,CPU_4} 3.11149e-05
+rows_tot_{CPU_0,CPU_1,CPU_2,CPU_3,CPU_4} 3.00012
+normalized_rows_tot_{CPU_0,CPU_1,CPU_2,CPU_3,CPU_4} 0.050002
+mem_tot_{CPU_5,CPU_6,CPU_7,CPU_8,CPU_9} 5.09827
+normalized_mem_tot_{CPU_5,CPU_6,CPU_7,CPU_8,CPU_9} 3.11174e-05
+rows_tot_{CPU_5,CPU_6,CPU_7,CPU_8,CPU_9} 3.00036
+normalized_rows_tot_{CPU_5,CPU_6,CPU_7,CPU_8,CPU_9} 0.050006
+mem_tot_{CPU_10,CPU_11,CPU_12,CPU_13,CPU_14} 5.09827
+normalized_mem_tot_{CPU_10,CPU_11,CPU_12,CPU_13,CPU_14} 3.11174e-05
+rows_tot_{CPU_10,CPU_11,CPU_12,CPU_13,CPU_14} 3.00036
+normalized_rows_tot_{CPU_10,CPU_11,CPU_12,CPU_13,CPU_14} 0.050006
+mem_tot_{CPU_15,CPU_16,CPU_17,CPU_18,CPU_19} 5.09827
+normalized_mem_tot_{CPU_15,CPU_16,CPU_17,CPU_18,CPU_19} 3.11174e-05
+rows_tot_{CPU_15,CPU_16,CPU_17,CPU_18,CPU_19} 3.00036
+normalized_rows_tot_{CPU_15,CPU_16,CPU_17,CPU_18,CPU_19} 0.050006
+mem_tot_P4_1 81.5605
+normalized_mem_tot_P4_1 0.141598
+rows_tot_P4_1 47.9988
+normalized_rows_tot_P4_1 0.999975
+max_mem_P4 81.5605
+max_mem_CPU_Cluster 3.11174e-05
+max_rows_P4 47.9988
+max_rows_CPU_Cluster 0.050006
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(1.000,4)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.000,4)    (1.000,0)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(1.000,4)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(0.000,0)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(1.000,4)    (0.000,0)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.000,1)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(0.000,1)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(1.000,4)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.000,4)    (1.000,1)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(1.000,4)    (0.000,2)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(1.000,4)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(1.000,4)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(1.000,4)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(1.000,4)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(0.000,3)    (0.000,4)    (1.000,2)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.000,3)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(1.000,3)    (0.000,4)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.000,3)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(1.000,4)    (0.000,3)    
+Total frac: 1.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(1.000,4)    (0.000,3)    (0.000,0)    
+Total frac: 1.000
+
+Device (0) {CPU_0,CPU_1,CPU_2,CPU_3,CPU_4}:
+Rows total: 3.000120588505747
+Mem total: 5.0978611562500005
+
+Device (1) {CPU_5,CPU_6,CPU_7,CPU_8,CPU_9}:
+Rows total: 3.00036
+Mem total: 5.09826796875
+
+Device (2) {CPU_10,CPU_11,CPU_12,CPU_13,CPU_14}:
+Rows total: 3.00036
+Mem total: 5.09826796875
+
+Device (3) {CPU_15,CPU_16,CPU_17,CPU_18,CPU_19}:
+Rows total: 3.00036
+Mem total: 5.09826796875
+
+Device (4) P4_1:
+Rows total: 47.998799411494254
+Mem total: 81.5604599375
+
+Flow 0:
+partitions: [(0, 1)]
+path: {0, 4}
+Flow 1:
+partitions: [(1, 1)]
+path: {0, 4}
+Flow 2:
+partitions: [(2, 1)]
+path: {0, 4}
+Flow 3:
+partitions: [(3, 1)]
+path: {0, 4}
+Flow 4:
+partitions: [(4, 1)]
+path: {0, 1, 4}
+Flow 5:
+partitions: [(5, 1)]
+path: {1, 4}
+Flow 6:
+partitions: [(6, 1)]
+path: {1, 4}
+Flow 7:
+partitions: [(7, 1)]
+path: {1, 4}
+Flow 8:
+partitions: [(8, 1)]
+path: {1, 4}
+Flow 9:
+partitions: [(9, 1)]
+path: {1, 2, 4}
+Flow 10:
+partitions: [(10, 1)]
+path: {2, 4}
+Flow 11:
+partitions: [(11, 1)]
+path: {2, 4}
+Flow 12:
+partitions: [(12, 1)]
+path: {2, 4}
+Flow 13:
+partitions: [(13, 1)]
+path: {2, 4}
+Flow 14:
+partitions: [(14, 1)]
+path: {2, 3, 4}
+Flow 15:
+partitions: [(15, 1)]
+path: {3, 4}
+Flow 16:
+partitions: [(16, 1)]
+path: {3, 4}
+Flow 17:
+partitions: [(17, 1)]
+path: {3, 4}
+Flow 18:
+partitions: [(18, 1)]
+path: {3, 4}
+Flow 19:
+partitions: [(19, 1)]
+path: {0, 3, 4}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_0,CPU_1,CPU_2,CPU_3,CPU_4} 5.09786
+ns_{CPU_0,CPU_1,CPU_2,CPU_3,CPU_4} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_5,CPU_6,CPU_7,CPU_8,CPU_9} 5.09827
+ns_{CPU_5,CPU_6,CPU_7,CPU_8,CPU_9} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_10,CPU_11,CPU_12,CPU_13,CPU_14} 5.09827
+ns_{CPU_10,CPU_11,CPU_12,CPU_13,CPU_14} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_15,CPU_16,CPU_17,CPU_18,CPU_19} 5.09827
+ns_{CPU_15,CPU_16,CPU_17,CPU_18,CPU_19} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_P4_1 81.5605
+ns_P4_1 6.75676
+--------------------------------------------------
+
+Throughput: 98.0 Mpps, ns per packet: 10.204081632653061
+Resources: 34.09154116407148
+Used Cores: 0, Total CPUS: 0, Switch Memory: 81.5604599375
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(1.000,4)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.000,4)    (1.000,0)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(1.000,4)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(0.000,0)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(1.000,4)    (0.000,0)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.000,1)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(0.000,1)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(1.000,4)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.000,4)    (1.000,1)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(1.000,4)    (0.000,2)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(1.000,4)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(1.000,4)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(1.000,4)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(1.000,4)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(0.000,3)    (0.000,4)    (1.000,2)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.000,3)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(1.000,3)    (0.000,4)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.000,3)    (1.000,4)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(1.000,4)    (0.000,3)    
+Total frac: 1.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(1.000,4)    (0.000,3)    (0.000,0)    
+Total frac: 1.000
+
+Device (0) {CPU_0,CPU_1,CPU_2,CPU_3,CPU_4}:
+Rows total: 3.000120588505747
+Mem total: 5.0978611562500005
+Throughput: 98.0
+
+Device (1) {CPU_5,CPU_6,CPU_7,CPU_8,CPU_9}:
+Rows total: 3.00036
+Mem total: 5.09826796875
+Throughput: 98.0
+
+Device (2) {CPU_10,CPU_11,CPU_12,CPU_13,CPU_14}:
+Rows total: 3.00036
+Mem total: 5.09826796875
+Throughput: 98.0
+
+Device (3) {CPU_15,CPU_16,CPU_17,CPU_18,CPU_19}:
+Rows total: 3.00036
+Mem total: 5.09826796875
+Throughput: 98.0
+
+Device (4) P4_1:
+Rows total: 47.998799411494254
+Mem total: 81.5604599375
+Throughput: 148.0
+
+Flow 0:
+partitions: [(0, 1)]
+path: {0, 4}
+Flow 1:
+partitions: [(1, 1)]
+path: {0, 4}
+Flow 2:
+partitions: [(2, 1)]
+path: {0, 4}
+Flow 3:
+partitions: [(3, 1)]
+path: {0, 4}
+Flow 4:
+partitions: [(4, 1)]
+path: {0, 1, 4}
+Flow 5:
+partitions: [(5, 1)]
+path: {1, 4}
+Flow 6:
+partitions: [(6, 1)]
+path: {1, 4}
+Flow 7:
+partitions: [(7, 1)]
+path: {1, 4}
+Flow 8:
+partitions: [(8, 1)]
+path: {1, 4}
+Flow 9:
+partitions: [(9, 1)]
+path: {1, 2, 4}
+Flow 10:
+partitions: [(10, 1)]
+path: {2, 4}
+Flow 11:
+partitions: [(11, 1)]
+path: {2, 4}
+Flow 12:
+partitions: [(12, 1)]
+path: {2, 4}
+Flow 13:
+partitions: [(13, 1)]
+path: {2, 4}
+Flow 14:
+partitions: [(14, 1)]
+path: {2, 3, 4}
+Flow 15:
+partitions: [(15, 1)]
+path: {3, 4}
+Flow 16:
+partitions: [(16, 1)]
+path: {3, 4}
+Flow 17:
+partitions: [(17, 1)]
+path: {3, 4}
+Flow 18:
+partitions: [(18, 1)]
+path: {3, 4}
+Flow 19:
+partitions: [(19, 1)]
+path: {0, 3, 4}
+--------------------------------------------------
+Function: MIP.solve took 0.021700382232666016 seconds
+Function: get_partitions_flows took 5.3882598876953125e-05 seconds
+Function: get_partitions_flows took 4.7206878662109375e-05 seconds
+Function: get_partitions_flows took 4.57763671875e-05 seconds
+Function: get_partitions_flows took 4.5299530029296875e-05 seconds
+Building model with:
+5 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 6.246566772460938e-05 seconds
+Function: MIP.add_coverage_constraints took 3.0279159545898438e-05 seconds
+Function: MIP.add_accuracy_constraints took 5.412101745605469e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0003566741943359375 seconds
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 31 rows, 30 columns and 55 nonzeros
+Model fingerprint: 0x4d92b6cd
+Model has 2 general constraints
+Variable types: 30 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 5e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [4e-05, 1e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 8 objectives (5 combined) ...
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 23 rows and 14 columns
+Presolve time: 0.00s
+Presolved: 8 rows and 16 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (tot_rows_CPU_Clust) ...
+---------------------------------------------------------------------------
+
+Presolve time: 0.00s
+Presolved: 8 rows, 16 columns, 28 nonzeros
+Presolved model has 6 SOS constraint(s)
+Variable types: 10 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 3.000121e+00, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    3.00012    0    2          -    3.00012      -     -    0s
+H    0     0                       4.5000000    3.00012  33.3%     -    0s
+     0     0    3.00012    0    2    4.50000    3.00012  33.3%     -    0s
+H    0     0                       4.4999995    3.00012  33.3%     -    0s
+     0     2    3.00012    0    2    4.50000    3.00012  33.3%     -    0s
+*    3     0               2       3.0001206    3.00012  0.00%   1.3    0s
+
+Explored 5 nodes (12 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 3.00012 4.5 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.000120588506e+00, best bound 3.000120588506e+00, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (CPU_Cluster_rows_l) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0.25001
+
+Presolve added 8 rows and 2 columns
+Presolve time: 0.00s
+Presolved: 17 rows, 18 columns, 44 nonzeros
+Variable types: 10 continuous, 8 integer (8 binary)
+
+Root relaxation: objective 1.250000e-01, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       0.1250000    0.12500  0.00%     -    0s
+
+Explored 0 nodes (6 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 0.125 0.25001 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.250000000000e-01, best bound 1.250000000000e-01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 3 (tot_mem_CPU_Cluste) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 5.09837
+
+Presolve removed 2 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 7 columns, 22 nonzeros
+Variable types: 6 continuous, 1 integer (1 binary)
+
+Root relaxation: objective 5.097861e+00, 5 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       5.0978612    5.09786  0.00%     -    0s
+
+Explored 0 nodes (5 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 5.09786 5.09837 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.097861156250e+00, best bound 5.097861156250e+00, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 4 (CPU_Cluster_load_m) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 7.78093e-05
+
+Presolve removed 3 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 7 columns, 22 nonzeros
+Found heuristic solution: objective 0.0000778
+Variable types: 6 continuous, 1 integer (1 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 7.77757e-05 7.78093e-05 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 7.777566075325e-05, best bound 7.777566075325e-05, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 5 (weighted) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0
+
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 1: 0 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 5
+
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_0 0.000204906
+m_access_time_CPU_0 9.31368e-05
+ns_single_CPU_0 0.000422071
+pdt_m_rows_CPU_0 1.12312e-08
+cores_sketch_CPU_0 1
+cores_dpdk_CPU_0 6
+ns_sketch_CPU_0 0.000422071
+pdt_nsk_c_CPU_0 0.000422071
+ns_dpdk_CPU_0 10.7143
+pdt_nsc_dpdk_CPU_0 64.2857
+ns_CPU_0 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_1 2.5491
+m_access_time_CPU_1 0.538483
+ns_single_CPU_1 6.05838
+pdt_m_rows_CPU_1 0.807812
+cores_sketch_CPU_1 1
+cores_dpdk_CPU_1 6
+ns_sketch_CPU_1 6.05838
+pdt_nsk_c_CPU_1 6.05838
+ns_dpdk_CPU_1 10.7143
+pdt_nsc_dpdk_CPU_1 64.2857
+ns_CPU_1 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 2.54855
+m_access_time_CPU_2 0.538484
+ns_single_CPU_2 6.05707
+pdt_m_rows_CPU_2 0.807639
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 6.05707
+pdt_nsk_c_CPU_2 6.05707
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_3 0
+m_access_time_CPU_3 0
+ns_single_CPU_3 0
+pdt_m_rows_CPU_3 0
+cores_sketch_CPU_3 0
+cores_dpdk_CPU_3 7
+ns_sketch_CPU_3 10.2041
+pdt_nsk_c_CPU_3 0
+ns_dpdk_CPU_3 10.2041
+pdt_nsc_dpdk_CPU_3 71.4286
+ns_CPU_3 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_4 0
+m_access_time_CPU_4 0
+ns_single_CPU_4 0
+pdt_m_rows_CPU_4 0
+cores_sketch_CPU_4 0
+cores_dpdk_CPU_4 7
+ns_sketch_CPU_4 10.2041
+pdt_nsk_c_CPU_4 0
+ns_dpdk_CPU_4 10.2041
+pdt_nsc_dpdk_CPU_4 71.4286
+ns_CPU_4 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_0 0.000204906
+m_access_time_CPU_0 9.31368e-05
+ns_single_CPU_0 0.000422071
+pdt_m_rows_CPU_0 1.12312e-08
+cores_sketch_CPU_0 1
+cores_dpdk_CPU_0 6
+ns_sketch_CPU_0 0.000422071
+pdt_nsk_c_CPU_0 0.000422071
+ns_dpdk_CPU_0 10.7143
+pdt_nsc_dpdk_CPU_0 64.2857
+ns_CPU_0 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_1 2.5491
+m_access_time_CPU_1 0.538483
+ns_single_CPU_1 6.05838
+pdt_m_rows_CPU_1 0.807812
+cores_sketch_CPU_1 1
+cores_dpdk_CPU_1 6
+ns_sketch_CPU_1 6.05838
+pdt_nsk_c_CPU_1 6.05838
+ns_dpdk_CPU_1 10.7143
+pdt_nsc_dpdk_CPU_1 64.2857
+ns_CPU_1 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 2.54855
+m_access_time_CPU_2 0.538484
+ns_single_CPU_2 6.05707
+pdt_m_rows_CPU_2 0.807639
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 6.05707
+pdt_nsk_c_CPU_2 6.05707
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_3 0
+m_access_time_CPU_3 0
+ns_single_CPU_3 0
+pdt_m_rows_CPU_3 0
+cores_sketch_CPU_3 0
+cores_dpdk_CPU_3 6
+ns_sketch_CPU_3 10.7143
+pdt_nsk_c_CPU_3 0
+ns_dpdk_CPU_3 10.7143
+pdt_nsc_dpdk_CPU_3 64.2857
+ns_CPU_3 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_4 0
+m_access_time_CPU_4 0
+ns_single_CPU_4 0
+pdt_m_rows_CPU_4 0
+cores_sketch_CPU_4 0
+cores_dpdk_CPU_4 6
+ns_sketch_CPU_4 10.7143
+pdt_nsk_c_CPU_4 0
+ns_dpdk_CPU_4 10.7143
+pdt_nsc_dpdk_CPU_4 64.2857
+ns_CPU_4 10.7143
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(0.000,1)    (0.000,0)    
+Total frac: 0.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.500,1)    (0.500,2)    
+Total frac: 1.000
+
+Device (0) CPU_0:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999997
+Rows total: 0.0001205885057475875
+Mem total: 0.00020490625000078345
+Throughput: 93.33333333333333
+
+Device (1) CPU_1:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 1.500162000000001
+Mem total: 2.5491033984375018
+Throughput: 93.33333333333333
+
+Device (2) CPU_2:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 1.4998379999999991
+Mem total: 2.5485528515624982
+Throughput: 93.33333333333333
+
+Device (3) CPU_3:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (4) CPU_4:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(0, 4.019616858252917e-05)]
+path: {0, 1}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {1, 2}
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPGapAbs to 10.0
+   Prev: 1e-10  Min: 0.0  Max: inf  Default: 1e-10
+--------------------------------------------------
+Starting model update
+Model update took: 2.4318695068359375e-05 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 52 rows, 56 columns and 111 nonzeros
+Model fingerprint: 0x9b7d0b82
+Model has 5 quadratic constraints
+Model has 7 general constraints
+Variable types: 46 continuous, 10 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [4e-05, 2e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 1 objectives ... 
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (res) ...
+---------------------------------------------------------------------------
+
+Optimize a model with 52 rows, 56 columns and 111 nonzeros
+Model has 5 quadratic constraints
+Model has 7 general constraints
+Variable types: 46 continuous, 10 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [4e-05, 2e+01]
+
+User MIP start produced solution with objective 330.001 (0.00s)
+Loaded user MIP start with objective 330.001
+
+Presolve removed 31 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 33 rows, 26 columns, 79 nonzeros
+Presolved model has 3 bilinear constraint(s)
+Variable types: 20 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 3.098010e+02, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     2  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+*    1     2               1     320.0006223  320.00062  0.00%   5.0    0s
+
+Cutting planes:
+  Cover: 1
+  Implied bound: 1
+  Flow cover: 2
+  RLT: 1
+  Relax-and-lift: 1
+
+Explored 3 nodes (40 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 320.001 330.001 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.200006222975e+02, best bound 3.200006222975e+02, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.01 seconds, solution count 2
+
+Model optimize took: 0.006247520446777344 seconds
+--------------------------------------------------
+
+Solution quality statistics for model Netmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 3.07614020e-07
+    Integrality : 0.00000000e+00
+
+VARIABLES ------------------------------
+Objective: 320.00062229750444
+frac[1,0] 4.01962e-05
+frac[0,0] 0
+frac[1,1] 0.23291
+frac[2,1] 0.76709
+mem[1,0] 0.000204906
+mem[0,0] 0
+mem[1,1] 1.1873
+mem[2,1] 3.91036
+mem_tot_CPU_0 0
+normalized_mem_tot_CPU_0 0
+rows_tot_CPU_0 0
+normalized_rows_tot_CPU_0 0
+mem_tot_CPU_1 1.1875
+normalized_mem_tot_CPU_1 3.62396e-05
+rows_tot_CPU_1 0.698851
+normalized_rows_tot_CPU_1 0.0582375
+mem_tot_CPU_2 3.91036
+normalized_mem_tot_CPU_2 0.000119335
+rows_tot_CPU_2 2.30127
+normalized_rows_tot_CPU_2 0.191773
+mem_tot_CPU_3 0
+normalized_mem_tot_CPU_3 0
+rows_tot_CPU_3 0
+normalized_rows_tot_CPU_3 0
+mem_tot_CPU_4 0
+normalized_mem_tot_CPU_4 0
+rows_tot_CPU_4 0
+normalized_rows_tot_CPU_4 0
+max_mem_CPU_Cluster 0.000119335
+max_rows_CPU_Cluster 0.191773
+m_access_time_CPU_0 0
+ns_single_CPU_0 0
+pdt_m_rows_CPU_0 0
+cores_sketch_CPU_0 0
+cores_dpdk_CPU_0 6
+m_access_time_CPU_1 0.539759
+ns_single_CPU_1 2.82319
+pdt_m_rows_CPU_1 0.377211
+cores_sketch_CPU_1 1
+cores_dpdk_CPU_1 6
+m_access_time_CPU_2 0.537208
+ns_single_CPU_2 9.29071
+pdt_m_rows_CPU_2 1.23626
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+m_access_time_CPU_3 0
+ns_single_CPU_3 0
+pdt_m_rows_CPU_3 0
+cores_sketch_CPU_3 -0
+cores_dpdk_CPU_3 6
+m_access_time_CPU_4 0
+ns_single_CPU_4 0
+pdt_m_rows_CPU_4 0
+cores_sketch_CPU_4 -0
+cores_dpdk_CPU_4 6
+res 320.001
+--------------------------------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 320.00062229750444
+Used Cores: 32.0, Total CPUS: 5, Switch Memory: 0
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(0.000,1)    (0.000,0)    
+Total frac: 0.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.233,1)    (0.767,2)    
+Total frac: 1.000
+
+Device (0) CPU_0:
+cores_sketch: 0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (1) CPU_1:
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 0.6988505747126439
+Mem total: 1.1875000000000004
+Throughput: 93.33333333333333
+
+Device (2) CPU_2:
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 2.3012700137931033
+Mem total: 3.910361156249999
+Throughput: 93.33333333333333
+
+Device (3) CPU_3:
+cores_sketch: -0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (4) CPU_4:
+cores_sketch: -0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(0, 4.019616858252917e-05)]
+path: {0, 1}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {1, 2}
+--------------------------------------------------
+Function: MIP.solve took 0.03965425491333008 seconds
+Building model with:
+5 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 6.794929504394531e-05 seconds
+Function: MIP.add_coverage_constraints took 3.552436828613281e-05 seconds
+Function: MIP.add_accuracy_constraints took 5.8650970458984375e-05 seconds
+Function: MIP.add_capacity_constraints took 0.00035643577575683594 seconds
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 31 rows, 30 columns and 55 nonzeros
+Model fingerprint: 0xdd63a3b1
+Model has 2 general constraints
+Variable types: 30 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 5e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e-04, 1e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 8 objectives (5 combined) ...
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 23 rows and 14 columns
+Presolve time: 0.00s
+Presolved: 8 rows and 16 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (tot_rows_CPU_Clust) ...
+---------------------------------------------------------------------------
+
+Presolve time: 0.00s
+Presolved: 8 rows, 16 columns, 28 nonzeros
+Presolved model has 6 SOS constraint(s)
+Variable types: 10 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 3.000360e+00, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    3.00036    0    2          -    3.00036      -     -    0s
+H    0     0                       4.5000000    3.00036  33.3%     -    0s
+     0     0    3.00036    0    2    4.50000    3.00036  33.3%     -    0s
+H    0     0                       4.4999995    3.00036  33.3%     -    0s
+     0     2    3.00036    0    2    4.50000    3.00036  33.3%     -    0s
+*    3     0               2       3.0003600    3.00036  0.00%   1.3    0s
+
+Explored 5 nodes (12 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 3.00036 4.5 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.000360000000e+00, best bound 3.000360000000e+00, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (CPU_Cluster_rows_l) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0.25003
+
+Presolve added 8 rows and 2 columns
+Presolve time: 0.00s
+Presolved: 17 rows, 18 columns, 44 nonzeros
+Variable types: 10 continuous, 8 integer (8 binary)
+
+Root relaxation: objective 1.250000e-01, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       0.1250000    0.12500  0.00%     -    0s
+
+Explored 0 nodes (6 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 0.125 0.25003 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.250000000000e-01, best bound 1.250000000000e-01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 3 (tot_mem_CPU_Cluste) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 5.09878
+
+Presolve removed 2 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 7 columns, 22 nonzeros
+Found heuristic solution: objective 5.0987573
+Variable types: 6 continuous, 1 integer (1 binary)
+
+Root relaxation: objective 5.098268e+00, 4 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       5.0982680    5.09827  0.00%     -    0s
+
+Explored 0 nodes (4 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: 5.09827 5.09876 5.09878 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.098267968750e+00, best bound 5.098267968750e+00, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 4 (CPU_Cluster_load_m) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 7.78093e-05
+
+Presolve removed 3 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 7 columns, 22 nonzeros
+Found heuristic solution: objective 0.0000778
+Variable types: 6 continuous, 1 integer (1 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 7.77757e-05 7.78093e-05 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 7.777566075325e-05, best bound 7.777566075325e-05, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 5 (weighted) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0
+
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 1: 0 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 6
+
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_5 0
+m_access_time_CPU_5 0
+ns_single_CPU_5 0
+pdt_m_rows_CPU_5 0
+cores_sketch_CPU_5 0
+cores_dpdk_CPU_5 7
+ns_sketch_CPU_5 10.2041
+pdt_nsk_c_CPU_5 0
+ns_dpdk_CPU_5 10.2041
+pdt_nsc_dpdk_CPU_5 71.4286
+ns_CPU_5 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_6 0
+m_access_time_CPU_6 0
+ns_single_CPU_6 0
+pdt_m_rows_CPU_6 0
+cores_sketch_CPU_6 0
+cores_dpdk_CPU_6 7
+ns_sketch_CPU_6 10.2041
+pdt_nsk_c_CPU_6 0
+ns_dpdk_CPU_6 10.2041
+pdt_nsc_dpdk_CPU_6 71.4286
+ns_CPU_6 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_7 0.000611719
+m_access_time_CPU_7 0.000278047
+ns_single_CPU_7 0.0012601
+pdt_m_rows_CPU_7 1.00097e-07
+cores_sketch_CPU_7 1
+cores_dpdk_CPU_7 6
+ns_sketch_CPU_7 0.0012601
+pdt_nsk_c_CPU_7 0.0012601
+ns_dpdk_CPU_7 10.7143
+pdt_nsc_dpdk_CPU_7 64.2857
+ns_CPU_7 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_8 2.5491
+m_access_time_CPU_8 0.538483
+ns_single_CPU_8 6.05838
+pdt_m_rows_CPU_8 0.807812
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 6
+ns_sketch_CPU_8 6.05838
+pdt_nsk_c_CPU_8 6.05838
+ns_dpdk_CPU_8 10.7143
+pdt_nsc_dpdk_CPU_8 64.2857
+ns_CPU_8 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_9 2.54855
+m_access_time_CPU_9 0.538484
+ns_single_CPU_9 6.05707
+pdt_m_rows_CPU_9 0.807639
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 6
+ns_sketch_CPU_9 6.05707
+pdt_nsk_c_CPU_9 6.05707
+ns_dpdk_CPU_9 10.7143
+pdt_nsc_dpdk_CPU_9 64.2857
+ns_CPU_9 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_5 0
+m_access_time_CPU_5 0
+ns_single_CPU_5 0
+pdt_m_rows_CPU_5 0
+cores_sketch_CPU_5 0
+cores_dpdk_CPU_5 6
+ns_sketch_CPU_5 10.7143
+pdt_nsk_c_CPU_5 0
+ns_dpdk_CPU_5 10.7143
+pdt_nsc_dpdk_CPU_5 64.2857
+ns_CPU_5 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_6 0
+m_access_time_CPU_6 0
+ns_single_CPU_6 0
+pdt_m_rows_CPU_6 0
+cores_sketch_CPU_6 0
+cores_dpdk_CPU_6 6
+ns_sketch_CPU_6 10.7143
+pdt_nsk_c_CPU_6 0
+ns_dpdk_CPU_6 10.7143
+pdt_nsc_dpdk_CPU_6 64.2857
+ns_CPU_6 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_7 0.000611719
+m_access_time_CPU_7 0.000278047
+ns_single_CPU_7 0.0012601
+pdt_m_rows_CPU_7 1.00097e-07
+cores_sketch_CPU_7 1
+cores_dpdk_CPU_7 6
+ns_sketch_CPU_7 0.0012601
+pdt_nsk_c_CPU_7 0.0012601
+ns_dpdk_CPU_7 10.7143
+pdt_nsc_dpdk_CPU_7 64.2857
+ns_CPU_7 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_8 2.5491
+m_access_time_CPU_8 0.538483
+ns_single_CPU_8 6.05838
+pdt_m_rows_CPU_8 0.807812
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 6
+ns_sketch_CPU_8 6.05838
+pdt_nsk_c_CPU_8 6.05838
+ns_dpdk_CPU_8 10.7143
+pdt_nsc_dpdk_CPU_8 64.2857
+ns_CPU_8 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_9 2.54855
+m_access_time_CPU_9 0.538484
+ns_single_CPU_9 6.05707
+pdt_m_rows_CPU_9 0.807639
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 6
+ns_sketch_CPU_9 6.05707
+pdt_nsk_c_CPU_9 6.05707
+ns_dpdk_CPU_9 10.7143
+pdt_nsc_dpdk_CPU_9 64.2857
+ns_CPU_9 10.7143
+--------------------------------------------------
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.500,3)    (0.500,4)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(0.000,3)    (0.000,2)    
+Total frac: 0.000
+
+Device (0) CPU_5:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (1) CPU_6:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (2) CPU_7:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999997
+Rows total: 0.00036000000000036003
+Mem total: 0.0006117187500006118
+Throughput: 93.33333333333333
+
+Device (3) CPU_8:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 1.500162000000001
+Mem total: 2.5491033984375018
+Throughput: 93.33333333333333
+
+Device (4) CPU_9:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 1.4998379999999991
+Mem total: 2.5485528515624982
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(1, 0.00012000000000012001)]
+path: {2, 3}
+Flow 1:
+partitions: [(0, 1.0)]
+path: {3, 4}
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPGapAbs to 10.0
+   Prev: 1e-10  Min: 0.0  Max: inf  Default: 1e-10
+--------------------------------------------------
+Starting model update
+Model update took: 2.0742416381835938e-05 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 52 rows, 56 columns and 111 nonzeros
+Model fingerprint: 0xbce5f115
+Model has 5 quadratic constraints
+Model has 7 general constraints
+Variable types: 46 continuous, 10 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e-04, 2e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 1 objectives ... 
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (res) ...
+---------------------------------------------------------------------------
+
+Optimize a model with 52 rows, 56 columns and 111 nonzeros
+Model has 5 quadratic constraints
+Model has 7 general constraints
+Variable types: 46 continuous, 10 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e-04, 2e+01]
+
+User MIP start produced solution with objective 330.001 (0.00s)
+Loaded user MIP start with objective 330.001
+
+Presolve removed 31 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 33 rows, 26 columns, 79 nonzeros
+Presolved model has 3 bilinear constraint(s)
+Variable types: 20 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 3.098018e+02, 14 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    2  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    2  330.00062  320.00062  3.03%     -    0s
+     0     2  320.00062    0    2  330.00062  320.00062  3.03%     -    0s
+*    7    10               3     320.0006223  320.00062  0.00%   2.4    0s
+
+Cutting planes:
+  Cover: 1
+  Implied bound: 1
+  Flow cover: 2
+  RLT: 1
+  Relax-and-lift: 1
+
+Explored 13 nodes (54 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 320.001 330.001 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.200006223472e+02, best bound 3.200006223472e+02, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.01 seconds, solution count 2
+
+Model optimize took: 0.007817268371582031 seconds
+--------------------------------------------------
+
+Solution quality statistics for model Netmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 1.83442816e-07
+    Integrality : 0.00000000e+00
+
+VARIABLES ------------------------------
+Objective: 320.00062234716415
+frac[3,0] 0.884631
+frac[3,1] 0.00012
+frac[2,1] 0
+frac[4,0] 0.115369
+mem[3,0] 4.50955
+mem[3,1] 0.000611719
+mem[2,1] 0
+mem[4,0] 0.588109
+mem_tot_CPU_5 0
+normalized_mem_tot_CPU_5 0
+rows_tot_CPU_5 0
+normalized_rows_tot_CPU_5 0
+mem_tot_CPU_6 0
+normalized_mem_tot_CPU_6 0
+rows_tot_CPU_6 0
+normalized_rows_tot_CPU_6 0
+mem_tot_CPU_7 0
+normalized_mem_tot_CPU_7 0
+rows_tot_CPU_7 0
+normalized_rows_tot_CPU_7 0
+mem_tot_CPU_8 4.51016
+normalized_mem_tot_CPU_8 0.000137639
+rows_tot_CPU_8 2.65425
+normalized_rows_tot_CPU_8 0.221188
+mem_tot_CPU_9 0.588109
+normalized_mem_tot_CPU_9 1.79477e-05
+rows_tot_CPU_9 0.346106
+normalized_rows_tot_CPU_9 0.0288421
+max_mem_CPU_Cluster 0.000137639
+max_rows_CPU_Cluster 0.221188
+m_access_time_CPU_5 0
+ns_single_CPU_5 0
+pdt_m_rows_CPU_5 0
+cores_sketch_CPU_5 -0
+cores_dpdk_CPU_5 6
+m_access_time_CPU_6 0
+ns_single_CPU_6 0
+pdt_m_rows_CPU_6 0
+cores_sketch_CPU_6 -0
+cores_dpdk_CPU_6 6
+m_access_time_CPU_7 0
+ns_single_CPU_7 0
+pdt_m_rows_CPU_7 0
+cores_sketch_CPU_7 0
+cores_dpdk_CPU_7 6
+m_access_time_CPU_8 0.536646
+ns_single_CPU_8 10.7143
+pdt_m_rows_CPU_8 1.4244
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 6
+m_access_time_CPU_9 0.267316
+ns_single_CPU_9 1.30389
+pdt_m_rows_CPU_9 0.0925196
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 6
+res 320.001
+--------------------------------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 320.00062234716415
+Used Cores: 32.0, Total CPUS: 5, Switch Memory: 0
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.885,3)    (0.115,4)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(0.000,3)    (0.000,2)    
+Total frac: 0.000
+
+Device (0) CPU_5:
+cores_sketch: -0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (1) CPU_6:
+cores_sketch: -0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (2) CPU_7:
+cores_sketch: 0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (3) CPU_8:
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 2.6542543929785305
+Mem total: 4.510158831818988
+Throughput: 93.33333333333333
+
+Device (4) CPU_9:
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 0.34610560702147
+Mem total: 0.5881091369310134
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(1, 0.00012000000000012001)]
+path: {2, 3}
+Flow 1:
+partitions: [(0, 1.0)]
+path: {3, 4}
+--------------------------------------------------
+Function: MIP.solve took 0.03453183174133301 seconds
+Building model with:
+5 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 6.437301635742188e-05 seconds
+Function: MIP.add_coverage_constraints took 3.4332275390625e-05 seconds
+Function: MIP.add_accuracy_constraints took 4.601478576660156e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0003466606140136719 seconds
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 30 rows, 28 columns and 50 nonzeros
+Model fingerprint: 0xaa7f8c8e
+Model has 2 general constraints
+Variable types: 28 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 5e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e-04, 1e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 8 objectives (5 combined) ...
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 29 rows and 26 columns
+Presolve time: 0.00s
+Presolved: 1 rows and 2 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (tot_rows_CPU_Clust) ...
+---------------------------------------------------------------------------
+
+Presolve removed 1 rows and 2 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    3.0003600e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  3.000360000e+00
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (CPU_Cluster_rows_l) ...
+---------------------------------------------------------------------------
+
+Presolve removed 2 rows and 2 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5000000e-01   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  2.500000000e-01
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 3 (tot_mem_CPU_Cluste) ...
+---------------------------------------------------------------------------
+
+Presolve removed 3 rows and 2 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.0982680e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.098267969e+00
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 4 (CPU_Cluster_load_m) ...
+---------------------------------------------------------------------------
+
+Presolve removed 4 rows and 2 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.5556812e-04   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  1.555681229e-04
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 5 (weighted) ...
+---------------------------------------------------------------------------
+
+Presolve removed 5 rows and 2 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 2
+
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_10 0
+m_access_time_CPU_10 0
+ns_single_CPU_10 0
+pdt_m_rows_CPU_10 0
+cores_sketch_CPU_10 0
+cores_dpdk_CPU_10 7
+ns_sketch_CPU_10 10.2041
+pdt_nsk_c_CPU_10 0
+ns_dpdk_CPU_10 10.2041
+pdt_nsc_dpdk_CPU_10 71.4286
+ns_CPU_10 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_11 0
+m_access_time_CPU_11 0
+ns_single_CPU_11 0
+pdt_m_rows_CPU_11 0
+cores_sketch_CPU_11 0
+cores_dpdk_CPU_11 7
+ns_sketch_CPU_11 10.2041
+pdt_nsk_c_CPU_11 0
+ns_dpdk_CPU_11 10.2041
+pdt_nsc_dpdk_CPU_11 71.4286
+ns_CPU_11 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_12 0
+m_access_time_CPU_12 0
+ns_single_CPU_12 0
+pdt_m_rows_CPU_12 0
+cores_sketch_CPU_12 0
+cores_dpdk_CPU_12 7
+ns_sketch_CPU_12 10.2041
+pdt_nsk_c_CPU_12 0
+ns_dpdk_CPU_12 10.2041
+pdt_nsc_dpdk_CPU_12 71.4286
+ns_CPU_12 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_13 0.000611719
+m_access_time_CPU_13 0.000278047
+ns_single_CPU_13 0.0012601
+pdt_m_rows_CPU_13 1.00097e-07
+cores_sketch_CPU_13 1
+cores_dpdk_CPU_13 6
+ns_sketch_CPU_13 0.0012601
+pdt_nsk_c_CPU_13 0.0012601
+ns_dpdk_CPU_13 10.7143
+pdt_nsc_dpdk_CPU_13 64.2857
+ns_CPU_13 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_14 5.09766
+m_access_time_CPU_14 0.536096
+ns_single_CPU_14 12.1083
+pdt_m_rows_CPU_14 1.60829
+cores_sketch_CPU_14 2
+cores_dpdk_CPU_14 5
+ns_sketch_CPU_14 6.05414
+pdt_nsk_c_CPU_14 12.1083
+ns_dpdk_CPU_14 11.4286
+pdt_nsc_dpdk_CPU_14 57.1429
+ns_CPU_14 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_10 0
+m_access_time_CPU_10 0
+ns_single_CPU_10 0
+pdt_m_rows_CPU_10 0
+cores_sketch_CPU_10 0
+cores_dpdk_CPU_10 5
+ns_sketch_CPU_10 11.4286
+pdt_nsk_c_CPU_10 0
+ns_dpdk_CPU_10 11.4286
+pdt_nsc_dpdk_CPU_10 57.1429
+ns_CPU_10 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_11 0
+m_access_time_CPU_11 0
+ns_single_CPU_11 0
+pdt_m_rows_CPU_11 0
+cores_sketch_CPU_11 0
+cores_dpdk_CPU_11 5
+ns_sketch_CPU_11 11.4286
+pdt_nsk_c_CPU_11 0
+ns_dpdk_CPU_11 11.4286
+pdt_nsc_dpdk_CPU_11 57.1429
+ns_CPU_11 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_12 0
+m_access_time_CPU_12 0
+ns_single_CPU_12 0
+pdt_m_rows_CPU_12 0
+cores_sketch_CPU_12 0
+cores_dpdk_CPU_12 5
+ns_sketch_CPU_12 11.4286
+pdt_nsk_c_CPU_12 0
+ns_dpdk_CPU_12 11.4286
+pdt_nsc_dpdk_CPU_12 57.1429
+ns_CPU_12 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_13 0.000611719
+m_access_time_CPU_13 0.000278047
+ns_single_CPU_13 0.0012601
+pdt_m_rows_CPU_13 1.00097e-07
+cores_sketch_CPU_13 1
+cores_dpdk_CPU_13 5
+ns_sketch_CPU_13 0.0012601
+pdt_nsk_c_CPU_13 0.0012601
+ns_dpdk_CPU_13 11.4286
+pdt_nsc_dpdk_CPU_13 57.1429
+ns_CPU_13 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_14 5.09766
+m_access_time_CPU_14 0.536096
+ns_single_CPU_14 12.1083
+pdt_m_rows_CPU_14 1.60829
+cores_sketch_CPU_14 2
+cores_dpdk_CPU_14 5
+ns_sketch_CPU_14 6.05414
+pdt_nsk_c_CPU_14 12.1083
+ns_dpdk_CPU_14 11.4286
+pdt_nsc_dpdk_CPU_14 57.1429
+ns_CPU_14 11.4286
+--------------------------------------------------
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.000,3)    (0.000,2)    
+Total frac: 0.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(1.000,4)    
+Total frac: 1.000
+
+Device (0) CPU_10:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (1) CPU_11:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (2) CPU_12:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (3) CPU_13:
+cores_sketch: 1.0, cores_dpdk: 4.999999999999996
+Rows total: 0.0003600000000000594
+Mem total: 0.0006117187500001009
+Throughput: 87.49999999999999
+
+Device (4) CPU_14:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Flow 0:
+partitions: [(0, 0.00012000000000001979)]
+path: {2, 3}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {4}
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPGapAbs to 10.0
+   Prev: 1e-10  Min: 0.0  Max: inf  Default: 1e-10
+--------------------------------------------------
+Starting model update
+Model update took: 2.47955322265625e-05 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 51 rows, 54 columns and 106 nonzeros
+Model fingerprint: 0x5874a4b2
+Model has 5 quadratic constraints
+Model has 7 general constraints
+Variable types: 44 continuous, 10 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e-04, 2e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 1 objectives ... 
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (res) ...
+---------------------------------------------------------------------------
+
+Optimize a model with 51 rows, 54 columns and 106 nonzeros
+Model has 5 quadratic constraints
+Model has 7 general constraints
+Variable types: 44 continuous, 10 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e-04, 2e+01]
+
+User MIP start produced solution with objective 280.001 (0.00s)
+Loaded user MIP start with objective 280.001
+
+Presolve removed 38 rows and 38 columns
+Presolve time: 0.00s
+Presolved: 21 rows, 16 columns, 50 nonzeros
+Presolved model has 2 bilinear constraint(s)
+Variable types: 12 continuous, 4 integer (2 binary)
+
+Root relaxation: objective 2.700017e+02, 7 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  270.00172    0    2  280.00062  270.00172  3.57%     -    0s
+
+Explored 0 nodes (7 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 280.001 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.800006223472e+02, best bound 2.700017248472e+02, gap 3.5710%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 1
+
+Model optimize took: 0.0010864734649658203 seconds
+--------------------------------------------------
+
+Solution quality statistics for model Netmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 8.88178420e-16
+    Integrality : 0.00000000e+00
+
+VARIABLES ------------------------------
+Objective: 280.00062234716415
+frac[3,0] 0.00012
+frac[2,0] 0
+frac[4,1] 1
+mem[3,0] 0.000611719
+mem[2,0] 0
+mem[4,1] 5.09766
+mem_tot_CPU_10 0
+normalized_mem_tot_CPU_10 0
+rows_tot_CPU_10 0
+normalized_rows_tot_CPU_10 0
+mem_tot_CPU_11 0
+normalized_mem_tot_CPU_11 0
+rows_tot_CPU_11 0
+normalized_rows_tot_CPU_11 0
+mem_tot_CPU_12 0
+normalized_mem_tot_CPU_12 0
+rows_tot_CPU_12 0
+normalized_rows_tot_CPU_12 0
+mem_tot_CPU_13 0.000611719
+normalized_mem_tot_CPU_13 1.86682e-08
+rows_tot_CPU_13 0.00036
+normalized_rows_tot_CPU_13 3e-05
+mem_tot_CPU_14 5.09766
+normalized_mem_tot_CPU_14 0.000155568
+rows_tot_CPU_14 3
+normalized_rows_tot_CPU_14 0.25
+max_mem_CPU_Cluster 0.000155568
+max_rows_CPU_Cluster 0.25
+m_access_time_CPU_10 0
+ns_single_CPU_10 0
+pdt_m_rows_CPU_10 0
+cores_sketch_CPU_10 -0
+cores_dpdk_CPU_10 5
+m_access_time_CPU_11 0
+ns_single_CPU_11 0
+pdt_m_rows_CPU_11 0
+cores_sketch_CPU_11 -0
+cores_dpdk_CPU_11 5
+m_access_time_CPU_12 0
+ns_single_CPU_12 -0
+pdt_m_rows_CPU_12 0
+cores_sketch_CPU_12 -0
+cores_dpdk_CPU_12 5
+m_access_time_CPU_13 0.000278047
+ns_single_CPU_13 0.0012601
+pdt_m_rows_CPU_13 1.00097e-07
+cores_sketch_CPU_13 1
+cores_dpdk_CPU_13 5
+m_access_time_CPU_14 0.536096
+ns_single_CPU_14 12.1083
+pdt_m_rows_CPU_14 1.60829
+cores_sketch_CPU_14 2
+cores_dpdk_CPU_14 5
+res 280.001
+--------------------------------------------------
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 280.00062234716415
+Used Cores: 28.0, Total CPUS: 5, Switch Memory: 0
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.000,3)    (0.000,2)    
+Total frac: 0.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(1.000,4)    
+Total frac: 1.000
+
+Device (0) CPU_10:
+cores_sketch: -0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (1) CPU_11:
+cores_sketch: -0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (2) CPU_12:
+cores_sketch: -0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (3) CPU_13:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 0.0003600000000000594
+Mem total: 0.0006117187500001009
+Throughput: 87.49999999999999
+
+Device (4) CPU_14:
+cores_sketch: 2.0, cores_dpdk: 5.0
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Flow 0:
+partitions: [(0, 0.00012000000000001979)]
+path: {2, 3}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {4}
+--------------------------------------------------
+Function: MIP.solve took 0.023001909255981445 seconds
+Building model with:
+5 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 6.723403930664062e-05 seconds
+Function: MIP.add_coverage_constraints took 3.5762786865234375e-05 seconds
+Function: MIP.add_accuracy_constraints took 6.246566772460938e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0003554821014404297 seconds
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 31 rows, 30 columns and 55 nonzeros
+Model fingerprint: 0xc2681740
+Model has 2 general constraints
+Variable types: 30 continuous, 0 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 5e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e-04, 1e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 8 objectives (5 combined) ...
+---------------------------------------------------------------------------
+
+Multi-objectives: applying initial presolve ...
+---------------------------------------------------------------------------
+
+Presolve removed 23 rows and 14 columns
+Presolve time: 0.00s
+Presolved: 8 rows and 16 columns
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (tot_rows_CPU_Clust) ...
+---------------------------------------------------------------------------
+
+Presolve time: 0.00s
+Presolved: 8 rows, 16 columns, 28 nonzeros
+Presolved model has 6 SOS constraint(s)
+Variable types: 10 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 3.000360e+00, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    3.00036    0    2          -    3.00036      -     -    0s
+H    0     0                       4.5000000    3.00036  33.3%     -    0s
+     0     0    3.00036    0    2    4.50000    3.00036  33.3%     -    0s
+H    0     0                       4.4999995    3.00036  33.3%     -    0s
+     0     2    3.00036    0    2    4.50000    3.00036  33.3%     -    0s
+*    3     0               2       3.0003600    3.00036  0.00%   1.3    0s
+
+Explored 5 nodes (12 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 3.00036 4.5 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.000360000000e+00, best bound 3.000360000000e+00, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 2 (CPU_Cluster_rows_l) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0.25003
+
+Presolve added 8 rows and 2 columns
+Presolve time: 0.00s
+Presolved: 17 rows, 18 columns, 44 nonzeros
+Variable types: 10 continuous, 8 integer (8 binary)
+
+Root relaxation: objective 1.250000e-01, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       0.1250000    0.12500  0.00%     -    0s
+
+Explored 0 nodes (6 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 0.125 0.25003 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.250000000000e-01, best bound 1.250000000000e-01, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 3 (tot_mem_CPU_Cluste) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 5.09878
+
+Presolve removed 2 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 7 columns, 22 nonzeros
+Found heuristic solution: objective 5.0987573
+Variable types: 6 continuous, 1 integer (1 binary)
+
+Root relaxation: objective 5.098268e+00, 4 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       5.0982680    5.09827  0.00%     -    0s
+
+Explored 0 nodes (4 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: 5.09827 5.09876 5.09878 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.098267968750e+00, best bound 5.098267968750e+00, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 4 (CPU_Cluster_load_m) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 7.78093e-05
+
+Presolve removed 3 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 7 columns, 22 nonzeros
+Found heuristic solution: objective 0.0000778
+Variable types: 6 continuous, 1 integer (1 binary)
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 7.77757e-05 7.78093e-05 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 7.777566075325e-05, best bound 7.777566075325e-05, gap 0.0000%
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 5 (weighted) ...
+---------------------------------------------------------------------------
+
+
+Loaded user MIP start with objective 0
+
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 1: 0 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.00 seconds, solution count 6
+
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_15 0.000611719
+m_access_time_CPU_15 0.000278047
+ns_single_CPU_15 0.0012601
+pdt_m_rows_CPU_15 1.00097e-07
+cores_sketch_CPU_15 1
+cores_dpdk_CPU_15 6
+ns_sketch_CPU_15 0.0012601
+pdt_nsk_c_CPU_15 0.0012601
+ns_dpdk_CPU_15 10.7143
+pdt_nsc_dpdk_CPU_15 64.2857
+ns_CPU_15 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_16 2.5491
+m_access_time_CPU_16 0.538483
+ns_single_CPU_16 6.05838
+pdt_m_rows_CPU_16 0.807812
+cores_sketch_CPU_16 1
+cores_dpdk_CPU_16 6
+ns_sketch_CPU_16 6.05838
+pdt_nsk_c_CPU_16 6.05838
+ns_dpdk_CPU_16 10.7143
+pdt_nsc_dpdk_CPU_16 64.2857
+ns_CPU_16 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_17 2.54855
+m_access_time_CPU_17 0.538484
+ns_single_CPU_17 6.05707
+pdt_m_rows_CPU_17 0.807639
+cores_sketch_CPU_17 1
+cores_dpdk_CPU_17 6
+ns_sketch_CPU_17 6.05707
+pdt_nsk_c_CPU_17 6.05707
+ns_dpdk_CPU_17 10.7143
+pdt_nsc_dpdk_CPU_17 64.2857
+ns_CPU_17 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_18 0
+m_access_time_CPU_18 0
+ns_single_CPU_18 0
+pdt_m_rows_CPU_18 0
+cores_sketch_CPU_18 0
+cores_dpdk_CPU_18 7
+ns_sketch_CPU_18 10.2041
+pdt_nsk_c_CPU_18 0
+ns_dpdk_CPU_18 10.2041
+pdt_nsc_dpdk_CPU_18 71.4286
+ns_CPU_18 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_19 0
+m_access_time_CPU_19 0
+ns_single_CPU_19 0
+pdt_m_rows_CPU_19 0
+cores_sketch_CPU_19 0
+cores_dpdk_CPU_19 7
+ns_sketch_CPU_19 10.2041
+pdt_nsk_c_CPU_19 0
+ns_dpdk_CPU_19 10.2041
+pdt_nsc_dpdk_CPU_19 71.4286
+ns_CPU_19 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_15 0.000611719
+m_access_time_CPU_15 0.000278047
+ns_single_CPU_15 0.0012601
+pdt_m_rows_CPU_15 1.00097e-07
+cores_sketch_CPU_15 1
+cores_dpdk_CPU_15 6
+ns_sketch_CPU_15 0.0012601
+pdt_nsk_c_CPU_15 0.0012601
+ns_dpdk_CPU_15 10.7143
+pdt_nsc_dpdk_CPU_15 64.2857
+ns_CPU_15 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_16 2.5491
+m_access_time_CPU_16 0.538483
+ns_single_CPU_16 6.05838
+pdt_m_rows_CPU_16 0.807812
+cores_sketch_CPU_16 1
+cores_dpdk_CPU_16 6
+ns_sketch_CPU_16 6.05838
+pdt_nsk_c_CPU_16 6.05838
+ns_dpdk_CPU_16 10.7143
+pdt_nsc_dpdk_CPU_16 64.2857
+ns_CPU_16 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_17 2.54855
+m_access_time_CPU_17 0.538484
+ns_single_CPU_17 6.05707
+pdt_m_rows_CPU_17 0.807639
+cores_sketch_CPU_17 1
+cores_dpdk_CPU_17 6
+ns_sketch_CPU_17 6.05707
+pdt_nsk_c_CPU_17 6.05707
+ns_dpdk_CPU_17 10.7143
+pdt_nsc_dpdk_CPU_17 64.2857
+ns_CPU_17 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_18 0
+m_access_time_CPU_18 0
+ns_single_CPU_18 0
+pdt_m_rows_CPU_18 0
+cores_sketch_CPU_18 0
+cores_dpdk_CPU_18 6
+ns_sketch_CPU_18 10.7143
+pdt_nsk_c_CPU_18 0
+ns_dpdk_CPU_18 10.7143
+pdt_nsc_dpdk_CPU_18 64.2857
+ns_CPU_18 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_19 0
+m_access_time_CPU_19 0
+ns_single_CPU_19 0
+pdt_m_rows_CPU_19 0
+cores_sketch_CPU_19 0
+cores_dpdk_CPU_19 6
+ns_sketch_CPU_19 10.7143
+pdt_nsk_c_CPU_19 0
+ns_dpdk_CPU_19 10.7143
+pdt_nsc_dpdk_CPU_19 64.2857
+ns_CPU_19 10.7143
+--------------------------------------------------
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.000,1)    (0.000,0)    
+Total frac: 0.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.500,1)    (0.500,2)    
+Total frac: 1.000
+
+Device (0) CPU_15:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999997
+Rows total: 0.00036000000000235843
+Mem total: 0.0006117187500040075
+Throughput: 93.33333333333333
+
+Device (1) CPU_16:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 1.500162000000001
+Mem total: 2.5491033984375018
+Throughput: 93.33333333333333
+
+Device (2) CPU_17:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 1.4998379999999991
+Mem total: 2.5485528515624982
+Throughput: 93.33333333333333
+
+Device (3) CPU_18:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (4) CPU_19:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(0, 0.00012000000000078614)]
+path: {0, 1}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {1, 2}
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Parameter NonConvex unchanged
+   Value: 2  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPGapAbs to 10.0
+   Prev: 1e-10  Min: 0.0  Max: inf  Default: 1e-10
+--------------------------------------------------
+Starting model update
+Model update took: 1.9311904907226562e-05 s
+--------------------------------------------------
+Starting model optimize
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 52 rows, 56 columns and 111 nonzeros
+Model fingerprint: 0xb7b7e6f4
+Model has 5 quadratic constraints
+Model has 7 general constraints
+Variable types: 46 continuous, 10 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e-04, 2e+01]
+
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 1 objectives ... 
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+
+Multi-objectives: optimize objective 1 (res) ...
+---------------------------------------------------------------------------
+
+Optimize a model with 52 rows, 56 columns and 111 nonzeros
+Model has 5 quadratic constraints
+Model has 7 general constraints
+Variable types: 46 continuous, 10 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e-04, 2e+01]
+
+User MIP start produced solution with objective 330.001 (0.00s)
+Loaded user MIP start with objective 330.001
+
+Presolve removed 31 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 33 rows, 26 columns, 79 nonzeros
+Presolved model has 3 bilinear constraint(s)
+Variable types: 20 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 3.098018e+02, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    4  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    2  330.00062  320.00062  3.03%     -    0s
+     0     0  320.00062    0    2  330.00062  320.00062  3.03%     -    0s
+     0     2  320.00062    0    2  330.00062  320.00062  3.03%     -    0s
+*    7    10               3     320.0006223  320.00062  0.00%   1.7    0s
+
+Cutting planes:
+  Cover: 1
+  Implied bound: 1
+  Flow cover: 2
+  RLT: 1
+  Relax-and-lift: 1
+
+Explored 13 nodes (54 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 320.001 330.001 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.200006223472e+02, best bound 3.200006223472e+02, gap 0.0000%
+
+---------------------------------------------------------------------------
+Multi-objectives: solved in 0.01 seconds, solution count 2
+
+Model optimize took: 0.008037805557250977 seconds
+--------------------------------------------------
+
+Solution quality statistics for model Netmon :
+  Maximum violation:
+    Bound       : 0.00000000e+00
+    Constraint  : 1.83442816e-07
+    Integrality : 0.00000000e+00
+
+VARIABLES ------------------------------
+Objective: 320.00062234716415
+frac[1,0] 0.00012
+frac[0,0] 0
+frac[1,1] 0.884631
+frac[2,1] 0.115369
+mem[1,0] 0.000611719
+mem[0,0] 0
+mem[1,1] 4.50955
+mem[2,1] 0.588109
+mem_tot_CPU_15 0
+normalized_mem_tot_CPU_15 0
+rows_tot_CPU_15 0
+normalized_rows_tot_CPU_15 0
+mem_tot_CPU_16 4.51016
+normalized_mem_tot_CPU_16 0.000137639
+rows_tot_CPU_16 2.65425
+normalized_rows_tot_CPU_16 0.221188
+mem_tot_CPU_17 0.588109
+normalized_mem_tot_CPU_17 1.79477e-05
+rows_tot_CPU_17 0.346106
+normalized_rows_tot_CPU_17 0.0288421
+mem_tot_CPU_18 0
+normalized_mem_tot_CPU_18 0
+rows_tot_CPU_18 0
+normalized_rows_tot_CPU_18 0
+mem_tot_CPU_19 0
+normalized_mem_tot_CPU_19 0
+rows_tot_CPU_19 0
+normalized_rows_tot_CPU_19 0
+max_mem_CPU_Cluster 0.000137639
+max_rows_CPU_Cluster 0.221188
+m_access_time_CPU_15 0
+ns_single_CPU_15 0
+pdt_m_rows_CPU_15 0
+cores_sketch_CPU_15 0
+cores_dpdk_CPU_15 6
+m_access_time_CPU_16 0.536646
+ns_single_CPU_16 10.7143
+pdt_m_rows_CPU_16 1.4244
+cores_sketch_CPU_16 1
+cores_dpdk_CPU_16 6
+m_access_time_CPU_17 0.267316
+ns_single_CPU_17 1.30389
+pdt_m_rows_CPU_17 0.0925196
+cores_sketch_CPU_17 1
+cores_dpdk_CPU_17 6
+m_access_time_CPU_18 0
+ns_single_CPU_18 0
+pdt_m_rows_CPU_18 0
+cores_sketch_CPU_18 -0
+cores_dpdk_CPU_18 6
+m_access_time_CPU_19 0
+ns_single_CPU_19 0
+pdt_m_rows_CPU_19 0
+cores_sketch_CPU_19 -0
+cores_dpdk_CPU_19 6
+res 320.001
+--------------------------------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 320.00062234716415
+Used Cores: 32.0, Total CPUS: 5, Switch Memory: 0
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.000,1)    (0.000,0)    
+Total frac: 0.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.885,1)    (0.115,2)    
+Total frac: 1.000
+
+Device (0) CPU_15:
+cores_sketch: 0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (1) CPU_16:
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 2.6542543929785296
+Mem total: 4.510158831818986
+Throughput: 93.33333333333333
+
+Device (2) CPU_17:
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 0.34610560702147264
+Mem total: 0.588109136931018
+Throughput: 93.33333333333333
+
+Device (3) CPU_18:
+cores_sketch: -0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Device (4) CPU_19:
+cores_sketch: -0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(0, 0.00012000000000078614)]
+path: {0, 1}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {1, 2}
+--------------------------------------------------
+Function: MIP.solve took 0.03424072265625 seconds
+--------------------------------------------------
+Clustered Optimization complete
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_0 0
+m_access_time_CPU_0 0
+ns_single_CPU_0 0
+pdt_m_rows_CPU_0 0
+cores_sketch_CPU_0 0
+cores_dpdk_CPU_0 7
+ns_sketch_CPU_0 10.2041
+pdt_nsk_c_CPU_0 0
+ns_dpdk_CPU_0 10.2041
+pdt_nsc_dpdk_CPU_0 71.4286
+ns_CPU_0 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_1 1.1875
+m_access_time_CPU_1 0.539759
+ns_single_CPU_1 2.82319
+pdt_m_rows_CPU_1 0.377211
+cores_sketch_CPU_1 1
+cores_dpdk_CPU_1 6
+ns_sketch_CPU_1 2.82319
+pdt_nsk_c_CPU_1 2.82319
+ns_dpdk_CPU_1 10.7143
+pdt_nsc_dpdk_CPU_1 64.2857
+ns_CPU_1 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 3.91036
+m_access_time_CPU_2 0.537208
+ns_single_CPU_2 9.29071
+pdt_m_rows_CPU_2 1.23626
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 9.29071
+pdt_nsk_c_CPU_2 9.29071
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_3 0
+m_access_time_CPU_3 0
+ns_single_CPU_3 0
+pdt_m_rows_CPU_3 0
+cores_sketch_CPU_3 0
+cores_dpdk_CPU_3 7
+ns_sketch_CPU_3 10.2041
+pdt_nsk_c_CPU_3 0
+ns_dpdk_CPU_3 10.2041
+pdt_nsc_dpdk_CPU_3 71.4286
+ns_CPU_3 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_4 0
+m_access_time_CPU_4 0
+ns_single_CPU_4 0
+pdt_m_rows_CPU_4 0
+cores_sketch_CPU_4 0
+cores_dpdk_CPU_4 7
+ns_sketch_CPU_4 10.2041
+pdt_nsk_c_CPU_4 0
+ns_dpdk_CPU_4 10.2041
+pdt_nsc_dpdk_CPU_4 71.4286
+ns_CPU_4 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_5 0
+m_access_time_CPU_5 0
+ns_single_CPU_5 0
+pdt_m_rows_CPU_5 0
+cores_sketch_CPU_5 0
+cores_dpdk_CPU_5 7
+ns_sketch_CPU_5 10.2041
+pdt_nsk_c_CPU_5 0
+ns_dpdk_CPU_5 10.2041
+pdt_nsc_dpdk_CPU_5 71.4286
+ns_CPU_5 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_6 0
+m_access_time_CPU_6 0
+ns_single_CPU_6 0
+pdt_m_rows_CPU_6 0
+cores_sketch_CPU_6 0
+cores_dpdk_CPU_6 7
+ns_sketch_CPU_6 10.2041
+pdt_nsk_c_CPU_6 0
+ns_dpdk_CPU_6 10.2041
+pdt_nsc_dpdk_CPU_6 71.4286
+ns_CPU_6 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_7 0
+m_access_time_CPU_7 0
+ns_single_CPU_7 0
+pdt_m_rows_CPU_7 0
+cores_sketch_CPU_7 0
+cores_dpdk_CPU_7 7
+ns_sketch_CPU_7 10.2041
+pdt_nsk_c_CPU_7 0
+ns_dpdk_CPU_7 10.2041
+pdt_nsc_dpdk_CPU_7 71.4286
+ns_CPU_7 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_8 4.51016
+m_access_time_CPU_8 0.536646
+ns_single_CPU_8 10.7143
+pdt_m_rows_CPU_8 1.4244
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 6
+ns_sketch_CPU_8 10.7143
+pdt_nsk_c_CPU_8 10.7143
+ns_dpdk_CPU_8 10.7143
+pdt_nsc_dpdk_CPU_8 64.2857
+ns_CPU_8 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_9 0.588109
+m_access_time_CPU_9 0.267316
+ns_single_CPU_9 1.30389
+pdt_m_rows_CPU_9 0.0925194
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 6
+ns_sketch_CPU_9 1.30389
+pdt_nsk_c_CPU_9 1.30389
+ns_dpdk_CPU_9 10.7143
+pdt_nsc_dpdk_CPU_9 64.2857
+ns_CPU_9 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_10 0
+m_access_time_CPU_10 0
+ns_single_CPU_10 0
+pdt_m_rows_CPU_10 0
+cores_sketch_CPU_10 0
+cores_dpdk_CPU_10 7
+ns_sketch_CPU_10 10.2041
+pdt_nsk_c_CPU_10 0
+ns_dpdk_CPU_10 10.2041
+pdt_nsc_dpdk_CPU_10 71.4286
+ns_CPU_10 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_11 0
+m_access_time_CPU_11 0
+ns_single_CPU_11 0
+pdt_m_rows_CPU_11 0
+cores_sketch_CPU_11 0
+cores_dpdk_CPU_11 7
+ns_sketch_CPU_11 10.2041
+pdt_nsk_c_CPU_11 0
+ns_dpdk_CPU_11 10.2041
+pdt_nsc_dpdk_CPU_11 71.4286
+ns_CPU_11 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_12 0
+m_access_time_CPU_12 0
+ns_single_CPU_12 0
+pdt_m_rows_CPU_12 0
+cores_sketch_CPU_12 0
+cores_dpdk_CPU_12 7
+ns_sketch_CPU_12 10.2041
+pdt_nsk_c_CPU_12 0
+ns_dpdk_CPU_12 10.2041
+pdt_nsc_dpdk_CPU_12 71.4286
+ns_CPU_12 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_13 0.000611719
+m_access_time_CPU_13 0.000278047
+ns_single_CPU_13 0.0012601
+pdt_m_rows_CPU_13 1.00097e-07
+cores_sketch_CPU_13 1
+cores_dpdk_CPU_13 6
+ns_sketch_CPU_13 0.0012601
+pdt_nsk_c_CPU_13 0.0012601
+ns_dpdk_CPU_13 10.7143
+pdt_nsc_dpdk_CPU_13 64.2857
+ns_CPU_13 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_14 5.09766
+m_access_time_CPU_14 0.536096
+ns_single_CPU_14 12.1083
+pdt_m_rows_CPU_14 1.60829
+cores_sketch_CPU_14 2
+cores_dpdk_CPU_14 5
+ns_sketch_CPU_14 6.05414
+pdt_nsk_c_CPU_14 12.1083
+ns_dpdk_CPU_14 11.4286
+pdt_nsc_dpdk_CPU_14 57.1429
+ns_CPU_14 11.4286
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_15 0
+m_access_time_CPU_15 0
+ns_single_CPU_15 0
+pdt_m_rows_CPU_15 0
+cores_sketch_CPU_15 0
+cores_dpdk_CPU_15 7
+ns_sketch_CPU_15 10.2041
+pdt_nsk_c_CPU_15 0
+ns_dpdk_CPU_15 10.2041
+pdt_nsc_dpdk_CPU_15 71.4286
+ns_CPU_15 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_16 4.51016
+m_access_time_CPU_16 0.536646
+ns_single_CPU_16 10.7143
+pdt_m_rows_CPU_16 1.4244
+cores_sketch_CPU_16 1
+cores_dpdk_CPU_16 6
+ns_sketch_CPU_16 10.7143
+pdt_nsk_c_CPU_16 10.7143
+ns_dpdk_CPU_16 10.7143
+pdt_nsc_dpdk_CPU_16 64.2857
+ns_CPU_16 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_17 0.588109
+m_access_time_CPU_17 0.267316
+ns_single_CPU_17 1.30389
+pdt_m_rows_CPU_17 0.0925194
+cores_sketch_CPU_17 1
+cores_dpdk_CPU_17 6
+ns_sketch_CPU_17 1.30389
+pdt_nsk_c_CPU_17 1.30389
+ns_dpdk_CPU_17 10.7143
+pdt_nsc_dpdk_CPU_17 64.2857
+ns_CPU_17 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_18 0
+m_access_time_CPU_18 0
+ns_single_CPU_18 0
+pdt_m_rows_CPU_18 0
+cores_sketch_CPU_18 0
+cores_dpdk_CPU_18 7
+ns_sketch_CPU_18 10.2041
+pdt_nsk_c_CPU_18 0
+ns_dpdk_CPU_18 10.2041
+pdt_nsc_dpdk_CPU_18 71.4286
+ns_CPU_18 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_19 0
+m_access_time_CPU_19 0
+ns_single_CPU_19 0
+pdt_m_rows_CPU_19 0
+cores_sketch_CPU_19 0
+cores_dpdk_CPU_19 7
+ns_sketch_CPU_19 10.2041
+pdt_nsk_c_CPU_19 0
+ns_dpdk_CPU_19 10.2041
+pdt_nsc_dpdk_CPU_19 71.4286
+ns_CPU_19 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_P4_1 81.5605
+ns_P4_1 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_0 0
+m_access_time_CPU_0 0
+ns_single_CPU_0 0
+pdt_m_rows_CPU_0 0
+cores_sketch_CPU_0 0
+cores_dpdk_CPU_0 5
+ns_sketch_CPU_0 11.4286
+pdt_nsk_c_CPU_0 0
+ns_dpdk_CPU_0 11.4286
+pdt_nsc_dpdk_CPU_0 57.1429
+ns_CPU_0 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_1 1.1875
+m_access_time_CPU_1 0.539759
+ns_single_CPU_1 2.82319
+pdt_m_rows_CPU_1 0.377211
+cores_sketch_CPU_1 1
+cores_dpdk_CPU_1 5
+ns_sketch_CPU_1 2.82319
+pdt_nsk_c_CPU_1 2.82319
+ns_dpdk_CPU_1 11.4286
+pdt_nsc_dpdk_CPU_1 57.1429
+ns_CPU_1 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_2 3.91036
+m_access_time_CPU_2 0.537208
+ns_single_CPU_2 9.29071
+pdt_m_rows_CPU_2 1.23626
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 5
+ns_sketch_CPU_2 9.29071
+pdt_nsk_c_CPU_2 9.29071
+ns_dpdk_CPU_2 11.4286
+pdt_nsc_dpdk_CPU_2 57.1429
+ns_CPU_2 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_3 0
+m_access_time_CPU_3 0
+ns_single_CPU_3 0
+pdt_m_rows_CPU_3 0
+cores_sketch_CPU_3 0
+cores_dpdk_CPU_3 5
+ns_sketch_CPU_3 11.4286
+pdt_nsk_c_CPU_3 0
+ns_dpdk_CPU_3 11.4286
+pdt_nsc_dpdk_CPU_3 57.1429
+ns_CPU_3 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_4 0
+m_access_time_CPU_4 0
+ns_single_CPU_4 0
+pdt_m_rows_CPU_4 0
+cores_sketch_CPU_4 0
+cores_dpdk_CPU_4 5
+ns_sketch_CPU_4 11.4286
+pdt_nsk_c_CPU_4 0
+ns_dpdk_CPU_4 11.4286
+pdt_nsc_dpdk_CPU_4 57.1429
+ns_CPU_4 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_5 0
+m_access_time_CPU_5 0
+ns_single_CPU_5 0
+pdt_m_rows_CPU_5 0
+cores_sketch_CPU_5 0
+cores_dpdk_CPU_5 5
+ns_sketch_CPU_5 11.4286
+pdt_nsk_c_CPU_5 0
+ns_dpdk_CPU_5 11.4286
+pdt_nsc_dpdk_CPU_5 57.1429
+ns_CPU_5 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_6 0
+m_access_time_CPU_6 0
+ns_single_CPU_6 0
+pdt_m_rows_CPU_6 0
+cores_sketch_CPU_6 0
+cores_dpdk_CPU_6 5
+ns_sketch_CPU_6 11.4286
+pdt_nsk_c_CPU_6 0
+ns_dpdk_CPU_6 11.4286
+pdt_nsc_dpdk_CPU_6 57.1429
+ns_CPU_6 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_7 0
+m_access_time_CPU_7 0
+ns_single_CPU_7 0
+pdt_m_rows_CPU_7 0
+cores_sketch_CPU_7 0
+cores_dpdk_CPU_7 5
+ns_sketch_CPU_7 11.4286
+pdt_nsk_c_CPU_7 0
+ns_dpdk_CPU_7 11.4286
+pdt_nsc_dpdk_CPU_7 57.1429
+ns_CPU_7 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_8 4.51016
+m_access_time_CPU_8 0.536646
+ns_single_CPU_8 10.7143
+pdt_m_rows_CPU_8 1.4244
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 5
+ns_sketch_CPU_8 10.7143
+pdt_nsk_c_CPU_8 10.7143
+ns_dpdk_CPU_8 11.4286
+pdt_nsc_dpdk_CPU_8 57.1429
+ns_CPU_8 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_9 0.588109
+m_access_time_CPU_9 0.267316
+ns_single_CPU_9 1.30389
+pdt_m_rows_CPU_9 0.0925194
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 5
+ns_sketch_CPU_9 1.30389
+pdt_nsk_c_CPU_9 1.30389
+ns_dpdk_CPU_9 11.4286
+pdt_nsc_dpdk_CPU_9 57.1429
+ns_CPU_9 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_10 0
+m_access_time_CPU_10 0
+ns_single_CPU_10 0
+pdt_m_rows_CPU_10 0
+cores_sketch_CPU_10 0
+cores_dpdk_CPU_10 5
+ns_sketch_CPU_10 11.4286
+pdt_nsk_c_CPU_10 0
+ns_dpdk_CPU_10 11.4286
+pdt_nsc_dpdk_CPU_10 57.1429
+ns_CPU_10 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_11 0
+m_access_time_CPU_11 0
+ns_single_CPU_11 0
+pdt_m_rows_CPU_11 0
+cores_sketch_CPU_11 0
+cores_dpdk_CPU_11 5
+ns_sketch_CPU_11 11.4286
+pdt_nsk_c_CPU_11 0
+ns_dpdk_CPU_11 11.4286
+pdt_nsc_dpdk_CPU_11 57.1429
+ns_CPU_11 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_12 0
+m_access_time_CPU_12 0
+ns_single_CPU_12 0
+pdt_m_rows_CPU_12 0
+cores_sketch_CPU_12 0
+cores_dpdk_CPU_12 5
+ns_sketch_CPU_12 11.4286
+pdt_nsk_c_CPU_12 0
+ns_dpdk_CPU_12 11.4286
+pdt_nsc_dpdk_CPU_12 57.1429
+ns_CPU_12 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_13 0.000611719
+m_access_time_CPU_13 0.000278047
+ns_single_CPU_13 0.0012601
+pdt_m_rows_CPU_13 1.00097e-07
+cores_sketch_CPU_13 1
+cores_dpdk_CPU_13 5
+ns_sketch_CPU_13 0.0012601
+pdt_nsk_c_CPU_13 0.0012601
+ns_dpdk_CPU_13 11.4286
+pdt_nsc_dpdk_CPU_13 57.1429
+ns_CPU_13 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_14 5.09766
+m_access_time_CPU_14 0.536096
+ns_single_CPU_14 12.1083
+pdt_m_rows_CPU_14 1.60829
+cores_sketch_CPU_14 2
+cores_dpdk_CPU_14 5
+ns_sketch_CPU_14 6.05414
+pdt_nsk_c_CPU_14 12.1083
+ns_dpdk_CPU_14 11.4286
+pdt_nsc_dpdk_CPU_14 57.1429
+ns_CPU_14 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_15 0
+m_access_time_CPU_15 0
+ns_single_CPU_15 0
+pdt_m_rows_CPU_15 0
+cores_sketch_CPU_15 0
+cores_dpdk_CPU_15 5
+ns_sketch_CPU_15 11.4286
+pdt_nsk_c_CPU_15 0
+ns_dpdk_CPU_15 11.4286
+pdt_nsc_dpdk_CPU_15 57.1429
+ns_CPU_15 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_16 4.51016
+m_access_time_CPU_16 0.536646
+ns_single_CPU_16 10.7143
+pdt_m_rows_CPU_16 1.4244
+cores_sketch_CPU_16 1
+cores_dpdk_CPU_16 5
+ns_sketch_CPU_16 10.7143
+pdt_nsk_c_CPU_16 10.7143
+ns_dpdk_CPU_16 11.4286
+pdt_nsc_dpdk_CPU_16 57.1429
+ns_CPU_16 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_17 0.588109
+m_access_time_CPU_17 0.267316
+ns_single_CPU_17 1.30389
+pdt_m_rows_CPU_17 0.0925194
+cores_sketch_CPU_17 1
+cores_dpdk_CPU_17 5
+ns_sketch_CPU_17 1.30389
+pdt_nsk_c_CPU_17 1.30389
+ns_dpdk_CPU_17 11.4286
+pdt_nsc_dpdk_CPU_17 57.1429
+ns_CPU_17 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_18 0
+m_access_time_CPU_18 0
+ns_single_CPU_18 0
+pdt_m_rows_CPU_18 0
+cores_sketch_CPU_18 0
+cores_dpdk_CPU_18 5
+ns_sketch_CPU_18 11.4286
+pdt_nsk_c_CPU_18 0
+ns_dpdk_CPU_18 11.4286
+pdt_nsc_dpdk_CPU_18 57.1429
+ns_CPU_18 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_19 0
+m_access_time_CPU_19 0
+ns_single_CPU_19 0
+pdt_m_rows_CPU_19 0
+cores_sketch_CPU_19 0
+cores_dpdk_CPU_19 5
+ns_sketch_CPU_19 11.4286
+pdt_nsk_c_CPU_19 0
+ns_dpdk_CPU_19 11.4286
+pdt_nsc_dpdk_CPU_19 57.1429
+ns_CPU_19 11.4286
+--------------------------------------------------
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 1103.7013654405682
+Used Cores: 109.0, Total CPUS: 20, Switch Memory: 81.5604599375
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(1.000,20)    (0.000,0)    (0.000,1)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.000,20)    (0.233,1)    (0.767,2)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(1.000,20)    (0.000,7)    (0.000,8)    
+Total frac: 1.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.000,20)    (0.885,8)    (0.115,9)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(1.000,20)    (0.000,12)    (0.000,13)    
+Total frac: 1.000
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(0.000,20)    (1.000,14)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(1.000,20)    (0.000,15)    (0.000,16)    
+Total frac: 1.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.000,20)    (0.885,16)    (0.115,17)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Device (0) CPU_0:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (1) CPU_1:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 0.6988505747126439
+Mem total: 1.1875000000000004
+Throughput: 87.49999999999999
+
+Device (2) CPU_2:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.3012700137931033
+Mem total: 3.910361156249999
+Throughput: 87.49999999999999
+
+Device (3) CPU_3:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (4) CPU_4:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (5) CPU_5:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (6) CPU_6:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (7) CPU_7:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (8) CPU_8:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.6542543929785305
+Mem total: 4.510158831818988
+Throughput: 87.49999999999999
+
+Device (9) CPU_9:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 0.34610560702147
+Mem total: 0.5881091369310134
+Throughput: 87.49999999999999
+
+Device (10) CPU_10:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (11) CPU_11:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (12) CPU_12:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (13) CPU_13:
+cores_sketch: 1.0, cores_dpdk: 4.999999999999996
+Rows total: 0.0003600000000000594
+Mem total: 0.0006117187500001009
+Throughput: 87.49999999999999
+
+Device (14) CPU_14:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (15) CPU_15:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (16) CPU_16:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.6542543929785296
+Mem total: 4.510158831818986
+Throughput: 87.49999999999999
+
+Device (17) CPU_17:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 0.34610560702147264
+Mem total: 0.588109136931018
+Throughput: 87.49999999999999
+
+Device (18) CPU_18:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (19) CPU_19:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (20) P4_1:
+Rows total: 47.998799411494254
+Mem total: 81.5604599375
+Throughput: 148.0
+
+Flow 0:
+partitions: [(0, 1)]
+path: (0, 20, 1)
+Flow 1:
+partitions: [(1, 1)]
+path: (1, 20, 2)
+Flow 2:
+partitions: [(2, 1)]
+path: (2, 20, 3)
+Flow 3:
+partitions: [(3, 1)]
+path: (3, 20, 4)
+Flow 4:
+partitions: [(4, 1)]
+path: (4, 20, 5)
+Flow 5:
+partitions: [(5, 1)]
+path: (5, 20, 6)
+Flow 6:
+partitions: [(6, 1)]
+path: (6, 20, 7)
+Flow 7:
+partitions: [(7, 1)]
+path: (7, 20, 8)
+Flow 8:
+partitions: [(8, 1)]
+path: (8, 20, 9)
+Flow 9:
+partitions: [(9, 1)]
+path: (9, 20, 10)
+Flow 10:
+partitions: [(10, 1)]
+path: (10, 20, 11)
+Flow 11:
+partitions: [(11, 1)]
+path: (11, 20, 12)
+Flow 12:
+partitions: [(12, 1)]
+path: (12, 20, 13)
+Flow 13:
+partitions: [(13, 1)]
+path: (13, 20, 14)
+Flow 14:
+partitions: [(14, 1)]
+path: (14, 20, 15)
+Flow 15:
+partitions: [(15, 1)]
+path: (15, 20, 16)
+Flow 16:
+partitions: [(16, 1)]
+path: (16, 20, 17)
+Flow 17:
+partitions: [(17, 1)]
+path: (17, 20, 18)
+Flow 18:
+partitions: [(18, 1)]
+path: (18, 20, 19)
+Flow 19:
+partitions: [(19, 1)]
+path: (19, 20, 0)
+--------------------------------------------------
+Function: solve took 0.21947121620178223 seconds

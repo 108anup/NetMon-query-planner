@@ -1,20 +1,20 @@
-Function: get_partitions took 4.0531158447265625e-05 seconds
-Function: map_flows_partitions took 1.0251998901367188e-05 seconds
-Function: map_flows_to_cluster took 4.3392181396484375e-05 seconds
+Function: get_partitions took 4.076957702636719e-05 seconds
+Function: map_flows_partitions took 8.344650268554688e-06 seconds
+Function: map_flows_to_cluster took 3.9577484130859375e-05 seconds
 Building model with:
 6 devices, 20 partitions and 20 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.0006275177001953125 seconds
-Function: MIP.add_coverage_constraints took 0.0002868175506591797 seconds
-Function: MIP.add_accuracy_constraints took 0.0005223751068115234 seconds
-Function: MIP.add_capacity_constraints took 0.0006542205810546875 seconds
+Function: MIP.add_frac_mem_var took 0.00036644935607910156 seconds
+Function: MIP.add_coverage_constraints took 0.0002815723419189453 seconds
+Function: MIP.add_accuracy_constraints took 0.0005271434783935547 seconds
+Function: MIP.add_capacity_constraints took 0.0006544589996337891 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 Netmon behaving like UnivmonGreedyRows
 --------------------------------------------------
 Starting model update
-Model update took: 8.463859558105469e-05 s
+Model update took: 7.295608520507812e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -286,7 +286,7 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.01 seconds, solution count 2
 
-Model optimize took: 0.014118432998657227 seconds
+Model optimize took: 0.013831377029418945 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
@@ -754,7 +754,7 @@ Mem total: 5.09765625
 Throughput: 98.0
 
 Device (2) {CPU_8,CPU_9,CPU_10,CPU_11}:
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 98.0
 
@@ -834,18 +834,18 @@ Flow 19:
 partitions: [(19, 1)]
 path: {0, 4, 5}
 --------------------------------------------------
-Function: MIP.solve took 0.030717849731445312 seconds
-Function: get_partitions_flows took 5.4836273193359375e-05 seconds
-Function: get_partitions_flows took 5.0067901611328125e-05 seconds
-Function: get_partitions_flows took 3.981590270996094e-05 seconds
-Function: get_partitions_flows took 4.363059997558594e-05 seconds
+Function: MIP.solve took 0.030398845672607422 seconds
+Function: get_partitions_flows took 4.9591064453125e-05 seconds
 Function: get_partitions_flows took 4.3392181396484375e-05 seconds
+Function: get_partitions_flows took 4.38690185546875e-05 seconds
+Function: get_partitions_flows took 4.3392181396484375e-05 seconds
+Function: get_partitions_flows took 4.100799560546875e-05 seconds
 Building model with:
 4 devices, 1 partitions and 1 flows
-Function: MIP.add_frac_mem_var took 5.1021575927734375e-05 seconds
+Function: MIP.add_frac_mem_var took 5.054473876953125e-05 seconds
 Function: MIP.add_coverage_constraints took 2.3365020751953125e-05 seconds
 Function: MIP.add_accuracy_constraints took 2.3603439331054688e-05 seconds
-Function: MIP.add_capacity_constraints took 0.0003025531768798828 seconds
+Function: MIP.add_capacity_constraints took 0.00030732154846191406 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -872,6 +872,134 @@ Presolve time: 0.00s
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_0 0
+m_access_time_CPU_0 0
+ns_single_CPU_0 0
+pdt_m_rows_CPU_0 0
+cores_sketch_CPU_0 0
+cores_dpdk_CPU_0 7
+ns_sketch_CPU_0 10.2041
+pdt_nsk_c_CPU_0 0
+ns_dpdk_CPU_0 10.2041
+pdt_nsc_dpdk_CPU_0 71.4286
+ns_CPU_0 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_1 0
+m_access_time_CPU_1 0
+ns_single_CPU_1 0
+pdt_m_rows_CPU_1 0
+cores_sketch_CPU_1 0
+cores_dpdk_CPU_1 7
+ns_sketch_CPU_1 10.2041
+pdt_nsk_c_CPU_1 0
+ns_dpdk_CPU_1 10.2041
+pdt_nsc_dpdk_CPU_1 71.4286
+ns_CPU_1 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_2 0
+m_access_time_CPU_2 0
+ns_single_CPU_2 0
+pdt_m_rows_CPU_2 0
+cores_sketch_CPU_2 0
+cores_dpdk_CPU_2 7
+ns_sketch_CPU_2 10.2041
+pdt_nsk_c_CPU_2 0
+ns_dpdk_CPU_2 10.2041
+pdt_nsc_dpdk_CPU_2 71.4286
+ns_CPU_2 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_3 5.09766
+m_access_time_CPU_3 0.536096
+ns_single_CPU_3 12.1083
+pdt_m_rows_CPU_3 1.60829
+cores_sketch_CPU_3 2
+cores_dpdk_CPU_3 5
+ns_sketch_CPU_3 6.05414
+pdt_nsk_c_CPU_3 12.1083
+ns_dpdk_CPU_3 11.4286
+pdt_nsc_dpdk_CPU_3 57.1429
+ns_CPU_3 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_0 0
+m_access_time_CPU_0 0
+ns_single_CPU_0 0
+pdt_m_rows_CPU_0 0
+cores_sketch_CPU_0 0
+cores_dpdk_CPU_0 5
+ns_sketch_CPU_0 11.4286
+pdt_nsk_c_CPU_0 0
+ns_dpdk_CPU_0 11.4286
+pdt_nsc_dpdk_CPU_0 57.1429
+ns_CPU_0 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_1 0
+m_access_time_CPU_1 0
+ns_single_CPU_1 0
+pdt_m_rows_CPU_1 0
+cores_sketch_CPU_1 0
+cores_dpdk_CPU_1 5
+ns_sketch_CPU_1 11.4286
+pdt_nsk_c_CPU_1 0
+ns_dpdk_CPU_1 11.4286
+pdt_nsc_dpdk_CPU_1 57.1429
+ns_CPU_1 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_2 0
+m_access_time_CPU_2 0
+ns_single_CPU_2 0
+pdt_m_rows_CPU_2 0
+cores_sketch_CPU_2 0
+cores_dpdk_CPU_2 5
+ns_sketch_CPU_2 11.4286
+pdt_nsk_c_CPU_2 0
+ns_dpdk_CPU_2 11.4286
+pdt_nsc_dpdk_CPU_2 57.1429
+ns_CPU_2 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_3 5.09766
+m_access_time_CPU_3 0.536096
+ns_single_CPU_3 12.1083
+pdt_m_rows_CPU_3 1.60829
+cores_sketch_CPU_3 2
+cores_dpdk_CPU_3 5
+ns_sketch_CPU_3 6.05414
+pdt_nsk_c_CPU_3 12.1083
+ns_dpdk_CPU_3 11.4286
+pdt_nsc_dpdk_CPU_3 57.1429
+ns_CPU_3 11.4286
+--------------------------------------------------
 
 Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 3, Rows: 3
@@ -879,20 +1007,28 @@ Par0 id: 3, Rows: 3
 Total frac: 1.000
 
 Device (0) CPU_0:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (1) CPU_1:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (2) CPU_2:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (3) CPU_3:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
 Rows total: 3.0
 Mem total: 5.09765625
+Throughput: 87.49999999999999
 
 Flow 0:
 partitions: [(0, 1.0)]
@@ -906,17 +1042,19 @@ Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
 Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPGapAbs to 10.0
+   Prev: 1e-10  Min: 0.0  Max: inf  Default: 1e-10
 --------------------------------------------------
 Starting model update
-Model update took: 2.3603439331054688e-05 s
+Model update took: 2.2172927856445312e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 39 rows, 62 columns and 82 nonzeros
-Model fingerprint: 0x392837a9
-Model has 12 quadratic constraints
-Model has 11 general constraints
-Variable types: 53 continuous, 9 integer (1 binary)
+Optimize a model with 39 rows, 41 columns and 78 nonzeros
+Model fingerprint: 0xc28ef5d5
+Model has 4 quadratic constraints
+Model has 6 general constraints
+Variable types: 32 continuous, 9 integer (1 binary)
 Coefficient statistics:
   Matrix range     [3e-05, 1e+01]
   QMatrix range    [1e+00, 1e+00]
@@ -926,92 +1064,54 @@ Coefficient statistics:
   RHS range        [1e+00, 2e+01]
 
 ---------------------------------------------------------------------------
-Multi-objectives: starting optimization with 2 objectives ... 
+Multi-objectives: starting optimization with 1 objectives ... 
+---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 
-Multi-objectives: applying initial presolve ...
+Multi-objectives: optimize objective 1 (res) ...
 ---------------------------------------------------------------------------
 
-Presolve removed 17 rows and 5 columns
+Optimize a model with 39 rows, 41 columns and 78 nonzeros
+Model has 4 quadratic constraints
+Model has 6 general constraints
+Variable types: 32 continuous, 9 integer (1 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 2e+01]
+
+User MIP start produced solution with objective 220.001 (0.00s)
+Loaded user MIP start with objective 220.001
+
+Presolve removed 39 rows and 41 columns
 Presolve time: 0.00s
-Presolved: 42 rows and 58 columns
----------------------------------------------------------------------------
+Presolve: All rows and columns removed
 
-Multi-objectives: optimize objective 1 (ns) ...
----------------------------------------------------------------------------
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
 
-
-User MIP start produced solution with objective 11.4286 (0.00s)
-Loaded user MIP start with objective 11.4286
-
-Presolve removed 14 rows and 38 columns
-Presolve time: 0.00s
-Presolved: 48 rows, 21 columns, 113 nonzeros
-Presolved model has 2 SOS constraint(s)
-Presolved model has 5 bilinear constraint(s)
-Variable types: 14 continuous, 7 integer (2 binary)
-
-Root relaxation: objective 1.020408e+01, 19 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-     0     0   10.20408    0    1   11.42857   10.20408  10.7%     -    0s
-     0     0   10.20408    0    1   11.42857   10.20408  10.7%     -    0s
-     0     0   10.71652    0   10   11.42857   10.71652  6.23%     -    0s
-     0     1   10.72263    0   10   11.42857   10.72263  6.18%     -    0s
-
-Explored 2 nodes (34 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 1: 11.4286 
-
-Optimal solution found (tolerance 1.00e-04)
-Best objective 1.142857142857e+01, best bound 1.142857142857e+01, gap 0.0000%
----------------------------------------------------------------------------
-
-Multi-objectives: optimize objective 2 (res) ...
----------------------------------------------------------------------------
-
-
-Loaded user MIP start with objective 280.001
-
-Presolve removed 40 rows and 55 columns
-Presolve time: 0.00s
-Presolved: 7 rows, 3 columns, 18 nonzeros
-Presolved model has 1 bilinear constraint(s)
-Found heuristic solution: objective 240.0006223
-Variable types: 2 continuous, 1 integer (0 binary)
-
-Root relaxation: objective 2.200006e+02, 4 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-*    0     0               0     220.0006223  220.00062  0.00%     -    0s
-
-Explored 0 nodes (4 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 3: 220.001 240.001 280.001 
+Solution count 1: 220.001 
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 2.200006222725e+02, best bound 2.200006222725e+02, gap 0.0000%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 0.01 seconds, solution count 3
+Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.007210969924926758 seconds
+Model optimize took: 0.0006279945373535156 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
   Maximum violation:
     Bound       : 0.00000000e+00
-    Constraint  : 8.88178420e-16 (ns_single_CPU_3)
+    Constraint  : 8.88178420e-16
     Integrality : 0.00000000e+00
 
 VARIABLES ------------------------------
-Objective: 11.429715285714288
+Objective: 220.00062227249146
 frac[3,0] 1
 mem[3,0] 5.09766
 mem_tot_CPU_0 0
@@ -1035,48 +1135,27 @@ max_rows_CPU_Cluster 0.25
 m_access_time_CPU_0 0
 ns_single_CPU_0 0
 pdt_m_rows_CPU_0 0
-cores_sketch_CPU_0 0
+cores_sketch_CPU_0 -0
 cores_dpdk_CPU_0 5
-ns_sketch_CPU_0 11.4297
-pdt_nsk_c_CPU_0 0
-ns_dpdk_CPU_0 11.4286
-pdt_nsc_dpdk_CPU_0 57.1429
-ns_CPU_0 11.4297
 m_access_time_CPU_1 0
 ns_single_CPU_1 0
 pdt_m_rows_CPU_1 0
-cores_sketch_CPU_1 0
+cores_sketch_CPU_1 -0
 cores_dpdk_CPU_1 5
-ns_sketch_CPU_1 11.4297
-pdt_nsk_c_CPU_1 0
-ns_dpdk_CPU_1 11.4286
-pdt_nsc_dpdk_CPU_1 57.1429
-ns_CPU_1 11.4297
 m_access_time_CPU_2 0
 ns_single_CPU_2 0
 pdt_m_rows_CPU_2 0
-cores_sketch_CPU_2 0
+cores_sketch_CPU_2 -0
 cores_dpdk_CPU_2 5
-ns_sketch_CPU_2 11.4297
-pdt_nsk_c_CPU_2 0
-ns_dpdk_CPU_2 11.4286
-pdt_nsc_dpdk_CPU_2 57.1429
-ns_CPU_2 11.4297
 m_access_time_CPU_3 0.536096
 ns_single_CPU_3 12.1083
 pdt_m_rows_CPU_3 1.60829
 cores_sketch_CPU_3 2
 cores_dpdk_CPU_3 5
-ns_sketch_CPU_3 6.05414
-pdt_nsk_c_CPU_3 12.1083
-ns_dpdk_CPU_3 11.4286
-pdt_nsc_dpdk_CPU_3 57.1429
-ns_CPU_3 11.4286
-ns 11.4297
 res 220.001
 --------------------------------------------------
 
-Throughput: 87.49124322019418 Mpps, ns per packet: 11.429715285714288
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
 Resources: 220.00062227249146
 Used Cores: 22.0, Total CPUS: 4, Switch Memory: 0
 
@@ -1086,40 +1165,40 @@ Par0 id: 3, Rows: 3
 Total frac: 1.000
 
 Device (0) CPU_0:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019418
+Throughput: 87.49999999999999
 
 Device (1) CPU_1:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019418
+Throughput: 87.49999999999999
 
 Device (2) CPU_2:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019418
+Throughput: 87.49999999999999
 
 Device (3) CPU_3:
 cores_sketch: 2.0, cores_dpdk: 5.0
 Rows total: 3.0
 Mem total: 5.09765625
-Throughput: 87.5
+Throughput: 87.49999999999999
 
 Flow 0:
 partitions: [(0, 1.0)]
 path: {3}
 --------------------------------------------------
-Function: MIP.solve took 0.012902021408081055 seconds
+Function: MIP.solve took 0.016770124435424805 seconds
 Building model with:
 4 devices, 1 partitions and 1 flows
-Function: MIP.add_frac_mem_var took 8.153915405273438e-05 seconds
-Function: MIP.add_coverage_constraints took 4.458427429199219e-05 seconds
-Function: MIP.add_accuracy_constraints took 3.838539123535156e-05 seconds
-Function: MIP.add_capacity_constraints took 0.00048041343688964844 seconds
+Function: MIP.add_frac_mem_var took 4.935264587402344e-05 seconds
+Function: MIP.add_coverage_constraints took 2.288818359375e-05 seconds
+Function: MIP.add_accuracy_constraints took 2.193450927734375e-05 seconds
+Function: MIP.add_capacity_constraints took 0.00029850006103515625 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1146,6 +1225,134 @@ Presolve time: 0.00s
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_4 0
+m_access_time_CPU_4 0
+ns_single_CPU_4 0
+pdt_m_rows_CPU_4 0
+cores_sketch_CPU_4 0
+cores_dpdk_CPU_4 7
+ns_sketch_CPU_4 10.2041
+pdt_nsk_c_CPU_4 0
+ns_dpdk_CPU_4 10.2041
+pdt_nsc_dpdk_CPU_4 71.4286
+ns_CPU_4 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_5 0
+m_access_time_CPU_5 0
+ns_single_CPU_5 0
+pdt_m_rows_CPU_5 0
+cores_sketch_CPU_5 0
+cores_dpdk_CPU_5 7
+ns_sketch_CPU_5 10.2041
+pdt_nsk_c_CPU_5 0
+ns_dpdk_CPU_5 10.2041
+pdt_nsc_dpdk_CPU_5 71.4286
+ns_CPU_5 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_6 0
+m_access_time_CPU_6 0
+ns_single_CPU_6 0
+pdt_m_rows_CPU_6 0
+cores_sketch_CPU_6 0
+cores_dpdk_CPU_6 7
+ns_sketch_CPU_6 10.2041
+pdt_nsk_c_CPU_6 0
+ns_dpdk_CPU_6 10.2041
+pdt_nsc_dpdk_CPU_6 71.4286
+ns_CPU_6 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_7 5.09766
+m_access_time_CPU_7 0.536096
+ns_single_CPU_7 12.1083
+pdt_m_rows_CPU_7 1.60829
+cores_sketch_CPU_7 2
+cores_dpdk_CPU_7 5
+ns_sketch_CPU_7 6.05414
+pdt_nsk_c_CPU_7 12.1083
+ns_dpdk_CPU_7 11.4286
+pdt_nsc_dpdk_CPU_7 57.1429
+ns_CPU_7 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_4 0
+m_access_time_CPU_4 0
+ns_single_CPU_4 0
+pdt_m_rows_CPU_4 0
+cores_sketch_CPU_4 0
+cores_dpdk_CPU_4 5
+ns_sketch_CPU_4 11.4286
+pdt_nsk_c_CPU_4 0
+ns_dpdk_CPU_4 11.4286
+pdt_nsc_dpdk_CPU_4 57.1429
+ns_CPU_4 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_5 0
+m_access_time_CPU_5 0
+ns_single_CPU_5 0
+pdt_m_rows_CPU_5 0
+cores_sketch_CPU_5 0
+cores_dpdk_CPU_5 5
+ns_sketch_CPU_5 11.4286
+pdt_nsk_c_CPU_5 0
+ns_dpdk_CPU_5 11.4286
+pdt_nsc_dpdk_CPU_5 57.1429
+ns_CPU_5 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_6 0
+m_access_time_CPU_6 0
+ns_single_CPU_6 0
+pdt_m_rows_CPU_6 0
+cores_sketch_CPU_6 0
+cores_dpdk_CPU_6 5
+ns_sketch_CPU_6 11.4286
+pdt_nsk_c_CPU_6 0
+ns_dpdk_CPU_6 11.4286
+pdt_nsc_dpdk_CPU_6 57.1429
+ns_CPU_6 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_7 5.09766
+m_access_time_CPU_7 0.536096
+ns_single_CPU_7 12.1083
+pdt_m_rows_CPU_7 1.60829
+cores_sketch_CPU_7 2
+cores_dpdk_CPU_7 5
+ns_sketch_CPU_7 6.05414
+pdt_nsk_c_CPU_7 12.1083
+ns_dpdk_CPU_7 11.4286
+pdt_nsc_dpdk_CPU_7 57.1429
+ns_CPU_7 11.4286
+--------------------------------------------------
 
 Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 7, Rows: 3
@@ -1153,20 +1360,28 @@ Par0 id: 7, Rows: 3
 Total frac: 1.000
 
 Device (0) CPU_4:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (1) CPU_5:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (2) CPU_6:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (3) CPU_7:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
 Rows total: 3.0
 Mem total: 5.09765625
+Throughput: 87.49999999999999
 
 Flow 0:
 partitions: [(0, 1.0)]
@@ -1180,17 +1395,19 @@ Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
 Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPGapAbs to 10.0
+   Prev: 1e-10  Min: 0.0  Max: inf  Default: 1e-10
 --------------------------------------------------
 Starting model update
-Model update took: 5.507469177246094e-05 s
+Model update took: 2.1219253540039062e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 39 rows, 62 columns and 82 nonzeros
-Model fingerprint: 0x392837a9
-Model has 12 quadratic constraints
-Model has 11 general constraints
-Variable types: 53 continuous, 9 integer (1 binary)
+Optimize a model with 39 rows, 41 columns and 78 nonzeros
+Model fingerprint: 0xc28ef5d5
+Model has 4 quadratic constraints
+Model has 6 general constraints
+Variable types: 32 continuous, 9 integer (1 binary)
 Coefficient statistics:
   Matrix range     [3e-05, 1e+01]
   QMatrix range    [1e+00, 1e+00]
@@ -1200,92 +1417,54 @@ Coefficient statistics:
   RHS range        [1e+00, 2e+01]
 
 ---------------------------------------------------------------------------
-Multi-objectives: starting optimization with 2 objectives ... 
+Multi-objectives: starting optimization with 1 objectives ... 
+---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 
-Multi-objectives: applying initial presolve ...
+Multi-objectives: optimize objective 1 (res) ...
 ---------------------------------------------------------------------------
 
-Presolve removed 17 rows and 5 columns
+Optimize a model with 39 rows, 41 columns and 78 nonzeros
+Model has 4 quadratic constraints
+Model has 6 general constraints
+Variable types: 32 continuous, 9 integer (1 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 2e+01]
+
+User MIP start produced solution with objective 220.001 (0.00s)
+Loaded user MIP start with objective 220.001
+
+Presolve removed 39 rows and 41 columns
 Presolve time: 0.00s
-Presolved: 42 rows and 58 columns
----------------------------------------------------------------------------
+Presolve: All rows and columns removed
 
-Multi-objectives: optimize objective 1 (ns) ...
----------------------------------------------------------------------------
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
 
-
-User MIP start produced solution with objective 11.4286 (0.00s)
-Loaded user MIP start with objective 11.4286
-
-Presolve removed 14 rows and 38 columns
-Presolve time: 0.00s
-Presolved: 48 rows, 21 columns, 113 nonzeros
-Presolved model has 2 SOS constraint(s)
-Presolved model has 5 bilinear constraint(s)
-Variable types: 14 continuous, 7 integer (2 binary)
-
-Root relaxation: objective 1.020408e+01, 19 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-     0     0   10.20408    0    1   11.42857   10.20408  10.7%     -    0s
-     0     0   10.20408    0    1   11.42857   10.20408  10.7%     -    0s
-     0     0   10.71652    0   10   11.42857   10.71652  6.23%     -    0s
-     0     1   10.72263    0   10   11.42857   10.72263  6.18%     -    0s
-
-Explored 2 nodes (34 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 1: 11.4286 
-
-Optimal solution found (tolerance 1.00e-04)
-Best objective 1.142857142857e+01, best bound 1.142857142857e+01, gap 0.0000%
----------------------------------------------------------------------------
-
-Multi-objectives: optimize objective 2 (res) ...
----------------------------------------------------------------------------
-
-
-Loaded user MIP start with objective 280.001
-
-Presolve removed 40 rows and 55 columns
-Presolve time: 0.00s
-Presolved: 7 rows, 3 columns, 18 nonzeros
-Presolved model has 1 bilinear constraint(s)
-Found heuristic solution: objective 240.0006223
-Variable types: 2 continuous, 1 integer (0 binary)
-
-Root relaxation: objective 2.200006e+02, 4 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-*    0     0               0     220.0006223  220.00062  0.00%     -    0s
-
-Explored 0 nodes (4 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 3: 220.001 240.001 280.001 
+Solution count 1: 220.001 
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 2.200006222725e+02, best bound 2.200006222725e+02, gap 0.0000%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 0.01 seconds, solution count 3
+Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.00992727279663086 seconds
+Model optimize took: 0.000606536865234375 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
   Maximum violation:
     Bound       : 0.00000000e+00
-    Constraint  : 8.88178420e-16 (ns_single_CPU_7)
+    Constraint  : 8.88178420e-16
     Integrality : 0.00000000e+00
 
 VARIABLES ------------------------------
-Objective: 11.429715285714288
+Objective: 220.00062227249146
 frac[3,0] 1
 mem[3,0] 5.09766
 mem_tot_CPU_4 0
@@ -1309,48 +1488,27 @@ max_rows_CPU_Cluster 0.25
 m_access_time_CPU_4 0
 ns_single_CPU_4 0
 pdt_m_rows_CPU_4 0
-cores_sketch_CPU_4 0
+cores_sketch_CPU_4 -0
 cores_dpdk_CPU_4 5
-ns_sketch_CPU_4 11.4297
-pdt_nsk_c_CPU_4 0
-ns_dpdk_CPU_4 11.4286
-pdt_nsc_dpdk_CPU_4 57.1429
-ns_CPU_4 11.4297
 m_access_time_CPU_5 0
 ns_single_CPU_5 0
 pdt_m_rows_CPU_5 0
-cores_sketch_CPU_5 0
+cores_sketch_CPU_5 -0
 cores_dpdk_CPU_5 5
-ns_sketch_CPU_5 11.4297
-pdt_nsk_c_CPU_5 0
-ns_dpdk_CPU_5 11.4286
-pdt_nsc_dpdk_CPU_5 57.1429
-ns_CPU_5 11.4297
 m_access_time_CPU_6 0
 ns_single_CPU_6 0
 pdt_m_rows_CPU_6 0
-cores_sketch_CPU_6 0
+cores_sketch_CPU_6 -0
 cores_dpdk_CPU_6 5
-ns_sketch_CPU_6 11.4297
-pdt_nsk_c_CPU_6 0
-ns_dpdk_CPU_6 11.4286
-pdt_nsc_dpdk_CPU_6 57.1429
-ns_CPU_6 11.4297
 m_access_time_CPU_7 0.536096
 ns_single_CPU_7 12.1083
 pdt_m_rows_CPU_7 1.60829
 cores_sketch_CPU_7 2
 cores_dpdk_CPU_7 5
-ns_sketch_CPU_7 6.05414
-pdt_nsk_c_CPU_7 12.1083
-ns_dpdk_CPU_7 11.4286
-pdt_nsc_dpdk_CPU_7 57.1429
-ns_CPU_7 11.4286
-ns 11.4297
 res 220.001
 --------------------------------------------------
 
-Throughput: 87.49124322019418 Mpps, ns per packet: 11.429715285714288
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
 Resources: 220.00062227249146
 Used Cores: 22.0, Total CPUS: 4, Switch Memory: 0
 
@@ -1360,278 +1518,40 @@ Par0 id: 7, Rows: 3
 Total frac: 1.000
 
 Device (0) CPU_4:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019418
+Throughput: 87.49999999999999
 
 Device (1) CPU_5:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019418
+Throughput: 87.49999999999999
 
 Device (2) CPU_6:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019418
+Throughput: 87.49999999999999
 
 Device (3) CPU_7:
 cores_sketch: 2.0, cores_dpdk: 5.0
 Rows total: 3.0
 Mem total: 5.09765625
-Throughput: 87.5
+Throughput: 87.49999999999999
 
 Flow 0:
 partitions: [(0, 1.0)]
 path: {3}
 --------------------------------------------------
-Function: MIP.solve took 0.018798351287841797 seconds
-Building model with:
-4 devices, 0 partitions and 0 flows
-Function: MIP.add_frac_mem_var took 1.5497207641601562e-05 seconds
-Function: MIP.add_coverage_constraints took 1.430511474609375e-06 seconds
-Function: MIP.add_accuracy_constraints took 7.152557373046875e-07 seconds
-Function: MIP.add_capacity_constraints took 0.0004477500915527344 seconds
-Changed value of parameter TimeLimit to 120.0
-   Prev: inf  Min: 0.0  Max: inf  Default: inf
-Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 20 rows, 18 columns and 28 nonzeros
-Model fingerprint: 0x222be027
-Model has 2 general constraints
-Variable types: 18 continuous, 0 integer (0 binary)
-Coefficient statistics:
-  Matrix range     [3e-05, 1e+00]
-  Objective range  [1e+00, 1e+00]
-  Bounds range     [1e+00, 3e+04]
-  RHS range        [1e+01, 1e+01]
-
----------------------------------------------------------------------------
-Multi-objectives: starting optimization with 8 objectives (5 combined) ...
----------------------------------------------------------------------------
-
-Multi-objectives: applying initial presolve ...
----------------------------------------------------------------------------
-
-Presolve removed 20 rows and 18 columns
-Presolve time: 0.00s
-
----------------------------------------------------------------------------
-Multi-objectives: solved in 0.00 seconds, solution count 1
-
-
-Device (0) CPU_8:
-Rows total: 0.0
-Mem total: 0.0
-
-Device (1) CPU_9:
-Rows total: 0.0
-Mem total: 0.0
-
-Device (2) CPU_10:
-Rows total: 0.0
-Mem total: 0.0
-
-Device (3) CPU_11:
-Rows total: 0.0
-Mem total: 0.0
-
---------------------------------------------------
-Changed value of parameter NonConvex to 2
-   Prev: -1  Min: -1  Max: 2  Default: -1
-Parameter NonConvex unchanged
-   Value: 2  Min: -1  Max: 2  Default: -1
-Parameter NonConvex unchanged
-   Value: 2  Min: -1  Max: 2  Default: -1
-Parameter NonConvex unchanged
-   Value: 2  Min: -1  Max: 2  Default: -1
---------------------------------------------------
-Starting model update
-Model update took: 2.574920654296875e-05 s
---------------------------------------------------
-Starting model optimize
-Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 37 rows, 60 columns and 77 nonzeros
-Model fingerprint: 0xfae8e9aa
-Model has 12 quadratic constraints
-Model has 11 general constraints
-Variable types: 52 continuous, 8 integer (0 binary)
-Coefficient statistics:
-  Matrix range     [3e-05, 1e+01]
-  QMatrix range    [1e+00, 1e+00]
-  QLMatrix range   [1e+00, 1e+00]
-  Objective range  [1e+00, 1e+00]
-  Bounds range     [1e+00, 3e+04]
-  RHS range        [7e+00, 2e+01]
-
----------------------------------------------------------------------------
-Multi-objectives: starting optimization with 2 objectives ... 
----------------------------------------------------------------------------
-
-Multi-objectives: applying initial presolve ...
----------------------------------------------------------------------------
-
-Presolve removed 16 rows and 3 columns
-Presolve time: 0.00s
-Presolved: 37 rows and 57 columns
----------------------------------------------------------------------------
-
-Multi-objectives: optimize objective 1 (ns) ...
----------------------------------------------------------------------------
-
-Presolve removed 13 rows and 44 columns
-Presolve time: 0.00s
-Presolved: 40 rows, 13 columns, 96 nonzeros
-Presolved model has 4 bilinear constraint(s)
-Variable types: 9 continuous, 4 integer (0 binary)
-
-Root relaxation: objective 1.020408e+01, 17 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-*    0     0               0      10.2040816   10.20408  0.00%     -    0s
-
-Explored 0 nodes (17 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 1: 10.2041 
-
-Optimal solution found (tolerance 1.00e-04)
-Best objective 1.020408163265e+01, best bound 1.020408163265e+01, gap 0.0000%
----------------------------------------------------------------------------
-
-Multi-objectives: optimize objective 2 (res) ...
----------------------------------------------------------------------------
-
-
-Loaded user MIP start with objective 280
-
-Presolve removed 38 rows and 57 columns
-Presolve time: 0.00s
-Presolve: All rows and columns removed
-
-Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-Thread count was 1 (of 12 available processors)
-
-Solution count 1: 280 
-
-Optimal solution found (tolerance 1.00e-04)
-Best objective 2.800000000000e+02, best bound 2.800000000000e+02, gap 0.0000%
-
----------------------------------------------------------------------------
-Multi-objectives: solved in 0.00 seconds, solution count 2
-
-Model optimize took: 0.0013427734375 seconds
---------------------------------------------------
-
-Solution quality statistics for model Netmon :
-  Maximum violation:
-    Bound       : 0.00000000e+00
-    Constraint  : 4.26325641e-14
-    Integrality : 0.00000000e+00
-
-VARIABLES ------------------------------
-Objective: 10.205103040816326
-mem_tot_CPU_8 0
-normalized_mem_tot_CPU_8 0
-rows_tot_CPU_8 0
-normalized_rows_tot_CPU_8 0
-mem_tot_CPU_9 0
-normalized_mem_tot_CPU_9 0
-rows_tot_CPU_9 0
-normalized_rows_tot_CPU_9 0
-mem_tot_CPU_10 0
-normalized_mem_tot_CPU_10 0
-rows_tot_CPU_10 0
-normalized_rows_tot_CPU_10 0
-mem_tot_CPU_11 0
-normalized_mem_tot_CPU_11 0
-rows_tot_CPU_11 0
-normalized_rows_tot_CPU_11 0
-max_mem_CPU_Cluster 0
-max_rows_CPU_Cluster 0
-m_access_time_CPU_8 0
-ns_single_CPU_8 0
-pdt_m_rows_CPU_8 0
-cores_sketch_CPU_8 0
-cores_dpdk_CPU_8 7
-ns_sketch_CPU_8 10.2051
-pdt_nsk_c_CPU_8 0
-ns_dpdk_CPU_8 10.2041
-pdt_nsc_dpdk_CPU_8 71.4286
-ns_CPU_8 10.2051
-m_access_time_CPU_9 0
-ns_single_CPU_9 0
-pdt_m_rows_CPU_9 0
-cores_sketch_CPU_9 0
-cores_dpdk_CPU_9 7
-ns_sketch_CPU_9 10.2051
-pdt_nsk_c_CPU_9 0
-ns_dpdk_CPU_9 10.2041
-pdt_nsc_dpdk_CPU_9 71.4286
-ns_CPU_9 10.2051
-m_access_time_CPU_10 0
-ns_single_CPU_10 0
-pdt_m_rows_CPU_10 0
-cores_sketch_CPU_10 0
-cores_dpdk_CPU_10 7
-ns_sketch_CPU_10 10.2051
-pdt_nsk_c_CPU_10 0
-ns_dpdk_CPU_10 10.2041
-pdt_nsc_dpdk_CPU_10 71.4286
-ns_CPU_10 10.2051
-m_access_time_CPU_11 0
-ns_single_CPU_11 0
-pdt_m_rows_CPU_11 0
-cores_sketch_CPU_11 0
-cores_dpdk_CPU_11 7
-ns_sketch_CPU_11 10.2051
-pdt_nsk_c_CPU_11 0
-ns_dpdk_CPU_11 10.2041
-pdt_nsc_dpdk_CPU_11 71.4286
-ns_CPU_11 10.2051
-ns 10.2051
-res 280
---------------------------------------------------
-
-Throughput: 97.99019137782346 Mpps, ns per packet: 10.205103040816326
-Resources: 280.0
-Used Cores: 28.0, Total CPUS: 4, Switch Memory: 0
-
-Device (0) CPU_8:
-cores_sketch: 0.0, cores_dpdk: 7.0
-Rows total: 0.0
-Mem total: 0.0
-Throughput: 97.99019137782346
-
-Device (1) CPU_9:
-cores_sketch: 0.0, cores_dpdk: 7.0
-Rows total: 0.0
-Mem total: 0.0
-Throughput: 97.99019137782346
-
-Device (2) CPU_10:
-cores_sketch: 0.0, cores_dpdk: 7.0
-Rows total: 0.0
-Mem total: 0.0
-Throughput: 97.99019137782346
-
-Device (3) CPU_11:
-cores_sketch: 0.0, cores_dpdk: 7.0
-Rows total: 0.0
-Mem total: 0.0
-Throughput: 97.99019137782346
-
---------------------------------------------------
-Function: MIP.solve took 0.0066242218017578125 seconds
+Function: MIP.solve took 0.016135454177856445 seconds
 Building model with:
 4 devices, 1 partitions and 1 flows
-Function: MIP.add_frac_mem_var took 5.1021575927734375e-05 seconds
-Function: MIP.add_coverage_constraints took 2.5272369384765625e-05 seconds
-Function: MIP.add_accuracy_constraints took 2.5272369384765625e-05 seconds
-Function: MIP.add_capacity_constraints took 0.0002913475036621094 seconds
+Function: MIP.add_frac_mem_var took 4.744529724121094e-05 seconds
+Function: MIP.add_coverage_constraints took 2.2649765014648438e-05 seconds
+Function: MIP.add_accuracy_constraints took 2.2172927856445312e-05 seconds
+Function: MIP.add_capacity_constraints took 0.00029850006103515625 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1658,6 +1578,134 @@ Presolve time: 0.00s
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_12 5.09766
+m_access_time_CPU_12 0.536096
+ns_single_CPU_12 12.1083
+pdt_m_rows_CPU_12 1.60829
+cores_sketch_CPU_12 2
+cores_dpdk_CPU_12 5
+ns_sketch_CPU_12 6.05414
+pdt_nsk_c_CPU_12 12.1083
+ns_dpdk_CPU_12 11.4286
+pdt_nsc_dpdk_CPU_12 57.1429
+ns_CPU_12 11.4286
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_13 0
+m_access_time_CPU_13 0
+ns_single_CPU_13 0
+pdt_m_rows_CPU_13 0
+cores_sketch_CPU_13 0
+cores_dpdk_CPU_13 7
+ns_sketch_CPU_13 10.2041
+pdt_nsk_c_CPU_13 0
+ns_dpdk_CPU_13 10.2041
+pdt_nsc_dpdk_CPU_13 71.4286
+ns_CPU_13 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_14 0
+m_access_time_CPU_14 0
+ns_single_CPU_14 0
+pdt_m_rows_CPU_14 0
+cores_sketch_CPU_14 0
+cores_dpdk_CPU_14 7
+ns_sketch_CPU_14 10.2041
+pdt_nsk_c_CPU_14 0
+ns_dpdk_CPU_14 10.2041
+pdt_nsc_dpdk_CPU_14 71.4286
+ns_CPU_14 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_15 0
+m_access_time_CPU_15 0
+ns_single_CPU_15 0
+pdt_m_rows_CPU_15 0
+cores_sketch_CPU_15 0
+cores_dpdk_CPU_15 7
+ns_sketch_CPU_15 10.2041
+pdt_nsk_c_CPU_15 0
+ns_dpdk_CPU_15 10.2041
+pdt_nsc_dpdk_CPU_15 71.4286
+ns_CPU_15 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_12 5.09766
+m_access_time_CPU_12 0.536096
+ns_single_CPU_12 12.1083
+pdt_m_rows_CPU_12 1.60829
+cores_sketch_CPU_12 2
+cores_dpdk_CPU_12 5
+ns_sketch_CPU_12 6.05414
+pdt_nsk_c_CPU_12 12.1083
+ns_dpdk_CPU_12 11.4286
+pdt_nsc_dpdk_CPU_12 57.1429
+ns_CPU_12 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_13 0
+m_access_time_CPU_13 0
+ns_single_CPU_13 0
+pdt_m_rows_CPU_13 0
+cores_sketch_CPU_13 0
+cores_dpdk_CPU_13 5
+ns_sketch_CPU_13 11.4286
+pdt_nsk_c_CPU_13 0
+ns_dpdk_CPU_13 11.4286
+pdt_nsc_dpdk_CPU_13 57.1429
+ns_CPU_13 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_14 0
+m_access_time_CPU_14 0
+ns_single_CPU_14 0
+pdt_m_rows_CPU_14 0
+cores_sketch_CPU_14 0
+cores_dpdk_CPU_14 5
+ns_sketch_CPU_14 11.4286
+pdt_nsk_c_CPU_14 0
+ns_dpdk_CPU_14 11.4286
+pdt_nsc_dpdk_CPU_14 57.1429
+ns_CPU_14 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_15 0
+m_access_time_CPU_15 0
+ns_single_CPU_15 0
+pdt_m_rows_CPU_15 0
+cores_sketch_CPU_15 0
+cores_dpdk_CPU_15 5
+ns_sketch_CPU_15 11.4286
+pdt_nsk_c_CPU_15 0
+ns_dpdk_CPU_15 11.4286
+pdt_nsc_dpdk_CPU_15 57.1429
+ns_CPU_15 11.4286
+--------------------------------------------------
 
 Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 11, Rows: 3
@@ -1665,20 +1713,28 @@ Par0 id: 11, Rows: 3
 Total frac: 1.000
 
 Device (0) CPU_12:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
 Rows total: 3.0
 Mem total: 5.09765625
+Throughput: 87.49999999999999
 
 Device (1) CPU_13:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (2) CPU_14:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (3) CPU_15:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Flow 0:
 partitions: [(0, 1.0)]
@@ -1692,17 +1748,19 @@ Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
 Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPGapAbs to 10.0
+   Prev: 1e-10  Min: 0.0  Max: inf  Default: 1e-10
 --------------------------------------------------
 Starting model update
-Model update took: 2.6226043701171875e-05 s
+Model update took: 2.1219253540039062e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 39 rows, 62 columns and 82 nonzeros
-Model fingerprint: 0xdc1e7176
-Model has 12 quadratic constraints
-Model has 11 general constraints
-Variable types: 53 continuous, 9 integer (1 binary)
+Optimize a model with 39 rows, 41 columns and 78 nonzeros
+Model fingerprint: 0x11282906
+Model has 4 quadratic constraints
+Model has 6 general constraints
+Variable types: 32 continuous, 9 integer (1 binary)
 Coefficient statistics:
   Matrix range     [3e-05, 1e+01]
   QMatrix range    [1e+00, 1e+00]
@@ -1712,94 +1770,54 @@ Coefficient statistics:
   RHS range        [1e+00, 2e+01]
 
 ---------------------------------------------------------------------------
-Multi-objectives: starting optimization with 2 objectives ... 
+Multi-objectives: starting optimization with 1 objectives ... 
+---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 
-Multi-objectives: applying initial presolve ...
+Multi-objectives: optimize objective 1 (res) ...
 ---------------------------------------------------------------------------
 
-Presolve removed 17 rows and 5 columns
+Optimize a model with 39 rows, 41 columns and 78 nonzeros
+Model has 4 quadratic constraints
+Model has 6 general constraints
+Variable types: 32 continuous, 9 integer (1 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 2e+01]
+
+User MIP start produced solution with objective 220.001 (0.00s)
+Loaded user MIP start with objective 220.001
+
+Presolve removed 39 rows and 41 columns
 Presolve time: 0.00s
-Presolved: 42 rows and 58 columns
----------------------------------------------------------------------------
+Presolve: All rows and columns removed
 
-Multi-objectives: optimize objective 1 (ns) ...
----------------------------------------------------------------------------
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
 
-
-User MIP start produced solution with objective 11.4286 (0.00s)
-Loaded user MIP start with objective 11.4286
-
-Presolve removed 14 rows and 38 columns
-Presolve time: 0.00s
-Presolved: 48 rows, 21 columns, 113 nonzeros
-Presolved model has 2 SOS constraint(s)
-Presolved model has 5 bilinear constraint(s)
-Variable types: 14 continuous, 7 integer (2 binary)
-
-Root relaxation: objective 1.020408e+01, 19 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-     0     0   10.71652    0   10   11.42857   10.71652  6.23%     -    0s
-     0     0     cutoff    0        11.42857   11.42857  0.00%     -    0s
-
-Cutting planes:
-  MIR: 1
-  RLT: 6
-
-Explored 1 nodes (31 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 1: 11.4286 
-
-Optimal solution found (tolerance 1.00e-04)
-Best objective 1.142857142857e+01, best bound 1.142857142857e+01, gap 0.0000%
----------------------------------------------------------------------------
-
-Multi-objectives: optimize objective 2 (res) ...
----------------------------------------------------------------------------
-
-
-Loaded user MIP start with objective 250.001
-
-Presolve removed 40 rows and 55 columns
-Presolve time: 0.00s
-Presolved: 7 rows, 3 columns, 18 nonzeros
-Presolved model has 1 bilinear constraint(s)
-Found heuristic solution: objective 230.0006223
-Variable types: 2 continuous, 1 integer (0 binary)
-
-Root relaxation: objective 2.200006e+02, 3 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-*    0     0               0     220.0006223  220.00062  0.00%     -    0s
-
-Explored 0 nodes (3 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 3: 220.001 230.001 250.001 
+Solution count 1: 220.001 
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 2.200006222725e+02, best bound 2.200006222725e+02, gap 0.0000%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 0.01 seconds, solution count 3
+Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.0058019161224365234 seconds
+Model optimize took: 0.0006225109100341797 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
   Maximum violation:
     Bound       : 0.00000000e+00
-    Constraint  : 8.88178420e-16 (ns_single_CPU_12)
+    Constraint  : 8.88178420e-16
     Integrality : 0.00000000e+00
 
 VARIABLES ------------------------------
-Objective: 11.429715285714286
+Objective: 220.00062227249146
 frac[0,0] 1
 mem[0,0] 5.09766
 mem_tot_CPU_12 5.09766
@@ -1825,46 +1843,25 @@ ns_single_CPU_12 12.1083
 pdt_m_rows_CPU_12 1.60829
 cores_sketch_CPU_12 2
 cores_dpdk_CPU_12 5
-ns_sketch_CPU_12 6.05414
-pdt_nsk_c_CPU_12 12.1083
-ns_dpdk_CPU_12 11.4286
-pdt_nsc_dpdk_CPU_12 57.1429
-ns_CPU_12 11.4286
 m_access_time_CPU_13 0
 ns_single_CPU_13 0
 pdt_m_rows_CPU_13 0
-cores_sketch_CPU_13 0
+cores_sketch_CPU_13 -0
 cores_dpdk_CPU_13 5
-ns_sketch_CPU_13 11.4297
-pdt_nsk_c_CPU_13 0
-ns_dpdk_CPU_13 11.4286
-pdt_nsc_dpdk_CPU_13 57.1429
-ns_CPU_13 11.4297
 m_access_time_CPU_14 0
 ns_single_CPU_14 0
 pdt_m_rows_CPU_14 0
-cores_sketch_CPU_14 0
+cores_sketch_CPU_14 -0
 cores_dpdk_CPU_14 5
-ns_sketch_CPU_14 11.4297
-pdt_nsk_c_CPU_14 0
-ns_dpdk_CPU_14 11.4286
-pdt_nsc_dpdk_CPU_14 57.1429
-ns_CPU_14 11.4297
 m_access_time_CPU_15 0
 ns_single_CPU_15 0
 pdt_m_rows_CPU_15 0
-cores_sketch_CPU_15 0
+cores_sketch_CPU_15 -0
 cores_dpdk_CPU_15 5
-ns_sketch_CPU_15 11.4297
-pdt_nsk_c_CPU_15 0
-ns_dpdk_CPU_15 11.4286
-pdt_nsc_dpdk_CPU_15 57.1429
-ns_CPU_15 11.4297
-ns 11.4297
 res 220.001
 --------------------------------------------------
 
-Throughput: 87.49124322019419 Mpps, ns per packet: 11.429715285714286
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
 Resources: 220.00062227249146
 Used Cores: 22.0, Total CPUS: 4, Switch Memory: 0
 
@@ -1877,37 +1874,37 @@ Device (0) CPU_12:
 cores_sketch: 2.0, cores_dpdk: 5.0
 Rows total: 3.0
 Mem total: 5.09765625
-Throughput: 87.5
+Throughput: 87.49999999999999
 
 Device (1) CPU_13:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019419
+Throughput: 87.49999999999999
 
 Device (2) CPU_14:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019419
+Throughput: 87.49999999999999
 
 Device (3) CPU_15:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019419
+Throughput: 87.49999999999999
 
 Flow 0:
 partitions: [(0, 1.0)]
 path: {0}
 --------------------------------------------------
-Function: MIP.solve took 0.011237382888793945 seconds
+Function: MIP.solve took 0.016160249710083008 seconds
 Building model with:
 4 devices, 1 partitions and 1 flows
-Function: MIP.add_frac_mem_var took 6.699562072753906e-05 seconds
-Function: MIP.add_coverage_constraints took 2.6226043701171875e-05 seconds
-Function: MIP.add_accuracy_constraints took 2.6941299438476562e-05 seconds
-Function: MIP.add_capacity_constraints took 0.00040030479431152344 seconds
+Function: MIP.add_frac_mem_var took 4.76837158203125e-05 seconds
+Function: MIP.add_coverage_constraints took 2.288818359375e-05 seconds
+Function: MIP.add_accuracy_constraints took 2.4080276489257812e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0002963542938232422 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -1934,6 +1931,134 @@ Presolve time: 0.00s
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.00 seconds, solution count 1
 
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_16 5.09766
+m_access_time_CPU_16 0.536096
+ns_single_CPU_16 12.1083
+pdt_m_rows_CPU_16 1.60829
+cores_sketch_CPU_16 2
+cores_dpdk_CPU_16 5
+ns_sketch_CPU_16 6.05414
+pdt_nsk_c_CPU_16 12.1083
+ns_dpdk_CPU_16 11.4286
+pdt_nsc_dpdk_CPU_16 57.1429
+ns_CPU_16 11.4286
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_17 0
+m_access_time_CPU_17 0
+ns_single_CPU_17 0
+pdt_m_rows_CPU_17 0
+cores_sketch_CPU_17 0
+cores_dpdk_CPU_17 7
+ns_sketch_CPU_17 10.2041
+pdt_nsk_c_CPU_17 0
+ns_dpdk_CPU_17 10.2041
+pdt_nsc_dpdk_CPU_17 71.4286
+ns_CPU_17 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_18 0
+m_access_time_CPU_18 0
+ns_single_CPU_18 0
+pdt_m_rows_CPU_18 0
+cores_sketch_CPU_18 0
+cores_dpdk_CPU_18 7
+ns_sketch_CPU_18 10.2041
+pdt_nsk_c_CPU_18 0
+ns_dpdk_CPU_18 10.2041
+pdt_nsc_dpdk_CPU_18 71.4286
+ns_CPU_18 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_19 0
+m_access_time_CPU_19 0
+ns_single_CPU_19 0
+pdt_m_rows_CPU_19 0
+cores_sketch_CPU_19 0
+cores_dpdk_CPU_19 7
+ns_sketch_CPU_19 10.2041
+pdt_nsk_c_CPU_19 0
+ns_dpdk_CPU_19 10.2041
+pdt_nsc_dpdk_CPU_19 71.4286
+ns_CPU_19 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_16 5.09766
+m_access_time_CPU_16 0.536096
+ns_single_CPU_16 12.1083
+pdt_m_rows_CPU_16 1.60829
+cores_sketch_CPU_16 2
+cores_dpdk_CPU_16 5
+ns_sketch_CPU_16 6.05414
+pdt_nsk_c_CPU_16 12.1083
+ns_dpdk_CPU_16 11.4286
+pdt_nsc_dpdk_CPU_16 57.1429
+ns_CPU_16 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_17 0
+m_access_time_CPU_17 0
+ns_single_CPU_17 0
+pdt_m_rows_CPU_17 0
+cores_sketch_CPU_17 0
+cores_dpdk_CPU_17 5
+ns_sketch_CPU_17 11.4286
+pdt_nsk_c_CPU_17 0
+ns_dpdk_CPU_17 11.4286
+pdt_nsc_dpdk_CPU_17 57.1429
+ns_CPU_17 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_18 0
+m_access_time_CPU_18 0
+ns_single_CPU_18 0
+pdt_m_rows_CPU_18 0
+cores_sketch_CPU_18 0
+cores_dpdk_CPU_18 5
+ns_sketch_CPU_18 11.4286
+pdt_nsk_c_CPU_18 0
+ns_dpdk_CPU_18 11.4286
+pdt_nsc_dpdk_CPU_18 57.1429
+ns_CPU_18 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_19 0
+m_access_time_CPU_19 0
+ns_single_CPU_19 0
+pdt_m_rows_CPU_19 0
+cores_sketch_CPU_19 0
+cores_dpdk_CPU_19 5
+ns_sketch_CPU_19 11.4286
+pdt_nsk_c_CPU_19 0
+ns_dpdk_CPU_19 11.4286
+pdt_nsc_dpdk_CPU_19 57.1429
+ns_CPU_19 11.4286
+--------------------------------------------------
 
 Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 15, Rows: 3
@@ -1941,20 +2066,28 @@ Par0 id: 15, Rows: 3
 Total frac: 1.000
 
 Device (0) CPU_16:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
 Rows total: 3.0
 Mem total: 5.09765625
+Throughput: 87.49999999999999
 
 Device (1) CPU_17:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (2) CPU_18:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Device (3) CPU_19:
+cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 87.49999999999999
 
 Flow 0:
 partitions: [(0, 1.0)]
@@ -1968,17 +2101,19 @@ Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
 Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPGapAbs to 10.0
+   Prev: 1e-10  Min: 0.0  Max: inf  Default: 1e-10
 --------------------------------------------------
 Starting model update
-Model update took: 2.5272369384765625e-05 s
+Model update took: 2.1457672119140625e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 39 rows, 62 columns and 82 nonzeros
-Model fingerprint: 0xdc1e7176
-Model has 12 quadratic constraints
-Model has 11 general constraints
-Variable types: 53 continuous, 9 integer (1 binary)
+Optimize a model with 39 rows, 41 columns and 78 nonzeros
+Model fingerprint: 0x11282906
+Model has 4 quadratic constraints
+Model has 6 general constraints
+Variable types: 32 continuous, 9 integer (1 binary)
 Coefficient statistics:
   Matrix range     [3e-05, 1e+01]
   QMatrix range    [1e+00, 1e+00]
@@ -1988,94 +2123,54 @@ Coefficient statistics:
   RHS range        [1e+00, 2e+01]
 
 ---------------------------------------------------------------------------
-Multi-objectives: starting optimization with 2 objectives ... 
+Multi-objectives: starting optimization with 1 objectives ... 
+---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 
-Multi-objectives: applying initial presolve ...
+Multi-objectives: optimize objective 1 (res) ...
 ---------------------------------------------------------------------------
 
-Presolve removed 17 rows and 5 columns
+Optimize a model with 39 rows, 41 columns and 78 nonzeros
+Model has 4 quadratic constraints
+Model has 6 general constraints
+Variable types: 32 continuous, 9 integer (1 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 2e+01]
+
+User MIP start produced solution with objective 220.001 (0.00s)
+Loaded user MIP start with objective 220.001
+
+Presolve removed 39 rows and 41 columns
 Presolve time: 0.00s
-Presolved: 42 rows and 58 columns
----------------------------------------------------------------------------
+Presolve: All rows and columns removed
 
-Multi-objectives: optimize objective 1 (ns) ...
----------------------------------------------------------------------------
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
 
-
-User MIP start produced solution with objective 11.4286 (0.00s)
-Loaded user MIP start with objective 11.4286
-
-Presolve removed 14 rows and 38 columns
-Presolve time: 0.00s
-Presolved: 48 rows, 21 columns, 113 nonzeros
-Presolved model has 2 SOS constraint(s)
-Presolved model has 5 bilinear constraint(s)
-Variable types: 14 continuous, 7 integer (2 binary)
-
-Root relaxation: objective 1.020408e+01, 19 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-     0     0   10.71652    0   10   11.42857   10.71652  6.23%     -    0s
-     0     0     cutoff    0        11.42857   11.42857  0.00%     -    0s
-
-Cutting planes:
-  MIR: 1
-  RLT: 6
-
-Explored 1 nodes (31 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 1: 11.4286 
-
-Optimal solution found (tolerance 1.00e-04)
-Best objective 1.142857142857e+01, best bound 1.142857142857e+01, gap 0.0000%
----------------------------------------------------------------------------
-
-Multi-objectives: optimize objective 2 (res) ...
----------------------------------------------------------------------------
-
-
-Loaded user MIP start with objective 250.001
-
-Presolve removed 40 rows and 55 columns
-Presolve time: 0.00s
-Presolved: 7 rows, 3 columns, 18 nonzeros
-Presolved model has 1 bilinear constraint(s)
-Found heuristic solution: objective 230.0006223
-Variable types: 2 continuous, 1 integer (0 binary)
-
-Root relaxation: objective 2.200006e+02, 3 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-*    0     0               0     220.0006223  220.00062  0.00%     -    0s
-
-Explored 0 nodes (3 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 3: 220.001 230.001 250.001 
+Solution count 1: 220.001 
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 2.200006222725e+02, best bound 2.200006222725e+02, gap 0.0000%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 0.01 seconds, solution count 3
+Multi-objectives: solved in 0.00 seconds, solution count 1
 
-Model optimize took: 0.005770683288574219 seconds
+Model optimize took: 0.0006172657012939453 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
   Maximum violation:
     Bound       : 0.00000000e+00
-    Constraint  : 8.88178420e-16 (ns_single_CPU_16)
+    Constraint  : 8.88178420e-16
     Integrality : 0.00000000e+00
 
 VARIABLES ------------------------------
-Objective: 11.429715285714286
+Objective: 220.00062227249146
 frac[0,0] 1
 mem[0,0] 5.09766
 mem_tot_CPU_16 5.09766
@@ -2101,46 +2196,25 @@ ns_single_CPU_16 12.1083
 pdt_m_rows_CPU_16 1.60829
 cores_sketch_CPU_16 2
 cores_dpdk_CPU_16 5
-ns_sketch_CPU_16 6.05414
-pdt_nsk_c_CPU_16 12.1083
-ns_dpdk_CPU_16 11.4286
-pdt_nsc_dpdk_CPU_16 57.1429
-ns_CPU_16 11.4286
 m_access_time_CPU_17 0
 ns_single_CPU_17 0
 pdt_m_rows_CPU_17 0
-cores_sketch_CPU_17 0
+cores_sketch_CPU_17 -0
 cores_dpdk_CPU_17 5
-ns_sketch_CPU_17 11.4297
-pdt_nsk_c_CPU_17 0
-ns_dpdk_CPU_17 11.4286
-pdt_nsc_dpdk_CPU_17 57.1429
-ns_CPU_17 11.4297
 m_access_time_CPU_18 0
 ns_single_CPU_18 0
 pdt_m_rows_CPU_18 0
-cores_sketch_CPU_18 0
+cores_sketch_CPU_18 -0
 cores_dpdk_CPU_18 5
-ns_sketch_CPU_18 11.4297
-pdt_nsk_c_CPU_18 0
-ns_dpdk_CPU_18 11.4286
-pdt_nsc_dpdk_CPU_18 57.1429
-ns_CPU_18 11.4297
 m_access_time_CPU_19 0
 ns_single_CPU_19 0
 pdt_m_rows_CPU_19 0
-cores_sketch_CPU_19 0
+cores_sketch_CPU_19 -0
 cores_dpdk_CPU_19 5
-ns_sketch_CPU_19 11.4297
-pdt_nsk_c_CPU_19 0
-ns_dpdk_CPU_19 11.4286
-pdt_nsc_dpdk_CPU_19 57.1429
-ns_CPU_19 11.4297
-ns 11.4297
 res 220.001
 --------------------------------------------------
 
-Throughput: 87.49124322019419 Mpps, ns per packet: 11.429715285714286
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
 Resources: 220.00062227249146
 Used Cores: 22.0, Total CPUS: 4, Switch Memory: 0
 
@@ -2153,31 +2227,31 @@ Device (0) CPU_16:
 cores_sketch: 2.0, cores_dpdk: 5.0
 Rows total: 3.0
 Mem total: 5.09765625
-Throughput: 87.5
+Throughput: 87.49999999999999
 
 Device (1) CPU_17:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019419
+Throughput: 87.49999999999999
 
 Device (2) CPU_18:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019419
+Throughput: 87.49999999999999
 
 Device (3) CPU_19:
-cores_sketch: 0.0, cores_dpdk: 5.0
+cores_sketch: -0.0, cores_dpdk: 5.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 87.49124322019419
+Throughput: 87.49999999999999
 
 Flow 0:
 partitions: [(0, 1.0)]
 path: {0}
 --------------------------------------------------
-Function: MIP.solve took 0.01137542724609375 seconds
+Function: MIP.solve took 0.01615619659423828 seconds
 --------------------------------------------------
 Clustered Optimization complete
 --------------------------------------------------
@@ -2934,19 +3008,19 @@ Total frac: 1.000
 
 Device (0) CPU_0:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (1) CPU_1:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (2) CPU_2:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
@@ -2958,19 +3032,19 @@ Throughput: 87.49999999999999
 
 Device (4) CPU_4:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (5) CPU_5:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (6) CPU_6:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
@@ -2983,25 +3057,25 @@ Throughput: 87.49999999999999
 Device (8) CPU_8:
 cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0
-Mem total: 0.0
+Mem total: 0
 Throughput: 87.49999999999999
 
 Device (9) CPU_9:
 cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0
-Mem total: 0.0
+Mem total: 0
 Throughput: 87.49999999999999
 
 Device (10) CPU_10:
 cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0
-Mem total: 0.0
+Mem total: 0
 Throughput: 87.49999999999999
 
 Device (11) CPU_11:
 cores_sketch: 0.0, cores_dpdk: 5.0
 Rows total: 0
-Mem total: 0.0
+Mem total: 0
 Throughput: 87.49999999999999
 
 Device (12) CPU_12:
@@ -3012,19 +3086,19 @@ Throughput: 87.49999999999999
 
 Device (13) CPU_13:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (14) CPU_14:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (15) CPU_15:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
@@ -3036,19 +3110,19 @@ Throughput: 87.49999999999999
 
 Device (17) CPU_17:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (18) CPU_18:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
 Device (19) CPU_19:
 cores_sketch: 0.0, cores_dpdk: 5.0
-Rows total: 0
+Rows total: 0.0
 Mem total: 0.0
 Throughput: 87.49999999999999
 
@@ -3118,4 +3192,4 @@ Flow 19:
 partitions: [(19, 1)]
 path: (19, 20, 0)
 --------------------------------------------------
-Function: solve took 0.15362954139709473 seconds
+Function: solve took 0.15664911270141602 seconds

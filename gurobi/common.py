@@ -60,21 +60,27 @@ def setup_logging(args):
     else:
         log.setLevel(logging.WARNING)
 
-    if(args.verbose >= 2):
-        h_debug = logging.StreamHandler(sys.stdout)
-        h_debug.setLevel(logging.DEBUG)
-        h_debug.addFilter(DebugFilter())
-        log.addHandler(h_debug)
-        # TODO: Add option to redirect debug to file
-    if(args.verbose >= 1):
-        h_info = logging.StreamHandler(sys.stdout)
-        h_info.setLevel(logging.INFO)
-        h_info.addFilter(InfoFilter())
-        log.addHandler(h_info)
-    if(args.verbose >= 0):
-        h_warn = logging.StreamHandler()
-        h_warn.setLevel(logging.WARNING)
-        log.addHandler(h_warn)
+    console = logging.StreamHandler()
+    console.setLevel(log.getEffectiveLevel())
+    log.addHandler(console)
+
+    #file_handler = logging.FileHandler(common_config.)
+
+    # if(args.verbose >= 2):
+    #     h_debug = logging.StreamHandler(sys.stdout)
+    #     h_debug.setLevel(logging.DEBUG)
+    #     h_debug.addFilter(DebugFilter())
+    #     log.addHandler(h_debug)
+    #     # TODO: Add option to redirect debug to file
+    # if(args.verbose >= 1):
+    #     h_info = logging.StreamHandler(sys.stdout)
+    #     h_info.setLevel(logging.INFO)
+    #     h_info.addFilter(InfoFilter())
+    #     log.addHandler(h_info)
+    # if(args.verbose >= 0):
+    #     h_warn = logging.StreamHandler()
+    #     h_warn.setLevel(logging.WARNING)
+    #     log.addHandler(h_warn)
 
 
 log = logging.getLogger('control')

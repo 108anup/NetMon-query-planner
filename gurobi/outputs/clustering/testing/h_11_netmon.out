@@ -1,13 +1,13 @@
-Function: get_partitions took 8.058547973632812e-05 seconds
-Function: map_flows_partitions took 1.52587890625e-05 seconds
+Function: get_partitions took 7.867813110351562e-05 seconds
+Function: map_flows_partitions took 1.5020370483398438e-05 seconds
 Building model with:
 21 devices, 60 partitions and 20 flows
 Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
-Function: MIP.add_frac_mem_var took 0.0011441707611083984 seconds
-Function: MIP.add_coverage_constraints took 0.0006127357482910156 seconds
-Function: MIP.add_accuracy_constraints took 0.0018649101257324219 seconds
-Function: MIP.add_capacity_constraints took 0.002001047134399414 seconds
+Function: MIP.add_frac_mem_var took 0.0009014606475830078 seconds
+Function: MIP.add_coverage_constraints took 0.0006506443023681641 seconds
+Function: MIP.add_accuracy_constraints took 0.0019037723541259766 seconds
+Function: MIP.add_capacity_constraints took 0.002296924591064453 seconds
 Changed value of parameter TimeLimit to 120.0
    Prev: inf  Min: 0.0  Max: inf  Default: inf
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
@@ -144,7 +144,7 @@ Root relaxation: infeasible, 130 iterations, 0.00 seconds
 
      0     0 infeasible    0        48.00000   48.00000  0.00%     -    0s
 
-Explored 0 nodes (130 simplex iterations) in 0.02 seconds
+Explored 0 nodes (130 simplex iterations) in 0.03 seconds
 Thread count was 12 (of 12 available processors)
 
 Solution count 1: 48 
@@ -283,6 +283,652 @@ Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 ---------------------------------------------------------------------------
 Multi-objectives: solved in 0.04 seconds, solution count 5
 
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_0 1.69922
+m_access_time_CPU_0 0.53928
+ns_single_CPU_0 4.03928
+pdt_m_rows_CPU_0 0.53928
+cores_sketch_CPU_0 1
+cores_dpdk_CPU_0 6
+ns_sketch_CPU_0 4.03928
+pdt_nsk_c_CPU_0 4.03928
+ns_dpdk_CPU_0 10.7143
+pdt_nsc_dpdk_CPU_0 64.2857
+ns_CPU_0 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_1 1.69922
+m_access_time_CPU_1 0.53928
+ns_single_CPU_1 4.03928
+pdt_m_rows_CPU_1 0.53928
+cores_sketch_CPU_1 1
+cores_dpdk_CPU_1 6
+ns_sketch_CPU_1 4.03928
+pdt_nsk_c_CPU_1 4.03928
+ns_dpdk_CPU_1 10.7143
+pdt_nsc_dpdk_CPU_1 64.2857
+ns_CPU_1 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 1.69922
+m_access_time_CPU_2 0.53928
+ns_single_CPU_2 4.03928
+pdt_m_rows_CPU_2 0.53928
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 4.03928
+pdt_nsk_c_CPU_2 4.03928
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_3 1.69922
+m_access_time_CPU_3 0.53928
+ns_single_CPU_3 4.03928
+pdt_m_rows_CPU_3 0.53928
+cores_sketch_CPU_3 1
+cores_dpdk_CPU_3 6
+ns_sketch_CPU_3 4.03928
+pdt_nsk_c_CPU_3 4.03928
+ns_dpdk_CPU_3 10.7143
+pdt_nsc_dpdk_CPU_3 64.2857
+ns_CPU_3 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_4 0
+m_access_time_CPU_4 0
+ns_single_CPU_4 0
+pdt_m_rows_CPU_4 0
+cores_sketch_CPU_4 0
+cores_dpdk_CPU_4 7
+ns_sketch_CPU_4 10.2041
+pdt_nsk_c_CPU_4 0
+ns_dpdk_CPU_4 10.2041
+pdt_nsc_dpdk_CPU_4 71.4286
+ns_CPU_4 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_5 1.69922
+m_access_time_CPU_5 0.53928
+ns_single_CPU_5 4.03928
+pdt_m_rows_CPU_5 0.53928
+cores_sketch_CPU_5 1
+cores_dpdk_CPU_5 6
+ns_sketch_CPU_5 4.03928
+pdt_nsk_c_CPU_5 4.03928
+ns_dpdk_CPU_5 10.7143
+pdt_nsc_dpdk_CPU_5 64.2857
+ns_CPU_5 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_6 0
+m_access_time_CPU_6 0
+ns_single_CPU_6 0
+pdt_m_rows_CPU_6 0
+cores_sketch_CPU_6 0
+cores_dpdk_CPU_6 7
+ns_sketch_CPU_6 10.2041
+pdt_nsk_c_CPU_6 0
+ns_dpdk_CPU_6 10.2041
+pdt_nsc_dpdk_CPU_6 71.4286
+ns_CPU_6 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_7 1.69922
+m_access_time_CPU_7 0.53928
+ns_single_CPU_7 4.03928
+pdt_m_rows_CPU_7 0.53928
+cores_sketch_CPU_7 1
+cores_dpdk_CPU_7 6
+ns_sketch_CPU_7 4.03928
+pdt_nsk_c_CPU_7 4.03928
+ns_dpdk_CPU_7 10.7143
+pdt_nsc_dpdk_CPU_7 64.2857
+ns_CPU_7 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_8 1.69922
+m_access_time_CPU_8 0.53928
+ns_single_CPU_8 4.03928
+pdt_m_rows_CPU_8 0.53928
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 6
+ns_sketch_CPU_8 4.03928
+pdt_nsk_c_CPU_8 4.03928
+ns_dpdk_CPU_8 10.7143
+pdt_nsc_dpdk_CPU_8 64.2857
+ns_CPU_8 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_9 1.69922
+m_access_time_CPU_9 0.53928
+ns_single_CPU_9 4.03928
+pdt_m_rows_CPU_9 0.53928
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 6
+ns_sketch_CPU_9 4.03928
+pdt_nsk_c_CPU_9 4.03928
+ns_dpdk_CPU_9 10.7143
+pdt_nsc_dpdk_CPU_9 64.2857
+ns_CPU_9 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_10 1.69922
+m_access_time_CPU_10 0.53928
+ns_single_CPU_10 4.03928
+pdt_m_rows_CPU_10 0.53928
+cores_sketch_CPU_10 1
+cores_dpdk_CPU_10 6
+ns_sketch_CPU_10 4.03928
+pdt_nsk_c_CPU_10 4.03928
+ns_dpdk_CPU_10 10.7143
+pdt_nsc_dpdk_CPU_10 64.2857
+ns_CPU_10 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_11 1.69922
+m_access_time_CPU_11 0.53928
+ns_single_CPU_11 4.03928
+pdt_m_rows_CPU_11 0.53928
+cores_sketch_CPU_11 1
+cores_dpdk_CPU_11 6
+ns_sketch_CPU_11 4.03928
+pdt_nsk_c_CPU_11 4.03928
+ns_dpdk_CPU_11 10.7143
+pdt_nsc_dpdk_CPU_11 64.2857
+ns_CPU_11 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_12 1.69922
+m_access_time_CPU_12 0.53928
+ns_single_CPU_12 4.03928
+pdt_m_rows_CPU_12 0.53928
+cores_sketch_CPU_12 1
+cores_dpdk_CPU_12 6
+ns_sketch_CPU_12 4.03928
+pdt_nsk_c_CPU_12 4.03928
+ns_dpdk_CPU_12 10.7143
+pdt_nsc_dpdk_CPU_12 64.2857
+ns_CPU_12 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_13 0
+m_access_time_CPU_13 0
+ns_single_CPU_13 0
+pdt_m_rows_CPU_13 0
+cores_sketch_CPU_13 0
+cores_dpdk_CPU_13 7
+ns_sketch_CPU_13 10.2041
+pdt_nsk_c_CPU_13 0
+ns_dpdk_CPU_13 10.2041
+pdt_nsc_dpdk_CPU_13 71.4286
+ns_CPU_13 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_14 1.69922
+m_access_time_CPU_14 0.53928
+ns_single_CPU_14 4.03928
+pdt_m_rows_CPU_14 0.53928
+cores_sketch_CPU_14 1
+cores_dpdk_CPU_14 6
+ns_sketch_CPU_14 4.03928
+pdt_nsk_c_CPU_14 4.03928
+ns_dpdk_CPU_14 10.7143
+pdt_nsc_dpdk_CPU_14 64.2857
+ns_CPU_14 10.7143
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_15 0
+m_access_time_CPU_15 0
+ns_single_CPU_15 0
+pdt_m_rows_CPU_15 0
+cores_sketch_CPU_15 0
+cores_dpdk_CPU_15 7
+ns_sketch_CPU_15 10.2041
+pdt_nsk_c_CPU_15 0
+ns_dpdk_CPU_15 10.2041
+pdt_nsc_dpdk_CPU_15 71.4286
+ns_CPU_15 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_16 0
+m_access_time_CPU_16 0
+ns_single_CPU_16 0
+pdt_m_rows_CPU_16 0
+cores_sketch_CPU_16 0
+cores_dpdk_CPU_16 7
+ns_sketch_CPU_16 10.2041
+pdt_nsk_c_CPU_16 0
+ns_dpdk_CPU_16 10.2041
+pdt_nsc_dpdk_CPU_16 71.4286
+ns_CPU_16 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_17 0
+m_access_time_CPU_17 0
+ns_single_CPU_17 0
+pdt_m_rows_CPU_17 0
+cores_sketch_CPU_17 0
+cores_dpdk_CPU_17 7
+ns_sketch_CPU_17 10.2041
+pdt_nsk_c_CPU_17 0
+ns_dpdk_CPU_17 10.2041
+pdt_nsc_dpdk_CPU_17 71.4286
+ns_CPU_17 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_18 0
+m_access_time_CPU_18 0
+ns_single_CPU_18 0
+pdt_m_rows_CPU_18 0
+cores_sketch_CPU_18 0
+cores_dpdk_CPU_18 7
+ns_sketch_CPU_18 10.2041
+pdt_nsk_c_CPU_18 0
+ns_dpdk_CPU_18 10.2041
+pdt_nsc_dpdk_CPU_18 71.4286
+ns_CPU_18 10.2041
+--------------------------------------------------
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_19 0
+m_access_time_CPU_19 0
+ns_single_CPU_19 0
+pdt_m_rows_CPU_19 0
+cores_sketch_CPU_19 0
+cores_dpdk_CPU_19 7
+ns_sketch_CPU_19 10.2041
+pdt_nsk_c_CPU_19 0
+ns_dpdk_CPU_19 10.2041
+pdt_nsc_dpdk_CPU_19 71.4286
+ns_CPU_19 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_P4_1 81.5625
+ns_P4_1 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_0 1.69922
+m_access_time_CPU_0 0.53928
+ns_single_CPU_0 4.03928
+pdt_m_rows_CPU_0 0.53928
+cores_sketch_CPU_0 1
+cores_dpdk_CPU_0 6
+ns_sketch_CPU_0 4.03928
+pdt_nsk_c_CPU_0 4.03928
+ns_dpdk_CPU_0 10.7143
+pdt_nsc_dpdk_CPU_0 64.2857
+ns_CPU_0 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_1 1.69922
+m_access_time_CPU_1 0.53928
+ns_single_CPU_1 4.03928
+pdt_m_rows_CPU_1 0.53928
+cores_sketch_CPU_1 1
+cores_dpdk_CPU_1 6
+ns_sketch_CPU_1 4.03928
+pdt_nsk_c_CPU_1 4.03928
+ns_dpdk_CPU_1 10.7143
+pdt_nsc_dpdk_CPU_1 64.2857
+ns_CPU_1 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 1.69922
+m_access_time_CPU_2 0.53928
+ns_single_CPU_2 4.03928
+pdt_m_rows_CPU_2 0.53928
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 4.03928
+pdt_nsk_c_CPU_2 4.03928
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_3 1.69922
+m_access_time_CPU_3 0.53928
+ns_single_CPU_3 4.03928
+pdt_m_rows_CPU_3 0.53928
+cores_sketch_CPU_3 1
+cores_dpdk_CPU_3 6
+ns_sketch_CPU_3 4.03928
+pdt_nsk_c_CPU_3 4.03928
+ns_dpdk_CPU_3 10.7143
+pdt_nsc_dpdk_CPU_3 64.2857
+ns_CPU_3 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_4 0
+m_access_time_CPU_4 0
+ns_single_CPU_4 0
+pdt_m_rows_CPU_4 0
+cores_sketch_CPU_4 0
+cores_dpdk_CPU_4 6
+ns_sketch_CPU_4 10.7143
+pdt_nsk_c_CPU_4 0
+ns_dpdk_CPU_4 10.7143
+pdt_nsc_dpdk_CPU_4 64.2857
+ns_CPU_4 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_5 1.69922
+m_access_time_CPU_5 0.53928
+ns_single_CPU_5 4.03928
+pdt_m_rows_CPU_5 0.53928
+cores_sketch_CPU_5 1
+cores_dpdk_CPU_5 6
+ns_sketch_CPU_5 4.03928
+pdt_nsk_c_CPU_5 4.03928
+ns_dpdk_CPU_5 10.7143
+pdt_nsc_dpdk_CPU_5 64.2857
+ns_CPU_5 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_6 0
+m_access_time_CPU_6 0
+ns_single_CPU_6 0
+pdt_m_rows_CPU_6 0
+cores_sketch_CPU_6 0
+cores_dpdk_CPU_6 6
+ns_sketch_CPU_6 10.7143
+pdt_nsk_c_CPU_6 0
+ns_dpdk_CPU_6 10.7143
+pdt_nsc_dpdk_CPU_6 64.2857
+ns_CPU_6 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_7 1.69922
+m_access_time_CPU_7 0.53928
+ns_single_CPU_7 4.03928
+pdt_m_rows_CPU_7 0.53928
+cores_sketch_CPU_7 1
+cores_dpdk_CPU_7 6
+ns_sketch_CPU_7 4.03928
+pdt_nsk_c_CPU_7 4.03928
+ns_dpdk_CPU_7 10.7143
+pdt_nsc_dpdk_CPU_7 64.2857
+ns_CPU_7 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_8 1.69922
+m_access_time_CPU_8 0.53928
+ns_single_CPU_8 4.03928
+pdt_m_rows_CPU_8 0.53928
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 6
+ns_sketch_CPU_8 4.03928
+pdt_nsk_c_CPU_8 4.03928
+ns_dpdk_CPU_8 10.7143
+pdt_nsc_dpdk_CPU_8 64.2857
+ns_CPU_8 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_9 1.69922
+m_access_time_CPU_9 0.53928
+ns_single_CPU_9 4.03928
+pdt_m_rows_CPU_9 0.53928
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 6
+ns_sketch_CPU_9 4.03928
+pdt_nsk_c_CPU_9 4.03928
+ns_dpdk_CPU_9 10.7143
+pdt_nsc_dpdk_CPU_9 64.2857
+ns_CPU_9 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_10 1.69922
+m_access_time_CPU_10 0.53928
+ns_single_CPU_10 4.03928
+pdt_m_rows_CPU_10 0.53928
+cores_sketch_CPU_10 1
+cores_dpdk_CPU_10 6
+ns_sketch_CPU_10 4.03928
+pdt_nsk_c_CPU_10 4.03928
+ns_dpdk_CPU_10 10.7143
+pdt_nsc_dpdk_CPU_10 64.2857
+ns_CPU_10 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_11 1.69922
+m_access_time_CPU_11 0.53928
+ns_single_CPU_11 4.03928
+pdt_m_rows_CPU_11 0.53928
+cores_sketch_CPU_11 1
+cores_dpdk_CPU_11 6
+ns_sketch_CPU_11 4.03928
+pdt_nsk_c_CPU_11 4.03928
+ns_dpdk_CPU_11 10.7143
+pdt_nsc_dpdk_CPU_11 64.2857
+ns_CPU_11 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_12 1.69922
+m_access_time_CPU_12 0.53928
+ns_single_CPU_12 4.03928
+pdt_m_rows_CPU_12 0.53928
+cores_sketch_CPU_12 1
+cores_dpdk_CPU_12 6
+ns_sketch_CPU_12 4.03928
+pdt_nsk_c_CPU_12 4.03928
+ns_dpdk_CPU_12 10.7143
+pdt_nsc_dpdk_CPU_12 64.2857
+ns_CPU_12 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_13 0
+m_access_time_CPU_13 0
+ns_single_CPU_13 0
+pdt_m_rows_CPU_13 0
+cores_sketch_CPU_13 0
+cores_dpdk_CPU_13 6
+ns_sketch_CPU_13 10.7143
+pdt_nsk_c_CPU_13 0
+ns_dpdk_CPU_13 10.7143
+pdt_nsc_dpdk_CPU_13 64.2857
+ns_CPU_13 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_14 1.69922
+m_access_time_CPU_14 0.53928
+ns_single_CPU_14 4.03928
+pdt_m_rows_CPU_14 0.53928
+cores_sketch_CPU_14 1
+cores_dpdk_CPU_14 6
+ns_sketch_CPU_14 4.03928
+pdt_nsk_c_CPU_14 4.03928
+ns_dpdk_CPU_14 10.7143
+pdt_nsc_dpdk_CPU_14 64.2857
+ns_CPU_14 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_15 0
+m_access_time_CPU_15 0
+ns_single_CPU_15 0
+pdt_m_rows_CPU_15 0
+cores_sketch_CPU_15 0
+cores_dpdk_CPU_15 6
+ns_sketch_CPU_15 10.7143
+pdt_nsk_c_CPU_15 0
+ns_dpdk_CPU_15 10.7143
+pdt_nsc_dpdk_CPU_15 64.2857
+ns_CPU_15 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_16 0
+m_access_time_CPU_16 0
+ns_single_CPU_16 0
+pdt_m_rows_CPU_16 0
+cores_sketch_CPU_16 0
+cores_dpdk_CPU_16 6
+ns_sketch_CPU_16 10.7143
+pdt_nsk_c_CPU_16 0
+ns_dpdk_CPU_16 10.7143
+pdt_nsc_dpdk_CPU_16 64.2857
+ns_CPU_16 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_17 0
+m_access_time_CPU_17 0
+ns_single_CPU_17 0
+pdt_m_rows_CPU_17 0
+cores_sketch_CPU_17 0
+cores_dpdk_CPU_17 6
+ns_sketch_CPU_17 10.7143
+pdt_nsk_c_CPU_17 0
+ns_dpdk_CPU_17 10.7143
+pdt_nsc_dpdk_CPU_17 64.2857
+ns_CPU_17 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_18 0
+m_access_time_CPU_18 0
+ns_single_CPU_18 0
+pdt_m_rows_CPU_18 0
+cores_sketch_CPU_18 0
+cores_dpdk_CPU_18 6
+ns_sketch_CPU_18 10.7143
+pdt_nsk_c_CPU_18 0
+ns_dpdk_CPU_18 10.7143
+pdt_nsc_dpdk_CPU_18 64.2857
+ns_CPU_18 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_19 0
+m_access_time_CPU_19 0
+ns_single_CPU_19 0
+pdt_m_rows_CPU_19 0
+cores_sketch_CPU_19 0
+cores_dpdk_CPU_19 6
+ns_sketch_CPU_19 10.7143
+pdt_nsk_c_CPU_19 0
+ns_dpdk_CPU_19 10.7143
+pdt_nsc_dpdk_CPU_19 64.2857
+ns_CPU_19 10.7143
+--------------------------------------------------
 
 Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 0, Rows: 1
@@ -505,88 +1151,129 @@ Par2 id: 59, Rows: 1
 Total frac: 1.000
 
 Device (0) CPU_0:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (1) CPU_1:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (2) CPU_2:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (3) CPU_3:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (4) CPU_4:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 93.33333333333333
 
 Device (5) CPU_5:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (6) CPU_6:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 93.33333333333333
 
 Device (7) CPU_7:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (8) CPU_8:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (9) CPU_9:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (10) CPU_10:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (11) CPU_11:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (12) CPU_12:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (13) CPU_13:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 93.33333333333333
 
 Device (14) CPU_14:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
 Rows total: 1.0
 Mem total: 1.69921875
+Throughput: 93.33333333333333
 
 Device (15) CPU_15:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 93.33333333333333
 
 Device (16) CPU_16:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 93.33333333333333
 
 Device (17) CPU_17:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 93.33333333333333
 
 Device (18) CPU_18:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 93.33333333333333
 
 Device (19) CPU_19:
+cores_sketch: 0.0, cores_dpdk: 5.9999999999999964
 Rows total: 0.0
 Mem total: 0.0
+Throughput: 93.33333333333333
 
 Device (20) P4_1:
 Rows total: 48.0
 Mem total: 81.5625
+Throughput: 148.0
 
 Flow 0:
 partitions: [(0, 1), (1, 1), (2, 1)]
@@ -689,17 +1376,19 @@ Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
 Parameter NonConvex unchanged
    Value: 2  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPGapAbs to 10.0
+   Prev: 1e-10  Min: 0.0  Max: inf  Default: 1e-10
 --------------------------------------------------
 Starting model update
-Model update took: 5.1021575927734375e-05 s
+Model update took: 3.6716461181640625e-05 s
 --------------------------------------------------
 Starting model optimize
 Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
-Optimize a model with 427 rows, 651 columns and 1291 nonzeros
-Model fingerprint: 0x1524b956
-Model has 60 quadratic constraints
-Model has 45 general constraints
-Variable types: 431 continuous, 220 integer (180 binary)
+Optimize a model with 428 rows, 550 columns and 1272 nonzeros
+Model fingerprint: 0x4e775500
+Model has 20 quadratic constraints
+Model has 24 general constraints
+Variable types: 330 continuous, 220 integer (180 binary)
 Coefficient statistics:
   Matrix range     [3e-05, 1e+01]
   QMatrix range    [1e+00, 1e+00]
@@ -709,211 +1398,157 @@ Coefficient statistics:
   RHS range        [1e+00, 5e+01]
 
 ---------------------------------------------------------------------------
-Multi-objectives: starting optimization with 2 objectives ... 
+Multi-objectives: starting optimization with 1 objectives ... 
+---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
 
-Multi-objectives: applying initial presolve ...
+Multi-objectives: optimize objective 1 (res) ...
 ---------------------------------------------------------------------------
 
-Presolve removed 123 rows and 26 columns
+Optimize a model with 428 rows, 550 columns and 1272 nonzeros
+Model has 20 quadratic constraints
+Model has 24 general constraints
+Variable types: 330 continuous, 220 integer (180 binary)
+Coefficient statistics:
+  Matrix range     [3e-05, 1e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 3e+04]
+  RHS range        [1e+00, 5e+01]
+
+User MIP start produced solution with objective 1333.7 (0.00s)
+Loaded user MIP start with objective 1333.7
+
+Presolve removed 247 rows and 229 columns
 Presolve time: 0.00s
-Presolved: 544 rows and 626 columns
----------------------------------------------------------------------------
+Presolved: 261 rows, 321 columns, 821 nonzeros
+Presolved model has 20 bilinear constraint(s)
+Variable types: 80 continuous, 241 integer (220 binary)
 
-Multi-objectives: optimize objective 1 (ns) ...
----------------------------------------------------------------------------
-
-
-User MIP start produced solution with objective 17.8571 (0.01s)
-User MIP start produced solution with objective 10.7143 (0.01s)
-Loaded user MIP start with objective 10.7143
-
-Presolve removed 80 rows and 3 columns
-Presolve time: 0.00s
-Presolved: 704 rows, 624 columns, 1960 nonzeros
-Presolved model has 100 SOS constraint(s)
-Presolved model has 60 bilinear constraint(s)
-Variable types: 264 continuous, 360 integer (300 binary)
-
-Root relaxation: objective 1.020408e+01, 275 iterations, 0.00 seconds
+Root relaxation: objective 1.252902e+03, 256 iterations, 0.00 seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0   10.20682    0  179   10.71429   10.20682  4.74%     -    0s
-     0     0   10.24380    0  204   10.71429   10.24380  4.39%     -    0s
-     0     0   10.28353    0  204   10.71429   10.28353  4.02%     -    0s
-     0     0   10.28362    0  204   10.71429   10.28362  4.02%     -    0s
-     0     0   10.28471    0  240   10.71429   10.28471  4.01%     -    0s
-     0     0   10.28471    0  263   10.71429   10.28471  4.01%     -    0s
-     0     0   10.28654    0  288   10.71429   10.28654  3.99%     -    0s
-     0     0   10.28654    0  299   10.71429   10.28654  3.99%     -    0s
-     0     0   10.28654    0  313   10.71429   10.28654  3.99%     -    0s
-     0     0   10.28654    0  185   10.71429   10.28654  3.99%     -    0s
-     0     2   10.28654    0  178   10.71429   10.28654  3.99%     -    0s
+     0     0 1252.90171    0   37 1333.70171 1252.90171  6.06%     -    0s
+H    0     0                    1293.7017078 1252.90171  3.15%     -    0s
+     0     0 1252.90171    0   48 1293.70171 1252.90171  3.15%     -    0s
+     0     0 1252.90171    0   48 1293.70171 1252.90171  3.15%     -    0s
+H    0     0                    1292.8461289 1252.90171  3.09%     -    0s
+H    0     0                    1283.7017078 1252.90171  2.40%     -    0s
+     0     2 1252.90171    0   43 1283.70171 1252.90171  2.40%     -    0s
+H    3     8                    1273.7017078 1252.90171  1.63%  31.3    0s
 
-Cutting planes:
-  Cover: 58
-  Implied bound: 96
-  MIR: 30
-  StrongCG: 8
-  Flow cover: 111
-  Zero half: 2
-  RLT: 78
-
-Explored 30 nodes (2061 simplex iterations) in 0.16 seconds
+Explored 1315 nodes (10540 simplex iterations) in 0.20 seconds
 Thread count was 12 (of 12 available processors)
 
-Solution count 2: 10.7143 17.8571 
+Solution count 5: 1273.7 1283.7 1292.85 ... 1333.7
 
 Optimal solution found (tolerance 1.00e-04)
-Best objective 1.071428571429e+01, best bound 1.071428571429e+01, gap 0.0000%
----------------------------------------------------------------------------
-
-Multi-objectives: optimize objective 2 (res) ...
----------------------------------------------------------------------------
-
-
-Loaded user MIP start with objective 1413.7
-
-Presolve removed 81 rows and 22 columns
-Presolve time: 0.00s
-Presolved: 704 rows, 624 columns, 2061 nonzeros
-Presolved model has 40 SOS constraint(s)
-Presolved model has 40 bilinear constraint(s)
-Variable types: 283 continuous, 341 integer (300 binary)
-
-Root relaxation: objective 1.258860e+03, 618 iterations, 0.00 seconds
-
-    Nodes    |    Current Node    |     Objective Bounds      |     Work
- Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-
-     0     0 1258.86026    0   35 1413.70171 1258.86026  11.0%     -    0s
-H    0     0                    1303.4165149 1258.86026  3.42%     -    0s
-     0     0 1258.86026    0   32 1303.41651 1258.86026  3.42%     -    0s
-H    0     0                    1293.4167223 1258.86026  2.67%     -    0s
-     0     0 1258.86026    0   28 1293.41672 1258.86026  2.67%     -    0s
-     0     0 1258.87240    0   29 1293.41672 1258.87240  2.67%     -    0s
-H    0     0                    1283.7017078 1258.87240  1.93%     -    0s
-     0     0 1258.87240    0   37 1283.70171 1258.87240  1.93%     -    0s
-     0     0 1258.87240    0   38 1283.70171 1258.87240  1.93%     -    0s
-     0     0 1258.87240    0   20 1283.70171 1258.87240  1.93%     -    0s
-     0     2 1258.87240    0   20 1283.70171 1258.87240  1.93%     -    0s
-H    3     8                    1273.7017078 1258.87240  1.16%  16.0    0s
-* 2668   504              18    1273.7017063 1273.05128  0.05%  10.4    0s
-* 5356   799              26    1273.7017044 1273.18137  0.04%  10.5    0s
-* 8080  1030              20    1273.7017029 1273.30631  0.03%  10.4    1s
-
-Explored 16244 nodes (204460 simplex iterations) in 2.13 seconds
-Thread count was 12 (of 12 available processors)
-
-Solution count 8: 1273.7 1273.7 1273.7 ... 1413.7
-
-Optimal solution found (tolerance 1.00e-04)
-Warning: max constraint violation (1.5870e-06) exceeds tolerance
-Best objective 1.273701702921e+03, best bound 1.273582830298e+03, gap 0.0093%
+Best objective 1.273701707840e+03, best bound 1.269339755048e+03, gap 0.3425%
 
 ---------------------------------------------------------------------------
-Multi-objectives: solved in 2.13 seconds, solution count 9
+Multi-objectives: solved in 0.20 seconds, solution count 5
 
-Model optimize took: 2.1323490142822266 seconds
+Model optimize took: 0.19799208641052246 seconds
 --------------------------------------------------
 
 Solution quality statistics for model Netmon :
   Maximum violation:
     Bound       : 0.00000000e+00
-    Constraint  : 1.58699819e-06
-    Integrality : 9.83864172e-07 (frac[20,20])
+    Constraint  : 2.22044605e-16 (ns_single_CPU_18)
+    Integrality : 0.00000000e+00
 
 VARIABLES ------------------------------
-Objective: 10.715358142857108
+Objective: 1273.7017078399658
 frac[9,26] -0
-frac[18,55] -0
+frac[18,55] 1
 frac[20,25] 1
-frac[20,20] 9.83864e-07
-frac[20,7] 0
-frac[16,47] 1
-frac[3,7] 1
+frac[20,20] 1
+frac[20,7] 1
+frac[16,47] 0
+frac[3,7] -0
 frac[2,5] -0
 frac[19,55] -0
 frac[15,47] 0
 frac[16,50] -0
 frac[20,48] 1
-frac[8,24] -0
+frac[8,24] 0
 frac[17,51] -0
 frac[20,35] 1
 frac[18,56] -0
 frac[20,30] 1
-frac[7,19] -0
+frac[7,19] 0
 frac[20,9] 1
 frac[20,4] 1
-frac[1,1] 0
-frac[14,43] 0
+frac[1,1] -0
+frac[14,43] -0
 frac[4,10] -0
-frac[12,34] -0
-frac[2,6] -0
+frac[12,34] 0
+frac[2,6] 0
 frac[20,58] 1
-frac[0,58] -0
+frac[0,58] 0
 frac[20,53] 1
 frac[8,21] -0
 frac[20,32] 1
 frac[20,19] 1
-frac[7,22] -0
-frac[20,14] 1
-frac[0,1] 6.95397e-07
+frac[7,22] 0
+frac[20,14] 0
+frac[0,1] 1
 frac[17,52] -0
-frac[5,14] -0
-frac[13,38] 1
+frac[5,14] 1
+frac[13,38] -0
 frac[20,42] 1
-frac[18,51] -0
+frac[18,51] 0
 frac[20,37] 1
-frac[10,29] 0
-frac[6,16] -0
+frac[10,29] 1
+frac[6,16] 0
 frac[20,16] 1
 frac[7,21] -0
 frac[20,3] 1
-frac[3,11] 1
-frac[11,35] 0
-frac[19,59] -0
+frac[3,11] -0
+frac[11,35] -0
+frac[19,59] 1
 frac[15,43] -0
-frac[4,12] 0
-frac[12,36] -0
+frac[4,12] -0
+frac[12,36] 1
 frac[13,41] -0
-frac[20,47] -0
-frac[9,25] 0
-frac[18,52] -0
+frac[20,47] 1
+frac[9,25] -0
+frac[18,52] 1
 frac[20,26] 1
-frac[10,30] 0
+frac[10,30] -0
 frac[20,21] 1
 frac[11,31] -0
 frac[20,0] 1
 frac[1,5] -0
-frac[3,6] 2.88467e-07
-frac[19,54] 0
-frac[15,46] -0
+frac[3,6] -0
+frac[19,54] -0
+frac[15,46] 0
 frac[20,49] 1
 frac[8,25] -0
-frac[17,50] 0
+frac[17,50] -0
 frac[20,44] 1
 frac[5,17] 1
 frac[20,31] 1
-frac[7,18] 1
+frac[7,18] -0
 frac[20,10] 1
 frac[20,5] 1
-frac[10,32] -0
-frac[1,0] 0
-frac[16,45] 1
+frac[10,32] 0
+frac[1,0] -0
+frac[16,45] 0
 frac[14,40] -0
 frac[4,11] -0
-frac[12,35] -0
+frac[12,35] 0
 frac[2,7] -0
-frac[20,59] 1
+frac[20,59] 0
 frac[0,59] -0
-frac[15,45] 0
+frac[15,45] -0
 frac[16,48] -0
 frac[20,54] 1
 frac[8,22] -0
-frac[20,33] 1
+frac[20,33] 0
 frac[6,20] -0
 frac[20,28] 1
 frac[20,15] 1
@@ -921,76 +1556,76 @@ frac[0,2] 1
 frac[1,3] -0
 frac[20,56] 1
 frac[2,8] -0
-frac[5,13] 1
-frac[13,37] 0
+frac[5,13] -0
+frac[13,37] -0
 frac[20,43] 1
 frac[9,29] -0
-frac[20,38] 0
+frac[20,38] 1
 frac[6,17] -0
 frac[20,17] 0
-frac[7,20] 0.999999
+frac[7,20] -0
 frac[20,12] 1
 frac[3,10] -0
 frac[11,34] -0
 frac[19,58] -0
 frac[15,42] -0
-frac[4,13] -0
+frac[4,13] 0
 frac[12,37] -0
 frac[13,40] -0
 frac[20,40] 1
-frac[9,24] 0
+frac[9,24] -0
 frac[18,53] -0
 frac[6,15] -0
-frac[20,27] 1
-frac[10,31] -0
+frac[20,27] 0
+frac[10,31] 0
 frac[6,18] -0
 frac[20,22] 1
 frac[11,30] -0
-frac[20,1] 0.999999
-frac[1,4] 0
+frac[20,1] -0
+frac[1,4] -0
 frac[14,44] -0
 frac[3,9] -0
 frac[2,3] 0
-frac[11,33] 0
-frac[19,57] -0
+frac[11,33] -0
+frac[19,57] 1
 frac[20,50] 1
-frac[8,26] -0
+frac[8,26] 0
 frac[17,49] -0
-frac[20,45] -0
+frac[20,45] 1
 frac[9,27] -0
-frac[18,54] 0
-frac[5,16] -0
+frac[18,54] -0
+frac[5,16] 0
 frac[20,24] 1
-frac[20,11] 0
+frac[20,11] 1
 frac[20,6] 1
 frac[16,46] -0
 frac[14,41] -0
-frac[2,4] -0
+frac[2,4] 0
 frac[15,44] -0
 frac[16,49] -0
-frac[20,55] 1
+frac[20,55] -0
 frac[8,23] -0
 frac[20,34] 1
-frac[20,29] 1
+frac[20,29] 0
 frac[20,8] 1
-frac[1,2] -0
+frac[1,2] 0
 frac[14,42] -0
 frac[4,9] -0
-frac[12,33] 0
+frac[12,33] 1
 frac[20,57] 0
-frac[0,57] 1
-frac[5,12] 0
-frac[13,36] 1
-frac[20,52] 1
+frac[0,57] -0
+frac[5,12] -0
+frac[13,36] -0
+frac[20,52] 0
 frac[9,28] -0
 frac[20,39] 1
-frac[10,27] -0
-frac[20,18] 0
+frac[10,27] 1
+frac[20,18] 1
 frac[7,23] -0
-frac[20,13] -0
+frac[20,13] 1
 frac[0,0] -0
 frac[14,39] -0
-frac[4,14] 0
+frac[4,14] -0
 frac[12,38] -0
 frac[17,53] -0
 frac[5,15] -0
@@ -1008,12 +1643,12 @@ frac[20,51] 1
 frac[17,48] -0
 frac[20,46] 1
 mem[9,26] 0
-mem[18,55] 0
+mem[18,55] 1.69922
 mem[20,25] 1.69922
-mem[20,20] 1.6718e-06
-mem[20,7] 0
-mem[16,47] 1.69922
-mem[3,7] 1.69922
+mem[20,20] 1.69922
+mem[20,7] 1.69922
+mem[16,47] 0
+mem[3,7] 0
 mem[2,5] 0
 mem[19,55] 0
 mem[15,47] 0
@@ -1039,36 +1674,36 @@ mem[8,21] 0
 mem[20,32] 1.69922
 mem[20,19] 1.69922
 mem[7,22] 0
-mem[20,14] 1.69922
-mem[0,1] 1.18163e-06
+mem[20,14] 0
+mem[0,1] 1.69922
 mem[17,52] 0
-mem[5,14] 0
-mem[13,38] 1.69922
+mem[5,14] 1.69922
+mem[13,38] 0
 mem[20,42] 1.69922
 mem[18,51] 0
 mem[20,37] 1.69922
-mem[10,29] 0
+mem[10,29] 1.69922
 mem[6,16] 0
 mem[20,16] 1.69922
 mem[7,21] 0
 mem[20,3] 1.69922
-mem[3,11] 1.69922
+mem[3,11] 0
 mem[11,35] 0
-mem[19,59] 0
+mem[19,59] 1.69922
 mem[15,43] 0
 mem[4,12] 0
-mem[12,36] 0
+mem[12,36] 1.69922
 mem[13,41] 0
-mem[20,47] 0
+mem[20,47] 1.69922
 mem[9,25] 0
-mem[18,52] 0
+mem[18,52] 1.69922
 mem[20,26] 1.69922
 mem[10,30] 0
 mem[20,21] 1.69922
 mem[11,31] 0
 mem[20,0] 1.69922
 mem[1,5] 0
-mem[3,6] 4.90169e-07
+mem[3,6] 0
 mem[19,54] 0
 mem[15,46] 0
 mem[20,49] 1.69922
@@ -1077,23 +1712,23 @@ mem[17,50] 0
 mem[20,44] 1.69922
 mem[5,17] 1.69922
 mem[20,31] 1.69922
-mem[7,18] 1.69922
+mem[7,18] 0
 mem[20,10] 1.69922
 mem[20,5] 1.69922
 mem[10,32] 0
 mem[1,0] 0
-mem[16,45] 1.69922
+mem[16,45] 0
 mem[14,40] 0
 mem[4,11] 0
 mem[12,35] 0
 mem[2,7] 0
-mem[20,59] 1.69922
+mem[20,59] 0
 mem[0,59] 0
 mem[15,45] 0
 mem[16,48] 0
 mem[20,54] 1.69922
 mem[8,22] 0
-mem[20,33] 1.69922
+mem[20,33] 0
 mem[6,20] 0
 mem[20,28] 1.69922
 mem[20,15] 1.69922
@@ -1101,14 +1736,14 @@ mem[0,2] 1.69922
 mem[1,3] 0
 mem[20,56] 1.69922
 mem[2,8] 0
-mem[5,13] 1.69922
+mem[5,13] 0
 mem[13,37] 0
 mem[20,43] 1.69922
 mem[9,29] 0
-mem[20,38] 0
+mem[20,38] 1.69922
 mem[6,17] 0
 mem[20,17] 0
-mem[7,20] 1.69922
+mem[7,20] 0
 mem[20,12] 1.69922
 mem[3,10] 0
 mem[11,34] 0
@@ -1121,53 +1756,53 @@ mem[20,40] 1.69922
 mem[9,24] 0
 mem[18,53] 0
 mem[6,15] 0
-mem[20,27] 1.69922
+mem[20,27] 0
 mem[10,31] 0
 mem[6,18] 0
 mem[20,22] 1.69922
 mem[11,30] 0
-mem[20,1] 1.69922
+mem[20,1] 0
 mem[1,4] 0
 mem[14,44] 0
 mem[3,9] 0
 mem[2,3] 0
 mem[11,33] 0
-mem[19,57] 0
+mem[19,57] 1.69922
 mem[20,50] 1.69922
 mem[8,26] 0
 mem[17,49] 0
-mem[20,45] 0
+mem[20,45] 1.69922
 mem[9,27] 0
 mem[18,54] 0
 mem[5,16] 0
 mem[20,24] 1.69922
-mem[20,11] 0
+mem[20,11] 1.69922
 mem[20,6] 1.69922
 mem[16,46] 0
 mem[14,41] 0
 mem[2,4] 0
 mem[15,44] 0
 mem[16,49] 0
-mem[20,55] 1.69922
+mem[20,55] 0
 mem[8,23] 0
 mem[20,34] 1.69922
-mem[20,29] 1.69922
+mem[20,29] 0
 mem[20,8] 1.69922
 mem[1,2] 0
 mem[14,42] 0
 mem[4,9] 0
-mem[12,33] 0
+mem[12,33] 1.69922
 mem[20,57] 0
-mem[0,57] 1.69922
+mem[0,57] 0
 mem[5,12] 0
-mem[13,36] 1.69922
-mem[20,52] 1.69922
+mem[13,36] 0
+mem[20,52] 0
 mem[9,28] 0
 mem[20,39] 1.69922
-mem[10,27] 0
-mem[20,18] 0
+mem[10,27] 1.69922
+mem[20,18] 1.69922
 mem[7,23] 0
-mem[20,13] 0
+mem[20,13] 1.69922
 mem[0,0] 0
 mem[14,39] 0
 mem[4,14] 0
@@ -1199,10 +1834,10 @@ mem_tot_CPU_2 0
 normalized_mem_tot_CPU_2 0
 rows_tot_CPU_2 0
 normalized_rows_tot_CPU_2 0
-mem_tot_CPU_3 3.39844
-normalized_mem_tot_CPU_3 0.000103712
-rows_tot_CPU_3 2
-normalized_rows_tot_CPU_3 0.166667
+mem_tot_CPU_3 0
+normalized_mem_tot_CPU_3 0
+rows_tot_CPU_3 0
+normalized_rows_tot_CPU_3 0
 mem_tot_CPU_4 0
 normalized_mem_tot_CPU_4 0
 rows_tot_CPU_4 0
@@ -1215,10 +1850,10 @@ mem_tot_CPU_6 0
 normalized_mem_tot_CPU_6 0
 rows_tot_CPU_6 0
 normalized_rows_tot_CPU_6 0
-mem_tot_CPU_7 3.39844
-normalized_mem_tot_CPU_7 0.000103712
-rows_tot_CPU_7 2
-normalized_rows_tot_CPU_7 0.166667
+mem_tot_CPU_7 0
+normalized_mem_tot_CPU_7 0
+rows_tot_CPU_7 0
+normalized_rows_tot_CPU_7 0
 mem_tot_CPU_8 0
 normalized_mem_tot_CPU_8 0
 rows_tot_CPU_8 0
@@ -1227,22 +1862,22 @@ mem_tot_CPU_9 0
 normalized_mem_tot_CPU_9 0
 rows_tot_CPU_9 0
 normalized_rows_tot_CPU_9 0
-mem_tot_CPU_10 0
-normalized_mem_tot_CPU_10 0
-rows_tot_CPU_10 0
-normalized_rows_tot_CPU_10 0
+mem_tot_CPU_10 3.39844
+normalized_mem_tot_CPU_10 0.000103712
+rows_tot_CPU_10 2
+normalized_rows_tot_CPU_10 0.166667
 mem_tot_CPU_11 0
 normalized_mem_tot_CPU_11 0
 rows_tot_CPU_11 0
 normalized_rows_tot_CPU_11 0
-mem_tot_CPU_12 0
-normalized_mem_tot_CPU_12 0
-rows_tot_CPU_12 0
-normalized_rows_tot_CPU_12 0
-mem_tot_CPU_13 3.39844
-normalized_mem_tot_CPU_13 0.000103712
-rows_tot_CPU_13 2
-normalized_rows_tot_CPU_13 0.166667
+mem_tot_CPU_12 3.39844
+normalized_mem_tot_CPU_12 0.000103712
+rows_tot_CPU_12 2
+normalized_rows_tot_CPU_12 0.166667
+mem_tot_CPU_13 0
+normalized_mem_tot_CPU_13 0
+rows_tot_CPU_13 0
+normalized_rows_tot_CPU_13 0
 mem_tot_CPU_14 0
 normalized_mem_tot_CPU_14 0
 rows_tot_CPU_14 0
@@ -1251,22 +1886,22 @@ mem_tot_CPU_15 0
 normalized_mem_tot_CPU_15 0
 rows_tot_CPU_15 0
 normalized_rows_tot_CPU_15 0
-mem_tot_CPU_16 3.39844
-normalized_mem_tot_CPU_16 0.000103712
-rows_tot_CPU_16 2
-normalized_rows_tot_CPU_16 0.166667
+mem_tot_CPU_16 0
+normalized_mem_tot_CPU_16 0
+rows_tot_CPU_16 0
+normalized_rows_tot_CPU_16 0
 mem_tot_CPU_17 0
 normalized_mem_tot_CPU_17 0
 rows_tot_CPU_17 0
 normalized_rows_tot_CPU_17 0
-mem_tot_CPU_18 0
-normalized_mem_tot_CPU_18 0
-rows_tot_CPU_18 0
-normalized_rows_tot_CPU_18 0
-mem_tot_CPU_19 0
-normalized_mem_tot_CPU_19 0
-rows_tot_CPU_19 0
-normalized_rows_tot_CPU_19 0
+mem_tot_CPU_18 3.39844
+normalized_mem_tot_CPU_18 0.000103712
+rows_tot_CPU_18 2
+normalized_rows_tot_CPU_18 0.166667
+mem_tot_CPU_19 3.39844
+normalized_mem_tot_CPU_19 0.000103712
+rows_tot_CPU_19 2
+normalized_rows_tot_CPU_19 0.166667
 mem_tot_P4_1 81.5625
 normalized_mem_tot_P4_1 0.141602
 rows_tot_P4_1 48
@@ -1277,222 +1912,121 @@ max_rows_P4 48
 max_rows_CPU_Cluster 0.166667
 m_access_time_CPU_0 0.537688
 ns_single_CPU_0 8.07538
-pdt_m_rows_CPU_0 1.07537
+pdt_m_rows_CPU_0 1.07538
 cores_sketch_CPU_0 1
 cores_dpdk_CPU_0 6
-ns_sketch_CPU_0 8.07538
-pdt_nsk_c_CPU_0 8.07538
-ns_dpdk_CPU_0 10.7143
-pdt_nsc_dpdk_CPU_0 64.2857
-ns_CPU_0 10.7143
 m_access_time_CPU_1 0
 ns_single_CPU_1 0
 pdt_m_rows_CPU_1 0
 cores_sketch_CPU_1 0
 cores_dpdk_CPU_1 6
-ns_sketch_CPU_1 10.7143
-pdt_nsk_c_CPU_1 0
-ns_dpdk_CPU_1 10.7143
-pdt_nsc_dpdk_CPU_1 64.2857
-ns_CPU_1 10.7143
 m_access_time_CPU_2 0
 ns_single_CPU_2 0
 pdt_m_rows_CPU_2 0
 cores_sketch_CPU_2 0
 cores_dpdk_CPU_2 6
-ns_sketch_CPU_2 10.7154
-pdt_nsk_c_CPU_2 0
-ns_dpdk_CPU_2 10.7143
-pdt_nsc_dpdk_CPU_2 64.2857
-ns_CPU_2 10.7154
-m_access_time_CPU_3 0.537688
-ns_single_CPU_3 8.07538
-pdt_m_rows_CPU_3 1.07538
-cores_sketch_CPU_3 1
+m_access_time_CPU_3 0
+ns_single_CPU_3 0
+pdt_m_rows_CPU_3 0
+cores_sketch_CPU_3 0
 cores_dpdk_CPU_3 6
-ns_sketch_CPU_3 8.07538
-pdt_nsk_c_CPU_3 8.07538
-ns_dpdk_CPU_3 10.7143
-pdt_nsc_dpdk_CPU_3 64.2857
-ns_CPU_3 10.7143
 m_access_time_CPU_4 0
 ns_single_CPU_4 0
 pdt_m_rows_CPU_4 0
 cores_sketch_CPU_4 0
 cores_dpdk_CPU_4 6
-ns_sketch_CPU_4 10.7143
-pdt_nsk_c_CPU_4 0
-ns_dpdk_CPU_4 10.7143
-pdt_nsc_dpdk_CPU_4 64.2857
-ns_CPU_4 10.7143
 m_access_time_CPU_5 0.537688
 ns_single_CPU_5 8.07538
 pdt_m_rows_CPU_5 1.07538
 cores_sketch_CPU_5 1
 cores_dpdk_CPU_5 6
-ns_sketch_CPU_5 8.07538
-pdt_nsk_c_CPU_5 8.07538
-ns_dpdk_CPU_5 10.7143
-pdt_nsc_dpdk_CPU_5 64.2857
-ns_CPU_5 10.7143
 m_access_time_CPU_6 0
 ns_single_CPU_6 0
 pdt_m_rows_CPU_6 0
 cores_sketch_CPU_6 0
 cores_dpdk_CPU_6 6
-ns_sketch_CPU_6 10.7154
-pdt_nsk_c_CPU_6 0
-ns_dpdk_CPU_6 10.7143
-pdt_nsc_dpdk_CPU_6 64.2857
-ns_CPU_6 10.7154
-m_access_time_CPU_7 0.537688
-ns_single_CPU_7 8.07537
-pdt_m_rows_CPU_7 1.07537
-cores_sketch_CPU_7 1
+m_access_time_CPU_7 0
+ns_single_CPU_7 0
+pdt_m_rows_CPU_7 0
+cores_sketch_CPU_7 0
 cores_dpdk_CPU_7 6
-ns_sketch_CPU_7 8.07538
-pdt_nsk_c_CPU_7 8.07537
-ns_dpdk_CPU_7 10.7143
-pdt_nsc_dpdk_CPU_7 64.2857
-ns_CPU_7 10.7143
 m_access_time_CPU_8 0
 ns_single_CPU_8 0
 pdt_m_rows_CPU_8 0
 cores_sketch_CPU_8 0
 cores_dpdk_CPU_8 6
-ns_sketch_CPU_8 10.7143
-pdt_nsk_c_CPU_8 0
-ns_dpdk_CPU_8 10.7143
-pdt_nsc_dpdk_CPU_8 64.2857
-ns_CPU_8 10.7143
 m_access_time_CPU_9 0
 ns_single_CPU_9 0
 pdt_m_rows_CPU_9 0
 cores_sketch_CPU_9 0
 cores_dpdk_CPU_9 6
-ns_sketch_CPU_9 10.7143
-pdt_nsk_c_CPU_9 0
-ns_dpdk_CPU_9 10.7143
-pdt_nsc_dpdk_CPU_9 64.2857
-ns_CPU_9 10.7143
-m_access_time_CPU_10 0
-ns_single_CPU_10 0
-pdt_m_rows_CPU_10 0
-cores_sketch_CPU_10 0
+m_access_time_CPU_10 0.537688
+ns_single_CPU_10 8.07538
+pdt_m_rows_CPU_10 1.07538
+cores_sketch_CPU_10 1
 cores_dpdk_CPU_10 6
-ns_sketch_CPU_10 10.7143
-pdt_nsk_c_CPU_10 0
-ns_dpdk_CPU_10 10.7143
-pdt_nsc_dpdk_CPU_10 64.2857
-ns_CPU_10 10.7143
 m_access_time_CPU_11 0
 ns_single_CPU_11 0
 pdt_m_rows_CPU_11 0
 cores_sketch_CPU_11 0
 cores_dpdk_CPU_11 6
-ns_sketch_CPU_11 10.7143
-pdt_nsk_c_CPU_11 0
-ns_dpdk_CPU_11 10.7143
-pdt_nsc_dpdk_CPU_11 64.2857
-ns_CPU_11 10.7143
-m_access_time_CPU_12 0
-ns_single_CPU_12 0
-pdt_m_rows_CPU_12 0
-cores_sketch_CPU_12 0
+m_access_time_CPU_12 0.537688
+ns_single_CPU_12 8.07538
+pdt_m_rows_CPU_12 1.07538
+cores_sketch_CPU_12 1
 cores_dpdk_CPU_12 6
-ns_sketch_CPU_12 10.7143
-pdt_nsk_c_CPU_12 0
-ns_dpdk_CPU_12 10.7143
-pdt_nsc_dpdk_CPU_12 64.2857
-ns_CPU_12 10.7143
-m_access_time_CPU_13 0.537688
-ns_single_CPU_13 8.07538
-pdt_m_rows_CPU_13 1.07538
-cores_sketch_CPU_13 1
+m_access_time_CPU_13 0
+ns_single_CPU_13 0
+pdt_m_rows_CPU_13 0
+cores_sketch_CPU_13 0
 cores_dpdk_CPU_13 6
-ns_sketch_CPU_13 8.07538
-pdt_nsk_c_CPU_13 8.07538
-ns_dpdk_CPU_13 10.7143
-pdt_nsc_dpdk_CPU_13 64.2857
-ns_CPU_13 10.7143
 m_access_time_CPU_14 0
 ns_single_CPU_14 0
 pdt_m_rows_CPU_14 0
 cores_sketch_CPU_14 0
 cores_dpdk_CPU_14 6
-ns_sketch_CPU_14 0
-pdt_nsk_c_CPU_14 0
-ns_dpdk_CPU_14 10.7143
-pdt_nsc_dpdk_CPU_14 64.2857
-ns_CPU_14 10.7143
 m_access_time_CPU_15 0
 ns_single_CPU_15 0
 pdt_m_rows_CPU_15 0
 cores_sketch_CPU_15 0
 cores_dpdk_CPU_15 6
-ns_sketch_CPU_15 0
-pdt_nsk_c_CPU_15 0
-ns_dpdk_CPU_15 10.7143
-pdt_nsc_dpdk_CPU_15 64.2857
-ns_CPU_15 10.7143
-m_access_time_CPU_16 0.537688
-ns_single_CPU_16 8.07538
-pdt_m_rows_CPU_16 1.07538
-cores_sketch_CPU_16 1
+m_access_time_CPU_16 0
+ns_single_CPU_16 0
+pdt_m_rows_CPU_16 0
+cores_sketch_CPU_16 0
 cores_dpdk_CPU_16 6
-ns_sketch_CPU_16 8.07538
-pdt_nsk_c_CPU_16 8.07538
-ns_dpdk_CPU_16 10.7143
-pdt_nsc_dpdk_CPU_16 64.2857
-ns_CPU_16 10.7143
 m_access_time_CPU_17 0
 ns_single_CPU_17 0
 pdt_m_rows_CPU_17 0
 cores_sketch_CPU_17 0
 cores_dpdk_CPU_17 6
-ns_sketch_CPU_17 10.7143
-pdt_nsk_c_CPU_17 0
-ns_dpdk_CPU_17 10.7143
-pdt_nsc_dpdk_CPU_17 64.2857
-ns_CPU_17 10.7143
-m_access_time_CPU_18 0
-ns_single_CPU_18 0
-pdt_m_rows_CPU_18 0
-cores_sketch_CPU_18 0
+m_access_time_CPU_18 0.537688
+ns_single_CPU_18 8.07538
+pdt_m_rows_CPU_18 1.07538
+cores_sketch_CPU_18 1
 cores_dpdk_CPU_18 6
-ns_sketch_CPU_18 10.7154
-pdt_nsk_c_CPU_18 0
-ns_dpdk_CPU_18 10.7143
-pdt_nsc_dpdk_CPU_18 64.2857
-ns_CPU_18 10.7154
-m_access_time_CPU_19 0
-ns_single_CPU_19 0
-pdt_m_rows_CPU_19 0
-cores_sketch_CPU_19 0
+m_access_time_CPU_19 0.537688
+ns_single_CPU_19 8.07538
+pdt_m_rows_CPU_19 1.07538
+cores_sketch_CPU_19 1
 cores_dpdk_CPU_19 6
-ns_sketch_CPU_19 0
-pdt_nsk_c_CPU_19 0
-ns_dpdk_CPU_19 10.7143
-pdt_nsc_dpdk_CPU_19 64.2857
-ns_CPU_19 10.7143
 ns_P4_1 6.75676
-ns 10.7154
 res 1273.7
 --------------------------------------------------
 
-Throughput: 93.32399222387198 Mpps, ns per packet: 10.715358142857108
-Resources: 1273.701702920645
-Used Cores: 125.99999950806792, Total CPUS: 20, Switch Memory: 81.5625
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 1273.7017078399658
+Used Cores: 126.0, Total CPUS: 20, Switch Memory: 81.5625
 
 Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 0, Rows: 1
-(1.000,20)    (0.000,1)    (-0.000,0)    
+(1.000,20)    (-0.000,1)    (-0.000,0)    
 Total frac: 1.000
 Par1 id: 1, Rows: 1
-(0.000,1)    (0.000,0)    (1.000,20)    
+(-0.000,1)    (1.000,0)    (-0.000,20)    
 Total frac: 1.000
 Par2 id: 2, Rows: 1
-(1.000,0)    (-0.000,1)    (0.000,20)    
+(1.000,0)    (0.000,1)    (0.000,20)    
 Total frac: 1.000
 
 Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
@@ -1500,7 +2034,7 @@ Par0 id: 3, Rows: 1
 (1.000,20)    (-0.000,1)    (0.000,2)    
 Total frac: 1.000
 Par1 id: 4, Rows: 1
-(1.000,20)    (0.000,1)    (-0.000,2)    
+(1.000,20)    (-0.000,1)    (0.000,2)    
 Total frac: 1.000
 Par2 id: 5, Rows: 1
 (-0.000,2)    (-0.000,1)    (1.000,20)    
@@ -1508,10 +2042,10 @@ Total frac: 1.000
 
 Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 6, Rows: 1
-(-0.000,2)    (0.000,3)    (1.000,20)    
+(0.000,2)    (-0.000,3)    (1.000,20)    
 Total frac: 1.000
 Par1 id: 7, Rows: 1
-(0.000,20)    (1.000,3)    (-0.000,2)    
+(1.000,20)    (-0.000,3)    (-0.000,2)    
 Total frac: 1.000
 Par2 id: 8, Rows: 1
 (-0.000,2)    (1.000,20)    (-0.000,3)    
@@ -1525,18 +2059,18 @@ Par1 id: 10, Rows: 1
 (-0.000,4)    (1.000,20)    (-0.000,3)    
 Total frac: 1.000
 Par2 id: 11, Rows: 1
-(1.000,3)    (-0.000,4)    (0.000,20)    
+(-0.000,3)    (-0.000,4)    (1.000,20)    
 Total frac: 1.000
 
 Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 12, Rows: 1
-(0.000,4)    (1.000,20)    (0.000,5)    
+(-0.000,4)    (1.000,20)    (-0.000,5)    
 Total frac: 1.000
 Par1 id: 13, Rows: 1
-(1.000,5)    (-0.000,4)    (-0.000,20)    
+(-0.000,5)    (0.000,4)    (1.000,20)    
 Total frac: 1.000
 Par2 id: 14, Rows: 1
-(1.000,20)    (-0.000,5)    (0.000,4)    
+(0.000,20)    (1.000,5)    (-0.000,4)    
 Total frac: 1.000
 
 Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
@@ -1544,7 +2078,7 @@ Par0 id: 15, Rows: 1
 (1.000,20)    (-0.000,6)    (-0.000,5)    
 Total frac: 1.000
 Par1 id: 16, Rows: 1
-(-0.000,6)    (1.000,20)    (-0.000,5)    
+(0.000,6)    (1.000,20)    (0.000,5)    
 Total frac: 1.000
 Par2 id: 17, Rows: 1
 (1.000,5)    (-0.000,6)    (0.000,20)    
@@ -1552,13 +2086,13 @@ Total frac: 1.000
 
 Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 18, Rows: 1
-(1.000,7)    (-0.000,6)    (0.000,20)    
+(-0.000,7)    (-0.000,6)    (1.000,20)    
 Total frac: 1.000
 Par1 id: 19, Rows: 1
-(-0.000,7)    (1.000,20)    (-0.000,6)    
+(0.000,7)    (1.000,20)    (-0.000,6)    
 Total frac: 1.000
 Par2 id: 20, Rows: 1
-(0.000,20)    (-0.000,6)    (1.000,7)    
+(1.000,20)    (-0.000,6)    (-0.000,7)    
 Total frac: 1.000
 
 Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
@@ -1566,7 +2100,7 @@ Par0 id: 21, Rows: 1
 (-0.000,8)    (-0.000,7)    (1.000,20)    
 Total frac: 1.000
 Par1 id: 22, Rows: 1
-(-0.000,7)    (-0.000,8)    (1.000,20)    
+(0.000,7)    (-0.000,8)    (1.000,20)    
 Total frac: 1.000
 Par2 id: 23, Rows: 1
 (-0.000,8)    (-0.000,7)    (1.000,20)    
@@ -1574,57 +2108,57 @@ Total frac: 1.000
 
 Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 24, Rows: 1
-(-0.000,8)    (0.000,9)    (1.000,20)    
+(0.000,8)    (-0.000,9)    (1.000,20)    
 Total frac: 1.000
 Par1 id: 25, Rows: 1
-(1.000,20)    (0.000,9)    (-0.000,8)    
+(1.000,20)    (-0.000,9)    (-0.000,8)    
 Total frac: 1.000
 Par2 id: 26, Rows: 1
-(-0.000,9)    (1.000,20)    (-0.000,8)    
+(-0.000,9)    (1.000,20)    (0.000,8)    
 Total frac: 1.000
 
 Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 27, Rows: 1
-(1.000,20)    (-0.000,9)    (-0.000,10)    
+(0.000,20)    (-0.000,9)    (1.000,10)    
 Total frac: 1.000
 Par1 id: 28, Rows: 1
 (1.000,20)    (-0.000,9)    (-0.000,10)    
 Total frac: 1.000
 Par2 id: 29, Rows: 1
-(0.000,10)    (-0.000,9)    (1.000,20)    
+(1.000,10)    (-0.000,9)    (0.000,20)    
 Total frac: 1.000
 
 Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 30, Rows: 1
-(1.000,20)    (0.000,10)    (-0.000,11)    
+(1.000,20)    (-0.000,10)    (-0.000,11)    
 Total frac: 1.000
 Par1 id: 31, Rows: 1
-(-0.000,11)    (1.000,20)    (-0.000,10)    
+(-0.000,11)    (1.000,20)    (0.000,10)    
 Total frac: 1.000
 Par2 id: 32, Rows: 1
-(1.000,20)    (-0.000,10)    (-0.000,11)    
+(1.000,20)    (0.000,10)    (-0.000,11)    
 Total frac: 1.000
 
 Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 33, Rows: 1
-(1.000,20)    (0.000,11)    (0.000,12)    
+(0.000,20)    (-0.000,11)    (1.000,12)    
 Total frac: 1.000
 Par1 id: 34, Rows: 1
-(-0.000,12)    (-0.000,11)    (1.000,20)    
+(0.000,12)    (-0.000,11)    (1.000,20)    
 Total frac: 1.000
 Par2 id: 35, Rows: 1
-(1.000,20)    (0.000,11)    (-0.000,12)    
+(1.000,20)    (-0.000,11)    (0.000,12)    
 Total frac: 1.000
 
 Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 36, Rows: 1
-(-0.000,12)    (1.000,13)    (0.000,20)    
+(1.000,12)    (-0.000,13)    (0.000,20)    
 Total frac: 1.000
 Par1 id: 37, Rows: 1
-(1.000,20)    (0.000,13)    (-0.000,12)    
+(1.000,20)    (-0.000,13)    (-0.000,12)    
 Total frac: 1.000
 Par2 id: 38, Rows: 1
-(1.000,13)    (0.000,20)    (-0.000,12)    
+(-0.000,13)    (1.000,20)    (-0.000,12)    
 Total frac: 1.000
 
 Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
@@ -1643,7 +2177,7 @@ Par0 id: 42, Rows: 1
 (1.000,20)    (-0.000,15)    (-0.000,14)    
 Total frac: 1.000
 Par1 id: 43, Rows: 1
-(0.000,14)    (-0.000,15)    (1.000,20)    
+(-0.000,14)    (-0.000,15)    (1.000,20)    
 Total frac: 1.000
 Par2 id: 44, Rows: 1
 (1.000,20)    (-0.000,14)    (-0.000,15)    
@@ -1651,13 +2185,13 @@ Total frac: 1.000
 
 Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 45, Rows: 1
-(1.000,16)    (0.000,15)    (-0.000,20)    
+(0.000,16)    (-0.000,15)    (1.000,20)    
 Total frac: 1.000
 Par1 id: 46, Rows: 1
-(-0.000,15)    (-0.000,16)    (1.000,20)    
+(0.000,15)    (-0.000,16)    (1.000,20)    
 Total frac: 1.000
 Par2 id: 47, Rows: 1
-(1.000,16)    (0.000,15)    (-0.000,20)    
+(0.000,16)    (0.000,15)    (1.000,20)    
 Total frac: 1.000
 
 Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
@@ -1668,15 +2202,15 @@ Par1 id: 49, Rows: 1
 (1.000,20)    (-0.000,17)    (-0.000,16)    
 Total frac: 1.000
 Par2 id: 50, Rows: 1
-(-0.000,16)    (0.000,17)    (1.000,20)    
+(-0.000,16)    (-0.000,17)    (1.000,20)    
 Total frac: 1.000
 
 Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 51, Rows: 1
-(-0.000,17)    (-0.000,18)    (1.000,20)    
+(-0.000,17)    (0.000,18)    (1.000,20)    
 Total frac: 1.000
 Par1 id: 52, Rows: 1
-(-0.000,17)    (-0.000,18)    (1.000,20)    
+(-0.000,17)    (1.000,18)    (0.000,20)    
 Total frac: 1.000
 Par2 id: 53, Rows: 1
 (1.000,20)    (-0.000,18)    (-0.000,17)    
@@ -1684,10 +2218,10 @@ Total frac: 1.000
 
 Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 54, Rows: 1
-(0.000,19)    (1.000,20)    (0.000,18)    
+(-0.000,19)    (1.000,20)    (-0.000,18)    
 Total frac: 1.000
 Par1 id: 55, Rows: 1
-(-0.000,18)    (-0.000,19)    (1.000,20)    
+(1.000,18)    (-0.000,19)    (-0.000,20)    
 Total frac: 1.000
 Par2 id: 56, Rows: 1
 (-0.000,18)    (1.000,20)    (-0.000,19)    
@@ -1695,19 +2229,19 @@ Total frac: 1.000
 
 Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
 Par0 id: 57, Rows: 1
-(-0.000,19)    (0.000,20)    (1.000,0)    
+(1.000,19)    (0.000,20)    (-0.000,0)    
 Total frac: 1.000
 Par1 id: 58, Rows: 1
-(1.000,20)    (-0.000,0)    (-0.000,19)    
+(1.000,20)    (0.000,0)    (-0.000,19)    
 Total frac: 1.000
 Par2 id: 59, Rows: 1
-(-0.000,19)    (1.000,20)    (-0.000,0)    
+(1.000,19)    (0.000,20)    (-0.000,0)    
 Total frac: 1.000
 
 Device (0) CPU_0:
 cores_sketch: 1.0, cores_dpdk: 6.0
-Rows total: 2.000000695396868
-Mem total: 3.3984386816313967
+Rows total: 2.0
+Mem total: 3.3984375
 Throughput: 93.33333333333333
 
 Device (1) CPU_1:
@@ -1720,12 +2254,12 @@ Device (2) CPU_2:
 cores_sketch: 0.0, cores_dpdk: 6.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 93.32399222387198
+Throughput: 93.33333333333333
 
 Device (3) CPU_3:
-cores_sketch: 1.0, cores_dpdk: 6.0
-Rows total: 2.0000002884673043
-Mem total: 3.398437990169052
+cores_sketch: 0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (4) CPU_4:
@@ -1744,12 +2278,12 @@ Device (6) CPU_6:
 cores_sketch: 0.0, cores_dpdk: 6.0
 Rows total: 0.0
 Mem total: 0.0
-Throughput: 93.32399222387198
+Throughput: 93.33333333333333
 
 Device (7) CPU_7:
-cores_sketch: 0.9999995080679138, cores_dpdk: 6.0
-Rows total: 1.9999990161358274
-Mem total: 3.398435828199551
+cores_sketch: 0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (8) CPU_8:
@@ -1765,9 +2299,9 @@ Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (10) CPU_10:
-cores_sketch: 0.0, cores_dpdk: 6.0
-Rows total: 0.0
-Mem total: 0.0
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 2.0
+Mem total: 3.3984375
 Throughput: 93.33333333333333
 
 Device (11) CPU_11:
@@ -1777,15 +2311,15 @@ Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (12) CPU_12:
-cores_sketch: 0.0, cores_dpdk: 6.0
-Rows total: 0.0
-Mem total: 0.0
-Throughput: 93.33333333333333
-
-Device (13) CPU_13:
 cores_sketch: 1.0, cores_dpdk: 6.0
 Rows total: 2.0
 Mem total: 3.3984375
+Throughput: 93.33333333333333
+
+Device (13) CPU_13:
+cores_sketch: 0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (14) CPU_14:
@@ -1801,9 +2335,9 @@ Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (16) CPU_16:
-cores_sketch: 1.0, cores_dpdk: 6.0
-Rows total: 2.0
-Mem total: 3.3984375
+cores_sketch: 0.0, cores_dpdk: 6.0
+Rows total: 0.0
+Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (17) CPU_17:
@@ -1813,15 +2347,15 @@ Mem total: 0.0
 Throughput: 93.33333333333333
 
 Device (18) CPU_18:
-cores_sketch: 0.0, cores_dpdk: 6.0
-Rows total: 0.0
-Mem total: 0.0
-Throughput: 93.32399222387198
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 2.0
+Mem total: 3.3984375
+Throughput: 93.33333333333333
 
 Device (19) CPU_19:
-cores_sketch: 0.0, cores_dpdk: 6.0
-Rows total: 0.0
-Mem total: 0.0
+cores_sketch: 1.0, cores_dpdk: 6.0
+Rows total: 2.0
+Mem total: 3.3984375
 Throughput: 93.33333333333333
 
 Device (20) P4_1:
@@ -1890,5 +2424,5 @@ Flow 19:
 partitions: [(57, 1), (58, 1), (59, 1)]
 path: (19, 20, 0)
 --------------------------------------------------
-Function: MIP.solve took 2.220414876937866 seconds
-Function: solve took 2.220665216445923 seconds
+Function: MIP.solve took 0.3574225902557373 seconds
+Function: solve took 0.35767221450805664 seconds

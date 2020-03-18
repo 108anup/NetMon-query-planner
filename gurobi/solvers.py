@@ -773,7 +773,7 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac):
         if(res_stats != ""):
             log.info(res_stats)
         log.info("Rows total: {}".format(get_val(d.rows_tot)))
-        log.info("Mem total: {}".format(d.mem_tot.x))
+        log.info("Mem total: {}".format(get_val(d.mem_tot)))
         if(hasattr(d, 'ns')):
             log.info("Throughput: {}".format(1000/d.ns.x))
 

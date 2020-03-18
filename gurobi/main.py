@@ -210,6 +210,8 @@ def solve(inp):
         log.info('-'*50)
 
         refine_devices(inp.devices)
+        # TODO: Add debug / info logger to logging mechanisms
+        # Put intermediate output to debug!
         log_results(inp.devices)
         log_placement(inp.devices, inp.partitions, inp.flows,
                       placement.dev_par_tuplelist, placement.frac)
@@ -228,20 +230,23 @@ def solve(inp):
         f.close()
 
 
-parser = generate_parser()
-args = parser.parse_args(sys.argv[1:])
-if(hasattr(args, 'config_file')):
-    for fpath in args.config_file:
-        common_config.load_config_file(fpath)
-common_config.update(args)
-setup_logging(common_config)
+if(__name__ == '__main__'):
 
-input_num = common_config.input_num
-inp = input_generator[input_num]
+    parser = generate_parser()
+    args = parser.parse_args(sys.argv[1:])
+    if(hasattr(args, 'config_file')):
+        for fpath in args.config_file:
+            common_config.load_config_file(fpath)
+    common_config.update(args)
 
-try:
-    solve(inp)
-except:
-    extype, value, tb = sys.exc_info()
-    traceback.print_exc()
-    ipdb.post_mortem(tb)
+    setup_logging(common_config)
+
+    input_num = common_config.input_num
+    inp = input_generator[input_num]
+
+    try:
+        solve(inp)
+    except Exception:
+        extype, value, tb = sys.exc_info()
+        traceback.print_exc()
+        ipdb.post_mortem(tb)

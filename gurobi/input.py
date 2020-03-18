@@ -6,6 +6,8 @@ from common import Namespace, memoize
 from devices import CPU, P4
 from flows import flow
 from sketches import cm_sketch
+import numpy as np
+
 
 # Stub file for providing input to solver
 
@@ -69,6 +71,15 @@ tofino = {
        max_mpr=48, max_mem=48*12, max_rows=12, name='P4_1'),
 
 '''
+
+
+def generate_overlay(nesting, start_idx=0):
+    if(len(nesting) == 1):
+        return [start_idx + i for i in range(nesting[0])]
+    else:
+        num_elements = np.prod(nesting[1:])
+        return [generate_overlay(nesting[1:], start_idx + i*num_elements)
+                for i in range(nesting[0])]
 
 
 class Input(Namespace):
@@ -523,6 +534,21 @@ input_generator = [
         flows=[flow(path=(i, 4, (i + 1) % 4), queries=[(i, 1)])
                for i in range(4)],
         overlay=[[i + j*2 for i in range(2)] for j in range(2)] + [4]
+    ),
+
+    # 23 modified 18 overlay on 11
+    # Pressure at network core
+    Input(
+        devices=(
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(20)] +
+            [P4(**tofino, name='P4_1')]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0, del0=del0) for i in range(20)
+        ],
+        flows=[flow(path=(i, 20, (i + 1) % 20), queries=[(i, 1)])
+               for i in range(20)],
+        overlay=[[i + j*5 for i in range(5)] for j in range(4)] + [20]
     ),
 
 ]
