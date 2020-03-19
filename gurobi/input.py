@@ -74,8 +74,10 @@ tofino = {
 
 
 def generate_overlay(nesting, start_idx=0):
-    if(len(nesting) == 1):
-        return [start_idx + i for i in range(nesting[0])]
+    if(len(nesting) == 0):
+        return int(start_idx)
+    # if(len(nesting) == 1):
+    #     return [start_idx + i for i in range(nesting[0])]
     else:
         num_elements = np.prod(nesting[1:])
         return [generate_overlay(nesting[1:], start_idx + i*num_elements)
@@ -94,7 +96,7 @@ class Input(Namespace):
 
 
 def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
-                num_queries=80, eps=eps0, overlay='none'):
+                num_queries=80, eps=eps0, overlay='none', tenant=False):
     pickle_name = "pickle_objs/inp-{}-{}-{}-{}-{}".format(
         hosts_per_tors, tors_per_l1s, l1s, num_queries, eps0/eps)
     pickle_loaded = False
@@ -197,7 +199,42 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             # [cm_sketch(eps0=eps0*10, del0=del0) for i in range(24)] +
             # [cm_sketch(eps0=eps0, del0=del0) for i in range(32)]
         ),
-        flows=[
+    )
+
+    if(tenant):
+        flows = []
+
+        # each tenant exclusively owns 8 hosts
+        # and has 4 queries they want measured
+        qs_len = 4
+        hosts_per_tenant = 8
+        num_tenants = hosts / hosts_per_tenant
+        assert(num_queries == hosts / (hosts_per_tenant / qs_len))
+
+        # the 8 hosts are randomly assigned to tenants
+        servers = np.arange(hosts)
+        np.random.shuffle(servers)
+        tenant_servers = np.split(servers, num_tenants)
+
+        for (tnum, t) in enumerate(tenant_servers):
+            query_set = [i + tnum*qs_len for i in range(qs_len)]
+
+            # each tenant has 8 different OD pairs,
+            # traffic between which needs to be measured
+            for itr in range(8):
+                h1 = t[random.randint(0, hosts_per_tenant-1)]
+                h2 = t[random.randint(0, hosts_per_tenant-1)]
+                cov = int(random.random() * 4 + 7)/10
+                q = query_set[random.randint(0, qs_len-1)]
+                flows.append(
+                    flow(
+                        path=get_path(h1, h2),
+                        queries=[(q, cov)]
+                    )
+                )
+        inp.flows = flows
+    else:
+        inp.flows = [
             flow(
                 path=get_path(random.randint(0, hosts-1),
                               random.randint(0, hosts-1)),
@@ -208,7 +245,6 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             )
             for flownum in range(max(hosts, num_queries) * 5)
         ]
-    )
 
     if(hasattr(inp, 'overlay')):
         delattr(inp, 'overlay')
@@ -550,5 +586,14 @@ input_generator = [
                for i in range(20)],
         overlay=[[i + j*5 for i in range(5)] for j in range(4)] + [20]
     ),
+
+    # 24
+    # Small tenant
+    dc_topology(hosts_per_tors=8, num_queries=8*2, tenant=True),
+
+    # 25
+    # Large tenant
+    dc_topology(hosts_per_tors=48, tors_per_l1s=20,
+                l1s=10, num_queries=4800, tenant=True),
 
 ]

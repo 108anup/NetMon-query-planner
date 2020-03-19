@@ -52,19 +52,33 @@ class DebugFilter(logging.Filter):
         return rec.levelno == logging.DEBUG
 
 
+def remove_all_file_loggers():
+    to_remove = []
+    for handler in log.handlers:
+        if(isinstance(handler, logging.FileHandler)):
+            to_remove.append(handler)
+
+    for h in to_remove:
+        log.removeHandler(h)
+
+
+def add_file_logger(file_path):
+    file_handler = logging.FileHandler(file_path)
+    file_handler.setLevel(logging.DEBUG)
+    log.addHandler(file_handler)
+
+
 def setup_logging(args):
+
     if(args.verbose >= 2):
-        log.setLevel(logging.DEBUG)
+        console.setLevel(logging.DEBUG)
     elif(args.verbose >= 1):
-        log.setLevel(logging.INFO)
+        console.setLevel(logging.INFO)
     else:
-        log.setLevel(logging.WARNING)
+        console.setLevel(logging.WARNING)
 
-    console = logging.StreamHandler()
-    console.setLevel(log.getEffectiveLevel())
-    log.addHandler(console)
-
-    #file_handler = logging.FileHandler(common_config.)
+    if(args.output_file):
+        add_file_logger(args.output_file)
 
     # if(args.verbose >= 2):
     #     h_debug = logging.StreamHandler(sys.stdout)
@@ -84,6 +98,9 @@ def setup_logging(args):
 
 
 log = logging.getLogger('control')
+log.setLevel(logging.DEBUG)
+console = logging.StreamHandler()
+log.addHandler(console)
 
 constants = Namespace(
     cell_size=4,

@@ -1,0 +1,4364 @@
+Function: get_partitions took 4.744529724121094e-05 seconds
+Function: map_flows_partitions took 2.2411346435546875e-05 seconds
+Building model with:
+77 devices, 32 partitions and 64 flows
+Function: MIP.add_frac_mem_var took 0.0014777183532714844 seconds
+Function: MIP.add_coverage_constraints took 0.0006952285766601562 seconds
+Function: MIP.add_accuracy_constraints took 0.0032858848571777344 seconds
+Function: MIP.add_capacity_constraints took 0.0063495635986328125 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 0.0003838539123535156 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.04372906684875488 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.885645977011491e-07
+frac[64,0] 0
+frac[36,6] 0
+frac[67,13] 0.1
+frac[66,31] 0.432387
+frac[46,25] 0
+frac[20,20] 0
+frac[68,14] 0.1
+frac[66,10] 1
+frac[22,19] 0
+frac[7,25] 0
+frac[16,28] 0
+frac[12,31] 0
+frac[68,25] 0.1
+frac[67,19] 0.7
+frac[74,1] 0.0676135
+frac[73,31] 0.0323865
+frac[72,17] 0.1
+frac[38,27] 0
+frac[69,28] 0
+frac[74,28] 0
+frac[76,15] 0
+frac[58,14] 0
+frac[75,17] 0
+frac[71,26] 1
+frac[35,0] 0
+frac[34,8] 0
+frac[76,26] 0.0352267
+frac[37,13] 0
+frac[0,17] 0
+frac[66,0] 0
+frac[68,3] 0
+frac[67,29] 0.9
+frac[12,28] 0
+frac[69,2] 0.135227
+frac[75,6] 0
+frac[74,2] 0.664773
+frac[73,26] 0
+frac[70,9] 0
+frac[76,1] 0
+frac[75,11] 0.7
+frac[23,10] 0
+frac[32,15] 0
+frac[64,20] 0.1
+frac[59,20] 0
+frac[76,12] 0
+frac[6,0] 0
+frac[65,17] 0
+frac[71,25] 0.0028402
+frac[76,31] 0
+frac[65,6] 0
+frac[30,16] 0
+frac[40,29] 0
+frac[60,13] 0
+frac[72,5] 0
+frac[69,8] 0
+frac[68,0] 0
+frac[74,8] 0.8
+frac[73,0] 0.7
+frac[53,26] 0
+frac[51,6] 0
+frac[75,5] 0
+frac[76,6] 1
+frac[23,9] 0
+frac[64,17] 0
+frac[55,20] 0
+frac[70,25] 0
+frac[45,28] 0
+frac[76,17] 0
+frac[75,27] 0
+frac[65,28] 0.1
+frac[34,14] 0
+frac[76,28] 0
+frac[72,15] 0
+frac[11,16] 0
+frac[18,0] 0
+frac[67,2] 0
+frac[17,8] 0
+frac[48,5] 0
+frac[68,5] 0
+frac[74,13] 0
+frac[73,3] 0.8
+frac[72,21] 0
+frac[51,5] 0
+frac[47,6] 0
+frac[73,16] 0
+frac[70,23] 1
+frac[2,12] 0
+frac[76,11] 0
+frac[70,26] 0.532387
+frac[66,17] 0
+frac[65,31] 0.264773
+frac[15,23] 0
+frac[66,28] 0
+frac[72,12] 0
+frac[68,15] 0
+frac[66,11] 0
+frac[73,9] 0
+frac[63,26] 0
+frac[16,29] 0
+frac[72,31] 0.270454
+frac[74,14] 0
+frac[74,29] 0
+frac[73,19] 0
+frac[76,8] 0
+frac[65,21] 0.267613
+frac[35,3] 0
+frac[76,27] 0
+frac[64,14] 0
+frac[37,12] 0
+frac[36,4] 0
+frac[66,1] 0
+frac[72,9] 0
+frac[68,12] 0
+frac[24,2] 0
+frac[63,25] 0
+frac[72,28] 0.7
+frac[67,17] 0
+frac[74,3] 0
+frac[73,25] 0
+frac[76,2] 0
+frac[64,21] 0.632387
+frac[76,13] 0
+frac[65,16] 0.9
+frac[66,23] 0
+frac[65,5] 0
+frac[30,17] 0
+frac[60,14] 0
+frac[66,2] 0
+frac[72,6] 0
+frac[13,9] 0
+frac[21,17] 0
+frac[68,1] 0.632387
+frac[72,25] 0
+frac[70,4] 0
+frac[69,4] 0
+frac[3,15] 0
+frac[75,4] 0
+frac[74,4] 0.9
+frac[49,9] 0
+frac[52,23] 0
+frac[70,11] 0
+frac[73,20] 0
+frac[53,22] 4.9047e-08
+frac[75,9] 0.7
+frac[23,8] 0
+frac[32,13] 0
+frac[55,23] 0
+frac[75,26] 0.232387
+frac[40,8] 0
+frac[65,19] 0
+frac[76,29] 0
+frac[19,11] 0
+frac[18,1] 0
+frac[11,19] 0
+frac[48,6] 0
+frac[72,3] 0
+frac[73,13] 0
+frac[62,26] 0
+frac[68,6] 0
+frac[73,2] 0
+frac[56,17] 0
+frac[52,20] 4.9047e-08
+frac[51,4] 0
+frac[74,25] 0
+frac[73,23] 0
+frac[70,20] 0
+frac[76,4] 0
+frac[58,11] 0
+frac[75,20] 0.8
+frac[71,17] 0
+frac[70,27] 0
+frac[76,23] 0
+frac[75,25] 0
+frac[31,0] 0
+frac[65,30] 0.7
+frac[25,29] 0
+frac[66,29] 0
+frac[18,2] 0
+frac[67,0] 0
+frac[68,8] 0
+frac[73,8] 0
+frac[72,0] 0
+frac[66,8] 0
+frac[22,17] 0
+frac[2,20] 0
+frac[26,26] 0
+frac[74,15] 0
+frac[68,27] 0.7
+frac[72,19] 0
+frac[38,25] 0
+frac[69,26] 0.1
+frac[73,29] 0
+frac[75,14] 0
+frac[74,26] 0
+frac[47,4] 0
+frac[71,11] 0.3
+frac[76,9] 0
+frac[53,25] 0
+frac[64,28] 0
+frac[71,20] 0
+frac[14,29] 0
+frac[10,5] 0
+frac[76,20] 0
+frac[66,19] 1
+frac[64,15] 0.8
+frac[36,5] 0
+frac[41,3] 0
+frac[15,21] 0
+frac[68,13] 0.8
+frac[24,3] 0
+frac[73,11] 0
+frac[72,29] 0.9
+frac[12,30] 0
+frac[67,16] 0
+frac[74,0] 0
+frac[46,2] 0
+frac[72,16] 0
+frac[28,25] 0
+frac[76,3] 0
+frac[75,13] 0
+frac[69,29] 0
+frac[71,14] 0.9
+frac[76,14] 0
+frac[65,23] 0
+frac[64,25] 0
+frac[14,30] 0
+frac[35,1] 0
+frac[10,6] 0
+frac[66,20] 0
+frac[76,25] 0.69716
+frac[64,12] 0.9
+frac[37,14] 0
+frac[66,3] 0
+frac[65,9] 0.2
+frac[67,26] 0
+frac[70,5] 0
+frac[69,3] 0
+frac[3,14] 0
+frac[74,5] 0
+frac[76,0] 0
+frac[55,22] 4.9047e-08
+frac[71,13] 0
+frac[76,19] 0
+frac[6,3] 0
+frac[30,19] 0
+frac[19,10] 0
+frac[21,19] 0
+frac[67,25] 0.20284
+frac[73,1] 0
+frac[72,23] 0
+frac[70,6] 0
+frac[69,6] 0
+frac[74,6] 0
+frac[49,11] 4.9047e-08
+frac[27,13] 0
+frac[76,5] 0.7
+frac[75,23] 0
+frac[45,29] 0
+frac[76,16] 0
+frac[31,3] 0
+frac[64,3] 0
+frac[5,28] 0
+frac[65,29] 0
+frac[72,14] 0
+frac[20,23] 0
+frac[11,17] 0
+frac[18,3] 0
+frac[67,3] 0.2
+frac[42,4] 0
+frac[66,9] 0
+frac[16,31] 0
+frac[2,21] 0
+frac[68,4] 0.1
+frac[74,12] 0
+frac[73,28] 0
+frac[72,20] 0
+frac[69,25] 0
+frac[43,26] 0
+frac[74,27] 0
+frac[73,17] 0.9
+frac[70,22] 0.9
+frac[49,27] 0
+mem[64,0] 0
+mem[36,6] 0
+mem[67,13] 0.509766
+mem[66,31] 2.20416
+mem[46,25] 0
+mem[20,20] 0
+mem[68,14] 0.509766
+mem[66,10] 5.09766
+mem[22,19] 0
+mem[7,25] 0
+mem[16,28] 0
+mem[12,31] 0
+mem[68,25] 0.509766
+mem[67,19] 3.56836
+mem[74,1] 0.34467
+mem[73,31] 0.165095
+mem[72,17] 0.509766
+mem[38,27] 0
+mem[69,28] 0
+mem[74,28] 0
+mem[76,15] 0
+mem[58,14] 0
+mem[75,17] 0
+mem[71,26] 5.09766
+mem[35,0] 0
+mem[34,8] 0
+mem[76,26] 0.179574
+mem[37,13] 0
+mem[0,17] 0
+mem[66,0] 0
+mem[68,3] 0
+mem[67,29] 4.58789
+mem[12,28] 0
+mem[69,2] 0.68934
+mem[75,6] 0
+mem[74,2] 3.38878
+mem[73,26] 0
+mem[70,9] 0
+mem[76,1] 0
+mem[75,11] 3.56836
+mem[23,10] 0
+mem[32,15] 0
+mem[64,20] 0.509766
+mem[59,20] 0
+mem[76,12] 0
+mem[6,0] 0
+mem[65,17] 0
+mem[71,25] 0.0144783
+mem[76,31] 0
+mem[65,6] 0
+mem[30,16] 0
+mem[40,29] 0
+mem[60,13] 0
+mem[72,5] 0
+mem[69,8] 0
+mem[68,0] 0
+mem[74,8] 4.07812
+mem[73,0] 3.56836
+mem[53,26] 0
+mem[51,6] 0
+mem[75,5] 0
+mem[76,6] 5.09766
+mem[23,9] 0
+mem[64,17] 0
+mem[55,20] 0
+mem[70,25] 0
+mem[45,28] 0
+mem[76,17] 0
+mem[75,27] 0
+mem[65,28] 0.509766
+mem[34,14] 0
+mem[76,28] 0
+mem[72,15] 0
+mem[11,16] 0
+mem[18,0] 0
+mem[67,2] 0
+mem[17,8] 0
+mem[48,5] 0
+mem[68,5] 0
+mem[74,13] 0
+mem[73,3] 4.07812
+mem[72,21] 0
+mem[51,5] 0
+mem[47,6] 0
+mem[73,16] 0
+mem[70,23] 5.09766
+mem[2,12] 0
+mem[76,11] 0
+mem[70,26] 2.71392
+mem[66,17] 0
+mem[65,31] 1.34972
+mem[15,23] 0
+mem[66,28] 0
+mem[72,12] 0
+mem[68,15] 0
+mem[66,11] 0
+mem[73,9] 0
+mem[63,26] 0
+mem[16,29] 0
+mem[72,31] 1.37868
+mem[74,14] 0
+mem[74,29] 0
+mem[73,19] 0
+mem[76,8] 0
+mem[65,21] 1.3642
+mem[35,3] 0
+mem[76,27] 0
+mem[64,14] 0
+mem[37,12] 0
+mem[36,4] 0
+mem[66,1] 0
+mem[72,9] 0
+mem[68,12] 0
+mem[24,2] 0
+mem[63,25] 0
+mem[72,28] 3.56836
+mem[67,17] 0
+mem[74,3] 0
+mem[73,25] 0
+mem[76,2] 0
+mem[64,21] 3.22369
+mem[76,13] 0
+mem[65,16] 4.58789
+mem[66,23] 0
+mem[65,5] 0
+mem[30,17] 0
+mem[60,14] 0
+mem[66,2] 0
+mem[72,6] 0
+mem[13,9] 0
+mem[21,17] 0
+mem[68,1] 3.22369
+mem[72,25] 0
+mem[70,4] 0
+mem[69,4] 0
+mem[3,15] 0
+mem[75,4] 0
+mem[74,4] 4.58789
+mem[49,9] 0
+mem[52,23] 0
+mem[70,11] 0
+mem[73,20] 0
+mem[53,22] 2.50025e-07
+mem[75,9] 3.56836
+mem[23,8] 0
+mem[32,13] 0
+mem[55,23] 0
+mem[75,26] 1.18463
+mem[40,8] 0
+mem[65,19] 0
+mem[76,29] 0
+mem[19,11] 0
+mem[18,1] 0
+mem[11,19] 0
+mem[48,6] 0
+mem[72,3] 0
+mem[73,13] 0
+mem[62,26] 0
+mem[68,6] 0
+mem[73,2] 0
+mem[56,17] 0
+mem[52,20] 2.50025e-07
+mem[51,4] 0
+mem[74,25] 0
+mem[73,23] 0
+mem[70,20] 0
+mem[76,4] 0
+mem[58,11] 0
+mem[75,20] 4.07812
+mem[71,17] 0
+mem[70,27] 0
+mem[76,23] 0
+mem[75,25] 0
+mem[31,0] 0
+mem[65,30] 3.56836
+mem[25,29] 0
+mem[66,29] 0
+mem[18,2] 0
+mem[67,0] 0
+mem[68,8] 0
+mem[73,8] 0
+mem[72,0] 0
+mem[66,8] 0
+mem[22,17] 0
+mem[2,20] 0
+mem[26,26] 0
+mem[74,15] 0
+mem[68,27] 3.56836
+mem[72,19] 0
+mem[38,25] 0
+mem[69,26] 0.509766
+mem[73,29] 0
+mem[75,14] 0
+mem[74,26] 0
+mem[47,4] 0
+mem[71,11] 1.5293
+mem[76,9] 0
+mem[53,25] 0
+mem[64,28] 0
+mem[71,20] 0
+mem[14,29] 0
+mem[10,5] 0
+mem[76,20] 0
+mem[66,19] 5.09766
+mem[64,15] 4.07812
+mem[36,5] 0
+mem[41,3] 0
+mem[15,21] 0
+mem[68,13] 4.07812
+mem[24,3] 0
+mem[73,11] 0
+mem[72,29] 4.58789
+mem[12,30] 0
+mem[67,16] 0
+mem[74,0] 0
+mem[46,2] 0
+mem[72,16] 0
+mem[28,25] 0
+mem[76,3] 0
+mem[75,13] 0
+mem[69,29] 0
+mem[71,14] 4.58789
+mem[76,14] 0
+mem[65,23] 0
+mem[64,25] 0
+mem[14,30] 0
+mem[35,1] 0
+mem[10,6] 0
+mem[66,20] 0
+mem[76,25] 3.55388
+mem[64,12] 4.58789
+mem[37,14] 0
+mem[66,3] 0
+mem[65,9] 1.01953
+mem[67,26] 0
+mem[70,5] 0
+mem[69,3] 0
+mem[3,14] 0
+mem[74,5] 0
+mem[76,0] 0
+mem[55,22] 2.50025e-07
+mem[71,13] 0
+mem[76,19] 0
+mem[6,3] 0
+mem[30,19] 0
+mem[19,10] 0
+mem[21,19] 0
+mem[67,25] 1.03401
+mem[73,1] 0
+mem[72,23] 0
+mem[70,6] 0
+mem[69,6] 0
+mem[74,6] 0
+mem[49,11] 2.50025e-07
+mem[27,13] 0
+mem[76,5] 3.56836
+mem[75,23] 0
+mem[45,29] 0
+mem[76,16] 0
+mem[31,3] 0
+mem[64,3] 0
+mem[5,28] 0
+mem[65,29] 0
+mem[72,14] 0
+mem[20,23] 0
+mem[11,17] 0
+mem[18,3] 0
+mem[67,3] 1.01953
+mem[42,4] 0
+mem[66,9] 0
+mem[16,31] 0
+mem[2,21] 0
+mem[68,4] 0.509766
+mem[74,12] 0
+mem[73,28] 0
+mem[72,20] 0
+mem[69,25] 0
+mem[43,26] 0
+mem[74,27] 0
+mem[73,17] 4.58789
+mem[70,22] 4.58789
+mem[49,27] 0
+mem_tot_CPU1 0
+normalized_mem_tot_CPU1 0
+rows_tot_CPU1 0
+normalized_rows_tot_CPU1 0
+mem_tot_CPU2 0
+normalized_mem_tot_CPU2 0
+rows_tot_CPU2 0
+normalized_rows_tot_CPU2 0
+mem_tot_CPU3 0
+normalized_mem_tot_CPU3 0
+rows_tot_CPU3 0
+normalized_rows_tot_CPU3 0
+mem_tot_CPU4 0
+normalized_mem_tot_CPU4 0
+rows_tot_CPU4 0
+normalized_rows_tot_CPU4 0
+mem_tot_CPU5 0
+normalized_mem_tot_CPU5 0
+rows_tot_CPU5 0
+normalized_rows_tot_CPU5 0
+mem_tot_CPU6 0
+normalized_mem_tot_CPU6 0
+rows_tot_CPU6 0
+normalized_rows_tot_CPU6 0
+mem_tot_CPU7 0
+normalized_mem_tot_CPU7 0
+rows_tot_CPU7 0
+normalized_rows_tot_CPU7 0
+mem_tot_CPU8 0
+normalized_mem_tot_CPU8 0
+rows_tot_CPU8 0
+normalized_rows_tot_CPU8 0
+mem_tot_CPU9 0
+normalized_mem_tot_CPU9 0
+rows_tot_CPU9 0
+normalized_rows_tot_CPU9 0
+mem_tot_CPU10 0
+normalized_mem_tot_CPU10 0
+rows_tot_CPU10 0
+normalized_rows_tot_CPU10 0
+mem_tot_CPU11 0
+normalized_mem_tot_CPU11 0
+rows_tot_CPU11 0
+normalized_rows_tot_CPU11 0
+mem_tot_CPU12 0
+normalized_mem_tot_CPU12 0
+rows_tot_CPU12 0
+normalized_rows_tot_CPU12 0
+mem_tot_CPU13 0
+normalized_mem_tot_CPU13 0
+rows_tot_CPU13 0
+normalized_rows_tot_CPU13 0
+mem_tot_CPU14 0
+normalized_mem_tot_CPU14 0
+rows_tot_CPU14 0
+normalized_rows_tot_CPU14 0
+mem_tot_CPU15 0
+normalized_mem_tot_CPU15 0
+rows_tot_CPU15 0
+normalized_rows_tot_CPU15 0
+mem_tot_CPU16 0
+normalized_mem_tot_CPU16 0
+rows_tot_CPU16 0
+normalized_rows_tot_CPU16 0
+mem_tot_CPU17 0
+normalized_mem_tot_CPU17 0
+rows_tot_CPU17 0
+normalized_rows_tot_CPU17 0
+mem_tot_CPU18 0
+normalized_mem_tot_CPU18 0
+rows_tot_CPU18 0
+normalized_rows_tot_CPU18 0
+mem_tot_CPU19 0
+normalized_mem_tot_CPU19 0
+rows_tot_CPU19 0
+normalized_rows_tot_CPU19 0
+mem_tot_CPU20 0
+normalized_mem_tot_CPU20 0
+rows_tot_CPU20 0
+normalized_rows_tot_CPU20 0
+mem_tot_CPU21 0
+normalized_mem_tot_CPU21 0
+rows_tot_CPU21 0
+normalized_rows_tot_CPU21 0
+mem_tot_CPU22 0
+normalized_mem_tot_CPU22 0
+rows_tot_CPU22 0
+normalized_rows_tot_CPU22 0
+mem_tot_CPU23 0
+normalized_mem_tot_CPU23 0
+rows_tot_CPU23 0
+normalized_rows_tot_CPU23 0
+mem_tot_CPU24 0
+normalized_mem_tot_CPU24 0
+rows_tot_CPU24 0
+normalized_rows_tot_CPU24 0
+mem_tot_CPU25 0
+normalized_mem_tot_CPU25 0
+rows_tot_CPU25 0
+normalized_rows_tot_CPU25 0
+mem_tot_CPU26 0
+normalized_mem_tot_CPU26 0
+rows_tot_CPU26 0
+normalized_rows_tot_CPU26 0
+mem_tot_CPU27 0
+normalized_mem_tot_CPU27 0
+rows_tot_CPU27 0
+normalized_rows_tot_CPU27 0
+mem_tot_CPU28 0
+normalized_mem_tot_CPU28 0
+rows_tot_CPU28 0
+normalized_rows_tot_CPU28 0
+mem_tot_CPU29 0
+normalized_mem_tot_CPU29 0
+rows_tot_CPU29 0
+normalized_rows_tot_CPU29 0
+mem_tot_CPU30 0
+normalized_mem_tot_CPU30 0
+rows_tot_CPU30 0
+normalized_rows_tot_CPU30 0
+mem_tot_CPU31 0
+normalized_mem_tot_CPU31 0
+rows_tot_CPU31 0
+normalized_rows_tot_CPU31 0
+mem_tot_CPU32 0
+normalized_mem_tot_CPU32 0
+rows_tot_CPU32 0
+normalized_rows_tot_CPU32 0
+mem_tot_CPU33 0
+normalized_mem_tot_CPU33 0
+rows_tot_CPU33 0
+normalized_rows_tot_CPU33 0
+mem_tot_CPU34 0
+normalized_mem_tot_CPU34 0
+rows_tot_CPU34 0
+normalized_rows_tot_CPU34 0
+mem_tot_CPU35 0
+normalized_mem_tot_CPU35 0
+rows_tot_CPU35 0
+normalized_rows_tot_CPU35 0
+mem_tot_CPU36 0
+normalized_mem_tot_CPU36 0
+rows_tot_CPU36 0
+normalized_rows_tot_CPU36 0
+mem_tot_CPU37 0
+normalized_mem_tot_CPU37 0
+rows_tot_CPU37 0
+normalized_rows_tot_CPU37 0
+mem_tot_CPU38 0
+normalized_mem_tot_CPU38 0
+rows_tot_CPU38 0
+normalized_rows_tot_CPU38 0
+mem_tot_CPU39 0
+normalized_mem_tot_CPU39 0
+rows_tot_CPU39 0
+normalized_rows_tot_CPU39 0
+mem_tot_CPU40 0
+normalized_mem_tot_CPU40 0
+rows_tot_CPU40 0
+normalized_rows_tot_CPU40 0
+mem_tot_CPU41 0
+normalized_mem_tot_CPU41 0
+rows_tot_CPU41 0
+normalized_rows_tot_CPU41 0
+mem_tot_CPU42 0
+normalized_mem_tot_CPU42 0
+rows_tot_CPU42 0
+normalized_rows_tot_CPU42 0
+mem_tot_CPU43 0
+normalized_mem_tot_CPU43 0
+rows_tot_CPU43 0
+normalized_rows_tot_CPU43 0
+mem_tot_CPU44 0
+normalized_mem_tot_CPU44 0
+rows_tot_CPU44 0
+normalized_rows_tot_CPU44 0
+mem_tot_CPU45 0
+normalized_mem_tot_CPU45 0
+rows_tot_CPU45 0
+normalized_rows_tot_CPU45 0
+mem_tot_CPU46 0
+normalized_mem_tot_CPU46 0
+rows_tot_CPU46 0
+normalized_rows_tot_CPU46 0
+mem_tot_CPU47 0
+normalized_mem_tot_CPU47 0
+rows_tot_CPU47 0
+normalized_rows_tot_CPU47 0
+mem_tot_CPU48 0
+normalized_mem_tot_CPU48 0
+rows_tot_CPU48 0
+normalized_rows_tot_CPU48 0
+mem_tot_CPU49 0
+normalized_mem_tot_CPU49 0
+rows_tot_CPU49 0
+normalized_rows_tot_CPU49 0
+mem_tot_CPU50 2.50025e-07
+normalized_mem_tot_CPU50 7.63016e-12
+rows_tot_CPU50 1.47141e-07
+normalized_rows_tot_CPU50 1.22618e-08
+mem_tot_CPU51 0
+normalized_mem_tot_CPU51 0
+rows_tot_CPU51 0
+normalized_rows_tot_CPU51 0
+mem_tot_CPU52 0
+normalized_mem_tot_CPU52 0
+rows_tot_CPU52 0
+normalized_rows_tot_CPU52 0
+mem_tot_CPU53 2.50025e-07
+normalized_mem_tot_CPU53 7.63016e-12
+rows_tot_CPU53 1.47141e-07
+normalized_rows_tot_CPU53 1.22618e-08
+mem_tot_CPU54 2.50025e-07
+normalized_mem_tot_CPU54 7.63016e-12
+rows_tot_CPU54 1.47141e-07
+normalized_rows_tot_CPU54 1.22618e-08
+mem_tot_CPU55 0
+normalized_mem_tot_CPU55 0
+rows_tot_CPU55 0
+normalized_rows_tot_CPU55 0
+mem_tot_CPU56 2.50025e-07
+normalized_mem_tot_CPU56 7.63016e-12
+rows_tot_CPU56 1.47141e-07
+normalized_rows_tot_CPU56 1.22618e-08
+mem_tot_CPU57 0
+normalized_mem_tot_CPU57 0
+rows_tot_CPU57 0
+normalized_rows_tot_CPU57 0
+mem_tot_CPU58 0
+normalized_mem_tot_CPU58 0
+rows_tot_CPU58 0
+normalized_rows_tot_CPU58 0
+mem_tot_CPU59 0
+normalized_mem_tot_CPU59 0
+rows_tot_CPU59 0
+normalized_rows_tot_CPU59 0
+mem_tot_CPU60 0
+normalized_mem_tot_CPU60 0
+rows_tot_CPU60 0
+normalized_rows_tot_CPU60 0
+mem_tot_CPU61 0
+normalized_mem_tot_CPU61 0
+rows_tot_CPU61 0
+normalized_rows_tot_CPU61 0
+mem_tot_CPU62 0
+normalized_mem_tot_CPU62 0
+rows_tot_CPU62 0
+normalized_rows_tot_CPU62 0
+mem_tot_CPU63 0
+normalized_mem_tot_CPU63 0
+rows_tot_CPU63 0
+normalized_rows_tot_CPU63 0
+mem_tot_CPU64 0
+normalized_mem_tot_CPU64 0
+rows_tot_CPU64 0
+normalized_rows_tot_CPU64 0
+mem_tot_tor_P41 12.3995
+normalized_mem_tot_tor_P41 0.0215269
+rows_tot_tor_P41 7.29716
+normalized_rows_tot_tor_P41 0.152024
+mem_tot_tor_P42 12.3995
+normalized_mem_tot_tor_P42 0.0215269
+rows_tot_tor_P42 7.29716
+normalized_rows_tot_tor_P42 0.152024
+mem_tot_tor_P43 12.3995
+normalized_mem_tot_tor_P43 0.0215269
+rows_tot_tor_P43 7.29716
+normalized_rows_tot_tor_P43 0.152024
+mem_tot_tor_P44 10.7196
+normalized_mem_tot_tor_P44 0.0186103
+rows_tot_tor_P44 6.30852
+normalized_rows_tot_tor_P44 0.131428
+mem_tot_tor_P45 12.3995
+normalized_mem_tot_tor_P45 0.0215269
+rows_tot_tor_P45 7.29716
+normalized_rows_tot_tor_P45 0.152024
+mem_tot_tor_P46 1.19911
+normalized_mem_tot_tor_P46 0.00208178
+rows_tot_tor_P46 0.705681
+normalized_rows_tot_tor_P46 0.0147017
+mem_tot_tor_P47 12.3995
+normalized_mem_tot_tor_P47 0.0215269
+rows_tot_tor_P47 7.29716
+normalized_rows_tot_tor_P47 0.152024
+mem_tot_tor_P48 11.2293
+normalized_mem_tot_tor_P48 0.0194954
+rows_tot_tor_P48 6.60852
+normalized_rows_tot_tor_P48 0.137678
+mem_tot_l1_P41 10.0447
+normalized_mem_tot_l1_P41 0.0174387
+rows_tot_l1_P41 5.91136
+normalized_rows_tot_l1_P41 0.123153
+mem_tot_l1_P42 12.3995
+normalized_mem_tot_l1_P42 0.0215269
+rows_tot_l1_P42 7.29716
+normalized_rows_tot_l1_P42 0.152024
+mem_tot_l1_P43 12.3995
+normalized_mem_tot_l1_P43 0.0215269
+rows_tot_l1_P43 7.29716
+normalized_rows_tot_l1_P43 0.152024
+mem_tot_l1_P44 12.3995
+normalized_mem_tot_l1_P44 0.0215269
+rows_tot_l1_P44 7.29716
+normalized_rows_tot_l1_P44 0.152024
+mem_tot_l2_P4 12.3995
+normalized_mem_tot_l2_P4 0.0215269
+rows_tot_l2_P4 7.29716
+normalized_rows_tot_l2_P4 0.152024
+max_mem_P4 12.3995
+max_mem_CPU_Cluster 0
+max_rows_P4 7.29716
+max_rows_CPU_Cluster 1.22618e-08
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(0.000,64)    (0.000,35)    (0.000,66)    (0.000,6)    (0.000,68)    (0.700,73)    (0.000,18)    (0.000,31)    (0.000,67)    (0.000,72)    (0.000,74)    (0.000,76)    
+Total frac: 0.700
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.068,74)    (0.000,76)    (0.000,66)    (0.632,68)    (0.000,18)    (0.000,35)    (0.000,73)    
+Total frac: 0.700
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(0.135,69)    (0.665,74)    (0.000,67)    (0.000,24)    (0.000,76)    (0.000,66)    (0.000,73)    (0.000,18)    (0.000,46)    
+Total frac: 0.800
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(0.000,68)    (0.800,73)    (0.000,35)    (0.000,74)    (0.000,72)    (0.000,41)    (0.000,24)    (0.000,76)    (0.000,66)    (0.000,69)    (0.000,6)    (0.000,31)    (0.000,64)    (0.000,18)    (0.200,67)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(0.000,36)    (0.000,70)    (0.000,69)    (0.000,75)    (0.900,74)    (0.000,51)    (0.000,76)    (0.000,47)    (0.000,42)    (0.100,68)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.000,72)    (0.000,75)    (0.000,48)    (0.000,68)    (0.000,51)    (0.000,65)    (0.000,10)    (0.000,36)    (0.000,70)    (0.000,74)    (0.700,76)    
+Total frac: 0.700
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(0.000,36)    (0.000,75)    (0.000,65)    (0.000,51)    (1.000,76)    (0.000,47)    (0.000,72)    (0.000,48)    (0.000,68)    (0.000,10)    (0.000,70)    (0.000,69)    (0.000,74)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+
+Total frac: 0.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.000,34)    (0.000,69)    (0.800,74)    (0.000,17)    (0.000,76)    (0.000,23)    (0.000,40)    (0.000,68)    (0.000,73)    (0.000,66)    
+Total frac: 0.800
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(0.000,70)    (0.000,23)    (0.000,73)    (0.000,72)    (0.000,13)    (0.000,49)    (0.700,75)    (0.000,76)    (0.200,65)    (0.000,66)    
+Total frac: 0.900
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(1.000,66)    (0.000,23)    (0.000,19)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(0.700,75)    (0.000,76)    (0.000,66)    (0.000,70)    (0.000,19)    (0.000,58)    (0.300,71)    (0.000,73)    (0.000,49)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.000,76)    (0.000,2)    (0.000,72)    (0.000,37)    (0.000,68)    (0.900,64)    (0.000,74)    
+Total frac: 0.900
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(0.100,67)    (0.000,37)    (0.000,60)    (0.000,74)    (0.000,76)    (0.000,32)    (0.000,73)    (0.800,68)    (0.000,75)    (0.000,71)    (0.000,27)    
+Total frac: 0.900
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(0.100,68)    (0.000,58)    (0.000,34)    (0.000,74)    (0.000,64)    (0.000,60)    (0.000,75)    (0.900,71)    (0.000,76)    (0.000,37)    (0.000,3)    (0.000,72)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.000,76)    (0.000,32)    (0.000,72)    (0.000,68)    (0.000,3)    (0.000,74)    (0.800,64)    
+Total frac: 0.800
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.000,30)    (0.000,11)    (0.000,73)    (0.900,65)    (0.000,67)    (0.000,72)    (0.000,76)    
+Total frac: 0.900
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.100,72)    (0.000,75)    (0.000,0)    (0.000,65)    (0.000,64)    (0.000,76)    (0.000,66)    (0.000,67)    (0.000,30)    (0.000,21)    (0.000,56)    (0.000,71)    (0.000,22)    (0.000,11)    (0.900,73)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+
+Total frac: 0.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(0.000,22)    (0.700,67)    (0.000,73)    (0.000,65)    (0.000,11)    (0.000,72)    (1.000,66)    (0.000,76)    (0.000,30)    (0.000,21)    
+Total frac: 1.700
+
+Sketch (20) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 20, Rows: 3
+(0.000,20)    (0.100,64)    (0.000,59)    (0.000,55)    (0.000,73)    (0.000,52)    (0.000,70)    (0.800,75)    (0.000,2)    (0.000,71)    (0.000,76)    (0.000,66)    (0.000,72)    
+Total frac: 0.900
+
+Sketch (21) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 21, Rows: 3
+(0.000,72)    (0.268,65)    (0.632,64)    (0.000,15)    (0.000,2)    
+Total frac: 0.900
+
+Sketch (22) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 22, Rows: 3
+(0.000,53)    (0.000,55)    (0.900,70)    
+Total frac: 0.900
+
+Sketch (23) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 23, Rows: 3
+(1.000,70)    (0.000,15)    (0.000,66)    (0.000,52)    (0.000,55)    (0.000,73)    (0.000,76)    (0.000,65)    (0.000,72)    (0.000,75)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (24) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 24, Rows: 3
+
+Total frac: 0.000
+
+Sketch (25) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 25, Rows: 3
+(0.000,46)    (0.000,7)    (0.100,68)    (0.003,71)    (0.000,70)    (0.000,63)    (0.000,73)    (0.000,72)    (0.000,74)    (0.000,75)    (0.000,38)    (0.000,53)    (0.000,28)    (0.000,64)    (0.697,76)    (0.203,67)    (0.000,69)    
+Total frac: 1.003
+
+Sketch (26) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 26, Rows: 3
+(1.000,71)    (0.035,76)    (0.000,73)    (0.000,53)    (0.532,70)    (0.000,63)    (0.232,75)    (0.000,62)    (0.000,26)    (0.100,69)    (0.000,74)    (0.000,67)    (0.000,43)    
+Total frac: 1.900
+
+Sketch (27) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 27, Rows: 3
+(0.000,38)    (0.000,75)    (0.000,76)    (0.000,70)    (0.700,68)    (0.000,74)    (0.000,49)    
+Total frac: 0.700
+
+Sketch (28) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 28, Rows: 3
+(0.000,16)    (0.000,69)    (0.000,74)    (0.000,12)    (0.000,45)    (0.100,65)    (0.000,76)    (0.000,66)    (0.700,72)    (0.000,64)    (0.000,5)    (0.000,73)    
+Total frac: 0.800
+
+Sketch (29) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 29, Rows: 3
+(0.900,67)    (0.000,40)    (0.000,16)    (0.000,74)    (0.000,76)    (0.000,25)    (0.000,66)    (0.000,73)    (0.000,14)    (0.900,72)    (0.000,69)    (0.000,45)    (0.000,65)    
+Total frac: 1.800
+
+Sketch (30) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 30, Rows: 3
+(0.700,65)    (0.000,12)    (0.000,14)    
+Total frac: 0.700
+
+Sketch (31) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 31, Rows: 3
+(0.432,66)    (0.000,12)    (0.032,73)    (0.000,76)    (0.265,65)    (0.270,72)    (0.000,16)    
+Total frac: 1.000
+
+Device (0) CPU1:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (1) CPU2:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (2) CPU3:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (3) CPU4:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (4) CPU5:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (5) CPU6:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (6) CPU7:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (7) CPU8:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (8) CPU9:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (9) CPU10:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (10) CPU11:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (11) CPU12:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (12) CPU13:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (13) CPU14:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (14) CPU15:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (15) CPU16:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (16) CPU17:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (17) CPU18:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (18) CPU19:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (19) CPU20:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (20) CPU21:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (21) CPU22:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (22) CPU23:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (23) CPU24:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (24) CPU25:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (25) CPU26:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (26) CPU27:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (27) CPU28:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (28) CPU29:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (29) CPU30:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (30) CPU31:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (31) CPU32:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (32) CPU33:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (33) CPU34:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (34) CPU35:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (35) CPU36:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (36) CPU37:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (37) CPU38:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (38) CPU39:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (39) CPU40:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (40) CPU41:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (41) CPU42:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (42) CPU43:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (43) CPU44:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (44) CPU45:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (45) CPU46:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (46) CPU47:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (47) CPU48:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (48) CPU49:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (49) CPU50:
+Rows total: 1.471411494252873e-07
+Mem total: 2.500249999999999e-07
+
+Device (50) CPU51:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (51) CPU52:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (52) CPU53:
+Rows total: 1.4714114942528721e-07
+Mem total: 2.500249999999998e-07
+
+Device (53) CPU54:
+Rows total: 1.471411494252873e-07
+Mem total: 2.500249999999999e-07
+
+Device (54) CPU55:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (55) CPU56:
+Rows total: 1.471411494252873e-07
+Mem total: 2.500249999999999e-07
+
+Device (56) CPU57:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (57) CPU58:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (58) CPU59:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (59) CPU60:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (60) CPU61:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (61) CPU62:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (62) CPU63:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (63) CPU64:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (64) tor_P41:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+
+Device (65) tor_P42:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+
+Device (66) tor_P43:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+
+Device (67) tor_P44:
+Rows total: 6.308520588364593
+Mem total: 10.719556468510149
+
+Device (68) tor_P45:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+
+Device (69) tor_P46:
+Rows total: 0.7056807846194589
+Mem total: 1.1991060207400963
+
+Device (70) tor_P47:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+
+Device (71) tor_P48:
+Rows total: 6.608520588364593
+Mem total: 11.229322093510149
+
+Device (72) l1_P41:
+Rows total: 5.911361569238921
+Mem total: 10.044696416480198
+
+Device (73) l1_P42:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+
+Device (74) l1_P43:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+
+Device (75) l1_P44:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+
+Device (76) l2_P4:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+
+Flow 0:
+partitions: [(3, 0.8)]
+path: (6, 64, 72, 76, 73, 66, 18)
+Flow 1:
+partitions: [(2, 0.8)]
+path: (24, 67, 73, 76, 74, 69, 46)
+Flow 2:
+partitions: [(3, 0.7)]
+path: (41, 69, 74, 76, 73, 67, 24)
+Flow 3:
+partitions: [(3, 1.0)]
+path: (35, 68, 74, 76, 73, 67, 31)
+Flow 4:
+partitions: [(0, 0.7)]
+path: (31, 67, 73, 76, 72, 64, 6)
+Flow 5:
+partitions: [(2, 0.8)]
+path: (18, 66, 73, 76, 74, 69, 46)
+Flow 6:
+partitions: [(0, 0.7)]
+path: (35, 68, 74, 76, 73, 66, 18)
+Flow 7:
+partitions: [(1, 0.7)]
+path: (18, 66, 73, 76, 74, 68, 35)
+Flow 8:
+partitions: [(5, 0.7)]
+path: (51, 70, 75, 76, 74, 68, 36)
+Flow 9:
+partitions: [(6, 0.9)]
+path: (51, 70, 75, 76, 74, 69, 47)
+Flow 10:
+partitions: [(4, 1.0)]
+path: (42, 69, 74, 68, 36)
+Flow 11:
+partitions: [(6, 0.9)]
+path: (36, 68, 74, 76, 75, 70, 51)
+Flow 12:
+partitions: [(4, 0.9)]
+path: (51, 70, 75, 76, 74, 69, 47)
+Flow 13:
+partitions: [(6, 1.0)]
+path: (10, 65, 72, 76, 75, 70, 51)
+Flow 14:
+partitions: [(5, 0.7)]
+path: (10, 65, 72, 76, 75, 70, 48)
+Flow 15:
+partitions: [(6, 1.0)]
+path: (47, 69, 74, 76, 75, 70, 48)
+Flow 16:
+partitions: [(8, 0.8)]
+path: (34, 68, 74, 76, 73, 66, 17)
+Flow 17:
+partitions: [(9, 0.9)]
+path: (49, 70, 75, 76, 72, 65, 13)
+Flow 18:
+partitions: [(11, 1.0)]
+path: (49, 70, 75, 71, 58)
+Flow 19:
+partitions: [(8, 0.8)]
+path: (34, 68, 74, 76, 73, 66, 23)
+Flow 20:
+partitions: [(11, 0.7)]
+path: (49, 70, 75, 76, 73, 66, 19)
+Flow 21:
+partitions: [(10, 1.0)]
+path: (23, 66, 19)
+Flow 22:
+partitions: [(8, 0.8)]
+path: (23, 66, 73, 76, 74, 69, 40)
+Flow 23:
+partitions: [(9, 0.7)]
+path: (49, 70, 75, 76, 73, 66, 23)
+Flow 24:
+partitions: [(14, 1.0)]
+path: (60, 71, 75, 76, 74, 68, 37)
+Flow 25:
+partitions: [(14, 0.9)]
+path: (58, 71, 75, 76, 74, 68, 34)
+Flow 26:
+partitions: [(15, 0.8)]
+path: (3, 64, 72, 76, 74, 68, 32)
+Flow 27:
+partitions: [(14, 0.9)]
+path: (60, 71, 75, 76, 72, 64, 3)
+Flow 28:
+partitions: [(13, 0.8)]
+path: (32, 68, 74, 76, 75, 71, 60)
+Flow 29:
+partitions: [(12, 0.9)]
+path: (37, 68, 74, 76, 72, 64, 2)
+Flow 30:
+partitions: [(13, 0.9)]
+path: (32, 68, 74, 76, 73, 67, 27)
+Flow 31:
+partitions: [(13, 0.9)]
+path: (27, 67, 73, 76, 74, 68, 37)
+Flow 32:
+partitions: [(17, 1.0)]
+path: (30, 67, 73, 76, 72, 64, 0)
+Flow 33:
+partitions: [(19, 1.0)]
+path: (22, 66, 21)
+Flow 34:
+partitions: [(17, 1.0)]
+path: (22, 66, 73, 76, 72, 65, 11)
+Flow 35:
+partitions: [(19, 0.7)]
+path: (11, 65, 72, 76, 73, 67, 30)
+Flow 36:
+partitions: [(16, 0.9)]
+path: (30, 67, 73, 76, 72, 65, 11)
+Flow 37:
+partitions: [(17, 0.8)]
+path: (11, 65, 72, 76, 73, 66, 21)
+Flow 38:
+partitions: [(17, 0.9)]
+path: (56, 71, 75, 76, 73, 66, 22)
+Flow 39:
+partitions: [(17, 0.8)]
+path: (30, 67, 73, 76, 75, 71, 56)
+Flow 40:
+partitions: [(23, 0.7)]
+path: (20, 66, 73, 76, 75, 70, 52)
+Flow 41:
+partitions: [(23, 0.8)]
+path: (55, 70, 75, 76, 72, 65, 15)
+Flow 42:
+partitions: [(20, 0.7)]
+path: (55, 70, 75, 76, 73, 66, 20)
+Flow 43:
+partitions: [(20, 0.9)]
+path: (52, 70, 75, 76, 72, 64, 2)
+Flow 44:
+partitions: [(20, 0.8)]
+path: (59, 71, 75, 70, 52)
+Flow 45:
+partitions: [(23, 1.0)]
+path: (55, 70, 52)
+Flow 46:
+partitions: [(21, 0.9)]
+path: (2, 64, 72, 65, 15)
+Flow 47:
+partitions: [(22, 0.9)]
+path: (55, 70, 53)
+Flow 48:
+partitions: [(26, 0.8)]
+path: (26, 67, 73, 76, 75, 70, 53)
+Flow 49:
+partitions: [(26, 1.0)]
+path: (63, 71, 62)
+Flow 50:
+partitions: [(26, 0.9)]
+path: (43, 69, 74, 76, 75, 70, 53)
+Flow 51:
+partitions: [(27, 0.7)]
+path: (38, 68, 74, 76, 75, 70, 49)
+Flow 52:
+partitions: [(25, 0.7)]
+path: (63, 71, 75, 76, 72, 64, 7)
+Flow 53:
+partitions: [(25, 1.0)]
+path: (28, 67, 73, 76, 74, 68, 38)
+Flow 54:
+partitions: [(25, 0.9)]
+path: (53, 70, 75, 76, 73, 67, 28)
+Flow 55:
+partitions: [(25, 0.7)]
+path: (28, 67, 73, 76, 74, 69, 46)
+Flow 56:
+partitions: [(28, 0.8)]
+path: (12, 65, 72, 76, 73, 66, 16)
+Flow 57:
+partitions: [(28, 0.7)]
+path: (45, 69, 74, 76, 72, 64, 5)
+Flow 58:
+partitions: [(29, 0.9)]
+path: (14, 65, 72, 76, 74, 69, 40)
+Flow 59:
+partitions: [(29, 0.7)]
+path: (25, 67, 73, 76, 72, 65, 14)
+Flow 60:
+partitions: [(29, 0.9)]
+path: (25, 67, 73, 66, 16)
+Flow 61:
+partitions: [(29, 0.7)]
+path: (45, 69, 74, 76, 73, 67, 25)
+Flow 62:
+partitions: [(31, 1.0)]
+path: (16, 66, 73, 76, 72, 65, 12)
+Flow 63:
+partitions: [(30, 0.7)]
+path: (12, 65, 14)
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU1 0
+m_access_time_CPU1 0
+ns_single_CPU1 0
+pdt_m_rows_CPU1 0
+cores_sketch_CPU1 0
+cores_dpdk_CPU1 7
+ns_sketch_CPU1 10.2041
+pdt_nsk_c_CPU1 0
+ns_dpdk_CPU1 10.2041
+pdt_nsc_dpdk_CPU1 71.4286
+ns_CPU1 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU2 0
+m_access_time_CPU2 0
+ns_single_CPU2 0
+pdt_m_rows_CPU2 0
+cores_sketch_CPU2 0
+cores_dpdk_CPU2 7
+ns_sketch_CPU2 10.2041
+pdt_nsk_c_CPU2 0
+ns_dpdk_CPU2 10.2041
+pdt_nsc_dpdk_CPU2 71.4286
+ns_CPU2 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU3 0
+m_access_time_CPU3 0
+ns_single_CPU3 0
+pdt_m_rows_CPU3 0
+cores_sketch_CPU3 0
+cores_dpdk_CPU3 7
+ns_sketch_CPU3 10.2041
+pdt_nsk_c_CPU3 0
+ns_dpdk_CPU3 10.2041
+pdt_nsc_dpdk_CPU3 71.4286
+ns_CPU3 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU4 0
+m_access_time_CPU4 0
+ns_single_CPU4 0
+pdt_m_rows_CPU4 0
+cores_sketch_CPU4 0
+cores_dpdk_CPU4 7
+ns_sketch_CPU4 10.2041
+pdt_nsk_c_CPU4 0
+ns_dpdk_CPU4 10.2041
+pdt_nsc_dpdk_CPU4 71.4286
+ns_CPU4 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU5 0
+m_access_time_CPU5 0
+ns_single_CPU5 0
+pdt_m_rows_CPU5 0
+cores_sketch_CPU5 0
+cores_dpdk_CPU5 7
+ns_sketch_CPU5 10.2041
+pdt_nsk_c_CPU5 0
+ns_dpdk_CPU5 10.2041
+pdt_nsc_dpdk_CPU5 71.4286
+ns_CPU5 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU6 0
+m_access_time_CPU6 0
+ns_single_CPU6 0
+pdt_m_rows_CPU6 0
+cores_sketch_CPU6 0
+cores_dpdk_CPU6 7
+ns_sketch_CPU6 10.2041
+pdt_nsk_c_CPU6 0
+ns_dpdk_CPU6 10.2041
+pdt_nsc_dpdk_CPU6 71.4286
+ns_CPU6 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU7 0
+m_access_time_CPU7 0
+ns_single_CPU7 0
+pdt_m_rows_CPU7 0
+cores_sketch_CPU7 0
+cores_dpdk_CPU7 7
+ns_sketch_CPU7 10.2041
+pdt_nsk_c_CPU7 0
+ns_dpdk_CPU7 10.2041
+pdt_nsc_dpdk_CPU7 71.4286
+ns_CPU7 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU8 0
+m_access_time_CPU8 0
+ns_single_CPU8 0
+pdt_m_rows_CPU8 0
+cores_sketch_CPU8 0
+cores_dpdk_CPU8 7
+ns_sketch_CPU8 10.2041
+pdt_nsk_c_CPU8 0
+ns_dpdk_CPU8 10.2041
+pdt_nsc_dpdk_CPU8 71.4286
+ns_CPU8 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU9 0
+m_access_time_CPU9 0
+ns_single_CPU9 0
+pdt_m_rows_CPU9 0
+cores_sketch_CPU9 0
+cores_dpdk_CPU9 7
+ns_sketch_CPU9 10.2041
+pdt_nsk_c_CPU9 0
+ns_dpdk_CPU9 10.2041
+pdt_nsc_dpdk_CPU9 71.4286
+ns_CPU9 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU10 0
+m_access_time_CPU10 0
+ns_single_CPU10 0
+pdt_m_rows_CPU10 0
+cores_sketch_CPU10 0
+cores_dpdk_CPU10 7
+ns_sketch_CPU10 10.2041
+pdt_nsk_c_CPU10 0
+ns_dpdk_CPU10 10.2041
+pdt_nsc_dpdk_CPU10 71.4286
+ns_CPU10 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU11 0
+m_access_time_CPU11 0
+ns_single_CPU11 0
+pdt_m_rows_CPU11 0
+cores_sketch_CPU11 0
+cores_dpdk_CPU11 7
+ns_sketch_CPU11 10.2041
+pdt_nsk_c_CPU11 0
+ns_dpdk_CPU11 10.2041
+pdt_nsc_dpdk_CPU11 71.4286
+ns_CPU11 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU12 0
+m_access_time_CPU12 0
+ns_single_CPU12 0
+pdt_m_rows_CPU12 0
+cores_sketch_CPU12 0
+cores_dpdk_CPU12 7
+ns_sketch_CPU12 10.2041
+pdt_nsk_c_CPU12 0
+ns_dpdk_CPU12 10.2041
+pdt_nsc_dpdk_CPU12 71.4286
+ns_CPU12 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU13 0
+m_access_time_CPU13 0
+ns_single_CPU13 0
+pdt_m_rows_CPU13 0
+cores_sketch_CPU13 0
+cores_dpdk_CPU13 7
+ns_sketch_CPU13 10.2041
+pdt_nsk_c_CPU13 0
+ns_dpdk_CPU13 10.2041
+pdt_nsc_dpdk_CPU13 71.4286
+ns_CPU13 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU14 0
+m_access_time_CPU14 0
+ns_single_CPU14 0
+pdt_m_rows_CPU14 0
+cores_sketch_CPU14 0
+cores_dpdk_CPU14 7
+ns_sketch_CPU14 10.2041
+pdt_nsk_c_CPU14 0
+ns_dpdk_CPU14 10.2041
+pdt_nsc_dpdk_CPU14 71.4286
+ns_CPU14 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU15 0
+m_access_time_CPU15 0
+ns_single_CPU15 0
+pdt_m_rows_CPU15 0
+cores_sketch_CPU15 0
+cores_dpdk_CPU15 7
+ns_sketch_CPU15 10.2041
+pdt_nsk_c_CPU15 0
+ns_dpdk_CPU15 10.2041
+pdt_nsc_dpdk_CPU15 71.4286
+ns_CPU15 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU16 0
+m_access_time_CPU16 0
+ns_single_CPU16 0
+pdt_m_rows_CPU16 0
+cores_sketch_CPU16 0
+cores_dpdk_CPU16 7
+ns_sketch_CPU16 10.2041
+pdt_nsk_c_CPU16 0
+ns_dpdk_CPU16 10.2041
+pdt_nsc_dpdk_CPU16 71.4286
+ns_CPU16 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU17 0
+m_access_time_CPU17 0
+ns_single_CPU17 0
+pdt_m_rows_CPU17 0
+cores_sketch_CPU17 0
+cores_dpdk_CPU17 7
+ns_sketch_CPU17 10.2041
+pdt_nsk_c_CPU17 0
+ns_dpdk_CPU17 10.2041
+pdt_nsc_dpdk_CPU17 71.4286
+ns_CPU17 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU18 0
+m_access_time_CPU18 0
+ns_single_CPU18 0
+pdt_m_rows_CPU18 0
+cores_sketch_CPU18 0
+cores_dpdk_CPU18 7
+ns_sketch_CPU18 10.2041
+pdt_nsk_c_CPU18 0
+ns_dpdk_CPU18 10.2041
+pdt_nsc_dpdk_CPU18 71.4286
+ns_CPU18 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU19 0
+m_access_time_CPU19 0
+ns_single_CPU19 0
+pdt_m_rows_CPU19 0
+cores_sketch_CPU19 0
+cores_dpdk_CPU19 7
+ns_sketch_CPU19 10.2041
+pdt_nsk_c_CPU19 0
+ns_dpdk_CPU19 10.2041
+pdt_nsc_dpdk_CPU19 71.4286
+ns_CPU19 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU20 0
+m_access_time_CPU20 0
+ns_single_CPU20 0
+pdt_m_rows_CPU20 0
+cores_sketch_CPU20 0
+cores_dpdk_CPU20 7
+ns_sketch_CPU20 10.2041
+pdt_nsk_c_CPU20 0
+ns_dpdk_CPU20 10.2041
+pdt_nsc_dpdk_CPU20 71.4286
+ns_CPU20 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU21 0
+m_access_time_CPU21 0
+ns_single_CPU21 0
+pdt_m_rows_CPU21 0
+cores_sketch_CPU21 0
+cores_dpdk_CPU21 7
+ns_sketch_CPU21 10.2041
+pdt_nsk_c_CPU21 0
+ns_dpdk_CPU21 10.2041
+pdt_nsc_dpdk_CPU21 71.4286
+ns_CPU21 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU22 0
+m_access_time_CPU22 0
+ns_single_CPU22 0
+pdt_m_rows_CPU22 0
+cores_sketch_CPU22 0
+cores_dpdk_CPU22 7
+ns_sketch_CPU22 10.2041
+pdt_nsk_c_CPU22 0
+ns_dpdk_CPU22 10.2041
+pdt_nsc_dpdk_CPU22 71.4286
+ns_CPU22 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU23 0
+m_access_time_CPU23 0
+ns_single_CPU23 0
+pdt_m_rows_CPU23 0
+cores_sketch_CPU23 0
+cores_dpdk_CPU23 7
+ns_sketch_CPU23 10.2041
+pdt_nsk_c_CPU23 0
+ns_dpdk_CPU23 10.2041
+pdt_nsc_dpdk_CPU23 71.4286
+ns_CPU23 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU24 0
+m_access_time_CPU24 0
+ns_single_CPU24 0
+pdt_m_rows_CPU24 0
+cores_sketch_CPU24 0
+cores_dpdk_CPU24 7
+ns_sketch_CPU24 10.2041
+pdt_nsk_c_CPU24 0
+ns_dpdk_CPU24 10.2041
+pdt_nsc_dpdk_CPU24 71.4286
+ns_CPU24 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU25 0
+m_access_time_CPU25 0
+ns_single_CPU25 0
+pdt_m_rows_CPU25 0
+cores_sketch_CPU25 0
+cores_dpdk_CPU25 7
+ns_sketch_CPU25 10.2041
+pdt_nsk_c_CPU25 0
+ns_dpdk_CPU25 10.2041
+pdt_nsc_dpdk_CPU25 71.4286
+ns_CPU25 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU26 0
+m_access_time_CPU26 0
+ns_single_CPU26 0
+pdt_m_rows_CPU26 0
+cores_sketch_CPU26 0
+cores_dpdk_CPU26 7
+ns_sketch_CPU26 10.2041
+pdt_nsk_c_CPU26 0
+ns_dpdk_CPU26 10.2041
+pdt_nsc_dpdk_CPU26 71.4286
+ns_CPU26 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU27 0
+m_access_time_CPU27 0
+ns_single_CPU27 0
+pdt_m_rows_CPU27 0
+cores_sketch_CPU27 0
+cores_dpdk_CPU27 7
+ns_sketch_CPU27 10.2041
+pdt_nsk_c_CPU27 0
+ns_dpdk_CPU27 10.2041
+pdt_nsc_dpdk_CPU27 71.4286
+ns_CPU27 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU28 0
+m_access_time_CPU28 0
+ns_single_CPU28 0
+pdt_m_rows_CPU28 0
+cores_sketch_CPU28 0
+cores_dpdk_CPU28 7
+ns_sketch_CPU28 10.2041
+pdt_nsk_c_CPU28 0
+ns_dpdk_CPU28 10.2041
+pdt_nsc_dpdk_CPU28 71.4286
+ns_CPU28 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU29 0
+m_access_time_CPU29 0
+ns_single_CPU29 0
+pdt_m_rows_CPU29 0
+cores_sketch_CPU29 0
+cores_dpdk_CPU29 7
+ns_sketch_CPU29 10.2041
+pdt_nsk_c_CPU29 0
+ns_dpdk_CPU29 10.2041
+pdt_nsc_dpdk_CPU29 71.4286
+ns_CPU29 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU30 0
+m_access_time_CPU30 0
+ns_single_CPU30 0
+pdt_m_rows_CPU30 0
+cores_sketch_CPU30 0
+cores_dpdk_CPU30 7
+ns_sketch_CPU30 10.2041
+pdt_nsk_c_CPU30 0
+ns_dpdk_CPU30 10.2041
+pdt_nsc_dpdk_CPU30 71.4286
+ns_CPU30 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU31 0
+m_access_time_CPU31 0
+ns_single_CPU31 0
+pdt_m_rows_CPU31 0
+cores_sketch_CPU31 0
+cores_dpdk_CPU31 7
+ns_sketch_CPU31 10.2041
+pdt_nsk_c_CPU31 0
+ns_dpdk_CPU31 10.2041
+pdt_nsc_dpdk_CPU31 71.4286
+ns_CPU31 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU32 0
+m_access_time_CPU32 0
+ns_single_CPU32 0
+pdt_m_rows_CPU32 0
+cores_sketch_CPU32 0
+cores_dpdk_CPU32 7
+ns_sketch_CPU32 10.2041
+pdt_nsk_c_CPU32 0
+ns_dpdk_CPU32 10.2041
+pdt_nsc_dpdk_CPU32 71.4286
+ns_CPU32 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU33 0
+m_access_time_CPU33 0
+ns_single_CPU33 0
+pdt_m_rows_CPU33 0
+cores_sketch_CPU33 0
+cores_dpdk_CPU33 7
+ns_sketch_CPU33 10.2041
+pdt_nsk_c_CPU33 0
+ns_dpdk_CPU33 10.2041
+pdt_nsc_dpdk_CPU33 71.4286
+ns_CPU33 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU34 0
+m_access_time_CPU34 0
+ns_single_CPU34 0
+pdt_m_rows_CPU34 0
+cores_sketch_CPU34 0
+cores_dpdk_CPU34 7
+ns_sketch_CPU34 10.2041
+pdt_nsk_c_CPU34 0
+ns_dpdk_CPU34 10.2041
+pdt_nsc_dpdk_CPU34 71.4286
+ns_CPU34 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU35 0
+m_access_time_CPU35 0
+ns_single_CPU35 0
+pdt_m_rows_CPU35 0
+cores_sketch_CPU35 0
+cores_dpdk_CPU35 7
+ns_sketch_CPU35 10.2041
+pdt_nsk_c_CPU35 0
+ns_dpdk_CPU35 10.2041
+pdt_nsc_dpdk_CPU35 71.4286
+ns_CPU35 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU36 0
+m_access_time_CPU36 0
+ns_single_CPU36 0
+pdt_m_rows_CPU36 0
+cores_sketch_CPU36 0
+cores_dpdk_CPU36 7
+ns_sketch_CPU36 10.2041
+pdt_nsk_c_CPU36 0
+ns_dpdk_CPU36 10.2041
+pdt_nsc_dpdk_CPU36 71.4286
+ns_CPU36 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU37 0
+m_access_time_CPU37 0
+ns_single_CPU37 0
+pdt_m_rows_CPU37 0
+cores_sketch_CPU37 0
+cores_dpdk_CPU37 7
+ns_sketch_CPU37 10.2041
+pdt_nsk_c_CPU37 0
+ns_dpdk_CPU37 10.2041
+pdt_nsc_dpdk_CPU37 71.4286
+ns_CPU37 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU38 0
+m_access_time_CPU38 0
+ns_single_CPU38 0
+pdt_m_rows_CPU38 0
+cores_sketch_CPU38 0
+cores_dpdk_CPU38 7
+ns_sketch_CPU38 10.2041
+pdt_nsk_c_CPU38 0
+ns_dpdk_CPU38 10.2041
+pdt_nsc_dpdk_CPU38 71.4286
+ns_CPU38 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU39 0
+m_access_time_CPU39 0
+ns_single_CPU39 0
+pdt_m_rows_CPU39 0
+cores_sketch_CPU39 0
+cores_dpdk_CPU39 7
+ns_sketch_CPU39 10.2041
+pdt_nsk_c_CPU39 0
+ns_dpdk_CPU39 10.2041
+pdt_nsc_dpdk_CPU39 71.4286
+ns_CPU39 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU40 0
+m_access_time_CPU40 0
+ns_single_CPU40 0
+pdt_m_rows_CPU40 0
+cores_sketch_CPU40 0
+cores_dpdk_CPU40 7
+ns_sketch_CPU40 10.2041
+pdt_nsk_c_CPU40 0
+ns_dpdk_CPU40 10.2041
+pdt_nsc_dpdk_CPU40 71.4286
+ns_CPU40 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU41 0
+m_access_time_CPU41 0
+ns_single_CPU41 0
+pdt_m_rows_CPU41 0
+cores_sketch_CPU41 0
+cores_dpdk_CPU41 7
+ns_sketch_CPU41 10.2041
+pdt_nsk_c_CPU41 0
+ns_dpdk_CPU41 10.2041
+pdt_nsc_dpdk_CPU41 71.4286
+ns_CPU41 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU42 0
+m_access_time_CPU42 0
+ns_single_CPU42 0
+pdt_m_rows_CPU42 0
+cores_sketch_CPU42 0
+cores_dpdk_CPU42 7
+ns_sketch_CPU42 10.2041
+pdt_nsk_c_CPU42 0
+ns_dpdk_CPU42 10.2041
+pdt_nsc_dpdk_CPU42 71.4286
+ns_CPU42 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU43 0
+m_access_time_CPU43 0
+ns_single_CPU43 0
+pdt_m_rows_CPU43 0
+cores_sketch_CPU43 0
+cores_dpdk_CPU43 7
+ns_sketch_CPU43 10.2041
+pdt_nsk_c_CPU43 0
+ns_dpdk_CPU43 10.2041
+pdt_nsc_dpdk_CPU43 71.4286
+ns_CPU43 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU44 0
+m_access_time_CPU44 0
+ns_single_CPU44 0
+pdt_m_rows_CPU44 0
+cores_sketch_CPU44 0
+cores_dpdk_CPU44 7
+ns_sketch_CPU44 10.2041
+pdt_nsk_c_CPU44 0
+ns_dpdk_CPU44 10.2041
+pdt_nsc_dpdk_CPU44 71.4286
+ns_CPU44 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU45 0
+m_access_time_CPU45 0
+ns_single_CPU45 0
+pdt_m_rows_CPU45 0
+cores_sketch_CPU45 0
+cores_dpdk_CPU45 7
+ns_sketch_CPU45 10.2041
+pdt_nsk_c_CPU45 0
+ns_dpdk_CPU45 10.2041
+pdt_nsc_dpdk_CPU45 71.4286
+ns_CPU45 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU46 0
+m_access_time_CPU46 0
+ns_single_CPU46 0
+pdt_m_rows_CPU46 0
+cores_sketch_CPU46 0
+cores_dpdk_CPU46 7
+ns_sketch_CPU46 10.2041
+pdt_nsk_c_CPU46 0
+ns_dpdk_CPU46 10.2041
+pdt_nsc_dpdk_CPU46 71.4286
+ns_CPU46 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU47 0
+m_access_time_CPU47 0
+ns_single_CPU47 0
+pdt_m_rows_CPU47 0
+cores_sketch_CPU47 0
+cores_dpdk_CPU47 7
+ns_sketch_CPU47 10.2041
+pdt_nsk_c_CPU47 0
+ns_dpdk_CPU47 10.2041
+pdt_nsc_dpdk_CPU47 71.4286
+ns_CPU47 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU48 0
+m_access_time_CPU48 0
+ns_single_CPU48 0
+pdt_m_rows_CPU48 0
+cores_sketch_CPU48 0
+cores_dpdk_CPU48 7
+ns_sketch_CPU48 10.2041
+pdt_nsk_c_CPU48 0
+ns_dpdk_CPU48 10.2041
+pdt_nsc_dpdk_CPU48 71.4286
+ns_CPU48 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU49 0
+m_access_time_CPU49 0
+ns_single_CPU49 0
+pdt_m_rows_CPU49 0
+cores_sketch_CPU49 0
+cores_dpdk_CPU49 7
+ns_sketch_CPU49 10.2041
+pdt_nsk_c_CPU49 0
+ns_dpdk_CPU49 10.2041
+pdt_nsc_dpdk_CPU49 71.4286
+ns_CPU49 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU50 0
+m_access_time_CPU50 0
+ns_single_CPU50 0
+pdt_m_rows_CPU50 0
+cores_sketch_CPU50 0
+cores_dpdk_CPU50 7
+ns_sketch_CPU50 10.2041
+pdt_nsk_c_CPU50 0
+ns_dpdk_CPU50 10.2041
+pdt_nsc_dpdk_CPU50 71.4286
+ns_CPU50 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU51 0
+m_access_time_CPU51 0
+ns_single_CPU51 0
+pdt_m_rows_CPU51 0
+cores_sketch_CPU51 0
+cores_dpdk_CPU51 7
+ns_sketch_CPU51 10.2041
+pdt_nsk_c_CPU51 0
+ns_dpdk_CPU51 10.2041
+pdt_nsc_dpdk_CPU51 71.4286
+ns_CPU51 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU52 0
+m_access_time_CPU52 0
+ns_single_CPU52 0
+pdt_m_rows_CPU52 0
+cores_sketch_CPU52 0
+cores_dpdk_CPU52 7
+ns_sketch_CPU52 10.2041
+pdt_nsk_c_CPU52 0
+ns_dpdk_CPU52 10.2041
+pdt_nsc_dpdk_CPU52 71.4286
+ns_CPU52 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU53 0
+m_access_time_CPU53 0
+ns_single_CPU53 0
+pdt_m_rows_CPU53 0
+cores_sketch_CPU53 0
+cores_dpdk_CPU53 7
+ns_sketch_CPU53 10.2041
+pdt_nsk_c_CPU53 0
+ns_dpdk_CPU53 10.2041
+pdt_nsc_dpdk_CPU53 71.4286
+ns_CPU53 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU54 0
+m_access_time_CPU54 0
+ns_single_CPU54 0
+pdt_m_rows_CPU54 0
+cores_sketch_CPU54 0
+cores_dpdk_CPU54 7
+ns_sketch_CPU54 10.2041
+pdt_nsk_c_CPU54 0
+ns_dpdk_CPU54 10.2041
+pdt_nsc_dpdk_CPU54 71.4286
+ns_CPU54 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU55 0
+m_access_time_CPU55 0
+ns_single_CPU55 0
+pdt_m_rows_CPU55 0
+cores_sketch_CPU55 0
+cores_dpdk_CPU55 7
+ns_sketch_CPU55 10.2041
+pdt_nsk_c_CPU55 0
+ns_dpdk_CPU55 10.2041
+pdt_nsc_dpdk_CPU55 71.4286
+ns_CPU55 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU56 0
+m_access_time_CPU56 0
+ns_single_CPU56 0
+pdt_m_rows_CPU56 0
+cores_sketch_CPU56 0
+cores_dpdk_CPU56 7
+ns_sketch_CPU56 10.2041
+pdt_nsk_c_CPU56 0
+ns_dpdk_CPU56 10.2041
+pdt_nsc_dpdk_CPU56 71.4286
+ns_CPU56 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU57 0
+m_access_time_CPU57 0
+ns_single_CPU57 0
+pdt_m_rows_CPU57 0
+cores_sketch_CPU57 0
+cores_dpdk_CPU57 7
+ns_sketch_CPU57 10.2041
+pdt_nsk_c_CPU57 0
+ns_dpdk_CPU57 10.2041
+pdt_nsc_dpdk_CPU57 71.4286
+ns_CPU57 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU58 0
+m_access_time_CPU58 0
+ns_single_CPU58 0
+pdt_m_rows_CPU58 0
+cores_sketch_CPU58 0
+cores_dpdk_CPU58 7
+ns_sketch_CPU58 10.2041
+pdt_nsk_c_CPU58 0
+ns_dpdk_CPU58 10.2041
+pdt_nsc_dpdk_CPU58 71.4286
+ns_CPU58 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU59 0
+m_access_time_CPU59 0
+ns_single_CPU59 0
+pdt_m_rows_CPU59 0
+cores_sketch_CPU59 0
+cores_dpdk_CPU59 7
+ns_sketch_CPU59 10.2041
+pdt_nsk_c_CPU59 0
+ns_dpdk_CPU59 10.2041
+pdt_nsc_dpdk_CPU59 71.4286
+ns_CPU59 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU60 0
+m_access_time_CPU60 0
+ns_single_CPU60 0
+pdt_m_rows_CPU60 0
+cores_sketch_CPU60 0
+cores_dpdk_CPU60 7
+ns_sketch_CPU60 10.2041
+pdt_nsk_c_CPU60 0
+ns_dpdk_CPU60 10.2041
+pdt_nsc_dpdk_CPU60 71.4286
+ns_CPU60 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU61 0
+m_access_time_CPU61 0
+ns_single_CPU61 0
+pdt_m_rows_CPU61 0
+cores_sketch_CPU61 0
+cores_dpdk_CPU61 7
+ns_sketch_CPU61 10.2041
+pdt_nsk_c_CPU61 0
+ns_dpdk_CPU61 10.2041
+pdt_nsc_dpdk_CPU61 71.4286
+ns_CPU61 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU62 0
+m_access_time_CPU62 0
+ns_single_CPU62 0
+pdt_m_rows_CPU62 0
+cores_sketch_CPU62 0
+cores_dpdk_CPU62 7
+ns_sketch_CPU62 10.2041
+pdt_nsk_c_CPU62 0
+ns_dpdk_CPU62 10.2041
+pdt_nsc_dpdk_CPU62 71.4286
+ns_CPU62 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU63 0
+m_access_time_CPU63 0
+ns_single_CPU63 0
+pdt_m_rows_CPU63 0
+cores_sketch_CPU63 0
+cores_dpdk_CPU63 7
+ns_sketch_CPU63 10.2041
+pdt_nsk_c_CPU63 0
+ns_dpdk_CPU63 10.2041
+pdt_nsc_dpdk_CPU63 71.4286
+ns_CPU63 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU64 0
+m_access_time_CPU64 0
+ns_single_CPU64 0
+pdt_m_rows_CPU64 0
+cores_sketch_CPU64 0
+cores_dpdk_CPU64 7
+ns_sketch_CPU64 10.2041
+pdt_nsk_c_CPU64 0
+ns_dpdk_CPU64 10.2041
+pdt_nsc_dpdk_CPU64 71.4286
+ns_CPU64 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_tor_P41 12.3995
+ns_tor_P41 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_tor_P42 12.3995
+ns_tor_P42 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_tor_P43 12.3995
+ns_tor_P43 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_tor_P44 10.7196
+ns_tor_P44 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_tor_P45 12.3995
+ns_tor_P45 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_tor_P46 1.19911
+ns_tor_P46 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_tor_P47 12.3995
+ns_tor_P47 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_tor_P48 11.2293
+ns_tor_P48 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_l1_P41 10.0447
+ns_l1_P41 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_l1_P42 12.3995
+ns_l1_P42 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_l1_P43 12.3995
+ns_l1_P43 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_l1_P44 12.3995
+ns_l1_P44 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_l2_P4 12.3995
+ns_l2_P4 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU1 0
+m_access_time_CPU1 0
+ns_single_CPU1 0
+pdt_m_rows_CPU1 0
+cores_sketch_CPU1 0
+cores_dpdk_CPU1 7
+ns_sketch_CPU1 10.2041
+pdt_nsk_c_CPU1 0
+ns_dpdk_CPU1 10.2041
+pdt_nsc_dpdk_CPU1 71.4286
+ns_CPU1 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU2 0
+m_access_time_CPU2 0
+ns_single_CPU2 0
+pdt_m_rows_CPU2 0
+cores_sketch_CPU2 0
+cores_dpdk_CPU2 7
+ns_sketch_CPU2 10.2041
+pdt_nsk_c_CPU2 0
+ns_dpdk_CPU2 10.2041
+pdt_nsc_dpdk_CPU2 71.4286
+ns_CPU2 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU3 0
+m_access_time_CPU3 0
+ns_single_CPU3 0
+pdt_m_rows_CPU3 0
+cores_sketch_CPU3 0
+cores_dpdk_CPU3 7
+ns_sketch_CPU3 10.2041
+pdt_nsk_c_CPU3 0
+ns_dpdk_CPU3 10.2041
+pdt_nsc_dpdk_CPU3 71.4286
+ns_CPU3 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU4 0
+m_access_time_CPU4 0
+ns_single_CPU4 0
+pdt_m_rows_CPU4 0
+cores_sketch_CPU4 0
+cores_dpdk_CPU4 7
+ns_sketch_CPU4 10.2041
+pdt_nsk_c_CPU4 0
+ns_dpdk_CPU4 10.2041
+pdt_nsc_dpdk_CPU4 71.4286
+ns_CPU4 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU5 0
+m_access_time_CPU5 0
+ns_single_CPU5 0
+pdt_m_rows_CPU5 0
+cores_sketch_CPU5 0
+cores_dpdk_CPU5 7
+ns_sketch_CPU5 10.2041
+pdt_nsk_c_CPU5 0
+ns_dpdk_CPU5 10.2041
+pdt_nsc_dpdk_CPU5 71.4286
+ns_CPU5 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU6 0
+m_access_time_CPU6 0
+ns_single_CPU6 0
+pdt_m_rows_CPU6 0
+cores_sketch_CPU6 0
+cores_dpdk_CPU6 7
+ns_sketch_CPU6 10.2041
+pdt_nsk_c_CPU6 0
+ns_dpdk_CPU6 10.2041
+pdt_nsc_dpdk_CPU6 71.4286
+ns_CPU6 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU7 0
+m_access_time_CPU7 0
+ns_single_CPU7 0
+pdt_m_rows_CPU7 0
+cores_sketch_CPU7 0
+cores_dpdk_CPU7 7
+ns_sketch_CPU7 10.2041
+pdt_nsk_c_CPU7 0
+ns_dpdk_CPU7 10.2041
+pdt_nsc_dpdk_CPU7 71.4286
+ns_CPU7 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU8 0
+m_access_time_CPU8 0
+ns_single_CPU8 0
+pdt_m_rows_CPU8 0
+cores_sketch_CPU8 0
+cores_dpdk_CPU8 7
+ns_sketch_CPU8 10.2041
+pdt_nsk_c_CPU8 0
+ns_dpdk_CPU8 10.2041
+pdt_nsc_dpdk_CPU8 71.4286
+ns_CPU8 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU9 0
+m_access_time_CPU9 0
+ns_single_CPU9 0
+pdt_m_rows_CPU9 0
+cores_sketch_CPU9 0
+cores_dpdk_CPU9 7
+ns_sketch_CPU9 10.2041
+pdt_nsk_c_CPU9 0
+ns_dpdk_CPU9 10.2041
+pdt_nsc_dpdk_CPU9 71.4286
+ns_CPU9 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU10 0
+m_access_time_CPU10 0
+ns_single_CPU10 0
+pdt_m_rows_CPU10 0
+cores_sketch_CPU10 0
+cores_dpdk_CPU10 7
+ns_sketch_CPU10 10.2041
+pdt_nsk_c_CPU10 0
+ns_dpdk_CPU10 10.2041
+pdt_nsc_dpdk_CPU10 71.4286
+ns_CPU10 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU11 0
+m_access_time_CPU11 0
+ns_single_CPU11 0
+pdt_m_rows_CPU11 0
+cores_sketch_CPU11 0
+cores_dpdk_CPU11 7
+ns_sketch_CPU11 10.2041
+pdt_nsk_c_CPU11 0
+ns_dpdk_CPU11 10.2041
+pdt_nsc_dpdk_CPU11 71.4286
+ns_CPU11 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU12 0
+m_access_time_CPU12 0
+ns_single_CPU12 0
+pdt_m_rows_CPU12 0
+cores_sketch_CPU12 0
+cores_dpdk_CPU12 7
+ns_sketch_CPU12 10.2041
+pdt_nsk_c_CPU12 0
+ns_dpdk_CPU12 10.2041
+pdt_nsc_dpdk_CPU12 71.4286
+ns_CPU12 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU13 0
+m_access_time_CPU13 0
+ns_single_CPU13 0
+pdt_m_rows_CPU13 0
+cores_sketch_CPU13 0
+cores_dpdk_CPU13 7
+ns_sketch_CPU13 10.2041
+pdt_nsk_c_CPU13 0
+ns_dpdk_CPU13 10.2041
+pdt_nsc_dpdk_CPU13 71.4286
+ns_CPU13 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU14 0
+m_access_time_CPU14 0
+ns_single_CPU14 0
+pdt_m_rows_CPU14 0
+cores_sketch_CPU14 0
+cores_dpdk_CPU14 7
+ns_sketch_CPU14 10.2041
+pdt_nsk_c_CPU14 0
+ns_dpdk_CPU14 10.2041
+pdt_nsc_dpdk_CPU14 71.4286
+ns_CPU14 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU15 0
+m_access_time_CPU15 0
+ns_single_CPU15 0
+pdt_m_rows_CPU15 0
+cores_sketch_CPU15 0
+cores_dpdk_CPU15 7
+ns_sketch_CPU15 10.2041
+pdt_nsk_c_CPU15 0
+ns_dpdk_CPU15 10.2041
+pdt_nsc_dpdk_CPU15 71.4286
+ns_CPU15 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU16 0
+m_access_time_CPU16 0
+ns_single_CPU16 0
+pdt_m_rows_CPU16 0
+cores_sketch_CPU16 0
+cores_dpdk_CPU16 7
+ns_sketch_CPU16 10.2041
+pdt_nsk_c_CPU16 0
+ns_dpdk_CPU16 10.2041
+pdt_nsc_dpdk_CPU16 71.4286
+ns_CPU16 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU17 0
+m_access_time_CPU17 0
+ns_single_CPU17 0
+pdt_m_rows_CPU17 0
+cores_sketch_CPU17 0
+cores_dpdk_CPU17 7
+ns_sketch_CPU17 10.2041
+pdt_nsk_c_CPU17 0
+ns_dpdk_CPU17 10.2041
+pdt_nsc_dpdk_CPU17 71.4286
+ns_CPU17 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU18 0
+m_access_time_CPU18 0
+ns_single_CPU18 0
+pdt_m_rows_CPU18 0
+cores_sketch_CPU18 0
+cores_dpdk_CPU18 7
+ns_sketch_CPU18 10.2041
+pdt_nsk_c_CPU18 0
+ns_dpdk_CPU18 10.2041
+pdt_nsc_dpdk_CPU18 71.4286
+ns_CPU18 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU19 0
+m_access_time_CPU19 0
+ns_single_CPU19 0
+pdt_m_rows_CPU19 0
+cores_sketch_CPU19 0
+cores_dpdk_CPU19 7
+ns_sketch_CPU19 10.2041
+pdt_nsk_c_CPU19 0
+ns_dpdk_CPU19 10.2041
+pdt_nsc_dpdk_CPU19 71.4286
+ns_CPU19 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU20 0
+m_access_time_CPU20 0
+ns_single_CPU20 0
+pdt_m_rows_CPU20 0
+cores_sketch_CPU20 0
+cores_dpdk_CPU20 7
+ns_sketch_CPU20 10.2041
+pdt_nsk_c_CPU20 0
+ns_dpdk_CPU20 10.2041
+pdt_nsc_dpdk_CPU20 71.4286
+ns_CPU20 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU21 0
+m_access_time_CPU21 0
+ns_single_CPU21 0
+pdt_m_rows_CPU21 0
+cores_sketch_CPU21 0
+cores_dpdk_CPU21 7
+ns_sketch_CPU21 10.2041
+pdt_nsk_c_CPU21 0
+ns_dpdk_CPU21 10.2041
+pdt_nsc_dpdk_CPU21 71.4286
+ns_CPU21 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU22 0
+m_access_time_CPU22 0
+ns_single_CPU22 0
+pdt_m_rows_CPU22 0
+cores_sketch_CPU22 0
+cores_dpdk_CPU22 7
+ns_sketch_CPU22 10.2041
+pdt_nsk_c_CPU22 0
+ns_dpdk_CPU22 10.2041
+pdt_nsc_dpdk_CPU22 71.4286
+ns_CPU22 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU23 0
+m_access_time_CPU23 0
+ns_single_CPU23 0
+pdt_m_rows_CPU23 0
+cores_sketch_CPU23 0
+cores_dpdk_CPU23 7
+ns_sketch_CPU23 10.2041
+pdt_nsk_c_CPU23 0
+ns_dpdk_CPU23 10.2041
+pdt_nsc_dpdk_CPU23 71.4286
+ns_CPU23 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU24 0
+m_access_time_CPU24 0
+ns_single_CPU24 0
+pdt_m_rows_CPU24 0
+cores_sketch_CPU24 0
+cores_dpdk_CPU24 7
+ns_sketch_CPU24 10.2041
+pdt_nsk_c_CPU24 0
+ns_dpdk_CPU24 10.2041
+pdt_nsc_dpdk_CPU24 71.4286
+ns_CPU24 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU25 0
+m_access_time_CPU25 0
+ns_single_CPU25 0
+pdt_m_rows_CPU25 0
+cores_sketch_CPU25 0
+cores_dpdk_CPU25 7
+ns_sketch_CPU25 10.2041
+pdt_nsk_c_CPU25 0
+ns_dpdk_CPU25 10.2041
+pdt_nsc_dpdk_CPU25 71.4286
+ns_CPU25 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU26 0
+m_access_time_CPU26 0
+ns_single_CPU26 0
+pdt_m_rows_CPU26 0
+cores_sketch_CPU26 0
+cores_dpdk_CPU26 7
+ns_sketch_CPU26 10.2041
+pdt_nsk_c_CPU26 0
+ns_dpdk_CPU26 10.2041
+pdt_nsc_dpdk_CPU26 71.4286
+ns_CPU26 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU27 0
+m_access_time_CPU27 0
+ns_single_CPU27 0
+pdt_m_rows_CPU27 0
+cores_sketch_CPU27 0
+cores_dpdk_CPU27 7
+ns_sketch_CPU27 10.2041
+pdt_nsk_c_CPU27 0
+ns_dpdk_CPU27 10.2041
+pdt_nsc_dpdk_CPU27 71.4286
+ns_CPU27 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU28 0
+m_access_time_CPU28 0
+ns_single_CPU28 0
+pdt_m_rows_CPU28 0
+cores_sketch_CPU28 0
+cores_dpdk_CPU28 7
+ns_sketch_CPU28 10.2041
+pdt_nsk_c_CPU28 0
+ns_dpdk_CPU28 10.2041
+pdt_nsc_dpdk_CPU28 71.4286
+ns_CPU28 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU29 0
+m_access_time_CPU29 0
+ns_single_CPU29 0
+pdt_m_rows_CPU29 0
+cores_sketch_CPU29 0
+cores_dpdk_CPU29 7
+ns_sketch_CPU29 10.2041
+pdt_nsk_c_CPU29 0
+ns_dpdk_CPU29 10.2041
+pdt_nsc_dpdk_CPU29 71.4286
+ns_CPU29 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU30 0
+m_access_time_CPU30 0
+ns_single_CPU30 0
+pdt_m_rows_CPU30 0
+cores_sketch_CPU30 0
+cores_dpdk_CPU30 7
+ns_sketch_CPU30 10.2041
+pdt_nsk_c_CPU30 0
+ns_dpdk_CPU30 10.2041
+pdt_nsc_dpdk_CPU30 71.4286
+ns_CPU30 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU31 0
+m_access_time_CPU31 0
+ns_single_CPU31 0
+pdt_m_rows_CPU31 0
+cores_sketch_CPU31 0
+cores_dpdk_CPU31 7
+ns_sketch_CPU31 10.2041
+pdt_nsk_c_CPU31 0
+ns_dpdk_CPU31 10.2041
+pdt_nsc_dpdk_CPU31 71.4286
+ns_CPU31 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU32 0
+m_access_time_CPU32 0
+ns_single_CPU32 0
+pdt_m_rows_CPU32 0
+cores_sketch_CPU32 0
+cores_dpdk_CPU32 7
+ns_sketch_CPU32 10.2041
+pdt_nsk_c_CPU32 0
+ns_dpdk_CPU32 10.2041
+pdt_nsc_dpdk_CPU32 71.4286
+ns_CPU32 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU33 0
+m_access_time_CPU33 0
+ns_single_CPU33 0
+pdt_m_rows_CPU33 0
+cores_sketch_CPU33 0
+cores_dpdk_CPU33 7
+ns_sketch_CPU33 10.2041
+pdt_nsk_c_CPU33 0
+ns_dpdk_CPU33 10.2041
+pdt_nsc_dpdk_CPU33 71.4286
+ns_CPU33 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU34 0
+m_access_time_CPU34 0
+ns_single_CPU34 0
+pdt_m_rows_CPU34 0
+cores_sketch_CPU34 0
+cores_dpdk_CPU34 7
+ns_sketch_CPU34 10.2041
+pdt_nsk_c_CPU34 0
+ns_dpdk_CPU34 10.2041
+pdt_nsc_dpdk_CPU34 71.4286
+ns_CPU34 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU35 0
+m_access_time_CPU35 0
+ns_single_CPU35 0
+pdt_m_rows_CPU35 0
+cores_sketch_CPU35 0
+cores_dpdk_CPU35 7
+ns_sketch_CPU35 10.2041
+pdt_nsk_c_CPU35 0
+ns_dpdk_CPU35 10.2041
+pdt_nsc_dpdk_CPU35 71.4286
+ns_CPU35 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU36 0
+m_access_time_CPU36 0
+ns_single_CPU36 0
+pdt_m_rows_CPU36 0
+cores_sketch_CPU36 0
+cores_dpdk_CPU36 7
+ns_sketch_CPU36 10.2041
+pdt_nsk_c_CPU36 0
+ns_dpdk_CPU36 10.2041
+pdt_nsc_dpdk_CPU36 71.4286
+ns_CPU36 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU37 0
+m_access_time_CPU37 0
+ns_single_CPU37 0
+pdt_m_rows_CPU37 0
+cores_sketch_CPU37 0
+cores_dpdk_CPU37 7
+ns_sketch_CPU37 10.2041
+pdt_nsk_c_CPU37 0
+ns_dpdk_CPU37 10.2041
+pdt_nsc_dpdk_CPU37 71.4286
+ns_CPU37 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU38 0
+m_access_time_CPU38 0
+ns_single_CPU38 0
+pdt_m_rows_CPU38 0
+cores_sketch_CPU38 0
+cores_dpdk_CPU38 7
+ns_sketch_CPU38 10.2041
+pdt_nsk_c_CPU38 0
+ns_dpdk_CPU38 10.2041
+pdt_nsc_dpdk_CPU38 71.4286
+ns_CPU38 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU39 0
+m_access_time_CPU39 0
+ns_single_CPU39 0
+pdt_m_rows_CPU39 0
+cores_sketch_CPU39 0
+cores_dpdk_CPU39 7
+ns_sketch_CPU39 10.2041
+pdt_nsk_c_CPU39 0
+ns_dpdk_CPU39 10.2041
+pdt_nsc_dpdk_CPU39 71.4286
+ns_CPU39 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU40 0
+m_access_time_CPU40 0
+ns_single_CPU40 0
+pdt_m_rows_CPU40 0
+cores_sketch_CPU40 0
+cores_dpdk_CPU40 7
+ns_sketch_CPU40 10.2041
+pdt_nsk_c_CPU40 0
+ns_dpdk_CPU40 10.2041
+pdt_nsc_dpdk_CPU40 71.4286
+ns_CPU40 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU41 0
+m_access_time_CPU41 0
+ns_single_CPU41 0
+pdt_m_rows_CPU41 0
+cores_sketch_CPU41 0
+cores_dpdk_CPU41 7
+ns_sketch_CPU41 10.2041
+pdt_nsk_c_CPU41 0
+ns_dpdk_CPU41 10.2041
+pdt_nsc_dpdk_CPU41 71.4286
+ns_CPU41 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU42 0
+m_access_time_CPU42 0
+ns_single_CPU42 0
+pdt_m_rows_CPU42 0
+cores_sketch_CPU42 0
+cores_dpdk_CPU42 7
+ns_sketch_CPU42 10.2041
+pdt_nsk_c_CPU42 0
+ns_dpdk_CPU42 10.2041
+pdt_nsc_dpdk_CPU42 71.4286
+ns_CPU42 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU43 0
+m_access_time_CPU43 0
+ns_single_CPU43 0
+pdt_m_rows_CPU43 0
+cores_sketch_CPU43 0
+cores_dpdk_CPU43 7
+ns_sketch_CPU43 10.2041
+pdt_nsk_c_CPU43 0
+ns_dpdk_CPU43 10.2041
+pdt_nsc_dpdk_CPU43 71.4286
+ns_CPU43 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU44 0
+m_access_time_CPU44 0
+ns_single_CPU44 0
+pdt_m_rows_CPU44 0
+cores_sketch_CPU44 0
+cores_dpdk_CPU44 7
+ns_sketch_CPU44 10.2041
+pdt_nsk_c_CPU44 0
+ns_dpdk_CPU44 10.2041
+pdt_nsc_dpdk_CPU44 71.4286
+ns_CPU44 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU45 0
+m_access_time_CPU45 0
+ns_single_CPU45 0
+pdt_m_rows_CPU45 0
+cores_sketch_CPU45 0
+cores_dpdk_CPU45 7
+ns_sketch_CPU45 10.2041
+pdt_nsk_c_CPU45 0
+ns_dpdk_CPU45 10.2041
+pdt_nsc_dpdk_CPU45 71.4286
+ns_CPU45 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU46 0
+m_access_time_CPU46 0
+ns_single_CPU46 0
+pdt_m_rows_CPU46 0
+cores_sketch_CPU46 0
+cores_dpdk_CPU46 7
+ns_sketch_CPU46 10.2041
+pdt_nsk_c_CPU46 0
+ns_dpdk_CPU46 10.2041
+pdt_nsc_dpdk_CPU46 71.4286
+ns_CPU46 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU47 0
+m_access_time_CPU47 0
+ns_single_CPU47 0
+pdt_m_rows_CPU47 0
+cores_sketch_CPU47 0
+cores_dpdk_CPU47 7
+ns_sketch_CPU47 10.2041
+pdt_nsk_c_CPU47 0
+ns_dpdk_CPU47 10.2041
+pdt_nsc_dpdk_CPU47 71.4286
+ns_CPU47 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU48 0
+m_access_time_CPU48 0
+ns_single_CPU48 0
+pdt_m_rows_CPU48 0
+cores_sketch_CPU48 0
+cores_dpdk_CPU48 7
+ns_sketch_CPU48 10.2041
+pdt_nsk_c_CPU48 0
+ns_dpdk_CPU48 10.2041
+pdt_nsc_dpdk_CPU48 71.4286
+ns_CPU48 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU49 0
+m_access_time_CPU49 0
+ns_single_CPU49 0
+pdt_m_rows_CPU49 0
+cores_sketch_CPU49 0
+cores_dpdk_CPU49 7
+ns_sketch_CPU49 10.2041
+pdt_nsk_c_CPU49 0
+ns_dpdk_CPU49 10.2041
+pdt_nsc_dpdk_CPU49 71.4286
+ns_CPU49 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU50 0
+m_access_time_CPU50 0
+ns_single_CPU50 0
+pdt_m_rows_CPU50 0
+cores_sketch_CPU50 0
+cores_dpdk_CPU50 7
+ns_sketch_CPU50 10.2041
+pdt_nsk_c_CPU50 0
+ns_dpdk_CPU50 10.2041
+pdt_nsc_dpdk_CPU50 71.4286
+ns_CPU50 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU51 0
+m_access_time_CPU51 0
+ns_single_CPU51 0
+pdt_m_rows_CPU51 0
+cores_sketch_CPU51 0
+cores_dpdk_CPU51 7
+ns_sketch_CPU51 10.2041
+pdt_nsk_c_CPU51 0
+ns_dpdk_CPU51 10.2041
+pdt_nsc_dpdk_CPU51 71.4286
+ns_CPU51 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU52 0
+m_access_time_CPU52 0
+ns_single_CPU52 0
+pdt_m_rows_CPU52 0
+cores_sketch_CPU52 0
+cores_dpdk_CPU52 7
+ns_sketch_CPU52 10.2041
+pdt_nsk_c_CPU52 0
+ns_dpdk_CPU52 10.2041
+pdt_nsc_dpdk_CPU52 71.4286
+ns_CPU52 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU53 0
+m_access_time_CPU53 0
+ns_single_CPU53 0
+pdt_m_rows_CPU53 0
+cores_sketch_CPU53 0
+cores_dpdk_CPU53 7
+ns_sketch_CPU53 10.2041
+pdt_nsk_c_CPU53 0
+ns_dpdk_CPU53 10.2041
+pdt_nsc_dpdk_CPU53 71.4286
+ns_CPU53 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU54 0
+m_access_time_CPU54 0
+ns_single_CPU54 0
+pdt_m_rows_CPU54 0
+cores_sketch_CPU54 0
+cores_dpdk_CPU54 7
+ns_sketch_CPU54 10.2041
+pdt_nsk_c_CPU54 0
+ns_dpdk_CPU54 10.2041
+pdt_nsc_dpdk_CPU54 71.4286
+ns_CPU54 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU55 0
+m_access_time_CPU55 0
+ns_single_CPU55 0
+pdt_m_rows_CPU55 0
+cores_sketch_CPU55 0
+cores_dpdk_CPU55 7
+ns_sketch_CPU55 10.2041
+pdt_nsk_c_CPU55 0
+ns_dpdk_CPU55 10.2041
+pdt_nsc_dpdk_CPU55 71.4286
+ns_CPU55 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU56 0
+m_access_time_CPU56 0
+ns_single_CPU56 0
+pdt_m_rows_CPU56 0
+cores_sketch_CPU56 0
+cores_dpdk_CPU56 7
+ns_sketch_CPU56 10.2041
+pdt_nsk_c_CPU56 0
+ns_dpdk_CPU56 10.2041
+pdt_nsc_dpdk_CPU56 71.4286
+ns_CPU56 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU57 0
+m_access_time_CPU57 0
+ns_single_CPU57 0
+pdt_m_rows_CPU57 0
+cores_sketch_CPU57 0
+cores_dpdk_CPU57 7
+ns_sketch_CPU57 10.2041
+pdt_nsk_c_CPU57 0
+ns_dpdk_CPU57 10.2041
+pdt_nsc_dpdk_CPU57 71.4286
+ns_CPU57 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU58 0
+m_access_time_CPU58 0
+ns_single_CPU58 0
+pdt_m_rows_CPU58 0
+cores_sketch_CPU58 0
+cores_dpdk_CPU58 7
+ns_sketch_CPU58 10.2041
+pdt_nsk_c_CPU58 0
+ns_dpdk_CPU58 10.2041
+pdt_nsc_dpdk_CPU58 71.4286
+ns_CPU58 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU59 0
+m_access_time_CPU59 0
+ns_single_CPU59 0
+pdt_m_rows_CPU59 0
+cores_sketch_CPU59 0
+cores_dpdk_CPU59 7
+ns_sketch_CPU59 10.2041
+pdt_nsk_c_CPU59 0
+ns_dpdk_CPU59 10.2041
+pdt_nsc_dpdk_CPU59 71.4286
+ns_CPU59 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU60 0
+m_access_time_CPU60 0
+ns_single_CPU60 0
+pdt_m_rows_CPU60 0
+cores_sketch_CPU60 0
+cores_dpdk_CPU60 7
+ns_sketch_CPU60 10.2041
+pdt_nsk_c_CPU60 0
+ns_dpdk_CPU60 10.2041
+pdt_nsc_dpdk_CPU60 71.4286
+ns_CPU60 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU61 0
+m_access_time_CPU61 0
+ns_single_CPU61 0
+pdt_m_rows_CPU61 0
+cores_sketch_CPU61 0
+cores_dpdk_CPU61 7
+ns_sketch_CPU61 10.2041
+pdt_nsk_c_CPU61 0
+ns_dpdk_CPU61 10.2041
+pdt_nsc_dpdk_CPU61 71.4286
+ns_CPU61 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU62 0
+m_access_time_CPU62 0
+ns_single_CPU62 0
+pdt_m_rows_CPU62 0
+cores_sketch_CPU62 0
+cores_dpdk_CPU62 7
+ns_sketch_CPU62 10.2041
+pdt_nsk_c_CPU62 0
+ns_dpdk_CPU62 10.2041
+pdt_nsc_dpdk_CPU62 71.4286
+ns_CPU62 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU63 0
+m_access_time_CPU63 0
+ns_single_CPU63 0
+pdt_m_rows_CPU63 0
+cores_sketch_CPU63 0
+cores_dpdk_CPU63 7
+ns_sketch_CPU63 10.2041
+pdt_nsk_c_CPU63 0
+ns_dpdk_CPU63 10.2041
+pdt_nsc_dpdk_CPU63 71.4286
+ns_CPU63 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU64 0
+m_access_time_CPU64 0
+ns_single_CPU64 0
+pdt_m_rows_CPU64 0
+cores_sketch_CPU64 0
+cores_dpdk_CPU64 7
+ns_sketch_CPU64 10.2041
+pdt_nsk_c_CPU64 0
+ns_dpdk_CPU64 10.2041
+pdt_nsc_dpdk_CPU64 71.4286
+ns_CPU64 10.2041
+--------------------------------------------------
+
+Throughput: 97.99999999999999 Mpps, ns per packet: 10.204081632653063
+Resources: 4504.31854489262
+Used Cores: 447.999999999999, Total CPUS: 64, Switch Memory: 144.78791484341016
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(0.000,64)    (0.000,35)    (0.000,66)    (0.000,6)    (0.000,68)    (0.700,73)    (0.000,18)    (0.000,31)    (0.000,67)    (0.000,72)    (0.000,74)    (0.000,76)    
+Total frac: 0.700
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.068,74)    (0.000,76)    (0.000,66)    (0.632,68)    (0.000,18)    (0.000,35)    (0.000,73)    
+Total frac: 0.700
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(0.135,69)    (0.665,74)    (0.000,67)    (0.000,24)    (0.000,76)    (0.000,66)    (0.000,73)    (0.000,18)    (0.000,46)    
+Total frac: 0.800
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(0.000,68)    (0.800,73)    (0.000,35)    (0.000,74)    (0.000,72)    (0.000,41)    (0.000,24)    (0.000,76)    (0.000,66)    (0.000,69)    (0.000,6)    (0.000,31)    (0.000,64)    (0.000,18)    (0.200,67)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(0.000,36)    (0.000,70)    (0.000,69)    (0.000,75)    (0.900,74)    (0.000,51)    (0.000,76)    (0.000,47)    (0.000,42)    (0.100,68)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.000,72)    (0.000,75)    (0.000,48)    (0.000,68)    (0.000,51)    (0.000,65)    (0.000,10)    (0.000,36)    (0.000,70)    (0.000,74)    (0.700,76)    
+Total frac: 0.700
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(0.000,36)    (0.000,75)    (0.000,65)    (0.000,51)    (1.000,76)    (0.000,47)    (0.000,72)    (0.000,48)    (0.000,68)    (0.000,10)    (0.000,70)    (0.000,69)    (0.000,74)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+
+Total frac: 0.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.000,34)    (0.000,69)    (0.800,74)    (0.000,17)    (0.000,76)    (0.000,23)    (0.000,40)    (0.000,68)    (0.000,73)    (0.000,66)    
+Total frac: 0.800
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(0.000,70)    (0.000,23)    (0.000,73)    (0.000,72)    (0.000,13)    (0.000,49)    (0.700,75)    (0.000,76)    (0.200,65)    (0.000,66)    
+Total frac: 0.900
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(1.000,66)    (0.000,23)    (0.000,19)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(0.700,75)    (0.000,76)    (0.000,66)    (0.000,70)    (0.000,19)    (0.000,58)    (0.300,71)    (0.000,73)    (0.000,49)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.000,76)    (0.000,2)    (0.000,72)    (0.000,37)    (0.000,68)    (0.900,64)    (0.000,74)    
+Total frac: 0.900
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(0.100,67)    (0.000,37)    (0.000,60)    (0.000,74)    (0.000,76)    (0.000,32)    (0.000,73)    (0.800,68)    (0.000,75)    (0.000,71)    (0.000,27)    
+Total frac: 0.900
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(0.100,68)    (0.000,58)    (0.000,34)    (0.000,74)    (0.000,64)    (0.000,60)    (0.000,75)    (0.900,71)    (0.000,76)    (0.000,37)    (0.000,3)    (0.000,72)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.000,76)    (0.000,32)    (0.000,72)    (0.000,68)    (0.000,3)    (0.000,74)    (0.800,64)    
+Total frac: 0.800
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.000,30)    (0.000,11)    (0.000,73)    (0.900,65)    (0.000,67)    (0.000,72)    (0.000,76)    
+Total frac: 0.900
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.100,72)    (0.000,75)    (0.000,0)    (0.000,65)    (0.000,64)    (0.000,76)    (0.000,66)    (0.000,67)    (0.000,30)    (0.000,21)    (0.000,56)    (0.000,71)    (0.000,22)    (0.000,11)    (0.900,73)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+
+Total frac: 0.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(0.000,22)    (0.700,67)    (0.000,73)    (0.000,65)    (0.000,11)    (0.000,72)    (1.000,66)    (0.000,76)    (0.000,30)    (0.000,21)    
+Total frac: 1.700
+
+Sketch (20) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 20, Rows: 3
+(0.000,20)    (0.100,64)    (0.000,59)    (0.000,55)    (0.000,73)    (0.000,52)    (0.000,70)    (0.800,75)    (0.000,2)    (0.000,71)    (0.000,76)    (0.000,66)    (0.000,72)    
+Total frac: 0.900
+
+Sketch (21) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 21, Rows: 3
+(0.000,72)    (0.268,65)    (0.632,64)    (0.000,15)    (0.000,2)    
+Total frac: 0.900
+
+Sketch (22) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 22, Rows: 3
+(0.000,53)    (0.000,55)    (0.900,70)    
+Total frac: 0.900
+
+Sketch (23) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 23, Rows: 3
+(1.000,70)    (0.000,15)    (0.000,66)    (0.000,52)    (0.000,55)    (0.000,73)    (0.000,76)    (0.000,65)    (0.000,72)    (0.000,75)    (0.000,20)    
+Total frac: 1.000
+
+Sketch (24) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 24, Rows: 3
+
+Total frac: 0.000
+
+Sketch (25) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 25, Rows: 3
+(0.000,46)    (0.000,7)    (0.100,68)    (0.003,71)    (0.000,70)    (0.000,63)    (0.000,73)    (0.000,72)    (0.000,74)    (0.000,75)    (0.000,38)    (0.000,53)    (0.000,28)    (0.000,64)    (0.697,76)    (0.203,67)    (0.000,69)    
+Total frac: 1.003
+
+Sketch (26) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 26, Rows: 3
+(1.000,71)    (0.035,76)    (0.000,73)    (0.000,53)    (0.532,70)    (0.000,63)    (0.232,75)    (0.000,62)    (0.000,26)    (0.100,69)    (0.000,74)    (0.000,67)    (0.000,43)    
+Total frac: 1.900
+
+Sketch (27) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 27, Rows: 3
+(0.000,38)    (0.000,75)    (0.000,76)    (0.000,70)    (0.700,68)    (0.000,74)    (0.000,49)    
+Total frac: 0.700
+
+Sketch (28) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 28, Rows: 3
+(0.000,16)    (0.000,69)    (0.000,74)    (0.000,12)    (0.000,45)    (0.100,65)    (0.000,76)    (0.000,66)    (0.700,72)    (0.000,64)    (0.000,5)    (0.000,73)    
+Total frac: 0.800
+
+Sketch (29) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 29, Rows: 3
+(0.900,67)    (0.000,40)    (0.000,16)    (0.000,74)    (0.000,76)    (0.000,25)    (0.000,66)    (0.000,73)    (0.000,14)    (0.900,72)    (0.000,69)    (0.000,45)    (0.000,65)    
+Total frac: 1.800
+
+Sketch (30) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 30, Rows: 3
+(0.700,65)    (0.000,12)    (0.000,14)    
+Total frac: 0.700
+
+Sketch (31) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 31, Rows: 3
+(0.432,66)    (0.000,12)    (0.032,73)    (0.000,76)    (0.265,65)    (0.270,72)    (0.000,16)    
+Total frac: 1.000
+
+Device (0) CPU1:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (1) CPU2:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (2) CPU3:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (3) CPU4:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (4) CPU5:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (5) CPU6:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (6) CPU7:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (7) CPU8:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (8) CPU9:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (9) CPU10:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (10) CPU11:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (11) CPU12:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (12) CPU13:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (13) CPU14:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (14) CPU15:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (15) CPU16:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (16) CPU17:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (17) CPU18:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (18) CPU19:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (19) CPU20:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (20) CPU21:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (21) CPU22:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (22) CPU23:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (23) CPU24:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (24) CPU25:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (25) CPU26:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (26) CPU27:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (27) CPU28:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (28) CPU29:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (29) CPU30:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (30) CPU31:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (31) CPU32:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (32) CPU33:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (33) CPU34:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (34) CPU35:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (35) CPU36:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (36) CPU37:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (37) CPU38:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (38) CPU39:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (39) CPU40:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (40) CPU41:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (41) CPU42:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (42) CPU43:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (43) CPU44:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (44) CPU45:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (45) CPU46:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (46) CPU47:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (47) CPU48:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (48) CPU49:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (49) CPU50:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 1.471411494252873e-07
+Mem total: 2.500249999999999e-07
+Throughput: 97.99999999999999
+
+Device (50) CPU51:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (51) CPU52:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (52) CPU53:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 1.4714114942528721e-07
+Mem total: 2.500249999999998e-07
+Throughput: 97.99999999999999
+
+Device (53) CPU54:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 1.471411494252873e-07
+Mem total: 2.500249999999999e-07
+Throughput: 97.99999999999999
+
+Device (54) CPU55:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (55) CPU56:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 1.471411494252873e-07
+Mem total: 2.500249999999999e-07
+Throughput: 97.99999999999999
+
+Device (56) CPU57:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (57) CPU58:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (58) CPU59:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (59) CPU60:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (60) CPU61:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (61) CPU62:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (62) CPU63:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (63) CPU64:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (64) tor_P41:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+Throughput: 148.0
+
+Device (65) tor_P42:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+Throughput: 148.0
+
+Device (66) tor_P43:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+Throughput: 148.0
+
+Device (67) tor_P44:
+Rows total: 6.308520588364593
+Mem total: 10.719556468510149
+Throughput: 148.0
+
+Device (68) tor_P45:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+Throughput: 148.0
+
+Device (69) tor_P46:
+Rows total: 0.7056807846194589
+Mem total: 1.1991060207400963
+Throughput: 148.0
+
+Device (70) tor_P47:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+Throughput: 148.0
+
+Device (71) tor_P48:
+Rows total: 6.608520588364593
+Mem total: 11.229322093510149
+Throughput: 148.0
+
+Device (72) l1_P41:
+Rows total: 5.911361569238921
+Mem total: 10.044696416480198
+Throughput: 148.0
+
+Device (73) l1_P42:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+Throughput: 148.0
+
+Device (74) l1_P43:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+Throughput: 148.0
+
+Device (75) l1_P44:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+Throughput: 148.0
+
+Device (76) l2_P4:
+Rows total: 7.297159607690269
+Mem total: 12.39947042712995
+Throughput: 148.0
+
+Flow 0:
+partitions: [(3, 0.8)]
+path: (6, 64, 72, 76, 73, 66, 18)
+Flow 1:
+partitions: [(2, 0.8)]
+path: (24, 67, 73, 76, 74, 69, 46)
+Flow 2:
+partitions: [(3, 0.7)]
+path: (41, 69, 74, 76, 73, 67, 24)
+Flow 3:
+partitions: [(3, 1.0)]
+path: (35, 68, 74, 76, 73, 67, 31)
+Flow 4:
+partitions: [(0, 0.7)]
+path: (31, 67, 73, 76, 72, 64, 6)
+Flow 5:
+partitions: [(2, 0.8)]
+path: (18, 66, 73, 76, 74, 69, 46)
+Flow 6:
+partitions: [(0, 0.7)]
+path: (35, 68, 74, 76, 73, 66, 18)
+Flow 7:
+partitions: [(1, 0.7)]
+path: (18, 66, 73, 76, 74, 68, 35)
+Flow 8:
+partitions: [(5, 0.7)]
+path: (51, 70, 75, 76, 74, 68, 36)
+Flow 9:
+partitions: [(6, 0.9)]
+path: (51, 70, 75, 76, 74, 69, 47)
+Flow 10:
+partitions: [(4, 1.0)]
+path: (42, 69, 74, 68, 36)
+Flow 11:
+partitions: [(6, 0.9)]
+path: (36, 68, 74, 76, 75, 70, 51)
+Flow 12:
+partitions: [(4, 0.9)]
+path: (51, 70, 75, 76, 74, 69, 47)
+Flow 13:
+partitions: [(6, 1.0)]
+path: (10, 65, 72, 76, 75, 70, 51)
+Flow 14:
+partitions: [(5, 0.7)]
+path: (10, 65, 72, 76, 75, 70, 48)
+Flow 15:
+partitions: [(6, 1.0)]
+path: (47, 69, 74, 76, 75, 70, 48)
+Flow 16:
+partitions: [(8, 0.8)]
+path: (34, 68, 74, 76, 73, 66, 17)
+Flow 17:
+partitions: [(9, 0.9)]
+path: (49, 70, 75, 76, 72, 65, 13)
+Flow 18:
+partitions: [(11, 1.0)]
+path: (49, 70, 75, 71, 58)
+Flow 19:
+partitions: [(8, 0.8)]
+path: (34, 68, 74, 76, 73, 66, 23)
+Flow 20:
+partitions: [(11, 0.7)]
+path: (49, 70, 75, 76, 73, 66, 19)
+Flow 21:
+partitions: [(10, 1.0)]
+path: (23, 66, 19)
+Flow 22:
+partitions: [(8, 0.8)]
+path: (23, 66, 73, 76, 74, 69, 40)
+Flow 23:
+partitions: [(9, 0.7)]
+path: (49, 70, 75, 76, 73, 66, 23)
+Flow 24:
+partitions: [(14, 1.0)]
+path: (60, 71, 75, 76, 74, 68, 37)
+Flow 25:
+partitions: [(14, 0.9)]
+path: (58, 71, 75, 76, 74, 68, 34)
+Flow 26:
+partitions: [(15, 0.8)]
+path: (3, 64, 72, 76, 74, 68, 32)
+Flow 27:
+partitions: [(14, 0.9)]
+path: (60, 71, 75, 76, 72, 64, 3)
+Flow 28:
+partitions: [(13, 0.8)]
+path: (32, 68, 74, 76, 75, 71, 60)
+Flow 29:
+partitions: [(12, 0.9)]
+path: (37, 68, 74, 76, 72, 64, 2)
+Flow 30:
+partitions: [(13, 0.9)]
+path: (32, 68, 74, 76, 73, 67, 27)
+Flow 31:
+partitions: [(13, 0.9)]
+path: (27, 67, 73, 76, 74, 68, 37)
+Flow 32:
+partitions: [(17, 1.0)]
+path: (30, 67, 73, 76, 72, 64, 0)
+Flow 33:
+partitions: [(19, 1.0)]
+path: (22, 66, 21)
+Flow 34:
+partitions: [(17, 1.0)]
+path: (22, 66, 73, 76, 72, 65, 11)
+Flow 35:
+partitions: [(19, 0.7)]
+path: (11, 65, 72, 76, 73, 67, 30)
+Flow 36:
+partitions: [(16, 0.9)]
+path: (30, 67, 73, 76, 72, 65, 11)
+Flow 37:
+partitions: [(17, 0.8)]
+path: (11, 65, 72, 76, 73, 66, 21)
+Flow 38:
+partitions: [(17, 0.9)]
+path: (56, 71, 75, 76, 73, 66, 22)
+Flow 39:
+partitions: [(17, 0.8)]
+path: (30, 67, 73, 76, 75, 71, 56)
+Flow 40:
+partitions: [(23, 0.7)]
+path: (20, 66, 73, 76, 75, 70, 52)
+Flow 41:
+partitions: [(23, 0.8)]
+path: (55, 70, 75, 76, 72, 65, 15)
+Flow 42:
+partitions: [(20, 0.7)]
+path: (55, 70, 75, 76, 73, 66, 20)
+Flow 43:
+partitions: [(20, 0.9)]
+path: (52, 70, 75, 76, 72, 64, 2)
+Flow 44:
+partitions: [(20, 0.8)]
+path: (59, 71, 75, 70, 52)
+Flow 45:
+partitions: [(23, 1.0)]
+path: (55, 70, 52)
+Flow 46:
+partitions: [(21, 0.9)]
+path: (2, 64, 72, 65, 15)
+Flow 47:
+partitions: [(22, 0.9)]
+path: (55, 70, 53)
+Flow 48:
+partitions: [(26, 0.8)]
+path: (26, 67, 73, 76, 75, 70, 53)
+Flow 49:
+partitions: [(26, 1.0)]
+path: (63, 71, 62)
+Flow 50:
+partitions: [(26, 0.9)]
+path: (43, 69, 74, 76, 75, 70, 53)
+Flow 51:
+partitions: [(27, 0.7)]
+path: (38, 68, 74, 76, 75, 70, 49)
+Flow 52:
+partitions: [(25, 0.7)]
+path: (63, 71, 75, 76, 72, 64, 7)
+Flow 53:
+partitions: [(25, 1.0)]
+path: (28, 67, 73, 76, 74, 68, 38)
+Flow 54:
+partitions: [(25, 0.9)]
+path: (53, 70, 75, 76, 73, 67, 28)
+Flow 55:
+partitions: [(25, 0.7)]
+path: (28, 67, 73, 76, 74, 69, 46)
+Flow 56:
+partitions: [(28, 0.8)]
+path: (12, 65, 72, 76, 73, 66, 16)
+Flow 57:
+partitions: [(28, 0.7)]
+path: (45, 69, 74, 76, 72, 64, 5)
+Flow 58:
+partitions: [(29, 0.9)]
+path: (14, 65, 72, 76, 74, 69, 40)
+Flow 59:
+partitions: [(29, 0.7)]
+path: (25, 67, 73, 76, 72, 65, 14)
+Flow 60:
+partitions: [(29, 0.9)]
+path: (25, 67, 73, 66, 16)
+Flow 61:
+partitions: [(29, 0.7)]
+path: (45, 69, 74, 76, 73, 67, 25)
+Flow 62:
+partitions: [(31, 1.0)]
+path: (16, 66, 73, 76, 72, 65, 12)
+Flow 63:
+partitions: [(30, 0.7)]
+path: (12, 65, 14)
+--------------------------------------------------
+Function: MIP.solve took 0.2769343852996826 seconds
+Function: solve took 0.2772650718688965 seconds

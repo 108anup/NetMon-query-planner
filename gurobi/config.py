@@ -45,6 +45,7 @@ default_config = Config(
     horizontal_partition=False,
     vertical_partition=False,
     results_file=None,
+    output_file=None,
     config_file=[],
     prog_dir=None,
     init=False

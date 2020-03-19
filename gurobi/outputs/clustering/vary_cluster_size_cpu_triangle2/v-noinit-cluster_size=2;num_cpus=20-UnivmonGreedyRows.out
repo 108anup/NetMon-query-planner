@@ -1,0 +1,3309 @@
+Function: get_partitions took 3.0040740966796875e-05 seconds
+Function: map_flows_partitions took 8.344650268554688e-06 seconds
+Function: map_flows_to_cluster took 4.220008850097656e-05 seconds
+Building model with:
+10 devices, 20 partitions and 20 flows
+Function: MIP.add_frac_mem_var took 0.00031828880310058594 seconds
+Function: MIP.add_coverage_constraints took 0.0001919269561767578 seconds
+Function: MIP.add_accuracy_constraints took 0.0005259513854980469 seconds
+Function: MIP.add_capacity_constraints took 0.0008993148803710938 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 7.534027099609375e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.004204988479614258 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 59.99999999999999
+frac[5,9] 0.666841
+frac[4,7] 0.333683
+frac[1,3] 0
+frac[4,8] 1
+frac[0,2] 0.166579
+frac[0,14] 1
+frac[0,7] 0
+frac[0,16] 0
+frac[0,10] 0
+frac[9,18] 0.833421
+frac[3,7] 0.666317
+frac[2,5] 0.999476
+frac[0,3] 1
+frac[1,2] 0.833421
+frac[4,9] 0.333159
+frac[7,15] 0.666841
+frac[0,15] 0
+frac[0,17] 0.666317
+frac[0,11] 0
+frac[9,17] 0
+frac[3,6] 1
+frac[0,4] 0.332635
+frac[8,16] 1
+frac[1,1] 0.833421
+frac[8,15] 0.333159
+frac[7,14] 0
+frac[0,0] 1
+frac[5,11] 0
+frac[6,11] 1
+frac[0,18] 0.166579
+frac[0,12] 0.333159
+frac[2,3] 0
+frac[0,5] 0
+frac[8,17] 0.333683
+frac[6,12] 0.666841
+frac[0,8] 0
+frac[3,5] 0.000524
+frac[0,1] 0.166579
+frac[5,10] 1
+frac[0,19] 0.166579
+frac[7,13] 1
+frac[0,13] 0
+frac[0,6] 0
+frac[6,13] 0
+frac[0,9] 0
+frac[9,19] 0.833421
+frac[2,4] 0.667365
+mem[5,9] 3.39933
+mem[4,7] 1.701
+mem[1,3] 0
+mem[4,8] 5.09766
+mem[0,2] 0.849164
+mem[0,14] 5.09766
+mem[0,7] 0
+mem[0,16] 0
+mem[0,10] 0
+mem[9,18] 4.24849
+mem[3,7] 3.39666
+mem[2,5] 5.09499
+mem[0,3] 5.09766
+mem[1,2] 4.24849
+mem[4,9] 1.69833
+mem[7,15] 3.39933
+mem[0,15] 0
+mem[0,17] 3.39666
+mem[0,11] 0
+mem[9,17] 0
+mem[3,6] 5.09766
+mem[0,4] 1.69566
+mem[8,16] 5.09766
+mem[1,1] 4.24849
+mem[8,15] 1.69833
+mem[7,14] 0
+mem[0,0] 5.09766
+mem[5,11] 0
+mem[6,11] 5.09766
+mem[0,18] 0.849164
+mem[0,12] 1.69833
+mem[2,3] 0
+mem[0,5] 0
+mem[8,17] 1.701
+mem[6,12] 3.39933
+mem[0,8] 0
+mem[3,5] 0.00267117
+mem[0,1] 0.849164
+mem[5,10] 5.09766
+mem[0,19] 0.849164
+mem[7,13] 5.09766
+mem[0,13] 0
+mem[0,6] 0
+mem[6,13] 0
+mem[0,9] 0
+mem[9,19] 4.24849
+mem[2,4] 3.402
+mem_tot_{CPU_0,CPU_1,P4_1} 25.4803
+normalized_mem_tot_{CPU_0,CPU_1,P4_1} 0.000385411
+rows_tot_{CPU_0,CPU_1,P4_1} 14.9953
+normalized_rows_tot_{CPU_0,CPU_1,P4_1} 0.208268
+mem_tot_{CPU_2,CPU_3} 8.49698
+normalized_mem_tot_{CPU_2,CPU_3} 0.000129654
+rows_tot_{CPU_2,CPU_3} 5.00052
+normalized_rows_tot_{CPU_2,CPU_3} 0.208355
+mem_tot_{CPU_4,CPU_5} 8.49698
+normalized_mem_tot_{CPU_4,CPU_5} 0.000129654
+rows_tot_{CPU_4,CPU_5} 5.00052
+normalized_rows_tot_{CPU_4,CPU_5} 0.208355
+mem_tot_{CPU_6,CPU_7} 8.49698
+normalized_mem_tot_{CPU_6,CPU_7} 0.000129654
+rows_tot_{CPU_6,CPU_7} 5.00052
+normalized_rows_tot_{CPU_6,CPU_7} 0.208355
+mem_tot_{CPU_8,CPU_9} 8.49698
+normalized_mem_tot_{CPU_8,CPU_9} 0.000129654
+rows_tot_{CPU_8,CPU_9} 5.00052
+normalized_rows_tot_{CPU_8,CPU_9} 0.208355
+mem_tot_{CPU_10,CPU_11} 8.49698
+normalized_mem_tot_{CPU_10,CPU_11} 0.000129654
+rows_tot_{CPU_10,CPU_11} 5.00052
+normalized_rows_tot_{CPU_10,CPU_11} 0.208355
+mem_tot_{CPU_12,CPU_13} 8.49698
+normalized_mem_tot_{CPU_12,CPU_13} 0.000129654
+rows_tot_{CPU_12,CPU_13} 5.00052
+normalized_rows_tot_{CPU_12,CPU_13} 0.208355
+mem_tot_{CPU_14,CPU_15} 8.49698
+normalized_mem_tot_{CPU_14,CPU_15} 0.000129654
+rows_tot_{CPU_14,CPU_15} 5.00052
+normalized_rows_tot_{CPU_14,CPU_15} 0.208355
+mem_tot_{CPU_16,CPU_17} 8.49698
+normalized_mem_tot_{CPU_16,CPU_17} 0.000129654
+rows_tot_{CPU_16,CPU_17} 5.00052
+normalized_rows_tot_{CPU_16,CPU_17} 0.208355
+mem_tot_{CPU_18,CPU_19} 8.49698
+normalized_mem_tot_{CPU_18,CPU_19} 0.000129654
+rows_tot_{CPU_18,CPU_19} 5.00052
+normalized_rows_tot_{CPU_18,CPU_19} 0.208355
+max_mem_CPU_Cluster 0.000385411
+max_rows_CPU_Cluster 0.208355
+--------------------------------------------------
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(1.000,0)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.833,1)    (0.167,0)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(0.167,0)    (0.833,1)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(0.000,1)    (1.000,0)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(0.333,0)    (0.667,2)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.999,2)    (0.000,0)    (0.001,3)    
+Total frac: 1.000
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(1.000,3)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(0.334,4)    (0.000,0)    (0.666,3)    
+Total frac: 1.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(1.000,4)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(0.667,5)    (0.333,4)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(0.000,0)    (1.000,5)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(0.000,0)    (0.000,5)    (1.000,6)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.333,0)    (0.667,6)    
+Total frac: 1.000
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(1.000,7)    (0.000,0)    (0.000,6)    
+Total frac: 1.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(1.000,0)    (0.000,7)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.667,7)    (0.000,0)    (0.333,8)    
+Total frac: 1.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.000,0)    (1.000,8)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.666,0)    (0.000,9)    (0.334,8)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(0.833,9)    (0.167,0)    
+Total frac: 1.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(0.167,0)    (0.833,9)    
+Total frac: 1.000
+
+Device (0) {CPU_0,CPU_1,P4_1}:
+Rows total: 14.995283999999993
+Mem total: 25.480267734374987
+
+Device (1) {CPU_2,CPU_3}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+
+Device (2) {CPU_4,CPU_5}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+
+Device (3) {CPU_6,CPU_7}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+
+Device (4) {CPU_8,CPU_9}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+
+Device (5) {CPU_10,CPU_11}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+
+Device (6) {CPU_12,CPU_13}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+
+Device (7) {CPU_14,CPU_15}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+
+Device (8) {CPU_16,CPU_17}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+
+Device (9) {CPU_18,CPU_19}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+
+Flow 0:
+partitions: [(0, 1)]
+path: {0}
+Flow 1:
+partitions: [(1, 1)]
+path: {0, 1}
+Flow 2:
+partitions: [(2, 1)]
+path: {0, 1}
+Flow 3:
+partitions: [(3, 1)]
+path: {0, 1, 2}
+Flow 4:
+partitions: [(4, 1)]
+path: {0, 2}
+Flow 5:
+partitions: [(5, 1)]
+path: {0, 2, 3}
+Flow 6:
+partitions: [(6, 1)]
+path: {0, 3}
+Flow 7:
+partitions: [(7, 1)]
+path: {0, 3, 4}
+Flow 8:
+partitions: [(8, 1)]
+path: {0, 4}
+Flow 9:
+partitions: [(9, 1)]
+path: {0, 4, 5}
+Flow 10:
+partitions: [(10, 1)]
+path: {0, 5}
+Flow 11:
+partitions: [(11, 1)]
+path: {0, 5, 6}
+Flow 12:
+partitions: [(12, 1)]
+path: {0, 6}
+Flow 13:
+partitions: [(13, 1)]
+path: {0, 6, 7}
+Flow 14:
+partitions: [(14, 1)]
+path: {0, 7}
+Flow 15:
+partitions: [(15, 1)]
+path: {0, 8, 7}
+Flow 16:
+partitions: [(16, 1)]
+path: {8, 0}
+Flow 17:
+partitions: [(17, 1)]
+path: {8, 0, 9}
+Flow 18:
+partitions: [(18, 1)]
+path: {0, 9}
+Flow 19:
+partitions: [(19, 1)]
+path: {0, 9}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_{CPU_0,CPU_1,P4_1} 25.4803
+ns_{CPU_0,CPU_1,P4_1} 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_2,CPU_3} 8.49698
+ns_{CPU_2,CPU_3} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_4,CPU_5} 8.49698
+ns_{CPU_4,CPU_5} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_6,CPU_7} 8.49698
+ns_{CPU_6,CPU_7} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_8,CPU_9} 8.49698
+ns_{CPU_8,CPU_9} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_10,CPU_11} 8.49698
+ns_{CPU_10,CPU_11} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_12,CPU_13} 8.49698
+ns_{CPU_12,CPU_13} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_14,CPU_15} 8.49698
+ns_{CPU_14,CPU_15} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_16,CPU_17} 8.49698
+ns_{CPU_16,CPU_17} 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653061
+mem_tot_{CPU_18,CPU_19} 8.49698
+ns_{CPU_18,CPU_19} 10.2041
+--------------------------------------------------
+
+Throughput: 98.0 Mpps, ns per packet: 10.204081632653061
+Resources: 101.953125
+Used Cores: 0, Total CPUS: 0, Switch Memory: 0
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(1.000,0)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.833,1)    (0.167,0)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(0.167,0)    (0.833,1)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(0.000,1)    (1.000,0)    (0.000,2)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(0.333,0)    (0.667,2)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.999,2)    (0.000,0)    (0.001,3)    
+Total frac: 1.000
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(1.000,3)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(0.334,4)    (0.000,0)    (0.666,3)    
+Total frac: 1.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(1.000,4)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(0.667,5)    (0.333,4)    (0.000,0)    
+Total frac: 1.000
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(0.000,0)    (1.000,5)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(0.000,0)    (0.000,5)    (1.000,6)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.333,0)    (0.667,6)    
+Total frac: 1.000
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(1.000,7)    (0.000,0)    (0.000,6)    
+Total frac: 1.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(1.000,0)    (0.000,7)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.667,7)    (0.000,0)    (0.333,8)    
+Total frac: 1.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.000,0)    (1.000,8)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.666,0)    (0.000,9)    (0.334,8)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(0.833,9)    (0.167,0)    
+Total frac: 1.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(0.167,0)    (0.833,9)    
+Total frac: 1.000
+
+Device (0) {CPU_0,CPU_1,P4_1}:
+Rows total: 14.995283999999993
+Mem total: 25.480267734374987
+Throughput: 148.0
+
+Device (1) {CPU_2,CPU_3}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+Throughput: 98.0
+
+Device (2) {CPU_4,CPU_5}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+Throughput: 98.0
+
+Device (3) {CPU_6,CPU_7}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+Throughput: 98.0
+
+Device (4) {CPU_8,CPU_9}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+Throughput: 98.0
+
+Device (5) {CPU_10,CPU_11}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+Throughput: 98.0
+
+Device (6) {CPU_12,CPU_13}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+Throughput: 98.0
+
+Device (7) {CPU_14,CPU_15}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+Throughput: 98.0
+
+Device (8) {CPU_16,CPU_17}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+Throughput: 98.0
+
+Device (9) {CPU_18,CPU_19}:
+Rows total: 5.000524
+Mem total: 8.496984140625
+Throughput: 98.0
+
+Flow 0:
+partitions: [(0, 1)]
+path: {0}
+Flow 1:
+partitions: [(1, 1)]
+path: {0, 1}
+Flow 2:
+partitions: [(2, 1)]
+path: {0, 1}
+Flow 3:
+partitions: [(3, 1)]
+path: {0, 1, 2}
+Flow 4:
+partitions: [(4, 1)]
+path: {0, 2}
+Flow 5:
+partitions: [(5, 1)]
+path: {0, 2, 3}
+Flow 6:
+partitions: [(6, 1)]
+path: {0, 3}
+Flow 7:
+partitions: [(7, 1)]
+path: {0, 3, 4}
+Flow 8:
+partitions: [(8, 1)]
+path: {0, 4}
+Flow 9:
+partitions: [(9, 1)]
+path: {0, 4, 5}
+Flow 10:
+partitions: [(10, 1)]
+path: {0, 5}
+Flow 11:
+partitions: [(11, 1)]
+path: {0, 5, 6}
+Flow 12:
+partitions: [(12, 1)]
+path: {0, 6}
+Flow 13:
+partitions: [(13, 1)]
+path: {0, 6, 7}
+Flow 14:
+partitions: [(14, 1)]
+path: {0, 7}
+Flow 15:
+partitions: [(15, 1)]
+path: {0, 8, 7}
+Flow 16:
+partitions: [(16, 1)]
+path: {8, 0}
+Flow 17:
+partitions: [(17, 1)]
+path: {8, 0, 9}
+Flow 18:
+partitions: [(18, 1)]
+path: {0, 9}
+Flow 19:
+partitions: [(19, 1)]
+path: {0, 9}
+--------------------------------------------------
+Function: MIP.solve took 0.022968292236328125 seconds
+Function: get_partitions_flows took 0.00010347366333007812 seconds
+Function: get_partitions_flows took 5.53131103515625e-05 seconds
+Function: get_partitions_flows took 3.910064697265625e-05 seconds
+Function: get_partitions_flows took 4.100799560546875e-05 seconds
+Function: get_partitions_flows took 4.100799560546875e-05 seconds
+Function: get_partitions_flows took 3.790855407714844e-05 seconds
+Function: get_partitions_flows took 3.790855407714844e-05 seconds
+Function: get_partitions_flows took 3.814697265625e-05 seconds
+Function: get_partitions_flows took 4.124641418457031e-05 seconds
+Function: get_partitions_flows took 3.7670135498046875e-05 seconds
+Building model with:
+3 devices, 10 partitions and 10 flows
+Function: MIP.add_frac_mem_var took 0.00010228157043457031 seconds
+Function: MIP.add_coverage_constraints took 9.202957153320312e-05 seconds
+Function: MIP.add_accuracy_constraints took 0.00017499923706054688 seconds
+Function: MIP.add_capacity_constraints took 0.0002701282501220703 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 3.3855438232421875e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0016367435455322266 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 0.0
+frac[2,7] 0.333159
+frac[2,6] 0.166579
+frac[2,9] 0.166579
+frac[2,8] 0.166579
+frac[2,1] 1
+frac[1,5] 0
+frac[1,8] 0
+frac[2,0] 0.166579
+frac[0,5] 0
+frac[2,3] 0.666317
+frac[2,2] 1
+frac[0,9] 0
+frac[2,5] 1
+frac[2,4] 0.332635
+mem[2,7] 1.69833
+mem[2,6] 0.849164
+mem[2,9] 0.849164
+mem[2,8] 0.849164
+mem[2,1] 5.09766
+mem[1,5] 0
+mem[1,8] 0
+mem[2,0] 0.849164
+mem[0,5] 0
+mem[2,3] 3.39666
+mem[2,2] 5.09766
+mem[0,9] 0
+mem[2,5] 5.09766
+mem[2,4] 1.69566
+mem_tot_CPU_0 0
+normalized_mem_tot_CPU_0 0
+rows_tot_CPU_0 0
+normalized_rows_tot_CPU_0 0
+mem_tot_CPU_1 0
+normalized_mem_tot_CPU_1 0
+rows_tot_CPU_1 0
+normalized_rows_tot_CPU_1 0
+mem_tot_P4_1 25.4803
+normalized_mem_tot_P4_1 0.0442366
+rows_tot_P4_1 14.9953
+normalized_rows_tot_P4_1 0.312402
+max_mem_P4 25.4803
+max_mem_CPU_Cluster 0
+max_rows_P4 14.9953
+max_rows_CPU_Cluster 0
+--------------------------------------------------
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(0.167,2)    
+Total frac: 0.167
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(1.000,2)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(1.000,2)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.666,2)    
+Total frac: 0.666
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(0.333,2)    
+Total frac: 0.333
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(0.000,1)    (0.000,0)    (1.000,2)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(0.167,2)    
+Total frac: 0.167
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.333,2)    
+Total frac: 0.333
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.167,2)    (0.000,1)    
+Total frac: 0.167
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(0.167,2)    (0.000,0)    
+Total frac: 0.167
+
+Device (0) CPU_0:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (1) CPU_1:
+Rows total: 0.0
+Mem total: 0.0
+
+Device (2) P4_1:
+Rows total: 14.995283411435395
+Mem total: 25.480266734274988
+
+Flow 0:
+partitions: [(5, 1.0)]
+path: {0, 1, 2}
+Flow 1:
+partitions: [(8, 0.1665793333333332)]
+path: {1, 2}
+Flow 2:
+partitions: [(0, 0.1665793333333332)]
+path: {2}
+Flow 3:
+partitions: [(2, 1.0)]
+path: {2}
+Flow 4:
+partitions: [(4, 0.33263466666666597)]
+path: {2}
+Flow 5:
+partitions: [(7, 0.3331586666666665)]
+path: {2}
+Flow 6:
+partitions: [(1, 1.0)]
+path: {2}
+Flow 7:
+partitions: [(3, 0.666317333333333)]
+path: {2}
+Flow 8:
+partitions: [(6, 0.1665793333333332)]
+path: {2}
+Flow 9:
+partitions: [(9, 0.1665793333333332)]
+path: {0, 2}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_0 0
+m_access_time_CPU_0 0
+ns_single_CPU_0 0
+pdt_m_rows_CPU_0 0
+cores_sketch_CPU_0 0
+cores_dpdk_CPU_0 7
+ns_sketch_CPU_0 10.2041
+pdt_nsk_c_CPU_0 0
+ns_dpdk_CPU_0 10.2041
+pdt_nsc_dpdk_CPU_0 71.4286
+ns_CPU_0 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_1 0
+m_access_time_CPU_1 0
+ns_single_CPU_1 0
+pdt_m_rows_CPU_1 0
+cores_sketch_CPU_1 0
+cores_dpdk_CPU_1 7
+ns_sketch_CPU_1 10.2041
+pdt_nsk_c_CPU_1 0
+ns_dpdk_CPU_1 10.2041
+pdt_nsc_dpdk_CPU_1 71.4286
+ns_CPU_1 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_P4_1 25.4803
+ns_P4_1 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_0 0
+m_access_time_CPU_0 0
+ns_single_CPU_0 0
+pdt_m_rows_CPU_0 0
+cores_sketch_CPU_0 0
+cores_dpdk_CPU_0 7
+ns_sketch_CPU_0 10.2041
+pdt_nsk_c_CPU_0 0
+ns_dpdk_CPU_0 10.2041
+pdt_nsc_dpdk_CPU_0 71.4286
+ns_CPU_0 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_1 0
+m_access_time_CPU_1 0
+ns_single_CPU_1 0
+pdt_m_rows_CPU_1 0
+cores_sketch_CPU_1 0
+cores_dpdk_CPU_1 7
+ns_sketch_CPU_1 10.2041
+pdt_nsk_c_CPU_1 0
+ns_dpdk_CPU_1 10.2041
+pdt_nsc_dpdk_CPU_1 71.4286
+ns_CPU_1 10.2041
+--------------------------------------------------
+
+Throughput: 97.99999999999999 Mpps, ns per packet: 10.204081632653063
+Resources: 144.27965974315572
+Used Cores: 13.999999999999947, Total CPUS: 2, Switch Memory: 25.480266734274988
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(0.167,2)    
+Total frac: 0.167
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(1.000,2)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(1.000,2)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.666,2)    
+Total frac: 0.666
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(0.333,2)    
+Total frac: 0.333
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(0.000,1)    (0.000,0)    (1.000,2)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(0.167,2)    
+Total frac: 0.167
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.333,2)    
+Total frac: 0.333
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.167,2)    (0.000,1)    
+Total frac: 0.167
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(0.167,2)    (0.000,0)    
+Total frac: 0.167
+
+Device (0) CPU_0:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (1) CPU_1:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 97.99999999999999
+
+Device (2) P4_1:
+Rows total: 14.995283411435395
+Mem total: 25.480266734274988
+Throughput: 148.0
+
+Flow 0:
+partitions: [(5, 1.0)]
+path: {0, 1, 2}
+Flow 1:
+partitions: [(8, 0.1665793333333332)]
+path: {1, 2}
+Flow 2:
+partitions: [(0, 0.1665793333333332)]
+path: {2}
+Flow 3:
+partitions: [(2, 1.0)]
+path: {2}
+Flow 4:
+partitions: [(4, 0.33263466666666597)]
+path: {2}
+Flow 5:
+partitions: [(7, 0.3331586666666665)]
+path: {2}
+Flow 6:
+partitions: [(1, 1.0)]
+path: {2}
+Flow 7:
+partitions: [(3, 0.666317333333333)]
+path: {2}
+Flow 8:
+partitions: [(6, 0.1665793333333332)]
+path: {2}
+Flow 9:
+partitions: [(9, 0.1665793333333332)]
+path: {0, 2}
+--------------------------------------------------
+Function: MIP.solve took 0.013297080993652344 seconds
+Building model with:
+2 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 5.316734313964844e-05 seconds
+Function: MIP.add_coverage_constraints took 2.8848648071289062e-05 seconds
+Function: MIP.add_accuracy_constraints took 4.172325134277344e-05 seconds
+Function: MIP.add_capacity_constraints took 0.00015783309936523438 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 2.1219253540039062e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0012955665588378906 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.000524
+frac[0,1] 0.833421
+frac[1,0] 0.833421
+frac[0,0] 0
+mem[0,1] 4.24849
+mem[1,0] 4.24849
+mem[0,0] 0
+mem_tot_CPU_2 4.24849
+normalized_mem_tot_CPU_2 0.000129654
+rows_tot_CPU_2 2.50026
+normalized_rows_tot_CPU_2 0.208355
+mem_tot_CPU_3 4.24849
+normalized_mem_tot_CPU_3 0.000129654
+rows_tot_CPU_3 2.50026
+normalized_rows_tot_CPU_3 0.208355
+max_mem_CPU_Cluster 0.000129654
+max_rows_CPU_Cluster 0.208355
+--------------------------------------------------
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(0.833,1)    (0.000,0)    
+Total frac: 0.833
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.833,0)    
+Total frac: 0.833
+
+Device (0) CPU_2:
+Rows total: 2.5002619999999998
+Mem total: 4.2484920703124995
+
+Device (1) CPU_3:
+Rows total: 2.500262
+Mem total: 4.2484920703125
+
+Flow 0:
+partitions: [(1, 0.8334206666666667)]
+path: {0}
+Flow 1:
+partitions: [(0, 0.8334206666666667)]
+path: {0, 1}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 4.24849
+m_access_time_CPU_2 0.536891
+ns_single_CPU_2 10.0933
+pdt_m_rows_CPU_2 1.34237
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 10.0933
+pdt_nsk_c_CPU_2 10.0933
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_3 4.24849
+m_access_time_CPU_3 0.536891
+ns_single_CPU_3 10.0933
+pdt_m_rows_CPU_3 1.34237
+cores_sketch_CPU_3 1
+cores_dpdk_CPU_3 6
+ns_sketch_CPU_3 10.0933
+pdt_nsk_c_CPU_3 10.0933
+ns_dpdk_CPU_3 10.7143
+pdt_nsc_dpdk_CPU_3 64.2857
+ns_CPU_3 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 4.24849
+m_access_time_CPU_2 0.536891
+ns_single_CPU_2 10.0933
+pdt_m_rows_CPU_2 1.34237
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 10.0933
+pdt_nsk_c_CPU_2 10.0933
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_3 4.24849
+m_access_time_CPU_3 0.536891
+ns_single_CPU_3 10.0933
+pdt_m_rows_CPU_3 1.34237
+cores_sketch_CPU_3 1
+cores_dpdk_CPU_3 6
+ns_sketch_CPU_3 10.0933
+pdt_nsk_c_CPU_3 10.0933
+ns_dpdk_CPU_3 10.7143
+pdt_nsc_dpdk_CPU_3 64.2857
+ns_CPU_3 10.7143
+--------------------------------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 140.00103722950934
+Used Cores: 13.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(0.833,1)    (0.000,0)    
+Total frac: 0.833
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.833,0)    
+Total frac: 0.833
+
+Device (0) CPU_2:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.5002619999999998
+Mem total: 4.2484920703124995
+Throughput: 93.33333333333333
+
+Device (1) CPU_3:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.500262
+Mem total: 4.2484920703125
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(1, 0.8334206666666667)]
+path: {0}
+Flow 1:
+partitions: [(0, 0.8334206666666667)]
+path: {0, 1}
+--------------------------------------------------
+Function: MIP.solve took 0.011955738067626953 seconds
+Building model with:
+2 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 5.1975250244140625e-05 seconds
+Function: MIP.add_coverage_constraints took 2.8371810913085938e-05 seconds
+Function: MIP.add_accuracy_constraints took 4.076957702636719e-05 seconds
+Function: MIP.add_capacity_constraints took 0.00017952919006347656 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 2.1219253540039062e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0008547306060791016 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.000524
+frac[0,1] 0.667365
+frac[1,0] 0.999476
+frac[1,1] 0
+mem[0,1] 3.402
+mem[1,0] 5.09499
+mem[1,1] 0
+mem_tot_CPU_4 3.402
+normalized_mem_tot_CPU_4 0.000103821
+rows_tot_CPU_4 2.0021
+normalized_rows_tot_CPU_4 0.166841
+mem_tot_CPU_5 5.09499
+normalized_mem_tot_CPU_5 0.000155487
+rows_tot_CPU_5 2.99843
+normalized_rows_tot_CPU_5 0.249869
+max_mem_CPU_Cluster 0.000155487
+max_rows_CPU_Cluster 0.249869
+--------------------------------------------------
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.999,1)    
+Total frac: 0.999
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(0.667,0)    (0.000,1)    
+Total frac: 0.667
+
+Device (0) CPU_4:
+Rows total: 2.002096000000002
+Mem total: 3.4019990625000034
+
+Device (1) CPU_5:
+Rows total: 2.9984279999999983
+Mem total: 5.0949850781249975
+
+Flow 0:
+partitions: [(1, 0.667365333333334)]
+path: {0, 1}
+Flow 1:
+partitions: [(0, 0.9994759999999995)]
+path: {1}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_4 3.402
+m_access_time_CPU_4 0.537684
+ns_single_CPU_4 8.08383
+pdt_m_rows_CPU_4 1.0765
+cores_sketch_CPU_4 1
+cores_dpdk_CPU_4 6
+ns_sketch_CPU_4 8.08383
+pdt_nsk_c_CPU_4 8.08383
+ns_dpdk_CPU_4 10.7143
+pdt_nsc_dpdk_CPU_4 64.2857
+ns_CPU_4 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_5 5.09499
+m_access_time_CPU_5 0.536098
+ns_single_CPU_5 12.1019
+pdt_m_rows_CPU_5 1.60745
+cores_sketch_CPU_5 2
+cores_dpdk_CPU_5 5
+ns_sketch_CPU_5 6.05097
+pdt_nsk_c_CPU_5 12.1019
+ns_dpdk_CPU_5 11.4286
+pdt_nsc_dpdk_CPU_5 57.1429
+ns_CPU_5 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_4 3.402
+m_access_time_CPU_4 0.537684
+ns_single_CPU_4 8.08383
+pdt_m_rows_CPU_4 1.0765
+cores_sketch_CPU_4 1
+cores_dpdk_CPU_4 5
+ns_sketch_CPU_4 8.08383
+pdt_nsk_c_CPU_4 8.08383
+ns_dpdk_CPU_4 11.4286
+pdt_nsc_dpdk_CPU_4 57.1429
+ns_CPU_4 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_5 5.09499
+m_access_time_CPU_5 0.536098
+ns_single_CPU_5 12.1019
+pdt_m_rows_CPU_5 1.60745
+cores_sketch_CPU_5 2
+cores_dpdk_CPU_5 5
+ns_sketch_CPU_5 6.05097
+pdt_nsk_c_CPU_5 12.1019
+ns_dpdk_CPU_5 11.4286
+pdt_nsc_dpdk_CPU_5 57.1429
+ns_CPU_5 11.4286
+--------------------------------------------------
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 130.00103722950934
+Used Cores: 12.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.999,1)    
+Total frac: 0.999
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(0.667,0)    (0.000,1)    
+Total frac: 0.667
+
+Device (0) CPU_4:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.002096000000002
+Mem total: 3.4019990625000034
+Throughput: 87.49999999999999
+
+Device (1) CPU_5:
+cores_sketch: 2.0000000000000004, cores_dpdk: 4.9999999999999964
+Rows total: 2.9984279999999983
+Mem total: 5.0949850781249975
+Throughput: 87.49999999999999
+
+Flow 0:
+partitions: [(1, 0.667365333333334)]
+path: {0, 1}
+Flow 1:
+partitions: [(0, 0.9994759999999995)]
+path: {1}
+--------------------------------------------------
+Function: MIP.solve took 0.011904478073120117 seconds
+Building model with:
+2 devices, 3 partitions and 3 flows
+Function: MIP.add_frac_mem_var took 5.6743621826171875e-05 seconds
+Function: MIP.add_coverage_constraints took 3.6716461181640625e-05 seconds
+Function: MIP.add_accuracy_constraints took 5.245208740234375e-05 seconds
+Function: MIP.add_capacity_constraints took 0.00016450881958007812 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 2.1696090698242188e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0017418861389160156 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.000524
+frac[0,1] 0.832809
+frac[1,0] 0.666317
+frac[1,1] 0.167191
+frac[0,2] 0.000524
+mem[0,1] 4.24538
+mem[1,0] 3.39666
+mem[1,1] 0.852281
+mem[0,2] 0.00267117
+mem_tot_CPU_6 4.24805
+normalized_mem_tot_CPU_6 0.00012964
+rows_tot_CPU_6 2.5
+normalized_rows_tot_CPU_6 0.208333
+mem_tot_CPU_7 4.24894
+normalized_mem_tot_CPU_7 0.000129667
+rows_tot_CPU_7 2.50052
+normalized_rows_tot_CPU_7 0.208377
+max_mem_CPU_Cluster 0.000129642
+max_rows_CPU_Cluster 0.208377
+--------------------------------------------------
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(0.666,1)    
+Total frac: 0.666
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(0.833,0)    (0.167,1)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.001,0)    
+Total frac: 0.001
+
+Device (0) CPU_6:
+Rows total: 2.4999999738
+Mem total: 4.248046830480469
+
+Device (1) CPU_7:
+Rows total: 2.5005240262000004
+Mem total: 4.248937310144532
+
+Flow 0:
+partitions: [(2, 0.0005240000000004988)]
+path: {0}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {0, 1}
+Flow 2:
+partitions: [(0, 0.666317333333333)]
+path: {1}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_6 4.24805
+m_access_time_CPU_6 0.536892
+ns_single_CPU_6 10.0922
+pdt_m_rows_CPU_6 1.34223
+cores_sketch_CPU_6 1
+cores_dpdk_CPU_6 6
+ns_sketch_CPU_6 10.0922
+pdt_nsk_c_CPU_6 10.0922
+ns_dpdk_CPU_6 10.7143
+pdt_nsc_dpdk_CPU_6 64.2857
+ns_CPU_6 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_7 4.24894
+m_access_time_CPU_7 0.536891
+ns_single_CPU_7 10.0943
+pdt_m_rows_CPU_7 1.34251
+cores_sketch_CPU_7 1
+cores_dpdk_CPU_7 6
+ns_sketch_CPU_7 10.0943
+pdt_nsk_c_CPU_7 10.0943
+ns_dpdk_CPU_7 10.7143
+pdt_nsc_dpdk_CPU_7 64.2857
+ns_CPU_7 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_6 4.24805
+m_access_time_CPU_6 0.536892
+ns_single_CPU_6 10.0922
+pdt_m_rows_CPU_6 1.34223
+cores_sketch_CPU_6 1
+cores_dpdk_CPU_6 6
+ns_sketch_CPU_6 10.0922
+pdt_nsk_c_CPU_6 10.0922
+ns_dpdk_CPU_6 10.7143
+pdt_nsc_dpdk_CPU_6 64.2857
+ns_CPU_6 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_7 4.24894
+m_access_time_CPU_7 0.536891
+ns_single_CPU_7 10.0943
+pdt_m_rows_CPU_7 1.34251
+cores_sketch_CPU_7 1
+cores_dpdk_CPU_7 6
+ns_sketch_CPU_7 10.0943
+pdt_nsk_c_CPU_7 10.0943
+ns_dpdk_CPU_7 10.7143
+pdt_nsc_dpdk_CPU_7 64.2857
+ns_CPU_7 10.7143
+--------------------------------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 140.00103722950934
+Used Cores: 13.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(0.666,1)    
+Total frac: 0.666
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(0.833,0)    (0.167,1)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.001,0)    
+Total frac: 0.001
+
+Device (0) CPU_6:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.4999999738
+Mem total: 4.248046830480469
+Throughput: 93.33333333333333
+
+Device (1) CPU_7:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.5005240262000004
+Mem total: 4.248937310144532
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(2, 0.0005240000000004988)]
+path: {0}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {0, 1}
+Flow 2:
+partitions: [(0, 0.666317333333333)]
+path: {1}
+--------------------------------------------------
+Function: MIP.solve took 0.012509584426879883 seconds
+Building model with:
+2 devices, 3 partitions and 3 flows
+Function: MIP.add_frac_mem_var took 5.6743621826171875e-05 seconds
+Function: MIP.add_coverage_constraints took 3.6716461181640625e-05 seconds
+Function: MIP.add_accuracy_constraints took 5.269050598144531e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0001633167266845703 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 2.2411346435546875e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0016949176788330078 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.000524
+frac[0,1] 0.499651
+frac[0,0] 0.333683
+frac[1,1] 0.500349
+frac[1,2] 0.333159
+mem[0,1] 2.54705
+mem[0,0] 1.701
+mem[1,1] 2.55061
+mem[1,2] 1.69833
+mem_tot_CPU_8 4.24805
+normalized_mem_tot_CPU_8 0.00012964
+rows_tot_CPU_8 2.5
+normalized_rows_tot_CPU_8 0.208333
+mem_tot_CPU_9 4.24894
+normalized_mem_tot_CPU_9 0.000129667
+rows_tot_CPU_9 2.50052
+normalized_rows_tot_CPU_9 0.208377
+max_mem_CPU_Cluster 0.000129642
+max_rows_CPU_Cluster 0.208377
+--------------------------------------------------
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(0.334,0)    
+Total frac: 0.334
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.500,0)    (0.500,1)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(0.333,1)    
+Total frac: 0.333
+
+Device (0) CPU_8:
+Rows total: 2.4999999737999996
+Mem total: 4.248046830480468
+
+Device (1) CPU_9:
+Rows total: 2.500524026200001
+Mem total: 4.248937310144533
+
+Flow 0:
+partitions: [(0, 0.333682666666667)]
+path: {0}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {0, 1}
+Flow 2:
+partitions: [(2, 0.3331586666666665)]
+path: {1}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_8 4.24805
+m_access_time_CPU_8 0.536892
+ns_single_CPU_8 10.0922
+pdt_m_rows_CPU_8 1.34223
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 6
+ns_sketch_CPU_8 10.0922
+pdt_nsk_c_CPU_8 10.0922
+ns_dpdk_CPU_8 10.7143
+pdt_nsc_dpdk_CPU_8 64.2857
+ns_CPU_8 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_9 4.24894
+m_access_time_CPU_9 0.536891
+ns_single_CPU_9 10.0943
+pdt_m_rows_CPU_9 1.34251
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 6
+ns_sketch_CPU_9 10.0943
+pdt_nsk_c_CPU_9 10.0943
+ns_dpdk_CPU_9 10.7143
+pdt_nsc_dpdk_CPU_9 64.2857
+ns_CPU_9 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_8 4.24805
+m_access_time_CPU_8 0.536892
+ns_single_CPU_8 10.0922
+pdt_m_rows_CPU_8 1.34223
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 6
+ns_sketch_CPU_8 10.0922
+pdt_nsk_c_CPU_8 10.0922
+ns_dpdk_CPU_8 10.7143
+pdt_nsc_dpdk_CPU_8 64.2857
+ns_CPU_8 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_9 4.24894
+m_access_time_CPU_9 0.536891
+ns_single_CPU_9 10.0943
+pdt_m_rows_CPU_9 1.34251
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 6
+ns_sketch_CPU_9 10.0943
+pdt_nsk_c_CPU_9 10.0943
+ns_dpdk_CPU_9 10.7143
+pdt_nsc_dpdk_CPU_9 64.2857
+ns_CPU_9 10.7143
+--------------------------------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 140.00103722950934
+Used Cores: 13.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(0.334,0)    
+Total frac: 0.334
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.500,0)    (0.500,1)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(0.333,1)    
+Total frac: 0.333
+
+Device (0) CPU_8:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.4999999737999996
+Mem total: 4.248046830480468
+Throughput: 93.33333333333333
+
+Device (1) CPU_9:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.500524026200001
+Mem total: 4.248937310144533
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(0, 0.333682666666667)]
+path: {0}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {0, 1}
+Flow 2:
+partitions: [(2, 0.3331586666666665)]
+path: {1}
+--------------------------------------------------
+Function: MIP.solve took 0.016834020614624023 seconds
+Building model with:
+2 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 0.00010323524475097656 seconds
+Function: MIP.add_coverage_constraints took 5.745887756347656e-05 seconds
+Function: MIP.add_accuracy_constraints took 8.082389831542969e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0003132820129394531 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 4.1961669921875e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0018799304962158203 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.000524
+frac[0,1] 0.166492
+frac[0,0] 0.666841
+frac[1,1] 0.833508
+mem[0,1] 0.848719
+mem[0,0] 3.39933
+mem[1,1] 4.24894
+mem_tot_CPU_10 4.24805
+normalized_mem_tot_CPU_10 0.00012964
+rows_tot_CPU_10 2.5
+normalized_rows_tot_CPU_10 0.208333
+mem_tot_CPU_11 4.24894
+normalized_mem_tot_CPU_11 0.000129667
+rows_tot_CPU_11 2.50052
+normalized_rows_tot_CPU_11 0.208377
+max_mem_CPU_Cluster 0.000129642
+max_rows_CPU_Cluster 0.208377
+--------------------------------------------------
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(0.667,0)    
+Total frac: 0.667
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(0.166,0)    (0.834,1)    
+Total frac: 1.000
+
+Device (0) CPU_10:
+Rows total: 2.4999999738000005
+Mem total: 4.24804683048047
+
+Device (1) CPU_11:
+Rows total: 2.5005240262000004
+Mem total: 4.248937310144532
+
+Flow 0:
+partitions: [(0, 0.6668413333333335)]
+path: {0}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {0, 1}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_10 4.24805
+m_access_time_CPU_10 0.536892
+ns_single_CPU_10 10.0922
+pdt_m_rows_CPU_10 1.34223
+cores_sketch_CPU_10 1
+cores_dpdk_CPU_10 6
+ns_sketch_CPU_10 10.0922
+pdt_nsk_c_CPU_10 10.0922
+ns_dpdk_CPU_10 10.7143
+pdt_nsc_dpdk_CPU_10 64.2857
+ns_CPU_10 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_11 4.24894
+m_access_time_CPU_11 0.536891
+ns_single_CPU_11 10.0943
+pdt_m_rows_CPU_11 1.34251
+cores_sketch_CPU_11 1
+cores_dpdk_CPU_11 6
+ns_sketch_CPU_11 10.0943
+pdt_nsk_c_CPU_11 10.0943
+ns_dpdk_CPU_11 10.7143
+pdt_nsc_dpdk_CPU_11 64.2857
+ns_CPU_11 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_10 4.24805
+m_access_time_CPU_10 0.536892
+ns_single_CPU_10 10.0922
+pdt_m_rows_CPU_10 1.34223
+cores_sketch_CPU_10 1
+cores_dpdk_CPU_10 6
+ns_sketch_CPU_10 10.0922
+pdt_nsk_c_CPU_10 10.0922
+ns_dpdk_CPU_10 10.7143
+pdt_nsc_dpdk_CPU_10 64.2857
+ns_CPU_10 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_11 4.24894
+m_access_time_CPU_11 0.536891
+ns_single_CPU_11 10.0943
+pdt_m_rows_CPU_11 1.34251
+cores_sketch_CPU_11 1
+cores_dpdk_CPU_11 6
+ns_sketch_CPU_11 10.0943
+pdt_nsk_c_CPU_11 10.0943
+ns_dpdk_CPU_11 10.7143
+pdt_nsc_dpdk_CPU_11 64.2857
+ns_CPU_11 10.7143
+--------------------------------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 140.00103722950934
+Used Cores: 13.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(0.667,0)    
+Total frac: 0.667
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(0.166,0)    (0.834,1)    
+Total frac: 1.000
+
+Device (0) CPU_10:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.4999999738000005
+Mem total: 4.24804683048047
+Throughput: 93.33333333333333
+
+Device (1) CPU_11:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.5005240262000004
+Mem total: 4.248937310144532
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(0, 0.6668413333333335)]
+path: {0}
+Flow 1:
+partitions: [(1, 1.0)]
+path: {0, 1}
+--------------------------------------------------
+Function: MIP.solve took 0.012973308563232422 seconds
+Building model with:
+2 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 5.435943603515625e-05 seconds
+Function: MIP.add_coverage_constraints took 3.0040740966796875e-05 seconds
+Function: MIP.add_accuracy_constraints took 4.1961669921875e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0001628398895263672 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 2.1219253540039062e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.00039887428283691406 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.000524
+frac[0,1] 0
+frac[0,0] 1
+frac[1,1] 0.666841
+mem[0,1] 0
+mem[0,0] 5.09766
+mem[1,1] 3.39933
+mem_tot_CPU_12 5.09766
+normalized_mem_tot_CPU_12 0.000155568
+rows_tot_CPU_12 3
+normalized_rows_tot_CPU_12 0.25
+mem_tot_CPU_13 3.39933
+normalized_mem_tot_CPU_13 0.000103739
+rows_tot_CPU_13 2.00052
+normalized_rows_tot_CPU_13 0.16671
+max_mem_CPU_Cluster 0.000155568
+max_rows_CPU_Cluster 0.25
+--------------------------------------------------
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(1.000,0)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.000,0)    (0.667,1)    
+Total frac: 0.667
+
+Device (0) CPU_12:
+Rows total: 3.0
+Mem total: 5.09765625
+
+Device (1) CPU_13:
+Rows total: 2.0005240000000004
+Mem total: 3.399327890625001
+
+Flow 0:
+partitions: [(0, 1.0)]
+path: {0}
+Flow 1:
+partitions: [(1, 0.6668413333333335)]
+path: {0, 1}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_12 5.09766
+m_access_time_CPU_12 0.536096
+ns_single_CPU_12 12.1083
+pdt_m_rows_CPU_12 1.60829
+cores_sketch_CPU_12 2
+cores_dpdk_CPU_12 5
+ns_sketch_CPU_12 6.05414
+pdt_nsk_c_CPU_12 12.1083
+ns_dpdk_CPU_12 11.4286
+pdt_nsc_dpdk_CPU_12 57.1429
+ns_CPU_12 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_13 3.39933
+m_access_time_CPU_13 0.537687
+ns_single_CPU_13 8.07749
+pdt_m_rows_CPU_13 1.07566
+cores_sketch_CPU_13 1
+cores_dpdk_CPU_13 6
+ns_sketch_CPU_13 8.07749
+pdt_nsk_c_CPU_13 8.07749
+ns_dpdk_CPU_13 10.7143
+pdt_nsc_dpdk_CPU_13 64.2857
+ns_CPU_13 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_12 5.09766
+m_access_time_CPU_12 0.536096
+ns_single_CPU_12 12.1083
+pdt_m_rows_CPU_12 1.60829
+cores_sketch_CPU_12 2
+cores_dpdk_CPU_12 5
+ns_sketch_CPU_12 6.05414
+pdt_nsk_c_CPU_12 12.1083
+ns_dpdk_CPU_12 11.4286
+pdt_nsc_dpdk_CPU_12 57.1429
+ns_CPU_12 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_13 3.39933
+m_access_time_CPU_13 0.537687
+ns_single_CPU_13 8.07749
+pdt_m_rows_CPU_13 1.07566
+cores_sketch_CPU_13 1
+cores_dpdk_CPU_13 5
+ns_sketch_CPU_13 8.07749
+pdt_nsk_c_CPU_13 8.07749
+ns_dpdk_CPU_13 11.4286
+pdt_nsc_dpdk_CPU_13 57.1429
+ns_CPU_13 11.4286
+--------------------------------------------------
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 130.00103722950934
+Used Cores: 12.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(1.000,0)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.000,0)    (0.667,1)    
+Total frac: 0.667
+
+Device (0) CPU_12:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (1) CPU_13:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.0005240000000004
+Mem total: 3.399327890625001
+Throughput: 87.49999999999999
+
+Flow 0:
+partitions: [(0, 1.0)]
+path: {0}
+Flow 1:
+partitions: [(1, 0.6668413333333335)]
+path: {0, 1}
+--------------------------------------------------
+Function: MIP.solve took 0.011091947555541992 seconds
+Building model with:
+2 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 5.0067901611328125e-05 seconds
+Function: MIP.add_coverage_constraints took 2.8848648071289062e-05 seconds
+Function: MIP.add_accuracy_constraints took 3.0517578125e-05 seconds
+Function: MIP.add_capacity_constraints took 0.00015425682067871094 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 2.0503997802734375e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.00028705596923828125 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.000523999999997
+frac[0,1] 1
+frac[1,0] 0.666841
+mem[0,1] 5.09766
+mem[1,0] 3.39933
+mem_tot_CPU_14 5.09766
+normalized_mem_tot_CPU_14 0.000155568
+rows_tot_CPU_14 3
+normalized_rows_tot_CPU_14 0.25
+mem_tot_CPU_15 3.39933
+normalized_mem_tot_CPU_15 0.000103739
+rows_tot_CPU_15 2.00052
+normalized_rows_tot_CPU_15 0.16671
+max_mem_CPU_Cluster 0.000155568
+max_rows_CPU_Cluster 0.25
+--------------------------------------------------
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.667,1)    
+Total frac: 0.667
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(1.000,0)    
+Total frac: 1.000
+
+Device (0) CPU_14:
+Rows total: 3.0
+Mem total: 5.09765625
+
+Device (1) CPU_15:
+Rows total: 2.000523999999997
+Mem total: 3.3993278906249946
+
+Flow 0:
+partitions: [(1, 1.0)]
+path: {0}
+Flow 1:
+partitions: [(0, 0.6668413333333335)]
+path: {1}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_14 5.09766
+m_access_time_CPU_14 0.536096
+ns_single_CPU_14 12.1083
+pdt_m_rows_CPU_14 1.60829
+cores_sketch_CPU_14 2
+cores_dpdk_CPU_14 5
+ns_sketch_CPU_14 6.05414
+pdt_nsk_c_CPU_14 12.1083
+ns_dpdk_CPU_14 11.4286
+pdt_nsc_dpdk_CPU_14 57.1429
+ns_CPU_14 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_15 3.39933
+m_access_time_CPU_15 0.537687
+ns_single_CPU_15 8.07749
+pdt_m_rows_CPU_15 1.07566
+cores_sketch_CPU_15 1
+cores_dpdk_CPU_15 6
+ns_sketch_CPU_15 8.07749
+pdt_nsk_c_CPU_15 8.07749
+ns_dpdk_CPU_15 10.7143
+pdt_nsc_dpdk_CPU_15 64.2857
+ns_CPU_15 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_14 5.09766
+m_access_time_CPU_14 0.536096
+ns_single_CPU_14 12.1083
+pdt_m_rows_CPU_14 1.60829
+cores_sketch_CPU_14 2
+cores_dpdk_CPU_14 5
+ns_sketch_CPU_14 6.05414
+pdt_nsk_c_CPU_14 12.1083
+ns_dpdk_CPU_14 11.4286
+pdt_nsc_dpdk_CPU_14 57.1429
+ns_CPU_14 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_15 3.39933
+m_access_time_CPU_15 0.537687
+ns_single_CPU_15 8.07749
+pdt_m_rows_CPU_15 1.07566
+cores_sketch_CPU_15 1
+cores_dpdk_CPU_15 5
+ns_sketch_CPU_15 8.07749
+pdt_nsk_c_CPU_15 8.07749
+ns_dpdk_CPU_15 11.4286
+pdt_nsc_dpdk_CPU_15 57.1429
+ns_CPU_15 11.4286
+--------------------------------------------------
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 130.00103722950934
+Used Cores: 12.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.667,1)    
+Total frac: 0.667
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(1.000,0)    
+Total frac: 1.000
+
+Device (0) CPU_14:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (1) CPU_15:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.000523999999997
+Mem total: 3.3993278906249946
+Throughput: 87.49999999999999
+
+Flow 0:
+partitions: [(1, 1.0)]
+path: {0}
+Flow 1:
+partitions: [(0, 0.6668413333333335)]
+path: {1}
+--------------------------------------------------
+Function: MIP.solve took 0.015350580215454102 seconds
+Building model with:
+2 devices, 3 partitions and 3 flows
+Function: MIP.add_frac_mem_var took 0.00010967254638671875 seconds
+Function: MIP.add_coverage_constraints took 7.176399230957031e-05 seconds
+Function: MIP.add_accuracy_constraints took 0.00010251998901367188 seconds
+Function: MIP.add_capacity_constraints took 0.0003209114074707031 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 6.198883056640625e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0018646717071533203 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.000524
+frac[0,1] 0.333159
+frac[1,0] 0.499825
+frac[0,0] 0.500175
+frac[1,2] 0.333683
+mem[0,1] 1.69833
+mem[1,0] 2.54794
+mem[0,0] 2.54972
+mem[1,2] 1.701
+mem_tot_CPU_16 4.24805
+normalized_mem_tot_CPU_16 0.00012964
+rows_tot_CPU_16 2.5
+normalized_rows_tot_CPU_16 0.208333
+mem_tot_CPU_17 4.24894
+normalized_mem_tot_CPU_17 0.000129667
+rows_tot_CPU_17 2.50052
+normalized_rows_tot_CPU_17 0.208377
+max_mem_CPU_Cluster 0.000129642
+max_rows_CPU_Cluster 0.208377
+--------------------------------------------------
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.500,1)    (0.500,0)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.333,0)    
+Total frac: 0.333
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.334,1)    
+Total frac: 0.334
+
+Device (0) CPU_16:
+Rows total: 2.4999999738
+Mem total: 4.248046830480469
+
+Device (1) CPU_17:
+Rows total: 2.5005240262000004
+Mem total: 4.248937310144532
+
+Flow 0:
+partitions: [(1, 0.3331586666666665)]
+path: {0}
+Flow 1:
+partitions: [(0, 1.0)]
+path: {0, 1}
+Flow 2:
+partitions: [(2, 0.333682666666667)]
+path: {1}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_16 4.24805
+m_access_time_CPU_16 0.536892
+ns_single_CPU_16 10.0922
+pdt_m_rows_CPU_16 1.34223
+cores_sketch_CPU_16 1
+cores_dpdk_CPU_16 6
+ns_sketch_CPU_16 10.0922
+pdt_nsk_c_CPU_16 10.0922
+ns_dpdk_CPU_16 10.7143
+pdt_nsc_dpdk_CPU_16 64.2857
+ns_CPU_16 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_17 4.24894
+m_access_time_CPU_17 0.536891
+ns_single_CPU_17 10.0943
+pdt_m_rows_CPU_17 1.34251
+cores_sketch_CPU_17 1
+cores_dpdk_CPU_17 6
+ns_sketch_CPU_17 10.0943
+pdt_nsk_c_CPU_17 10.0943
+ns_dpdk_CPU_17 10.7143
+pdt_nsc_dpdk_CPU_17 64.2857
+ns_CPU_17 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_16 4.24805
+m_access_time_CPU_16 0.536892
+ns_single_CPU_16 10.0922
+pdt_m_rows_CPU_16 1.34223
+cores_sketch_CPU_16 1
+cores_dpdk_CPU_16 6
+ns_sketch_CPU_16 10.0922
+pdt_nsk_c_CPU_16 10.0922
+ns_dpdk_CPU_16 10.7143
+pdt_nsc_dpdk_CPU_16 64.2857
+ns_CPU_16 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_17 4.24894
+m_access_time_CPU_17 0.536891
+ns_single_CPU_17 10.0943
+pdt_m_rows_CPU_17 1.34251
+cores_sketch_CPU_17 1
+cores_dpdk_CPU_17 6
+ns_sketch_CPU_17 10.0943
+pdt_nsk_c_CPU_17 10.0943
+ns_dpdk_CPU_17 10.7143
+pdt_nsc_dpdk_CPU_17 64.2857
+ns_CPU_17 10.7143
+--------------------------------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 140.00103722950934
+Used Cores: 13.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.500,1)    (0.500,0)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.333,0)    
+Total frac: 0.333
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.334,1)    
+Total frac: 0.334
+
+Device (0) CPU_16:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.4999999738
+Mem total: 4.248046830480469
+Throughput: 93.33333333333333
+
+Device (1) CPU_17:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.5005240262000004
+Mem total: 4.248937310144532
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(1, 0.3331586666666665)]
+path: {0}
+Flow 1:
+partitions: [(0, 1.0)]
+path: {0, 1}
+Flow 2:
+partitions: [(2, 0.333682666666667)]
+path: {1}
+--------------------------------------------------
+Function: MIP.solve took 0.013447999954223633 seconds
+Building model with:
+2 devices, 2 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 5.698204040527344e-05 seconds
+Function: MIP.add_coverage_constraints took 2.956390380859375e-05 seconds
+Function: MIP.add_accuracy_constraints took 4.2438507080078125e-05 seconds
+Function: MIP.add_capacity_constraints took 0.0001685619354248047 seconds
+--------------------------------------------------
+Starting model update
+Model update took: 2.1457672119140625e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.001398324966430664 seconds
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 5.000524
+frac[1,0] 0
+frac[0,0] 0.833421
+frac[1,1] 0.833421
+mem[1,0] 0
+mem[0,0] 4.24849
+mem[1,1] 4.24849
+mem_tot_CPU_18 4.24849
+normalized_mem_tot_CPU_18 0.000129654
+rows_tot_CPU_18 2.50026
+normalized_rows_tot_CPU_18 0.208355
+mem_tot_CPU_19 4.24849
+normalized_mem_tot_CPU_19 0.000129654
+rows_tot_CPU_19 2.50026
+normalized_rows_tot_CPU_19 0.208355
+max_mem_CPU_Cluster 0.000129654
+max_rows_CPU_Cluster 0.208355
+--------------------------------------------------
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(0.000,1)    (0.833,0)    
+Total frac: 0.833
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(0.833,1)    
+Total frac: 0.833
+
+Device (0) CPU_18:
+Rows total: 2.500262
+Mem total: 4.2484920703125
+
+Device (1) CPU_19:
+Rows total: 2.5002619999999998
+Mem total: 4.2484920703124995
+
+Flow 0:
+partitions: [(0, 0.8334206666666667)]
+path: {0, 1}
+Flow 1:
+partitions: [(1, 0.8334206666666667)]
+path: {1}
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_18 4.24849
+m_access_time_CPU_18 0.536891
+ns_single_CPU_18 10.0933
+pdt_m_rows_CPU_18 1.34237
+cores_sketch_CPU_18 1
+cores_dpdk_CPU_18 6
+ns_sketch_CPU_18 10.0933
+pdt_nsk_c_CPU_18 10.0933
+ns_dpdk_CPU_18 10.7143
+pdt_nsc_dpdk_CPU_18 64.2857
+ns_CPU_18 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_19 4.24849
+m_access_time_CPU_19 0.536891
+ns_single_CPU_19 10.0933
+pdt_m_rows_CPU_19 1.34237
+cores_sketch_CPU_19 1
+cores_dpdk_CPU_19 6
+ns_sketch_CPU_19 10.0933
+pdt_nsk_c_CPU_19 10.0933
+ns_dpdk_CPU_19 10.7143
+pdt_nsc_dpdk_CPU_19 64.2857
+ns_CPU_19 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_18 4.24849
+m_access_time_CPU_18 0.536891
+ns_single_CPU_18 10.0933
+pdt_m_rows_CPU_18 1.34237
+cores_sketch_CPU_18 1
+cores_dpdk_CPU_18 6
+ns_sketch_CPU_18 10.0933
+pdt_nsk_c_CPU_18 10.0933
+ns_dpdk_CPU_18 10.7143
+pdt_nsc_dpdk_CPU_18 64.2857
+ns_CPU_18 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_19 4.24849
+m_access_time_CPU_19 0.536891
+ns_single_CPU_19 10.0933
+pdt_m_rows_CPU_19 1.34237
+cores_sketch_CPU_19 1
+cores_dpdk_CPU_19 6
+ns_sketch_CPU_19 10.0933
+pdt_nsk_c_CPU_19 10.0933
+ns_dpdk_CPU_19 10.7143
+pdt_nsc_dpdk_CPU_19 64.2857
+ns_CPU_19 10.7143
+--------------------------------------------------
+
+Throughput: 93.33333333333333 Mpps, ns per packet: 10.714285714285715
+Resources: 140.00103722950934
+Used Cores: 13.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(0.000,1)    (0.833,0)    
+Total frac: 0.833
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(0.833,1)    
+Total frac: 0.833
+
+Device (0) CPU_18:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.500262
+Mem total: 4.2484920703125
+Throughput: 93.33333333333333
+
+Device (1) CPU_19:
+cores_sketch: 1.0, cores_dpdk: 5.999999999999998
+Rows total: 2.5002619999999998
+Mem total: 4.2484920703124995
+Throughput: 93.33333333333333
+
+Flow 0:
+partitions: [(0, 0.8334206666666667)]
+path: {0, 1}
+Flow 1:
+partitions: [(1, 0.8334206666666667)]
+path: {1}
+--------------------------------------------------
+Function: MIP.solve took 0.011947870254516602 seconds
+--------------------------------------------------
+Clustered Optimization complete
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_0 0
+m_access_time_CPU_0 0
+ns_single_CPU_0 0
+pdt_m_rows_CPU_0 0
+cores_sketch_CPU_0 0
+cores_dpdk_CPU_0 7
+ns_sketch_CPU_0 10.2041
+pdt_nsk_c_CPU_0 0
+ns_dpdk_CPU_0 10.2041
+pdt_nsc_dpdk_CPU_0 71.4286
+ns_CPU_0 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.204081632653063
+mem_tot_CPU_1 0
+m_access_time_CPU_1 0
+ns_single_CPU_1 0
+pdt_m_rows_CPU_1 0
+cores_sketch_CPU_1 0
+cores_dpdk_CPU_1 7
+ns_sketch_CPU_1 10.2041
+pdt_nsk_c_CPU_1 0
+ns_dpdk_CPU_1 10.2041
+pdt_nsc_dpdk_CPU_1 71.4286
+ns_CPU_1 10.2041
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_2 4.24849
+m_access_time_CPU_2 0.536891
+ns_single_CPU_2 10.0933
+pdt_m_rows_CPU_2 1.34237
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 6
+ns_sketch_CPU_2 10.0933
+pdt_nsk_c_CPU_2 10.0933
+ns_dpdk_CPU_2 10.7143
+pdt_nsc_dpdk_CPU_2 64.2857
+ns_CPU_2 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_3 4.24849
+m_access_time_CPU_3 0.536891
+ns_single_CPU_3 10.0933
+pdt_m_rows_CPU_3 1.34237
+cores_sketch_CPU_3 1
+cores_dpdk_CPU_3 6
+ns_sketch_CPU_3 10.0933
+pdt_nsk_c_CPU_3 10.0933
+ns_dpdk_CPU_3 10.7143
+pdt_nsc_dpdk_CPU_3 64.2857
+ns_CPU_3 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_4 3.402
+m_access_time_CPU_4 0.537684
+ns_single_CPU_4 8.08383
+pdt_m_rows_CPU_4 1.0765
+cores_sketch_CPU_4 1
+cores_dpdk_CPU_4 6
+ns_sketch_CPU_4 8.08383
+pdt_nsk_c_CPU_4 8.08383
+ns_dpdk_CPU_4 10.7143
+pdt_nsc_dpdk_CPU_4 64.2857
+ns_CPU_4 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_5 5.09499
+m_access_time_CPU_5 0.536098
+ns_single_CPU_5 12.1019
+pdt_m_rows_CPU_5 1.60745
+cores_sketch_CPU_5 2
+cores_dpdk_CPU_5 5
+ns_sketch_CPU_5 6.05097
+pdt_nsk_c_CPU_5 12.1019
+ns_dpdk_CPU_5 11.4286
+pdt_nsc_dpdk_CPU_5 57.1429
+ns_CPU_5 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_6 4.24805
+m_access_time_CPU_6 0.536892
+ns_single_CPU_6 10.0922
+pdt_m_rows_CPU_6 1.34223
+cores_sketch_CPU_6 1
+cores_dpdk_CPU_6 6
+ns_sketch_CPU_6 10.0922
+pdt_nsk_c_CPU_6 10.0922
+ns_dpdk_CPU_6 10.7143
+pdt_nsc_dpdk_CPU_6 64.2857
+ns_CPU_6 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_7 4.24894
+m_access_time_CPU_7 0.536891
+ns_single_CPU_7 10.0943
+pdt_m_rows_CPU_7 1.34251
+cores_sketch_CPU_7 1
+cores_dpdk_CPU_7 6
+ns_sketch_CPU_7 10.0943
+pdt_nsk_c_CPU_7 10.0943
+ns_dpdk_CPU_7 10.7143
+pdt_nsc_dpdk_CPU_7 64.2857
+ns_CPU_7 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_8 4.24805
+m_access_time_CPU_8 0.536892
+ns_single_CPU_8 10.0922
+pdt_m_rows_CPU_8 1.34223
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 6
+ns_sketch_CPU_8 10.0922
+pdt_nsk_c_CPU_8 10.0922
+ns_dpdk_CPU_8 10.7143
+pdt_nsc_dpdk_CPU_8 64.2857
+ns_CPU_8 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_9 4.24894
+m_access_time_CPU_9 0.536891
+ns_single_CPU_9 10.0943
+pdt_m_rows_CPU_9 1.34251
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 6
+ns_sketch_CPU_9 10.0943
+pdt_nsk_c_CPU_9 10.0943
+ns_dpdk_CPU_9 10.7143
+pdt_nsc_dpdk_CPU_9 64.2857
+ns_CPU_9 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_10 4.24805
+m_access_time_CPU_10 0.536892
+ns_single_CPU_10 10.0922
+pdt_m_rows_CPU_10 1.34223
+cores_sketch_CPU_10 1
+cores_dpdk_CPU_10 6
+ns_sketch_CPU_10 10.0922
+pdt_nsk_c_CPU_10 10.0922
+ns_dpdk_CPU_10 10.7143
+pdt_nsc_dpdk_CPU_10 64.2857
+ns_CPU_10 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_11 4.24894
+m_access_time_CPU_11 0.536891
+ns_single_CPU_11 10.0943
+pdt_m_rows_CPU_11 1.34251
+cores_sketch_CPU_11 1
+cores_dpdk_CPU_11 6
+ns_sketch_CPU_11 10.0943
+pdt_nsk_c_CPU_11 10.0943
+ns_dpdk_CPU_11 10.7143
+pdt_nsc_dpdk_CPU_11 64.2857
+ns_CPU_11 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_12 5.09766
+m_access_time_CPU_12 0.536096
+ns_single_CPU_12 12.1083
+pdt_m_rows_CPU_12 1.60829
+cores_sketch_CPU_12 2
+cores_dpdk_CPU_12 5
+ns_sketch_CPU_12 6.05414
+pdt_nsk_c_CPU_12 12.1083
+ns_dpdk_CPU_12 11.4286
+pdt_nsc_dpdk_CPU_12 57.1429
+ns_CPU_12 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_13 3.39933
+m_access_time_CPU_13 0.537687
+ns_single_CPU_13 8.07749
+pdt_m_rows_CPU_13 1.07566
+cores_sketch_CPU_13 1
+cores_dpdk_CPU_13 6
+ns_sketch_CPU_13 8.07749
+pdt_nsk_c_CPU_13 8.07749
+ns_dpdk_CPU_13 10.7143
+pdt_nsc_dpdk_CPU_13 64.2857
+ns_CPU_13 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_14 5.09766
+m_access_time_CPU_14 0.536096
+ns_single_CPU_14 12.1083
+pdt_m_rows_CPU_14 1.60829
+cores_sketch_CPU_14 2
+cores_dpdk_CPU_14 5
+ns_sketch_CPU_14 6.05414
+pdt_nsk_c_CPU_14 12.1083
+ns_dpdk_CPU_14 11.4286
+pdt_nsc_dpdk_CPU_14 57.1429
+ns_CPU_14 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_15 3.39933
+m_access_time_CPU_15 0.537687
+ns_single_CPU_15 8.07749
+pdt_m_rows_CPU_15 1.07566
+cores_sketch_CPU_15 1
+cores_dpdk_CPU_15 6
+ns_sketch_CPU_15 8.07749
+pdt_nsk_c_CPU_15 8.07749
+ns_dpdk_CPU_15 10.7143
+pdt_nsc_dpdk_CPU_15 64.2857
+ns_CPU_15 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_16 4.24805
+m_access_time_CPU_16 0.536892
+ns_single_CPU_16 10.0922
+pdt_m_rows_CPU_16 1.34223
+cores_sketch_CPU_16 1
+cores_dpdk_CPU_16 6
+ns_sketch_CPU_16 10.0922
+pdt_nsk_c_CPU_16 10.0922
+ns_dpdk_CPU_16 10.7143
+pdt_nsc_dpdk_CPU_16 64.2857
+ns_CPU_16 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_17 4.24894
+m_access_time_CPU_17 0.536891
+ns_single_CPU_17 10.0943
+pdt_m_rows_CPU_17 1.34251
+cores_sketch_CPU_17 1
+cores_dpdk_CPU_17 6
+ns_sketch_CPU_17 10.0943
+pdt_nsk_c_CPU_17 10.0943
+ns_dpdk_CPU_17 10.7143
+pdt_nsc_dpdk_CPU_17 64.2857
+ns_CPU_17 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_18 4.24849
+m_access_time_CPU_18 0.536891
+ns_single_CPU_18 10.0933
+pdt_m_rows_CPU_18 1.34237
+cores_sketch_CPU_18 1
+cores_dpdk_CPU_18 6
+ns_sketch_CPU_18 10.0933
+pdt_nsk_c_CPU_18 10.0933
+ns_dpdk_CPU_18 10.7143
+pdt_nsc_dpdk_CPU_18 64.2857
+ns_CPU_18 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 10.714285714285715
+mem_tot_CPU_19 4.24849
+m_access_time_CPU_19 0.536891
+ns_single_CPU_19 10.0933
+pdt_m_rows_CPU_19 1.34237
+cores_sketch_CPU_19 1
+cores_dpdk_CPU_19 6
+ns_sketch_CPU_19 10.0933
+pdt_nsk_c_CPU_19 10.0933
+ns_dpdk_CPU_19 10.7143
+pdt_nsc_dpdk_CPU_19 64.2857
+ns_CPU_19 10.7143
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 6.756756756756757
+mem_tot_P4_1 25.4803
+ns_P4_1 6.75676
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_0 0
+m_access_time_CPU_0 0
+ns_single_CPU_0 0
+pdt_m_rows_CPU_0 0
+cores_sketch_CPU_0 0
+cores_dpdk_CPU_0 5
+ns_sketch_CPU_0 11.4286
+pdt_nsk_c_CPU_0 0
+ns_dpdk_CPU_0 11.4286
+pdt_nsc_dpdk_CPU_0 57.1429
+ns_CPU_0 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_1 0
+m_access_time_CPU_1 0
+ns_single_CPU_1 0
+pdt_m_rows_CPU_1 0
+cores_sketch_CPU_1 0
+cores_dpdk_CPU_1 5
+ns_sketch_CPU_1 11.4286
+pdt_nsk_c_CPU_1 0
+ns_dpdk_CPU_1 11.4286
+pdt_nsc_dpdk_CPU_1 57.1429
+ns_CPU_1 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_2 4.24849
+m_access_time_CPU_2 0.536891
+ns_single_CPU_2 10.0933
+pdt_m_rows_CPU_2 1.34237
+cores_sketch_CPU_2 1
+cores_dpdk_CPU_2 5
+ns_sketch_CPU_2 10.0933
+pdt_nsk_c_CPU_2 10.0933
+ns_dpdk_CPU_2 11.4286
+pdt_nsc_dpdk_CPU_2 57.1429
+ns_CPU_2 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_3 4.24849
+m_access_time_CPU_3 0.536891
+ns_single_CPU_3 10.0933
+pdt_m_rows_CPU_3 1.34237
+cores_sketch_CPU_3 1
+cores_dpdk_CPU_3 5
+ns_sketch_CPU_3 10.0933
+pdt_nsk_c_CPU_3 10.0933
+ns_dpdk_CPU_3 11.4286
+pdt_nsc_dpdk_CPU_3 57.1429
+ns_CPU_3 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_4 3.402
+m_access_time_CPU_4 0.537684
+ns_single_CPU_4 8.08383
+pdt_m_rows_CPU_4 1.0765
+cores_sketch_CPU_4 1
+cores_dpdk_CPU_4 5
+ns_sketch_CPU_4 8.08383
+pdt_nsk_c_CPU_4 8.08383
+ns_dpdk_CPU_4 11.4286
+pdt_nsc_dpdk_CPU_4 57.1429
+ns_CPU_4 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_5 5.09499
+m_access_time_CPU_5 0.536098
+ns_single_CPU_5 12.1019
+pdt_m_rows_CPU_5 1.60745
+cores_sketch_CPU_5 2
+cores_dpdk_CPU_5 5
+ns_sketch_CPU_5 6.05097
+pdt_nsk_c_CPU_5 12.1019
+ns_dpdk_CPU_5 11.4286
+pdt_nsc_dpdk_CPU_5 57.1429
+ns_CPU_5 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_6 4.24805
+m_access_time_CPU_6 0.536892
+ns_single_CPU_6 10.0922
+pdt_m_rows_CPU_6 1.34223
+cores_sketch_CPU_6 1
+cores_dpdk_CPU_6 5
+ns_sketch_CPU_6 10.0922
+pdt_nsk_c_CPU_6 10.0922
+ns_dpdk_CPU_6 11.4286
+pdt_nsc_dpdk_CPU_6 57.1429
+ns_CPU_6 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_7 4.24894
+m_access_time_CPU_7 0.536891
+ns_single_CPU_7 10.0943
+pdt_m_rows_CPU_7 1.34251
+cores_sketch_CPU_7 1
+cores_dpdk_CPU_7 5
+ns_sketch_CPU_7 10.0943
+pdt_nsk_c_CPU_7 10.0943
+ns_dpdk_CPU_7 11.4286
+pdt_nsc_dpdk_CPU_7 57.1429
+ns_CPU_7 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_8 4.24805
+m_access_time_CPU_8 0.536892
+ns_single_CPU_8 10.0922
+pdt_m_rows_CPU_8 1.34223
+cores_sketch_CPU_8 1
+cores_dpdk_CPU_8 5
+ns_sketch_CPU_8 10.0922
+pdt_nsk_c_CPU_8 10.0922
+ns_dpdk_CPU_8 11.4286
+pdt_nsc_dpdk_CPU_8 57.1429
+ns_CPU_8 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_9 4.24894
+m_access_time_CPU_9 0.536891
+ns_single_CPU_9 10.0943
+pdt_m_rows_CPU_9 1.34251
+cores_sketch_CPU_9 1
+cores_dpdk_CPU_9 5
+ns_sketch_CPU_9 10.0943
+pdt_nsk_c_CPU_9 10.0943
+ns_dpdk_CPU_9 11.4286
+pdt_nsc_dpdk_CPU_9 57.1429
+ns_CPU_9 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_10 4.24805
+m_access_time_CPU_10 0.536892
+ns_single_CPU_10 10.0922
+pdt_m_rows_CPU_10 1.34223
+cores_sketch_CPU_10 1
+cores_dpdk_CPU_10 5
+ns_sketch_CPU_10 10.0922
+pdt_nsk_c_CPU_10 10.0922
+ns_dpdk_CPU_10 11.4286
+pdt_nsc_dpdk_CPU_10 57.1429
+ns_CPU_10 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_11 4.24894
+m_access_time_CPU_11 0.536891
+ns_single_CPU_11 10.0943
+pdt_m_rows_CPU_11 1.34251
+cores_sketch_CPU_11 1
+cores_dpdk_CPU_11 5
+ns_sketch_CPU_11 10.0943
+pdt_nsk_c_CPU_11 10.0943
+ns_dpdk_CPU_11 11.4286
+pdt_nsc_dpdk_CPU_11 57.1429
+ns_CPU_11 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_12 5.09766
+m_access_time_CPU_12 0.536096
+ns_single_CPU_12 12.1083
+pdt_m_rows_CPU_12 1.60829
+cores_sketch_CPU_12 2
+cores_dpdk_CPU_12 5
+ns_sketch_CPU_12 6.05414
+pdt_nsk_c_CPU_12 12.1083
+ns_dpdk_CPU_12 11.4286
+pdt_nsc_dpdk_CPU_12 57.1429
+ns_CPU_12 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_13 3.39933
+m_access_time_CPU_13 0.537687
+ns_single_CPU_13 8.07749
+pdt_m_rows_CPU_13 1.07566
+cores_sketch_CPU_13 1
+cores_dpdk_CPU_13 5
+ns_sketch_CPU_13 8.07749
+pdt_nsk_c_CPU_13 8.07749
+ns_dpdk_CPU_13 11.4286
+pdt_nsc_dpdk_CPU_13 57.1429
+ns_CPU_13 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_14 5.09766
+m_access_time_CPU_14 0.536096
+ns_single_CPU_14 12.1083
+pdt_m_rows_CPU_14 1.60829
+cores_sketch_CPU_14 2
+cores_dpdk_CPU_14 5
+ns_sketch_CPU_14 6.05414
+pdt_nsk_c_CPU_14 12.1083
+ns_dpdk_CPU_14 11.4286
+pdt_nsc_dpdk_CPU_14 57.1429
+ns_CPU_14 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_15 3.39933
+m_access_time_CPU_15 0.537687
+ns_single_CPU_15 8.07749
+pdt_m_rows_CPU_15 1.07566
+cores_sketch_CPU_15 1
+cores_dpdk_CPU_15 5
+ns_sketch_CPU_15 8.07749
+pdt_nsk_c_CPU_15 8.07749
+ns_dpdk_CPU_15 11.4286
+pdt_nsc_dpdk_CPU_15 57.1429
+ns_CPU_15 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_16 4.24805
+m_access_time_CPU_16 0.536892
+ns_single_CPU_16 10.0922
+pdt_m_rows_CPU_16 1.34223
+cores_sketch_CPU_16 1
+cores_dpdk_CPU_16 5
+ns_sketch_CPU_16 10.0922
+pdt_nsk_c_CPU_16 10.0922
+ns_dpdk_CPU_16 11.4286
+pdt_nsc_dpdk_CPU_16 57.1429
+ns_CPU_16 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_17 4.24894
+m_access_time_CPU_17 0.536891
+ns_single_CPU_17 10.0943
+pdt_m_rows_CPU_17 1.34251
+cores_sketch_CPU_17 1
+cores_dpdk_CPU_17 5
+ns_sketch_CPU_17 10.0943
+pdt_nsk_c_CPU_17 10.0943
+ns_dpdk_CPU_17 11.4286
+pdt_nsc_dpdk_CPU_17 57.1429
+ns_CPU_17 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_18 4.24849
+m_access_time_CPU_18 0.536891
+ns_single_CPU_18 10.0933
+pdt_m_rows_CPU_18 1.34237
+cores_sketch_CPU_18 1
+cores_dpdk_CPU_18 5
+ns_sketch_CPU_18 10.0933
+pdt_nsk_c_CPU_18 10.0933
+ns_dpdk_CPU_18 11.4286
+pdt_nsc_dpdk_CPU_18 57.1429
+ns_CPU_18 11.4286
+--------------------------------------------------
+
+VARIABLES ------------------------------
+Objective: 11.42857142857143
+mem_tot_CPU_19 4.24849
+m_access_time_CPU_19 0.536891
+ns_single_CPU_19 10.0933
+pdt_m_rows_CPU_19 1.34237
+cores_sketch_CPU_19 1
+cores_dpdk_CPU_19 5
+ns_sketch_CPU_19 10.0933
+pdt_nsk_c_CPU_19 10.0933
+ns_dpdk_CPU_19 11.4286
+pdt_nsc_dpdk_CPU_19 57.1429
+ns_CPU_19 11.4286
+--------------------------------------------------
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 1214.2889948087404
+Used Cores: 121.0, Total CPUS: 20, Switch Memory: 25.480266734274988
+
+Sketch (0) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 0, Rows: 3
+(0.000,0)    (0.000,1)    (1.000,20)    
+Total frac: 1.000
+
+Sketch (1) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 1, Rows: 3
+(0.000,1)    (0.167,20)    (0.833,2)    
+Total frac: 1.000
+
+Sketch (2) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 2, Rows: 3
+(0.167,20)    (0.000,2)    (0.833,3)    
+Total frac: 1.000
+
+Sketch (3) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 3, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (4) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 4, Rows: 3
+(0.333,20)    (0.667,4)    (0.000,5)    
+Total frac: 1.000
+
+Sketch (5) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 5, Rows: 3
+(0.999,5)    (0.001,6)    
+Total frac: 1.000
+
+Sketch (6) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 6, Rows: 3
+(0.833,6)    (0.167,7)    
+Total frac: 1.000
+
+Sketch (7) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 7, Rows: 3
+(0.666,7)    (0.334,8)    
+Total frac: 1.000
+
+Sketch (8) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 8, Rows: 3
+(0.500,8)    (0.500,9)    
+Total frac: 1.000
+
+Sketch (9) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 9, Rows: 3
+(0.333,9)    (0.667,10)    
+Total frac: 1.000
+
+Sketch (10) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 10, Rows: 3
+(0.166,10)    (0.834,11)    
+Total frac: 1.000
+
+Sketch (11) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 11, Rows: 3
+(1.000,12)    
+Total frac: 1.000
+
+Sketch (12) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 12, Rows: 3
+(0.333,20)    (0.000,12)    (0.667,13)    
+Total frac: 1.000
+
+Sketch (13) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 13, Rows: 3
+(1.000,14)    
+Total frac: 1.000
+
+Sketch (14) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 14, Rows: 3
+(1.000,20)    
+Total frac: 1.000
+
+Sketch (15) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 15, Rows: 3
+(0.667,15)    (0.333,16)    
+Total frac: 1.000
+
+Sketch (16) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 16, Rows: 3
+(0.500,16)    (0.500,17)    
+Total frac: 1.000
+
+Sketch (17) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 17, Rows: 3
+(0.666,20)    (0.334,17)    
+Total frac: 1.000
+
+Sketch (18) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 18, Rows: 3
+(0.167,20)    (0.833,18)    (0.000,19)    
+Total frac: 1.000
+
+Sketch (19) (cm: eps0: 0.00625, del0: 0.05, min_mem: 1.69921875)
+Par0 id: 19, Rows: 3
+(0.000,0)    (0.167,20)    (0.833,19)    
+Total frac: 1.000
+
+Device (0) CPU_0:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (1) CPU_1:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (2) CPU_2:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.5002619999999998
+Mem total: 4.2484920703124995
+Throughput: 87.49999999999999
+
+Device (3) CPU_3:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.500262
+Mem total: 4.2484920703125
+Throughput: 87.49999999999999
+
+Device (4) CPU_4:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.002096000000002
+Mem total: 3.4019990625000034
+Throughput: 87.49999999999999
+
+Device (5) CPU_5:
+cores_sketch: 2.0000000000000004, cores_dpdk: 4.9999999999999964
+Rows total: 2.9984279999999983
+Mem total: 5.0949850781249975
+Throughput: 87.49999999999999
+
+Device (6) CPU_6:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.4999999738
+Mem total: 4.248046830480469
+Throughput: 87.49999999999999
+
+Device (7) CPU_7:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.5005240262000004
+Mem total: 4.248937310144532
+Throughput: 87.49999999999999
+
+Device (8) CPU_8:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.4999999737999996
+Mem total: 4.248046830480468
+Throughput: 87.49999999999999
+
+Device (9) CPU_9:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.500524026200001
+Mem total: 4.248937310144533
+Throughput: 87.49999999999999
+
+Device (10) CPU_10:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.4999999738000005
+Mem total: 4.24804683048047
+Throughput: 87.49999999999999
+
+Device (11) CPU_11:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.5005240262000004
+Mem total: 4.248937310144532
+Throughput: 87.49999999999999
+
+Device (12) CPU_12:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (13) CPU_13:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.0005240000000004
+Mem total: 3.399327890625001
+Throughput: 87.49999999999999
+
+Device (14) CPU_14:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (15) CPU_15:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.000523999999997
+Mem total: 3.3993278906249946
+Throughput: 87.49999999999999
+
+Device (16) CPU_16:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.4999999738
+Mem total: 4.248046830480469
+Throughput: 87.49999999999999
+
+Device (17) CPU_17:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.5005240262000004
+Mem total: 4.248937310144532
+Throughput: 87.49999999999999
+
+Device (18) CPU_18:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.500262
+Mem total: 4.2484920703125
+Throughput: 87.49999999999999
+
+Device (19) CPU_19:
+cores_sketch: 1.0, cores_dpdk: 5.0
+Rows total: 2.5002619999999998
+Mem total: 4.2484920703124995
+Throughput: 87.49999999999999
+
+Device (20) P4_1:
+Rows total: 14.995283411435395
+Mem total: 25.480266734274988
+Throughput: 148.0
+
+Flow 0:
+partitions: [(0, 1)]
+path: (0, 20, 1)
+Flow 1:
+partitions: [(1, 1)]
+path: (1, 20, 2)
+Flow 2:
+partitions: [(2, 1)]
+path: (2, 20, 3)
+Flow 3:
+partitions: [(3, 1)]
+path: (3, 20, 4)
+Flow 4:
+partitions: [(4, 1)]
+path: (4, 20, 5)
+Flow 5:
+partitions: [(5, 1)]
+path: (5, 20, 6)
+Flow 6:
+partitions: [(6, 1)]
+path: (6, 20, 7)
+Flow 7:
+partitions: [(7, 1)]
+path: (7, 20, 8)
+Flow 8:
+partitions: [(8, 1)]
+path: (8, 20, 9)
+Flow 9:
+partitions: [(9, 1)]
+path: (9, 20, 10)
+Flow 10:
+partitions: [(10, 1)]
+path: (10, 20, 11)
+Flow 11:
+partitions: [(11, 1)]
+path: (11, 20, 12)
+Flow 12:
+partitions: [(12, 1)]
+path: (12, 20, 13)
+Flow 13:
+partitions: [(13, 1)]
+path: (13, 20, 14)
+Flow 14:
+partitions: [(14, 1)]
+path: (14, 20, 15)
+Flow 15:
+partitions: [(15, 1)]
+path: (15, 20, 16)
+Flow 16:
+partitions: [(16, 1)]
+path: (16, 20, 17)
+Flow 17:
+partitions: [(17, 1)]
+path: (17, 20, 18)
+Flow 18:
+partitions: [(18, 1)]
+path: (18, 20, 19)
+Flow 19:
+partitions: [(19, 1)]
+path: (19, 20, 0)
+--------------------------------------------------
+Function: solve took 0.23327040672302246 seconds

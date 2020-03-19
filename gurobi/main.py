@@ -143,7 +143,7 @@ def solve(inp):
     Solver = solver_to_class[common_config.solver]
 
     # Clustering
-    if (hasattr(inp, 'overlay')):
+    if (getattr(inp, 'overlay', None)):
         if(common_config.init is True):
             solver = UnivmonGreedyRows(devices=inp.devices,
                                        partitions=inp.partitions,
