@@ -4,10 +4,10 @@ Using license file /home/anupa/gurobi.lic
 Academic license - for non-commercial use only
 --------------------------------------------------
 Starting model update
-Model update took: 0.0006723403930664062 s
+Model update took: 0.0006685256958007812 s
 --------------------------------------------------
 Starting model optimize
-Model optimize took: 0.22455811500549316 seconds
+Model optimize took: 0.22753357887268066 seconds
 --------------------------------------------------
 Objectives: 
 tot_rows_CPU_Cluster: 30.0
@@ -84,10 +84,10 @@ Building model with:
 2 devices, 3 partitions and 10 flows
 --------------------------------------------------
 Starting model update
-Model update took: 2.765655517578125e-05 s
+Model update took: 2.6226043701171875e-05 s
 --------------------------------------------------
 Starting model optimize
-Model optimize took: 0.0001125335693359375 seconds
+Model optimize took: 0.0001049041748046875 seconds
 --------------------------------------------------
 Objectives: 
 tot_rows_CPU_Cluster: 18.0
@@ -119,10 +119,10 @@ Building model with:
 2 devices, 2 partitions and 6 flows
 --------------------------------------------------
 Starting model update
-Model update took: 2.2411346435546875e-05 s
+Model update took: 2.2649765014648438e-05 s
 --------------------------------------------------
 Starting model optimize
-Model optimize took: 8.20159912109375e-05 seconds
+Model optimize took: 8.463859558105469e-05 seconds
 --------------------------------------------------
 Objectives: 
 tot_rows_CPU_Cluster: 12.0
@@ -157,7 +157,7 @@ Starting model update
 Model update took: 2.2411346435546875e-05 s
 --------------------------------------------------
 Starting model optimize
-Model optimize took: 8.511543273925781e-05 seconds
+Model optimize took: 8.368492126464844e-05 seconds
 --------------------------------------------------
 Objectives: 
 tot_rows_CPU_Cluster: 12.0
@@ -189,10 +189,10 @@ Building model with:
 2 devices, 3 partitions and 11 flows
 --------------------------------------------------
 Starting model update
-Model update took: 2.8133392333984375e-05 s
+Model update took: 2.47955322265625e-05 s
 --------------------------------------------------
 Starting model optimize
-Model optimize took: 9.036064147949219e-05 seconds
+Model optimize took: 8.20159912109375e-05 seconds
 --------------------------------------------------
 Objectives: 
 tot_rows_CPU_Cluster: 18.0
@@ -219,7 +219,6 @@ cores_sketch: 2.9999999999999982, cores_dpdk: 4.0
 Rows total: 9.0
 Mem total: 15.29296875
 Throughput: 80.0
---------------------------------------------------
 --------------------------------------------------
 Clustered Optimization complete
 --------------------------------------------------
