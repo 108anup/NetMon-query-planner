@@ -73,6 +73,24 @@ tofino = {
 '''
 
 
+def shift_overlay(overlay):
+    last = overlay[-1]
+    l_len = len(last)
+    hlen = int(l_len/2)
+    new_overlay = []
+    lfh = last[:hlen]
+    prev_sh = last[hlen:]
+    for ol in overlay[:-1]:
+        ol_len = len(ol)
+        hlen = int(ol_len/2)
+        fh = ol[:hlen]
+        sh = ol[hlen:]
+        new_overlay.append(prev_sh + fh)
+        prev_sh = sh
+    new_overlay.append(prev_sh + lfh)
+    return new_overlay
+
+
 def generate_overlay(nesting, start_idx=0):
     if(len(nesting) == 0):
         return int(start_idx)
@@ -153,6 +171,12 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
                     for j in range(int(tors/20))
                 ]
                 + [hosts + tors + j for j in range(l1s + 1)]
+            )
+    elif(overlay == 'shifted'):
+        if(hosts_per_tors <= 8):
+            inp.overlay = (
+                shift_overlay(generate_overlay([tors, hosts_per_tors]))
+                + generate_overlay([tors + l1s + 1], hosts)
             )
 
     if(pickle_loaded):
@@ -545,7 +569,7 @@ input_generator = [
 
     # 20
     # overlay, small dc
-    dc_topology(overlay='tor'),
+    dc_topology(overlay='shifted'),
 
     # 21
     Input(
@@ -596,4 +620,22 @@ input_generator = [
     dc_topology(hosts_per_tors=48, tors_per_l1s=20,
                 l1s=10, num_queries=4800, tenant=True),
 
+    # 26 Clustering Intuition
+    Input(
+        devices=[CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(5)],
+        queries=[cm_sketch(eps0=eps0, del0=del0)],
+        flows=[flow(path=(0, 3), queries=[(0, 1)]),
+               flow(path=(1, 3), queries=[(0, 1)]),
+               flow(path=(2, 4), queries=[(0, 1)])],
+        overlay=[[0, 1, 2], 3, 4]
+    ),
+
+    # 27 Clustering Intuition
+    Input(
+        devices=[CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(3)],
+        queries=[cm_sketch(eps0=eps0, del0=del0)],
+        flows=[flow(path=(0, 2), queries=[(0, 1)]),
+               flow(path=(1, 2), queries=[(0, 1)])],
+        overlay=[[0, 1], 2]
+    ),
 ]

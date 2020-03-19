@@ -9,7 +9,7 @@ from common import Namespace, setup_logging, log_time, log
 from config import common_config
 from input import input_generator
 from solvers import (refine_devices, solver_to_class, log_results,
-                     log_placement, UnivmonGreedyRows)
+                     log_placement, UnivmonGreedyRows, handle_infeasible_iis)
 from devices import Cluster
 from flows import flow
 from gurobipy import GRB, tuplelist, tupledict
@@ -133,7 +133,6 @@ def map_leaf_solution_to_cluster(solver, cluster):
 
 @log_time
 def solve(inp):
-    #ipdb.set_trace()
     start = time.time()
 
     for (dnum, d) in enumerate(inp.devices):
@@ -170,7 +169,6 @@ def solve(inp):
             devices = front.devices
             partitions = front.partitions
             flows = front.flows
-            #import ipdb; ipdb.set_trace()
             solver = Solver(devices=devices, partitions=partitions,
                             flows=flows, queries=inp.queries, overlay=True)
             if(first_run and common_config.init):
@@ -183,9 +181,9 @@ def solve(inp):
             # TODO: Modify Infeasible handling
             # TODO: This breaks abstraction of any type of solver
             if(solver.m.Status == GRB.INFEASIBLE):
-                return
+                log.error("Infeasible Intermediate Cluster!!")
+                return handle_infeasible_iis(solver.m)
 
-            #import ipdb; ipdb.set_trace()
             for (dnum, d) in enumerate(devices):
                 if(isinstance(d, Cluster)):
                     (partitions, flows) = get_partitions_flows(
@@ -205,7 +203,7 @@ def solve(inp):
                         placement.res[d] = d.res().getValue()
                         placement.dev_par_tuplelist.append(
                             (d.dev_id, p.partition_id))
-        log.info('-'*50)
+
         log.info('Clustered Optimization complete')
         log.info('-'*50)
 
@@ -231,7 +229,6 @@ def solve(inp):
 
 
 if(__name__ == '__main__'):
-
     parser = generate_parser()
     args = parser.parse_args(sys.argv[1:])
     if(hasattr(args, 'config_file')):

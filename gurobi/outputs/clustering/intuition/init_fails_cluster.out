@@ -1,0 +1,257 @@
+Building model with:
+15 devices, 80 partitions and 400 flows
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+--------------------------------------------------
+Starting model update
+Model update took: 0.0007905960083007812 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.11997413635253906 seconds
+--------------------------------------------------
+Objectives: 
+tot_rows_CPU_Cluster: 54.0
+CPU_Cluster_rows_load: 0.75
+: 0.0
+: 0.0
+tot_rows_P4: 336.0
+P4_rows_load: 48.000000000000014
+tot_mem_CPU_Cluster: 91.7578125
+CPU_Cluster_load_mem: 0.0004667043685913086
+tot_mem_P4: 570.9375
+P4_load_mem: 81.56250000000001
+
+Throughput: 80.0 Mpps, ns per packet: 12.5
+Resources: 595.9057321548462
+Used Cores: 50.0, Total CPUS: 8, Switch Memory: 570.9375
+
+Device (0) CPU1:
+cores_sketch: 2.9999999999999982, cores_dpdk: 4.0
+Rows total: 9.0
+Mem total: 15.29296875
+Throughput: 80.0
+
+Device (1) CPU2:
+cores_sketch: 2.0000000000000004, cores_dpdk: 4.000000000000001
+Rows total: 6.0
+Mem total: 10.1953125
+Throughput: 80.0
+
+Device (2) CPU3:
+cores_sketch: 1.0, cores_dpdk: 4.0
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 80.0
+
+Device (3) CPU4:
+cores_sketch: 2.0000000000000004, cores_dpdk: 4.000000000000001
+Rows total: 6.0
+Mem total: 10.1953125
+Throughput: 80.0
+
+Device (4) CPU5:
+cores_sketch: 2.9999999999999982, cores_dpdk: 4.0
+Rows total: 9.0
+Mem total: 15.29296875
+Throughput: 80.0
+
+Device (5) CPU6:
+cores_sketch: 2.9999999999999982, cores_dpdk: 4.0
+Rows total: 9.0
+Mem total: 15.29296875
+Throughput: 80.0
+
+Device (6) CPU7:
+cores_sketch: 2.0000000000000004, cores_dpdk: 4.000000000000001
+Rows total: 6.0
+Mem total: 10.1953125
+Throughput: 80.0
+
+Device (7) CPU8:
+cores_sketch: 2.0000000000000004, cores_dpdk: 4.000000000000001
+Rows total: 6.0
+Mem total: 10.1953125
+Throughput: 80.0
+
+Device (8) tor_P41:
+Rows total: 48.0
+Mem total: 81.5625
+Throughput: 148.0
+
+Device (9) tor_P42:
+Rows total: 48.0
+Mem total: 81.5625
+Throughput: 148.0
+
+Device (10) tor_P43:
+Rows total: 48.0
+Mem total: 81.5625
+Throughput: 148.0
+
+Device (11) tor_P44:
+Rows total: 48.0
+Mem total: 81.5625
+Throughput: 148.0
+
+Device (12) l1_P41:
+Rows total: 48.0
+Mem total: 81.5625
+Throughput: 148.0
+
+Device (13) l1_P42:
+Rows total: 48.0
+Mem total: 81.5625
+Throughput: 148.0
+
+Device (14) l2_P4:
+Rows total: 48.0
+Mem total: 81.5625
+Throughput: 148.0
+--------------------------------------------------
+Building model with:
+11 devices, 80 partitions and 400 flows
+--------------------------------------------------
+Starting model update
+Model update took: 0.0006844997406005859 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.07516956329345703 seconds
+--------------------------------------------------
+Objectives: 
+tot_rows_CPU_Cluster: 54.0
+CPU_Cluster_rows_load: 0.625
+: 0.0
+: 0.0
+tot_rows_P4: 336.0
+P4_rows_load: 48.0
+tot_mem_CPU_Cluster: 91.7578125
+CPU_Cluster_load_mem: 0.00038892030715942383
+tot_mem_P4: 570.9375
+P4_load_mem: 81.56250000000001
+
+Throughput: 98.0 Mpps, ns per packet: 10.204081632653061
+Resources: 187.65234375
+Used Cores: 0, Total CPUS: 0, Switch Memory: 570.9375
+
+Device (0) {CPU1,CPU2}:
+Rows total: 12.0
+Mem total: 20.390625
+Initial Rows total: 15.0
+Initial Mem total: 25.48828125
+Throughput: 98.0
+
+Device (1) {CPU3,CPU4}:
+Rows total: 15.0
+Mem total: 25.48828125
+Initial Rows total: 9.0
+Initial Mem total: 15.29296875
+Throughput: 98.0
+
+Device (2) {CPU5,CPU6}:
+Rows total: 12.0
+Mem total: 20.390625
+Initial Rows total: 18.0
+Initial Mem total: 30.5859375
+Throughput: 98.0
+
+Device (3) {CPU7,CPU8}:
+Rows total: 15.0
+Mem total: 25.48828125
+Initial Rows total: 12.0
+Initial Mem total: 20.390625
+Throughput: 98.0
+
+Device (4) tor_P41:
+Rows total: 48.0
+Mem total: 81.5625
+Initial Rows total: 48.0
+Initial Mem total: 81.5625
+Throughput: 148.0
+
+Device (5) tor_P42:
+Rows total: 48.0
+Mem total: 81.5625
+Initial Rows total: 48.0
+Initial Mem total: 81.5625
+Throughput: 148.0
+
+Device (6) tor_P43:
+Rows total: 48.0
+Mem total: 81.5625
+Initial Rows total: 48.0
+Initial Mem total: 81.5625
+Throughput: 148.0
+
+Device (7) tor_P44:
+Rows total: 48.0
+Mem total: 81.5625
+Initial Rows total: 48.0
+Initial Mem total: 81.5625
+Throughput: 148.0
+
+Device (8) l1_P41:
+Rows total: 48.0
+Mem total: 81.5625
+Initial Rows total: 48.0
+Initial Mem total: 81.5625
+Throughput: 148.0
+
+Device (9) l1_P42:
+Rows total: 48.0
+Mem total: 81.5625
+Initial Rows total: 48.0
+Initial Mem total: 81.5625
+Throughput: 148.0
+
+Device (10) l2_P4:
+Rows total: 48.0
+Mem total: 81.5625
+Initial Rows total: 48.0
+Initial Mem total: 81.5625
+Throughput: 148.0
+--------------------------------------------------
+Building model with:
+2 devices, 4 partitions and 10 flows
+--------------------------------------------------
+Starting model update
+Model update took: 2.765655517578125e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0005710124969482422 seconds
+--------------------------------------------------
+Objectives: 
+tot_rows_CPU_Cluster: 18.0
+CPU_Cluster_rows_load: 0.75
+: 0.0
+: 0.0
+: 0.0
+: 0.0
+tot_mem_CPU_Cluster: 30.5859375
+CPU_Cluster_load_mem: 0.0004667043685913086
+
+Throughput: 80.0 Mpps, ns per packet: 12.5
+Resources: 140.0037336349487
+Used Cores: 13.999999999999996, Total CPUS: 2, Switch Memory: 0
+
+Device (0) CPU1:
+cores_sketch: 2.9999999999999982, cores_dpdk: 4.0
+Rows total: 9.0
+Mem total: 15.29296875
+Throughput: 80.0
+
+Device (1) CPU2:
+cores_sketch: 2.9999999999999982, cores_dpdk: 4.0
+Rows total: 9.0
+Mem total: 15.29296875
+Throughput: 80.0
+--------------------------------------------------
+Building model with:
+2 devices, 5 partitions and 19 flows
+--------------------------------------------------
+Starting model update
+Model update took: 2.9087066650390625e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 5.173683166503906e-05 seconds
+--------------------------------------------------
+Infeasible Intermediate Cluster!!

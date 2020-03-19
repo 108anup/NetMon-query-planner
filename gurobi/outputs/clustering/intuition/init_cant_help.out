@@ -1,0 +1,179 @@
+Building model with:
+5 devices, 1 partitions and 3 flows
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+--------------------------------------------------
+Starting model update
+Model update took: 7.867813110351562e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0031723976135253906 seconds
+--------------------------------------------------
+Objectives: 
+tot_rows_CPU_Cluster: 6.0
+CPU_Cluster_rows_load: 0.25
+: 0.0
+: 0.0
+: 0.0
+: 0.0
+tot_mem_CPU_Cluster: 10.1953125
+CPU_Cluster_load_mem: 0.00015556812286376953
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 290.00124454498285
+Used Cores: 28.999999999999993, Total CPUS: 5, Switch Memory: 0
+
+Device (0) CPU_0:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (1) CPU_1:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (2) CPU_2:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (3) CPU_3:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (4) CPU_4:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+--------------------------------------------------
+Building model with:
+3 devices, 1 partitions and 3 flows
+--------------------------------------------------
+Starting model update
+Model update took: 2.5987625122070312e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 0.0013346672058105469 seconds
+--------------------------------------------------
+Objectives: 
+tot_rows_CPU_Cluster: 3.0
+CPU_Cluster_rows_load: 0.08333333333333333
+: 0.0
+: 0.0
+: 0.0
+: 0.0
+tot_mem_CPU_Cluster: 5.09765625
+CPU_Cluster_load_mem: 5.1856040954589844e-05
+
+Throughput: 97.99999999999999 Mpps, ns per packet: 10.204081632653063
+Resources: 145.09765624999946
+Used Cores: 13.999999999999947, Total CPUS: 2, Switch Memory: 0
+
+Device (0) {CPU_0,CPU_1,CPU_2}:
+Rows total: 3.0
+Mem total: 5.09765625
+Initial Rows total: 3.0
+Initial Mem total: 5.09765625
+Throughput: 98.0
+
+Device (1) CPU_3:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Initial Rows total: 3.0
+Initial Mem total: 5.09765625
+Throughput: 97.99999999999999
+
+Device (2) CPU_4:
+cores_sketch: 0.0, cores_dpdk: 6.999999999999973
+Rows total: 0.0
+Mem total: 0.0
+Initial Rows total: 0.0
+Initial Mem total: 0.0
+Throughput: 97.99999999999999
+--------------------------------------------------
+Building model with:
+3 devices, 1 partitions and 3 flows
+--------------------------------------------------
+Starting model update
+Model update took: 3.266334533691406e-05 s
+--------------------------------------------------
+Starting model optimize
+Model optimize took: 8.535385131835938e-05 seconds
+--------------------------------------------------
+Objectives: 
+tot_rows_CPU_Cluster: 9.0
+CPU_Cluster_rows_load: 0.25
+: 0.0
+: 0.0
+: 0.0
+: 0.0
+tot_mem_CPU_Cluster: 15.29296875
+CPU_Cluster_load_mem: 0.00015556812286376953
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 210.00186681747428
+Used Cores: 20.99999999999999, Total CPUS: 3, Switch Memory: 0
+
+Device (0) CPU_0:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (1) CPU_1:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (2) CPU_2:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+--------------------------------------------------
+Clustered Optimization complete
+--------------------------------------------------
+
+Throughput: 87.49999999999999 Mpps, ns per packet: 11.42857142857143
+Resources: 310.00186681747425
+Used Cores: 30.99999999999999, Total CPUS: 5, Switch Memory: 0
+
+Device (0) CPU_0:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (1) CPU_1:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (2) CPU_2:
+cores_sketch: 2.0, cores_dpdk: 4.9999999999999964
+Rows total: 3.0
+Mem total: 5.09765625
+Throughput: 87.49999999999999
+
+Device (3) CPU_3:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+
+Device (4) CPU_4:
+cores_sketch: 0.0, cores_dpdk: 5.0
+Rows total: 0.0
+Mem total: 0.0
+Throughput: 87.49999999999999
+--------------------------------------------------

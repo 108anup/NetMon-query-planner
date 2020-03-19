@@ -92,14 +92,14 @@ def setup_logging(args):
     #     h_info.addFilter(InfoFilter())
     #     log.addHandler(h_info)
     # if(args.verbose >= 0):
-    #     h_warn = logging.StreamHandler()
+    #     h_warn = logging.StreamHandler() # stderr default
     #     h_warn.setLevel(logging.WARNING)
     #     log.addHandler(h_warn)
 
 
 log = logging.getLogger('control')
 log.setLevel(logging.DEBUG)
-console = logging.StreamHandler()
+console = logging.StreamHandler(sys.stdout)
 log.addHandler(console)
 
 constants = Namespace(
