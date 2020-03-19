@@ -620,7 +620,7 @@ input_generator = [
     dc_topology(hosts_per_tors=48, tors_per_l1s=20,
                 l1s=10, num_queries=4800, tenant=True),
 
-    # 26 Clustering Intuition
+    # 26 Clustering Intuition init cant help
     Input(
         devices=[CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(5)],
         queries=[cm_sketch(eps0=eps0, del0=del0)],
@@ -630,7 +630,7 @@ input_generator = [
         overlay=[[0, 1, 2], 3, 4]
     ),
 
-    # 27 Clustering Intuition
+    # 27 Clustering Intuition init could help
     Input(
         devices=[CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(3)],
         queries=[cm_sketch(eps0=eps0, del0=del0)],
