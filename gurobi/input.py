@@ -2,12 +2,15 @@ import os
 import random
 import pickle
 
+import math
+import networkx as nx
+from sklearn.cluster import SpectralClustering
 from common import Namespace, memoize
 from devices import CPU, P4
 from flows import flow
 from sketches import cm_sketch
 import numpy as np
-
+from config import common_config
 
 # Stub file for providing input to solver
 
@@ -73,6 +76,64 @@ tofino = {
 '''
 
 
+def remove_empty(l):
+    re = [e for e in l if len(e) > 0]
+    # Also flatten single device cluster
+    ret = []
+    for e in re:
+        if(isinstance(e, list) and len(e) == 1):
+            ret.extend(e)
+        else:
+            ret.append(e)
+    return ret
+
+
+def get_graph(inp):
+    g = nx.MultiGraph()
+    g.add_nodes_from(range(len(inp.devices)))
+    for f in inp.flows:
+        p = f.path
+        a = p[0]
+        for b in p[1:]:
+            g.add_edge(a, b)
+            a = b
+    return g
+
+
+def get_spectral_overlay(inp, comp={}):
+    g = get_graph(inp)
+    overlay = []
+
+    num_comp = 0
+    for c in nx.connected_components(g):
+        num_comp += 1
+        cg = g.subgraph(c)
+        i2n = list(cg.nodes)
+        if(len(i2n) > 1):
+            adj = nx.adjacency_matrix(cg)
+            nc = math.ceil(len(i2n) / common_config.max_devices_per_cluster)
+            sc = SpectralClustering(nc, affinity='precomputed',
+                                    n_init=100, assign_labels='discretize')
+            cluster_assignment = sc.fit_predict(adj)
+            sub_overlay = [[] for i in range(nc)]
+
+            for dnum, cnum in enumerate(cluster_assignment):
+                if(not i2n[dnum] in comp):
+                    sub_overlay[cnum].append(i2n[dnum])
+
+            filtered_sub_overlay = remove_empty(sub_overlay)
+            if(len(filtered_sub_overlay) == 1):
+                overlay.extend(filtered_sub_overlay)
+            elif(len(filtered_sub_overlay) > 1):
+                overlay.append(filtered_sub_overlay)
+        else:
+            overlay.append(i2n[0])
+
+    if(len(overlay) == 1 and isinstance(overlay[0], list)):
+        return overlay[0]
+    return overlay
+
+
 def shift_overlay(overlay):
     last = overlay[-1]
     l_len = len(last)
@@ -129,10 +190,96 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
     hosts_tors = hosts + tors
     hosts_tors_l1s = hosts_tors + l1s
 
-    if(overlay == 'tor'):
-        if('inp' not in locals()):
-            inp = Input()
+    if(not pickle_loaded):
+        def get_path(h1, h2):
+            while(h1 == h2):
+                h2 = random.randint(0, hosts-1)
+            tor1 = int(h1 / hosts_per_tors)
+            tor2 = int(h2 / hosts_per_tors)
+            l11 = int(tor1 / tors_per_l1s)
+            l12 = int(tor2 / tors_per_l1s)
+            tor1 = tor1 + hosts
+            tor2 = tor2 + hosts
+            l11 = l11 + hosts_tors
+            l12 = l12 + hosts_tors
+            l2 = hosts_tors_l1s
+            if(l11 == l12):
+                if(tor1 == tor2):
+                    if(h1 == h2):
+                        return tuple([h1])
+                    else:
+                        return (h1, tor1, h2)
+                else:
+                    return (h1, tor1, l11, tor2, h2)
+            else:
+                return (h1, tor1, l11, l2, l12, tor2, h2)
 
+        inp = Input(
+            devices=(
+                [CPU(**beluga20, name='CPU'+str(i+1))
+                 for i in range(hosts)] +
+                [P4(**tofino, name='tor_P4'+str(i+1))
+                 for i in range(int(tors))] +
+                # [CPU(**beluga20, name='tor_CPU'+str(i+1))
+                #  for i in range(int(tors/2))] +
+                [P4(**tofino, name='l1_P4'+str(i+1))
+                 for i in range(l1s)] +
+                [P4(**tofino, name='l2_P4')]
+            ),
+            queries=(
+                [cm_sketch(eps0=eps, del0=del0) for i in range(num_queries)]
+                + []
+                # [cm_sketch(eps0=eps0*10, del0=del0) for i in range(24)] +
+                # [cm_sketch(eps0=eps0, del0=del0) for i in range(32)]
+            ),
+        )
+
+        if(tenant):
+            flows = []
+
+            # each tenant exclusively owns 8 hosts
+            # and has 4 queries they want measured
+            qs_len = 4
+            hosts_per_tenant = 8
+            num_tenants = hosts / hosts_per_tenant
+            assert(num_queries == hosts / (hosts_per_tenant / qs_len))
+
+            # the 8 hosts are randomly assigned to tenants
+            servers = np.arange(hosts)
+            np.random.shuffle(servers)
+            tenant_servers = np.split(servers, num_tenants)
+
+            for (tnum, t) in enumerate(tenant_servers):
+                query_set = [i + tnum*qs_len for i in range(qs_len)]
+
+                # each tenant has 8 different OD pairs,
+                # traffic between which needs to be measured
+                for itr in range(8):
+                    h1 = t[random.randint(0, hosts_per_tenant-1)]
+                    h2 = t[random.randint(0, hosts_per_tenant-1)]
+                    cov = int(random.random() * 4 + 7)/10
+                    q = query_set[random.randint(0, qs_len-1)]
+                    flows.append(
+                        flow(
+                            path=get_path(h1, h2),
+                            queries=[(q, cov)]
+                        )
+                    )
+            inp.flows = flows
+        else:
+            inp.flows = [
+                flow(
+                    path=get_path(random.randint(0, hosts-1),
+                                  random.randint(0, hosts-1)),
+                    queries=[
+                        (random.randint(0, num_queries-1),
+                         int(random.random() * 4 + 7)/10)
+                    ]
+                )
+                for flownum in range(max(hosts, num_queries) * 5)
+            ]
+
+    if(overlay == 'tor'):
         # TODO: Remove redundancy =>
         if(hosts_per_tors <= 8):
             inp.overlay = (
@@ -172,106 +319,35 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
                 ]
                 + [hosts + tors + j for j in range(l1s + 1)]
             )
+
+    # Heuristic: don't cluster nodes with high responsibility:
+    # for f in inp.flows:
+
     elif(overlay == 'shifted'):
         if(hosts_per_tors <= 8):
             inp.overlay = (
                 shift_overlay(generate_overlay([tors, hosts_per_tors]))
                 + generate_overlay([tors + l1s + 1], hosts)
             )
+    elif(overlay == 'none'):
+        inp.overlay = None
+    elif(overlay == 'spectral'):
+        host_overlay = get_spectral_overlay(
+            inp, comp=set(hosts + i for i in range(tors + l1s + 1)))
+        inp.overlay = (host_overlay
+                       + generate_overlay([tors + l1s + 1], hosts))
+        # if(tors <= 20):
+        #     inp.overlay = (host_overlay
+        #                    + generate_overlay([tors + l1s + 1], hosts))
+        # else:
+        #     # Assuming tors multiple of 20
+        #     # TODO:: Redundancy
+        #     inp.overlay = (host_overlay
+        #                    + generate_overlay([int(tors/20), 20], hosts)
+        #                    + generate_overlay([l1s + 1], hosts + tors))
 
     if(pickle_loaded):
         return inp
-
-    def get_path(h1, h2):
-        while(h1 == h2):
-            h2 = random.randint(0, hosts-1)
-        tor1 = int(h1 / hosts_per_tors)
-        tor2 = int(h2 / hosts_per_tors)
-        l11 = int(tor1 / tors_per_l1s)
-        l12 = int(tor2 / tors_per_l1s)
-        tor1 = tor1 + hosts
-        tor2 = tor2 + hosts
-        l11 = l11 + hosts_tors
-        l12 = l12 + hosts_tors
-        l2 = hosts_tors_l1s
-        if(l11 == l12):
-            if(tor1 == tor2):
-                if(h1 == h2):
-                    return tuple([h1])
-                else:
-                    return (h1, tor1, h2)
-            else:
-                return (h1, tor1, l11, tor2, h2)
-        else:
-            return (h1, tor1, l11, l2, l12, tor2, h2)
-
-    inp = Input(
-        devices=(
-            [CPU(**beluga20, name='CPU'+str(i+1))
-             for i in range(hosts)] +
-            [P4(**tofino, name='tor_P4'+str(i+1))
-             for i in range(int(tors))] +
-            # [CPU(**beluga20, name='tor_CPU'+str(i+1))
-            #  for i in range(int(tors/2))] +
-            [P4(**tofino, name='l1_P4'+str(i+1))
-             for i in range(l1s)] +
-            [P4(**tofino, name='l2_P4')]
-        ),
-        queries=(
-            [cm_sketch(eps0=eps, del0=del0) for i in range(num_queries)]
-            + []
-            # [cm_sketch(eps0=eps0*10, del0=del0) for i in range(24)] +
-            # [cm_sketch(eps0=eps0, del0=del0) for i in range(32)]
-        ),
-    )
-
-    if(tenant):
-        flows = []
-
-        # each tenant exclusively owns 8 hosts
-        # and has 4 queries they want measured
-        qs_len = 4
-        hosts_per_tenant = 8
-        num_tenants = hosts / hosts_per_tenant
-        assert(num_queries == hosts / (hosts_per_tenant / qs_len))
-
-        # the 8 hosts are randomly assigned to tenants
-        servers = np.arange(hosts)
-        np.random.shuffle(servers)
-        tenant_servers = np.split(servers, num_tenants)
-
-        for (tnum, t) in enumerate(tenant_servers):
-            query_set = [i + tnum*qs_len for i in range(qs_len)]
-
-            # each tenant has 8 different OD pairs,
-            # traffic between which needs to be measured
-            for itr in range(8):
-                h1 = t[random.randint(0, hosts_per_tenant-1)]
-                h2 = t[random.randint(0, hosts_per_tenant-1)]
-                cov = int(random.random() * 4 + 7)/10
-                q = query_set[random.randint(0, qs_len-1)]
-                flows.append(
-                    flow(
-                        path=get_path(h1, h2),
-                        queries=[(q, cov)]
-                    )
-                )
-        inp.flows = flows
-    else:
-        inp.flows = [
-            flow(
-                path=get_path(random.randint(0, hosts-1),
-                              random.randint(0, hosts-1)),
-                queries=[
-                    (random.randint(0, num_queries-1),
-                     int(random.random() * 4 + 7)/10)
-                ]
-            )
-            for flownum in range(max(hosts, num_queries) * 5)
-        ]
-
-    if(hasattr(inp, 'overlay')):
-        delattr(inp, 'overlay')
 
     inp_file = open(pickle_name, 'wb')
     pickle.dump(inp, inp_file)
@@ -612,11 +688,12 @@ input_generator = [
     ),
 
     # 24
-    # Small tenant
-    dc_topology(hosts_per_tors=8, num_queries=8*2, tenant=True),
+    # Small tenant (100)
+    dc_topology(hosts_per_tors=8, num_queries=8*2, tenant=True,
+                overlay='spectral'),
 
     # 25
-    # Large tenant
+    # Large tenant (10K)
     dc_topology(hosts_per_tors=48, tors_per_l1s=20,
                 l1s=10, num_queries=4800, tenant=True),
 
@@ -638,4 +715,10 @@ input_generator = [
                flow(path=(1, 2), queries=[(0, 1)])],
         overlay=[[0, 1], 2]
     ),
+
+    # 28
+    # Medium tenant (1K)
+    dc_topology(hosts_per_tors=48, tors_per_l1s=10,
+                l1s=4, num_queries=960, tenant=True, overlay='spectral'),
+
 ]

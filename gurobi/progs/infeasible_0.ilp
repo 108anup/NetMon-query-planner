@@ -1,0 +1,76 @@
+\ Model UnivmonGreedyRows_copy
+\ LP format - for model browsing. Use MPS format to capture full model detail.
+Minimize multi-objectives
+  OBJ0: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ1: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ2: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ3: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_rows_P4: Priority=80 Weight=1 AbsTol=0 RelTol=0
+   rows_tot_tor_P42
+  P4_rows_load: Priority=70 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ6: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ7: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_mem_P4: Priority=40 Weight=1 AbsTol=0 RelTol=0
+  
+  P4_load_mem: Priority=30 Weight=1 AbsTol=0 RelTol=0
+  
+Subject To
+ cov_30_47: frac[1,47] >= 0.8
+ cov_32_53: frac[1,53] >= 0.9
+ cov_59_21: frac[1,21] >= 0.7
+ cov_74_77: frac[1,77] >= 0.8
+ cov_86_67: frac[1,67] >= 0.8
+ cov_89_28: frac[1,28] >= 0.8
+ cov_95_122: frac[1,122] >= 0.7
+ cov_100_40: frac[1,40] >= 0.7
+ cov_104_7: frac[1,7] >= 0.7
+ cov_157_157: frac[1,157] >= 0.9
+ cov_158_0: frac[1,0] >= 0.8
+ cov_190_110: frac[1,110] >= 0.8
+ cov_238_72: frac[1,72] >= 0.7
+ cov_239_54: frac[1,54] >= 0.9
+ cov_252_64: frac[1,64] >= 0.8
+ cov_255_106: frac[1,106] >= 0.7
+ cov_281_62: frac[1,62] >= 0.8
+ cov_282_85: frac[1,85] >= 1
+ cov_296_36: frac[1,36] >= 0.8
+ cov_365_105: frac[1,105] >= 0.7
+ cov_426_24: frac[1,24] >= 0.7
+ rows_tot_tor_P42: - 3 frac[1,64] - 3 frac[1,122] - 3 frac[1,28]
+   - 3 frac[1,54] - 3 frac[1,40] - 3 frac[1,115] - 3 frac[1,21]
+   - 3 frac[1,110] - 3 frac[1,0] - 3 frac[1,77] - 3 frac[1,67]
+   - 3 frac[1,105] - 3 frac[1,72] - 3 frac[1,62] - 3 frac[1,53]
+   - 3 frac[1,47] - 3 frac[1,157] - 3 frac[1,7] - 3 frac[1,24]
+   - 3 frac[1,106] - 3 frac[1,36] - 3 frac[1,85] + rows_tot_tor_P42 = 0
+ row_capacity_tor_P42: rows_tot_tor_P42 <= 48
+Bounds
+ frac[1,64] free
+ frac[1,122] free
+ frac[1,28] free
+ frac[1,54] free
+ frac[1,40] free
+ frac[1,21] free
+ frac[1,110] free
+ frac[1,0] free
+ frac[1,77] free
+ frac[1,67] free
+ frac[1,105] free
+ frac[1,72] free
+ frac[1,62] free
+ frac[1,53] free
+ frac[1,47] free
+ frac[1,157] free
+ frac[1,7] free
+ frac[1,24] free
+ frac[1,106] free
+ frac[1,36] free
+ frac[1,85] free
+ rows_tot_tor_P42 free
+End

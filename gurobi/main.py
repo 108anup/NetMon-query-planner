@@ -7,7 +7,7 @@ import traceback
 from cli import generate_parser
 from common import Namespace, setup_logging, log_time, log
 from config import common_config
-from input import input_generator
+from input import input_generator, get_spectral_overlay
 from solvers import (refine_devices, solver_to_class, log_results,
                      log_placement, UnivmonGreedyRows, handle_infeasible_iis)
 from devices import Cluster
@@ -131,6 +131,7 @@ def map_leaf_solution_to_cluster(solver, cluster):
     return init
 
 
+# TODO:: Handle disconnected graph in solver
 @log_time
 def solve(inp):
     start = time.time()

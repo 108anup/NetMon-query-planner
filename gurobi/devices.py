@@ -243,7 +243,7 @@ class Cluster(device):
     def line_thr(self):
         lthr = self.device_tree[0].line_thr
         for d in self.device_tree:
-            lthr = max(lthr, d.line_thr)
+            lthr = min(lthr, d.line_thr)
         return lthr
 
     def add_ns_constraints(self, m, ns_req=None):

@@ -37,6 +37,7 @@ default_config = Config(
     ftol=6.0e-5,
     mipgapabs=10,
     # mipgap=0.01,
+    max_devices_per_cluster=20,
 
     solver='Netmon',
     input_num=0,

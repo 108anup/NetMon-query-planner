@@ -1,0 +1,85 @@
+\ Model UnivmonGreedyRows_copy
+\ LP format - for model browsing. Use MPS format to capture full model detail.
+Minimize multi-objectives
+  tot_rows_CPU_Cluster: Priority=100 Weight=1 AbsTol=0 RelTol=0
+  
+  CPU_Cluster_rows_load: Priority=90 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ2: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ3: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_rows_P4: Priority=80 Weight=1 AbsTol=0 RelTol=0
+   rows_tot_l1_P410
+  P4_rows_load: Priority=70 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_mem_CPU_Cluster: Priority=60 Weight=1 AbsTol=0 RelTol=0
+  
+  CPU_Cluster_load_mem: Priority=50 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_mem_P4: Priority=40 Weight=1 AbsTol=0 RelTol=0
+  
+  P4_load_mem: Priority=30 Weight=1 AbsTol=0 RelTol=0
+  
+Subject To
+ cov_0_11: frac[1,11] >= 0.7
+ cov_1_12: frac[1,12] >= 1
+ cov_4_17: frac[1,17] >= 1
+ cov_5_24: frac[1,24] >= 0.8
+ cov_8_23: frac[1,23] >= 0.3
+ cov_12_4: frac[1,4] >= 0.9
+ cov_13_29: frac[1,29] >= 0.3
+ cov_14_0: frac[1,0] >= 0.3
+ cov_15_5: frac[1,5] >= 0.7
+ cov_17_9: frac[1,9] >= 1
+ cov_18_33: frac[1,33] >= 0.9
+ cov_19_8: frac[1,8] >= 0.9
+ cov_22_15: frac[1,15] >= 0.7
+ cov_23_31: frac[1,31] >= 0.8
+ cov_25_16: frac[1,16] >= 0.9
+ cov_26_22: frac[1,22] >= 1
+ cov_31_2: frac[1,2] >= 0.8
+ cov_32_3: frac[1,3] >= 0.7
+ cov_35_30: frac[1,30] >= 0.9
+ cov_39_25: frac[1,25] >= 0.7
+ cov_44_19: frac[1,19] >= 1
+ cov_45_28: frac[1,28] >= 0.9
+ cov_48_32: frac[1,32] >= 0.8
+ cov_51_7: frac[1,7] >= 0.9
+ rows_tot_l1_P410: - 3 frac[1,21] - 3 frac[1,3] - 3 frac[1,26]
+   - 3 frac[1,17] - 3 frac[1,15] - 3 frac[1,6] - 3 frac[1,29]
+   - 3 frac[1,11] - 3 frac[1,33] - 3 frac[1,20] - 3 frac[1,2]
+   - 3 frac[1,25] - 3 frac[1,16] - 3 frac[1,14] - 3 frac[1,5]
+   - 3 frac[1,28] - 3 frac[1,10] - 3 frac[1,32] - 3 frac[1,1]
+   - 3 frac[1,24] - 3 frac[1,23] - 3 frac[1,13] - 3 frac[1,4]
+   - 3 frac[1,19] - 3 frac[1,9] - 3 frac[1,0] - 3 frac[1,31] - 3 frac[1,22]
+   - 3 frac[1,12] - 3 frac[1,27] - 3 frac[1,18] - 3 frac[1,8] - 3 frac[1,7]
+   - 3 frac[1,30] + rows_tot_l1_P410 = 0
+ row_capacity_l1_P410: rows_tot_l1_P410 <= 48
+Bounds
+ frac[1,3] free
+ frac[1,17] free
+ frac[1,15] free
+ frac[1,29] free
+ frac[1,11] free
+ frac[1,33] free
+ frac[1,2] free
+ frac[1,25] free
+ frac[1,16] free
+ frac[1,5] free
+ frac[1,28] free
+ frac[1,32] free
+ frac[1,24] free
+ frac[1,23] free
+ frac[1,4] free
+ frac[1,19] free
+ frac[1,9] free
+ frac[1,0] free
+ frac[1,31] free
+ frac[1,22] free
+ frac[1,12] free
+ frac[1,8] free
+ frac[1,7] free
+ frac[1,30] free
+ rows_tot_l1_P410 free
+End
