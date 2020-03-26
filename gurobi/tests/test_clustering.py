@@ -71,7 +71,7 @@ def combinations(l):
     "hosts_per_tors, tors_per_l1s, l1s, overlay",
     # [(48, 20, 10, 'none')]
     combinations(
-        [[48], [2, 10, 20], [2, 4, 10], ['spectral']]
+        [[48], [2, 10, 20], [2, 4, 10], ['random']]
     )
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,

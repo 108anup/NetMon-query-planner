@@ -345,6 +345,14 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
         #     inp.overlay = (host_overlay
         #                    + generate_overlay([int(tors/20), 20], hosts)
         #                    + generate_overlay([l1s + 1], hosts + tors))
+    elif(overlay == 'random'):
+        ov = np.array(range(hosts))
+        np.random.shuffle(ov)
+        host_overlay = np.array_split(
+            ov, math.ceil(hosts/common_config.max_devices_per_cluster))
+        ho = [e.tolist() for e in host_overlay]
+        inp.overlay = (ho
+                       + generate_overlay([tors + l1s + 1], hosts))
 
     if(pickle_loaded):
         return inp
@@ -718,7 +726,7 @@ input_generator = [
 
     # 28
     # Medium tenant (1K)
-    dc_topology(hosts_per_tors=48, tors_per_l1s=10,
-                l1s=4, num_queries=960, tenant=True, overlay='spectral'),
+    dc_topology(hosts_per_tors=48, tors_per_l1s=2,
+                l1s=2, num_queries=96, tenant=True, overlay='random'),
 
 ]
