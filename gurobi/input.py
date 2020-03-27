@@ -4,7 +4,8 @@ import pickle
 
 import math
 import networkx as nx
-from sklearn.cluster import SpectralClustering
+import matplotlib.pyplot as plt
+from sklearn.cluster import SpectralClustering, KMeans
 from common import Namespace, memoize
 from devices import CPU, P4
 from flows import flow
@@ -100,26 +101,82 @@ def get_graph(inp):
     return g
 
 
-def get_spectral_overlay(inp, comp={}):
+def remap_colors(colors):
+    m = np.max(colors)
+    freq = [0 for i in range(m+1)]
+    for cnum in colors:
+        freq[cnum] += 1
+    remap = [0 for i in range(m+1)]
+    cur_clr = 0
+    for cnum, f in enumerate(freq):
+        if(f > 0):
+            remap[cnum] = cur_clr
+            cur_clr += 1
+    remapped = [0 for i in range(len(colors))]
+    for i in range(len(colors)):
+        remapped[i] = remap[colors[i]]
+    return remapped
+
+
+def draw_graph(G, colors):
+    colors = remap_colors(colors)
+
+    plt.figure(figsize=(10, 10))
+    pos = nx.spring_layout(G)
+    nx.draw(G, pos, node_color=colors)
+    plt.show()
+
+
+def check_symmetric(a, rtol=1e-05, atol=1e-08):
+    return np.allclose(a, a.T, rtol=rtol, atol=atol)
+
+
+def UnnormalizedSpectral(W, nc=2):
+    assert(check_symmetric(W.todense()))
+    D = np.diag(np.sum(W, axis=1))
+    L = D - W
+
+    e, v = np.linalg.eigh(L)
+    idx = e.argsort()
+    e = e[idx]
+    v = v[:, idx]
+
+    U = np.array(v[:, :nc])
+    km = KMeans(init='k-means++', n_clusters=nc)
+    r = km.fit_predict(U)
+    return r
+
+
+def get_spectral_overlay(inp, comp={}, normalized=True):
     g = get_graph(inp)
     overlay = []
 
     num_comp = 0
+    node_colors = list(g.nodes)
+    last_inc = 0
+
     for c in nx.connected_components(g):
         num_comp += 1
         cg = g.subgraph(c)
         i2n = list(cg.nodes)
         if(len(i2n) > 1):
             adj = nx.adjacency_matrix(cg)
-            nc = math.ceil(len(i2n) / common_config.max_devices_per_cluster)
-            sc = SpectralClustering(nc, affinity='precomputed',
-                                    n_init=100, assign_labels='discretize')
-            cluster_assignment = sc.fit_predict(adj)
+            nc = 4 * math.ceil(len(i2n)
+                               / common_config.max_devices_per_cluster)
+            if(normalized):
+                sc = SpectralClustering(nc, affinity='precomputed',
+                                        n_init=100, assign_labels='discretize')
+                cluster_assignment = sc.fit_predict(adj)
+            else:
+                cluster_assignment = UnnormalizedSpectral(adj, nc)
+            # draw_graph(cg, cluster_assignment)
             sub_overlay = [[] for i in range(nc)]
 
             for dnum, cnum in enumerate(cluster_assignment):
+                node_colors[i2n[dnum]] = last_inc + cnum
                 if(not i2n[dnum] in comp):
                     sub_overlay[cnum].append(i2n[dnum])
+            last_inc += nc
 
             filtered_sub_overlay = remove_empty(sub_overlay)
             if(len(filtered_sub_overlay) == 1):
@@ -128,6 +185,10 @@ def get_spectral_overlay(inp, comp={}):
                 overlay.append(filtered_sub_overlay)
         else:
             overlay.append(i2n[0])
+            node_colors[i2n[0]] = last_inc
+            last_inc += 1
+
+    # draw_graph(g, node_colors)
 
     if(len(overlay) == 1 and isinstance(overlay[0], list)):
         return overlay[0]
@@ -175,7 +236,8 @@ class Input(Namespace):
 
 
 def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
-                num_queries=80, eps=eps0, overlay='none', tenant=False):
+                num_queries=80, eps=eps0, overlay='none', tenant=False,
+                refine=False):
     pickle_name = "pickle_objs/inp-{}-{}-{}-{}-{}".format(
         hosts_per_tors, tors_per_l1s, l1s, num_queries, eps0/eps)
     pickle_loaded = False
@@ -279,6 +341,8 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
                 for flownum in range(max(hosts, num_queries) * 5)
             ]
 
+    if(refine):
+        inp.refine = True
     if(overlay == 'tor'):
         # TODO: Remove redundancy =>
         if(hosts_per_tors <= 8):
@@ -331,9 +395,14 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             )
     elif(overlay == 'none'):
         inp.overlay = None
-    elif(overlay == 'spectral'):
-        host_overlay = get_spectral_overlay(
-            inp, comp=set(hosts + i for i in range(tors + l1s + 1)))
+    elif('spectral' in overlay):
+        if(overlay == 'spectralU'):
+            host_overlay = get_spectral_overlay(
+                inp, comp=set(hosts + i for i in range(tors + l1s + 1)),
+                normalized=False)
+        else:
+            host_overlay = get_spectral_overlay(
+                inp, comp=set(hosts + i for i in range(tors + l1s + 1)))
         inp.overlay = (host_overlay
                        + generate_overlay([tors + l1s + 1], hosts))
         # if(tors <= 20):
@@ -721,12 +790,14 @@ input_generator = [
         queries=[cm_sketch(eps0=eps0, del0=del0)],
         flows=[flow(path=(0, 2), queries=[(0, 1)]),
                flow(path=(1, 2), queries=[(0, 1)])],
-        overlay=[[0, 1], 2]
+        overlay=[[0, 1], 2],
+        refine=True
     ),
 
     # 28
     # Medium tenant (1K)
-    dc_topology(hosts_per_tors=48, tors_per_l1s=2,
-                l1s=2, num_queries=96, tenant=True, overlay='random'),
+    dc_topology(hosts_per_tors=48, tors_per_l1s=10,
+                l1s=2, num_queries=480, tenant=True,
+                overlay='spectral', refine=True),
 
 ]

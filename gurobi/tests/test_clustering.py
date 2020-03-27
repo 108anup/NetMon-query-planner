@@ -1,11 +1,13 @@
 import pytest
 import os
 from main import solve
-from input import beluga20, tofino, Input, eps0, del0, generate_overlay, dc_topology
+from input import (beluga20, tofino, Input, eps0, del0,
+                   generate_overlay, dc_topology, Input)
 from devices import CPU, P4
 from sketches import cm_sketch
 from flows import flow
-from common import setup_logging, add_file_logger, remove_all_file_loggers, Namespace
+from common import (setup_logging, add_file_logger,
+                    remove_all_file_loggers, Namespace)
 from config import common_config
 import numpy as np
 import random
@@ -68,18 +70,19 @@ def combinations(l):
 
 
 @pytest.mark.parametrize(
-    "hosts_per_tors, tors_per_l1s, l1s, overlay",
+    "hosts_per_tors, tors_per_l1s, l1s, overlay, refine",
     # [(48, 20, 10, 'none')]
     combinations(
-        [[48], [2, 10, 20], [2, 4, 10], ['random']]
+        [[48], [2, 10, 20], [2, 4, 10], ['spectralU'], [False]]
     )
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
-                                       l1s, overlay):
+                                       l1s, overlay, refine):
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
     inp = dc_topology(hosts_per_tors, tors_per_l1s, l1s,
                       num_queries=int(num_hosts/2),
-                      overlay=overlay, tenant=True)
+                      overlay=overlay, tenant=True,
+                      refine=refine)
 
     # Testing: overlay uncorrelated with tenants and traffic
 
@@ -89,9 +92,9 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
     m.test_name = 'vary_topo_size_dc_topo_tenant'
     total_devices = len(inp.devices)
     m.args_str = (
-        "overlay={};total_devices={};"
+        "overlay={};total_devices={};refine={};"
         "hosts_per_tors={};tors_per_l1s={};l1s={}"
-        .format(overlay, total_devices,
+        .format(overlay, total_devices, refine,
                 hosts_per_tors, tors_per_l1s, l1s)
     )
     setup_test_meta(m)
@@ -165,4 +168,41 @@ def test_vary_cluster_size_cpu_triangle2(cluster_size, num_cpus):
                for i in range(num_cpus)],
         overlay=overlay
     )
+    run_all_with_input(m, inp)
+
+
+@pytest.mark.parametrize("overlay_num", [i for i in range(6)])
+def test_vary_cluster_simple_topo(overlay_num):
+    inp = Input(
+        devices=(
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(4)] +
+            [P4(**tofino, name='P4_{}'.format(i+4)) for i in range(2)]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0, del0=del0) for i in range(2)
+        ],
+        flows=[
+            flow(path=(0, 4, 5, 3), queries=[(1, 1)]),
+            flow(path=(1, 4, 5, 3), queries=[(1, 1)]),
+            flow(path=(2, 4, 5, 3), queries=[(0, 1)])
+        ],
+    )
+
+    common_config.vertical_partition = True
+    m = Namespace()
+    m.test_name = 'vary_cluster_simple_topo'
+    m.args_str = "overlay_num={}".format(overlay_num)
+    setup_test_meta(m)
+
+    if(overlay_num == 1):
+        inp.overlay = [[1, 4, 3, 5], 0, 2]
+    elif(overlay_num == 2):
+        inp.overlay = [[0, 4, 3, 5], 1, 2]
+    elif(overlay_num == 3):
+        inp.overlay = [[0, 1, 2, 4], [3, 5]]
+    elif(overlay_num == 4):
+        inp.overlay = [[0, 4, 1], [3, 5], 2]
+    elif(overlay_num == 5):
+        inp.overlay = [[0, 1, 2], [4, 3, 5]]
+
     run_all_with_input(m, inp)

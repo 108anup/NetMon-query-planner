@@ -380,7 +380,6 @@ class MIP(Namespace):
         self.add_accuracy_constraints()
         self.add_capacity_constraints()
         if(not type(self).__name__ == 'Univmon'):
-            log.info("Adding device aware constraints")
             self.add_device_aware_constraints()
 
         if(common_config.time_limit):

@@ -114,8 +114,74 @@ def map_flows_to_cluster(inp):
     return flows
 
 
+def get_2_level_overlay(overlay):
+    output = []
+    for l in overlay:
+        if(isinstance(l, list)):
+            no_nesting = True
+            for e in l:
+                if(isinstance(e, list)):
+                    no_nesting = False
+            if(no_nesting):
+                output.append(l)
+            else:
+                output.extend(get_2_level_overlay(l))
+        else:
+            output.append(l)
+    return output
+
+
 @log_time
-def map_leaf_solution_to_cluster(solver, cluster):
+def get_subproblems(inp, solver):
+    leaves_overlay = get_2_level_overlay(inp.overlay)
+    leaves_cluster = get_cluster_from_overlay(inp, leaves_overlay)
+
+    cluster_list = leaves_cluster.device_tree
+    problems = []
+    # import ipdb; ipdb.set_trace()
+    for c in cluster_list:
+        subproblem = Namespace()
+
+        if(isinstance(c, Cluster)):
+            devices = c.transitive_closure()
+        else:
+            devices = [c]
+        dev_ids = set(d.dev_id for d in devices)
+        dev_id_to_dnum = {}
+        for dnum, d in enumerate(devices):
+            dev_id_to_dnum[d.dev_id] = dnum
+
+        # TODO:: optimize to only include relevant partitions
+        partitions = set()
+        flows = []
+        for f in inp.flows:
+            new_path = set()
+            new_par = []
+            for fp in f.partitions:
+                pnum = fp[0]
+                cov = fp[1]
+                tot_frac = 0
+                for dnum in f.path:
+                    if(dnum in dev_ids):
+                        new_path.add(dev_id_to_dnum[dnum])
+                        tot_frac += solver.frac[dnum, pnum].x
+                if(tot_frac > 0):
+                    new_par.extend([(pnum, min(cov, tot_frac))])
+            if(len(new_path) > 0 and len(new_par) > 0):
+                flows.append(flow(
+                    path=new_path,
+                    partitions=new_par))
+
+        subproblem.devices = devices
+        subproblem.partitions = inp.partitions
+        subproblem.flows = flows
+        if(len(flows) > 0):
+            problems.append(subproblem)
+    return problems
+
+
+@log_time
+def init_leaf_solution_to_cluster(solver, cluster):
     dev_id_to_cluster_id = cluster.dev_id_to_cluster_id(inp)
     mem = tupledict()
     frac = tupledict()
@@ -142,18 +208,42 @@ def solve(inp):
     map_flows_partitions(inp.flows, inp.queries)
     Solver = solver_to_class[common_config.solver]
 
+    # Cluster Refinement
+    if(getattr(inp, 'refine', None)):
+        solver = UnivmonGreedyRows(devices=inp.devices,
+                                   partitions=inp.partitions,
+                                   flows=inp.flows, queries=inp.queries,
+                                   overlay=True)
+        solver.solve()
+        subproblems = get_subproblems(inp, solver)
+
+        frac = tupledict()
+        for prob in subproblems:
+            sol = Solver(devices=prob.devices, partitions=prob.partitions,
+                            flows=prob.flows, queries=inp.queries,
+                            overlay=True)
+            sol.solve()
+            frac.update(sol.frac)
+
+        refine_devices(inp.devices)
+        log_results(inp.devices)
+        log_placement(inp.devices, inp.partitions, inp.flows,
+                      solver.dev_par_tuplelist, frac)
+
+
     # Clustering
-    if (getattr(inp, 'overlay', None)):
+    elif (getattr(inp, 'overlay', None)):
         if(common_config.init is True):
             solver = UnivmonGreedyRows(devices=inp.devices,
                                        partitions=inp.partitions,
                                        flows=inp.flows, queries=inp.queries,
                                        overlay=True)
             solver.solve()
+            # TODO:: Assumed that feasible
 
         inp.cluster = get_cluster_from_overlay(inp, inp.overlay)
         if(common_config.init is True):
-            init = map_leaf_solution_to_cluster(solver, inp.cluster)
+            init = init_leaf_solution_to_cluster(solver, inp.cluster)
 
         queue = Queue()
         flows = map_flows_to_cluster(inp)
