@@ -343,49 +343,18 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
 
     if(refine):
         inp.refine = True
+
     if(overlay == 'tor'):
-        # TODO: Remove redundancy =>
         if(hosts_per_tors <= 8):
-            inp.overlay = (
-                [
-                    [
-                        i + j*hosts_per_tors for i in range(hosts_per_tors)
-                    ] for j in range(tors)
-                ]
-                + [hosts + j for j in range(tors + l1s + 1)])
-
+            inp.overlay = (generate_overlay([tors, hosts_per_tors])
+                           + generate_overlay([tors + l1s + 1], hosts))
         elif(tors <= 20):  # Assuming hosts_per_tors multiple of 8
-            inp.overlay = (
-                [
-                    [
-                        [
-                            i + 8*j + k*hosts_per_tors
-                            for i in range(8)
-                        ] for j in range(int(hosts_per_tors/8))
-                    ] for k in range(tors)
-                ]
-                + [hosts + j for j in range(tors + l1s + 1)]
-            )
-
+            inp.overlay = (generate_overlay([tors, int(hosts_per_tors/8), 8])
+                           + generate_overlay([tors + l1s + 1], hosts))
         else:  # Assuming tors multiple of 20
-            inp.overlay = (
-                [
-                    [
-                        [
-                            i + 8*j + k*hosts_per_tors
-                            for i in range(8)
-                        ] for j in range(int(hosts_per_tors/8))
-                    ] for k in range(tors)
-                ]
-                + [
-                    [hosts + i + j*20 for i in range(20)]
-                    for j in range(int(tors/20))
-                ]
-                + [hosts + tors + j for j in range(l1s + 1)]
-            )
-
-    # Heuristic: don't cluster nodes with high responsibility:
-    # for f in inp.flows:
+            inp.overlay = (generate_overlay([tors, int(hosts_per_tors/8), 8])
+                           + generate_overlay([int(tors/20), 20], hosts)
+                           + generate_overlay([l1s + 1], hosts + tors))
 
     elif(overlay == 'shifted'):
         if(hosts_per_tors <= 8):
@@ -393,8 +362,8 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
                 shift_overlay(generate_overlay([tors, hosts_per_tors]))
                 + generate_overlay([tors + l1s + 1], hosts)
             )
-    elif(overlay == 'none'):
-        inp.overlay = None
+
+    # Heuristic: don't cluster nodes with high responsibility:
     elif('spectral' in overlay):
         if(overlay == 'spectralU'):
             host_overlay = get_spectral_overlay(
@@ -414,6 +383,7 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
         #     inp.overlay = (host_overlay
         #                    + generate_overlay([int(tors/20), 20], hosts)
         #                    + generate_overlay([l1s + 1], hosts + tors))
+
     elif(overlay == 'random'):
         ov = np.array(range(hosts))
         np.random.shuffle(ov)
@@ -422,6 +392,9 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
         ho = [e.tolist() for e in host_overlay]
         inp.overlay = (ho
                        + generate_overlay([tors + l1s + 1], hosts))
+
+    elif(overlay == 'none'):
+        inp.overlay = None
 
     if(pickle_loaded):
         return inp
@@ -797,7 +770,7 @@ input_generator = [
     # 28
     # Medium tenant (1K)
     dc_topology(hosts_per_tors=48, tors_per_l1s=10,
-                l1s=2, num_queries=480, tenant=True,
-                overlay='spectral', refine=True),
+                l1s=4, num_queries=960, tenant=True,
+                overlay='tor', refine=True),
 
 ]

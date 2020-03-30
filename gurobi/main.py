@@ -220,8 +220,8 @@ def solve(inp):
         frac = tupledict()
         for prob in subproblems:
             sol = Solver(devices=prob.devices, partitions=prob.partitions,
-                            flows=prob.flows, queries=inp.queries,
-                            overlay=True)
+                         flows=prob.flows, queries=inp.queries,
+                         overlay=True)
             sol.solve()
             frac.update(sol.frac)
 

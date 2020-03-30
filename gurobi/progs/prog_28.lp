@@ -1,194 +1,324 @@
 \ Model UnivmonGreedyRows
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  OBJ0: Priority=0 Weight=1 AbsTol=0 RelTol=0
-  
-  OBJ1: Priority=0 Weight=1 AbsTol=0 RelTol=0
-  
+  tot_rows_CPU_Cluster: Priority=100 Weight=1 AbsTol=0 RelTol=0
+   rows_tot_CPU626 + rows_tot_CPU631 + rows_tot_CPU632 + rows_tot_CPU633
+   + rows_tot_CPU635 + rows_tot_CPU639 + rows_tot_CPU640 + rows_tot_CPU642
+   + rows_tot_CPU643 + rows_tot_CPU645 + rows_tot_CPU651 + rows_tot_CPU653
+   + rows_tot_CPU655 + rows_tot_CPU656 + rows_tot_CPU657 + rows_tot_CPU659
+   + rows_tot_CPU660 + rows_tot_CPU666 + rows_tot_CPU668 + rows_tot_CPU669
+   + rows_tot_CPU670 + rows_tot_CPU672
+  CPU_Cluster_rows_load: Priority=90 Weight=1 AbsTol=0 RelTol=0
+   max_rows_CPU_Cluster
   OBJ2: Priority=0 Weight=1 AbsTol=0 RelTol=0
   
   OBJ3: Priority=0 Weight=1 AbsTol=0 RelTol=0
   
-  tot_rows_P4: Priority=80 Weight=1 AbsTol=0 RelTol=0
-   rows_tot_l2_P4
-  P4_rows_load: Priority=70 Weight=1 AbsTol=0 RelTol=0
-   max_rows_P4
-  OBJ6: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  OBJ4: Priority=0 Weight=1 AbsTol=0 RelTol=0
   
-  OBJ7: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  OBJ5: Priority=0 Weight=1 AbsTol=0 RelTol=0
   
-  tot_mem_P4: Priority=40 Weight=1 AbsTol=0 RelTol=0
-   mem_tot_l2_P4
-  P4_load_mem: Priority=30 Weight=1 AbsTol=0 RelTol=0
-   max_mem_P4
+  tot_mem_CPU_Cluster: Priority=60 Weight=1 AbsTol=0 RelTol=0
+   mem_tot_CPU626 + mem_tot_CPU631 + mem_tot_CPU632 + mem_tot_CPU633
+   + mem_tot_CPU635 + mem_tot_CPU639 + mem_tot_CPU640 + mem_tot_CPU642
+   + mem_tot_CPU643 + mem_tot_CPU645 + mem_tot_CPU651 + mem_tot_CPU653
+   + mem_tot_CPU655 + mem_tot_CPU656 + mem_tot_CPU657 + mem_tot_CPU659
+   + mem_tot_CPU660 + mem_tot_CPU666 + mem_tot_CPU668 + mem_tot_CPU669
+   + mem_tot_CPU670 + mem_tot_CPU672
+  CPU_Cluster_load_mem: Priority=50 Weight=1 AbsTol=0 RelTol=0
+   max_mem_CPU_Cluster
 Subject To
- cov_0_1: frac[0,1] >= 0.2
- cov_1_1: frac[0,1] >= 0.2
- cov_2_9: frac[0,9] >= 0.2928312467973777
- cov_3_9: frac[0,9] >= 0.2928312467973777
- cov_4_46: frac[0,46] >= 0.4964156233986888
- cov_5_46: frac[0,46] >= 0.4964156233986888
- cov_6_55: frac[0,55] >= 0.1
- cov_7_55: frac[0,55] >= 0.1
- cov_8_55: frac[0,55] >= 0.1
- cov_9_57: frac[0,57] >= 0.0964156233986888
- cov_10_57: frac[0,57] >= 0.0964156233986888
- cov_11_56: frac[0,56] >= 0.3982078116993445
- cov_12_57: frac[0,57] >= 0.0964156233986888
- cov_13_56: frac[0,56] >= 0.3982078116993445
- cov_14_66: frac[0,66] >= 0.3964156233986889
- cov_15_66: frac[0,66] >= 0.3964156233986889
- cov_16_66: frac[0,66] >= 0.3964156233986889
- cov_17_66: frac[0,66] >= 0.3964156233986889
- cov_18_66: frac[0,66] >= 0.3964156233986889
- cov_19_82: frac[0,82] >= 0.3982078116993444
- cov_20_82: frac[0,82] >= 0.3982078116993444
- cov_21_82: frac[0,82] >= 0.3982078116993444
- cov_22_95: frac[0,95] >= 0.2928312467973777
- cov_23_95: frac[0,95] >= 0.2928312467973777
- cov_24_106: frac[0,106] >= 0.3179509379688777
- cov_25_106: frac[0,106] >= 0.3179509379688777
- cov_26_115: frac[0,115] >= 0.4964156233986888
- cov_27_115: frac[0,115] >= 0.4964156233986888
- cov_28_130: frac[0,130] >= 0.6964156233986889
- cov_29_130: frac[0,130] >= 0.6964156233986889
- cov_30_141: frac[0,141] >= 0.5928312467973778
- cov_31_141: frac[0,141] >= 0.5928312467973778
- cov_32_164: frac[0,164] >= 0.5964156233986888
- cov_33_164: frac[0,164] >= 0.5964156233986888
- cov_34_168: frac[0,168] >= 0.2928312467973777
- cov_35_168: frac[0,168] >= 0.2928312467973777
- cov_36_178: frac[0,178] >= 0.8
- cov_37_178: frac[0,178] >= 0.8
- cov_38_190: frac[0,190] >= 0.7964156233986889
- cov_39_191: frac[0,191] >= 0.6964156233986889
- cov_40_191: frac[0,191] >= 0.6964156233986889
- cov_41_190: frac[0,190] >= 0.7964156233986889
- cov_42_190: frac[0,190] >= 0.7964156233986889
- cov_43_190: frac[0,190] >= 0.7964156233986889
- cov_44_191: frac[0,191] >= 0.6964156233986889
- cov_45_202: frac[0,202] >= 0.4928312467973777
- cov_46_202: frac[0,202] >= 0.4928312467973777
- cov_47_202: frac[0,202] >= 0.4928312467973777
- cov_48_245: frac[0,245] >= 0.9
- cov_49_245: frac[0,245] >= 0.9
- cov_50_254: frac[0,254] >= 0.8964156233986887
- cov_51_254: frac[0,254] >= 0.8964156233986887
- cov_52_278: frac[0,278] >= 0.4928312467973778
- cov_53_278: frac[0,278] >= 0.4928312467973778
- cov_54_286: frac[0,286] >= 0.4928312467973778
- cov_55_286: frac[0,286] >= 0.4928312467973778
- cov_56_288: frac[0,288] >= 0.6964156233986887
- cov_57_288: frac[0,288] >= 0.6964156233986887
- cov_58_346: frac[0,346] >= 0.8
- cov_59_346: frac[0,346] >= 0.8
- cov_60_346: frac[0,346] >= 0.8
- cov_61_379: frac[0,379] >= 0.2964156233986889
- cov_62_379: frac[0,379] >= 0.2964156233986889
- cov_63_379: frac[0,379] >= 0.2964156233986889
- cov_64_419: frac[0,419] >= 0.796415623398689
- cov_65_419: frac[0,419] >= 0.796415623398689
- cov_66_419: frac[0,419] >= 0.796415623398689
- cov_67_423: frac[0,423] >= 0.3
- cov_68_423: frac[0,423] >= 0.3
- cov_69_425: frac[0,425] >= 0.4964156233986888
- cov_70_425: frac[0,425] >= 0.4964156233986888
- cov_71_437: frac[0,437] >= 0.4964156233986888
- cov_72_437: frac[0,437] >= 0.4964156233986888
- cov_73_437: frac[0,437] >= 0.4964156233986888
- cov_74_437: frac[0,437] >= 0.4964156233986888
- cov_75_449: frac[0,449] >= 0.4928312467973778
- cov_76_449: frac[0,449] >= 0.4928312467973778
- cov_77_460: frac[0,460] >= 0.3928312467973776
- cov_78_460: frac[0,460] >= 0.3928312467973776
- accuracy_0_437: - 5.09765625 frac[0,437] + mem[0,437] = 0
- accuracy_0_115: - 5.09765625 frac[0,115] + mem[0,115] = 0
- accuracy_0_56: - 5.09765625 frac[0,56] + mem[0,56] = 0
- accuracy_0_82: - 5.09765625 frac[0,82] + mem[0,82] = 0
- accuracy_0_460: - 5.09765625 frac[0,460] + mem[0,460] = 0
- accuracy_0_164: - 5.09765625 frac[0,164] + mem[0,164] = 0
- accuracy_0_449: - 5.09765625 frac[0,449] + mem[0,449] = 0
- accuracy_0_379: - 5.09765625 frac[0,379] + mem[0,379] = 0
- accuracy_0_288: - 5.09765625 frac[0,288] + mem[0,288] = 0
- accuracy_0_346: - 5.09765625 frac[0,346] + mem[0,346] = 0
- accuracy_0_57: - 5.09765625 frac[0,57] + mem[0,57] = 0
- accuracy_0_178: - 5.09765625 frac[0,178] + mem[0,178] = 0
- accuracy_0_106: - 5.09765625 frac[0,106] + mem[0,106] = 0
- accuracy_0_95: - 5.09765625 frac[0,95] + mem[0,95] = 0
- accuracy_0_190: - 5.09765625 frac[0,190] + mem[0,190] = 0
- accuracy_0_168: - 5.09765625 frac[0,168] + mem[0,168] = 0
- accuracy_0_66: - 5.09765625 frac[0,66] + mem[0,66] = 0
- accuracy_0_55: - 5.09765625 frac[0,55] + mem[0,55] = 0
- accuracy_0_278: - 5.09765625 frac[0,278] + mem[0,278] = 0
- accuracy_0_245: - 5.09765625 frac[0,245] + mem[0,245] = 0
- accuracy_0_202: - 5.09765625 frac[0,202] + mem[0,202] = 0
- accuracy_0_191: - 5.09765625 frac[0,191] + mem[0,191] = 0
- accuracy_0_425: - 5.09765625 frac[0,425] + mem[0,425] = 0
- accuracy_0_286: - 5.09765625 frac[0,286] + mem[0,286] = 0
- accuracy_0_1: - 5.09765625 frac[0,1] + mem[0,1] = 0
- accuracy_0_46: - 5.09765625 frac[0,46] + mem[0,46] = 0
- accuracy_0_141: - 5.09765625 frac[0,141] + mem[0,141] = 0
- accuracy_0_423: - 5.09765625 frac[0,423] + mem[0,423] = 0
- accuracy_0_9: - 5.09765625 frac[0,9] + mem[0,9] = 0
- accuracy_0_254: - 5.09765625 frac[0,254] + mem[0,254] = 0
- accuracy_0_419: - 5.09765625 frac[0,419] + mem[0,419] = 0
- accuracy_0_130: - 5.09765625 frac[0,130] + mem[0,130] = 0
- mem_tot_l2_P4: - mem[0,437] - mem[0,115] - mem[0,56] - mem[0,82]
-   - mem[0,460] - mem[0,164] - mem[0,449] - mem[0,379] - mem[0,288]
-   - mem[0,346] - mem[0,57] - mem[0,178] - mem[0,106] - mem[0,95]
-   - mem[0,190] - mem[0,168] - mem[0,66] - mem[0,55] - mem[0,278]
-   - mem[0,245] - mem[0,202] - mem[0,191] - mem[0,425] - mem[0,286]
-   - mem[0,1] - mem[0,46] - mem[0,141] - mem[0,423] - mem[0,9] - mem[0,254]
-   - mem[0,419] - mem[0,130] + mem_tot_l2_P4 = 0
- R112: - 0.00173611111111111 mem_tot_l2_P4 + normalized_mem_tot_l2_P4 = 0
- rows_tot_l2_P4: - 3 frac[0,437] - 3 frac[0,115] - 3 frac[0,56]
-   - 3 frac[0,82] - 3 frac[0,460] - 3 frac[0,164] - 3 frac[0,449]
-   - 3 frac[0,379] - 3 frac[0,288] - 3 frac[0,346] - 3 frac[0,57]
-   - 3 frac[0,178] - 3 frac[0,106] - 3 frac[0,95] - 3 frac[0,190]
-   - 3 frac[0,168] - 3 frac[0,66] - 3 frac[0,55] - 3 frac[0,278]
-   - 3 frac[0,245] - 3 frac[0,202] - 3 frac[0,191] - 3 frac[0,425]
-   - 3 frac[0,286] - 3 frac[0,1] - 3 frac[0,46] - 3 frac[0,141]
-   - 3 frac[0,423] - 3 frac[0,9] - 3 frac[0,254] - 3 frac[0,419]
-   - 3 frac[0,130] + rows_tot_l2_P4 = 0
- R114: - 0.0208333333333333 rows_tot_l2_P4 + normalized_rows_tot_l2_P4 = 0
- row_capacity_l2_P4: rows_tot_l2_P4 <= 48
+ cov_0_3: frac[18,3] >= 0.2035843766013112
+ cov_1_3: frac[18,3] >= 0.2035843766013112
+ cov_2_35: frac[10,35] >= 0.2035843766013111
+ cov_3_35: frac[10,35] >= 0.2035843766013111
+ cov_4_50: frac[13,50] >= 0.2035843766013112
+ cov_5_50: frac[13,50] >= 0.2035843766013112
+ cov_6_72: frac[21,72] >= 0.2035843766013112
+ cov_7_142: frac[7,142] >= 0.2035843766013112
+ cov_8_142: frac[7,142] >= 0.2035843766013112
+ cov_9_154: frac[0,154] >= 0.2035843766013112
+ cov_10_154: frac[0,154] >= 0.2035843766013112
+ cov_11_202: frac[20,202] + frac[1,202] >= 0.4071687532026223
+ cov_12_202: frac[1,202] >= 0.2035843766013111
+ cov_13_208: frac[14,208] >= 0.2
+ cov_14_208: frac[14,208] >= 0.2
+ cov_15_211: frac[14,211] >= 0.00358437660131122
+ cov_16_243: frac[2,243] >= 0.2035843766013112
+ cov_17_243: frac[2,243] >= 0.2035843766013112
+ cov_18_259: frac[12,259] >= 0.2035843766013112
+ cov_19_259: frac[12,259] >= 0.2035843766013112
+ cov_20_259: frac[12,259] >= 0.2035843766013112
+ cov_21_259: frac[12,259] >= 0.2035843766013112
+ cov_22_278: frac[9,278] >= 0.1035843766013111
+ cov_23_277: frac[9,277] >= 0.1
+ cov_24_277: frac[9,277] >= 0.1
+ cov_25_432: frac[4,432] >= 0.2035843766013112
+ cov_26_437: frac[16,437] >= 0.2035843766013112
+ cov_27_437: frac[16,437] >= 0.2035843766013112
+ cov_28_457: frac[8,457] >= 0.1
+ cov_29_464: frac[17,464] >= 0.00301022
+ cov_30_472: frac[3,472] >= 0.2035843766013112
+ accuracy_14_211: - 5.09765625 frac[14,211] + mem[14,211] = 0
+ accuracy_9_278: - 5.09765625 frac[9,278] + mem[9,278] = 0
+ accuracy_20_202: - 5.09765625 frac[20,202] + mem[20,202] = 0
+ accuracy_13_50: - 5.09765625 frac[13,50] + mem[13,50] = 0
+ accuracy_14_208: - 5.09765625 frac[14,208] + mem[14,208] = 0
+ accuracy_9_277: - 5.09765625 frac[9,277] + mem[9,277] = 0
+ accuracy_4_432: - 5.09765625 frac[4,432] + mem[4,432] = 0
+ accuracy_10_35: - 5.09765625 frac[10,35] + mem[10,35] = 0
+ accuracy_12_259: - 5.09765625 frac[12,259] + mem[12,259] = 0
+ accuracy_7_142: - 5.09765625 frac[7,142] + mem[7,142] = 0
+ accuracy_2_243: - 5.09765625 frac[2,243] + mem[2,243] = 0
+ accuracy_8_457: - 5.09765625 frac[8,457] + mem[8,457] = 0
+ accuracy_17_464: - 5.09765625 frac[17,464] + mem[17,464] = 0
+ accuracy_3_472: - 5.09765625 frac[3,472] + mem[3,472] = 0
+ accuracy_18_3: - 5.09765625 frac[18,3] + mem[18,3] = 0
+ accuracy_0_154: - 5.09765625 frac[0,154] + mem[0,154] = 0
+ accuracy_21_72: - 5.09765625 frac[21,72] + mem[21,72] = 0
+ accuracy_16_437: - 5.09765625 frac[16,437] + mem[16,437] = 0
+ accuracy_1_202: - 5.09765625 frac[1,202] + mem[1,202] = 0
+ mem_tot_CPU626: - mem[0,154] + mem_tot_CPU626 = 0
+ R51: - 3.05176e-05 mem_tot_CPU626 + normalized_mem_tot_CPU626 = 0
+ rows_tot_CPU626: - 3 frac[0,154] + rows_tot_CPU626 = 0
+ R53: - 0.0833333333333333 rows_tot_CPU626 + normalized_rows_tot_CPU626
+   = 0
+ mem_tot_CPU631: - mem[1,202] + mem_tot_CPU631 = 0
+ R55: - 3.05176e-05 mem_tot_CPU631 + normalized_mem_tot_CPU631 = 0
+ rows_tot_CPU631: - 3 frac[1,202] + rows_tot_CPU631 = 0
+ R57: - 0.0833333333333333 rows_tot_CPU631 + normalized_rows_tot_CPU631
+   = 0
+ mem_tot_CPU632: - mem[2,243] + mem_tot_CPU632 = 0
+ R59: - 3.05176e-05 mem_tot_CPU632 + normalized_mem_tot_CPU632 = 0
+ rows_tot_CPU632: - 3 frac[2,243] + rows_tot_CPU632 = 0
+ R61: - 0.0833333333333333 rows_tot_CPU632 + normalized_rows_tot_CPU632
+   = 0
+ mem_tot_CPU633: - mem[3,472] + mem_tot_CPU633 = 0
+ R63: - 3.05176e-05 mem_tot_CPU633 + normalized_mem_tot_CPU633 = 0
+ rows_tot_CPU633: - 3 frac[3,472] + rows_tot_CPU633 = 0
+ R65: - 0.0833333333333333 rows_tot_CPU633 + normalized_rows_tot_CPU633
+   = 0
+ mem_tot_CPU635: - mem[4,432] + mem_tot_CPU635 = 0
+ R67: - 3.05176e-05 mem_tot_CPU635 + normalized_mem_tot_CPU635 = 0
+ rows_tot_CPU635: - 3 frac[4,432] + rows_tot_CPU635 = 0
+ R69: - 0.0833333333333333 rows_tot_CPU635 + normalized_rows_tot_CPU635
+   = 0
+ mem_tot_CPU639: mem_tot_CPU639 = 0
+ R71: - 3.05176e-05 mem_tot_CPU639 + normalized_mem_tot_CPU639 = 0
+ rows_tot_CPU639: rows_tot_CPU639 = 0
+ R73: - 0.0833333333333333 rows_tot_CPU639 + normalized_rows_tot_CPU639
+   = 0
+ mem_tot_CPU640: mem_tot_CPU640 = 0
+ R75: - 3.05176e-05 mem_tot_CPU640 + normalized_mem_tot_CPU640 = 0
+ rows_tot_CPU640: rows_tot_CPU640 = 0
+ R77: - 0.0833333333333333 rows_tot_CPU640 + normalized_rows_tot_CPU640
+   = 0
+ mem_tot_CPU642: - mem[7,142] + mem_tot_CPU642 = 0
+ R79: - 3.05176e-05 mem_tot_CPU642 + normalized_mem_tot_CPU642 = 0
+ rows_tot_CPU642: - 3 frac[7,142] + rows_tot_CPU642 = 0
+ R81: - 0.0833333333333333 rows_tot_CPU642 + normalized_rows_tot_CPU642
+   = 0
+ mem_tot_CPU643: - mem[8,457] + mem_tot_CPU643 = 0
+ R83: - 3.05176e-05 mem_tot_CPU643 + normalized_mem_tot_CPU643 = 0
+ rows_tot_CPU643: - 3 frac[8,457] + rows_tot_CPU643 = 0
+ R85: - 0.0833333333333333 rows_tot_CPU643 + normalized_rows_tot_CPU643
+   = 0
+ mem_tot_CPU645: - mem[9,278] - mem[9,277] + mem_tot_CPU645 = 0
+ R87: - 3.05176e-05 mem_tot_CPU645 + normalized_mem_tot_CPU645 = 0
+ rows_tot_CPU645: - 3 frac[9,278] - 3 frac[9,277] + rows_tot_CPU645 = 0
+ R89: - 0.0833333333333333 rows_tot_CPU645 + normalized_rows_tot_CPU645
+   = 0
+ mem_tot_CPU651: - mem[10,35] + mem_tot_CPU651 = 0
+ R91: - 3.05176e-05 mem_tot_CPU651 + normalized_mem_tot_CPU651 = 0
+ rows_tot_CPU651: - 3 frac[10,35] + rows_tot_CPU651 = 0
+ R93: - 0.0833333333333333 rows_tot_CPU651 + normalized_rows_tot_CPU651
+   = 0
+ mem_tot_CPU653: mem_tot_CPU653 = 0
+ R95: - 3.05176e-05 mem_tot_CPU653 + normalized_mem_tot_CPU653 = 0
+ rows_tot_CPU653: rows_tot_CPU653 = 0
+ R97: - 0.0833333333333333 rows_tot_CPU653 + normalized_rows_tot_CPU653
+   = 0
+ mem_tot_CPU655: - mem[12,259] + mem_tot_CPU655 = 0
+ R99: - 3.05176e-05 mem_tot_CPU655 + normalized_mem_tot_CPU655 = 0
+ rows_tot_CPU655: - 3 frac[12,259] + rows_tot_CPU655 = 0
+ R101: - 0.0833333333333333 rows_tot_CPU655 + normalized_rows_tot_CPU655
+   = 0
+ mem_tot_CPU656: - mem[13,50] + mem_tot_CPU656 = 0
+ R103: - 3.05176e-05 mem_tot_CPU656 + normalized_mem_tot_CPU656 = 0
+ rows_tot_CPU656: - 3 frac[13,50] + rows_tot_CPU656 = 0
+ R105: - 0.0833333333333333 rows_tot_CPU656 + normalized_rows_tot_CPU656
+   = 0
+ mem_tot_CPU657: - mem[14,211] - mem[14,208] + mem_tot_CPU657 = 0
+ R107: - 3.05176e-05 mem_tot_CPU657 + normalized_mem_tot_CPU657 = 0
+ rows_tot_CPU657: - 3 frac[14,211] - 3 frac[14,208] + rows_tot_CPU657 = 0
+ R109: - 0.0833333333333333 rows_tot_CPU657 + normalized_rows_tot_CPU657
+   = 0
+ mem_tot_CPU659: mem_tot_CPU659 = 0
+ R111: - 3.05176e-05 mem_tot_CPU659 + normalized_mem_tot_CPU659 = 0
+ rows_tot_CPU659: rows_tot_CPU659 = 0
+ R113: - 0.0833333333333333 rows_tot_CPU659 + normalized_rows_tot_CPU659
+   = 0
+ mem_tot_CPU660: - mem[16,437] + mem_tot_CPU660 = 0
+ R115: - 3.05176e-05 mem_tot_CPU660 + normalized_mem_tot_CPU660 = 0
+ rows_tot_CPU660: - 3 frac[16,437] + rows_tot_CPU660 = 0
+ R117: - 0.0833333333333333 rows_tot_CPU660 + normalized_rows_tot_CPU660
+   = 0
+ mem_tot_CPU666: - mem[17,464] + mem_tot_CPU666 = 0
+ R119: - 3.05176e-05 mem_tot_CPU666 + normalized_mem_tot_CPU666 = 0
+ rows_tot_CPU666: - 3 frac[17,464] + rows_tot_CPU666 = 0
+ R121: - 0.0833333333333333 rows_tot_CPU666 + normalized_rows_tot_CPU666
+   = 0
+ mem_tot_CPU668: - mem[18,3] + mem_tot_CPU668 = 0
+ R123: - 3.05176e-05 mem_tot_CPU668 + normalized_mem_tot_CPU668 = 0
+ rows_tot_CPU668: - 3 frac[18,3] + rows_tot_CPU668 = 0
+ R125: - 0.0833333333333333 rows_tot_CPU668 + normalized_rows_tot_CPU668
+   = 0
+ mem_tot_CPU669: mem_tot_CPU669 = 0
+ R127: - 3.05176e-05 mem_tot_CPU669 + normalized_mem_tot_CPU669 = 0
+ rows_tot_CPU669: rows_tot_CPU669 = 0
+ R129: - 0.0833333333333333 rows_tot_CPU669 + normalized_rows_tot_CPU669
+   = 0
+ mem_tot_CPU670: - mem[20,202] + mem_tot_CPU670 = 0
+ R131: - 3.05176e-05 mem_tot_CPU670 + normalized_mem_tot_CPU670 = 0
+ rows_tot_CPU670: - 3 frac[20,202] + rows_tot_CPU670 = 0
+ R133: - 0.0833333333333333 rows_tot_CPU670 + normalized_rows_tot_CPU670
+   = 0
+ mem_tot_CPU672: - mem[21,72] + mem_tot_CPU672 = 0
+ R135: - 3.05176e-05 mem_tot_CPU672 + normalized_mem_tot_CPU672 = 0
+ rows_tot_CPU672: - 3 frac[21,72] + rows_tot_CPU672 = 0
+ R137: - 0.0833333333333333 rows_tot_CPU672 + normalized_rows_tot_CPU672
+   = 0
+ row_capacity_CPU626: rows_tot_CPU626 <= 12
+ row_capacity_CPU631: rows_tot_CPU631 <= 12
+ row_capacity_CPU632: rows_tot_CPU632 <= 12
+ row_capacity_CPU633: rows_tot_CPU633 <= 12
+ row_capacity_CPU635: rows_tot_CPU635 <= 12
+ row_capacity_CPU639: rows_tot_CPU639 <= 12
+ row_capacity_CPU640: rows_tot_CPU640 <= 12
+ row_capacity_CPU642: rows_tot_CPU642 <= 12
+ row_capacity_CPU643: rows_tot_CPU643 <= 12
+ row_capacity_CPU645: rows_tot_CPU645 <= 12
+ row_capacity_CPU651: rows_tot_CPU651 <= 12
+ row_capacity_CPU653: rows_tot_CPU653 <= 12
+ row_capacity_CPU655: rows_tot_CPU655 <= 12
+ row_capacity_CPU656: rows_tot_CPU656 <= 12
+ row_capacity_CPU657: rows_tot_CPU657 <= 12
+ row_capacity_CPU659: rows_tot_CPU659 <= 12
+ row_capacity_CPU660: rows_tot_CPU660 <= 12
+ row_capacity_CPU666: rows_tot_CPU666 <= 12
+ row_capacity_CPU668: rows_tot_CPU668 <= 12
+ row_capacity_CPU669: rows_tot_CPU669 <= 12
+ row_capacity_CPU670: rows_tot_CPU670 <= 12
+ row_capacity_CPU672: rows_tot_CPU672 <= 12
 Bounds
- frac[0,437] <= 1
- frac[0,115] <= 1
- frac[0,56] <= 1
- frac[0,82] <= 1
- frac[0,460] <= 1
- frac[0,164] <= 1
- frac[0,449] <= 1
- frac[0,379] <= 1
- frac[0,288] <= 1
- frac[0,346] <= 1
- frac[0,57] <= 1
- frac[0,178] <= 1
- frac[0,106] <= 1
- frac[0,95] <= 1
- frac[0,190] <= 1
- frac[0,168] <= 1
- frac[0,66] <= 1
- frac[0,55] <= 1
- frac[0,278] <= 1
- frac[0,245] <= 1
- frac[0,202] <= 1
- frac[0,191] <= 1
- frac[0,425] <= 1
- frac[0,286] <= 1
- frac[0,1] <= 1
- frac[0,46] <= 1
- frac[0,141] <= 1
- frac[0,423] <= 1
- frac[0,9] <= 1
- frac[0,254] <= 1
- frac[0,419] <= 1
- frac[0,130] <= 1
- mem_tot_l2_P4 <= 576
- normalized_mem_tot_l2_P4 <= 1
- normalized_rows_tot_l2_P4 <= 1
+ frac[14,211] <= 1
+ frac[9,278] <= 1
+ frac[20,202] <= 1
+ frac[13,50] <= 1
+ frac[14,208] <= 1
+ frac[9,277] <= 1
+ frac[4,432] <= 1
+ frac[10,35] <= 1
+ frac[12,259] <= 1
+ frac[7,142] <= 1
+ frac[2,243] <= 1
+ frac[8,457] <= 1
+ frac[17,464] <= 1
+ frac[3,472] <= 1
+ frac[18,3] <= 1
+ frac[0,154] <= 1
+ frac[21,72] <= 1
+ frac[16,437] <= 1
+ frac[1,202] <= 1
+ mem_tot_CPU626 <= 32768
+ normalized_mem_tot_CPU626 <= 1
+ normalized_rows_tot_CPU626 <= 1
+ mem_tot_CPU631 <= 32768
+ normalized_mem_tot_CPU631 <= 1
+ normalized_rows_tot_CPU631 <= 1
+ mem_tot_CPU632 <= 32768
+ normalized_mem_tot_CPU632 <= 1
+ normalized_rows_tot_CPU632 <= 1
+ mem_tot_CPU633 <= 32768
+ normalized_mem_tot_CPU633 <= 1
+ normalized_rows_tot_CPU633 <= 1
+ mem_tot_CPU635 <= 32768
+ normalized_mem_tot_CPU635 <= 1
+ normalized_rows_tot_CPU635 <= 1
+ mem_tot_CPU639 <= 32768
+ normalized_mem_tot_CPU639 <= 1
+ normalized_rows_tot_CPU639 <= 1
+ mem_tot_CPU640 <= 32768
+ normalized_mem_tot_CPU640 <= 1
+ normalized_rows_tot_CPU640 <= 1
+ mem_tot_CPU642 <= 32768
+ normalized_mem_tot_CPU642 <= 1
+ normalized_rows_tot_CPU642 <= 1
+ mem_tot_CPU643 <= 32768
+ normalized_mem_tot_CPU643 <= 1
+ normalized_rows_tot_CPU643 <= 1
+ mem_tot_CPU645 <= 32768
+ normalized_mem_tot_CPU645 <= 1
+ normalized_rows_tot_CPU645 <= 1
+ mem_tot_CPU651 <= 32768
+ normalized_mem_tot_CPU651 <= 1
+ normalized_rows_tot_CPU651 <= 1
+ mem_tot_CPU653 <= 32768
+ normalized_mem_tot_CPU653 <= 1
+ normalized_rows_tot_CPU653 <= 1
+ mem_tot_CPU655 <= 32768
+ normalized_mem_tot_CPU655 <= 1
+ normalized_rows_tot_CPU655 <= 1
+ mem_tot_CPU656 <= 32768
+ normalized_mem_tot_CPU656 <= 1
+ normalized_rows_tot_CPU656 <= 1
+ mem_tot_CPU657 <= 32768
+ normalized_mem_tot_CPU657 <= 1
+ normalized_rows_tot_CPU657 <= 1
+ mem_tot_CPU659 <= 32768
+ normalized_mem_tot_CPU659 <= 1
+ normalized_rows_tot_CPU659 <= 1
+ mem_tot_CPU660 <= 32768
+ normalized_mem_tot_CPU660 <= 1
+ normalized_rows_tot_CPU660 <= 1
+ mem_tot_CPU666 <= 32768
+ normalized_mem_tot_CPU666 <= 1
+ normalized_rows_tot_CPU666 <= 1
+ mem_tot_CPU668 <= 32768
+ normalized_mem_tot_CPU668 <= 1
+ normalized_rows_tot_CPU668 <= 1
+ mem_tot_CPU669 <= 32768
+ normalized_mem_tot_CPU669 <= 1
+ normalized_rows_tot_CPU669 <= 1
+ mem_tot_CPU670 <= 32768
+ normalized_mem_tot_CPU670 <= 1
+ normalized_rows_tot_CPU670 <= 1
+ mem_tot_CPU672 <= 32768
+ normalized_mem_tot_CPU672 <= 1
+ normalized_rows_tot_CPU672 <= 1
 General Constraints
- mem_overall_P4: max_mem_P4 = MAX ( mem_tot_l2_P4 )
- rows_overall_P4: max_rows_P4 = MAX ( rows_tot_l2_P4 )
+ mem_overall_CPU_Cluster: max_mem_CPU_Cluster = MAX (
+   normalized_mem_tot_CPU626 , normalized_mem_tot_CPU631 ,
+   normalized_mem_tot_CPU632 , normalized_mem_tot_CPU633 ,
+   normalized_mem_tot_CPU635 , normalized_mem_tot_CPU639 ,
+   normalized_mem_tot_CPU640 , normalized_mem_tot_CPU642 ,
+   normalized_mem_tot_CPU643 , normalized_mem_tot_CPU645 ,
+   normalized_mem_tot_CPU651 , normalized_mem_tot_CPU653 ,
+   normalized_mem_tot_CPU655 , normalized_mem_tot_CPU656 ,
+   normalized_mem_tot_CPU657 , normalized_mem_tot_CPU659 ,
+   normalized_mem_tot_CPU660 , normalized_mem_tot_CPU666 ,
+   normalized_mem_tot_CPU668 , normalized_mem_tot_CPU669 ,
+   normalized_mem_tot_CPU670 , normalized_mem_tot_CPU672 )
+ rows_overall_CPU: max_rows_CPU_Cluster = MAX (
+   normalized_rows_tot_CPU626 , normalized_rows_tot_CPU631 ,
+   normalized_rows_tot_CPU632 , normalized_rows_tot_CPU633 ,
+   normalized_rows_tot_CPU635 , normalized_rows_tot_CPU639 ,
+   normalized_rows_tot_CPU640 , normalized_rows_tot_CPU642 ,
+   normalized_rows_tot_CPU643 , normalized_rows_tot_CPU645 ,
+   normalized_rows_tot_CPU651 , normalized_rows_tot_CPU653 ,
+   normalized_rows_tot_CPU655 , normalized_rows_tot_CPU656 ,
+   normalized_rows_tot_CPU657 , normalized_rows_tot_CPU659 ,
+   normalized_rows_tot_CPU660 , normalized_rows_tot_CPU666 ,
+   normalized_rows_tot_CPU668 , normalized_rows_tot_CPU669 ,
+   normalized_rows_tot_CPU670 , normalized_rows_tot_CPU672 )
 End
