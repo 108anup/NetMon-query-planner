@@ -101,6 +101,18 @@ def get_graph(inp):
     return g
 
 
+def get_complete_graph(inp):
+    g = nx.MultiGraph()
+    g.add_nodes_from(range(len(inp.devices)))
+    for f in inp.flows:
+        p = f.path
+        n = len(p)
+        for i in range(n):
+            for j in range(i+1, n):
+                g.add_edge(p[i], p[j])
+    return g
+
+
 def remap_colors(colors):
     m = np.max(colors)
     freq = [0 for i in range(m+1)]
@@ -118,12 +130,15 @@ def remap_colors(colors):
     return remapped
 
 
-def draw_graph(G, colors):
+def draw_graph(G, colors, labels=None):
     colors = remap_colors(colors)
 
     plt.figure(figsize=(10, 10))
     pos = nx.spring_layout(G)
-    nx.draw(G, pos, node_color=colors)
+    if(labels):
+        temp = {x: labels[x] for x in G.nodes}
+        labels = temp
+    nx.draw(G, pos, node_color=colors, labels=labels)
     plt.show()
 
 
@@ -139,11 +154,22 @@ def dfs(nodes, data):
             dfs(n, data)
 
 
+def get_labels_from_overlay(inp, overlay):
+    data = Namespace(color=-1, node_colors=list(range(len(inp.devices))))
+    dfs(overlay, data)
+    return data.node_colors
+
+
+def draw_overlay_over_tenant(inp):
+    node_labels = get_labels_from_overlay(inp, inp.tenant_overlay)
+    node_colors = get_labels_from_overlay(inp, inp.overlay)
+    g = get_graph(inp)
+    draw_graph(g, node_colors, node_labels)
+
+
 def draw_overlay(inp):
     g = get_graph(inp)
-    node_colors = list(g.nodes)
-    data = Namespace(color=-1, node_colors=node_colors)
-    dfs(inp.overlay, data)
+    node_colors = get_labels_from_overlay(inp, inp.overlay)
 
     # # Assuming overlay is list of lists
     # color = 0
@@ -152,7 +178,7 @@ def draw_overlay(inp):
     #         node_colors[x] = color
     #     color += 1
 
-    draw_graph(g, data.node_colors)
+    draw_graph(g, node_colors)
 
 
 def check_symmetric(a, rtol=1e-05, atol=1e-08):
@@ -175,8 +201,12 @@ def UnnormalizedSpectral(W, nc=2):
     return r
 
 
-def get_spectral_overlay(inp, comp={}, normalized=True):
-    g = get_graph(inp)
+def get_spectral_overlay(inp, comp={}, normalized=True, affinity=False):
+    if(affinity):
+        g = get_complete_graph(inp)
+    else:
+        g = get_graph(inp)
+
     overlay = []
 
     num_comp = 0
@@ -189,7 +219,7 @@ def get_spectral_overlay(inp, comp={}, normalized=True):
         i2n = list(cg.nodes)
         if(len(i2n) > 1):
             adj = nx.adjacency_matrix(cg)
-            nc = 4 * math.ceil(len(i2n)
+            nc = 2 * math.ceil(len(i2n)
                                / common_config.max_devices_per_cluster)
             if(normalized):
                 sc = SpectralClustering(nc, affinity='precomputed',
@@ -250,6 +280,22 @@ def generate_overlay(nesting, start_idx=0):
         num_elements = np.prod(nesting[1:])
         return [generate_overlay(nesting[1:], start_idx + i*num_elements)
                 for i in range(nesting[0])]
+
+
+def merge(l, n=2):
+    ret = []
+    cur = []
+    itr = 0
+    for x in l:
+        cur += x
+        itr += 1
+        if(itr == n):
+            ret.append(cur)
+            cur = []
+            itr = 0
+    if(len(cur) > 0):
+        ret.append(cur)
+    return ret
 
 
 class Input(Namespace):
@@ -338,7 +384,13 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             servers = np.arange(hosts)
             np.random.shuffle(servers)
             tenant_servers = np.split(servers, num_tenants)
+
             inp.tenant_servers = tenant_servers
+            host_overlay = [x.tolist() for x in inp.tenant_servers]
+            if(hosts > 10000):
+                host_overlay = merge(host_overlay, 2)
+            inp.tenant_overlay = (host_overlay
+                                  + generate_overlay([tors + l1s + 1], hosts))
 
             for (tnum, t) in enumerate(tenant_servers):
                 query_set = [i + tnum*qs_len for i in range(qs_len)]
@@ -398,11 +450,20 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             host_overlay = get_spectral_overlay(
                 inp, comp=set(hosts + i for i in range(tors + l1s + 1)),
                 normalized=False)
+            inp.overlay = (host_overlay
+                           + generate_overlay([tors + l1s + 1], hosts))
+        if(overlay == 'spectralA'):
+            host_overlay = get_spectral_overlay(
+                inp,  # comp=set(hosts + i for i in range(tors + l1s + 1)),
+                affinity=True)
+            inp.overlay = host_overlay
         else:
             host_overlay = get_spectral_overlay(
                 inp, comp=set(hosts + i for i in range(tors + l1s + 1)))
-        inp.overlay = (host_overlay
-                       + generate_overlay([tors + l1s + 1], hosts))
+            inp.overlay = (host_overlay
+                           + generate_overlay([tors + l1s + 1], hosts))
+
+        # draw_overlay_over_tenant(inp)
         # if(tors <= 20):
         #     inp.overlay = (host_overlay
         #                    + generate_overlay([tors + l1s + 1], hosts))
@@ -414,10 +475,7 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
         #                    + generate_overlay([l1s + 1], hosts + tors))
 
     elif(overlay == 'tenant'):
-        assert(hasattr(inp, 'tenant_servers'))
-        host_overlay = [x.tolist() for x in inp.tenant_servers]
-        inp.overlay = (host_overlay
-                       + generate_overlay([tors + l1s + 1], hosts))
+        inp.overlay = inp.tenant_overlay
         # draw_overlay(inp)
 
     elif(overlay == 'random'):
@@ -776,7 +834,7 @@ input_generator = [
     # 24
     # Small tenant (100)
     dc_topology(hosts_per_tors=8, num_queries=8*2, tenant=True,
-                overlay='tenant'),
+                overlay='spectralA'),
 
     # 25
     # Large tenant (10K)

@@ -76,7 +76,7 @@ def combinations(l):
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [2, 10], [2, 4, 10], ['tenant'], [True, False]]
+        [[48], [2, 10], [4, 10], ['spectralA'], [True, False]]
     )
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
@@ -89,7 +89,7 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
 
     # Testing: overlay uncorrelated with tenants and traffic
 
-    # common_config.vertical_partition = True
+    common_config.vertical_partition = True
 
     m = Namespace()
     m.test_name = 'vary_topo_size_dc_topo_tenant'
