@@ -63,7 +63,7 @@ def remove_all_file_loggers():
 
 
 def add_file_logger(file_path):
-    file_handler = logging.FileHandler(file_path)
+    file_handler = logging.FileHandler(file_path, mode='w')
     file_handler.setLevel(logging.DEBUG)
     log.addHandler(file_handler)
 

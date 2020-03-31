@@ -7,7 +7,7 @@ import traceback
 from cli import generate_parser
 from common import Namespace, setup_logging, log_time, log
 from config import common_config
-from input import input_generator, get_spectral_overlay
+from input import input_generator
 from solvers import (refine_devices, solver_to_class, log_results,
                      log_placement, UnivmonGreedyRows, handle_infeasible_iis)
 from devices import Cluster
@@ -209,27 +209,32 @@ def solve(inp):
     Solver = solver_to_class[common_config.solver]
 
     # Cluster Refinement
+
     if(getattr(inp, 'refine', None)):
+        ov = False
+        if(common_config.solver == 'Netmon'):
+            ov = True
         solver = UnivmonGreedyRows(devices=inp.devices,
                                    partitions=inp.partitions,
                                    flows=inp.flows, queries=inp.queries,
-                                   overlay=True)
+                                   overlay=ov)
         solver.solve()
-        subproblems = get_subproblems(inp, solver)
+        if(common_config.solver == 'Netmon'):
+            subproblems = get_subproblems(inp, solver)
 
-        frac = tupledict()
-        for prob in subproblems:
-            sol = Solver(devices=prob.devices, partitions=prob.partitions,
-                         flows=prob.flows, queries=inp.queries,
-                         overlay=True)
-            sol.solve()
-            frac.update(sol.frac)
+            frac = tupledict()
+            for prob in subproblems:
+                sol = Solver(devices=prob.devices, partitions=prob.partitions,
+                             flows=prob.flows, queries=inp.queries,
+                             overlay=True)
+                sol.solve()
+                frac.update(sol.frac)
 
-        refine_devices(inp.devices)
-        log_results(inp.devices)
-        log_placement(inp.devices, inp.partitions, inp.flows,
-                      solver.dev_par_tuplelist, frac)
+            refine_devices(inp.devices)
 
+            log_results(inp.devices)
+            log_placement(inp.devices, inp.partitions, inp.flows,
+                          solver.dev_par_tuplelist, frac)
 
     # Clustering
     elif (getattr(inp, 'overlay', None)):

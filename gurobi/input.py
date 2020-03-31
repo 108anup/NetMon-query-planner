@@ -127,6 +127,34 @@ def draw_graph(G, colors):
     plt.show()
 
 
+# Only for tree (acyclic graph)
+def dfs(nodes, data):
+    data.color += 1
+    for n in nodes:
+        if(not isinstance(n, list)):
+            data.node_colors[n] = data.color
+
+    for n in nodes:
+        if(isinstance(n, list)):
+            dfs(n, data)
+
+
+def draw_overlay(inp):
+    g = get_graph(inp)
+    node_colors = list(g.nodes)
+    data = Namespace(color=-1, node_colors=node_colors)
+    dfs(inp.overlay, data)
+
+    # # Assuming overlay is list of lists
+    # color = 0
+    # for l in inp.overlay:
+    #     for x in l:
+    #         node_colors[x] = color
+    #     color += 1
+
+    draw_graph(g, data.node_colors)
+
+
 def check_symmetric(a, rtol=1e-05, atol=1e-08):
     return np.allclose(a, a.T, rtol=rtol, atol=atol)
 
@@ -310,6 +338,7 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             servers = np.arange(hosts)
             np.random.shuffle(servers)
             tenant_servers = np.split(servers, num_tenants)
+            inp.tenant_servers = tenant_servers
 
             for (tnum, t) in enumerate(tenant_servers):
                 query_set = [i + tnum*qs_len for i in range(qs_len)]
@@ -383,6 +412,13 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
         #     inp.overlay = (host_overlay
         #                    + generate_overlay([int(tors/20), 20], hosts)
         #                    + generate_overlay([l1s + 1], hosts + tors))
+
+    elif(overlay == 'tenant'):
+        assert(hasattr(inp, 'tenant_servers'))
+        host_overlay = [x.tolist() for x in inp.tenant_servers]
+        inp.overlay = (host_overlay
+                       + generate_overlay([tors + l1s + 1], hosts))
+        # draw_overlay(inp)
 
     elif(overlay == 'random'):
         ov = np.array(range(hosts))
@@ -740,7 +776,7 @@ input_generator = [
     # 24
     # Small tenant (100)
     dc_topology(hosts_per_tors=8, num_queries=8*2, tenant=True,
-                overlay='spectral'),
+                overlay='tenant'),
 
     # 25
     # Large tenant (10K)
@@ -769,8 +805,8 @@ input_generator = [
 
     # 28
     # Medium tenant (1K)
-    dc_topology(hosts_per_tors=48, tors_per_l1s=10,
-                l1s=4, num_queries=960, tenant=True,
-                overlay='tor', refine=True),
+    dc_topology(hosts_per_tors=48, tors_per_l1s=20,
+                l1s=10, num_queries=4800, tenant=True,
+                overlay='tenant', refine=True),
 
 ]

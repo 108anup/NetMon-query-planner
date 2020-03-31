@@ -72,8 +72,11 @@ def combinations(l):
 @pytest.mark.parametrize(
     "hosts_per_tors, tors_per_l1s, l1s, overlay, refine",
     # [(48, 20, 10, 'none')]
+    # combinations(
+    #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
+    # )
     combinations(
-        [[48], [2, 10, 20], [2, 4, 10], ['spectralU'], [False]]
+        [[48], [2, 10], [2, 4, 10], ['tenant'], [True, False]]
     )
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
@@ -86,7 +89,7 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
 
     # Testing: overlay uncorrelated with tenants and traffic
 
-    common_config.vertical_partition = True
+    # common_config.vertical_partition = True
 
     m = Namespace()
     m.test_name = 'vary_topo_size_dc_topo_tenant'
