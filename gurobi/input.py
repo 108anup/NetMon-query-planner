@@ -867,4 +867,10 @@ input_generator = [
                 l1s=10, num_queries=4800, tenant=True,
                 overlay='tenant', refine=True),
 
+    # 29
+    # Very Large (100K)
+    dc_topology(hosts_per_tors=48, tors_per_l1s=50,
+                l1s=20, num_queries=24000, tenant=True,
+                overlay='spectralA', refine=False),
+
 ]
