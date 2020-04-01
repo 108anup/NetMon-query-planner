@@ -200,6 +200,7 @@ def init_leaf_solution_to_cluster(solver, cluster):
 # TODO:: Handle disconnected graph in solver
 @log_time
 def solve(inp):
+    # import ipdb; ipdb.set_trace()
     start = time.time()
 
     for (dnum, d) in enumerate(inp.devices):

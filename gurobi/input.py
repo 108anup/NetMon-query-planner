@@ -301,6 +301,22 @@ def merge(l, n=2):
     return ret
 
 
+def fold(l, n=4):
+    ret = []
+    cur = []
+    itr = 0
+    for x in l:
+        cur.append(x)
+        itr += 1
+        if(itr == n):
+            ret.append(cur)
+            cur = []
+            itr = 0
+    if(len(cur) > 0):
+        ret.append(cur)
+    return ret
+
+
 class Input(Namespace):
 
     @property
@@ -312,6 +328,7 @@ class Input(Namespace):
         return _device_to_id
 
 
+@log_time
 def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
                 num_queries=80, eps=eps0, overlay='none', tenant=False,
                 refine=False):
@@ -390,8 +407,6 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
 
             inp.tenant_servers = tenant_servers
             host_overlay = [x.tolist() for x in inp.tenant_servers]
-            if(hosts > 10000):
-                host_overlay = merge(host_overlay, 2)
             inp.tenant_overlay = (host_overlay
                                   + generate_overlay([tors + l1s + 1], hosts))
 
@@ -467,6 +482,19 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
                            + generate_overlay([tors + l1s + 1], hosts))
 
         # draw_overlay_over_tenant(inp)
+
+    elif(overlay == 'tenant'):
+        host_overlay = [x.tolist() for x in inp.tenant_servers]
+        if(hosts > 10000):
+            host_overlay = merge(host_overlay, 2)
+            # TODO:: better way to do this!!
+            for i in range(tors):
+                host_overlay[i].append(hosts + i)
+            # tors_overlay = generate_overlay([int(tors/x), x], hosts)
+            host_overlay = fold(host_overlay, 1000)
+            inp.overlay = (host_overlay + generate_overlay([l1s + 1], hosts + tors))
+        else:
+            inp.overlay = (host_overlay + generate_overlay([tors + l1s + 1], hosts))
         # if(tors <= 20):
         #     inp.overlay = (host_overlay
         #                    + generate_overlay([tors + l1s + 1], hosts))
@@ -476,9 +504,6 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
         #     inp.overlay = (host_overlay
         #                    + generate_overlay([int(tors/20), 20], hosts)
         #                    + generate_overlay([l1s + 1], hosts + tors))
-
-    elif(overlay == 'tenant'):
-        inp.overlay = inp.tenant_overlay
         # draw_overlay(inp)
 
     elif(overlay == 'random'):
@@ -874,6 +899,6 @@ input_generator = [
     # Very Large (100K)
     dc_topology(hosts_per_tors=48, tors_per_l1s=50,
                 l1s=20, num_queries=24000, tenant=True,
-                overlay='spectralA', refine=False),
+                overlay='tenant', refine=False),
 
 ]
