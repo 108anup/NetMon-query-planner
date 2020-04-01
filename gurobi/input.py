@@ -6,7 +6,7 @@ import math
 import networkx as nx
 import matplotlib.pyplot as plt
 from sklearn.cluster import SpectralClustering, KMeans
-from common import Namespace, memoize
+from common import Namespace, memoize, log_time, log
 from devices import CPU, P4
 from flows import flow
 from sketches import cm_sketch
@@ -201,7 +201,10 @@ def UnnormalizedSpectral(W, nc=2):
     return r
 
 
+@log_time
 def get_spectral_overlay(inp, comp={}, normalized=True, affinity=False):
+    log.info("Buliding spectral overlay with {} devices"
+             .format(len(inp.devices)))
     if(affinity):
         g = get_complete_graph(inp)
     else:
