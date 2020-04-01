@@ -316,6 +316,7 @@ def solve(inp):
                         partitions=inp.partitions, queries=inp.queries,
                         overlay=False)
         solver.solve()
+        ret = None
         # TODO:: set ret
 
     # Move this outside this function

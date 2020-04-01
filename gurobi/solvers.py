@@ -659,6 +659,7 @@ class Netmon(UnivmonGreedyRows):
         self.m.update()
         # TODO:: Redundancy here. Consider running univmon at Obj init time
         self.m.optimize()
+
         (ns_max, _) = refine_devices(self.devices)
 
         log_placement(self.devices, self.partitions, self.flows,

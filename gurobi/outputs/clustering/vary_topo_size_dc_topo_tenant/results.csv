@@ -267,4 +267,13 @@ vary_topo_size_dc_topo_tenant, v-noinit, overlay=spectralA;total_devices=983;ref
 vary_topo_size_dc_topo_tenant, v-noinit, overlay=none;total_devices=983;refine=True;hosts_per_tors=48;tors_per_l1s=10;l1s=2, 93.333, 65445.172, 6512.999999999999, 960, 1875.912, 5.495679, 93.333, 59634.883, 5932.0, 960, 1874.192, 21.003654, 
 vary_topo_size_dc_topo_tenant, v-noinit, overlay=none;total_devices=1965;refine=False;hosts_per_tors=48;tors_per_l1s=10;l1s=4, 93.333, 131056.679, 13043.999999999998, 1920, 3670.251, 15.761264, 93.333, 131056.678, 13043.999999999998, 1920, 3670.244, 145.811911, 
 vary_topo_size_dc_topo_tenant, v-noinit, overlay=none;total_devices=4911;refine=False;hosts_per_tors=48;tors_per_l1s=10;l1s=10, 93.333, 329771.241, 32824.99999999999, 4800, 9053.256, 40.852638, 93.333, 329771.238, 32824.99999999999, 4800, 9053.237, 190.122761, 
+
+
 80.000, 2225929.224, 221921.0, 48000, 39920.383, 1619.753317, 80.000, 2387895.761, 238128.0, 48000, 39303.764, 3816.618244, 
+
+
+vary_topo_size_dc_topo_tenant, v-noinit, overlay=tenant;total_devices=1965;refine=False;hosts_per_tors=48;tors_per_l1s=10;l1s=4, 93.333, 131056.679, 13043.999999999998, 1920, 3670.251, 15.751081, 93.333, 124166.683, 12354.999999999998, 1920, 3670.251, 27.515095, 
+vary_topo_size_dc_topo_tenant, v-noinit, overlay=tenant;total_devices=1965;refine=False;hosts_per_tors=48;tors_per_l1s=10;l1s=4, 93.333, 131056.679, 13043.999999999998, 1920, 3670.251, 14.808695, 93.333, 124166.683, 12354.999999999998, 1920, 3670.251, 25.607264, 
+vary_topo_size_dc_topo_tenant, v-noinit, overlay=tenant;total_devices=39;refine=False;hosts_per_tors=8;tors_per_l1s=2;l1s=2, 98.000, 2252.673, 223.99999999999912, 32, 75.453, 0.122505, 98.000, 2252.673, 223.99999999999912, 32, 75.453, 0.097663, 
+vary_topo_size_dc_topo_tenant, v-noinit, overlay=tenant;total_devices=39;refine=False;hosts_per_tors=8;tors_per_l1s=2;l1s=2, 98.000, 2252.673, 223.99999999999912, 32, 75.453, 0.134442, 98.000, 2252.673, 223.99999999999912, 32, 75.453, 0.107824, 
+vary_topo_size_dc_topo_tenant, v-noinit, overlay=tenant;total_devices=39;refine=False;hosts_per_tors=8;tors_per_l1s=2;l1s=2, 87.500, 1970.532, 188.0, 32, 4031.756, 0.222451, 93.333, 2190.540, 209.99999999999997, 32, 4031.756, 0.352424, 

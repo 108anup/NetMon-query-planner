@@ -76,7 +76,7 @@ def combinations(l):
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [10], [4, 10], ['none'], [False]]
+        [[8], [2], [2], ['tenant'], [False]]
     )
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
@@ -85,7 +85,7 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
     inp = dc_topology(hosts_per_tors, tors_per_l1s, l1s,
                       num_queries=int(num_hosts/2),
                       overlay=overlay, tenant=True,
-                      refine=refine)
+                      refine=refine, eps=eps0/100)
 
     # Testing: overlay uncorrelated with tenants and traffic
 
