@@ -486,8 +486,8 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
     elif(overlay == 'tenant'):
         host_overlay = [x.tolist() for x in inp.tenant_servers]
         if(hosts > 10000):
-            host_overlay = merge(host_overlay, 20)
-            # leaves = hosts / 8 / 20
+            host_overlay = merge(host_overlay, 120)
+            # leaves = hosts / 8 / 120
             tors_per_leaf = math.ceil(tors / len(host_overlay))
 
             # TODO:: better way to do assign tors to clusters!!
