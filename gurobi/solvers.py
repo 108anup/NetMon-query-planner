@@ -5,7 +5,7 @@ import time
 import logging
 
 import gurobipy as gp
-from gurobipy import GRB, tuplelist
+from gurobipy import GRB, tuplelist, tupledict
 
 from common import log, Namespace, log_time, memoize
 from config import common_config
@@ -108,6 +108,11 @@ def refine_devices(devices):
 
         # TODO: Memoize for faster solution!
         # Also consider memoizing cluster solutions
+
+        # memo1 = tupledict()
+        # if((get_val(d.rows_tot), get_val(d.mem_tot)) in memo1):
+        #     for d in devices:
+
         # TODO: Alternate approach for removing side effects only
         # when necessary
 
@@ -460,8 +465,9 @@ class Univmon(MIP):
                     f.close()
                 return
 
-            refine_devices(self.devices)
-            log_results(self.devices, self.overlay)
+            if(not self.overlay):
+                refine_devices(self.devices)
+                log_results(self.devices, self.overlay)
 
         # else:
         #     prefixes = ['frac', 'mem\[']

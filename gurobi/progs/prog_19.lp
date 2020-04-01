@@ -1,69 +1,70 @@
-\ Model UnivmonGreedyRows
+\ Model Netmon
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  OBJ0: Priority=0 Weight=1 AbsTol=0 RelTol=0
-  
-  OBJ1: Priority=0 Weight=1 AbsTol=0 RelTol=0
-  
-  tot_rows_P4: Priority=80 Weight=1 AbsTol=0 RelTol=0
-   rows_tot_P4_0 + rows_tot_P4_1 + rows_tot_P4_2 + rows_tot_P4_3
-  P4_rows_load: Priority=70 Weight=1 AbsTol=0 RelTol=0
-   max_rows_P4
-  OBJ4: Priority=0 Weight=1 AbsTol=0 RelTol=0
-  
-  OBJ5: Priority=0 Weight=1 AbsTol=0 RelTol=0
-  
-  tot_mem_P4: Priority=40 Weight=1 AbsTol=0 RelTol=0
-   mem_tot_P4_0 + mem_tot_P4_1 + mem_tot_P4_2 + mem_tot_P4_3
-  P4_load_mem: Priority=30 Weight=1 AbsTol=0 RelTol=0
-   max_mem_P4
+  res: Priority=10 Weight=1 AbsTol=0 RelTol=0
+   0 max_mem_P4 + 0 max_rows_P4 + res
 Subject To
- cov_0_1: frac[0,1] + frac[1,1] >= 0.3559835566142286
- cov_0_0: frac[0,0] + frac[1,0] >= 1
- cov_1_1: frac[2,1] + frac[1,1] >= 0.3559835566142286
- cov_1_0: frac[2,0] + frac[1,0] >= 1
- cov_2_1: frac[3,1] + frac[2,1] >= 0.3559835566142286
- cov_2_0: frac[3,0] + frac[2,0] >= 1
- cov_3_1: frac[3,1] >= 0.3559835566142286
- cov_3_0: frac[3,0] >= 1
- cov_4_1: frac[0,1] >= 0.3559835566142286
- cov_4_0: frac[0,0] >= 1
- accuracy_0_1: - 1698.9296875 frac[0,1] + mem[0,1] = 0
- accuracy_0_0: - 1698.9296875 frac[0,0] + mem[0,0] = 0
- accuracy_3_0: - 1698.9296875 frac[3,0] + mem[3,0] = 0
- accuracy_3_1: - 1698.9296875 frac[3,1] + mem[3,1] = 0
- accuracy_2_1: - 1698.9296875 frac[2,1] + mem[2,1] = 0
- accuracy_2_0: - 1698.9296875 frac[2,0] + mem[2,0] = 0
- accuracy_1_0: - 1698.9296875 frac[1,0] + mem[1,0] = 0
- accuracy_1_1: - 1698.9296875 frac[1,1] + mem[1,1] = 0
- mem_tot_P4_0: - mem[0,1] - mem[0,0] + mem_tot_P4_0 = 0
- rows_tot_P4_0: - frac[0,1] - frac[0,0] + rows_tot_P4_0 = 0
- mem_tot_P4_1: - mem[1,0] - mem[1,1] + mem_tot_P4_1 = 0
- rows_tot_P4_1: - frac[1,0] - frac[1,1] + rows_tot_P4_1 = 0
- mem_tot_P4_2: - mem[2,1] - mem[2,0] + mem_tot_P4_2 = 0
- rows_tot_P4_2: - frac[2,1] - frac[2,0] + rows_tot_P4_2 = 0
- mem_tot_P4_3: - mem[3,0] - mem[3,1] + mem_tot_P4_3 = 0
- rows_tot_P4_3: - frac[3,0] - frac[3,1] + rows_tot_P4_3 = 0
- tot_mem: - mem_tot_P4_0 - mem_tot_P4_1 - mem_tot_P4_2 - mem_tot_P4_3
-   + tot_mem = 0
- tot_rows: - rows_tot_P4_0 - rows_tot_P4_1 - rows_tot_P4_2 - rows_tot_P4_3
-   + tot_rows = 0
+ cov_0_0: frac[0,0] >= 2.5e-05
+ cov_1_0: frac[1,0] + frac[0,0] >= 2.5e-05
+ cov_2_0: frac[2,0] + frac[1,0] >= 2.5e-05
+ cov_3_0: frac[3,0] + frac[2,0] >= 2.5e-05
+ cov_4_0: frac[3,0] >= 2.5e-05
+ accuracy_3_0: - 5096.7890625 frac[3,0] + mem[3,0] = 0
+ accuracy_2_0: - 5096.7890625 frac[2,0] + mem[2,0] = 0
+ accuracy_1_0: - 5096.7890625 frac[1,0] + mem[1,0] = 0
+ accuracy_0_0: - 5096.7890625 frac[0,0] + mem[0,0] = 0
+ mem_tot_P4_16: - mem[0,0] + mem_tot_P4_16 = 0
+ R10: - 0.00173611111111111 mem_tot_P4_16 + normalized_mem_tot_P4_16 = 0
+ rows_tot_P4_16: - 3 frac[0,0] + rows_tot_P4_16 = 0
+ R12: - 0.0208333333333333 rows_tot_P4_16 + normalized_rows_tot_P4_16 = 0
+ mem_tot_P4_17: - mem[1,0] + mem_tot_P4_17 = 0
+ R14: - 0.00173611111111111 mem_tot_P4_17 + normalized_mem_tot_P4_17 = 0
+ rows_tot_P4_17: - 3 frac[1,0] + rows_tot_P4_17 = 0
+ R16: - 0.0208333333333333 rows_tot_P4_17 + normalized_rows_tot_P4_17 = 0
+ mem_tot_P4_18: - mem[2,0] + mem_tot_P4_18 = 0
+ R18: - 0.00173611111111111 mem_tot_P4_18 + normalized_mem_tot_P4_18 = 0
+ rows_tot_P4_18: - 3 frac[2,0] + rows_tot_P4_18 = 0
+ R20: - 0.0208333333333333 rows_tot_P4_18 + normalized_rows_tot_P4_18 = 0
+ mem_tot_P4_19: - mem[3,0] + mem_tot_P4_19 = 0
+ R22: - 0.00173611111111111 mem_tot_P4_19 + normalized_mem_tot_P4_19 = 0
+ rows_tot_P4_19: - 3 frac[3,0] + rows_tot_P4_19 = 0
+ R24: - 0.0208333333333333 rows_tot_P4_19 + normalized_rows_tot_P4_19 = 0
+ row_capacity_P4_16: rows_tot_P4_16 <= 48
+ row_capacity_P4_17: rows_tot_P4_17 <= 48
+ row_capacity_P4_18: rows_tot_P4_18 <= 48
+ row_capacity_P4_19: rows_tot_P4_19 <= 48
+ ns_P4_16: ns_P4_16 = 6.756756756756757
+ max_ns_P4_16: ns_P4_16 <= 6.756756756756757
+ ns_P4_17: ns_P4_17 = 6.756756756756757
+ max_ns_P4_17: ns_P4_17 <= 6.756756756756757
+ ns_P4_18: ns_P4_18 = 6.756756756756757
+ max_ns_P4_18: ns_P4_18 <= 6.756756756756757
+ ns_P4_19: ns_P4_19 = 6.756756756756757
+ max_ns_P4_19: ns_P4_19 <= 6.756756756756757
+ res_acc: 0.0208333333333333 mem_tot_P4_16 + 0.25 rows_tot_P4_16
+   + 0.0208333333333333 mem_tot_P4_17 + 0.25 rows_tot_P4_17
+   + 0.0208333333333333 mem_tot_P4_18 + 0.25 rows_tot_P4_18
+   + 0.0208333333333333 mem_tot_P4_19 + 0.25 rows_tot_P4_19 - res = 0
 Bounds
- frac[0,1] <= 1
- frac[0,0] <= 1
  frac[3,0] <= 1
- frac[3,1] <= 1
- frac[2,1] <= 1
  frac[2,0] <= 1
  frac[1,0] <= 1
- frac[1,1] <= 1
- mem_tot_P4_0 <= 576
- mem_tot_P4_1 <= 576
- mem_tot_P4_2 <= 576
- mem_tot_P4_3 <= 576
+ frac[0,0] <= 1
+ mem_tot_P4_16 <= 576
+ normalized_mem_tot_P4_16 <= 1
+ normalized_rows_tot_P4_16 <= 1
+ mem_tot_P4_17 <= 576
+ normalized_mem_tot_P4_17 <= 1
+ normalized_rows_tot_P4_17 <= 1
+ mem_tot_P4_18 <= 576
+ normalized_mem_tot_P4_18 <= 1
+ normalized_rows_tot_P4_18 <= 1
+ mem_tot_P4_19 <= 576
+ normalized_mem_tot_P4_19 <= 1
+ normalized_rows_tot_P4_19 <= 1
 General Constraints
- mem_overall_P4: max_mem_P4 = MAX ( mem_tot_P4_0 , mem_tot_P4_1 ,
-   mem_tot_P4_2 , mem_tot_P4_3 )
- rows_overall_P4: max_rows_P4 = MAX ( rows_tot_P4_0 , rows_tot_P4_1 ,
-   rows_tot_P4_2 , rows_tot_P4_3 )
+ mem_overall_P4: max_mem_P4 = MAX ( mem_tot_P4_16 , mem_tot_P4_17 ,
+   mem_tot_P4_18 , mem_tot_P4_19 )
+ rows_overall_P4: max_rows_P4 = MAX ( rows_tot_P4_16 , rows_tot_P4_17 ,
+   rows_tot_P4_18 , rows_tot_P4_19 )
 End

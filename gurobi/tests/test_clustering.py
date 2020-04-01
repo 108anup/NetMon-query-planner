@@ -76,7 +76,7 @@ def combinations(l):
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [50], [20], ['spectralA'], [False]]
+        [[48], [10], [4, 10], ['none'], [False]]
     )
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,

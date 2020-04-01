@@ -211,7 +211,7 @@ def solve(inp):
 
     # Cluster Refinement
 
-    if(getattr(inp, 'refine', None)):
+    if(getattr(inp, 'refine', None) and getattr(inp, 'overlay', None)):
         ov = False
         if(common_config.solver == 'Netmon'):
             ov = True
@@ -297,7 +297,7 @@ def solve(inp):
                             = solver.frac[dnum, pnum].x
                         placement.mem[d.dev_id, p.partition_id] \
                             = solver.mem[dnum, pnum].x
-                        placement.res[d] = d.res().getValue()
+                        # placement.res[d] = d.res().getValue()
                         placement.dev_par_tuplelist.append(
                             (d.dev_id, p.partition_id))
 

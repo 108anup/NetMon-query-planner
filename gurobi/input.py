@@ -486,15 +486,25 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
     elif(overlay == 'tenant'):
         host_overlay = [x.tolist() for x in inp.tenant_servers]
         if(hosts > 10000):
-            host_overlay = merge(host_overlay, 2)
-            # TODO:: better way to do this!!
-            for i in range(tors):
-                host_overlay[i].append(hosts + i)
+            host_overlay = merge(host_overlay, 20)
+            # leaves = hosts / 8 / 20
+            tors_per_leaf = math.ceil(tors / len(host_overlay))
+
+            # TODO:: better way to do assign tors to clusters!!
+            assert(tors % tors_per_leaf == 0)
+            tor_overlay = generate_overlay(
+                [int(tors/tors_per_leaf), tors_per_leaf], hosts)
+
+            for i in range(len(tor_overlay)):
+                host_overlay[i].extend(tor_overlay[i])
+
             # tors_overlay = generate_overlay([int(tors/x), x], hosts)
-            host_overlay = fold(host_overlay, 1000)
-            inp.overlay = (host_overlay + generate_overlay([l1s + 1], hosts + tors))
+            # host_overlay = fold(host_overlay, 1000)
+            inp.overlay = (host_overlay
+                           + generate_overlay([l1s + 1], hosts + tors))
         else:
-            inp.overlay = (host_overlay + generate_overlay([tors + l1s + 1], hosts))
+            inp.overlay = (host_overlay
+                           + generate_overlay([tors + l1s + 1], hosts))
         # if(tors <= 20):
         #     inp.overlay = (host_overlay
         #                    + generate_overlay([tors + l1s + 1], hosts))
@@ -891,9 +901,9 @@ input_generator = [
 
     # 28
     # Medium tenant (1K)
-    dc_topology(hosts_per_tors=48, tors_per_l1s=20,
-                l1s=10, num_queries=4800, tenant=True,
-                overlay='tenant', refine=True),
+    dc_topology(hosts_per_tors=48, tors_per_l1s=10,
+                l1s=2, num_queries=480, tenant=True,
+                overlay='spectralA', refine=True),
 
     # 29
     # Very Large (100K)

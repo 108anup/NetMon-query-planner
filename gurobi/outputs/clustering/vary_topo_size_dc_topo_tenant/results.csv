@@ -257,4 +257,13 @@ vary_topo_size_dc_topo_tenant, v-noinit, overlay=spectralA;total_devices=1965;re
 vary_topo_size_dc_topo_tenant, v-noinit, overlay=spectralA;total_devices=1965;refine=False;hosts_per_tors=48;tors_per_l1s=10;l1s=4, 93.333, 131056.679, 13043.999999999998, 1920, 3670.251, 16.208556, 93.333, 122808.560, 12220.0, 1920, 3621.848, 38.141915, 
 vary_topo_size_dc_topo_tenant, v-noinit, overlay=spectralA;total_devices=4911;refine=True;hosts_per_tors=48;tors_per_l1s=10;l1s=10, 93.333, 329771.241, 32824.99999999999, 4800, 9053.256, 41.256457, 93.333, 308813.451, 30731.0, 4800, 8947.147, 94.356529, 
 vary_topo_size_dc_topo_tenant, v-noinit, overlay=spectralA;total_devices=4911;refine=False;hosts_per_tors=48;tors_per_l1s=10;l1s=10, 93.333, 329771.241, 32824.99999999999, 4800, 9053.256, 39.964254, 93.333, 308962.536, 30746.0, 4800, 8941.708, 93.547247, 
+
+# 49021 devices, UnivmonGreedyRows
 80.000, 2306317.420, 230242.0, 48000, 23107.684, 4417.519847, 
+
+
+
+vary_topo_size_dc_topo_tenant, v-noinit, overlay=spectralA;total_devices=983;refine=True;hosts_per_tors=48;tors_per_l1s=10;l1s=2, 93.333, 65445.172, 6512.999999999999, 960, 1875.912, 5.709149, 93.333, 61261.623, 6095.0, 960, 1854.747, 12.218251, 
+vary_topo_size_dc_topo_tenant, v-noinit, overlay=none;total_devices=983;refine=True;hosts_per_tors=48;tors_per_l1s=10;l1s=2, 93.333, 65445.172, 6512.999999999999, 960, 1875.912, 5.495679, 93.333, 59634.883, 5932.0, 960, 1874.192, 21.003654, 
+vary_topo_size_dc_topo_tenant, v-noinit, overlay=none;total_devices=1965;refine=False;hosts_per_tors=48;tors_per_l1s=10;l1s=4, 93.333, 131056.679, 13043.999999999998, 1920, 3670.251, 15.761264, 93.333, 131056.678, 13043.999999999998, 1920, 3670.244, 145.811911, 
+vary_topo_size_dc_topo_tenant, v-noinit, overlay=none;total_devices=4911;refine=False;hosts_per_tors=48;tors_per_l1s=10;l1s=10, 93.333, 329771.241, 32824.99999999999, 4800, 9053.256, 40.852638, 93.333, 329771.238, 32824.99999999999, 4800, 9053.237, 190.122761, 
