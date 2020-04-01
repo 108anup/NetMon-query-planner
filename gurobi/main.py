@@ -231,7 +231,7 @@ def solve(inp):
                 sol.solve()
                 frac.update(sol.frac)
 
-            refine_devices(inp.devices)
+            ret = refine_devices(inp.devices)
 
             log_results(inp.devices)
             log_placement(inp.devices, inp.partitions, inp.flows,
@@ -304,7 +304,7 @@ def solve(inp):
         log.info('Clustered Optimization complete')
         log.info('-'*50)
 
-        refine_devices(inp.devices)
+        ret = refine_devices(inp.devices)
         # TODO: Add debug / info logger to logging mechanisms
         # Put intermediate output to debug!
         log_results(inp.devices)
@@ -316,6 +316,7 @@ def solve(inp):
                         partitions=inp.partitions, queries=inp.queries,
                         overlay=False)
         solver.solve()
+        # TODO:: set ret
 
     # Move this outside this function
     end = time.time()
@@ -323,6 +324,8 @@ def solve(inp):
         f = open(common_config.results_file, 'a')
         f.write("{:06f}, ".format(end - start))
         f.close()
+
+    return ret
 
 
 if(__name__ == '__main__'):

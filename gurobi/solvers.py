@@ -171,7 +171,7 @@ def refine_devices(devices):
         ns_max = max(ns_max, u.getObjective(0).getValue())
         res_acc += u.getObjective(1).getValue()
 
-    return ns_max
+    return (ns_max, res_acc)
 
 
 class MIP(Namespace):
@@ -659,7 +659,7 @@ class Netmon(UnivmonGreedyRows):
         self.m.update()
         # TODO:: Redundancy here. Consider running univmon at Obj init time
         self.m.optimize()
-        ns_max = refine_devices(self.devices)
+        (ns_max, _) = refine_devices(self.devices)
 
         log_placement(self.devices, self.partitions, self.flows,
                       self.dev_par_tuplelist, self.frac)
