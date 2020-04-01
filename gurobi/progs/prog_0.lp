@@ -1,386 +1,53 @@
-\ Model Netmon
+\ Model UnivmonGreedyRows
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  res: Priority=10 Weight=1 AbsTol=0 RelTol=0
-   0 max_mem_CPU_Cluster + 0 max_rows_CPU_Cluster + 0 m_access_time_CPU206
-   + 0 m_access_time_CPU911 + 0 m_access_time_CPU1116
-   + 0 m_access_time_CPU1154 + 0 m_access_time_CPU1546
-   + 0 m_access_time_CPU1693 + 0 m_access_time_CPU1980
-   + 0 m_access_time_CPU2254 + 0 m_access_time_CPU2282
-   + 0 m_access_time_CPU2565 + 0 m_access_time_CPU2590
-   + 0 m_access_time_CPU2605 + res
+  tot_rows_CPU_Cluster: Priority=100 Weight=1 AbsTol=0 RelTol=0
+   rows_tot_CPU_1
+  CPU_Cluster_rows_load: Priority=90 Weight=1 AbsTol=0 RelTol=0
+   max_rows_CPU_Cluster
+  OBJ2: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ3: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_rows_P4: Priority=80 Weight=1 AbsTol=0 RelTol=0
+   rows_tot_P4_1
+  P4_rows_load: Priority=70 Weight=1 AbsTol=0 RelTol=0
+   max_rows_P4
+  tot_mem_CPU_Cluster: Priority=60 Weight=1 AbsTol=0 RelTol=0
+   mem_tot_CPU_1
+  CPU_Cluster_load_mem: Priority=50 Weight=1 AbsTol=0 RelTol=0
+   max_mem_CPU_Cluster
+  tot_mem_P4: Priority=40 Weight=1 AbsTol=0 RelTol=0
+   mem_tot_P4_1
+  P4_load_mem: Priority=30 Weight=1 AbsTol=0 RelTol=0
+   max_mem_P4
 Subject To
- cov_0_315: frac[9,315] + frac[7,315] >= 0.5392877447520099
- cov_1_314: frac[5,314] + frac[8,314] >= 0.2696438723760049
- cov_2_315: frac[5,315] + frac[6,315] >= 0.5392877447520099
- cov_3_314: frac[0,314] + frac[11,314] >= 0.5392877447520099
- cov_4_314: frac[1,314] + frac[8,314] >= 0.369643872376005
- cov_5_314: frac[9,314] + frac[8,314] >= 0.2696438723760049
- cov_6_2214: frac[2,2214] + frac[4,2214] >= 0.2696438723760049
- cov_7_2212: frac[4,2212] + frac[3,2212] >= 0.5392877447520099
- cov_8_2214: frac[10,2214] + frac[3,2214] >= 0.2696438723760049
- cov_9_2214: frac[10,2214] + frac[3,2214] >= 0.2696438723760049
- cov_10_2214: frac[2,2214] + frac[10,2214] >= 0.5392877447520098
- accuracy_9_314: - 5.09765625 frac[9,314] + mem[9,314] = 0
- accuracy_9_315: - 5.09765625 frac[9,315] + mem[9,315] = 0
- accuracy_2_2214: - 5.09765625 frac[2,2214] + mem[2,2214] = 0
- accuracy_0_314: - 5.09765625 frac[0,314] + mem[0,314] = 0
- accuracy_4_2214: - 5.09765625 frac[4,2214] + mem[4,2214] = 0
- accuracy_1_314: - 5.09765625 frac[1,314] + mem[1,314] = 0
- accuracy_7_315: - 5.09765625 frac[7,315] + mem[7,315] = 0
- accuracy_4_2212: - 5.09765625 frac[4,2212] + mem[4,2212] = 0
- accuracy_10_2214: - 5.09765625 frac[10,2214] + mem[10,2214] = 0
- accuracy_11_314: - 5.09765625 frac[11,314] + mem[11,314] = 0
- accuracy_5_314: - 5.09765625 frac[5,314] + mem[5,314] = 0
- accuracy_3_2214: - 5.09765625 frac[3,2214] + mem[3,2214] = 0
- accuracy_5_315: - 5.09765625 frac[5,315] + mem[5,315] = 0
- accuracy_6_315: - 5.09765625 frac[6,315] + mem[6,315] = 0
- accuracy_3_2212: - 5.09765625 frac[3,2212] + mem[3,2212] = 0
- accuracy_8_314: - 5.09765625 frac[8,314] + mem[8,314] = 0
- mem_tot_CPU206: - mem[0,314] + mem_tot_CPU206 = 0
- R28: - 3.05176e-05 mem_tot_CPU206 + normalized_mem_tot_CPU206 = 0
- rows_tot_CPU206: - 3 frac[0,314] + rows_tot_CPU206 = 0
- R30: - 0.0833333333333333 rows_tot_CPU206 + normalized_rows_tot_CPU206
-   = 0
- mem_tot_CPU911: - mem[1,314] + mem_tot_CPU911 = 0
- R32: - 3.05176e-05 mem_tot_CPU911 + normalized_mem_tot_CPU911 = 0
- rows_tot_CPU911: - 3 frac[1,314] + rows_tot_CPU911 = 0
- R34: - 0.0833333333333333 rows_tot_CPU911 + normalized_rows_tot_CPU911
-   = 0
- mem_tot_CPU1116: - mem[2,2214] + mem_tot_CPU1116 = 0
- R36: - 3.05176e-05 mem_tot_CPU1116 + normalized_mem_tot_CPU1116 = 0
- rows_tot_CPU1116: - 3 frac[2,2214] + rows_tot_CPU1116 = 0
- R38: - 0.0833333333333333 rows_tot_CPU1116 + normalized_rows_tot_CPU1116
-   = 0
- mem_tot_CPU1154: - mem[3,2214] - mem[3,2212] + mem_tot_CPU1154 = 0
- R40: - 3.05176e-05 mem_tot_CPU1154 + normalized_mem_tot_CPU1154 = 0
- rows_tot_CPU1154: - 3 frac[3,2214] - 3 frac[3,2212] + rows_tot_CPU1154
-   = 0
- R42: - 0.0833333333333333 rows_tot_CPU1154 + normalized_rows_tot_CPU1154
-   = 0
- mem_tot_CPU1546: - mem[4,2214] - mem[4,2212] + mem_tot_CPU1546 = 0
- R44: - 3.05176e-05 mem_tot_CPU1546 + normalized_mem_tot_CPU1546 = 0
- rows_tot_CPU1546: - 3 frac[4,2214] - 3 frac[4,2212] + rows_tot_CPU1546
-   = 0
- R46: - 0.0833333333333333 rows_tot_CPU1546 + normalized_rows_tot_CPU1546
-   = 0
- mem_tot_CPU1693: - mem[5,314] - mem[5,315] + mem_tot_CPU1693 = 0
- R48: - 3.05176e-05 mem_tot_CPU1693 + normalized_mem_tot_CPU1693 = 0
- rows_tot_CPU1693: - 3 frac[5,314] - 3 frac[5,315] + rows_tot_CPU1693 = 0
- R50: - 0.0833333333333333 rows_tot_CPU1693 + normalized_rows_tot_CPU1693
-   = 0
- mem_tot_CPU1980: - mem[6,315] + mem_tot_CPU1980 = 0
- R52: - 3.05176e-05 mem_tot_CPU1980 + normalized_mem_tot_CPU1980 = 0
- rows_tot_CPU1980: - 3 frac[6,315] + rows_tot_CPU1980 = 0
- R54: - 0.0833333333333333 rows_tot_CPU1980 + normalized_rows_tot_CPU1980
-   = 0
- mem_tot_CPU2254: - mem[7,315] + mem_tot_CPU2254 = 0
- R56: - 3.05176e-05 mem_tot_CPU2254 + normalized_mem_tot_CPU2254 = 0
- rows_tot_CPU2254: - 3 frac[7,315] + rows_tot_CPU2254 = 0
- R58: - 0.0833333333333333 rows_tot_CPU2254 + normalized_rows_tot_CPU2254
-   = 0
- mem_tot_CPU2282: - mem[8,314] + mem_tot_CPU2282 = 0
- R60: - 3.05176e-05 mem_tot_CPU2282 + normalized_mem_tot_CPU2282 = 0
- rows_tot_CPU2282: - 3 frac[8,314] + rows_tot_CPU2282 = 0
- R62: - 0.0833333333333333 rows_tot_CPU2282 + normalized_rows_tot_CPU2282
-   = 0
- mem_tot_CPU2565: - mem[9,314] - mem[9,315] + mem_tot_CPU2565 = 0
- R64: - 3.05176e-05 mem_tot_CPU2565 + normalized_mem_tot_CPU2565 = 0
- rows_tot_CPU2565: - 3 frac[9,314] - 3 frac[9,315] + rows_tot_CPU2565 = 0
- R66: - 0.0833333333333333 rows_tot_CPU2565 + normalized_rows_tot_CPU2565
-   = 0
- mem_tot_CPU2590: - mem[10,2214] + mem_tot_CPU2590 = 0
- R68: - 3.05176e-05 mem_tot_CPU2590 + normalized_mem_tot_CPU2590 = 0
- rows_tot_CPU2590: - 3 frac[10,2214] + rows_tot_CPU2590 = 0
- R70: - 0.0833333333333333 rows_tot_CPU2590 + normalized_rows_tot_CPU2590
-   = 0
- mem_tot_CPU2605: - mem[11,314] + mem_tot_CPU2605 = 0
- R72: - 3.05176e-05 mem_tot_CPU2605 + normalized_mem_tot_CPU2605 = 0
- rows_tot_CPU2605: - 3 frac[11,314] + rows_tot_CPU2605 = 0
- R74: - 0.0833333333333333 rows_tot_CPU2605 + normalized_rows_tot_CPU2605
-   = 0
- row_capacity_CPU206: rows_tot_CPU206 <= 12
- row_capacity_CPU911: rows_tot_CPU911 <= 12
- row_capacity_CPU1116: rows_tot_CPU1116 <= 12
- row_capacity_CPU1154: rows_tot_CPU1154 <= 12
- row_capacity_CPU1546: rows_tot_CPU1546 <= 12
- row_capacity_CPU1693: rows_tot_CPU1693 <= 12
- row_capacity_CPU1980: rows_tot_CPU1980 <= 12
- row_capacity_CPU2254: rows_tot_CPU2254 <= 12
- row_capacity_CPU2282: rows_tot_CPU2282 <= 12
- row_capacity_CPU2565: rows_tot_CPU2565 <= 12
- row_capacity_CPU2590: rows_tot_CPU2590 <= 12
- row_capacity_CPU2605: rows_tot_CPU2605 <= 12
- ns_single_CPU206: 3.5 rows_tot_CPU206 - ns_single_CPU206
-   + pdt_m_rows_CPU206 = 0
- capacity_cores_CPU206: cores_sketch_CPU206 + cores_dpdk_CPU206 <= 7
- ns_sketch_CPU206: - ns_single_CPU206
-   + 10.71428571428572 cores_sketch_CPU206 >= 0
- ns_dpdk_CPU206: - 3.571428571428572 cores_dpdk_CPU206
-   <= -21.42857142857143
- ns_single_CPU911: 3.5 rows_tot_CPU911 - ns_single_CPU911
-   + pdt_m_rows_CPU911 = 0
- capacity_cores_CPU911: cores_sketch_CPU911 + cores_dpdk_CPU911 <= 7
- ns_sketch_CPU911: - ns_single_CPU911
-   + 10.71428571428572 cores_sketch_CPU911 >= 0
- ns_dpdk_CPU911: - 3.571428571428572 cores_dpdk_CPU911
-   <= -21.42857142857143
- ns_single_CPU1116: 3.5 rows_tot_CPU1116 - ns_single_CPU1116
-   + pdt_m_rows_CPU1116 = 0
- capacity_cores_CPU1116: cores_sketch_CPU1116 + cores_dpdk_CPU1116 <= 7
- ns_sketch_CPU1116: - ns_single_CPU1116
-   + 10.71428571428572 cores_sketch_CPU1116 >= 0
- ns_dpdk_CPU1116: - 3.571428571428572 cores_dpdk_CPU1116
-   <= -21.42857142857143
- ns_single_CPU1154: 3.5 rows_tot_CPU1154 - ns_single_CPU1154
-   + pdt_m_rows_CPU1154 = 0
- capacity_cores_CPU1154: cores_sketch_CPU1154 + cores_dpdk_CPU1154 <= 7
- ns_sketch_CPU1154: - ns_single_CPU1154
-   + 10.71428571428572 cores_sketch_CPU1154 >= 0
- ns_dpdk_CPU1154: - 3.571428571428572 cores_dpdk_CPU1154
-   <= -21.42857142857143
- ns_single_CPU1546: 3.5 rows_tot_CPU1546 - ns_single_CPU1546
-   + pdt_m_rows_CPU1546 = 0
- capacity_cores_CPU1546: cores_sketch_CPU1546 + cores_dpdk_CPU1546 <= 7
- ns_sketch_CPU1546: - ns_single_CPU1546
-   + 10.71428571428572 cores_sketch_CPU1546 >= 0
- ns_dpdk_CPU1546: - 3.571428571428572 cores_dpdk_CPU1546
-   <= -21.42857142857143
- ns_single_CPU1693: 3.5 rows_tot_CPU1693 - ns_single_CPU1693
-   + pdt_m_rows_CPU1693 = 0
- capacity_cores_CPU1693: cores_sketch_CPU1693 + cores_dpdk_CPU1693 <= 7
- ns_sketch_CPU1693: - ns_single_CPU1693
-   + 10.71428571428572 cores_sketch_CPU1693 >= 0
- ns_dpdk_CPU1693: - 3.571428571428572 cores_dpdk_CPU1693
-   <= -21.42857142857143
- ns_single_CPU1980: 3.5 rows_tot_CPU1980 - ns_single_CPU1980
-   + pdt_m_rows_CPU1980 = 0
- capacity_cores_CPU1980: cores_sketch_CPU1980 + cores_dpdk_CPU1980 <= 7
- ns_sketch_CPU1980: - ns_single_CPU1980
-   + 10.71428571428572 cores_sketch_CPU1980 >= 0
- ns_dpdk_CPU1980: - 3.571428571428572 cores_dpdk_CPU1980
-   <= -21.42857142857143
- ns_single_CPU2254: 3.5 rows_tot_CPU2254 - ns_single_CPU2254
-   + pdt_m_rows_CPU2254 = 0
- capacity_cores_CPU2254: cores_sketch_CPU2254 + cores_dpdk_CPU2254 <= 7
- ns_sketch_CPU2254: - ns_single_CPU2254
-   + 10.71428571428572 cores_sketch_CPU2254 >= 0
- ns_dpdk_CPU2254: - 3.571428571428572 cores_dpdk_CPU2254
-   <= -21.42857142857143
- ns_single_CPU2282: 3.5 rows_tot_CPU2282 - ns_single_CPU2282
-   + pdt_m_rows_CPU2282 = 0
- capacity_cores_CPU2282: cores_sketch_CPU2282 + cores_dpdk_CPU2282 <= 7
- ns_sketch_CPU2282: - ns_single_CPU2282
-   + 10.71428571428572 cores_sketch_CPU2282 >= 0
- ns_dpdk_CPU2282: - 3.571428571428572 cores_dpdk_CPU2282
-   <= -21.42857142857143
- ns_single_CPU2565: 3.5 rows_tot_CPU2565 - ns_single_CPU2565
-   + pdt_m_rows_CPU2565 = 0
- capacity_cores_CPU2565: cores_sketch_CPU2565 + cores_dpdk_CPU2565 <= 7
- ns_sketch_CPU2565: - ns_single_CPU2565
-   + 10.71428571428572 cores_sketch_CPU2565 >= 0
- ns_dpdk_CPU2565: - 3.571428571428572 cores_dpdk_CPU2565
-   <= -21.42857142857143
- ns_single_CPU2590: 3.5 rows_tot_CPU2590 - ns_single_CPU2590
-   + pdt_m_rows_CPU2590 = 0
- capacity_cores_CPU2590: cores_sketch_CPU2590 + cores_dpdk_CPU2590 <= 7
- ns_sketch_CPU2590: - ns_single_CPU2590
-   + 10.71428571428572 cores_sketch_CPU2590 >= 0
- ns_dpdk_CPU2590: - 3.571428571428572 cores_dpdk_CPU2590
-   <= -21.42857142857143
- ns_single_CPU2605: 3.5 rows_tot_CPU2605 - ns_single_CPU2605
-   + pdt_m_rows_CPU2605 = 0
- capacity_cores_CPU2605: cores_sketch_CPU2605 + cores_dpdk_CPU2605 <= 7
- ns_sketch_CPU2605: - ns_single_CPU2605
-   + 10.71428571428572 cores_sketch_CPU2605 >= 0
- ns_dpdk_CPU2605: - 3.571428571428572 cores_dpdk_CPU2605
-   <= -21.42857142857143
- res_acc: 1.220703125e-04 mem_tot_CPU206 + 1.220703125e-04 mem_tot_CPU911
-   + 1.220703125e-04 mem_tot_CPU1116 + 1.220703125e-04 mem_tot_CPU1154
-   + 1.220703125e-04 mem_tot_CPU1546 + 1.220703125e-04 mem_tot_CPU1693
-   + 1.220703125e-04 mem_tot_CPU1980 + 1.220703125e-04 mem_tot_CPU2254
-   + 1.220703125e-04 mem_tot_CPU2282 + 1.220703125e-04 mem_tot_CPU2565
-   + 1.220703125e-04 mem_tot_CPU2590 + 1.220703125e-04 mem_tot_CPU2605
-   + 10 cores_sketch_CPU206 + 10 cores_dpdk_CPU206 + 10 cores_sketch_CPU911
-   + 10 cores_dpdk_CPU911 + 10 cores_sketch_CPU1116 + 10 cores_dpdk_CPU1116
-   + 10 cores_sketch_CPU1154 + 10 cores_dpdk_CPU1154
-   + 10 cores_sketch_CPU1546 + 10 cores_dpdk_CPU1546
-   + 10 cores_sketch_CPU1693 + 10 cores_dpdk_CPU1693
-   + 10 cores_sketch_CPU1980 + 10 cores_dpdk_CPU1980
-   + 10 cores_sketch_CPU2254 + 10 cores_dpdk_CPU2254
-   + 10 cores_sketch_CPU2282 + 10 cores_dpdk_CPU2282
-   + 10 cores_sketch_CPU2565 + 10 cores_dpdk_CPU2565
-   + 10 cores_sketch_CPU2590 + 10 cores_dpdk_CPU2590
-   + 10 cores_sketch_CPU2605 + 10 cores_dpdk_CPU2605 - res = 0
- pdt_m_rows_CPU206: pdt_m_rows_CPU206 + [
-   - rows_tot_CPU206 * m_access_time_CPU206 ] = 0
- pdt_m_rows_CPU911: pdt_m_rows_CPU911 + [
-   - rows_tot_CPU911 * m_access_time_CPU911 ] = 0
- pdt_m_rows_CPU1116: pdt_m_rows_CPU1116 + [
-   - rows_tot_CPU1116 * m_access_time_CPU1116 ] = 0
- pdt_m_rows_CPU1154: pdt_m_rows_CPU1154 + [
-   - rows_tot_CPU1154 * m_access_time_CPU1154 ] = 0
- pdt_m_rows_CPU1546: pdt_m_rows_CPU1546 + [
-   - rows_tot_CPU1546 * m_access_time_CPU1546 ] = 0
- pdt_m_rows_CPU1693: pdt_m_rows_CPU1693 + [
-   - rows_tot_CPU1693 * m_access_time_CPU1693 ] = 0
- pdt_m_rows_CPU1980: pdt_m_rows_CPU1980 + [
-   - rows_tot_CPU1980 * m_access_time_CPU1980 ] = 0
- pdt_m_rows_CPU2254: pdt_m_rows_CPU2254 + [
-   - rows_tot_CPU2254 * m_access_time_CPU2254 ] = 0
- pdt_m_rows_CPU2282: pdt_m_rows_CPU2282 + [
-   - rows_tot_CPU2282 * m_access_time_CPU2282 ] = 0
- pdt_m_rows_CPU2565: pdt_m_rows_CPU2565 + [
-   - rows_tot_CPU2565 * m_access_time_CPU2565 ] = 0
- pdt_m_rows_CPU2590: pdt_m_rows_CPU2590 + [
-   - rows_tot_CPU2590 * m_access_time_CPU2590 ] = 0
- pdt_m_rows_CPU2605: pdt_m_rows_CPU2605 + [
-   - rows_tot_CPU2605 * m_access_time_CPU2605 ] = 0
+ cov_0_0: frac[1,0] + frac[0,0] >= 1
+ accuracy_1_0: - 5.09765625 frac[1,0] + mem[1,0] = 0
+ accuracy_0_0: - 5.09765625 frac[0,0] + mem[0,0] = 0
+ mem_tot_CPU_1: - mem[0,0] + mem_tot_CPU_1 = 0
+ R4: - 3.05176e-05 mem_tot_CPU_1 + normalized_mem_tot_CPU_1 = 0
+ rows_tot_CPU_1: - 3 frac[0,0] + rows_tot_CPU_1 = 0
+ R6: - 0.0833333333333333 rows_tot_CPU_1 + normalized_rows_tot_CPU_1 = 0
+ mem_tot_P4_1: - mem[1,0] + mem_tot_P4_1 = 0
+ R8: - 0.00173611111111111 mem_tot_P4_1 + normalized_mem_tot_P4_1 = 0
+ rows_tot_P4_1: - 3 frac[1,0] + rows_tot_P4_1 = 0
+ R10: - 0.0208333333333333 rows_tot_P4_1 + normalized_rows_tot_P4_1 = 0
+ row_capacity_CPU_1: rows_tot_CPU_1 <= 12
+ row_capacity_P4_1: rows_tot_P4_1 <= 48
 Bounds
- frac[9,314] <= 1
- frac[9,315] <= 1
- frac[2,2214] <= 1
- frac[0,314] <= 1
- frac[4,2214] <= 1
- frac[1,314] <= 1
- frac[7,315] <= 1
- frac[4,2212] <= 1
- frac[10,2214] <= 1
- frac[11,314] <= 1
- frac[5,314] <= 1
- frac[3,2214] <= 1
- frac[5,315] <= 1
- frac[6,315] <= 1
- frac[3,2212] <= 1
- frac[8,314] <= 1
- mem_tot_CPU206 <= 32768
- normalized_mem_tot_CPU206 <= 1
- normalized_rows_tot_CPU206 <= 1
- mem_tot_CPU911 <= 32768
- normalized_mem_tot_CPU911 <= 1
- normalized_rows_tot_CPU911 <= 1
- mem_tot_CPU1116 <= 32768
- normalized_mem_tot_CPU1116 <= 1
- normalized_rows_tot_CPU1116 <= 1
- mem_tot_CPU1154 <= 32768
- normalized_mem_tot_CPU1154 <= 1
- normalized_rows_tot_CPU1154 <= 1
- mem_tot_CPU1546 <= 32768
- normalized_mem_tot_CPU1546 <= 1
- normalized_rows_tot_CPU1546 <= 1
- mem_tot_CPU1693 <= 32768
- normalized_mem_tot_CPU1693 <= 1
- normalized_rows_tot_CPU1693 <= 1
- mem_tot_CPU1980 <= 32768
- normalized_mem_tot_CPU1980 <= 1
- normalized_rows_tot_CPU1980 <= 1
- mem_tot_CPU2254 <= 32768
- normalized_mem_tot_CPU2254 <= 1
- normalized_rows_tot_CPU2254 <= 1
- mem_tot_CPU2282 <= 32768
- normalized_mem_tot_CPU2282 <= 1
- normalized_rows_tot_CPU2282 <= 1
- mem_tot_CPU2565 <= 32768
- normalized_mem_tot_CPU2565 <= 1
- normalized_rows_tot_CPU2565 <= 1
- mem_tot_CPU2590 <= 32768
- normalized_mem_tot_CPU2590 <= 1
- normalized_rows_tot_CPU2590 <= 1
- mem_tot_CPU2605 <= 32768
- normalized_mem_tot_CPU2605 <= 1
- normalized_rows_tot_CPU2605 <= 1
- cores_sketch_CPU206 <= 7
- 1 <= cores_dpdk_CPU206 <= 7
- cores_sketch_CPU911 <= 7
- 1 <= cores_dpdk_CPU911 <= 7
- cores_sketch_CPU1116 <= 7
- 1 <= cores_dpdk_CPU1116 <= 7
- cores_sketch_CPU1154 <= 7
- 1 <= cores_dpdk_CPU1154 <= 7
- cores_sketch_CPU1546 <= 7
- 1 <= cores_dpdk_CPU1546 <= 7
- cores_sketch_CPU1693 <= 7
- 1 <= cores_dpdk_CPU1693 <= 7
- cores_sketch_CPU1980 <= 7
- 1 <= cores_dpdk_CPU1980 <= 7
- cores_sketch_CPU2254 <= 7
- 1 <= cores_dpdk_CPU2254 <= 7
- cores_sketch_CPU2282 <= 7
- 1 <= cores_dpdk_CPU2282 <= 7
- cores_sketch_CPU2565 <= 7
- 1 <= cores_dpdk_CPU2565 <= 7
- cores_sketch_CPU2590 <= 7
- 1 <= cores_dpdk_CPU2590 <= 7
- cores_sketch_CPU2605 <= 7
- 1 <= cores_dpdk_CPU2605 <= 7
-Generals
- cores_sketch_CPU206 cores_dpdk_CPU206 cores_sketch_CPU911
- cores_dpdk_CPU911 cores_sketch_CPU1116 cores_dpdk_CPU1116
- cores_sketch_CPU1154 cores_dpdk_CPU1154 cores_sketch_CPU1546
- cores_dpdk_CPU1546 cores_sketch_CPU1693 cores_dpdk_CPU1693
- cores_sketch_CPU1980 cores_dpdk_CPU1980 cores_sketch_CPU2254
- cores_dpdk_CPU2254 cores_sketch_CPU2282 cores_dpdk_CPU2282
- cores_sketch_CPU2565 cores_dpdk_CPU2565 cores_sketch_CPU2590
- cores_dpdk_CPU2590 cores_sketch_CPU2605 cores_dpdk_CPU2605
+ frac[1,0] <= 1
+ frac[0,0] <= 1
+ mem_tot_CPU_1 <= 32768
+ normalized_mem_tot_CPU_1 <= 1
+ normalized_rows_tot_CPU_1 <= 1
+ mem_tot_P4_1 <= 576
+ normalized_mem_tot_P4_1 <= 1
+ normalized_rows_tot_P4_1 <= 1
 General Constraints
+ mem_overall_P4: max_mem_P4 = MAX ( mem_tot_P4_1 )
  mem_overall_CPU_Cluster: max_mem_CPU_Cluster = MAX (
-   normalized_mem_tot_CPU206 , normalized_mem_tot_CPU911 ,
-   normalized_mem_tot_CPU1116 , normalized_mem_tot_CPU1154 ,
-   normalized_mem_tot_CPU1546 , normalized_mem_tot_CPU1693 ,
-   normalized_mem_tot_CPU1980 , normalized_mem_tot_CPU2254 ,
-   normalized_mem_tot_CPU2282 , normalized_mem_tot_CPU2565 ,
-   normalized_mem_tot_CPU2590 , normalized_mem_tot_CPU2605 )
- rows_overall_CPU: max_rows_CPU_Cluster = MAX (
-   normalized_rows_tot_CPU206 , normalized_rows_tot_CPU911 ,
-   normalized_rows_tot_CPU1116 , normalized_rows_tot_CPU1154 ,
-   normalized_rows_tot_CPU1546 , normalized_rows_tot_CPU1693 ,
-   normalized_rows_tot_CPU1980 , normalized_rows_tot_CPU2254 ,
-   normalized_rows_tot_CPU2282 , normalized_rows_tot_CPU2565 ,
-   normalized_rows_tot_CPU2590 , normalized_rows_tot_CPU2605 )
- mem_access_time_CPU206: m_access_time_CPU206 = PWL ( mem_tot_CPU206 ) : 
-  (0, 0) (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU911: m_access_time_CPU911 = PWL ( mem_tot_CPU911 ) : 
-  (0, 0) (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU1116:
-   m_access_time_CPU1116 = PWL ( mem_tot_CPU1116 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU1154:
-   m_access_time_CPU1154 = PWL ( mem_tot_CPU1154 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU1546:
-   m_access_time_CPU1546 = PWL ( mem_tot_CPU1546 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU1693:
-   m_access_time_CPU1693 = PWL ( mem_tot_CPU1693 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU1980:
-   m_access_time_CPU1980 = PWL ( mem_tot_CPU1980 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU2254:
-   m_access_time_CPU2254 = PWL ( mem_tot_CPU2254 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU2282:
-   m_access_time_CPU2282 = PWL ( mem_tot_CPU2282 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU2565:
-   m_access_time_CPU2565 = PWL ( mem_tot_CPU2565 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU2590:
-   m_access_time_CPU2590 = PWL ( mem_tot_CPU2590 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
- mem_access_time_CPU2605:
-   m_access_time_CPU2605 = PWL ( mem_tot_CPU2605 ) : (0, 0) 
-  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
-  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
+   normalized_mem_tot_CPU_1 )
+ rows_overall_P4: max_rows_P4 = MAX ( rows_tot_P4_1 )
+ rows_overall_CPU: max_rows_CPU_Cluster = MAX ( normalized_rows_tot_CPU_1 )
 End
