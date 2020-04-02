@@ -481,7 +481,7 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             inp.overlay = (host_overlay
                            + generate_overlay([tors + l1s + 1], hosts))
 
-        draw_overlay_over_tenant(inp)
+        # draw_overlay_over_tenant(inp)
 
     elif(overlay == 'tenant'):
         host_overlay = [x.tolist() for x in inp.tenant_servers]
