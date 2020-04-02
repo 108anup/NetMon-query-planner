@@ -3,6 +3,13 @@ import logging
 import sys
 
 
+log = logging.getLogger('control')
+log.setLevel(logging.NOTSET+1)
+console = logging.StreamHandler(sys.stdout)
+console.setLevel(logging.WARN)
+log.addHandler(console)
+
+
 def memoize(func):
     cache = dict()
 
@@ -16,16 +23,21 @@ def memoize(func):
     return memoized_func
 
 
-def log_time(func):
+def log_time(func=None, logger=log.debug):
 
-    def wrapped_func(*args, **kwargs):
-        timer_start = time.time()
-        results = func(*args, **kwargs)
-        timer_end = time.time()
-        log.debug("Function: {} took {} seconds"
-                  .format(func.__qualname__, timer_end - timer_start))
-        return results
-    return wrapped_func
+    def decorator(func):
+        def wrapped_func(*args, **kwargs):
+            timer_start = time.time()
+            results = func(*args, **kwargs)
+            timer_end = time.time()
+            logger("Function: {} took {} seconds"
+                   .format(func.__qualname__, timer_end - timer_start))
+            return results
+        return wrapped_func
+
+    if(func is not None):
+        return decorator(func)
+    return decorator
 
 
 class Namespace:
@@ -42,14 +54,14 @@ class Namespace:
         return repr(self.__dict__)
 
 
-class InfoFilter(logging.Filter):
-    def filter(self, rec):
-        return rec.levelno == logging.INFO
+# class InfoFilter(logging.Filter):
+#     def filter(self, rec):
+#         return rec.levelno == logging.INFO
 
 
-class DebugFilter(logging.Filter):
-    def filter(self, rec):
-        return rec.levelno == logging.DEBUG
+# class DebugFilter(logging.Filter):
+#     def filter(self, rec):
+#         return rec.levelno == logging.DEBUG
 
 
 def remove_all_file_loggers():
@@ -70,7 +82,9 @@ def add_file_logger(file_path):
 
 def setup_logging(args):
 
-    if(args.verbose >= 2):
+    if(args.verbose >= 3):
+        console.setLevel(logging.DEBUG-1)
+    elif(args.verbose >= 2):
         console.setLevel(logging.DEBUG)
     elif(args.verbose >= 1):
         console.setLevel(logging.INFO)
@@ -96,11 +110,6 @@ def setup_logging(args):
     #     h_warn.setLevel(logging.WARNING)
     #     log.addHandler(h_warn)
 
-
-log = logging.getLogger('control')
-log.setLevel(logging.DEBUG)
-console = logging.StreamHandler(sys.stdout)
-log.addHandler(console)
 
 constants = Namespace(
     cell_size=4,

@@ -1,17 +1,18 @@
-import os
-import random
-import pickle
-
 import math
-import networkx as nx
+import os
+import pickle
+import random
+
 import matplotlib.pyplot as plt
-from sklearn.cluster import SpectralClustering, KMeans
-from common import Namespace, memoize, log_time, log
+import networkx as nx
+import numpy as np
+from sklearn.cluster import KMeans, SpectralClustering
+
+from common import Namespace, log, log_time, memoize
+from config import common_config
 from devices import CPU, P4
 from flows import flow
 from sketches import cm_sketch
-import numpy as np
-from config import common_config
 
 # Stub file for providing input to solver
 
@@ -202,7 +203,7 @@ def UnnormalizedSpectral(W, nc=2):
     return r
 
 
-@log_time
+@log_time(logger=log.info)
 def get_spectral_overlay(inp, comp={}, normalized=True, affinity=False):
     log.info("Buliding spectral overlay with {} devices"
              .format(len(inp.devices)))
@@ -329,7 +330,6 @@ class Input(Namespace):
         return _device_to_id
 
 
-@log_time
 def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
                 num_queries=80, eps=eps0, overlay='none', tenant=False,
                 refine=False, queries_per_tenant=4, hosts_per_tenant=8):
@@ -440,8 +440,7 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
                 for flownum in range(max(hosts, num_queries) * 5)
             ]
 
-    if(refine):
-        inp.refine = True
+    inp.refine = refine
 
     if(overlay == 'tor'):
         if(hosts_per_tors <= 8):
@@ -872,7 +871,7 @@ input_generator = [
     # 24
     # Small tenant (100)
     dc_topology(hosts_per_tors=8, num_queries=4*40, tenant=True,
-                eps=eps0, overlay='spectralA', refine=True,
+                eps=eps0, overlay='spectralA', refine=False,
                 queries_per_tenant=40),
 
     # 25

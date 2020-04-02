@@ -1,6 +1,7 @@
 from gurobipy import GRB
 
 from common import Namespace, memoize
+from helpers import get_val
 
 
 class device(Namespace):
@@ -156,7 +157,7 @@ class CPU(device):
     def resource_stats(self):
         if(hasattr(self, 'cores_sketch')):
             return "cores_sketch: {}, cores_dpdk: {}".format(
-                self.cores_sketch.x, self.cores_dpdk.x)
+                get_val(self.cores_sketch), get_val(self.cores_dpdk))
         else:
             return ""
 

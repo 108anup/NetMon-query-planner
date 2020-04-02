@@ -1,18 +1,39 @@
+import os
 import sys
-from queue import Queue
 import time
-import ipdb
 import traceback
+from queue import Queue
+
+import ipdb
+from gurobipy import GRB, tupledict, tuplelist
 
 from cli import generate_parser
-from common import Namespace, setup_logging, log_time, log
+from common import Namespace, log, log_time, setup_logging
 from config import common_config
-from input import input_generator
-from solvers import (refine_devices, solver_to_class, log_results,
-                     log_placement, UnivmonGreedyRows, handle_infeasible_iis)
 from devices import Cluster
 from flows import flow
-from gurobipy import GRB, tuplelist, tupledict
+from input import input_generator
+from solvers import (UnivmonGreedyRows, log_placement, log_results,
+                     refine_devices, solver_to_class)
+
+
+def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
+    log.warn(msg)
+
+    if(not (common_config.results_file is None)):
+        f = open(common_config.results_file, 'a')
+        f.write("-, -, -, -, -, ")
+        f.close()
+
+    if(common_config.prog_dir and iis):
+        m.computeIIS()
+        m.write(
+            os.path.join(
+                common_config.prog_dir,
+                "infeasible_{}.ilp".format(common_config.input_num)
+            )
+        )
+    return None
 
 
 @log_time
@@ -197,7 +218,14 @@ def init_leaf_solution_to_cluster(solver, cluster):
     return init
 
 
+def log_step(msg, logger=log.info):
+    logger('='*50)
+    logger("STEP: " + msg)
+    logger('='*50)
+
+
 # TODO:: Handle disconnected graph in solver
+# Final devices will always be refined, just log at the end
 @log_time
 def solve(inp):
     # import ipdb; ipdb.set_trace()
@@ -212,30 +240,38 @@ def solve(inp):
     # Cluster Refinement
 
     if(getattr(inp, 'refine', None) and getattr(inp, 'overlay', None)):
-        ov = False
+        dont_refine = False
         if(common_config.solver == 'Netmon'):
-            ov = True
+            log_step("Running UnivmonGreedyRows over full topology")
+            dont_refine = True
         solver = UnivmonGreedyRows(devices=inp.devices,
                                    partitions=inp.partitions,
                                    flows=inp.flows, queries=inp.queries,
-                                   overlay=ov)
+                                   dont_refine=dont_refine)
         solver.solve()
+        if(solver.infeasible):
+            return handle_infeasible(solver.culprit)
+
+        log_step("Refining clusters")
         if(common_config.solver == 'Netmon'):
             subproblems = get_subproblems(inp, solver)
 
             frac = tupledict()
             for prob in subproblems:
                 sol = Solver(devices=prob.devices, partitions=prob.partitions,
-                             flows=prob.flows, queries=inp.queries,
-                             overlay=True)
+                             flows=prob.flows, queries=inp.queries)
                 sol.solve()
+                if(solver.infeasible):
+                    return handle_infeasible(solver.culprit)
+                log_results(sol.devices, msg="Refinement Results")
                 frac.update(sol.frac)
 
+            log_step("Selective Refinement Complete")
             ret = refine_devices(inp.devices)
-
-            log_results(inp.devices)
             log_placement(inp.devices, inp.partitions, inp.flows,
                           solver.dev_par_tuplelist, frac)
+        else:
+            ret = (solver.ns_max, solver.res)
 
     # Clustering
     elif (getattr(inp, 'overlay', None)):
@@ -243,9 +279,10 @@ def solve(inp):
             solver = UnivmonGreedyRows(devices=inp.devices,
                                        partitions=inp.partitions,
                                        flows=inp.flows, queries=inp.queries,
-                                       overlay=True)
+                                       dont_refine=True)
             solver.solve()
-            # TODO:: Assumed that feasible
+            if(solver.infeasible):
+                return handle_infeasible(solver.culprit)
 
         inp.cluster = get_cluster_from_overlay(inp, inp.overlay)
         if(common_config.init is True):
@@ -266,20 +303,21 @@ def solve(inp):
             devices = front.devices
             partitions = front.partitions
             flows = front.flows
-            solver = Solver(devices=devices, partitions=partitions,
-                            flows=flows, queries=inp.queries, overlay=True)
             if(first_run and common_config.init):
                 solver = Solver(devices=devices, partitions=partitions,
                                 flows=flows, queries=inp.queries, init=init,
-                                overlay=True)
+                                dont_refine=True)
+            else:
+                solver = Solver(devices=devices, partitions=partitions,
+                                flows=flows, queries=inp.queries,
+                                dont_refine=True)
             solver.solve()
             first_run = False
 
             # TODO: Modify Infeasible handling
             # TODO: This breaks abstraction of any type of solver
-            if(solver.m.Status == GRB.INFEASIBLE):
-                log.error("Infeasible Intermediate Cluster!!")
-                return handle_infeasible_iis(solver.m)
+            if(solver.infeasible):
+                return handle_infeasible(solver.culprit)
 
             for (dnum, d) in enumerate(devices):
                 if(isinstance(d, Cluster)):
@@ -301,31 +339,23 @@ def solve(inp):
                         placement.dev_par_tuplelist.append(
                             (d.dev_id, p.partition_id))
 
-        log.info('Clustered Optimization complete')
-        log.info('-'*50)
+        log_step('Clustered Optimization complete')
 
         ret = refine_devices(inp.devices)
-        # TODO: Add debug / info logger to logging mechanisms
-        # Put intermediate output to debug!
-        log_results(inp.devices)
+        # TODO:: Put intermediate output to debug!
+        # Allow loggers to take input logging level
         log_placement(inp.devices, inp.partitions, inp.flows,
                       placement.dev_par_tuplelist, placement.frac)
 
     else:
         solver = Solver(devices=inp.devices, flows=inp.flows,
                         partitions=inp.partitions, queries=inp.queries,
-                        overlay=False)
+                        dont_refine=False)
         solver.solve()
-        ret = None
-        # TODO:: set ret
 
-    # Move this outside this function
     end = time.time()
-    if(not (common_config.results_file is None)):
-        f = open(common_config.results_file, 'a')
-        f.write("{:06f}, ".format(end - start))
-        f.close()
-
+    log.info("\n" + "-"*80)
+    ret = log_results(inp.devices, elapsed=end-start, msg="Final Results")
     return ret
 
 

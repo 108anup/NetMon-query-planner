@@ -1,15 +1,18 @@
+import logging
 import os
 import re
 import sys
 import time
-import logging
+from functools import partial
 
 import gurobipy as gp
-from gurobipy import GRB, tuplelist, tupledict
+from gurobipy import GRB, tupledict, tuplelist
 
-from common import log, Namespace, log_time, memoize
+from common import Namespace, log, log_time, memoize
 from config import common_config
 from devices import CPU, P4, Cluster
+from helpers import get_rounded_val, get_val
+
 
 """
 TODO:
@@ -59,43 +62,14 @@ Above are not relevant any more
 '''
 
 
-def handle_infeasible_iis(m):
-    if(common_config.prog_dir):
-        m.computeIIS()
-        m.write(
-            os.path.join(
-                common_config.prog_dir,
-                "infeasible_{}.ilp".format(common_config.input_num)
-            )
-        )
-
-
-def get_rounded_val(v):
-    if(v < 0):
-        return 0
-    if(v < common_config.ftol):
-        return 0
-    return v
-
-
-def get_val(v):
-    if(isinstance(v, (float, int))):
-        return v
-    if(isinstance(v, gp.Var)):
-        return v.x
-    else:
-        return v.getValue()
-
-
-def write_vars(m):
-    log.debug("\nVARIABLES "+"-"*30)
-    log.debug("Objective: {}".format(m.objVal))
+def log_vars(m, logger=partial(log.log, logging.DEBUG-1)):
+    logger("\nVARIABLES "+"-"*30)
+    logger("Objective: {}".format(m.objVal))
     for v in m.getVars():
-        log.debug('%s %g' % (v.varName, v.x))
-    log.debug("-"*50)
+        logger('%s %g' % (v.varName, v.x))
 
 
-@log_time
+@log_time(logger=log.info)
 def refine_devices(devices):
     res_acc = 0
     ns_max = 0
@@ -152,7 +126,7 @@ def refine_devices(devices):
                 d.old_u = [d.u]
         d.u = u
 
-        write_vars(u)
+        log_vars(u)
 
         ns_max = max(ns_max, u.getObjective(0).getValue())
 
@@ -164,7 +138,7 @@ def refine_devices(devices):
                         name='global_ns_req_{}'.format(d))
             u.update()
             u.optimize()
-            write_vars(u)
+            log_vars(u)
 
         d.mem_tot = d.mem_tot_old
         d.rows_tot = d.rows_tot_old
@@ -175,6 +149,10 @@ def refine_devices(devices):
 
 
 class MIP(Namespace):
+
+    def __init__(self, **kwargs):
+        super(MIP, self).__init__(**kwargs)
+        self.infeasible = False
 
     def compute_dev_par_tuplelist(self):
         dev_par_tuplelist = []
@@ -368,12 +346,13 @@ class MIP(Namespace):
 
     @log_time
     def solve(self):
-        log.info("Building model with:\n"
-                 "{} devices, {} partitions and {} flows"
-                 .format(len(self.devices), len(self.partitions),
-                         len(self.flows)))
-
         self.m = gp.Model(self.__class__.__name__)
+        log.info("\n" + "-"*80)
+        log.info("Model {} with:\n"
+                 "{} devices, {} partitions and {} flows"
+                 .format(type(self).__name__, len(self.devices),
+                         len(self.partitions), len(self.flows)))
+
         if(not common_config.mipout):
             self.m.setParam(GRB.Param.LogToConsole, 0)
             # gplogger = logging.getLogger('gurobipy')
@@ -394,18 +373,19 @@ class MIP(Namespace):
 
         if(hasattr(self, 'init')):
             self.initialize()
+
         self.add_constraints()
+        if(self.infeasible):
+            return
+
         self.m.ModelSense = GRB.MINIMIZE
         self.add_objective()
 
-        log.info("-"*50)
-        log.info("Starting model update")
         start = time.time()
         self.m.update()
         end = time.time()
         update_time = end - start
         log.info("Model update took: {} s".format(update_time))
-        log.info("-"*50)
         if(common_config.prog_dir):
             self.m.write(os.path.join(
                 common_config.prog_dir,
@@ -415,20 +395,20 @@ class MIP(Namespace):
         start = time.time()
         self.m.optimize()
         end = time.time()
+        log.info("-"*50)
         log.info("Model optimize took: {} seconds".format(end - start))
         log.info("-"*50)
 
         if(self.m.Status == GRB.INFEASIBLE):
-            handle_infeasible_iis(self.m)
-            if(not (common_config.results_file is None)):
-                f = open(common_config.results_file, 'a')
-                f.write("-, -, -, -, -, ")
-                f.close()
+            self.infeasible = True
+            self.culprit = self.m
+            return
         else:
             log_objectives(self.m)
             self.post_optimize()
-
-        end = time.time()
+            log_placement(self.devices, self.partitions, self.flows,
+                          self.dev_par_tuplelist, self.frac,
+                          init=getattr(self, 'init', None))
 
 
 class Univmon(MIP):
@@ -448,26 +428,22 @@ class Univmon(MIP):
 
     def post_optimize(self):
         self.m.printQuality()
-        write_vars(self.m)
+        log_vars(self.m)
 
         # log_placement(self.devices, self.partitions, self.flows,
         #               self.dev_par_tuplelist, self.frac)
 
-        # TODO: Fix for overlay
         if(not common_config.use_model):
-            if (not self.check_device_aware_constraints()):
-                log.info("Infeasible placement due to Univmon's "
-                         "lack of knowledge")
+            if(type(self).__name__ == 'Univmon'):
+                if (not self.check_device_aware_constraints()):
+                    log.warn("Infeasible placement due to Univmon's "
+                             "lack of knowledge")
+                    self.infeasible = True
+                    self.culprit = self.m
+                    return
 
-                if(not (common_config.results_file is None)):
-                    f = open(common_config.results_file, 'a')
-                    f.write("-, -, -, -, -, ")
-                    f.close()
-                return
-
-            if(not self.overlay):
-                refine_devices(self.devices)
-                log_results(self.devices, self.overlay)
+            if(not self.dont_refine):
+                (self.ns_max, self.res) = refine_devices(self.devices)
 
         # else:
         #     prefixes = ['frac', 'mem\[']
@@ -515,14 +491,9 @@ class Univmon(MIP):
         #     #     return
 
         #     self.m.printQuality()
-        #     write_vars(self.m)
+        #     log_vars(self.m)
 
-        #     log_results(self.devices, self.overlay)
-
-        # TODO: Redundancy in logging
-        log_placement(self.devices, self.partitions, self.flows,
-                      self.dev_par_tuplelist, self.frac,
-                      init=getattr(self, 'init', None))
+        #     log_results(self.devices)
 
 
 # TODO:: Add loop for these objectives instead of per device type variables
@@ -656,14 +627,24 @@ class Netmon(UnivmonGreedyRows):
         # Initialize with unimon_greedy_rows solution
         super(Netmon, self).add_constraints()
         super(Netmon, self).add_objective()
+        log.info("-"*50)
+        log.info("Running Intermediate Univmon Placement")
         self.m.update()
         # TODO:: Redundancy here. Consider running univmon at Obj init time
         self.m.optimize()
+        if(self.m.Status == GRB.INFEASIBLE):
+            self.infeasible = True
+            self.culprit = self.m
+            return
 
-        (ns_max, _) = refine_devices(self.devices)
-
+        log_objectives(self.m)
+        self.dont_refine = False
+        super(Netmon, self).post_optimize()
+        # (ns_max, _) = refine_devices(self.devices)
         log_placement(self.devices, self.partitions, self.flows,
-                      self.dev_par_tuplelist, self.frac)
+                      self.dev_par_tuplelist, self.frac,
+                      msg="UnivmonGreedyRows: Intermediate Placement")
+        log_results(self.devices, msg="UnivmonGreedyRows: Intermediate Results")
 
         # numdevices = len(self.devices)
         # numpartitions = len(self.partitions)
@@ -674,14 +655,14 @@ class Netmon(UnivmonGreedyRows):
             self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
             self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
 
-        self.ns_req = ns_max
+        self.ns_req = self.ns_max
         (self.ns, self.res) = self.add_device_model_constraints(self.ns_req)
 
     def add_objective(self):
         if(self.is_clustered()):
             return super(Netmon, self).add_objective()
 
-        if(hasattr(self, 'ns_req') and self.ns_req):
+        if(getattr(self, 'ns_req', None) is not None):
             self.m.NumObj = 1
             self.m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
             self.m.setObjectiveN(self.res, 0, 10, reltol=common_config.res_tol,
@@ -697,19 +678,18 @@ class Netmon(UnivmonGreedyRows):
         if(self.is_clustered()):
             return super(Netmon, self).post_optimize()
 
-        if(self.m.Status == GRB.TIME_LIMIT):
-            refine_devices(self.devices)
         self.m.printQuality()
-        write_vars(self.m)
+        log_vars(self.m)
 
-        if(hasattr(self, 'ns_req')):
-            self.ns = self.ns_req
-        log_results(self.devices, self.overlay)
-        log_placement(self.devices, self.partitions, self.flows,
-                      self.dev_par_tuplelist, self.frac)
+        if(self.m.Status == GRB.TIME_LIMIT):
+            (self.ns_max, self.res) = refine_devices(self.devices)
+        else:
+            if(getattr(self, 'ns_req', None) is None):
+                self.ns_max = get_val(self.ns)
+            self.res = get_val(self.res)
 
 
-def log_results(devices, overlay=False):
+def log_results(devices, logger=log.info, elapsed=None, msg="Results"):
 
     ns_max = 0
     res = 0
@@ -726,20 +706,22 @@ def log_results(devices, overlay=False):
         if(isinstance(d, P4)):
             switch_memory += get_val(d.mem_tot)
 
-    log.info("\nThroughput: {} Mpps, ns per packet: {}".format(
-        1000/ns_max, ns_max))
+    log.info("{}:\nThroughput: {} Mpps, ns per packet: {}".format(
+        msg, 1000/ns_max, ns_max))
     log.info("Resources: {}".format(res))
     if(total_CPUs is not None and used_cores is not None
        and switch_memory is not None):
         log.info("Used Cores: {}, Total CPUS: {}, Switch Memory: {}"
                  .format(used_cores, total_CPUs, switch_memory))
 
-    if((not (common_config.results_file is None)) and not overlay):
+    if(common_config.results_file is not None and elapsed is not None):
         f = open(common_config.results_file, 'a')
-        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, ".format(
+        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {}, ".format(
             1000/ns_max, res,
-            used_cores, total_CPUs, switch_memory))
+            used_cores, total_CPUs, switch_memory, elapsed))
         f.close()
+
+    return (ns_max, res)
 
 
 def log_initial(devices, partitions, flows, dev_par_tuplelist, init):
@@ -762,18 +744,21 @@ def log_objectives(m):
     for i in range(m.NumObj):
         m.params.ObjNumber = i
         log.info('{}: {}'.format(m.ObjNName, m.ObjNVal))
+    log.info("-"*50)
 
 
 def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
-                  init=None):
+                  init=None, msg="Placement"):
 
+    log.debug("-"*50)
+    log.debug(msg + ":")
     # for (qnum, q) in enumerate(queries):
-    #     log.info("\nSketch ({}) ({})".format(q.sketch_id,
+    #     log.debug("\nSketch ({}) ({})".format(q.sketch_id,
     #                                          q.details()))
     #     row = 1
     #     for pnum in q.partitions:
     #         num_rows = partitions[pnum].num_rows
-    #         log.info("Par: {}, Rows: {}".format(row, num_rows))
+    #         log.debug("Par: {}, Rows: {}".format(row, num_rows))
     #         row += 1
     #         par_info = ""
     #         total_frac = 0
@@ -783,18 +768,18 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
     #         # for (dnum, d) in enumerate(devices):
     #         #     par_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
     #         #     total_frac += (frac[dnum, pnum].x)
-    #         log.info(par_info)
-    #         log.info("Total frac: {:0.3f}".format(total_frac))
+    #         log.debug(par_info)
+    #         log.debug("Total frac: {:0.3f}".format(total_frac))
 
     # prev_q_id = None
     # for (pnum, p) in enumerate(partitions):
     #     q = p.sketch
     #     if(q.sketch_id != prev_q_id):
-    #         log.info("\nSketch ({}) ({})"
+    #         log.debug("\nSketch ({}) ({})"
     #                  .format(q.sketch_id, q.details()))
     #         prev_q_id = q.sketch_id
 
-    #     log.info("Par{} id: {}, Rows: {}"
+    #     log.debug("Par{} id: {}, Rows: {}"
     #              .format(p.partition_id - q.partitions[0],
     #                      p.partition_id, p.num_rows))
     #     par_info = ""
@@ -803,34 +788,34 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
     #         par_info += "({:0.3f},{})    ".format(
     #             get_val(frac[dnum, pnum]), dnum)
     #         total_frac += (get_val(frac[dnum, pnum]))
-    #     log.info(par_info)
-    #     log.info("Total frac: {:0.3f}".format(total_frac))
+    #     log.debug(par_info)
+    #     log.debug("Total frac: {:0.3f}".format(total_frac))
 
     for (dnum, d) in enumerate(devices):
-        log.info("\nDevice ({}) {}:".format(dnum, d))
+        log.debug("\nDevice ({}) {}:".format(dnum, d))
         res_stats = d.resource_stats()
         if(res_stats != ""):
-            log.info(res_stats)
-        log.info("Rows total: {}".format(get_val(d.rows_tot)))
-        log.info("Mem total: {}".format(get_val(d.mem_tot)))
+            log.debug(res_stats)
+        log.debug("Rows total: {}".format(get_val(d.rows_tot)))
+        log.debug("Mem total: {}".format(get_val(d.mem_tot)))
         if(init):
             tot_rows = 0
             tot_mem = 0
             for (_, pnum) in dev_par_tuplelist.select(dnum, '*'):
                 tot_rows += init.frac[dnum, pnum] * partitions[pnum].num_rows
                 tot_mem += init.mem[dnum, pnum]
-            log.info("Initial Rows total: {}".format(tot_rows))
-            log.info("Initial Mem total: {}".format(tot_mem))
+            log.debug("Initial Rows total: {}".format(tot_rows))
+            log.debug("Initial Mem total: {}".format(tot_mem))
 
         if(hasattr(d, 'ns')):
-            log.info("Throughput: {}".format(1000/d.ns.x))
+            log.debug("Throughput: {}".format(1000/get_val(d.ns)))
 
-    log.debug("")
-    for (fnum, f) in enumerate(flows):
-        log.debug("Flow {}:".format(fnum))
-        log.debug("partitions: {}".format(f.partitions))
-        log.debug("path: {}".format(f.path))
-    log.info("-"*50)
+    # log.debug("")
+    # for (fnum, f) in enumerate(flows):
+    #     log.debug("Flow {}:".format(fnum))
+    #     log.debug("partitions: {}".format(f.partitions))
+    #     log.debug("path: {}".format(f.path))
+    # log.debug("-"*50)
 
 
 solver_names = ['Univmon', 'UnivmonGreedy', 'UnivmonGreedyRows', 'Netmon']
