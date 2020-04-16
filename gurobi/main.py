@@ -18,7 +18,7 @@ from solvers import (UnivmonGreedyRows, log_placement, log_results,
 
 
 def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
-    log.warn(msg)
+    log.warning(msg)
 
     if(not (common_config.results_file is None)):
         f = open(common_config.results_file, 'a')
@@ -226,7 +226,7 @@ def log_step(msg, logger=log.info):
 
 # TODO:: Handle disconnected graph in solver
 # Final devices will always be refined, just log at the end
-@log_time
+@log_time(logger=log.info)
 def solve(inp):
     # import ipdb; ipdb.set_trace()
     start = time.time()
@@ -259,7 +259,8 @@ def solve(inp):
             frac = tupledict()
             for prob in subproblems:
                 sol = Solver(devices=prob.devices, partitions=prob.partitions,
-                             flows=prob.flows, queries=inp.queries)
+                             flows=prob.flows, queries=inp.queries,
+                             dont_refine=False)
                 sol.solve()
                 if(solver.infeasible):
                     return handle_infeasible(solver.culprit)

@@ -409,6 +409,11 @@ class MIP(Namespace):
             log_placement(self.devices, self.partitions, self.flows,
                           self.dev_par_tuplelist, self.frac,
                           init=getattr(self, 'init', None))
+            # Basically if Netmon was run in intermediate and it did not
+            # behave like Univmon Greedy Rows
+            if(hasattr(self, 'refined')):
+                if(self.refined and self.dont_refine):
+                    log_results(self.devices, msg="Netmon Intermediate Result")
 
 
 class Univmon(MIP):
@@ -436,7 +441,7 @@ class Univmon(MIP):
         if(not common_config.use_model):
             if(type(self).__name__ == 'Univmon'):
                 if (not self.check_device_aware_constraints()):
-                    log.warn("Infeasible placement due to Univmon's "
+                    log.warning("Infeasible placement due to Univmon's "
                              "lack of knowledge")
                     self.infeasible = True
                     self.culprit = self.m
@@ -444,6 +449,7 @@ class Univmon(MIP):
 
             if(not self.dont_refine):
                 (self.ns_max, self.res) = refine_devices(self.devices)
+                self.refined = True
 
         # else:
         #     prefixes = ['frac', 'mem\[']
@@ -638,8 +644,10 @@ class Netmon(UnivmonGreedyRows):
             return
 
         log_objectives(self.m)
+        dont_refine = self.dont_refine
         self.dont_refine = False
         super(Netmon, self).post_optimize()
+        self.dont_refine = dont_refine
         # (ns_max, _) = refine_devices(self.devices)
         log_placement(self.devices, self.partitions, self.flows,
                       self.dev_par_tuplelist, self.frac,
@@ -687,8 +695,9 @@ class Netmon(UnivmonGreedyRows):
             if(getattr(self, 'ns_req', None) is None):
                 self.ns_max = get_val(self.ns)
             self.res = get_val(self.res)
+        self.refined = True
 
-
+# TODO:: Can save results while refining rather than recomputing!
 def log_results(devices, logger=log.info, elapsed=None, msg="Results"):
 
     ns_max = 0
