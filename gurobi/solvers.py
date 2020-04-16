@@ -386,6 +386,16 @@ class MIP(Namespace):
         end = time.time()
         update_time = end - start
         log.info("Model update took: {} s".format(update_time))
+
+        # TODO:: Check why this tuning does not work!
+        # log.info('='*50)
+        # log.info("Beginning tuning")
+        # log.info('='*50)
+        # for i in range(self.m.TuneResultCount):
+        #     self.m.getTuneResult(i)
+        #     self.m.write(os.path.join(common_config.prog_dir,
+        #                               'tune'+str(i)+'.prm'))
+
         if(common_config.prog_dir):
             self.m.write(os.path.join(
                 common_config.prog_dir,
