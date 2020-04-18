@@ -387,19 +387,21 @@ class MIP(Namespace):
         update_time = end - start
         log.info("Model update took: {} s".format(update_time))
 
-        log.info('='*50)
-        log.info("Beginning tuning")
-        log.info('='*50)
-        self.m.setParam(GRB.Param.TuneOutput, 1)
-        self.m.tune()
-        log.info('='*50)
-        log.info("End tuning")
-        log.info('='*50)
-        log.info("Parameters sets obtained: {}".format(self.m.TuneResultCount))
-        for i in range(self.m.TuneResultCount):
-            self.m.getTuneResult(i)
-            self.m.write(os.path.join(common_config.prog_dir,
-                                      'tune'+str(i)+'.prm'))
+        # log.info('='*50)
+        # log.info("Beginning tuning")
+        # log.info('='*50)
+        # self.m.setParam(GRB.Param.TuneOutput, 1)
+        # self.m.tune()
+        # log.info('='*50)
+        # log.info("End tuning")
+        # log.info('='*50)
+        # log.info("Parameters sets obtained: {}".format(self.m.TuneResultCount))
+        # for i in range(self.m.TuneResultCount):
+        #     self.m.getTuneResult(i)
+        #     self.m.write(os.path.join(common_config.prog_dir,
+        #                               'tune'+str(i)+'.prm'))
+        # self.m.setParam(GRB.Param.Heuristics, 0.5)
+        # self.m.setParam(GRB.Param.PrePasses, 8)
 
         if(common_config.prog_dir):
             self.m.write(os.path.join(
