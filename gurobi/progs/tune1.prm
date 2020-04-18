@@ -1,0 +1,5 @@
+TimeLimit  120
+MIPGapAbs  10
+PumpPasses  0
+NonConvex  2
+TuneOutput  1

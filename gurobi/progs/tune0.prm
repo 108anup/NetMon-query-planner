@@ -1,0 +1,6 @@
+TimeLimit  120
+MIPGapAbs  10
+Heuristics  0.5
+NonConvex  2
+PrePasses  8
+TuneOutput  1
