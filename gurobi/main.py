@@ -262,8 +262,8 @@ def solve(inp):
                              flows=prob.flows, queries=inp.queries,
                              dont_refine=False)
                 sol.solve()
-                if(solver.infeasible):
-                    return handle_infeasible(solver.culprit)
+                if(sol.infeasible):
+                    return handle_infeasible(sol.culprit)
                 log_results(sol.devices, msg="Refinement Results")
                 frac.update(sol.frac)
 
@@ -353,6 +353,9 @@ def solve(inp):
                         partitions=inp.partitions, queries=inp.queries,
                         dont_refine=False)
         solver.solve()
+        if(solver.infeasible):
+            return handle_infeasible(solver.culprit)
+
 
     end = time.time()
     log.info("\n" + "-"*80)
