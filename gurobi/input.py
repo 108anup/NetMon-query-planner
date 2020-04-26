@@ -59,8 +59,8 @@ beluga20 = {
 }
 
 tofino = {
-    'meter_alus': 4, 'sram': 48, 'stages': 12, 'line_thr': 148,
-    'max_mpr': 48, 'max_mem': 48*12, 'max_rows': 12 * 4
+    'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 148,
+    'max_mpr': 512, 'max_mem': 512 * 12, 'max_rows': 12 * 4
 }
 
 '''

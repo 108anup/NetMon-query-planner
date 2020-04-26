@@ -4,6 +4,7 @@ import re
 import sys
 import time
 from functools import partial
+import math
 
 import gurobipy as gp
 from gurobipy import GRB, tupledict, tuplelist
@@ -233,6 +234,8 @@ class MIP(Namespace):
             sk = p.sketch
             num_rows = p.num_rows
             mm = sk.min_mem()
+            if isinstance(self.devices[dnum], P4):
+                mm = 2 ** math.ceil(math.log2(mm))
             self.m.addConstr(self.mem[dnum, pnum] ==
                              mm * self.frac[dnum, pnum] * num_rows,
                              name='accuracy_{}_{}'.format(dnum, pnum))
@@ -778,24 +781,24 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
 
     log.debug("-"*50)
     log.debug(msg + ":")
-    # for (qnum, q) in enumerate(queries):
-    #     log.debug("\nSketch ({}) ({})".format(q.sketch_id,
-    #                                          q.details()))
-    #     row = 1
-    #     for pnum in q.partitions:
-    #         num_rows = partitions[pnum].num_rows
-    #         log.debug("Par: {}, Rows: {}".format(row, num_rows))
-    #         row += 1
-    #         par_info = ""
-    #         total_frac = 0
-    #         for (dnum, _) in dev_par_tuplelist.select('*', pnum):
-    #             par_info += "({:0.3f},{})    ".format(frac[dnum, pnum].x, dnum)
-    #             total_frac += (frac[dnum, pnum].x)
-    #         # for (dnum, d) in enumerate(devices):
-    #         #     par_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
-    #         #     total_frac += (frac[dnum, pnum].x)
-    #         log.debug(par_info)
-    #         log.debug("Total frac: {:0.3f}".format(total_frac))
+    # # for (qnum, q) in enumerate(queries):
+    # #     log.debug("\nSketch ({}) ({})".format(q.sketch_id,
+    # #                                          q.details()))
+    # #     row = 1
+    # #     for pnum in q.partitions:
+    # #         num_rows = partitions[pnum].num_rows
+    # #         log.debug("Par: {}, Rows: {}".format(row, num_rows))
+    # #         row += 1
+    # #         par_info = ""
+    # #         total_frac = 0
+    # #         for (dnum, _) in dev_par_tuplelist.select('*', pnum):
+    # #             par_info += "({:0.3f},{})    ".format(frac[dnum, pnum].x, dnum)
+    # #             total_frac += (frac[dnum, pnum].x)
+    # #         # for (dnum, d) in enumerate(devices):
+    # #         #     par_info += "{:0.3f}    ".format(frac[dnum, pnum].x)
+    # #         #     total_frac += (frac[dnum, pnum].x)
+    # #         log.debug(par_info)
+    # #         log.debug("Total frac: {:0.3f}".format(total_frac))
 
     # prev_q_id = None
     # for (pnum, p) in enumerate(partitions):
