@@ -119,6 +119,9 @@ def refine_devices(devices):
         u.setParam(GRB.Param.LogToConsole, 0)
         u.update()
         u.optimize()
+        # The solver constraints should guarantee that following holds
+        assert(u.Status != GRB.Status.INFEASIBLE)
+
         # Need to keep these to retain model values.
         if(hasattr(d, 'u')):
             if(hasattr(d, 'old_u')):
@@ -149,6 +152,8 @@ def refine_devices(devices):
 
             u.update()
             u.optimize()
+            # The above optimize should guarantee that following holds
+            assert(u.Status != GRB.Status.INFEASIBLE)
             log_vars(u)
 
             ns_max = max(ns_max, get_val(d.ns))
