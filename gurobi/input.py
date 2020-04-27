@@ -60,7 +60,7 @@ beluga20 = {
 
 tofino = {
     'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 148,
-    'max_mpr': 512, 'max_mem': 512 * 12, 'max_rows': 12 * 4
+    'max_mpr': 512, 'max_mem': 512 * 12, 'max_rows': 12 * 4, 'max_col_bits': 17
 }
 
 '''
@@ -904,8 +904,8 @@ input_generator = [
     # Medium tenant (1K)
     # This basically is an example of spectralA which gives infeasible
     dc_topology(hosts_per_tors=48, tors_per_l1s=10,
-                l1s=10, num_queries=2400, tenant=True,
-                overlay='tenant', refine=False, eps=eps0/100),
+                l1s=2, num_queries=480, tenant=True,
+                overlay='tenant', refine=False, eps=eps0),
 
     # 29
     # Very Large (100K)

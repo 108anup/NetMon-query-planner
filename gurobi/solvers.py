@@ -7,9 +7,9 @@ from functools import partial
 import math
 
 import gurobipy as gp
-from gurobipy import GRB, tupledict, tuplelist
+from gurobipy import GRB, tupledict, tuplelist, quicksum
 
-from common import Namespace, log, log_time, memoize
+from common import Namespace, log, log_time, memoize, constants
 from config import common_config
 from devices import CPU, P4, Cluster
 from helpers import get_rounded_val, get_val
@@ -243,15 +243,68 @@ class MIP(Namespace):
     def add_accuracy_constraints(self):
 
         for (dnum, pnum) in self.dev_par_tuplelist:
+
+            self.cols = tupledict()
+            self.cols_helper = tupledict()
+
             p = self.partitions[pnum]
             sk = p.sketch
             num_rows = p.num_rows
             mm = sk.min_mem()
-            if isinstance(self.devices[dnum], P4):
-                mm = 2 ** math.ceil(math.log2(mm))
-            self.m.addConstr(self.mem[dnum, pnum] ==
-                             mm * self.frac[dnum, pnum] * num_rows,
-                             name='accuracy_{}_{}'.format(dnum, pnum))
+            d = self.devices[dnum]
+            if(not common_config.vertical_partition):
+                if isinstance(d, P4):
+                    mm = 2 ** math.ceil(math.log2(mm))
+
+                self.m.addConstr(self.mem[dnum, pnum] ==
+                                 mm * self.frac[dnum, pnum] * num_rows,
+                                 name='accuracy_{}_{}'.format(dnum, pnum))
+            else:
+                if(isinstance(d, P4)):
+                    '''
+                    TODO: For Univmon, this should not be added
+                    This should be checked for the univmon solution later
+                    TODO: see if this is the right place to be doing this
+
+                    TODO: This also has to be different for each sketch
+                    As not all sketches would preserve accuracy linearly.
+                    TODO: Make modular so that other devices can reuse
+                    '''
+
+                    mc = sk.cols()  # minimum cols per row
+                    self.cols[dnum, pnum] = self.m.addVar(
+                        vtype=GRB.INTEGER,
+                        name='cols_{}_{}'.format(dnum, pnum),
+                        lb=0, ub=2 ** d.max_col_bits)
+
+                    self.cols_helper[dnum, pnum] = self.m.addVars(
+                        [x for x in range(d.max_col_bits)], vtype=GRB.BINARY,
+                        name='cols_helper_{}_{}'.format(dnum, pnum))
+
+                    # can also be zero
+                    # Helper constraints
+                    self.m.addConstr(quicksum(self.cols_helper[dnum, pnum])
+                                     <= 1, name='cols_helper_{}_{}'
+                                     .format(dnum, pnum))
+                    tmp = [self.cols_helper[dnum, pnum][i] * 2**(i+1)
+                           for i in range(d.max_col_bits)]
+                    self.m.addConstr(self.cols[dnum, pnum] == quicksum(tmp),
+                                     name='cols_{}_{}'.format(dnum, pnum))
+
+                    # Accuracy constraints
+                    self.m.addConstr(self.cols[dnum, pnum] >=
+                                     mc * self.frac[dnum, pnum],
+                                     name='cols_acc_{}_{}'.format(dnum, pnum))
+                    self.m.addConstr(
+                        self.mem[dnum, pnum] ==
+                        (constants.cell_size * self.cols[dnum, pnum]
+                         * num_rows) / constants.KB2B,
+                        name='accuracy_{}_{}'.format(dnum, pnum))
+
+                else:
+                    self.m.addConstr(self.mem[dnum, pnum] ==
+                                     mm * self.frac[dnum, pnum] * num_rows,
+                                     name='accuracy_{}_{}'.format(dnum, pnum))
 
         # numdevices = len(self.devices)
         # for (pnum, p) in enumerate(self.partitions):
