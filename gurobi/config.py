@@ -49,7 +49,8 @@ default_config = Config(
     output_file=None,
     config_file=[],
     prog_dir=None,
-    init=False
+    init=False,
+    parallel=False
 )
 common_config = Config()
 common_config.update(default_config)

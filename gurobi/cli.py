@@ -68,4 +68,9 @@ def generate_parser():
         action='store_true'
     )
 
+    p.add_argument(
+        '--parallel',
+        action='store_true'
+    )
+
     return p

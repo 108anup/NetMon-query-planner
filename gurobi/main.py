@@ -15,6 +15,7 @@ from flows import flow
 from input import input_generator
 from solvers import (UnivmonGreedyRows, log_placement, log_results,
                      refine_devices, solver_to_class)
+import threading
 
 
 def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
@@ -276,6 +277,7 @@ def solve(inp):
 
     # Clustering
     elif (getattr(inp, 'overlay', None)):
+        assert(not (common_config.parallel and common_config.init))
         if(common_config.init is True):
             solver = UnivmonGreedyRows(devices=inp.devices,
                                        partitions=inp.partitions,
@@ -297,26 +299,23 @@ def solve(inp):
 
         placement = Namespace(frac=tupledict(), mem=tupledict(), res={},
                               dev_par_tuplelist=tuplelist())
-        # BFS over device tree
-        first_run = True
-        while(queue.qsize() > 0):
-            front = queue.get()
+
+        def solver_thread(front):
             devices = front.devices
             partitions = front.partitions
             flows = front.flows
-            if(first_run and common_config.init):
-                solver = Solver(devices=devices, partitions=partitions,
-                                flows=flows, queries=inp.queries, init=init,
-                                dont_refine=True)
-            else:
-                solver = Solver(devices=devices, partitions=partitions,
-                                flows=flows, queries=inp.queries,
-                                dont_refine=True)
+            """
+            Python takes a lot of locks while running threads
+            Assuming Gurobi spawn a independent dedicated process
+            We should be able to overlap the solving times
+            """
+            solver = Solver(devices=devices, partitions=partitions,
+                            flows=flows, queries=inp.queries,
+                            dont_refine=True)
             solver.solve()
-            first_run = False
 
-            # TODO: Modify Infeasible handling
-            # TODO: This breaks abstraction of any type of solver
+            # TODO:: check if this will work with multiple threads
+            # TODO:: Try futures in python!!
             if(solver.infeasible):
                 return handle_infeasible(solver.culprit)
 
@@ -339,6 +338,64 @@ def solve(inp):
                         # placement.res[d] = d.res().getValue()
                         placement.dev_par_tuplelist.append(
                             (d.dev_id, p.partition_id))
+
+        # BFS over device tree
+        if(common_config.parallel):
+            # Don't support init here
+            while(queue.qsize() > 0):
+                threads = []
+                num_threads = queue.qsize()
+                for thread_id in range(num_threads):
+                    front = queue.get()
+                    threads.append(
+                        threading.Thread(target=solver_thread, args=(front, ))
+                    )
+                for th in threads:
+                    th.start()
+                for th in threads:
+                    th.join()
+
+        if(not common_config.parallel):
+            first_run = True
+            while(queue.qsize() > 0):
+                front = queue.get()
+                devices = front.devices
+                partitions = front.partitions
+                flows = front.flows
+                if(first_run and common_config.init):
+                    solver = Solver(devices=devices, partitions=partitions,
+                                    flows=flows, queries=inp.queries,
+                                    init=init, dont_refine=True)
+                else:
+                    solver = Solver(devices=devices, partitions=partitions,
+                                    flows=flows, queries=inp.queries,
+                                    dont_refine=True)
+                solver.solve()
+                first_run = False
+
+                if(solver.infeasible):
+                    return handle_infeasible(solver.culprit)
+
+                for (dnum, d) in enumerate(devices):
+                    if(isinstance(d, Cluster)):
+                        (partitions, flows) = get_partitions_flows(
+                            inp, d, solver, dnum)
+                        if(len(partitions) > 0 and len(flows) > 0):
+                            queue.put(Namespace(devices=d.device_tree,
+                                                partitions=partitions,
+                                                flows=flows))
+                    else:
+                        # Clusters never overlap!!
+                        for (_, pnum)in solver.dev_par_tuplelist.select(
+                                dnum, '*'):
+                            p = solver.partitions[pnum]
+                            placement.frac[d.dev_id, p.partition_id] \
+                                = solver.frac[dnum, pnum].x
+                            placement.mem[d.dev_id, p.partition_id] \
+                                = solver.mem[dnum, pnum].x
+                            # placement.res[d] = d.res().getValue()
+                            placement.dev_par_tuplelist.append(
+                                (d.dev_id, p.partition_id))
 
         log_step('Clustered Optimization complete')
 
