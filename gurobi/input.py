@@ -904,8 +904,8 @@ input_generator = [
     # Medium tenant (1K)
     # This basically is an example of spectralA which gives infeasible
     dc_topology(hosts_per_tors=48, tors_per_l1s=10,
-                l1s=2, num_queries=480, tenant=True,
-                overlay='tenant', refine=True),
+                l1s=10, num_queries=2400, tenant=True,
+                overlay='tenant', refine=False, eps=eps0/100),
 
     # 29
     # Very Large (100K)

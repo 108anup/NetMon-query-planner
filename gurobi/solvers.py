@@ -135,17 +135,30 @@ def refine_devices(devices):
     for d in devices:
         u = d.u
         if(isinstance(d, CPU)):
-            u.addConstr(d.ns >= ns_max,
+            '''
+            It may be the case that the requirements are so low that
+            that ns is always less than ns_max, so remove ns as obj
+            and just minimize resource while keeping ns below ns_max
+            '''
+            u.addConstr(d.ns <= ns_max,
                         name='global_ns_req_{}'.format(d))
+            u.NumObj = 1
+            u.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
+            u.setObjectiveN(d.res(), 0, 10, reltol=common_config.res_tol,
+                            name='res')
+
             u.update()
             u.optimize()
             log_vars(u)
 
+            ns_max = max(ns_max, get_val(d.ns))
+            res_acc += u.getObjective(0).getValue()
+        else:
+            ns_max = max(ns_max, u.getObjective(0).getValue())
+            res_acc += u.getObjective(1).getValue()
+
         d.mem_tot = d.mem_tot_old
         d.rows_tot = d.rows_tot_old
-        ns_max = max(ns_max, u.getObjective(0).getValue())
-        res_acc += u.getObjective(1).getValue()
-
     return (ns_max, res_acc)
 
 

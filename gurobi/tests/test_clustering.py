@@ -11,8 +11,15 @@ from common import (setup_logging, add_file_logger,
 from config import common_config
 import numpy as np
 import random
+import subprocess
+
 
 base_dir = 'outputs/clustering'
+
+
+def get_git_revision_short_hash():
+    hash = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'])
+    return hash.decode()[:-1]
 
 
 def get_partition_str(args):
@@ -55,7 +62,9 @@ def run_all_with_input(m, inp, solvers=['UnivmonGreedyRows', 'Netmon']):
 
 
 def setup_test_meta(m):
-    m.out_dir = os.path.join(base_dir, m.test_name)
+    m.out_dir = os.path.join(base_dir, m.test_name
+                             + "-" + get_git_revision_short_hash())
+    os.makedirs(m.out_dir, exist_ok=True)
     common_config.results_file = os.path.join(m.out_dir, 'results.csv')
     m.config_str = '{}-{}'.format(get_partition_str(common_config),
                                   get_init_str(common_config))
@@ -76,8 +85,11 @@ def combinations(l):
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[8], [2], [2], ['tenant'], [False]]
+        [[48], [10, 20], [4, 10], ['tenant'], [False]]
     )
+    # combinations(
+    #     [[8], [2], [2], ['tenant'], [False]]
+    # )
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
                                        l1s, overlay, refine):
@@ -89,7 +101,7 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
 
     # Testing: overlay uncorrelated with tenants and traffic
 
-    common_config.vertical_partition = True
+    # common_config.vertical_partition = True
 
     m = Namespace()
     m.test_name = 'vary_topo_size_dc_topo_tenant'
