@@ -65,6 +65,11 @@ def setup_test_meta(m):
     m.out_dir = os.path.join(base_dir, m.test_name
                              + "-" + get_git_revision_short_hash())
     os.makedirs(m.out_dir, exist_ok=True)
+    gitignore = os.path.join(m.out_dir, '.gitignore')
+    if(not os.path.exists(gitignore)):
+        f = open(gitignore, 'w')
+        f.write('*.out')
+        f.close()
     common_config.results_file = os.path.join(m.out_dir, 'results.csv')
     m.config_str = '{}-{}'.format(get_partition_str(common_config),
                                   get_init_str(common_config))
@@ -101,8 +106,8 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
 
     # Testing: overlay uncorrelated with tenants and traffic
 
-    common_config.vertical_partition = True
-    # common_config.horizontal_partition = True
+    # common_config.vertical_partition = True
+    common_config.horizontal_partition = True
 
     m = Namespace()
     m.test_name = 'vary_topo_size_dc_topo_tenant'
