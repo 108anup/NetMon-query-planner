@@ -106,8 +106,9 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
 
     # Testing: overlay uncorrelated with tenants and traffic
 
-    # common_config.vertical_partition = True
-    common_config.horizontal_partition = True
+    common_config.parallel = True
+    common_config.vertical_partition = True
+    # common_config.horizontal_partition = True
 
     m = Namespace()
     m.test_name = 'vary_topo_size_dc_topo_tenant'
