@@ -48,6 +48,7 @@ del0 = 0.05  # 0.02
 
 # One time profiling of each device type
 beluga20 = {
+    'profile_name': "beluga20",
     'mem_par': [0, 1.1875, 32, 1448.15625,
                 5792.625, 32768.0, 440871.90625],
     'mem_ns': [0, 0.539759, 0.510892, 5.04469,
@@ -59,8 +60,9 @@ beluga20 = {
 }
 
 tofino = {
-    'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 148,
-    'max_mpr': 512, 'max_mem': 512 * 12, 'max_rows': 12 * 4, 'max_col_bits': 17
+    'profile_name': "tofino",
+    'meter_alus': 4, 'sram': 48, 'stages': 12, 'line_thr': 148,
+    'max_mpr': 48, 'max_mem': 48 * 12, 'max_rows': 12 * 4, 'max_col_bits': 13
 }
 
 '''

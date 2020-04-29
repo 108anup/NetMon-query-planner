@@ -1,8 +1,10 @@
 import math
+import gurobipy as gp
 from gurobipy import GRB
 
+from config import common_config
 from common import Namespace, memoize
-from helpers import get_val
+from helpers import get_val, get_rounded_val, log_vars
 
 
 class device(Namespace):
@@ -19,8 +21,11 @@ class device(Namespace):
     def __repr__(self):
         return self.name
 
-    def resource_stats(self):
+    def resource_stats(self, md):
         return ""
+
+    def get_ns(self, md):
+        return 1000 / self.line_thr
 
 
 class CPU(device):
@@ -80,7 +85,10 @@ class CPU(device):
     def set_thr(self, md, ns_req):
         md.cores_sketch = math.ceil(md.ns_single / ns_req)
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
-        md.ns_sketch = md.ns_single / md.cores_sketch
+        if(md.cores_sketch != 0):
+            md.ns_sketch = md.ns_single / md.cores_sketch
+        else:
+            md.ns_sketch = 0
         f = CPU.fraction_parallel
         dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
         assert(dpdk_cores > 0)
@@ -96,13 +104,13 @@ class CPU(device):
         assert(isinstance(rows, (int, float)) == isinstance(mem, (int, float)))
         if(isinstance(rows, (int, float))):
             md.m_access_time = self.get_mem_access_time(mem)
-            md.ns_single = rows * (md.mem_access_time + self.hash_ns)
+            md.ns_single = rows * (md.m_access_time + self.hash_ns)
 
             # If it is None then directly use set_thr function
             # Using assert because there is no need for creating model m
             if(ns_req is not None):
                 assert(m is None)  # TODO: can remove later
-                self.set_thr(md, ns_req)
+                return self.set_thr(md, ns_req)
 
         else:
             # Access time based on mem
@@ -111,9 +119,6 @@ class CPU(device):
                                         name='m_access_time_{}'.format(self))
             m.addGenConstrPWL(mem, md.m_access_time, self.mem_par, self.mem_ns,
                               "mem_access_time_{}".format(self))
-
-            m.setParam(GRB.Param.NonConvex, 2)
-
             # single core ns model
             # self.t = m.addVar(vtype=GRB.CONTINUOUS, lb=0)
             # m.addGenConstrPWL(rows, self.t, CPU.s_rows, CPU.static_loads)
@@ -127,6 +132,14 @@ class CPU(device):
             m.addConstr(md.pdt_m_rows + rows * self.hash_ns
                         == md.ns_single,
                         name='ns_single_{}'.format(self))
+
+        '''
+        If rows and mem are not known then m_access_time * rows requires
+        non-convexity
+        If ns_req is not present then Amdahl's law requires non-convexity
+        If both are known then use set_thr
+        '''
+        m.setParam(GRB.Param.NonConvex, 2)
 
         # Multi-core model
         md.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.cores,
@@ -182,6 +195,51 @@ class CPU(device):
         else:
             return ""
 
+    def get_ns(self, md):
+        md_tmp = Namespace()
+        # mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
+        #                    name='mem_tot_{}'.format(d),
+        #                    lb=0, ub=d.max_mem)
+        # u.addConstr(mem_tot == get_rounded_val(get_val(d.mem_tot)),
+        #             name='mem_tot_{}'.format(d))
+        # md.mem_tot_old = md.mem_tot
+        md_tmp.mem_tot = get_rounded_val(get_val(md.mem_tot))
+
+        # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
+        #                     name='rows_tot_{}'.format(d), lb=0)
+        # u.addConstr(rows_tot == d.rows_tot.x,
+        #             name='rows_tot_{}'.format(d))
+        # md.rows_tot_old = md.rows_tot
+        md_tmp.rows_tot = get_rounded_val(get_val(md.rows_tot))
+
+        u = gp.Model(self.name)
+        if(not common_config.mipout):
+            u.setParam(GRB.Param.LogToConsole, 0)
+
+        self.add_ns_constraints(u, md_tmp)
+
+        u.setObjectiveN(md_tmp.ns, 0, 10, reltol=common_config.ns_tol,
+                        name='ns')
+        u.setObjectiveN(self.res(md_tmp), 1, 5, reltol=common_config.res_tol,
+                        name='res')
+
+        u.ModelSense = GRB.MINIMIZE
+        u.update()
+        u.optimize()
+        # The solver constraints should guarantee that following holds
+        assert(u.Status != GRB.Status.INFEASIBLE)
+
+        # TODO: Is the following needed as we can just keep the new values
+        # Need to keep these to retain model values.
+        # if(hasattr(md, 'u')):
+        #     if(hasattr(md, 'old_u')):
+        #         md.old_u.append(md.u)
+        #     else:
+        #         md.old_u = [md.u]
+        # md.u = u
+        log_vars(u)
+        return get_val(md_tmp.ns)
+
     def __init__(self, *args, **kwargs):
         super(CPU, self).__init__(*args, **kwargs)
         from scipy.interpolate import interp1d
@@ -194,7 +252,10 @@ class P4(device):
     def add_ns_constraints(self, m, md, ns_req=None):
         md.ns = 1000 / self.line_thr
         if(ns_req):
-            assert(m is None)  # TODO: can remove later
+            assert(isinstance(md.rows_tot, (int, float))
+                   == isinstance(md.mem_tot, (int, float)))
+            if(isinstance(md.rows_tot, (int, float))):
+                assert(m is None)  # TODO: can remove later
             assert(md.ns <= ns_req)
         # md.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
         # m.addConstr(md.ns == 1000 / self.line_thr, name='ns_{}'.format(self))

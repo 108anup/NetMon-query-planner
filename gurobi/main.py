@@ -240,11 +240,12 @@ def cluster_refinement(inp):
     if(solver.infeasible):
         return handle_infeasible(solver.culprit)
 
-    log_step("Refining clusters")
     if(common_config.solver == 'Netmon'):
+        log_step("Refining clusters")
         subproblems = get_subproblems(inp, solver)
 
         frac = tupledict()
+        md_list = [Namespace() for i in range(len(inp.devices))]
         for prob in subproblems:
             sol = Solver(devices=prob.devices, partitions=prob.partitions,
                          flows=prob.flows, queries=inp.queries,
@@ -254,13 +255,16 @@ def cluster_refinement(inp):
                 return handle_infeasible(sol.culprit)
             log_results(sol.devices, msg="Refinement Results")
             frac.update(sol.frac)
+            for (dnum, d) in enumerate(prob.devices):
+                md_list[d.dev_id] = sol.md_list[dnum]
 
         log_step("Selective Refinement Complete")
-        ret = refine_devices(inp.devices)
+        r = refine_devices(inp.devices, md_list)
+        ret = Namespace(results=r, md_list=md_list)
         log_placement(inp.devices, inp.partitions, inp.flows,
-                      solver.dev_par_tuplelist, frac)
+                      solver.dev_par_tuplelist, frac, md_list)
     else:
-        ret = (solver.ns_max, solver.res)
+        ret = Namespace(results=solver.r, md_list=solver.md_list)
 
     return ret
 
@@ -290,7 +294,9 @@ def cluster_optimization(inp):
                         flows=flows))
 
     placement = Namespace(frac=tupledict(), mem=tupledict(), res={},
-                          dev_par_tuplelist=tuplelist())
+                          dev_par_tuplelist=tuplelist(),
+                          md_list=[Namespace()
+                                   for i in range(len(inp.devices))])
 
     # BFS over device tree
     if(common_config.parallel):
@@ -332,6 +338,7 @@ def cluster_optimization(inp):
                         # placement.res[d] = d.res().getValue()
                         placement.dev_par_tuplelist.append(
                             (d.dev_id, p.partition_id))
+                        placement.md_list[d.dev_id] = solver.md_list[dnum]
 
         # Don't support init here
         while(queue.qsize() > 0):
@@ -388,15 +395,17 @@ def cluster_optimization(inp):
                         # placement.res[d] = d.res().getValue()
                         placement.dev_par_tuplelist.append(
                             (d.dev_id, p.partition_id))
+                        placement.md_list[d.dev_id] = solver.md_list[dnum]
 
     log_step('Clustered Optimization complete')
 
-    ret = refine_devices(inp.devices)
+    r = refine_devices(inp.devices, placement.md_list)
     # TODO:: Put intermediate output to debug!
     # Allow loggers to take input logging level
     log_placement(inp.devices, inp.partitions, inp.flows,
-                  placement.dev_par_tuplelist, placement.frac)
-    return ret
+                  placement.dev_par_tuplelist, placement.frac,
+                  placement.md_list)
+    return Namespace(results=r, md_list=placement.md_list)
 
 
 # TODO:: Handle disconnected graph in solver
@@ -424,10 +433,12 @@ def solve(inp):
         solver.solve()
         if(solver.infeasible):
             return handle_infeasible(solver.culprit)
+        ret = Namespace(results=solver.r, md_list=solver.md_list)
 
     end = time.time()
     log.info("\n" + "-"*80)
-    ret = log_results(inp.devices, elapsed=end-start, msg="Final Results")
+    log_results(inp.devices, ret.results, ret.md_list,
+                elapsed=end-start, msg="Final Results")
     return ret
 
 

@@ -8,6 +8,9 @@
     [2020-04-28 Tue]
     [[file:~/Netmon/NetMon-query-planner/gurobi/devices.py::m.addGenConstrPWL(mem,%20md.m_access_time,%20self.mem_par,%20self.mem_ns,]]
 *** TODO Consider memoizing solutions to clusters?
+*** TODO group by device objectives and constrains with priorities
+    [2020-04-29 Wed]
+    [[file:~/Netmon/NetMon-query-planner/gurobi/solvers.py::class%20UnivmonGreedy(Univmon):]]
 
 ** Soon
 *** TODO extra asserts
@@ -19,6 +22,9 @@
 *** TODO impact of int
     [2020-04-28 Tue]
     [[file:~/Netmon/NetMon-query-planner/gurobi/solvers.py::key%20=%20(d.config_name,%20int(md.mem_tot),%20int(md.rows_tot))]]
-*** TODO 
-    <2020-04-28 Tue>
-    Need to change everything that reads inp.devices and also check solvers.py
+*** TODO Need to change everything that reads 
+    inp.devices and also check solvers.py
+    <2020-04-29 Wed>
+** TODO Urgent
+   [2020-04-29 Wed]
+   [[file:~/Netmon/NetMon-query-planner/gurobi/solvers.py::#%20TODO:%20If%20these%20are%20not%20vars%20then%20no%20need%20of]]

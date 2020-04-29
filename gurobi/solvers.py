@@ -1,9 +1,7 @@
-import logging
 import os
 import re
 import sys
 import time
-from functools import partial
 import math
 
 import gurobipy as gp
@@ -12,8 +10,7 @@ from gurobipy import GRB, tupledict, tuplelist, quicksum
 from common import Namespace, log, log_time, memoize, constants
 from config import common_config
 from devices import CPU, P4, Cluster
-from helpers import get_rounded_val, get_val
-
+from helpers import get_rounded_val, get_val, log_vars
 
 """
 TODO:
@@ -62,83 +59,44 @@ scenarios.
 Above are not relevant any more
 '''
 
-
-def log_vars(m, logger=partial(log.log, logging.DEBUG-1)):
-    logger("\nVARIABLES "+"-"*30)
-    logger("Objective: {}".format(m.objVal))
-    for v in m.getVars():
-        logger('%s %g' % (v.varName, v.x))
-
-
+# elements of md_list are updated in place
 cache = {}  # TODO: see if there is more performant cache
 @log_time(logger=log.info)
-def refine_devices(devices, md_list):
-    res_acc = 0
+def refine_devices(devices, md_list, placement_fixed=True):
     ns_max = 0
     for (dnum, d) in enumerate(devices):
         md = md_list[dnum]
         if(not hasattr(md, 'mem_tot')):
+            assert(not hasattr(md, 'rows_tot'))
             md.mem_tot = 0
-        if(not hasattr(md, 'rows_tot')):
-            md.rows_tot = 0
+            md.rows_tot = 0,
 
         # TODO: Measure the impact of using int here
-        key = (d.config_name,
+        key = (d.profile_name,
                int(get_rounded_val(get_val(md.mem_tot))),
                int(get_rounded_val(get_val(md.rows_tot)))
                )
-        if(key in cache):
-            md = cache[key]
-        else:
-            u = gp.Model(d.name)
-            if(not common_config.mipout):
-                u.setParam(GRB.Param.LogToConsole, 0)
-            # mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
-            #                    name='mem_tot_{}'.format(d),
-            #                    lb=0, ub=d.max_mem)
-            # u.addConstr(mem_tot == get_rounded_val(get_val(d.mem_tot)),
-            #             name='mem_tot_{}'.format(d))
-            # md.mem_tot_old = md.mem_tot
-            md.mem_tot = get_rounded_val(get_val(md.mem_tot))
+        if(key not in cache):
+            cache[key] = d.get_ns(md)
+        ns_max = max(ns_max, cache[key])
 
-            # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
-            #                     name='rows_tot_{}'.format(d), lb=0)
-            # u.addConstr(rows_tot == d.rows_tot.x,
-            #             name='rows_tot_{}'.format(d))
-            # md.rows_tot_old = md.rows_tot
-            md.rows_tot = get_rounded_val(get_val(md.rows_tot))
-            d.add_ns_constraints(u, md)
-
-            u.setObjectiveN(md.ns, 0, 10, reltol=common_config.ns_tol,
-                            name='ns')
-            u.setObjectiveN(d.res(md), 1, 5, reltol=common_config.res_tol,
-                            name='res')
-
-            u.ModelSense = GRB.MINIMIZE
-            u.update()
-            u.optimize()
-            # The solver constraints should guarantee that following holds
-            assert(u.Status != GRB.Status.INFEASIBLE)
-
-            # TODO: Is the following needed as we can just keep the new values
-            # Need to keep these to retain model values.
-            # if(hasattr(md, 'u')):
-            #     if(hasattr(md, 'old_u')):
-            #         md.old_u.append(md.u)
-            #     else:
-            #         md.old_u = [md.u]
-            md.u = u
-
-            log_vars(u)
-
-            ns_max = max(ns_max, get_val(md.ns))
-
-    res_acc = 0
+    r = Namespace(ns_max=0, res=0, total_CPUs=0,
+                  used_cores=0, switch_memory=0)
     for (dnum, d) in enumerate(devices):
         md = md_list[dnum]
         # u = d.u
         if(isinstance(d, CPU)):
-            d.set_thr(md, ns_max)
+            mem_tot_old = md.mem_tot
+            rows_tot_old = md.rows_tot
+            md.mem_tot = get_rounded_val(get_val(md.mem_tot))
+            md.rows_tot = get_rounded_val(get_val(md.rows_tot))
+            d.add_ns_constraints(None, md, ns_max)
+            r.total_CPUs += 1
+            r.used_cores = get_val(md.cores_sketch) + get_val(md.cores_dpdk)
+            if(not placement_fixed):
+                # Will be used by Netmon in later optimization
+                md.mem_tot = mem_tot_old
+                md.rows_tot = rows_tot_old
             # '''
             # It may be the case that the requirements are so low that
             # that ns is always less than ns_max, so remove ns as obj
@@ -156,14 +114,21 @@ def refine_devices(devices, md_list):
             # # The above optimize should guarantee that following holds
             # assert(u.Status != GRB.Status.INFEASIBLE)
             # log_vars(u)
+        elif(isinstance(d, P4)):
+            # import ipdb; ipdb.set_trace()
+            d.add_ns_constraints(None, md, ns_max)
+            r.switch_memory += get_val(md.mem_tot)
+        else:
+            # refine should not be called with clusters
+            assert(False)
 
-        ns_max = max(ns_max, get_val(md.ns))
-        res_acc += get_val(d.res(md))
+        r.ns_max = max(r.ns_max, get_val(md.ns))
+        r.res += get_val(d.res(md))
 
         # TODO: Is the following needed?
         # md.mem_tot = md.mem_tot_old
         # md.rows_tot = md.rows_tot_old
-    return (ns_max, res_acc)
+    return r
 
 
 class MIP(Namespace):
@@ -322,8 +287,10 @@ class MIP(Namespace):
 
     @log_time
     def add_capacity_constraints(self):
+        self.md_list = [Namespace() for i in range(len(self.devices))]
 
         for (dnum, d) in enumerate(self.devices):
+            md = self.md_list[dnum]
             # Memory constraints
             # Capacity constraints included in bounds
             mem_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
@@ -331,12 +298,12 @@ class MIP(Namespace):
                                     lb=0, ub=d.max_mem)
             self.m.addConstr(mem_tot == self.mem.sum(dnum, '*'),
                              name='mem_tot_{}'.format(d))
-            d.mem_tot = mem_tot
+            md.mem_tot = mem_tot
             normalized_mem_tot = self.m.addVar(
                 vtype=GRB.CONTINUOUS, name='normalized_mem_tot_{}'.format(d),
                 lb=0, ub=1)
             self.m.addConstr(normalized_mem_tot == mem_tot / d.max_mem)
-            d.normalized_mem_tot = normalized_mem_tot
+            md.normalized_mem_tot = normalized_mem_tot
 
             # Row constraints
             rows_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
@@ -354,14 +321,15 @@ class MIP(Namespace):
             #                for p in self.partitions]
             self.m.addConstr(rows_tot == gp.quicksum(rows_series),
                              name='rows_tot_{}'.format(d))
-            d.rows_tot = rows_tot
+            md.rows_tot = rows_tot
             self.m.addConstr(normalized_rows_tot == rows_tot / d.max_rows)
-            d.normalized_rows_tot = normalized_rows_tot
-            d.m = self.m
+            md.normalized_rows_tot = normalized_rows_tot
+            md.m = self.m
 
     def add_device_aware_constraints(self):
         for (dnum, d) in enumerate(self.devices):
-            self.m.addConstr(d.rows_tot <= d.max_rows,
+            md = self.md_list[dnum]
+            self.m.addConstr(md.rows_tot <= d.max_rows,
                              name='row_capacity_{}'.format(d))
 
             if hasattr(d, 'max_mpp'):
@@ -381,28 +349,36 @@ class MIP(Namespace):
 
     def check_device_aware_constraints(self):
         for (dnum, d) in enumerate(self.devices):
-            if not (d.rows_tot.x <= d.max_rows):
+            md = self.md_list[dnum]
+            if not (get_val(md.rows_tot) <= d.max_rows):
                 return False
             if hasattr(d, 'max_mpp'):
                 for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
                     p = self.partitions[pnum]
-                    if not (self.mem[dnum, pnum].x <= d.max_mpr * p.num_rows):
+                    if not (get_val(self.mem[dnum, pnum])
+                            <= d.max_mpr * p.num_rows):
                         return False
         return True
 
     def add_device_model_constraints(self, ns_req=None):
         res_acc = gp.LinExpr()
-        for d in self.devices:
+        for (dnum, d) in enumerate(self.devices):
+            md = self.md_list[dnum]
+
+            # adding these constraints here
+            assert(isinstance(md.mem_tot, gp.Var))
+            assert(isinstance(md.rows_tot, gp.Var))
+
             # Throughput
             # Simple total model
-            d.add_ns_constraints(self.m, ns_req)
+            d.add_ns_constraints(self.m, md, ns_req)
 
             # Resources
-            res_acc += d.res()
+            res_acc += d.res(md)
 
         ns = None
         if(ns_req is None):
-            ns_series = [d.ns for d in self.devices]
+            ns_series = [md.ns for d in self.devices]
             ns = self.m.addVar(vtype=GRB.CONTINUOUS, name='ns')
             self.m.addGenConstrMax(ns, ns_series, name='ns_overall')
         res = self.m.addVar(vtype=GRB.CONTINUOUS, name='res')
@@ -489,6 +465,8 @@ class MIP(Namespace):
         log.info("Model optimize took: {} seconds".format(end - start))
         log.info("-"*50)
 
+        # import ipdb; ipdb.set_trace()
+
         if(self.m.Status == GRB.INFEASIBLE):
             self.infeasible = True
             self.culprit = self.m
@@ -497,19 +475,20 @@ class MIP(Namespace):
             log_objectives(self.m)
             self.post_optimize()
             log_placement(self.devices, self.partitions, self.flows,
-                          self.dev_par_tuplelist, self.frac,
+                          self.dev_par_tuplelist, self.frac, self.md_list,
                           init=getattr(self, 'init', None))
             # Basically if Netmon was run in intermediate and it did not
             # behave like Univmon Greedy Rows
             if(hasattr(self, 'refined')):
                 if(self.refined and self.dont_refine):
-                    log_results(self.devices, msg="Netmon Intermediate Result")
+                    log_results(self.devices, self.md_list,
+                                msg="Netmon Intermediate Result")
 
 
 class Univmon(MIP):
 
     def add_constraints(self):
-        mem_series = [d.mem_tot for d in self.devices]
+        mem_series = [md.mem_tot for md in self.md_list]
         self.max_mem = self.m.addVar(vtype=GRB.CONTINUOUS, name='max_mem')
         self.m.addGenConstrMax(self.max_mem, mem_series, name='mem_overall')
         self.tot_mem = self.m.addVar(vtype=GRB.CONTINUOUS,
@@ -532,13 +511,15 @@ class Univmon(MIP):
             if(type(self).__name__ == 'Univmon'):
                 if (not self.check_device_aware_constraints()):
                     log.warning("Infeasible placement due to Univmon's "
-                             "lack of knowledge")
+                                "lack of knowledge")
                     self.infeasible = True
                     self.culprit = self.m
                     return
 
             if(not self.dont_refine):
-                (self.ns_max, self.res) = refine_devices(self.devices)
+                self.r = refine_devices(
+                    self.devices, self.md_list,
+                    getattr(self, 'placement_fixed', True))
                 self.refined = True
 
         # else:
@@ -596,19 +577,18 @@ class Univmon(MIP):
 class UnivmonGreedy(Univmon):
 
     def add_constraints(self):
-        mem_series_P4 = [d.mem_tot
-                         for d in self.devices
+        mem_series_P4 = [self.md_list[dnum].mem_tot
+                         for (dnum, d) in enumerate(self.devices)
                          if isinstance(d, P4)]
-        mem_series_CPU = [d.mem_tot
-                          for d in self.devices
+        mem_series_CPU = [self.md_list[dnum].mem_tot
+                          for (dnum, d) in enumerate(self.devices)
                           if isinstance(d, CPU)]
-        mem_series_Cluster = [d.mem_tot
-                              for d in self.devices
+        mem_series_Cluster = [self.md_list[dnum].mem_tot
+                              for (dnum, d) in enumerate(self.devices)
                               if isinstance(d, Cluster)]
-
         normalized_mem_series_CPU_Cluster = [
-            d.normalized_mem_tot
-            for d in self.devices
+            self.md_list[dnum].normalized_mem_tot
+            for (dnum, d) in enumerate(self.devices)
             if (isinstance(d, Cluster) or isinstance(d, CPU))]
 
         if(len(mem_series_P4) > 0):
@@ -650,18 +630,18 @@ class UnivmonGreedyRows(UnivmonGreedy):
 
     def add_constraints(self):
         super(UnivmonGreedyRows, self).add_constraints()
-        rows_series_P4 = [d.rows_tot
-                          for d in self.devices
+        rows_series_P4 = [self.md_list[dnum].rows_tot
+                          for (dnum, d) in enumerate(self.devices)
                           if isinstance(d, P4)]
-        rows_series_CPU = [d.rows_tot
-                           for d in self.devices
+        rows_series_CPU = [self.md_list[dnum].rows_tot
+                           for (dnum, d) in enumerate(self.devices)
                            if isinstance(d, CPU)]
-        rows_series_Cluster = [d.rows_tot
-                               for d in self.devices
+        rows_series_Cluster = [self.md_list[dnum].rows_tot
+                               for (dnum, d) in enumerate(self.devices)
                                if isinstance(d, Cluster)]
         normalized_rows_series_CPU_Cluster = [
-            d.normalized_rows_tot
-            for d in self.devices
+            self.md_list[dnum].normalized_rows_tot
+            for (dnum, d) in enumerate(self.devices)
             if (isinstance(d, Cluster) or isinstance(d, CPU))]
 
         if(len(rows_series_P4) > 0):
@@ -736,13 +716,15 @@ class Netmon(UnivmonGreedyRows):
         log_objectives(self.m)
         dont_refine = self.dont_refine
         self.dont_refine = False
+        self.placement_fixed = False
         super(Netmon, self).post_optimize()
         self.dont_refine = dont_refine
         # (ns_max, _) = refine_devices(self.devices)
         log_placement(self.devices, self.partitions, self.flows,
-                      self.dev_par_tuplelist, self.frac,
+                      self.dev_par_tuplelist, self.frac, self.md_list,
                       msg="UnivmonGreedyRows: Intermediate Placement")
-        log_results(self.devices, msg="UnivmonGreedyRows: Intermediate Results")
+        log_results(self.devices, self.r, self.md_list,
+                    msg="UnivmonGreedyRows: Intermediate Results")
 
         # numdevices = len(self.devices)
         # numpartitions = len(self.partitions)
@@ -753,7 +735,7 @@ class Netmon(UnivmonGreedyRows):
             self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
             self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
 
-        self.ns_req = self.ns_max
+        self.ns_req = self.r.ns_max
         (self.ns, self.res) = self.add_device_model_constraints(self.ns_req)
 
     def add_objective(self):
@@ -780,47 +762,59 @@ class Netmon(UnivmonGreedyRows):
         log_vars(self.m)
 
         if(self.m.Status == GRB.TIME_LIMIT):
-            (self.ns_max, self.res) = refine_devices(self.devices)
+            self.r = refine_devices(
+                self.devices, self.md_list)
         else:
+            self.r = Namespace()
             if(getattr(self, 'ns_req', None) is None):
-                self.ns_max = get_val(self.ns)
-            self.res = get_val(self.res)
+                self.r.ns_max = get_val(self.ns)
+            else:
+                self.r.ns_max = self.ns_req
+            self.r.res = get_val(self.res)
         self.refined = True
 
+
 # TODO:: Can save results while refining rather than recomputing!
-def log_results(devices, logger=log.info, elapsed=None, msg="Results"):
+def log_results(devices, r, md_list, logger=log.info,
+                elapsed=None, msg="Results"):
 
-    ns_max = 0
-    res = 0
-    total_CPUs = 0
-    used_cores = 0
-    switch_memory = 0
-
-    for d in devices:
-        ns_max = max(ns_max, get_val(d.ns))
-        res += get_val(d.res())
-        if(isinstance(d, CPU)):
-            total_CPUs += 1
-            used_cores += d.cores_sketch.x + d.cores_dpdk.x
-        if(isinstance(d, P4)):
-            switch_memory += get_val(d.mem_tot)
+    assert(getattr(r, 'ns_max', None) and getattr(r, 'res', None))
+    if(getattr(r, 'used_cores', None) is None):
+        r.used_cores = 0
+        r.total_CPUs = 0
+        r.res = 0
+        r.ns_max = 0
+        r.switch_memory = 0
+        # This would be used by solving runs which did not
+        # explicitly use refine_devices: basically vanilla Netmon
+        for (dnum, d) in enumerate(devices):
+            md = md_list[dnum]
+            r.ns_max = max(r.ns_max, get_val(md.ns))
+            r.res += get_val(d.res(md))
+            if(isinstance(d, CPU)):
+                r.total_CPUs += 1
+                r.used_cores += (get_val(md.cores_sketch)
+                                 + get_val(md.cores_dpdk))
+            if(isinstance(d, P4)):
+                r.switch_memory += get_val(md.mem_tot)
 
     log.info("{}:\nThroughput: {} Mpps, ns per packet: {}".format(
-        msg, 1000/ns_max, ns_max))
-    log.info("Resources: {}".format(res))
-    if(total_CPUs is not None and used_cores is not None
-       and switch_memory is not None):
+        msg, 1000/r.ns_max, r.ns_max))
+    log.info("Resources: {}".format(r.res))
+    if(r.total_CPUs is not None and r.used_cores is not None
+       and r.switch_memory is not None):
         log.info("Used Cores: {}, Total CPUS: {}, Switch Memory: {}"
-                 .format(used_cores, total_CPUs, switch_memory))
+                 .format(r.used_cores, r.total_CPUs, r.switch_memory))
 
     if(common_config.results_file is not None and elapsed is not None):
         f = open(common_config.results_file, 'a')
         f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {}, ".format(
-            1000/ns_max, res,
-            used_cores, total_CPUs, switch_memory, elapsed))
+            1000/r.ns_max, r.res,
+            r.used_cores, r.total_CPUs, r.switch_memory, elapsed))
         f.close()
 
-    return (ns_max, res)
+    # r has also been changed in place
+    # return r
 
 
 def log_initial(devices, partitions, flows, dev_par_tuplelist, init):
@@ -847,7 +841,7 @@ def log_objectives(m):
 
 
 def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
-                  init=None, msg="Placement"):
+                  md_list, init=None, msg="Placement"):
 
     log.debug("-"*50)
     log.debug(msg + ":")
@@ -870,33 +864,34 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
     # #         log.debug(par_info)
     # #         log.debug("Total frac: {:0.3f}".format(total_frac))
 
-    # prev_q_id = None
-    # for (pnum, p) in enumerate(partitions):
-    #     q = p.sketch
-    #     if(q.sketch_id != prev_q_id):
-    #         log.debug("\nSketch ({}) ({})"
-    #                  .format(q.sketch_id, q.details()))
-    #         prev_q_id = q.sketch_id
+    prev_q_id = None
+    for (pnum, p) in enumerate(partitions):
+        q = p.sketch
+        if(q.sketch_id != prev_q_id):
+            log.debug("\nSketch ({}) ({})"
+                      .format(q.sketch_id, q.details()))
+            prev_q_id = q.sketch_id
 
-    #     log.debug("Par{} id: {}, Rows: {}"
-    #              .format(p.partition_id - q.partitions[0],
-    #                      p.partition_id, p.num_rows))
-    #     par_info = ""
-    #     total_frac = 0
-    #     for (dnum, _) in dev_par_tuplelist.select('*', pnum):
-    #         par_info += "({:0.3f},{})    ".format(
-    #             get_val(frac[dnum, pnum]), dnum)
-    #         total_frac += (get_val(frac[dnum, pnum]))
-    #     log.debug(par_info)
-    #     log.debug("Total frac: {:0.3f}".format(total_frac))
+        log.debug("Par{} id: {}, Rows: {}"
+                  .format(p.partition_id - q.partitions[0],
+                          p.partition_id, p.num_rows))
+        par_info = ""
+        total_frac = 0
+        for (dnum, _) in dev_par_tuplelist.select('*', pnum):
+            par_info += "({:0.3f},{})    ".format(
+                get_val(frac[dnum, pnum]), dnum)
+            total_frac += (get_val(frac[dnum, pnum]))
+        log.debug(par_info)
+        log.debug("Total frac: {:0.3f}".format(total_frac))
 
     for (dnum, d) in enumerate(devices):
+        md = md_list[dnum]
         log.debug("\nDevice ({}) {}:".format(dnum, d))
-        res_stats = d.resource_stats()
+        res_stats = d.resource_stats(md)
         if(res_stats != ""):
             log.debug(res_stats)
-        log.debug("Rows total: {}".format(get_val(d.rows_tot)))
-        log.debug("Mem total: {}".format(get_val(d.mem_tot)))
+        log.debug("Rows total: {}".format(get_val(md.rows_tot)))
+        log.debug("Mem total: {}".format(get_val(md.mem_tot)))
         if(init):
             tot_rows = 0
             tot_mem = 0
@@ -907,7 +902,7 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
             log.debug("Initial Mem total: {}".format(tot_mem))
 
         if(hasattr(d, 'ns')):
-            log.debug("Throughput: {}".format(1000/get_val(d.ns)))
+            log.debug("Throughput: {}".format(1000/get_val(md.ns)))
 
     # log.debug("")
     # for (fnum, f) in enumerate(flows):

@@ -1,6 +1,10 @@
 import gurobipy as gp
 
+import logging
+
+from common import log
 from config import common_config
+from functools import partial
 
 
 def get_rounded_val(v):
@@ -18,3 +22,10 @@ def get_val(v):
         return v.x
     else:
         return v.getValue()
+
+
+def log_vars(m, logger=partial(log.log, logging.DEBUG-1)):
+    logger("\nVARIABLES "+"-"*30)
+    logger("Objective: {}".format(m.objVal))
+    for v in m.getVars():
+        logger('%s %g' % (v.varName, v.x))
