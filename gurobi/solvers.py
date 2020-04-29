@@ -332,7 +332,7 @@ class MIP(Namespace):
             self.m.addConstr(md.rows_tot <= d.max_rows,
                              name='row_capacity_{}'.format(d))
 
-            if hasattr(d, 'max_mpp'):
+            if hasattr(d, 'max_mpr'):
                 for (pnum, p) in enumerate(self.partitions):
                     self.m.addConstr(
                         self.mem[dnum, pnum] <= d.max_mpr * p.num_rows,
@@ -352,7 +352,7 @@ class MIP(Namespace):
             md = self.md_list[dnum]
             if not (get_val(md.rows_tot) <= d.max_rows):
                 return False
-            if hasattr(d, 'max_mpp'):
+            if hasattr(d, 'max_mpr'):
                 for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
                     p = self.partitions[pnum]
                     if not (get_val(self.mem[dnum, pnum])
