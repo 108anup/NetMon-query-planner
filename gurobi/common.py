@@ -50,8 +50,20 @@ class Namespace:
         else:
             raise AttributeError("Not found key: {}".format(attr))
 
+    def frozen_setter(self, attr):
+        raise AttributeError("Object {} is frozen,"
+                             " can't set attribute:"
+                             .format(self, attr))
+
     def __repr__(self):
         return repr(self.__dict__)
+
+
+def freeze_object(obj):
+    if(isinstance(obj, Namespace)):
+        obj.__setter__ = obj.frozen_setter
+    else:
+        raise TypeError("obj: {} is not a Namespace instance", obj)
 
 
 # class InfoFilter(logging.Filter):

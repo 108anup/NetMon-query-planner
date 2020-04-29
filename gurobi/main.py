@@ -8,7 +8,7 @@ import ipdb
 from gurobipy import GRB, tupledict, tuplelist
 
 from cli import generate_parser
-from common import Namespace, log, log_time, setup_logging
+from common import Namespace, log, log_time, setup_logging, freeze_object
 from config import common_config
 from devices import Cluster
 from flows import flow
@@ -408,6 +408,7 @@ def solve(inp):
 
     for (dnum, d) in enumerate(inp.devices):
         d.dev_id = dnum
+        freeze_object(d)
     inp.partitions = get_partitions(inp.queries)
     map_flows_partitions(inp.flows, inp.queries)
     Solver = solver_to_class[common_config.solver]

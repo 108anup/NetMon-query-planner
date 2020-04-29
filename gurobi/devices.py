@@ -1,3 +1,4 @@
+import math
 from gurobipy import GRB
 
 from common import Namespace, memoize
@@ -76,111 +77,139 @@ class CPU(device):
         #     sys.exit(-1)
         return pdt
 
-    def add_ns_constraints(self, m, ns_req=None):
+    def set_thr(self, md, ns_req):
+        md.cores_sketch = math.ceil(md.ns_single / ns_req)
+        dpdk_single_ns = 1000/self.dpdk_single_core_thr
+        md.ns_sketch = md.ns_single / md.cores_sketch
+        f = CPU.fraction_parallel
+        dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
+        assert(dpdk_cores > 0)
+        md.cores_dpdk = math.ceil(dpdk_cores)
+        md.ns_dpdk = dpdk_single_ns * (1-f + f/md.cores_dpdk)
+        md.ns = max(md.ns_dpdk, md.ns_sketch)
 
-        # TODO:: When both rows and mem fixed then handle separately
-        # Also consider memoizing here!
+    def add_ns_constraints(self, m, md, ns_req=None):
+        rows = md.rows_tot
+        mem = md.mem_tot
 
-        rows = self.rows_tot
-        mem = self.mem_tot
+        # Either both should be True or neither should be True
+        assert(isinstance(rows, (int, float)) == isinstance(mem, (int, float)))
+        if(isinstance(rows, (int, float))):
+            md.m_access_time = self.get_mem_access_time(mem)
+            md.ns_single = rows * (md.mem_access_time + self.hash_ns)
 
-        # Access time based on mem
-        # TODO:: better fits for mem and t
-        self.m_access_time = m.addVar(vtype=GRB.CONTINUOUS, lb=0,
-                                      name='m_access_time_{}'.format(self))
-        m.addGenConstrPWL(mem, self.m_access_time, self.mem_par, self.mem_ns,
-                          "mem_access_time_{}".format(self))
+            # If it is None then directly use set_thr function
+            # Using assert because there is no need for creating model m
+            if(ns_req is not None):
+                assert(m is None)  # TODO: can remove later
+                self.set_thr(md, ns_req)
 
-        m.setParam(GRB.Param.NonConvex, 2)
+        else:
+            # Access time based on mem
+            # TODO:: better fits for mem and t
+            md.m_access_time = m.addVar(vtype=GRB.CONTINUOUS, lb=0,
+                                        name='m_access_time_{}'.format(self))
+            m.addGenConstrPWL(mem, md.m_access_time, self.mem_par, self.mem_ns,
+                              "mem_access_time_{}".format(self))
 
-        # single core ns model
-        # self.t = m.addVar(vtype=GRB.CONTINUOUS, lb=0)
-        # m.addGenConstrPWL(rows, self.t, CPU.s_rows, CPU.static_loads)
-        self.ns_single = m.addVar(vtype=GRB.CONTINUOUS,
-                                  name='ns_single_{}'.format(self))
-        self.pdt_m_rows = self.get_pdt_var(self.m_access_time,
-                                           rows, 'm_rows', m, 1)
-        # m.addConstr(self.t * self.Li_ns[0] + self.pdt_m_rows
-        #             + rows * self.hash_ns
-        #             <= self.ns_single, name='ns_single_{}'.format(self))
-        m.addConstr(self.pdt_m_rows + rows * self.hash_ns
-                    == self.ns_single,
-                    name='ns_single_{}'.format(self))
+            m.setParam(GRB.Param.NonConvex, 2)
+
+            # single core ns model
+            # self.t = m.addVar(vtype=GRB.CONTINUOUS, lb=0)
+            # m.addGenConstrPWL(rows, self.t, CPU.s_rows, CPU.static_loads)
+            md.ns_single = m.addVar(vtype=GRB.CONTINUOUS,
+                                    name='ns_single_{}'.format(self))
+            md.pdt_m_rows = self.get_pdt_var(md.m_access_time,
+                                             rows, 'm_rows', m, 1)
+            # m.addConstr(self.t * self.Li_ns[0] + self.pdt_m_rows
+            #             + rows * self.hash_ns
+            #             <= self.ns_single, name='ns_single_{}'.format(self))
+            m.addConstr(md.pdt_m_rows + rows * self.hash_ns
+                        == md.ns_single,
+                        name='ns_single_{}'.format(self))
 
         # Multi-core model
-        self.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.cores,
-                                     name='cores_sketch_{}'.format(self))
-        self.cores_dpdk = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
-                                   name='cores_dpdk_{}'.format(self))
-        m.addConstr(self.cores_sketch + self.cores_dpdk <= self.cores,
+        md.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.cores,
+                                   name='cores_sketch_{}'.format(self))
+        md.cores_dpdk = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
+                                 name='cores_dpdk_{}'.format(self))
+        m.addConstr(md.cores_sketch + md.cores_dpdk <= self.cores,
                     name='capacity_cores_{}'.format(self))
 
         # Multi-core sketching
         if(ns_req):
-            m.addConstr(self.cores_sketch * ns_req >= self.ns_single,
+            m.addConstr(md.cores_sketch * ns_req >= md.ns_single,
                         name='ns_sketch_{}'.format(self))
         else:
-            self.ns_sketch = m.addVar(vtype=GRB.CONTINUOUS,
-                                      name='ns_sketch_{}'.format(self), lb=0)
-            self.pdt_nsk_c = self.get_pdt_var(self.ns_sketch,
-                                              self.cores_sketch, 'nsk_c', m, 0)
-            m.addConstr(self.pdt_nsk_c == self.ns_single,
+            md.ns_sketch = m.addVar(vtype=GRB.CONTINUOUS,
+                                    name='ns_sketch_{}'.format(self), lb=0)
+            md.pdt_nsk_c = self.get_pdt_var(md.ns_sketch,
+                                            md.cores_sketch, 'nsk_c', m, 0)
+            m.addConstr(md.pdt_nsk_c == md.ns_single,
                         name='ns_sketch_{}'.format(self))
 
         # Amdahl's law
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
         if(ns_req):
             m.addConstr(
-                (self.cores_dpdk*(1-CPU.fraction_parallel)
+                (md.cores_dpdk*(1-CPU.fraction_parallel)
                  + CPU.fraction_parallel)*dpdk_single_ns
-                <= self.cores_dpdk * ns_req, name='ns_dpdk_{}'.format(self))
+                <= md.cores_dpdk * ns_req, name='ns_dpdk_{}'.format(self))
         else:
-            self.ns_dpdk = m.addVar(vtype=GRB.CONTINUOUS,
-                                    name='ns_dpdk_{}'.format(self))
-            self.pdt_nsc_dpdk = self.get_pdt_var(
-                self.ns_dpdk, self.cores_dpdk, 'nsc_dpdk', m, 0)
+            md.ns_dpdk = m.addVar(vtype=GRB.CONTINUOUS,
+                                  name='ns_dpdk_{}'.format(self))
+            md.pdt_nsc_dpdk = self.get_pdt_var(
+                md.ns_dpdk, md.cores_dpdk, 'nsc_dpdk', m, 0)
             m.addConstr(
-                (self.cores_dpdk*(1-CPU.fraction_parallel)
+                (md.cores_dpdk*(1-CPU.fraction_parallel)
                  + CPU.fraction_parallel)*dpdk_single_ns
-                == self.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))
+                == md.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))
 
         if(ns_req is None):
-            self.ns = m.addVar(vtype=GRB.CONTINUOUS,
-                               name='ns_{}'.format(self))
-            m.addGenConstrMax(self.ns, [self.ns_dpdk, self.ns_sketch],
+            md.ns = m.addVar(vtype=GRB.CONTINUOUS,
+                             name='ns_{}'.format(self))
+            m.addGenConstrMax(md.ns, [md.ns_dpdk, md.ns_sketch],
                               name='ns_{}'.format(self))
 
-    def res(self):
-        return 10*(self.cores_dpdk + self.cores_sketch) \
-            + self.mem_tot/self.Li_size[2]
+    def res(self, md):
+        return 10*(md.cores_dpdk + md.cores_sketch) \
+            + md.mem_tot/self.Li_size[2]
 
-    def resource_stats(self):
-        if(hasattr(self, 'cores_sketch')):
+    def resource_stats(self, md):
+        if(hasattr(md, 'cores_sketch')):
             return "cores_sketch: {}, cores_dpdk: {}".format(
-                get_val(self.cores_sketch), get_val(self.cores_dpdk))
+                get_val(md.cores_sketch), get_val(md.cores_dpdk))
         else:
             return ""
 
     def __init__(self, *args, **kwargs):
         super(CPU, self).__init__(*args, **kwargs)
-        self.weight = 10
+        from scipy.interpolate import interp1d
+        self.get_mem_access_time = memoize(interp1d(self.mem_par, self.mem_ns))
+        # self.weight = 10
 
 
 class P4(device):
 
-    def add_ns_constraints(self, m, ns_req=None):
-        self.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
-        m.addConstr(self.ns == 1000 / self.line_thr, name='ns_{}'.format(self))
-
+    def add_ns_constraints(self, m, md, ns_req=None):
+        md.ns = 1000 / self.line_thr
         if(ns_req):
-            m.addConstr(self.ns <= ns_req, name='max_ns_{}'.format(self))
+            assert(m is None)  # TODO: can remove later
+            assert(md.ns <= ns_req)
+        # md.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
+        # m.addConstr(md.ns == 1000 / self.line_thr, name='ns_{}'.format(self))
 
-    def res(self):
-        return self.rows_tot/self.meter_alus + self.mem_tot/self.sram
+        # TODO: can be removed
+        # as will be always true in our cases
+        # if(ns_req):
+        #     m.addConstr(md.ns <= ns_req, name='max_ns_{}'.format(self))
+
+    def res(self, md):
+        return md.rows_tot/self.meter_alus + md.mem_tot/self.sram
 
     def __init__(self, *args, **kwargs):
         super(P4, self).__init__(*args, **kwargs)
-        self.weight = 1
+        # self.weight = 1
 
 
 class Cluster(device):
@@ -236,8 +265,8 @@ class Cluster(device):
             name_str = name_str[:200]
         return name_str
 
-    def res(self):
-        return self.mem_tot
+    def res(self, md):
+        return md.mem_tot
 
     @property
     @memoize
@@ -247,9 +276,11 @@ class Cluster(device):
             lthr = min(lthr, d.line_thr)
         return lthr
 
-    def add_ns_constraints(self, m, ns_req=None):
-        self.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
-        m.addConstr(self.ns == 1000 / self.line_thr, name='ns_{}'.format(self))
+    def add_ns_constraints(self, m, md, ns_req=None):
+        md.ns = 1000 / self.line_thr
+        # m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
+        # m.addConstr(md.ns == 1000 / self.line_thr, name='ns_{}'.format(self))
 
         if(ns_req):
-            m.addConstr(self.ns <= ns_req, name='max_ns_{}'.format(self))
+            assert(m is None)  # TODO: can remove later
+            assert(md.ns <= ns_req)

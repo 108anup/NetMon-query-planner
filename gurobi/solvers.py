@@ -70,100 +70,99 @@ def log_vars(m, logger=partial(log.log, logging.DEBUG-1)):
         logger('%s %g' % (v.varName, v.x))
 
 
+cache = {}  # TODO: see if there is more performant cache
 @log_time(logger=log.info)
-def refine_devices(devices):
+def refine_devices(devices, md_list):
     res_acc = 0
     ns_max = 0
-    for d in devices:
+    for (dnum, d) in enumerate(devices):
+        md = md_list[dnum]
+        if(not hasattr(md, 'mem_tot')):
+            md.mem_tot = 0
+        if(not hasattr(md, 'rows_tot')):
+            md.rows_tot = 0
 
-        if(not hasattr(d, 'mem_tot')):
-            d.mem_tot = 0
-        if(not hasattr(d, 'rows_tot')):
-            d.rows_tot = 0
+        # TODO: Measure the impact of using int here
+        key = (d.config_name,
+               int(get_rounded_val(get_val(md.mem_tot))),
+               int(get_rounded_val(get_val(md.rows_tot)))
+               )
+        if(key in cache):
+            md = cache[key]
+        else:
+            u = gp.Model(d.name)
+            if(not common_config.mipout):
+                u.setParam(GRB.Param.LogToConsole, 0)
+            # mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
+            #                    name='mem_tot_{}'.format(d),
+            #                    lb=0, ub=d.max_mem)
+            # u.addConstr(mem_tot == get_rounded_val(get_val(d.mem_tot)),
+            #             name='mem_tot_{}'.format(d))
+            # md.mem_tot_old = md.mem_tot
+            md.mem_tot = get_rounded_val(get_val(md.mem_tot))
 
-        # TODO: Memoize for faster solution!
-        # Also consider memoizing cluster solutions
+            # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
+            #                     name='rows_tot_{}'.format(d), lb=0)
+            # u.addConstr(rows_tot == d.rows_tot.x,
+            #             name='rows_tot_{}'.format(d))
+            # md.rows_tot_old = md.rows_tot
+            md.rows_tot = get_rounded_val(get_val(md.rows_tot))
+            d.add_ns_constraints(u, md)
 
-        # memo1 = tupledict()
-        # if((get_val(d.rows_tot), get_val(d.mem_tot)) in memo1):
-        #     for d in devices:
-
-        # TODO: Alternate approach for removing side effects only
-        # when necessary
-
-        u = gp.Model(d.name)
-        if(not common_config.mipout):
-            u.setParam(GRB.Param.LogToConsole, 0)
-        mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
-                           name='mem_tot_{}'.format(d),
-                           lb=0, ub=d.max_mem)
-        u.addConstr(mem_tot == get_rounded_val(get_val(d.mem_tot)),
-                    name='mem_tot_{}'.format(d))
-        d.mem_tot_old = d.mem_tot
-        d.mem_tot = mem_tot
-
-        # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
-        #                     name='rows_tot_{}'.format(d), lb=0)
-        # u.addConstr(rows_tot == d.rows_tot.x,
-        #             name='rows_tot_{}'.format(d))
-        d.rows_tot_old = d.rows_tot
-        d.rows_tot = get_rounded_val(get_val(d.rows_tot))
-        d.add_ns_constraints(u)
-
-        u.setObjectiveN(d.ns, 0, 10, reltol=common_config.ns_tol,
-                        name='ns')
-        u.setObjectiveN(d.res(), 1, 5, reltol=common_config.res_tol,
-                        name='res')
-
-        u.ModelSense = GRB.MINIMIZE
-        u.setParam(GRB.Param.LogToConsole, 0)
-        u.update()
-        u.optimize()
-        # The solver constraints should guarantee that following holds
-        assert(u.Status != GRB.Status.INFEASIBLE)
-
-        # Need to keep these to retain model values.
-        if(hasattr(d, 'u')):
-            if(hasattr(d, 'old_u')):
-                d.old_u.append(d.u)
-            else:
-                d.old_u = [d.u]
-        d.u = u
-
-        log_vars(u)
-
-        ns_max = max(ns_max, u.getObjective(0).getValue())
-
-    res_acc = 0
-    for d in devices:
-        u = d.u
-        if(isinstance(d, CPU)):
-            '''
-            It may be the case that the requirements are so low that
-            that ns is always less than ns_max, so remove ns as obj
-            and just minimize resource while keeping ns below ns_max
-            '''
-            u.addConstr(d.ns <= ns_max,
-                        name='global_ns_req_{}'.format(d))
-            u.NumObj = 1
-            u.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
-            u.setObjectiveN(d.res(), 0, 10, reltol=common_config.res_tol,
+            u.setObjectiveN(md.ns, 0, 10, reltol=common_config.ns_tol,
+                            name='ns')
+            u.setObjectiveN(d.res(md), 1, 5, reltol=common_config.res_tol,
                             name='res')
 
+            u.ModelSense = GRB.MINIMIZE
             u.update()
             u.optimize()
-            # The above optimize should guarantee that following holds
+            # The solver constraints should guarantee that following holds
             assert(u.Status != GRB.Status.INFEASIBLE)
+
+            # TODO: Is the following needed as we can just keep the new values
+            # Need to keep these to retain model values.
+            # if(hasattr(md, 'u')):
+            #     if(hasattr(md, 'old_u')):
+            #         md.old_u.append(md.u)
+            #     else:
+            #         md.old_u = [md.u]
+            md.u = u
+
             log_vars(u)
 
-            ns_max = max(ns_max, get_val(d.ns))
-            res_acc += u.getObjective(0).getValue()
-        else:
-            ns_max = max(ns_max, u.getObjective(0).getValue())
-            res_acc += u.getObjective(1).getValue()
+            ns_max = max(ns_max, get_val(md.ns))
 
-        d.mem_tot = d.mem_tot_old
-        d.rows_tot = d.rows_tot_old
+    res_acc = 0
+    for (dnum, d) in enumerate(devices):
+        md = md_list[dnum]
+        # u = d.u
+        if(isinstance(d, CPU)):
+            d.set_thr(md, ns_max)
+            # '''
+            # It may be the case that the requirements are so low that
+            # that ns is always less than ns_max, so remove ns as obj
+            # and just minimize resource while keeping ns below ns_max
+            # '''
+            # u.addConstr(md.ns <= ns_max,
+            #             name='global_ns_req_{}'.format(d))
+            # u.NumObj = 1
+            # u.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
+            # u.setObjectiveN(d.res(md), 0, 10, reltol=common_config.res_tol,
+            #                 name='res')
+
+            # u.update()
+            # u.optimize()
+            # # The above optimize should guarantee that following holds
+            # assert(u.Status != GRB.Status.INFEASIBLE)
+            # log_vars(u)
+
+        ns_max = max(ns_max, get_val(md.ns))
+        res_acc += get_val(d.res(md))
+
+        # TODO: Is the following needed?
+        # md.mem_tot = md.mem_tot_old
+        # md.rows_tot = md.rows_tot_old
     return (ns_max, res_acc)
 
 
