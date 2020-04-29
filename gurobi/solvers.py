@@ -59,8 +59,11 @@ scenarios.
 Above are not relevant any more
 '''
 
+# TODO:: Ideally all the isinstance stuff should be removed
+# Same functions should be called irrespective of the device type
+# Make changes to preserve the device abstraction
+
 # elements of md_list are updated in place
-cache = {}  # TODO: see if there is more performant cache
 @log_time(logger=log.info)
 def refine_devices(devices, md_list, placement_fixed=True):
     ns_max = 0
@@ -71,14 +74,7 @@ def refine_devices(devices, md_list, placement_fixed=True):
             md.mem_tot = 0
             md.rows_tot = 0,
 
-        # TODO: Measure the impact of using int here
-        key = (d.profile_name,
-               int(get_rounded_val(get_val(md.mem_tot))),
-               int(get_rounded_val(get_val(md.rows_tot)))
-               )
-        if(key not in cache):
-            cache[key] = d.get_ns(md)
-        ns_max = max(ns_max, cache[key])
+        ns_max = max(ns_max, d.get_ns(md))
 
     r = Namespace(ns_max=0, res=0, total_CPUs=0,
                   used_cores=0, switch_memory=0)
@@ -333,7 +329,8 @@ class MIP(Namespace):
                              name='row_capacity_{}'.format(d))
 
             if hasattr(d, 'max_mpr'):
-                for (pnum, p) in enumerate(self.partitions):
+                for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
+                    p = self.partitions[pnum]
                     self.m.addConstr(
                         self.mem[dnum, pnum] <= d.max_mpr * p.num_rows,
                         'capacity_mem_par_{}'.format(d))

@@ -33,6 +33,7 @@ class CPU(device):
     fraction_parallel = 3/4
     static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
     s_rows = [0, 2, 3, 4, 5, 6, 7, 8, 9]
+    cache = {}  # TODO: see if there is more performant cache
 
     def get_pdt_var(self, a, b, pdt_name, m, direction):
         m.update()
@@ -196,6 +197,14 @@ class CPU(device):
             return ""
 
     def get_ns(self, md):
+        # TODO: Measure the impact of using int here
+        mem_tot = int(get_rounded_val(get_val(md.mem_tot)))
+        rows_tot = int(get_rounded_val(get_val(md.rows_tot)))
+        key = (self.profile_name, mem_tot, rows_tot)
+        if(key in self.cache):
+            # self.cache['helped'] += 1
+            return self.cache[key]
+
         md_tmp = Namespace()
         # mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
         #                    name='mem_tot_{}'.format(d),
@@ -203,14 +212,14 @@ class CPU(device):
         # u.addConstr(mem_tot == get_rounded_val(get_val(d.mem_tot)),
         #             name='mem_tot_{}'.format(d))
         # md.mem_tot_old = md.mem_tot
-        md_tmp.mem_tot = get_rounded_val(get_val(md.mem_tot))
+        md_tmp.mem_tot = mem_tot
 
         # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
         #                     name='rows_tot_{}'.format(d), lb=0)
         # u.addConstr(rows_tot == d.rows_tot.x,
         #             name='rows_tot_{}'.format(d))
         # md.rows_tot_old = md.rows_tot
-        md_tmp.rows_tot = get_rounded_val(get_val(md.rows_tot))
+        md_tmp.rows_tot = rows_tot
 
         u = gp.Model(self.name)
         if(not common_config.mipout):
@@ -238,12 +247,15 @@ class CPU(device):
         #         md.old_u = [md.u]
         # md.u = u
         log_vars(u)
-        return get_val(md_tmp.ns)
+        self.cache[key] = get_val(md_tmp.ns)
+        return self.cache[key]
 
     def __init__(self, *args, **kwargs):
         super(CPU, self).__init__(*args, **kwargs)
         from scipy.interpolate import interp1d
-        self.get_mem_access_time = memoize(interp1d(self.mem_par, self.mem_ns))
+        # TODO:: Can memoize, See pickle
+        # self.get_mem_access_time = memoize(interp1d(self.mem_par, self.mem_ns))
+        self.get_mem_access_time = interp1d(self.mem_par, self.mem_ns)
         # self.weight = 10
 
 

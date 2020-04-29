@@ -435,10 +435,14 @@ def solve(inp):
             return handle_infeasible(solver.culprit)
         ret = Namespace(results=solver.r, md_list=solver.md_list)
 
+    if(ret is None):
+        return None
+
     end = time.time()
     log.info("\n" + "-"*80)
     log_results(inp.devices, ret.results, ret.md_list,
                 elapsed=end-start, msg="Final Results")
+    # log.info("Memoization resolved {} cases.".format(CPU.cache['helped']))
     return ret
 
 
