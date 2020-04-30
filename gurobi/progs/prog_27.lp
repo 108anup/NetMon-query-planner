@@ -5,8 +5,8 @@ Minimize multi-objectives
    0 max_mem_CPU_Cluster + 0 max_rows_CPU_Cluster + 0 m_access_time_CPU_2
    + res
 Subject To
- cov_0_0: frac[0,0] >= 0.9998996666666665
- cov_1_0: frac[0,0] >= 0.9998996666666665
+ cov_0_0: frac[0,0] >= 1
+ cov_1_0: frac[0,0] >= 1
  accuracy_0_0: - 5.09765625 frac[0,0] + mem[0,0] = 0
  mem_tot_CPU_2: - mem[0,0] + mem_tot_CPU_2 = 0
  R4: - 3.05176e-05 mem_tot_CPU_2 + normalized_mem_tot_CPU_2 = 0
@@ -24,12 +24,13 @@ Subject To
  pdt_m_rows_CPU_2: pdt_m_rows_CPU_2 + [
    - rows_tot_CPU_2 * m_access_time_CPU_2 ] = 0
 Bounds
- frac[0,0] <= 1
  mem_tot_CPU_2 <= 32768
  normalized_mem_tot_CPU_2 <= 1
  normalized_rows_tot_CPU_2 <= 1
  cores_sketch_CPU_2 <= 7
  1 <= cores_dpdk_CPU_2 <= 7
+Binaries
+ frac[0,0]
 Generals
  cores_sketch_CPU_2 cores_dpdk_CPU_2
 General Constraints

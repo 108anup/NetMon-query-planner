@@ -916,4 +916,9 @@ input_generator = [
                 l1s=20, num_queries=24000, tenant=True,
                 overlay='tenant', refine=False),
 
+    # 30
+    # Small tenant with small requirements
+    dc_topology(hosts_per_tors=8, tors_per_l1s=2, l1s=2, num_queries=16,
+                eps=eps0/100, overlay='tenant', tenant=True, refine=False)
+
 ]

@@ -72,7 +72,7 @@ def refine_devices(devices, md_list, placement_fixed=True):
         if(not hasattr(md, 'mem_tot')):
             assert(not hasattr(md, 'rows_tot'))
             md.mem_tot = 0
-            md.rows_tot = 0,
+            md.rows_tot = 0
 
         ns_max = max(ns_max, d.get_ns(md))
 
@@ -478,7 +478,7 @@ class MIP(Namespace):
             # behave like Univmon Greedy Rows
             if(hasattr(self, 'refined')):
                 if(self.refined and self.dont_refine):
-                    log_results(self.devices, self.md_list,
+                    log_results(self.devices, self.r, self.md_list,
                                 msg="Netmon Intermediate Result")
 
 

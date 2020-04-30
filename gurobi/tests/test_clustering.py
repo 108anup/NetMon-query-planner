@@ -89,12 +89,12 @@ def combinations(l):
     # combinations(
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
-    combinations(
-        [[48], [10, 20], [4, 10], ['tenant'], [False]]
-    )
     # combinations(
-    #     [[8], [2], [2], ['tenant'], [False]]
+    #     [[48], [10, 20], [4, 10], ['tenant'], [False]]
     # )
+    combinations(
+        [[8], [2], [2], ['tenant'], [False]]
+    )
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
                                        l1s, overlay, refine):

@@ -18,7 +18,9 @@ from solvers import (UnivmonGreedyRows, log_placement, log_results,
 import threading
 
 
-def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
+def handle_infeasible(m, iis=False, msg="Infeasible Placement!"):
+
+    # import ipdb; ipdb.set_trace()
     log.warning(msg)
 
     if(not (common_config.results_file is None)):
@@ -240,12 +242,12 @@ def cluster_refinement(inp):
     if(solver.infeasible):
         return handle_infeasible(solver.culprit)
 
+    md_list = solver.md_list
+    frac = solver.frac
     if(common_config.solver == 'Netmon'):
         log_step("Refining clusters")
         subproblems = get_subproblems(inp, solver)
 
-        frac = tupledict()
-        md_list = [Namespace() for i in range(len(inp.devices))]
         for prob in subproblems:
             sol = Solver(devices=prob.devices, partitions=prob.partitions,
                          flows=prob.flows, queries=inp.queries,
@@ -253,12 +255,14 @@ def cluster_refinement(inp):
             sol.solve()
             if(sol.infeasible):
                 return handle_infeasible(sol.culprit)
-            log_results(sol.devices, msg="Refinement Results")
+            log_results(sol.devices, sol.r, sol.md_list,
+                        msg="Refinement Results")
             frac.update(sol.frac)
             for (dnum, d) in enumerate(prob.devices):
                 md_list[d.dev_id] = sol.md_list[dnum]
 
         log_step("Selective Refinement Complete")
+        # import ipdb; ipdb.set_trace()
         r = refine_devices(inp.devices, md_list)
         ret = Namespace(results=r, md_list=md_list)
         log_placement(inp.devices, inp.partitions, inp.flows,
@@ -379,6 +383,9 @@ def cluster_optimization(inp):
                 if(isinstance(d, Cluster)):
                     (partitions, flows) = get_partitions_flows(
                         inp, d, solver, dnum)
+                    # Either both have something or both have nothing
+                    assert(len(partitions) > 0 or len(flows) == 0)
+                    assert(len(partitions) == 0 or len(flows) > 0)
                     if(len(partitions) > 0 and len(flows) > 0):
                         queue.put(Namespace(devices=d.device_tree,
                                             partitions=partitions,
@@ -397,8 +404,9 @@ def cluster_optimization(inp):
                             (d.dev_id, p.partition_id))
                         placement.md_list[d.dev_id] = solver.md_list[dnum]
 
+    # import ipdb; ipdb.set_trace()
     log_step('Clustered Optimization complete')
-
+    # log.debug(placement.md_list)
     r = refine_devices(inp.devices, placement.md_list)
     # TODO:: Put intermediate output to debug!
     # Allow loggers to take input logging level
