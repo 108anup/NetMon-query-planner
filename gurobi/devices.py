@@ -145,11 +145,6 @@ class CPU(device):
         # Multi-core model
         md.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.cores,
                                    name='cores_sketch_{}'.format(self))
-        md.cores_dpdk = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
-                                 name='cores_dpdk_{}'.format(self))
-        m.addConstr(md.cores_sketch + md.cores_dpdk <= self.cores,
-                    name='capacity_cores_{}'.format(self))
-
         # Multi-core sketching
         if(ns_req):
             m.addConstr(md.cores_sketch * ns_req >= md.ns_single,
@@ -164,20 +159,28 @@ class CPU(device):
 
         # Amdahl's law
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
+        f = CPU.fraction_parallel
         if(ns_req):
-            m.addConstr(
-                (md.cores_dpdk*(1-CPU.fraction_parallel)
-                 + CPU.fraction_parallel)*dpdk_single_ns
-                <= md.cores_dpdk * ns_req, name='ns_dpdk_{}'.format(self))
+            dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
+            assert(dpdk_cores > 0)
+            md.cores_dpdk = math.ceil(dpdk_cores)
+            # m.addConstr(
+            #     (md.cores_dpdk*(1-CPU.fraction_parallel)
+            #      + CPU.fraction_parallel)*dpdk_single_ns
+            #     <= md.cores_dpdk * ns_req, name='ns_dpdk_{}'.format(self))
         else:
+            md.cores_dpdk = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
+                                     name='cores_dpdk_{}'.format(self))
             md.ns_dpdk = m.addVar(vtype=GRB.CONTINUOUS,
                                   name='ns_dpdk_{}'.format(self))
             md.pdt_nsc_dpdk = self.get_pdt_var(
                 md.ns_dpdk, md.cores_dpdk, 'nsc_dpdk', m, 0)
             m.addConstr(
-                (md.cores_dpdk*(1-CPU.fraction_parallel)
-                 + CPU.fraction_parallel)*dpdk_single_ns
+                (md.cores_dpdk*(1-f)+f)*dpdk_single_ns
                 == md.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))
+
+        m.addConstr(md.cores_sketch + md.cores_dpdk <= self.cores,
+                    name='capacity_cores_{}'.format(self))
 
         if(ns_req is None):
             md.ns = m.addVar(vtype=GRB.CONTINUOUS,
@@ -198,12 +201,12 @@ class CPU(device):
 
     def get_ns(self, md):
         # TODO: Measure the impact of using int here
-        mem_tot = int(get_rounded_val(get_val(md.mem_tot)))
-        rows_tot = int(get_rounded_val(get_val(md.rows_tot)))
-        key = (self.profile_name, mem_tot, rows_tot)
-        if(key in self.cache):
-            # self.cache['helped'] += 1
-            return self.cache[key]
+        mem_tot = get_rounded_val(get_val(md.mem_tot))
+        rows_tot = get_rounded_val(get_val(md.rows_tot))
+        # key = (self.profile_name, mem_tot, rows_tot)
+        # if(key in self.cache):
+        #     # self.cache['helped'] += 1
+        #     return self.cache[key]
 
         md_tmp = Namespace()
         # mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
@@ -247,8 +250,9 @@ class CPU(device):
         #         md.old_u = [md.u]
         # md.u = u
         log_vars(u)
-        self.cache[key] = get_val(md_tmp.ns)
-        return self.cache[key]
+        return get_val(md_tmp.ns)
+        # self.cache[key] = get_val(md_tmp.ns)
+        # return self.cache[key]
 
     def __init__(self, *args, **kwargs):
         super(CPU, self).__init__(*args, **kwargs)

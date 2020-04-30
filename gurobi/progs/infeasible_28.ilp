@@ -1,277 +1,38 @@
 \ Model Netmon_copy
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  tot_rows_CPU_Cluster: Priority=100 Weight=1 AbsTol=0 RelTol=0
-  
-  CPU_Cluster_rows_load: Priority=90 Weight=1 AbsTol=0 RelTol=0
-  
-  OBJ2: Priority=0 Weight=1 AbsTol=0 RelTol=0
-  
-  OBJ3: Priority=0 Weight=1 AbsTol=0 RelTol=0
-  
-  tot_rows_P4: Priority=80 Weight=1 AbsTol=0 RelTol=0
-   rows_tot_l1_P41 + rows_tot_l1_P42
-  P4_rows_load: Priority=70 Weight=1 AbsTol=0 RelTol=0
-  
-  tot_mem_CPU_Cluster: Priority=60 Weight=1 AbsTol=0 RelTol=0
-  
-  CPU_Cluster_load_mem: Priority=50 Weight=1 AbsTol=0 RelTol=0
-  
-  tot_mem_P4: Priority=40 Weight=1 AbsTol=0 RelTol=0
-  
-  P4_load_mem: Priority=30 Weight=1 AbsTol=0 RelTol=0
-  
+  res: Priority=10 Weight=1 AbsTol=0 RelTol=0
+   0 m_access_time_CPU1374
 Subject To
- cov_0_33: frac[35,33] + frac[36,33] + frac[34,33] >= 0.7
- cov_2_67: frac[36,67] + frac[35,67] + frac[34,67] >= 0.7
- cov_7_7: frac[34,7] >= 0.7
- cov_16_38: frac[34,38] >= 0.9
- cov_20_0: frac[34,0] >= 0.8
- cov_24_91: frac[34,91] >= 0.9
- cov_27_98: frac[35,98] >= 0.9
- cov_34_46: frac[34,46] + frac[35,46] + frac[36,46] >= 0.7
- cov_35_78: frac[35,78] >= 0.9
- cov_39_92: frac[35,92] + frac[36,92] + frac[34,92] >= 1
- cov_42_42: frac[34,42] + frac[36,42] + frac[35,42] >= 0.8
- cov_45_20: frac[34,20] >= 0.8
- cov_61_102: frac[35,102] + frac[34,102] + frac[36,102] >= 0.8
- cov_62_4: frac[35,4] >= 0.8
- cov_67_4: frac[34,4] >= 0.8
- cov_72_41: frac[34,41] >= 0.8
- cov_83_81: frac[35,81] >= 0.7
- cov_85_56: frac[35,56] >= 1
- cov_89_103: frac[35,103] >= 0.9
- cov_90_35: frac[34,35] + frac[35,35] + frac[36,35] >= 1
- cov_95_60: frac[34,60] + frac[35,60] + frac[36,60] >= 0.8
- cov_99_49: frac[35,49] + frac[36,49] + frac[34,49] >= 0.9
- cov_103_66: frac[34,66] + frac[36,66] + frac[35,66] >= 0.9
- cov_104_6: frac[34,6] + frac[36,6] + frac[35,6] >= 0.8
- cov_108_62: frac[35,62] >= 0.8
- cov_110_26: frac[35,26] + frac[34,26] + frac[36,26] >= 0.9
- cov_115_100: frac[35,100] + frac[36,100] + frac[34,100] >= 0.8
- cov_123_23: frac[35,23] >= 0.7
- cov_125_23: frac[34,23] >= 0.7
- cov_126_34: frac[35,34] >= 0.9
- cov_127_34: frac[34,34] >= 0.9
- cov_128_95: frac[34,95] >= 0.7
- cov_140_93: frac[34,93] + frac[35,93] + frac[36,93] >= 0.9
- cov_148_74: frac[35,74] >= 0.8
- cov_156_79: frac[34,79] + frac[35,79] + frac[36,79] >= 1
- cov_162_43: frac[34,43] >= 0.8
- cov_167_70: frac[35,70] + frac[34,70] + frac[36,70] >= 1
- cov_174_84: frac[34,84] + frac[35,84] + frac[36,84] >= 0.8
- cov_176_13: frac[35,13] >= 0.8
- cov_177_13: frac[34,13] >= 0.8
- cov_178_15: frac[35,15] + frac[34,15] + frac[36,15] >= 0.8
- cov_180_72: frac[35,72] >= 0.8
- cov_182_72: frac[34,72] >= 0.8
- cov_195_87: frac[35,87] + frac[36,87] + frac[34,87] >= 0.8
- cov_198_14: frac[34,14] >= 0.9
- cov_199_14: frac[35,14] >= 0.9
- cov_202_47: frac[35,47] + frac[34,47] + frac[36,47] >= 0.8
- cov_209_1: frac[34,1] >= 0.9
- cov_227_90: frac[35,90] >= 0.7
- cov_232_40: frac[34,40] >= 0.9
- cov_241_96: frac[35,96] + frac[36,96] + frac[34,96] >= 0.9
- cov_251_53: frac[35,53] >= 0.8
- cov_253_53: frac[34,53] >= 0.8
- cov_254_76: frac[34,76] >= 0.8
- cov_262_17: frac[34,17] + frac[35,17] + frac[36,17] >= 0.9
- cov_270_29: frac[35,29] >= 0.9
- cov_274_29: frac[34,29] >= 0.9
- cov_275_85: frac[34,85] >= 0.8
- cov_276_59: frac[34,59] + frac[35,59] + frac[36,59] >= 0.8
- cov_279_58: frac[35,58] >= 0.7
- cov_281_51: frac[35,51] + frac[36,51] + frac[34,51] >= 0.9
- cov_284_94: frac[34,94] >= 0.7
- cov_288_83: frac[34,83] + frac[36,83] + frac[35,83] >= 0.7594696666667228
- cov_293_11: frac[34,11] >= 1
- cov_294_11: frac[35,11] >= 0.8
- cov_296_68: frac[34,68] >= 0.8
- cov_297_68: frac[35,68] >= 0.8
- cov_302_27: frac[35,27] >= 0.8
- cov_307_28: frac[35,28] + frac[36,28] + frac[34,28] >= 0.8
- cov_309_8: frac[34,8] >= 0.7
- cov_310_8: frac[35,8] >= 0.7
- rows_tot_l1_P41: - 3 frac[34,52] - 3 frac[34,46] - 3 frac[34,8]
-   - 3 frac[34,85] - 3 frac[34,79] - 3 frac[34,41] - 3 frac[34,3]
-   - 3 frac[34,70] - 3 frac[34,32] - 3 frac[34,26] - 3 frac[34,103]
-   - 3 frac[34,65] - 3 frac[34,59] - 3 frac[34,21] - 3 frac[34,15]
-   - 3 frac[34,88] - 3 frac[34,50] - 3 frac[34,44] - 3 frac[34,6]
-   - 3 frac[34,83] - 3 frac[34,77] - 3 frac[34,39] - 3 frac[34,1]
-   - 3 frac[34,68] - 3 frac[34,24] - 3 frac[34,101] - 3 frac[34,95]
-   - 3 frac[34,57] - 3 frac[34,19] - 3 frac[34,13] - 3 frac[34,48]
-   - 3 frac[34,42] - 3 frac[34,4] - 3 frac[34,81] - 3 frac[34,75]
-   - 3 frac[34,37] - 3 frac[34,31] - 3 frac[34,104] - 3 frac[34,66]
-   - 3 frac[34,60] - 3 frac[34,22] - 3 frac[34,99] - 3 frac[34,93]
-   - 3 frac[34,55] - 3 frac[34,17] - 3 frac[34,11] - 3 frac[34,84]
-   - 3 frac[34,78] - 3 frac[34,40] - 3 frac[34,2] - 3 frac[34,73]
-   - 3 frac[34,35] - 3 frac[34,29] - 3 frac[34,102] - 3 frac[34,58]
-   - 3 frac[34,20] - 3 frac[34,14] - 3 frac[34,97] - 3 frac[34,91]
-   - 3 frac[34,53] - 3 frac[34,47] - 3 frac[34,9] - 3 frac[34,82]
-   - 3 frac[34,76] - 3 frac[34,38] - 3 frac[34,0] - 3 frac[34,71]
-   - 3 frac[34,33] - 3 frac[34,100] - 3 frac[34,94] - 3 frac[34,56]
-   - 3 frac[34,18] - 3 frac[34,12] - 3 frac[34,89] - 3 frac[34,51]
-   - 3 frac[34,45] - 3 frac[34,7] - 3 frac[34,80] - 3 frac[34,74]
-   - 3 frac[34,36] - 3 frac[34,30] - 3 frac[34,69] - 3 frac[34,63]
-   - 3 frac[34,25] - 3 frac[34,92] - 3 frac[34,54] - 3 frac[34,16]
-   - 3 frac[34,10] - 3 frac[34,87] - 3 frac[34,49] - 3 frac[34,43]
-   - 3 frac[34,5] - 3 frac[34,72] - 3 frac[34,34] - 3 frac[34,28]
-   - 3 frac[34,105] - 3 frac[34,67] - 3 frac[34,61] - 3 frac[34,23]
-   - 3 frac[34,96] + rows_tot_l1_P41 = 0
- rows_tot_l1_P42: - 3 frac[35,88] - 3 frac[35,41] - 3 frac[35,15]
-   - 3 frac[35,21] - 3 frac[35,65] - 3 frac[35,46] - 3 frac[35,52]
-   - 3 frac[35,26] - 3 frac[35,96] - 3 frac[35,70] - 3 frac[35,61]
-   - 3 frac[35,3] - 3 frac[35,105] - 3 frac[35,79] - 3 frac[35,85]
-   - 3 frac[35,34] - 3 frac[35,8] - 3 frac[35,90] - 3 frac[35,43]
-   - 3 frac[35,49] - 3 frac[35,23] - 3 frac[35,67] - 3 frac[35,54]
-   - 3 frac[35,28] - 3 frac[35,98] - 3 frac[35,72] - 3 frac[35,63]
-   - 3 frac[35,5] - 3 frac[35,87] - 3 frac[35,36] - 3 frac[35,10]
-   - 3 frac[35,16] - 3 frac[35,92] - 3 frac[35,45] - 3 frac[35,51]
-   - 3 frac[35,25] - 3 frac[35,69] - 3 frac[35,56] - 3 frac[35,30]
-   - 3 frac[35,100] - 3 frac[35,74] - 3 frac[35,80] - 3 frac[35,33]
-   - 3 frac[35,7] - 3 frac[35,89] - 3 frac[35,38] - 3 frac[35,12]
-   - 3 frac[35,18] - 3 frac[35,94] - 3 frac[35,47] - 3 frac[35,53]
-   - 3 frac[35,27] - 3 frac[35,97] - 3 frac[35,71] - 3 frac[35,58]
-   - 3 frac[35,0] - 3 frac[35,102] - 3 frac[35,76] - 3 frac[35,82]
-   - 3 frac[35,35] - 3 frac[35,9] - 3 frac[35,91] - 3 frac[35,40]
-   - 3 frac[35,14] - 3 frac[35,20] - 3 frac[35,64] - 3 frac[35,29]
-   - 3 frac[35,99] - 3 frac[35,73] - 3 frac[35,60] - 3 frac[35,2]
-   - 3 frac[35,104] - 3 frac[35,78] - 3 frac[35,84] - 3 frac[35,37]
-   - 3 frac[35,11] - 3 frac[35,17] - 3 frac[35,93] - 3 frac[35,42]
-   - 3 frac[35,48] - 3 frac[35,22] - 3 frac[35,66] - 3 frac[35,57]
-   - 3 frac[35,31] - 3 frac[35,101] - 3 frac[35,75] - 3 frac[35,81]
-   - 3 frac[35,62] - 3 frac[35,4] - 3 frac[35,86] - 3 frac[35,39]
-   - 3 frac[35,13] - 3 frac[35,19] - 3 frac[35,95] - 3 frac[35,44]
-   - 3 frac[35,50] - 3 frac[35,24] - 3 frac[35,68] - 3 frac[35,59]
-   - 3 frac[35,1] - 3 frac[35,103] - 3 frac[35,77] - 3 frac[35,83]
-   - 3 frac[35,32] - 3 frac[35,6] + rows_tot_l1_P42 = 0
- row_capacity_l1_P41: rows_tot_l1_P41 <= 48
- row_capacity_l1_P42: rows_tot_l1_P42 <= 48
+ cov_1_0: frac[3,0] >= 1
+ cov_6_1: frac[3,1] >= 0.9
+ accuracy_3_0: - 509.68359375 frac[3,0] + mem[3,0] = 0
+ accuracy_3_1: - 509.68359375 frac[3,1] + mem[3,1] = 0
+ mem_tot_CPU1374: - mem[3,2] - mem[3,0] - mem[3,1] + mem_tot_CPU1374 = 0
+ rows_tot_CPU1374: - 3 frac[3,2] - 3 frac[3,0] - 3 frac[3,1]
+   + rows_tot_CPU1374 = 0
+ ns_single_CPU1374: 3.5 rows_tot_CPU1374 - ns_single_CPU1374
+   + pdt_m_rows_CPU1374 = 0
+ ns_sketch_CPU1374: - ns_single_CPU1374 + 12.5 cores_sketch_CPU1374 >= 0
+ capacity_cores_CPU1374: cores_sketch_CPU1374 <= 3
+ pdt_m_rows_CPU1374: pdt_m_rows_CPU1374 + [
+   - rows_tot_CPU1374 * m_access_time_CPU1374 ] = 0
 Bounds
- frac[34,46] free
- frac[35,15] free
- frac[34,8] free
- frac[34,85] free
- -infinity <= frac[36,67] <= 1
- frac[34,79] free
- frac[35,46] free
- frac[34,41] free
- frac[35,26] free
- frac[35,96] free
- frac[35,70] free
- frac[34,70] free
- frac[34,26] free
- frac[35,79] free
- frac[34,59] free
- frac[35,34] free
- frac[35,8] free
- frac[34,15] free
- frac[35,90] free
- -infinity <= frac[36,70] <= 1
- frac[35,49] free
- frac[34,6] free
- frac[35,23] free
- frac[34,83] free
- frac[35,67] free
- -infinity <= frac[36,49] <= 1
- frac[34,1] free
- frac[35,28] free
- frac[35,98] free
- frac[35,72] free
- frac[34,68] free
- -infinity <= frac[36,6] <= 1
- frac[34,95] free
- frac[35,87] free
- frac[34,13] free
- frac[35,92] free
- -infinity <= frac[36,46] <= 1
- frac[34,42] free
- frac[35,51] free
- frac[34,4] free
- -infinity <= frac[36,79] <= 1
- frac[35,56] free
- -infinity <= frac[36,51] <= 1
- frac[35,100] free
- frac[35,74] free
- frac[34,66] free
- -infinity <= frac[36,92] <= 1
- frac[34,60] free
- frac[35,33] free
- frac[34,93] free
- -infinity <= frac[36,33] <= 1
- frac[34,17] free
- -infinity <= frac[36,15] <= 1
- frac[34,11] free
- -infinity <= frac[36,100] <= 1
- frac[34,84] free
- -infinity <= frac[36,66] <= 1
- frac[35,47] free
- frac[34,40] free
- frac[35,53] free
- frac[35,27] free
- -infinity <= frac[36,28] <= 1
- -infinity <= frac[36,87] <= 1
- frac[34,35] free
- frac[35,58] free
- frac[34,29] free
- frac[35,102] free
- frac[34,102] free
- frac[35,35] free
- frac[34,20] free
- frac[34,14] free
- frac[34,91] free
- frac[34,53] free
- -infinity <= frac[36,35] <= 1
- frac[34,47] free
- frac[35,14] free
- -infinity <= frac[36,102] <= 1
- frac[34,76] free
- -infinity <= frac[36,42] <= 1
- frac[34,38] free
- frac[34,0] free
- frac[35,29] free
- frac[34,33] free
- frac[35,60] free
- frac[34,100] free
- frac[35,78] free
- frac[34,94] free
- frac[35,84] free
- frac[35,11] free
- frac[35,17] free
- frac[35,93] free
- frac[34,51] free
- frac[35,42] free
- frac[34,7] free
- -infinity <= frac[36,17] <= 1
- -infinity <= frac[36,96] <= 1
- frac[35,66] free
- -infinity <= frac[36,84] <= 1
- frac[35,81] free
- -infinity <= frac[36,83] <= 1
- frac[35,62] free
- frac[35,4] free
- frac[34,92] free
- frac[35,13] free
- frac[34,87] free
- frac[34,49] free
- -infinity <= frac[36,47] <= 1
- frac[34,43] free
- frac[35,68] free
- frac[34,72] free
- frac[34,34] free
- frac[35,59] free
- -infinity <= frac[36,60] <= 1
- frac[34,28] free
- -infinity <= frac[36,26] <= 1
- frac[35,103] free
- frac[34,67] free
- frac[35,83] free
- -infinity <= frac[36,93] <= 1
- -infinity <= frac[36,59] <= 1
- frac[34,23] free
- frac[35,6] free
- frac[34,96] free
- rows_tot_l1_P41 free
- rows_tot_l1_P42 free
+ frac[3,0] free
+ frac[3,1] free
+ mem[3,0] free
+ mem[3,1] free
+ mem_tot_CPU1374 free
+ rows_tot_CPU1374 free
+ m_access_time_CPU1374 free
+ ns_single_CPU1374 free
+ pdt_m_rows_CPU1374 free
+ cores_sketch_CPU1374 free
+Generals
+ cores_sketch_CPU1374
+General Constraints
+ mem_access_time_CPU1374:
+   m_access_time_CPU1374 = PWL ( mem_tot_CPU1374 ) : (0, 0) 
+  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
+  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
 End

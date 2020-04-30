@@ -76,7 +76,7 @@ def refine_devices(devices, md_list, placement_fixed=True):
 
         ns_max = max(ns_max, d.get_ns(md))
 
-    r = Namespace(ns_max=0, res=0, total_CPUs=0,
+    r = Namespace(ns_max=ns_max, res=0, total_CPUs=0,
                   used_cores=0, switch_memory=0)
     for (dnum, d) in enumerate(devices):
         md = md_list[dnum]
@@ -145,9 +145,25 @@ class MIP(Namespace):
     def add_frac_mem_var(self):
         # Fraction of partition on device
         if(common_config.vertical_partition):
-            self.frac = self.m.addVars(
-                self.dev_par_tuplelist, vtype=GRB.CONTINUOUS,
-                lb=0, ub=1, name='frac')
+            # self.frac = self.m.addVars(
+            #     self.dev_par_tuplelist, vtype=GRB.CONTINUOUS,
+            #     lb=0, ub=1, name='frac')
+
+            # Protocol: No partitioning allowed for P4 switches
+            # As they can only have columns which are power of 2
+            self.frac = tupledict()
+            for (dnum, d) in enumerate(self.devices):
+                tuples = self.dev_par_tuplelist.select(dnum, '*')
+                # TODO: Consider doing same for Clusters
+                if(isinstance(d, P4)):
+                    self.frac.update(
+                        self.m.addVars(tuples, vtype=GRB.BINARY, name='frac')
+                    )
+                else:
+                    self.frac.update(
+                        self.m.addVars(tuples, vtype=GRB.CONTINUOUS,
+                                       lb=0, ub=1, name='frac')
+                    )
         else:
             self.frac = self.m.addVars(
                 self.dev_par_tuplelist, vtype=GRB.BINARY,
@@ -217,59 +233,66 @@ class MIP(Namespace):
             num_rows = p.num_rows
             mm = sk.min_mem()
             d = self.devices[dnum]
-            if(not common_config.vertical_partition):
-                if isinstance(d, P4):
-                    mm = 2 ** math.ceil(math.log2(mm))
 
-                self.m.addConstr(self.mem[dnum, pnum] ==
-                                 mm * self.frac[dnum, pnum] * num_rows,
-                                 name='accuracy_{}_{}'.format(dnum, pnum))
-            else:
-                if(isinstance(d, P4)):
-                    '''
-                    TODO: For Univmon, this should not be added
-                    This should be checked for the univmon solution later
-                    TODO: see if this is the right place to be doing this
+            if isinstance(d, P4):
+                mm = 2 ** math.ceil(math.log2(mm))
+            self.m.addConstr(self.mem[dnum, pnum] ==
+                             mm * self.frac[dnum, pnum] * num_rows,
+                             name='accuracy_{}_{}'.format(dnum, pnum))
 
-                    TODO: This also has to be different for each sketch
-                    As not all sketches would preserve accuracy linearly.
-                    TODO: Make modular so that other devices can reuse
-                    '''
+            # if(not common_config.vertical_partition):
+            #     if isinstance(d, P4):
+            #         mm = 2 ** math.ceil(math.log2(mm))
 
-                    mc = sk.cols()  # minimum cols per row
-                    self.cols[dnum, pnum] = self.m.addVar(
-                        vtype=GRB.INTEGER,
-                        name='cols_{}_{}'.format(dnum, pnum),
-                        lb=0, ub=2 ** d.max_col_bits)
+            #     self.m.addConstr(self.mem[dnum, pnum] ==
+            #                      mm * self.frac[dnum, pnum] * num_rows,
+            #                      name='accuracy_{}_{}'.format(dnum, pnum))
+            # else:
+            #     if(isinstance(d, P4)):
+            #         '''
+            #         TODO: For Univmon, this should not be added
+            #         This should be checked for the univmon solution later
+            #         TODO: see if this is the right place to be doing this
 
-                    self.cols_helper[dnum, pnum] = self.m.addVars(
-                        [x for x in range(d.max_col_bits)], vtype=GRB.BINARY,
-                        name='cols_helper_{}_{}'.format(dnum, pnum))
+            #         TODO: This also has to be different for each sketch
+            #         As not all sketches would preserve accuracy linearly.
+            #         TODO: Make modular so that other devices can reuse
+            #         '''
 
-                    # can also be zero
-                    # Helper constraints
-                    self.m.addConstr(quicksum(self.cols_helper[dnum, pnum])
-                                     <= 1, name='cols_helper_{}_{}'
-                                     .format(dnum, pnum))
-                    tmp = [self.cols_helper[dnum, pnum][i] * 2**(i+1)
-                           for i in range(d.max_col_bits)]
-                    self.m.addConstr(self.cols[dnum, pnum] == quicksum(tmp),
-                                     name='cols_{}_{}'.format(dnum, pnum))
+            #         mc = sk.cols()  # minimum cols per row
+            #         self.cols[dnum, pnum] = self.m.addVar(
+            #             vtype=GRB.INTEGER,
+            #             name='cols_{}_{}'.format(dnum, pnum),
+            #             lb=0, ub=2 ** d.max_col_bits)
 
-                    # Accuracy constraints
-                    self.m.addConstr(self.cols[dnum, pnum] >=
-                                     mc * self.frac[dnum, pnum],
-                                     name='cols_acc_{}_{}'.format(dnum, pnum))
-                    self.m.addConstr(
-                        self.mem[dnum, pnum] ==
-                        (constants.cell_size * self.cols[dnum, pnum]
-                         * num_rows) / constants.KB2B,
-                        name='accuracy_{}_{}'.format(dnum, pnum))
+            #         self.cols_helper[dnum, pnum] = self.m.addVars(
+            #             [x for x in range(d.max_col_bits)], vtype=GRB.BINARY,
+            #             name='cols_helper_{}_{}'.format(dnum, pnum))
 
-                else:
-                    self.m.addConstr(self.mem[dnum, pnum] ==
-                                     mm * self.frac[dnum, pnum] * num_rows,
-                                     name='accuracy_{}_{}'.format(dnum, pnum))
+            #         # can also be zero
+            #         # Helper constraints
+            #         self.m.addConstr(quicksum(self.cols_helper[dnum, pnum])
+            #                          <= 1, name='cols_helper_{}_{}'
+            #                          .format(dnum, pnum))
+            #         tmp = [self.cols_helper[dnum, pnum][i] * 2**(i+1)
+            #                for i in range(d.max_col_bits)]
+            #         self.m.addConstr(self.cols[dnum, pnum] == quicksum(tmp),
+            #                          name='cols_{}_{}'.format(dnum, pnum))
+
+            #         # Accuracy constraints
+            #         self.m.addConstr(self.cols[dnum, pnum] >=
+            #                          mc * self.frac[dnum, pnum],
+            #                          name='cols_acc_{}_{}'.format(dnum, pnum))
+            #         self.m.addConstr(
+            #             self.mem[dnum, pnum] ==
+            #             (constants.cell_size * self.cols[dnum, pnum]
+            #              * num_rows) / constants.KB2B,
+            #             name='accuracy_{}_{}'.format(dnum, pnum))
+
+            #     else:
+            #         self.m.addConstr(self.mem[dnum, pnum] ==
+            #                          mm * self.frac[dnum, pnum] * num_rows,
+            #                          name='accuracy_{}_{}'.format(dnum, pnum))
 
         # numdevices = len(self.devices)
         # for (pnum, p) in enumerate(self.partitions):

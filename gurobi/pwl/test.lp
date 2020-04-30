@@ -1,14 +1,17 @@
 \ Model pdt_test
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize
-  x + y + 0 z + 0 logz + 0 ez + pdt_xy
+  0 col_bits + mem
 Subject To
- pdt_xy: pdt_xy + [ - x * y ] = 0
+ R0: - cols + mem >= 0
+ R1: cols >= 5
+ R2: cols - exp_col_bits = 0
 Bounds
- x >= 300
- y >= 4.32
- -1 <= logz <= -0.5
+ col_bits <= 20
+ cols <= 1.048576e+06
+ exp_col_bits <= 1.048576e+06
+Generals
+ col_bits cols exp_col_bits
 General Constraints
- GC0: logz = LOG_2 ( z )
- GC1: ez = EXPA ( 2 ^ z )
+ GC0: exp_col_bits = EXPA ( 2 ^ col_bits )
 End

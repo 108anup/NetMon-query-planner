@@ -32,17 +32,33 @@ def get_pdt(a, b, pdt_name, m):
 
 m = gp.Model('pdt_test')
 m.setParam(GRB.Param.NonConvex, 2)
-x = m.addVar(vtype=GRB.CONTINUOUS, name='x', lb=300)
-y = m.addVar(vtype=GRB.CONTINUOUS, name='y', lb=4.32)
-z = m.addVar(vtype=GRB.CONTINUOUS, name='z')
-logz = m.addVar(vtype=GRB.CONTINUOUS, name='logz', lb=-1, ub=-0.5)
-ez = m.addVar(vtype=GRB.CONTINUOUS, name='ez')
+# x = m.addVar(vtype=GRB.CONTINUOUS, name='x', lb=300)
+# y = m.addVar(vtype=GRB.CONTINUOUS, name='y', lb=4.32)
+# z = m.addVar(vtype=GRB.CONTINUOUS, name='z')
+# logz = m.addVar(vtype=GRB.CONTINUOUS, name='logz', lb=-1, ub=-0.5)
+# ez = m.addVar(vtype=GRB.CONTINUOUS, name='ez')
 
-m.addGenConstrLogA(z, logz, 2)
-m.addGenConstrExpA(z, ez, 2)
+# m.addGenConstrLogA(z, logz, 2)
+# m.addGenConstrExpA(z, ez, 2)
 
-xy = get_pdt(x, y, 'xy', m)
-m.setObjective(x + y + xy, GRB.MINIMIZE)
+# xy = get_pdt(x, y, 'xy', m)
+# m.setObjective(x + y + xy, GRB.MINIMIZE)
+
+MAX_COL_BITS = 20
+# taken = m.addVar(vtype=GRB.BINARY, name='taken')
+col_bits = m.addVar(vtype=GRB.INTEGER, name='col_bits', lb=0, ub=MAX_COL_BITS)
+cols = m.addVar(vtype=GRB.INTEGER, name='cols', lb=0, ub=2**MAX_COL_BITS)
+mem = m.addVar(vtype=GRB.CONTINUOUS, name='mem', lb=0)
+exp_col_bits = m.addVar(vtype=GRB.INTEGER, name='exp_col_bits', lb=0,
+                        ub=2**MAX_COL_BITS)
+
+m.addGenConstrExpA(col_bits, exp_col_bits, 2)
+m.addConstr(mem >= cols)
+m.addConstr(cols >= 5)
+m.addConstr(cols == exp_col_bits)
+# m.addConstr((taken == 1) >> (cols == exp_col_bits))
+# m.addConstr((taken == 0) >> (cols == 0))
+m.setObjective(mem, GRB.MINIMIZE)
 
 start = time.time()
 m.update()
@@ -58,9 +74,14 @@ m.optimize()
 end = time.time()
 print("Model optimize took: {} seconds".format(end - start))
 
-for v in m.getVars():
-    print('{} {}'.format(v.varName, v.x))
+if(m.Status == GRB.INFEASIBLE):
+    m.computeIIS()
+    m.write('infeasible.lp')
 
-print("Obj: {}".format(m.getObjective().getValue()))
+else:
+    for v in m.getVars():
+        print('{} {}'.format(v.varName, v.x))
 
-m.printQuality()
+    print("Obj: {}".format(m.getObjective().getValue()))
+
+    m.printQuality()

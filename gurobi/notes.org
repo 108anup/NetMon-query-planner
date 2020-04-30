@@ -22,12 +22,14 @@
 *** TODO impact of int
     [2020-04-28 Tue]
     [[file:~/Netmon/NetMon-query-planner/gurobi/solvers.py::key%20=%20(d.config_name,%20int(md.mem_tot),%20int(md.rows_tot))]]
+*** TODO [#A] urgent
+    DEADLINE: <2020-04-30 Thu 14:00-17:00>
+    [2020-04-29 Wed]
+    [[file:~/Netmon/NetMon-query-planner/gurobi/devices.py::#%20TODO::%20Can%20memoize,%20See%20pickle]]
 *** TODO Need to change everything that reads 
     inp.devices and also check solvers.py
     <2020-04-29 Wed>
-** TODO Urgent
-   [2020-04-29 Wed]
-   [[file:~/Netmon/NetMon-query-planner/gurobi/solvers.py::#%20TODO:%20If%20these%20are%20not%20vars%20then%20no%20need%20of]]
-*** TODO urgent
-    [2020-04-29 Wed]
-    [[file:~/Netmon/NetMon-query-planner/gurobi/devices.py::#%20TODO::%20Can%20memoize,%20See%20pickle]]
+*** TODO [#A] Urgent
+    <2020-04-29 Wed>
+    [[file:~/Netmon/NetMon-query-planner/gurobi/solvers.py::#%20TODO:%20If%20these%20are%20not%20vars%20then%20no%20need%20of]]
+*** TODO Consider having clusters also without chunks
