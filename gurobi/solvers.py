@@ -755,7 +755,8 @@ class Netmon(UnivmonGreedyRows):
             self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
             self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
 
-        self.ns_req = self.r.ns_max
+        # TODO:: Check this!
+        self.ns_req = self.r.ns_max + common_config.ftol
         (self.ns, self.res) = self.add_device_model_constraints(self.ns_req)
 
     def add_objective(self):

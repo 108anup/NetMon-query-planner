@@ -1,0 +1,35 @@
+\ Model Netmon_copy
+\ LP format - for model browsing. Use MPS format to capture full model detail.
+Minimize multi-objectives
+  res: Priority=10 Weight=1 AbsTol=0 RelTol=0
+   0 m_access_time_CPU1487
+Subject To
+ cov_1_0: frac[1,0] >= 0.7
+ cov_2_1: frac[1,1] >= 1
+ accuracy_1_1: - 509.68359375 frac[1,1] + mem[1,1] = 0
+ mem_tot_CPU1487: - mem[1,0] - mem[1,1] + mem_tot_CPU1487 = 0
+ rows_tot_CPU1487: - 3 frac[1,0] - 3 frac[1,1] + rows_tot_CPU1487 = 0
+ ns_single_CPU1487: 3.5 rows_tot_CPU1487 - ns_single_CPU1487
+   + pdt_m_rows_CPU1487 = 0
+ ns_sketch_CPU1487: - ns_single_CPU1487 + 12.5 cores_sketch_CPU1487 >= 0
+ capacity_cores_CPU1487: cores_sketch_CPU1487 <= 2
+ pdt_m_rows_CPU1487: pdt_m_rows_CPU1487 + [
+   - rows_tot_CPU1487 * m_access_time_CPU1487 ] = 0
+Bounds
+ frac[1,0] free
+ frac[1,1] free
+ mem[1,1] free
+ mem_tot_CPU1487 free
+ rows_tot_CPU1487 free
+ m_access_time_CPU1487 free
+ ns_single_CPU1487 free
+ pdt_m_rows_CPU1487 free
+ cores_sketch_CPU1487 free
+Generals
+ cores_sketch_CPU1487
+General Constraints
+ mem_access_time_CPU1487:
+   m_access_time_CPU1487 = PWL ( mem_tot_CPU1487 ) : (0, 0) 
+  (1.1875, 0.539759) (32, 0.510892) (1448.15625, 5.04469) 
+  (5792.625, 5.84114) (32768, 30.6627) (440871.90625, 39.6981)
+End

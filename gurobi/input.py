@@ -882,7 +882,7 @@ input_generator = [
     # 25
     # Large tenant (10K)
     dc_topology(hosts_per_tors=48, tors_per_l1s=20,
-                l1s=10, num_queries=4800, tenant=True, overlay='tenant',
+                l1s=4, num_queries=480*4, tenant=True, overlay='tenant',
                 eps=eps0/100),
 
     # 26 Clustering Intuition init cant help
