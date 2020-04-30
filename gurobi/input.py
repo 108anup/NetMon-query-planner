@@ -142,7 +142,9 @@ def draw_graph(G, colors, labels=None):
         temp = {x: labels[x] for x in G.nodes}
         labels = temp
     nx.draw(G, pos, node_color=colors, labels=labels,
-            cmap=plt.get_cmap('Spectral'))
+            font_size=30, node_size=1200, width=3, linewidths=3,
+            cmap=plt.get_cmap('Spectral')
+    )
     plt.show()
 
 
@@ -482,8 +484,8 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             inp.overlay = (host_overlay
                            + generate_overlay([tors + l1s + 1], hosts))
 
-        #if(num_queries == 480):
-        #    draw_overlay_over_tenant(inp)
+        if(num_queries == 16):
+            draw_overlay_over_tenant(inp)
 
     elif(overlay == 'tenant'):
         host_overlay = [x.tolist() for x in inp.tenant_servers]
@@ -907,8 +909,8 @@ input_generator = [
     # Medium tenant (1K)
     # This basically is an example of spectralA which gives infeasible
     dc_topology(hosts_per_tors=48, tors_per_l1s=10,
-                l1s=2, num_queries=480, tenant=True,
-                overlay='tenant', refine=False, eps=eps0),
+                l1s=4, num_queries=480*2, tenant=True,
+                overlay='tenant', refine=False, eps=eps0/100),
 
     # 29
     # Very Large (100K)
