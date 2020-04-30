@@ -1,57 +1,70 @@
-\ Model Netmon_copy
+\ Model UnivmonGreedyRows_copy
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize multi-objectives
-  res: Priority=10 Weight=1 AbsTol=0 RelTol=0
+  tot_rows_CPU_Cluster: Priority=100 Weight=1 AbsTol=0 RelTol=0
+  
+  CPU_Cluster_rows_load: Priority=90 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ2: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  OBJ3: Priority=0 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_rows_P4: Priority=80 Weight=1 AbsTol=0 RelTol=0
+   rows_tot_l2_P4
+  P4_rows_load: Priority=70 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_mem_CPU_Cluster: Priority=60 Weight=1 AbsTol=0 RelTol=0
+  
+  CPU_Cluster_load_mem: Priority=50 Weight=1 AbsTol=0 RelTol=0
+  
+  tot_mem_P4: Priority=40 Weight=1 AbsTol=0 RelTol=0
+  
+  P4_load_mem: Priority=30 Weight=1 AbsTol=0 RelTol=0
   
 Subject To
- cov_3_2: frac[7,2] + frac[4,2] >= 0.7
- cov_18_0: frac[4,0] + frac[6,0] >= 0.8
- cov_27_12: frac[7,12] + frac[6,12] >= 0.9
- cov_30_26: frac[6,26] + frac[7,26] >= 0.8
- cov_32_7: frac[4,7] + frac[7,7] >= 0.8
- cov_42_15: frac[7,15] + frac[6,15] >= 0.9
- cov_44_9: frac[6,9] + frac[7,9] >= 0.9
- rows_tot_CPU10: - 3 frac[4,0] - 3 frac[4,6] - 3 frac[4,2] - 3 frac[4,7]
-   - 3 frac[4,18] - 3 frac[4,23] + rows_tot_CPU10 = 0
- rows_tot_CPU28: - 3 frac[6,9] - 3 frac[6,25] - 3 frac[6,0] - 3 frac[6,26]
-   - 3 frac[6,16] - 3 frac[6,20] - 3 frac[6,27] - 3 frac[6,2]
-   - 3 frac[6,15] - 3 frac[6,5] - 3 frac[6,3] - 3 frac[6,22] - 3 frac[6,12]
-   - 3 frac[6,19] + rows_tot_CPU28 = 0
- rows_tot_CPU29: - 3 frac[7,12] - 3 frac[7,25] - 3 frac[7,5] - 3 frac[7,22]
-   - 3 frac[7,2] - 3 frac[7,15] - 3 frac[7,18] - 3 frac[7,20]
-   - 3 frac[7,27] - 3 frac[7,7] - 3 frac[7,23] - 3 frac[7,9] - 3 frac[7,26]
-   + rows_tot_CPU29 = 0
- ns_single_CPU10: 3.5 rows_tot_CPU10 - ns_single_CPU10 + pdt_m_rows_CPU10
-   = 0
- ns_sketch_CPU10: - ns_single_CPU10 + 12.09395982124746 cores_sketch_CPU10
-   >= 0
- capacity_cores_CPU10: cores_sketch_CPU10 <= 2
- ns_single_CPU28: 3.5 rows_tot_CPU28 - ns_single_CPU28 + pdt_m_rows_CPU28
-   = 0
- ns_sketch_CPU28: - ns_single_CPU28 + 12.09395982124746 cores_sketch_CPU28
-   >= 0
- capacity_cores_CPU28: cores_sketch_CPU28 <= 2
- ns_single_CPU29: 3.5 rows_tot_CPU29 - ns_single_CPU29 + pdt_m_rows_CPU29
-   = 0
- ns_sketch_CPU29: - ns_single_CPU29 + 12.09395982124746 cores_sketch_CPU29
-   >= 0
- capacity_cores_CPU29: cores_sketch_CPU29 <= 2
+ cov_73_29: frac[10,29] >= 0.2693354736842104
+ cov_75_34: frac[10,34] >= 0.2693354736842104
+ cov_77_48: frac[10,48] >= 0.2693354736842104
+ cov_79_18: frac[10,18] >= 0.2693354736842104
+ cov_82_43: frac[10,43] >= 0.1
+ cov_83_8: frac[10,8] >= 0.8
+ cov_86_12: frac[10,12] >= 0.2693354736842104
+ cov_91_5: frac[10,5] >= 0.2693354736842104
+ cov_102_47: frac[10,47] >= 0.2693354736842104
+ cov_103_19: frac[10,19] >= 0.8
+ cov_104_32: frac[10,32] >= 0.8
+ cov_106_6: frac[10,6] >= 0.2693354736842104
+ cov_108_15: frac[10,15] >= 0.0135131111111081
+ cov_112_31: frac[10,31] >= 0.2693354736842104
+ cov_122_21: frac[10,21] >= 0.2693354736842104
+ cov_129_13: frac[10,13] >= 0.2693354736842104
+ cov_132_1: frac[10,1] >= 0.8
+ rows_tot_l2_P4: - 3 frac[10,46] - 3 frac[10,61] - 3 frac[10,8]
+   - 3 frac[10,7] - 3 frac[10,18] - 3 frac[10,35] - 3 frac[10,13]
+   - 3 frac[10,24] - 3 frac[10,23] - 3 frac[10,41] - 3 frac[10,36]
+   - 3 frac[10,29] - 3 frac[10,9] - 3 frac[10,42] - 3 frac[10,57]
+   - 3 frac[10,3] - 3 frac[10,30] - 3 frac[10,47] - 3 frac[10,58]
+   - 3 frac[10,66] - 3 frac[10,19] - 3 frac[10,32] - 3 frac[10,63]
+   - 3 frac[10,25] - 3 frac[10,20] - 3 frac[10,37] - 3 frac[10,48]
+   - 3 frac[10,15] - 3 frac[10,26] - 3 frac[10,43] - 3 frac[10,0]
+   - 3 frac[10,31] - 3 frac[10,59] - 3 frac[10,54] - 3 frac[10,67]
+   - 3 frac[10,5] - 3 frac[10,16] - 3 frac[10,33] - 3 frac[10,11]
+   - 3 frac[10,6] - 3 frac[10,21] - 3 frac[10,34] - 3 frac[10,49]
+   - 3 frac[10,12] - 3 frac[10,22] - 3 frac[10,40] - 3 frac[10,39]
+   - 3 frac[10,50] - 3 frac[10,1] - 3 frac[10,28] - 3 frac[10,56]
+   - 3 frac[10,55] + rows_tot_l2_P4 = 0
+ R440: - 0.0208333333333333 rows_tot_l2_P4 + normalized_rows_tot_l2_P4 = 0
 Bounds
- rows_tot_CPU10 free
- rows_tot_CPU28 free
- rows_tot_CPU29 free
- ns_single_CPU10 free
- cores_sketch_CPU10 free
- ns_single_CPU28 free
- cores_sketch_CPU28 free
- ns_single_CPU29 free
- cores_sketch_CPU29 free
+ rows_tot_l2_P4 free
+ -infinity <= normalized_rows_tot_l2_P4 <= 1
 Binaries
- frac[6,9] frac[7,12] frac[7,25] frac[4,0] frac[6,25] frac[6,0] frac[7,5]
- frac[7,22] frac[6,26] frac[6,16] frac[7,2] frac[7,15] frac[7,18] frac[4,6]
- frac[6,20] frac[6,27] frac[6,2] frac[7,20] frac[6,15] frac[7,27] frac[4,2]
- frac[6,5] frac[4,7] frac[4,18] frac[7,7] frac[6,3] frac[4,23] frac[6,22]
- frac[7,23] frac[6,12] frac[7,9] frac[6,19] frac[7,26]
-Generals
- cores_sketch_CPU10 cores_sketch_CPU28 cores_sketch_CPU29
+ frac[10,46] frac[10,61] frac[10,8] frac[10,7] frac[10,18] frac[10,35]
+ frac[10,13] frac[10,24] frac[10,23] frac[10,41] frac[10,36] frac[10,29]
+ frac[10,9] frac[10,42] frac[10,57] frac[10,3] frac[10,30] frac[10,47]
+ frac[10,58] frac[10,66] frac[10,19] frac[10,32] frac[10,63] frac[10,25]
+ frac[10,20] frac[10,37] frac[10,48] frac[10,15] frac[10,26] frac[10,43]
+ frac[10,0] frac[10,31] frac[10,59] frac[10,54] frac[10,67] frac[10,5]
+ frac[10,16] frac[10,33] frac[10,11] frac[10,6] frac[10,21] frac[10,34]
+ frac[10,49] frac[10,12] frac[10,22] frac[10,40] frac[10,39] frac[10,50]
+ frac[10,1] frac[10,28] frac[10,56] frac[10,55]
 End

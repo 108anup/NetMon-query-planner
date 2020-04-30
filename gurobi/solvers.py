@@ -88,7 +88,7 @@ def refine_devices(devices, md_list, placement_fixed=True):
             md.rows_tot = get_rounded_val(get_val(md.rows_tot))
             d.add_ns_constraints(None, md, ns_max)
             r.total_CPUs += 1
-            r.used_cores = get_val(md.cores_sketch) + get_val(md.cores_dpdk)
+            r.used_cores += get_val(md.cores_sketch) + get_val(md.cores_dpdk)
             if(not placement_fixed):
                 # Will be used by Netmon in later optimization
                 md.mem_tot = mem_tot_old
