@@ -169,6 +169,7 @@ def get_subproblems(inp, solver):
         if(isinstance(c, Cluster)):
             devices = c.transitive_closure()
         else:
+            continue
             devices = [c]
         dev_ids = set(d.dev_id for d in devices)
         dev_id_to_dnum = {}
@@ -241,6 +242,9 @@ def cluster_refinement(inp):
     solver.solve()
     if(solver.infeasible):
         return handle_infeasible(solver.culprit)
+
+    log_results(inp.devices, solver.r, solver.md_list,
+                msg="UnivmonGreedyRows Results")
 
     md_list = solver.md_list
     frac = solver.frac
@@ -420,8 +424,9 @@ def cluster_optimization(inp):
 # Final devices will always be refined, just log at the end
 @log_time(logger=log.info)
 def solve(inp):
-    # import ipdb; ipdb.set_trace()
     start = time.time()
+    # log.info("Solving started at time: {}".format(start))
+    # import ipdb; ipdb.set_trace()
 
     for (dnum, d) in enumerate(inp.devices):
         d.dev_id = dnum
@@ -451,10 +456,13 @@ def solve(inp):
     log_results(inp.devices, ret.results, ret.md_list,
                 elapsed=end-start, msg="Final Results")
     # log.info("Memoization resolved {} cases.".format(CPU.cache['helped']))
+    # log.info("Solving ended at time: {}, taking: {} s"
+    #          .format(end, end-start))
     return ret
 
 
 if(__name__ == '__main__'):
+    start = time.time()
     parser = generate_parser()
     args = parser.parse_args(sys.argv[1:])
     if(hasattr(args, 'config_file')):
@@ -467,9 +475,11 @@ if(__name__ == '__main__'):
     input_num = common_config.input_num
     inp = input_generator[input_num]
 
+    # log.info("Time before solving: {}".format(time.time() - start))
     try:
         solve(inp)
     except Exception:
         extype, value, tb = sys.exc_info()
         traceback.print_exc()
         ipdb.post_mortem(tb)
+    # log.info("Total time in main.py: {}".format(time.time() - start))

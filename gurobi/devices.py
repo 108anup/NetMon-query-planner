@@ -204,12 +204,12 @@ class CPU(device):
 
     def get_ns(self, md):
         # TODO: Measure the impact of using int here
-        mem_tot = math.ceil(get_rounded_val(get_val(md.mem_tot)))
-        rows_tot = math.ceil(get_rounded_val(get_val(md.rows_tot)))
-        key = (self.profile_name, mem_tot, rows_tot)
-        if(key in self.cache):
-            # self.cache['helped'] += 1
-            return self.cache[key]
+        mem_tot = get_rounded_val(get_val(md.mem_tot))
+        rows_tot = get_rounded_val(get_val(md.rows_tot))
+        # key = (self.profile_name, mem_tot, rows_tot)
+        # if(key in self.cache):
+        #     # self.cache['helped'] += 1
+        #     return self.cache[key]
 
         md_tmp = Namespace()
         # mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
@@ -253,9 +253,9 @@ class CPU(device):
         #         md.old_u = [md.u]
         # md.u = u
         log_vars(u)
-        # return get_val(md_tmp.ns)
-        self.cache[key] = get_val(md_tmp.ns)
-        return self.cache[key]
+        return get_val(md_tmp.ns)
+        # self.cache[key] = get_val(md_tmp.ns)
+        # return self.cache[key]
 
     def __init__(self, *args, **kwargs):
         super(CPU, self).__init__(*args, **kwargs)

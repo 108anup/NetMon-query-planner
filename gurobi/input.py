@@ -484,8 +484,8 @@ def dc_topology(hosts_per_tors=2, tors_per_l1s=2, l1s=2,
             inp.overlay = (host_overlay
                            + generate_overlay([tors + l1s + 1], hosts))
 
-        if(num_queries == 16):
-            draw_overlay_over_tenant(inp)
+        # if(num_queries == 16):
+        #     draw_overlay_over_tenant(inp)
 
     elif(overlay == 'tenant'):
         host_overlay = [x.tolist() for x in inp.tenant_servers]
@@ -910,7 +910,7 @@ input_generator = [
     # This basically is an example of spectralA which gives infeasible
     dc_topology(hosts_per_tors=48, tors_per_l1s=10,
                 l1s=4, num_queries=480*2, tenant=True,
-                overlay='tenant', refine=False, eps=eps0/100),
+                overlay='tenant', refine=True, eps=eps0/10),
 
     # 29
     # Very Large (100K)
