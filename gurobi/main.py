@@ -237,7 +237,7 @@ def cluster_refinement(inp):
     solver = UnivmonGreedyRows(devices=inp.devices,
                                partitions=inp.partitions,
                                flows=inp.flows, queries=inp.queries,
-                               dont_refine=dont_refine)
+                               dont_refine=False)
     solver.solve()
     if(solver.infeasible):
         return handle_infeasible(solver.culprit)
@@ -251,7 +251,7 @@ def cluster_refinement(inp):
         for prob in subproblems:
             sol = Solver(devices=prob.devices, partitions=prob.partitions,
                          flows=prob.flows, queries=inp.queries,
-                         dont_refine=False)
+                         dont_refine=False, ns_req=solver.r.ns_max)
             sol.solve()
             if(sol.infeasible):
                 return handle_infeasible(sol.culprit)

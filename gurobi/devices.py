@@ -187,6 +187,9 @@ class CPU(device):
                              name='ns_{}'.format(self))
             m.addGenConstrMax(md.ns, [md.ns_dpdk, md.ns_sketch],
                               name='ns_{}'.format(self))
+        # TODO:: Fix this:
+        else:
+            md.ns = ns_req
 
     def res(self, md):
         return 10*(md.cores_dpdk + md.cores_sketch) \

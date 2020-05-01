@@ -720,43 +720,44 @@ class Netmon(UnivmonGreedyRows):
             log.info("Netmon behaving like UnivmonGreedyRows")
             return super(Netmon, self).add_constraints()
 
-        # Initialize with unimon_greedy_rows solution
-        super(Netmon, self).add_constraints()
-        super(Netmon, self).add_objective()
-        log.info("-"*50)
-        log.info("Running Intermediate Univmon Placement")
-        self.m.update()
-        # TODO:: Redundancy here. Consider running univmon at Obj init time
-        self.m.optimize()
-        if(self.m.Status == GRB.INFEASIBLE):
-            self.infeasible = True
-            self.culprit = self.m
-            return
+        if(not getattr(self, 'ns_req', None)):
+            # Initialize with unimon_greedy_rows solution
+            super(Netmon, self).add_constraints()
+            super(Netmon, self).add_objective()
+            log.info("-"*50)
+            log.info("Running Intermediate Univmon Placement")
+            self.m.update()
+            # TODO:: Redundancy here. Consider running univmon at Obj init time
+            self.m.optimize()
+            if(self.m.Status == GRB.INFEASIBLE):
+                self.infeasible = True
+                self.culprit = self.m
+                return
 
-        log_objectives(self.m)
-        dont_refine = self.dont_refine
-        self.dont_refine = False
-        self.placement_fixed = False
-        super(Netmon, self).post_optimize()
-        self.dont_refine = dont_refine
-        # (ns_max, _) = refine_devices(self.devices)
-        log_placement(self.devices, self.partitions, self.flows,
-                      self.dev_par_tuplelist, self.frac, self.md_list,
-                      msg="UnivmonGreedyRows: Intermediate Placement")
-        log_results(self.devices, self.r, self.md_list,
-                    msg="UnivmonGreedyRows: Intermediate Results")
+            log_objectives(self.m)
+            dont_refine = self.dont_refine
+            self.dont_refine = False
+            self.placement_fixed = False
+            super(Netmon, self).post_optimize()
+            self.dont_refine = dont_refine
+            # (ns_max, _) = refine_devices(self.devices)
+            log_placement(self.devices, self.partitions, self.flows,
+                          self.dev_par_tuplelist, self.frac, self.md_list,
+                          msg="UnivmonGreedyRows: Intermediate Placement")
+            log_results(self.devices, self.r, self.md_list,
+                        msg="UnivmonGreedyRows: Intermediate Results")
 
-        # numdevices = len(self.devices)
-        # numpartitions = len(self.partitions)
+            # numdevices = len(self.devices)
+            # numpartitions = len(self.partitions)
 
-        # for dnum in range(numdevices):
-        #     for pnum in range(numpartitions):
-        for (dnum, pnum) in self.dev_par_tuplelist:
-            self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
-            self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
+            # for dnum in range(numdevices):
+            #     for pnum in range(numpartitions):
+            for (dnum, pnum) in self.dev_par_tuplelist:
+                self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
+                self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
 
-        # TODO:: Check this!
-        self.ns_req = self.r.ns_max + common_config.ftol
+            # TODO:: Check this!
+            self.ns_req = self.r.ns_max + common_config.ftol
         (self.ns, self.res) = self.add_device_model_constraints(self.ns_req)
 
     def add_objective(self):

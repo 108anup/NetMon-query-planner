@@ -876,7 +876,7 @@ input_generator = [
     # 24
     # Small tenant (100)
     dc_topology(hosts_per_tors=8, num_queries=4*32, tenant=True,
-                eps=eps0, overlay='spectralA', refine=False,
+                eps=eps0, overlay='spectralA', refine=True,
                 queries_per_tenant=32),
 
     # 25
