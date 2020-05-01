@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 import pprint
 from scipy.interpolate import interp1d
 
+# TODO: get rid of things done by hand:
+# by using derivatives:
+# as done in: https://stackoverflow.com/questions/29382903/how-to-apply-piecewise-linear-fit-in-python
+
 # ("rows", "columns", "pps")
 hash_bench = [(1, 1024, 27570015),
               (2, 1024, 27554591),
