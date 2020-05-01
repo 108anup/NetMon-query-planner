@@ -1,13 +1,13 @@
 import numpy as np
 import re
-import pwlf
+# import pwlf
 import matplotlib.pyplot as plt
-import math
+# import math
 from scipy.interpolate import interp1d
 import pprint
 import ipdb
 
-f = open("list_traversal.data", 'r')
+f = open("cpu_mem_bench.data", 'r')
 data = f.readlines()
 f.close()
 
@@ -81,9 +81,9 @@ plt.yscale('log')
 plt.xlabel('Array Size (Bytes)')
 plt.ylabel('Time to access a random element of array (ns)')
 plt.legend()
-#plt.show(block=True)
+plt.show(block=True)
 
 #plt.savefig('mem-access.pdf')
 
-ipdb.set_trace()
-np.sum(np.abs((Y_pdt - Y) / Y))
+# ipdb.set_trace()
+print("Accuracy: ", np.sum(np.abs((Y_pdt - Y) / Y)))

@@ -105,9 +105,14 @@ bench_list = [SimpleNamespace(rows=x[0], cols=x[1], pps=x[2])
 for x in bench_list:
     x.ns = 1e9/x.pps
 
+# plt.plot(list(map(lambda x: x.rows, bench_list)),
+#          list(map(lambda x: x.ns, bench_list)), '*-')
+# plt.show()
+
+# Linear model
 # Hand identified when hashing is bottleneck
 start = 4
-end = 8
+end = len(bench_list)
 start_idx = start - 1
 end_idx = end - 1
 
@@ -117,6 +122,18 @@ hashing_slope = np.average([((bench_list[i+1].ns - bench_list[i].ns) /
                            (bench_list[i+1].rows - bench_list[i].rows))
                             for i in range(start_idx, end_idx)])
 print("hashing: x, y, slope:", hashing_x, hashing_y, hashing_slope)
+
+# None linear model
+# PWL by hand
+xs = [1, 3, 9, 12]
+ys = []
+for r in xs:
+    ys.append(bench_list[r-1].ns)
+xs[0] = 0
+print("hashing non linear: xs, ys: ")
+pprint.pprint(xs)
+pprint.pprint(ys)
+hashing_time = interp1d(xs, ys)
 
 """
 Mem params
@@ -137,8 +154,8 @@ for x in bench_list_2:
     x.ns = 1e9/x.pps
     # x.mem = x.rows * x.cols * CELL_SIZE / KB2B
 
-pprint.pprint(bench_list_1)
-pprint.pprint(bench_list_2)
+# pprint.pprint(bench_list_1)
+# pprint.pprint(bench_list_2)
 
 x_vals = [(bench_list_1[i].mem + bench_list_2[i].mem)/2
           for i in range(len(bench_list_1))]
@@ -150,8 +167,8 @@ print(x_vals, y_vals)
 # plt.show()
 
 COMBINE = 6
-print(x_vals[:COMBINE])
-print(y_vals[:COMBINE])
+# print(x_vals[:COMBINE])
+# print(y_vals[:COMBINE])
 y_start = np.average(y_vals[:COMBINE])
 ys = [y_start, y_start]
 ys.extend(y_vals[COMBINE:])
@@ -159,6 +176,10 @@ xs = [0, x_vals[COMBINE-1]]
 xs.extend(x_vals[COMBINE:])
 xs.append(200000)
 ys.append(ys[-1])
+print("mem access: xs, ys:")
+pprint.pprint(xs)
+pprint.pprint(ys)
+
 # plt.plot(xs, ys)
 # plt.show()
 
@@ -168,6 +189,7 @@ dominant = 6
 point = bench_list_1[dominant]
 mem_const = point.ns - point.rows * get_mem_access_time(point.mem)
 
+# Evaluation:
 ground_truth = [(1, 1024, 4, 27557394),
                 (1, 2048, 8, 27554700),
                 (1, 8192, 32, 27552922),
@@ -216,6 +238,41 @@ ground_truth = [(1, 1024, 4, 27557394),
                 (8, 1048576, 32768, 9740216),
                 (8, 2097152, 65536, 8884773),
                 (8, 4194304, 131072, 8390003),
+                (9, 1024, 36, 23031460),
+                (9, 2048, 72, 23164207),
+                (9, 8192, 288, 23062167),
+                (9, 16384, 576, 23052891),
+                (9, 32768, 1152, 23046189),
+                (9, 65536, 2304, 23519085),
+                (9, 131072, 4608, 16978626),
+                (9, 262144, 9216, 12060758),
+                (9, 524288, 18432, 10097201),
+                (9, 1048576, 36864, 8789591),
+                (9, 2097152, 73728, 8027921),
+                (9, 4194304, 147456, 7524943),
+                (10, 1024, 40, 20946681),
+                (10, 2048, 80, 21066369),
+                (10, 8192, 320, 21028969),
+                (10, 16384, 640, 20980031),
+                (10, 32768, 1280, 20967735),
+                (10, 65536, 2560, 23034069),
+                (10, 131072, 5120, 14009640),
+                (10, 262144, 10240, 10104009),
+                (10, 524288, 20480, 8567701),
+                (10, 1048576, 40960, 7614832),
+                (10, 2097152, 81920, 7020178),
+                (10, 4194304, 163840, 6619393),
+                (11, 1024, 44, 19319091),
+                (11, 2048, 88, 19365405),
+                (11, 8192, 352, 19368229),
+                (11, 16384, 704, 19350983),
+                (11, 32768, 1408, 19313930),
+                (11, 65536, 2816, 22465120),
+                (11, 131072, 5632, 12768181),
+                (11, 262144, 11264, 9340859),
+                (11, 524288, 22528, 7872020),
+                (11, 1048576, 45056, 6991860),
+                (11, 2097152, 90112, 6408439),
                 (12, 1024, 48, 18346669),
                 (12, 2048, 96, 18399047),
                 (12, 8192, 384, 18400698),
@@ -235,9 +292,9 @@ diff = []
 for x in bench_list:
     x.ns = 1e9/x.pps
     x.model_ns = max(fwd_ns,
-                     hashing_y + hashing_slope * (x.rows - hashing_x),
-                     mem_const + x.rows * get_mem_access_time(x.mem)
-    )
+                     hashing_time(x.rows),
+                     # hashing_y + hashing_slope * (x.rows - hashing_x),
+                     mem_const + x.rows * get_mem_access_time(x.mem))
     diff.append(abs(x.ns - x.model_ns) / x.ns)
 
 labels = list(map(lambda x: str(x.rows) + ", " + str(x.mem), bench_list))
@@ -252,15 +309,19 @@ plt.rcParams.update({'font.size': 20,
                      'ytick.major.width': 2,
                      'ytick.minor.size': 5,
                      'ytick.minor.width': 1})
-plt.plot(labels, list(map(lambda x: x.ns, bench_list)), linewidth=4)
-plt.plot(labels, list(map(lambda x: x.model_ns, bench_list)), linewidth=4)
+plt.plot(labels, list(map(lambda x: x.ns, bench_list)), 'o-', linewidth=4,
+         label='Ground Truth')
+plt.plot(labels, list(map(lambda x: x.model_ns, bench_list)), linewidth=4,
+         label="Model")
 plt.xticks(labels[::6])
 plt.xticks(rotation=90)
 plt.xlabel("Sketch configuration (rows, mem KB)")
 plt.ylabel("Time per packet (ns)")
-# plt.show()
+plt.legend()
+pprint.pprint(bench_list)
+plt.show()
 fig.tight_layout()
 plt.savefig('netro-model.pdf')
-print(np.average(diff))
+print("Accuracy: ", np.average(diff))
 
-pprint.pprint(bench_list)
+
