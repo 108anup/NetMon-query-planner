@@ -322,6 +322,4 @@ pprint.pprint(bench_list)
 plt.show()
 fig.tight_layout()
 plt.savefig('netro-model.pdf')
-print("Accuracy: ", np.average(diff))
-
-
+print("Relative Error: ", np.average(diff))

@@ -83,7 +83,9 @@ plt.ylabel('Time to access a random element of array (ns)')
 plt.legend()
 plt.show(block=True)
 
-#plt.savefig('mem-access.pdf')
+plt.savefig('mem-access.pdf')
 
 # ipdb.set_trace()
-print("Accuracy: ", np.sum(np.abs((Y_pdt - Y) / Y)))
+pprint.pprint(Y)
+pprint.pprint(Y_pdt)
+print("Relative Error: ", np.average(np.abs((Y_pdt - Y) / Y)))
