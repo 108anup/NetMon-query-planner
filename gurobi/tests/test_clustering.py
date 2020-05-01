@@ -19,7 +19,7 @@ ut.base_dir = 'outputs/clustering'
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [10, 20], [4, 10], ['tenant'], [True]]
+        [[48], [10, 20], [4, 10], ['tenant', 'none'], [False]]
     )
     # combinations(
     #     [[8], [2], [2], ['tenant'], [False]]
