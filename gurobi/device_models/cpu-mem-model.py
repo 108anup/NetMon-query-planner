@@ -81,7 +81,7 @@ plt.yscale('log')
 plt.xlabel('Array Size (Bytes)')
 plt.ylabel('Time to access a random element of array (ns)')
 plt.legend()
-plt.show(block=True)
+# plt.show(block=True)
 
 plt.savefig('mem-access.pdf')
 
