@@ -18,6 +18,7 @@ from solvers import (UnivmonGreedyRows, log_placement, log_results,
 import threading
 
 
+# * Helper functions
 def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
 
     # import ipdb; ipdb.set_trace()
@@ -228,6 +229,8 @@ def log_step(msg, logger=log.info):
     logger('='*50)
 
 
+# * Clustering Optimizations
+# ** Cluster refinement
 def cluster_refinement(inp):
     Solver = solver_to_class[common_config.solver]
 
@@ -277,6 +280,7 @@ def cluster_refinement(inp):
     return ret
 
 
+# ** Cluster optimization
 def cluster_optimization(inp):
     assert(not (common_config.parallel and common_config.init))
     Solver = solver_to_class[common_config.solver]
@@ -306,6 +310,7 @@ def cluster_optimization(inp):
                           md_list=[Namespace()
                                    for i in range(len(inp.devices))])
 
+    # *** Parallel processing
     # BFS over device tree
     if(common_config.parallel):
         def solver_thread(front):
@@ -420,6 +425,7 @@ def cluster_optimization(inp):
     return Namespace(results=r, md_list=placement.md_list)
 
 
+# * Main solve function
 # TODO:: Handle disconnected graph in solver
 # Final devices will always be refined, just log at the end
 @log_time(logger=log.info)
