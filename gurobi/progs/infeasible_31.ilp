@@ -1,0 +1,13 @@
+\ Model Netronome_1_copy
+\ LP format - for model browsing. Use MPS format to capture full model detail.
+Minimize multi-objectives
+  ns: Priority=10 Weight=1 AbsTol=0 RelTol=0
+  
+  res: Priority=5 Weight=1 AbsTol=0 RelTol=0
+  
+Subject To
+ ns_req_hash_Netronome_1: pdt_ns_me_Netronome_1 = 1794.054116689507
+ ns_req_fwd_Netronome_1: pdt_ns_me_Netronome_1 = 1960.072595281307
+Bounds
+ pdt_ns_me_Netronome_1 free
+End

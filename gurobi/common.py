@@ -6,7 +6,8 @@ import sys
 log = logging.getLogger('control')
 log.setLevel(logging.NOTSET+1)
 console = logging.StreamHandler(sys.stdout)
-console.setLevel(logging.WARN)
+# console.setLevel(logging.WARN)
+console.setLevel(logging.INFO)
 log.addHandler(console)
 
 

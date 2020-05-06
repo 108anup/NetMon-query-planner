@@ -32,3 +32,6 @@
     <2020-04-29 Wed>
     [[file:~/Netmon/NetMon-query-planner/gurobi/solvers.py::#%20TODO:%20If%20these%20are%20not%20vars%20then%20no%20need%20of]]
 *** TODO Consider having clusters also without chunks
+*** TODO condensing technique
+    [2020-05-06 Wed]
+    [[file:~/Netmon/NetMon-query-planner/gurobi/input.py::# TODO: Implement condensing technique to]]

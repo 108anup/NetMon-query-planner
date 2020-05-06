@@ -12,7 +12,7 @@ from common import Namespace, log, log_time, setup_logging, freeze_object
 from config import common_config
 from devices import Cluster
 from flows import flow
-from input import input_generator
+from input import input_generator, Input
 from solvers import (UnivmonGreedyRows, log_placement, log_results,
                      refine_devices, solver_to_class)
 import threading
@@ -480,6 +480,8 @@ if(__name__ == '__main__'):
 
     input_num = common_config.input_num
     inp = input_generator[input_num]
+    if(not isinstance(inp, Input)):
+        inp = inp.get_input()
 
     # log.info("Time before solving: {}".format(time.time() - start))
     try:

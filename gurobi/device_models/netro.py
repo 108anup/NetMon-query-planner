@@ -131,10 +131,8 @@ mem_bench_2 = [(12, 1, 0.046875, 25923412),
 #                (8, 65536, 24124053),
 #                (8, 8192, 24134950)]
 
-"""
-Forwarding params
-"""
 
+# * Forwarding params
 # Hand identified when fwding is bottleneck
 bottleneck_idx = 0
 
@@ -142,10 +140,7 @@ fwd_thr = hash_bench[bottleneck_idx][2]
 fwd_ns = 1e9/fwd_thr
 print("fwd_ns: ", fwd_ns)
 
-"""
 # * Hashing params
-"""
-
 bench_list = [SimpleNamespace(rows=x[0], cols=x[1], pps=x[2])
               for x in hash_bench]
 for x in bench_list:
@@ -168,6 +163,7 @@ hashing_slope = np.average([((bench_list[i+1].ns - bench_list[i].ns) /
                              (bench_list[i+1].rows - bench_list[i].rows))
                             for i in range(start_idx, end_idx)])
 print("hashing: x, y, slope:", hashing_x, hashing_y, hashing_slope)
+print("hashing_const: ", hashing_y - hashing_slope * hashing_x)
 
 # None linear model
 # PWL by hand
@@ -678,7 +674,8 @@ for x in bench_list:
     x.ns = 1e9/x.pps
     x.hash_ns = ((hashing_y + hashing_slope * (x.rows - hashing_x))
                  * MAX_ME / x.me)
-    x.mem_ns = mem_const + x.rows * get_mem_access_time(x.mem)
+    x.m_access_time = get_mem_access_time(x.mem)
+    x.mem_ns = mem_const + x.rows * x.m_access_time
     items = (fwd_ns * MAX_ME / x.me,
              # hashing_time(x.rows),
              x.hash_ns, x.mem_ns)
@@ -725,8 +722,8 @@ def myplot(bench_list, me):
     # plt.savefig('netro-model.pdf')
 
 
-
 myplot([x for x in bench_list if x.me == 54], "54")
 myplot([x for x in bench_list if x.me == 36], "36")
 myplot([x for x in bench_list if x.me == 20], "20")
 print("Relative Error: ", np.average(diff))
+# pprint.pprint(bench_list)

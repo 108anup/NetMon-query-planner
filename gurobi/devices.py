@@ -7,13 +7,14 @@ from common import Namespace, memoize
 from helpers import get_val, get_rounded_val, log_vars
 
 
-class device(Namespace):
+# * Device
+class Device(Namespace):
 
     def add_ns_constraints(self, m):
         pass
 
     def __init__(self, *args, **kwargs):
-        super(device, self).__init__(*args, **kwargs)
+        super(Device, self).__init__(*args, **kwargs)
 
     def res(self):
         return 0
@@ -28,12 +29,15 @@ class device(Namespace):
         return 1000 / self.line_thr
 
 
-class CPU(device):
+# * CPU
+class CPU(Device):
     # TODO:: update with OVS
     fraction_parallel = 3/4
-    static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
-    s_rows = [0, 2, 3, 4, 5, 6, 7, 8, 9]
+    # static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
+    # s_rows = [0, 2, 3, 4, 5, 6, 7, 8, 9]
     cache = {}  # TODO: see if there is more performant cache
+    fixed_thr = False
+    cols_pwr_2 = False
 
     def get_pdt_var(self, a, b, pdt_name, m, direction):
         m.update()
@@ -187,7 +191,7 @@ class CPU(device):
                              name='ns_{}'.format(self))
             m.addGenConstrMax(md.ns, [md.ns_dpdk, md.ns_sketch],
                               name='ns_{}'.format(self))
-        # TODO:: Fix this:
+        # TODO:: Fix this: for netronome as well
         else:
             md.ns = ns_req
 
@@ -195,11 +199,18 @@ class CPU(device):
         return 10*(md.cores_dpdk + md.cores_sketch) \
             + md.mem_tot/self.Li_size[2]
 
-    def resource_stats(self, md):
+    def resource_stats(self, md, r=None):
         if(hasattr(md, 'cores_sketch')):
+            cores_sketch = get_val(md.cores_sketch)
+            cores_dpdk = get_val(md.cores_dpdk)
+            if(r):
+                # Whenever called with r, assume attrs are set
+                r.total_CPUs += 1
+                r.used_cores += cores_sketch + cores_dpdk
             return "cores_sketch: {}, cores_dpdk: {}".format(
-                get_val(md.cores_sketch), get_val(md.cores_dpdk))
+                cores_sketch, cores_dpdk)
         else:
+            assert(r is None)
             return ""
 
     def get_ns(self, md):
@@ -266,7 +277,152 @@ class CPU(device):
         # self.weight = 10
 
 
-class P4(device):
+# * Netronome
+class Netronome(Device):
+    fixed_thr = False
+    cols_pwr_2 = True
+
+    def get_pdt_var(self, a, b, pdt_name, m, direction):
+        m.update()
+        pdt = m.addVar(vtype=GRB.CONTINUOUS,
+                       name='pdt_{}_{}'.format(pdt_name, self))
+        m.addQConstr(pdt == a * b,
+                     name='pdt_{}_{}'.format(pdt_name, self))
+        return pdt
+
+    def set_thr(self, md, ns_req):
+        md.micro_engines = math.ceil(max(
+            md.ns_hash_max * self.total_me / ns_req, md.ns_mem_max,
+            md.ns_fwd_max * self.total_me / ns_req
+        ))
+        md.ns_hash = md.ns_hash_max * self.total_me / md.micro_engines
+        md.ns_fwd = md.ns_fwd_max * self.total_me / md.micro_engines
+        md.ns = max(md.ns_hash, md.ns_fwd, md.ns_mem_max)
+
+    def add_ns_constraints(self, m, md, ns_req=None):
+        rows = md.rows_tot
+        mem = md.mem_tot
+        md.ns_fwd_max = 1000 / self.line_thr
+
+        assert(isinstance(rows, (int, float)) == isinstance(mem, (int, float)))
+        if(isinstance(rows, (int, float))):
+            md.m_access_time = self.get_mem_access_time(mem)
+            md.ns_mem_max = self.mem_const + rows * md.m_access_time
+            md.ns_hash_max = self.hashing_const + self.hashing_slope * rows
+
+            if(ns_req is not None):
+                assert(m is None)
+                return self.set_thr(md, ns_req)
+
+        else:
+            md.m_access_time = m.addVar(vtype=GRB.CONTINUOUS, lb=0,
+                                        name='m_access_time_{}'.format(self))
+            m.addGenConstrPWL(mem, md.m_access_time, self.mem_par, self.mem_ns,
+                              "mem_access_time_{}".format(self))
+            md.ns_mem_max = m.addVar(vtype=GRB.CONTINUOUS,
+                                     name='ns_mem_max_{}'.format(self))
+            md.pdt_m_rows = self.get_pdt_var(md.m_access_time,
+                                             rows, 'm_rows', m, 1)
+            m.addConstr(self.mem_const + md.pdt_m_rows == md.ns_mem_max,
+                        name='ns_mem_max_{}'.format(self))
+
+            md.ns_hash_max = m.addVar(vtype=GRB.CONTINUOUS,
+                                      name='ns_hash_max_{}'.format(self))
+            m.addConstr(md.ns_hash_max == self.hashing_const
+                        + rows * self.hashing_slope,
+                        name='ns_hash_max_{}'.format(self))
+
+        '''
+        If rows and mem are not known then m_access_time * rows requires
+        non-convexity
+        If ns_req is not present then Amdahl's law requires non-convexity
+        If both are known then use set_thr
+        '''
+        m.setParam(GRB.Param.NonConvex, 2)
+
+        # Parallelism
+        md.micro_engines = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.total_me,
+                                    name='micro_engines_{}'.format(self))
+        if(ns_req):
+            m.addConstr(ns_req * md.micro_engines >=
+                        md.ns_hash_max * self.total_me,
+                        name='ns_req_hash_{}'.format(self))
+            m.addConstr(md.ns_mem_max <= ns_req,
+                        name='ns_req_mem_{}'.format(self))
+            m.addConstr(ns_req * md.micro_engines >=
+                        md.ns_fwd_max * self.total_me,
+                        name='ns_req_fwd_{}'.format(self))
+            # TODO:: fix this
+            md.ns = ns_req
+        else:
+            md.ns_hash = m.addVar(vtype=GRB.CONTINUOUS,
+                                  name='ns_hash_{}'.format(self), lb=0)
+            md.ns_mem = m.addVar(vtype=GRB.CONTINUOUS,
+                                  name='ns_mem_{}'.format(self), lb=0)
+            md.ns_fwd = m.addVar(vtype=GRB.CONTINUOUS,
+                                 name='ns_fwd_{}'.format(self), lb=0)
+            md.ns = m.addVar(vtype=GRB.CONTINUOUS,
+                             name='ns_{}'.format(self))
+            md.pdt_ns_me = self.get_pdt_var(
+                md.ns, md.micro_engines, 'ns_me', m, 0)
+
+            m.addConstr(md.pdt_ns_me ==
+                        gp.max_(md.ns_hash_max * self.total_me,
+                                md.ns_fwd_max * self.total_me),
+                        name='ns_req_hash_{}'.format(self))
+            m.addGenConstrMax(md.ns, [md.ns_hash, md.ns_mem, md.ns_fwd],
+                              name='ns_{}'.format(self))
+
+    def res(self, md):
+        return (common_config.ME_WEIGHT * (md.micro_engines)
+                + md.mem_tot/self.emem_size)
+
+    def resource_stats(self, md, r=None):
+        if(hasattr(md, 'micro_engines')):
+            val = get_val(md.micro_engines)
+            if(r):
+                r.micro_engines += val
+            return "micro_engines: {}".format(val)
+        else:
+            return ""
+
+    def get_ns(self, md):
+        mem_tot = get_rounded_val(get_val(md.mem_tot))
+        rows_tot = get_rounded_val(get_val(md.rows_tot))
+        md_tmp = Namespace()
+        md_tmp.mem_tot = mem_tot
+        md_tmp.rows_tot = rows_tot
+
+        u = gp.Model(self.name)
+        if(not common_config.mipout):
+            u.setParam(GRB.Param.LogToConsole, 0)
+
+        self.add_ns_constraints(u, md_tmp)
+
+        u.setObjectiveN(md_tmp.ns, 0, 10, reltol=common_config.ns_tol,
+                        name='ns')
+        u.setObjectiveN(self.res(md_tmp), 1, 5, reltol=common_config.res_tol,
+                        name='res')
+
+        u.ModelSense = GRB.MINIMIZE
+        u.update()
+        u.optimize()
+        # The solver constraints should guarantee that following holds
+        assert(u.Status != GRB.Status.INFEASIBLE)
+
+        log_vars(u)
+        return get_val(md_tmp.ns)
+
+    def __init__(self, *args, **kwargs):
+        super(Netronome, self).__init__(*args, **kwargs)
+        from scipy.interpolate import interp1d
+        self.get_mem_access_time = interp1d(self.mem_par, self.mem_ns)
+
+
+# * P4
+class P4(Device):
+    fixed_thr = True
+    cols_pwr_2 = True
 
     def add_ns_constraints(self, m, md, ns_req=None):
         md.ns = 1000 / self.line_thr
@@ -287,14 +443,22 @@ class P4(device):
     def res(self, md):
         return md.rows_tot/self.meter_alus + md.mem_tot/self.sram
 
+    def resource_stats(self, md, r=None):
+        if(hasattr(md, 'mem_tot') and r):
+            r.switch_memory += get_val(md.mem_tot)
+        return ""
+
     def __init__(self, *args, **kwargs):
         super(P4, self).__init__(*args, **kwargs)
         # self.weight = 1
 
 
-class Cluster(device):
-
+# * Cluster
+class Cluster(Device):
     # Tree of devices
+    # CONSIDER: should Clusters have cols_pwr_2?
+    # Ideally clusters will have some CPUs, so not needed for now
+    cols_pwr_2 = False
 
     @memoize
     def transitive_closure(self):
