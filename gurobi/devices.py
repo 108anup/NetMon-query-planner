@@ -456,7 +456,7 @@ class P4(Device):
 # * Cluster
 class Cluster(Device):
     # Tree of devices
-    # CONSIDER: should Clusters have cols_pwr_2?
+    # HOLD: should Clusters have cols_pwr_2?
     # Ideally clusters will have some CPUs, so not needed for now
     cols_pwr_2 = False
 

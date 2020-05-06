@@ -700,7 +700,7 @@ class Netmon(UnivmonGreedyRows):
             log.info("-"*50)
             log.info("Running Intermediate Univmon Placement")
             self.m.update()
-            # CONSIDER: Redundancy here. Consider running univmon at Obj init time
+            # HOLD: Redundancy here. Consider running univmon at Obj init time
             self.m.optimize()
             if(self.m.Status == GRB.INFEASIBLE):
                 self.infeasible = True
