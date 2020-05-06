@@ -137,8 +137,9 @@ def remap_colors(colors):
     return remapped
 
 
-def draw_graph(G, colors, labels=None):
-    colors = remap_colors(colors)
+def draw_graph(G, colors, labels=None, remap=True):
+    if(remap):
+        colors = remap_colors(colors)
 
     plt.figure(figsize=(10, 10))
     pos = nx.spring_layout(G)
@@ -276,10 +277,11 @@ def get_hdbscan_overlay(inp):
     log.info("Buliding spectral overlay with {} devices"
              .format(len(inp.devices)))
     g = get_complete_graph(inp)
+    adj = nx.adjacency_matrix(g)
     clusterer = hdbscan.HDBSCAN(
-        min_cluster_size=common_config.DEVICES_PER_CLUSTER,
+        min_cluster_size=5, #common_config.DEVICES_PER_CLUSTER,
         gen_min_span_tree=True)
-    clusterer.fit(g)
+    clusterer.fit(adj)
 
     palette = sns.color_palette()
     cluster_colors = [sns.desaturate(palette[col], sat)
@@ -287,7 +289,8 @@ def get_hdbscan_overlay(inp):
                       zip(clusterer.labels_, clusterer.probabilities_)]
     gg = get_graph(inp)
     node_labels = get_labels_from_overlay(inp, inp.tenant_overlay)
-    draw_graph(gg, cluster_colors, node_labels)
+    draw_graph(gg, cluster_colors, node_labels, remap=False)
+    import ipdb; ipdb.set_trace()
 
     # TODO: return overlay
 
@@ -608,6 +611,9 @@ class TreeTopology():
             ho = [e.tolist() for e in host_overlay]
             overlay = (ho + generate_overlay(
                            [self.tors + self.l1s + 1], self.hosts))
+
+        elif(self.overlay == 'hdbscan'):
+            return get_hdbscan_overlay(inp)
 
         elif(self.overlay == 'none'):
             overlay = None
@@ -978,7 +984,7 @@ input_generator = [
     # 24
     # Small tenant (100)
     TreeTopology(hosts_per_tors=8, num_queries=4*32, tenant=True,
-                 eps=eps0, overlay='spectralA', refine=True,
+                 eps=eps0, overlay='hdbscan', refine=True,
                  queries_per_tenant=32),
 
     # 25
