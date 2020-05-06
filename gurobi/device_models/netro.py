@@ -284,7 +284,7 @@ pprint.pprint(ys)
 print("mem const: ", mem_const)
 
 # Evaluation:
-ground_truth = [(1, 1024, 4, 27557394),
+ground_truth_54 = [(1, 1024, 4, 27557394),
                 (1, 2048, 8, 27554700),
                 (1, 8192, 32, 27552922),
                 (1, 16384, 64, 27574561),
@@ -595,49 +595,138 @@ ground_truth = [(1, 2, 0.0078125, 27546198),
                 (12, 2097152, 98304, 5910759),
                 (12, 4194304, 196608, 5565745)]
 
-bench_list = [SimpleNamespace(rows=x[0], cols=x[1], mem=x[2], pps=x[3])
-              for x in ground_truth]
+ground_truth_20 = [(1, 8, 0.03125, 10846921),
+                   (1, 512, 2, 10873828),
+                   (1, 2048, 8, 10873797),
+                   (1, 8192, 32, 10873783),
+                   (1, 65536, 256, 10846805),
+                   (1, 262144, 1024, 10862335),
+                   (1, 1048576, 4096, 10860793),
+                   (1, 2097152, 8192, 10860754),
+                   (4, 8, 0.125, 9935302),
+                   (4, 512, 8, 9898833),
+                   (4, 2048, 32, 9898755),
+                   (4, 8192, 128, 9898711),
+                   (4, 65536, 1024, 9935319),
+                   (4, 262144, 4096, 9910286),
+                   (4, 1048576, 16384, 9910352),
+                   (4, 2097152, 32768, 9906027),
+                   (8, 8, 0.25, 8923412),
+                   (8, 512, 16, 8944837),
+                   (8, 2048, 64, 8944771),
+                   (8, 8192, 256, 8944649),
+                   (8, 65536, 2048, 8943589),
+                   (8, 262144, 8192, 8887833),
+                   (8, 1048576, 32768, 8772648),
+                   (8, 2097152, 65536, 8431537),
+                   (12, 8, 0.375, 8158925),
+                   (12, 512, 24, 8130111),
+                   (12, 2048, 96, 8130116),
+                   (12, 8192, 384, 8130088),
+                   (12, 65536, 3072, 8158798),
+                   (12, 262144, 12288, 7884891),
+                   (12, 1048576, 49152, 6332527)]
+
+ground_truth_36 = [(5, 64, 1.25, 17349615),
+                   (6, 64, 1.5, 16928827),
+                   (7, 64, 1.75, 16431914),
+                   (9, 64, 2.25, 15678094),
+                   (10, 64, 2.5, 15356390),
+                   (11, 64, 2.75, 14992810),
+                   (5, 1024, 20, 17382335),
+                   (6, 1024, 24, 16953904),
+                   (7, 1024, 28, 16525310),
+                   (9, 1024, 36, 15686177),
+                   (10, 1024, 40, 15382777),
+                   (11, 1024, 44, 14972598),
+                   (5, 8192, 160, 17358322),
+                   (6, 8192, 192, 16972078),
+                   (7, 8192, 224, 16496131),
+                   (9, 8192, 288, 15724612),
+                   (10, 8192, 320, 15366840),
+                   (11, 8192, 352, 15035377),
+                   (5, 32768, 640, 17358528),
+                   (6, 32768, 768, 16972199),
+                   (7, 32768, 896, 16487942),
+                   (9, 32768, 1152, 15686066),
+                   (10, 32768, 1280, 15366935),
+                   (11, 32768, 1408, 15035442),
+                   (5, 2097152, 40960, 14573509),
+                   (6, 2097152, 49152, 12326820),
+                   (7, 2097152, 57344, 10096727),
+                   (9, 2097152, 73728, 8141658),
+                   (10, 2097152, 81920, 7110969),
+                   (11, 2097152, 90112, 6545420),
+                   (5, 4194304, 81920, 13512056),
+                   (6, 4194304, 98304, 11520742),
+                   (7, 4194304, 114688, 9567105),
+                   (9, 4194304, 147456, 7655912),
+                   (10, 4194304, 163840, 6730446),
+                   (11, 4194304, 180224, 6166216)]
+
+MAX_ME = 54
+bench_list = [SimpleNamespace(rows=x[0], cols=x[1], mem=x[2], pps=x[3], me=54)
+              for x in ground_truth_54]
+bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], mem=x[2], pps=x[3], me=20)
+                   for x in ground_truth_20])
+bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], mem=x[2], pps=x[3], me=36)
+                   for x in ground_truth_36])
+bench_list.sort(key=lambda x: (x.rows, x.cols, x.me))
+
 diff = []
 for x in bench_list:
     x.ns = 1e9/x.pps
-    x.hash_ns = hashing_y + hashing_slope * (x.rows - hashing_x)
+    x.hash_ns = ((hashing_y + hashing_slope * (x.rows - hashing_x))
+                 * MAX_ME / x.me)
     x.mem_ns = mem_const + x.rows * get_mem_access_time(x.mem)
-    items = (fwd_ns,
+    items = (fwd_ns * MAX_ME / x.me,
              # hashing_time(x.rows),
              x.hash_ns, x.mem_ns)
     x.argmax, x.model_ns = max(enumerate(items), key=itemgetter(1))
-    x.argmax = x.argmax * 10
+    x.argmax = x.argmax * x.me / 5
     diff.append(abs(x.ns - x.model_ns) / x.ns)
 
-labels = list(map(lambda x: str(x.rows) + ", " + str(x.mem), bench_list))
-fig = plt.figure(figsize=(4, 4))
-plt.rcParams.update({'font.size': 10,
-                     'axes.linewidth': 1,
-                     'xtick.major.size': 5,
-                     'xtick.major.width': 1,
-                     'xtick.minor.size': 2,
-                     'xtick.minor.width': 1,
-                     'ytick.major.size': 5,
-                     'ytick.major.width': 1,
-                     'ytick.minor.size': 2,
-                     'ytick.minor.width': 1})
-plt.plot(labels, list(map(lambda x: x.ns, bench_list)), '.-', linewidth=2,
-         label='Ground Truth')
-plt.plot(labels, list(map(lambda x: x.model_ns, bench_list)), linewidth=2,
-         label="Model")
-plt.plot(labels, list(map(lambda x: x.argmax, bench_list)), linewidth=2,
-         label="Bottleneck")
-# plt.plot(labels, list(map(lambda x: x.hash_ns, bench_list)), linewidth=2,
-#          label="Hashing")
-# plt.plot(labels, list(map(lambda x: x.mem_ns, bench_list)), linewidth=2,
-#          label="Mem")
-plt.xticks(labels[::10])
-plt.xticks(rotation=90)
-plt.xlabel("Sketch configuration (rows, mem KB)")
-plt.ylabel("Time per packet (ns)")
-plt.legend()
-# pprint.pprint(bench_list)
-# plt.show()
-fig.tight_layout()
-plt.savefig('netro-model.pdf')
+
+def myplot(bench_list, me):
+    fig = plt.figure(figsize=(4, 4))
+    plt.rcParams.update({'font.size': 10,
+                         'axes.linewidth': 1,
+                         'xtick.major.size': 5,
+                         'xtick.major.width': 1,
+                         'xtick.minor.size': 2,
+                         'xtick.minor.width': 1,
+                         'ytick.major.size': 5,
+                         'ytick.major.width': 1,
+                         'ytick.minor.size': 2,
+                         'ytick.minor.width': 1})
+
+    labels = list(map(lambda x: str(x.rows) + ", " + str(x.mem), bench_list))
+    plt.plot(labels, list(map(lambda x: x.ns, bench_list)), '.-', linewidth=2,
+             label='Ground Truth')
+    plt.plot(labels, list(map(lambda x: x.model_ns, bench_list)), linewidth=2,
+             label="Model")
+    plt.plot(labels, list(map(lambda x: x.argmax, bench_list)), linewidth=2,
+             label="Bottleneck")
+    # plt.plot(labels, list(map(lambda x: x.hash_ns, bench_list)), linewidth=2,
+    #          label="Hashing")
+    # plt.plot(labels, list(map(lambda x: x.mem_ns, bench_list)), linewidth=2,
+    #          label="Mem")
+
+    num_labels = len(labels)
+    plt.xticks(labels[::int(num_labels/20)])
+    plt.xticks(rotation=90)
+    plt.xlabel("Sketch configuration (rows, mem KB)")
+    plt.ylabel("Time per packet (ns)")
+    plt.title("Netronome profile for {} MEs".format(me))
+    plt.legend()
+    # pprint.pprint(bench_list)
+    plt.show()
+    # fig.tight_layout()
+    # plt.savefig('netro-model.pdf')
+
+
+
+myplot([x for x in bench_list if x.me == 54], "54")
+myplot([x for x in bench_list if x.me == 36], "36")
+myplot([x for x in bench_list if x.me == 20], "20")
 print("Relative Error: ", np.average(diff))

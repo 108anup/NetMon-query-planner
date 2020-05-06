@@ -23,7 +23,6 @@
     [2020-04-28 Tue]
     [[file:~/Netmon/NetMon-query-planner/gurobi/solvers.py::key%20=%20(d.config_name,%20int(md.mem_tot),%20int(md.rows_tot))]]
 *** TODO [#A] urgent
-    DEADLINE: <2020-04-30 Thu 14:00-17:00>
     [2020-04-29 Wed]
     [[file:~/Netmon/NetMon-query-planner/gurobi/devices.py::#%20TODO::%20Can%20memoize,%20See%20pickle]]
 *** TODO Need to change everything that reads 
