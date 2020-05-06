@@ -434,9 +434,9 @@ def solve(inp):
     # log.info("Solving started at time: {}".format(start))
     # import ipdb; ipdb.set_trace()
 
-    for (dnum, d) in enumerate(inp.devices):
-        d.dev_id = dnum
-        freeze_object(d)
+    # for (dnum, d) in enumerate(inp.devices):
+    #     d.dev_id = dnum
+    #     freeze_object(d)
     inp.partitions = get_partitions(inp.queries)
     map_flows_partitions(inp.flows, inp.queries)
     Solver = solver_to_class[common_config.solver]

@@ -11,7 +11,7 @@ import networkx as nx
 import numpy as np
 from sklearn.cluster import KMeans, SpectralClustering
 
-from common import Namespace, log, log_time, memoize
+from common import Namespace, log, log_time, memoize, freeze_object
 from config import common_config
 from devices import CPU, P4, Netronome
 from flows import flow
@@ -290,9 +290,10 @@ def get_hdbscan_overlay(inp):
     gg = get_graph(inp)
     node_labels = get_labels_from_overlay(inp, inp.tenant_overlay)
     draw_graph(gg, cluster_colors, node_labels, remap=False)
-    import ipdb; ipdb.set_trace()
+    # import ipdb; ipdb.set_trace()
 
     # TODO: return overlay
+    return None
 
 
 def shift_overlay(overlay):
@@ -373,7 +374,8 @@ class TreeTopology():
 
     def __init__(self, hosts_per_tors=2, tors_per_l1s=2, l1s=2,
                  num_queries=80, eps=eps0, overlay='none', tenant=False,
-                 refine=False, queries_per_tenant=4, hosts_per_tenant=8):
+                 refine=False, queries_per_tenant=4, hosts_per_tenant=8,
+                 portion_netronome=0):
         self.hosts_per_tors = hosts_per_tors
         self.tors_per_l1s = tors_per_l1s
         self.l1s = l1s
@@ -388,8 +390,9 @@ class TreeTopology():
         self.tors = tors_per_l1s * l1s
         self.hosts_tors = self.hosts + self.tors
         self.hosts_tors_l1s = self.hosts_tors + l1s
+        self.num_netronome = math.ceil(self.hosts * portion_netronome)
 
-    def get_path(self, h1, h2):
+    def get_path_old(self, h1, h2):
         while(h1 == h2):
             h2 = random.randint(0, self.hosts-1)
         tor1 = int(h1 / self.hosts_per_tors)
@@ -412,7 +415,162 @@ class TreeTopology():
         else:
             return (h1, tor1, l11, l2, l12, tor2, h2)
 
+    def construct_graph(self, devices, has_netro):
+        dnames = list(map(lambda x: x.name, devices))
+        g = nx.Graph()
+        g.add_nodes_from(dnames)
+
+        for i in range(self.l1s):
+            l1name = 'l1_P4'+str(i+1)
+            g.add_edge('l2_P4', l1name)
+            starting_tor = i * self.tors_per_l1s
+
+            for j in range(self.tors_per_l1s):
+                tor_idx = starting_tor + j
+                tor_name = 'tor_P4'+str(tor_idx + 1)
+                g.add_edge(l1name, tor_name)
+                starting_host = tor_idx * self.hosts_per_tors
+
+                for k in range(self.hosts_per_tors):
+                    host_idx = starting_host + k
+                    cpu_name = 'CPU'+str(host_idx + 1)
+                    netro_id = has_netro[host_idx]
+                    if(netro_id != 0):
+                        netro_name = 'Netro'+str(netro_id)
+                        g.add_edge(tor_name, netro_name)
+                        g.add_edge(netro_name, cpu_name)
+                    else:
+                        g.add_edge(tor_name, cpu_name)
+
+        return g
+
+    def get_path(self, g, h1, h2):
+        h1name = 'CPU'+str(h1)
+        h2name = 'CPU'+str(h2)
+
+        try:
+            names_path = nx.shortest_path(g, h1name, h2name)
+        except:
+            print(h1, h2, h1name, h2name)
+            pos = nx.spring_layout(g)
+            # labels = nx.draw_networkx_labels(g, pos=pos)
+            labels = {}
+            for key in self.device_dict.keys():
+                labels[key] = key
+            nx.draw(g, pos=pos, labels=labels)
+            plt.show()
+            import ipdb; ipdb.set_trace()
+        ids_path = list(map(lambda x: self.device_dict[x].dev_id,
+                            names_path))
+        return ids_path
+
+    def get_flows(self, inp):
+        if(self.tenant):
+            flows = []
+
+            flows_per_query = 2
+            num_tenants = self.hosts / self.hosts_per_tenant
+            assert(
+                self.num_queries
+                == self.hosts /
+                (self.hosts_per_tenant / self.queries_per_tenant))
+
+            servers = np.arange(self.hosts)
+            np.random.shuffle(servers)
+            tenant_servers = np.split(servers, num_tenants)
+
+            inp.tenant_servers = tenant_servers
+            host_overlay = []
+            for x in inp.tenant_servers:
+                this_servers = x.tolist()
+                this_netro = []
+                for s in this_servers:
+                    netro_id = self.has_netro[s]
+                    if(netro_id != 0):
+                        netro_name = 'Netro'+str(netro_id)
+                        dev_id = self.device_dict[netro_name].dev_id
+                        this_netro.append(dev_id)
+                host_overlay.append(this_servers + this_netro)
+
+            inp.tenant_overlay = (host_overlay
+                                  + generate_overlay(
+                                      [self.tors + self.l1s + 1],
+                                      self.hosts + self.num_netronome))
+
+            for (tnum, t) in enumerate(tenant_servers):
+                query_set = [i + tnum*self.queries_per_tenant
+                             for i in range(self.queries_per_tenant)]
+
+                for itr in range(self.queries_per_tenant * flows_per_query):
+                    h1 = t[random.randint(0, self.hosts_per_tenant-1)] + 1
+                    h2 = t[random.randint(0, self.hosts_per_tenant-1)] + 1
+                    while(h2 == h1):
+                        h2 = t[random.randint(0, self.hosts_per_tenant-1)] + 1
+                    cov = int(random.random() * 4 + 7)/10
+                    q = query_set[random.randint(0, self.queries_per_tenant-1)]
+                    flows.append(
+                        flow(
+                            path=self.get_path(self.g, h1, h2),
+                            queries=[(q, cov)]
+                        )
+                    )
+        else:
+            flows = [
+                flow(
+                    path=self.get_path(self.g,
+                                       random.randint(0, self.hosts-1)+1,
+                                       random.randint(0, self.hosts-1)+1
+                    ),
+                    queries=[
+                        (random.randint(0, self.num_queries-1),
+                         int(random.random() * 4 + 7)/10)
+                    ]
+                )
+                for flownum in range(max(self.hosts, self.num_queries) * 5)
+            ]
+        return flows
+
     def create_inp(self):
+        inp = Input(
+            devices=(
+                [CPU(**beluga20, name='CPU'+str(i+1))
+                 for i in range(self.hosts)] +
+                [Netronome(**agiliocx40gbe, name='Netro'+str(i+1))
+                 for i in range(self.num_netronome)] +
+                [P4(**tofino, name='tor_P4'+str(i+1))
+                 for i in range(int(self.tors))] +
+                [P4(**tofino, name='l1_P4'+str(i+1))
+                 for i in range(self.l1s)] +
+                [P4(**tofino, name='l2_P4')]
+            ),
+            queries=(
+                [cm_sketch(eps0=self.eps, del0=del0)
+                 for i in range(self.num_queries)]
+                + []
+                # [cm_sketch(eps0=eps0*10, del0=del0) for i in range(24)] +
+                # [cm_sketch(eps0=eps0, del0=del0) for i in range(32)]
+            ),
+        )
+        for (dnum, d) in enumerate(inp.devices):
+            d.dev_id = dnum
+            freeze_object(d)
+
+        self.has_netro = ([i+1 for i in range(self.num_netronome)]
+                          + [0 for i in
+                             range(self.hosts - self.num_netronome)])
+        np.random.shuffle(self.has_netro)
+
+        self.device_dict = {}
+        for d in inp.devices:
+            self.device_dict[d.name] = d
+
+        self.g = self.construct_graph(inp.devices, self.has_netro)
+
+        inp.flows = self.get_flows(inp)
+        return inp
+
+    # ** Old
+    def create_inp_old(self):
         inp = Input(
             devices=(
                 [CPU(**beluga20, name='CPU'+str(i+1))
@@ -470,7 +628,7 @@ class TreeTopology():
                     q = query_set[random.randint(0, self.queries_per_tenant-1)]
                     flows.append(
                         flow(
-                            path=self.get_path(h1, h2),
+                            path=self.get_path_old(h1, h2),
                             queries=[(q, cov)]
                         )
                     )
@@ -478,7 +636,7 @@ class TreeTopology():
         else:
             inp.flows = [
                 flow(
-                    path=self.get_path(random.randint(0, self.hosts-1),
+                    path=self.get_path_old(random.randint(0, self.hosts-1),
                                        random.randint(0, self.hosts-1)),
                     queries=[
                         (random.randint(0, self.num_queries-1),
@@ -488,7 +646,6 @@ class TreeTopology():
                 for flownum in range(max(self.hosts, self.num_queries) * 5)
             ]
         return inp
-
     # TODO: Implement condensing technique to
     # build overlays with larger cluster sizes
     def get_tor_overlay(self):
@@ -582,6 +739,10 @@ class TreeTopology():
         return overlay
 
     def get_overlay(self, inp):
+        assert(self.num_netronome == 0 or
+               'spectral' in self.overlay or
+               self.overlay == 'hdbscan')
+
         if(self.overlay == 'tor'):
             return self.get_tor_overlay()
 
@@ -621,9 +782,9 @@ class TreeTopology():
         return overlay
 
     def get_input(self):
-        pickle_name = "pickle_objs/inp-{}-{}-{}-{}-{}".format(
+        pickle_name = "pickle_objs/inp-{}-{}-{}-{}-{}-{}".format(
             self.hosts_per_tors, self.tors_per_l1s, self.l1s,
-            self.num_queries, eps0/self.eps)
+            self.num_queries, eps0/self.eps, self.num_netronome)
         pickle_loaded = False
         if(os.path.exists(pickle_name)):
             inp_file = open(pickle_name, 'rb')
@@ -984,8 +1145,8 @@ input_generator = [
     # 24
     # Small tenant (100)
     TreeTopology(hosts_per_tors=8, num_queries=4*32, tenant=True,
-                 eps=eps0, overlay='hdbscan', refine=True,
-                 queries_per_tenant=32),
+                 eps=eps0, overlay='spectralA', refine=True,
+                 queries_per_tenant=32, portion_netronome=0.5),
 
     # 25
     # Large tenant (10K)
