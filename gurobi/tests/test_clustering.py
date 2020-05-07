@@ -1,6 +1,6 @@
 import pytest
 from input import (beluga20, tofino, Input, eps0, del0,
-                   generate_overlay, dc_topology)
+                   generate_overlay, TreeTopology)
 from devices import CPU, P4
 from sketches import cm_sketch
 from flows import flow
@@ -19,7 +19,7 @@ ut.base_dir = 'outputs/clustering'
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [10, 20], [4, 10], ['tenant', 'none'], [False]]
+        [[48], [4, 8], [2, 4], ['none'], [False]]
     )
     # combinations(
     #     [[8], [2], [2], ['tenant'], [False]]
@@ -28,10 +28,12 @@ ut.base_dir = 'outputs/clustering'
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
                                        l1s, overlay, refine):
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
-    inp = dc_topology(hosts_per_tors, tors_per_l1s, l1s,
-                      num_queries=int(num_hosts/2),
-                      overlay=overlay, tenant=True,
-                      refine=refine, eps=eps0/10)
+    num_queries = int(num_hosts*2)
+    inp = TreeTopology(hosts_per_tors, tors_per_l1s, l1s,
+                       num_queries=num_queries,
+                       overlay=overlay, tenant=True,
+                       refine=refine, eps=eps0/10,
+                       queries_per_tenant=4*4).get_input()
 
     # Testing: overlay uncorrelated with tenants and traffic
 
@@ -44,12 +46,12 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
     total_devices = len(inp.devices)
     m.args_str = (
         "overlay={};total_devices={};refine={};"
-        "hosts_per_tors={};tors_per_l1s={};l1s={}"
+        "hosts_per_tors={};tors_per_l1s={};l1s={};num_queries={}"
         .format(overlay, total_devices, refine,
-                hosts_per_tors, tors_per_l1s, l1s)
+                hosts_per_tors, tors_per_l1s, l1s, num_queries)
     )
     setup_test_meta(m)
-    run_all_with_input(m, inp)
+    run_all_with_input(m, inp, solvers=['UnivmonGreedyRows'])
 
 
 @pytest.mark.parametrize("cluster_size, num_cpus", [(0, 20)]

@@ -37,8 +37,8 @@ default_config = Config(
     ftol=6.0e-5,
     mipgapabs=10,
     # mipgap=0.01,
-    max_devices_per_cluster=20,
-    DEVICES_PER_CLUSTER=20,
+    MAX_DEVICES_PER_CLUSTER=20,
+    MAX_CLUSTERS_PER_CLUSTER=800,
     ME_WEIGHT=5,
     CPU_CORE_WEIGTH=10,
 

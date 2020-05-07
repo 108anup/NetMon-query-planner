@@ -233,8 +233,10 @@ def get_spectral_overlay(inp, comp={}, normalized=True, affinity=False):
         i2n = list(cg.nodes)
         if(len(i2n) > 1):
             adj = nx.adjacency_matrix(cg)
-            nc = 2 * math.ceil(len(i2n)
-                               / common_config.max_devices_per_cluster)
+            devices_per_cluster = common_config.MAX_CLUSTERS_PER_CLUSTER
+            if(common_config.solver == 'Netmon'):
+                devices_per_cluster = common_config.MAX_DEVICES_PER_CLUSTER
+            nc = math.ceil(len(i2n)/devices_per_cluster)
             if(normalized):
                 start = time.time()
                 log.info("Started SpectralClustering {}/{} size: {}"
@@ -279,8 +281,13 @@ def get_hdbscan_overlay(inp):
     g = get_complete_graph(inp)
     adj = nx.adjacency_matrix(g)
     clusterer = hdbscan.HDBSCAN(
-        min_cluster_size=5, #common_config.DEVICES_PER_CLUSTER,
-        gen_min_span_tree=True)
+        metric='precomputed',
+        allow_single_cluster=False,
+        min_cluster_size=4, #common_config.DEVICES_PER_CLUSTER,
+        cluster_selection_method='leaf',
+        min_samples=1,
+        cluster_selection_epsilon=0.1
+    )
     clusterer.fit(adj)
 
     palette = sns.color_palette()
@@ -293,6 +300,8 @@ def get_hdbscan_overlay(inp):
     # import ipdb; ipdb.set_trace()
 
     # TODO: return overlay
+    import sys
+    sys.exit()
     return None
 
 
@@ -646,6 +655,7 @@ class TreeTopology():
                 for flownum in range(max(self.hosts, self.num_queries) * 5)
             ]
         return inp
+
     # TODO: Implement condensing technique to
     # build overlays with larger cluster sizes
     def get_tor_overlay(self):
@@ -697,8 +707,8 @@ class TreeTopology():
                        + generate_overlay(
                            [self.tors + self.l1s + 1], self.hosts))
 
-        # if(num_queries == 16):
-        #     draw_overlay_over_tenant(inp)
+        inp.overlay = overlay
+        draw_overlay_over_tenant(inp)
         return overlay
 
     def get_tenant_overlay(self, inp):
@@ -758,7 +768,9 @@ class TreeTopology():
                 )
 
         elif('spectral' in self.overlay):
-            return self.get_spectral_overlay(inp)
+            overlay = self.get_spectral_overlay(inp)
+            if(len(overlay) > common_config.MAX_CLUSTER_PER_CLUSTER):
+                overlay = fold(overlay, common_config.MAX_CLUSTER_PER_CLUSTER)
 
         elif(self.overlay == 'tenant'):
             return self.get_tenant_overlay(inp)
@@ -1144,9 +1156,9 @@ input_generator = [
 
     # 24
     # Small tenant (100)
-    TreeTopology(hosts_per_tors=8, num_queries=4*32, tenant=True,
+    TreeTopology(hosts_per_tors=8, num_queries=4*30, tenant=True,
                  eps=eps0, overlay='spectralA', refine=True,
-                 queries_per_tenant=32, portion_netronome=0.5),
+                 queries_per_tenant=30, portion_netronome=0),
 
     # 25
     # Large tenant (10K)
@@ -1177,9 +1189,10 @@ input_generator = [
     # 28
     # Medium tenant (1K)
     # This basically is an example of spectralA which gives infeasible
-    TreeTopology(hosts_per_tors=48, tors_per_l1s=10,
-                 l1s=4, num_queries=480*2, tenant=True,
-                 overlay='tenant', refine=True, eps=eps0/10),
+    TreeTopology(hosts_per_tors=48, tors_per_l1s=4,
+                 l1s=4, num_queries=48 * 4 * 4 * 2, tenant=True,
+                 overlay='none', refine=False, eps=eps0/10,
+                 queries_per_tenant=8 * 2),
 
     # 29
     # Very Large (100K)

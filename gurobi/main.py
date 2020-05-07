@@ -19,7 +19,7 @@ import threading
 
 
 # * Helper functions
-def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
+def handle_infeasible(m, iis=False, msg="Infeasible Placement!"):
 
     # import ipdb; ipdb.set_trace()
     log.warning(msg)
