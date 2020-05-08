@@ -387,6 +387,11 @@ class MIP(Namespace):
     @log_time
     def solve(self):
         self.m = gp.Model(self.__class__.__name__)
+        if(common_config.time_limit):
+            self.m.setParam(GRB.Param.TimeLimit, common_config.time_limit)
+        # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
+        self.m.setParam(GRB.Param.MIPGap, common_config.mipgap)
+
         log.info("\n" + "-"*80)
         log.info("Model {} with:\n"
                  "{} devices, {} partitions and {} flows"
@@ -405,11 +410,6 @@ class MIP(Namespace):
         self.add_capacity_constraints()
         if(not type(self).__name__ == 'Univmon'):
             self.add_device_aware_constraints()
-
-        if(common_config.time_limit):
-            self.m.setParam(GRB.Param.TimeLimit, common_config.time_limit)
-        # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
-        self.m.setParam(GRB.Param.MIPGap, common_config.mipgap)
 
         if(hasattr(self, 'init')):
             self.initialize()

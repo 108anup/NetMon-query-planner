@@ -477,7 +477,7 @@ class TreeTopology():
                 labels[key] = key
             nx.draw(g, pos=pos, labels=labels)
             plt.show()
-            import ipdb; ipdb.set_trace()
+            # import ipdb; ipdb.set_trace()
         ids_path = list(map(lambda x: self.device_dict[x].dev_id,
                             names_path))
         return ids_path
@@ -717,8 +717,12 @@ class TreeTopology():
                        + generate_overlay(
                            [self.tors + self.l1s + 1], self.hosts))
 
-        inp.overlay = overlay
-        draw_overlay_over_tenant(inp)
+        if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
+            overlay = fold(overlay,
+                           common_config.MAX_CLUSTERS_PER_CLUSTER)
+
+        # inp.overlay = overlay
+        # draw_overlay_over_tenant(inp)
         return overlay
 
     def get_tenant_overlay(self, inp):
@@ -764,7 +768,7 @@ class TreeTopology():
             devices_per_cluster = common_config.MAX_DEVICES_PER_CLUSTER
         host_nic_overlay = inp.tenant_servers
 
-        import ipdb; ipdb.set_trace()
+        # import ipdb; ipdb.set_trace()
         num_tenant_clusters_to_merge = math.ceil(devices_per_cluster
                                                  / self.hosts_per_tenant)
         if(num_tenant_clusters_to_merge > 1):
@@ -805,11 +809,13 @@ class TreeTopology():
             host_nic_overlay = fold(host_nic_overlay,
                                     common_config.MAX_CLUSTERS_PER_CLUSTER)
 
-        inp.overlay = host_nic_overlay
-        draw_overlay_over_tenant(inp)
-        if(len(host_nic_overlay) == 1):
-            return None
-        return host_nic_overlay
+        overlay = host_nic_overlay
+        # inp.overlay = overlay
+        # draw_overlay_over_tenant(inp)
+        if(len(overlay) == 1 and isinstance(overlay[0], list)):
+            return overlay[0]
+
+        return overlay
 
     def get_overlay(self, inp):
         assert(self.num_netronome == 0 or
@@ -817,7 +823,7 @@ class TreeTopology():
                self.overlay == 'hdbscan')
 
         if(self.overlay == 'tor'):
-            return self.get_tor_overlay()
+            overlay = self.get_tor_overlay()
 
         elif(self.overlay == 'shifted'):
             if(self.hosts_per_tors <= 8):
@@ -832,11 +838,11 @@ class TreeTopology():
 
         elif('spectral' in self.overlay):
             overlay = self.get_spectral_overlay(inp)
-            if(len(overlay) > common_config.MAX_CLUSTER_PER_CLUSTER):
+            if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
                 overlay = fold(overlay, common_config.MAX_CLUSTER_PER_CLUSTER)
 
         elif(self.overlay == 'tenant'):
-            return self.get_tenant_overlay_switches(inp)
+            overlay = self.get_tenant_overlay_switches(inp)
 
         elif(self.overlay == 'random'):
             ov = np.array(range(self.hosts))
@@ -849,11 +855,25 @@ class TreeTopology():
                            [self.tors + self.l1s + 1], self.hosts))
 
         elif(self.overlay == 'hdbscan'):
-            return get_hdbscan_overlay(inp)
+            overlay = get_hdbscan_overlay(inp)
 
         elif(self.overlay == 'none'):
             overlay = None
 
+        # import ipdb; ipdb.set_trace()
+        if(overlay):
+            if(len(overlay) == 1
+               and isinstance(overlay[0], list)):
+                # Ideally this should be handled by prior functions
+                assert(False)
+                overlay = overlay[0]
+
+            if(len(overlay) == len(inp.devices)):
+                log.info("Not clustering as topology is fairly small")
+                log.info("-"*50)
+                return None
+            else:
+                return overlay
         return overlay
 
     def get_input(self):
@@ -1253,9 +1273,9 @@ input_generator = [
     # Medium tenant (1K)
     # This basically is an example of spectralA which gives infeasible
     TreeTopology(hosts_per_tors=48, tors_per_l1s=4,
-                 l1s=4, num_queries=48 * 4 * 4 * 2, tenant=True,
+                 l1s=4, num_queries=48 * 4 * 4, tenant=True,
                  overlay='tenant', refine=False, eps=eps0/10,
-                 queries_per_tenant=8 * 2),
+                 queries_per_tenant=8),
 
     # 29
     # Very Large (100K)
