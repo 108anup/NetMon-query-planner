@@ -1,4 +1,5 @@
 import gurobipy as gp
+from gurobipy import GRB
 
 import logging
 
@@ -29,3 +30,7 @@ def log_vars(m, logger=partial(log.log, logging.DEBUG-1)):
     logger("Objective: {}".format(m.objVal))
     for v in m.getVars():
         logger('%s %g' % (v.varName, v.x))
+
+
+def is_infeasible(m):
+    return m.Status == GRB.INFEASIBLE or m.Status == GRB.INF_OR_UNBD

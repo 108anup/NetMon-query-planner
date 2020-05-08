@@ -10,7 +10,7 @@ from gurobipy import GRB, tupledict, tuplelist
 from common import Namespace, log, log_time, memoize
 from config import common_config
 from devices import P4, Cluster
-from helpers import get_rounded_val, get_val, log_vars
+from helpers import get_rounded_val, get_val, log_vars, is_infeasible
 
 """
 frac represents fraction of row monitored on a device
@@ -458,7 +458,7 @@ class MIP(Namespace):
 
         # import ipdb; ipdb.set_trace()
 
-        if(self.m.Status == GRB.INFEASIBLE):
+        if(is_infeasible(self.m)):
             self.infeasible = True
             self.culprit = self.m
             return
@@ -702,7 +702,7 @@ class Netmon(UnivmonGreedyRows):
             self.m.update()
             # HOLD: Redundancy here. Consider running univmon at Obj init time
             self.m.optimize()
-            if(self.m.Status == GRB.INFEASIBLE):
+            if(is_infeasible(self.m)):
                 self.infeasible = True
                 self.culprit = self.m
                 return

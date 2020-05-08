@@ -764,6 +764,7 @@ class TreeTopology():
             devices_per_cluster = common_config.MAX_DEVICES_PER_CLUSTER
         host_nic_overlay = inp.tenant_servers
 
+        import ipdb; ipdb.set_trace()
         num_tenant_clusters_to_merge = math.ceil(devices_per_cluster
                                                  / self.hosts_per_tenant)
         if(num_tenant_clusters_to_merge > 1):
@@ -1253,7 +1254,7 @@ input_generator = [
     # This basically is an example of spectralA which gives infeasible
     TreeTopology(hosts_per_tors=48, tors_per_l1s=4,
                  l1s=4, num_queries=48 * 4 * 4 * 2, tenant=True,
-                 overlay='none', refine=False, eps=eps0/10,
+                 overlay='tenant', refine=False, eps=eps0/10,
                  queries_per_tenant=8 * 2),
 
     # 29

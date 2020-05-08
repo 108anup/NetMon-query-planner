@@ -4,7 +4,7 @@ from gurobipy import GRB
 
 from config import common_config
 from common import Namespace, memoize
-from helpers import get_val, get_rounded_val, log_vars
+from helpers import get_val, get_rounded_val, log_vars, is_infeasible
 
 
 def get_rounded_cores(x):
@@ -261,7 +261,7 @@ class CPU(Device):
         u.update()
         u.optimize()
         # The solver constraints should guarantee that following holds
-        assert(u.Status != GRB.Status.INFEASIBLE)
+        assert(not is_infeasible(u))
 
         # TODO: Is the following needed as we can just keep the new values
         # Need to keep these to retain model values.
@@ -416,7 +416,7 @@ class Netronome(Device):
         u.update()
         u.optimize()
         # The solver constraints should guarantee that following holds
-        assert(u.Status != GRB.Status.INFEASIBLE)
+        assert(not is_infeasible(u))
 
         log_vars(u)
         return get_val(md_tmp.ns)
