@@ -100,7 +100,7 @@ def get_graph(inp):
     g = nx.MultiGraph()
     g.add_nodes_from(range(len(inp.devices)))
     for f in inp.flows:
-        p = f.path
+        p = list(f.path)
         a = p[0]
         for b in p[1:]:
             g.add_edge(a, b)

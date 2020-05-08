@@ -19,7 +19,7 @@ ut.base_dir = 'outputs/clustering'
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [10, 20], [4, 10], ['tenant', 'none'], [False]]
+        [[48], [10, 20], [4, 10], ['tenant'], [False]]
     )
     # combinations(
     #     [[8], [2], [2], ['tenant'], [False]]
@@ -35,8 +35,6 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
                        refine=refine, eps=eps0/10,
                        queries_per_tenant=4).get_input()
 
-    # Testing: overlay uncorrelated with tenants and traffic
-
     # common_config.parallel = True
     common_config.vertical_partition = True
     # common_config.horizontal_partition = True
@@ -51,6 +49,33 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
         "hosts_per_tors={};tors_per_l1s={};l1s={};num_queries={}"
         .format(overlay, total_devices, refine,
                 hosts_per_tors, tors_per_l1s, l1s, num_queries)
+    )
+    setup_test_meta(m)
+    run_all_with_input(m, inp)
+
+
+@pytest.mark.parametrize(
+    "devices_per_cluster", [25, 100, 150, 200]
+)
+def test_devices_per_cluster(devices_per_cluster):
+    # common_config.parallel = True
+    common_config.vertical_partition = True
+    # common_config.horizontal_partition = True
+    # common_config.mipout = True
+    common_config.verbose = 1
+    common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
+
+    inp = TreeTopology(48, 20, 4,
+                       num_queries=480*4,
+                       overlay='tenant', tenant=True,
+                       refine=False, eps=eps0/100,
+                       queries_per_tenant=4)
+
+    m = Namespace()
+    m.test_name = 'vary_devices_per_cluster'
+    m.args_str = (
+        "devices_per_cluster={}"
+        .format(devices_per_cluster)
     )
     setup_test_meta(m)
     run_all_with_input(m, inp)

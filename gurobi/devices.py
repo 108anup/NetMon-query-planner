@@ -466,7 +466,7 @@ class Cluster(Device):
     # Tree of devices
     # HOLD: should Clusters have cols_pwr_2?
     # Ideally clusters will have some CPUs, so not needed for now
-    cols_pwr_2 = False
+    cols_pwr_2 = True
 
     @memoize
     def transitive_closure(self):

@@ -5,6 +5,7 @@ from config import common_config
 import subprocess
 from common import (setup_logging, add_file_logger,
                     remove_all_file_loggers)
+from input import Input
 
 base_dir = 'outputs/tmp'
 
@@ -56,6 +57,8 @@ def run_all_with_input(m, inp, solvers=['UnivmonGreedyRows', 'Netmon']):
             m.out_dir, '{}-{}-{}.out'
             .format(m.config_str, m.args_str, solver)))
 
+        if(not isinstance(inp, Input)):
+            inp = inp.get_input()
         solve(inp)
 
     with open(common_config.results_file, 'a') as f:

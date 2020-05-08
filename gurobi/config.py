@@ -39,9 +39,10 @@ default_config = Config(
     mipgap_res=0.05,
     mipgap=0.01,
     MAX_DEVICES_PER_CLUSTER=100,
-    MAX_CLUSTERS_PER_CLUSTER=800,
+    MAX_CLUSTERS_PER_CLUSTER=500,
     ME_WEIGHT=5,
     CPU_CORE_WEIGTH=10,
+    WORKERS=8,
 
     solver='Netmon',
     input_num=0,
