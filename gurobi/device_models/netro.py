@@ -717,13 +717,13 @@ def myplot(bench_list, me):
     plt.title("Netronome profile for {} MEs".format(me))
     plt.legend()
     # pprint.pprint(bench_list)
-    plt.show()
-    # fig.tight_layout()
-    # plt.savefig('netro-model.pdf')
+    # plt.show()
+    fig.tight_layout()
+    plt.savefig('netro-model-36me.png')
 
 
-myplot([x for x in bench_list if x.me == 54], "54")
+# myplot([x for x in bench_list if x.me == 54], "54")
 myplot([x for x in bench_list if x.me == 36], "36")
-myplot([x for x in bench_list if x.me == 20], "20")
+# myplot([x for x in bench_list if x.me == 20], "20")
 print("Relative Error: ", np.average(diff))
 # pprint.pprint(bench_list)
