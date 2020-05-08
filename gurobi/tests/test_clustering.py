@@ -28,18 +28,20 @@ ut.base_dir = 'outputs/clustering'
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
                                        l1s, overlay, refine):
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
-    num_queries = int(num_hosts*2)
+    num_queries = int(num_hosts/2)
     inp = TreeTopology(hosts_per_tors, tors_per_l1s, l1s,
                        num_queries=num_queries,
                        overlay=overlay, tenant=True,
                        refine=refine, eps=eps0/10,
-                       queries_per_tenant=4*4).get_input()
+                       queries_per_tenant=4).get_input()
 
     # Testing: overlay uncorrelated with tenants and traffic
 
     # common_config.parallel = True
     common_config.vertical_partition = True
     # common_config.horizontal_partition = True
+    # common_config.mipout = True
+    common_config.verbose = 1
 
     m = Namespace()
     m.test_name = 'vary_topo_size_dc_topo_tenant'
@@ -51,7 +53,7 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
                 hosts_per_tors, tors_per_l1s, l1s, num_queries)
     )
     setup_test_meta(m)
-    run_all_with_input(m, inp, solvers=['UnivmonGreedyRows'])
+    run_all_with_input(m, inp)
 
 
 @pytest.mark.parametrize("cluster_size, num_cpus", [(0, 20)]

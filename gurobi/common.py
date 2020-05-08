@@ -89,7 +89,10 @@ def remove_all_file_loggers():
 
 def add_file_logger(file_path):
     file_handler = logging.FileHandler(file_path, mode='w')
+    formatter = logging.Formatter(
+        '%(asctime)s:%(levelname)s::%(message)s')
     file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
     log.addHandler(file_handler)
 
 

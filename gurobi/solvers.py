@@ -387,11 +387,6 @@ class MIP(Namespace):
     @log_time
     def solve(self):
         self.m = gp.Model(self.__class__.__name__)
-        if(common_config.time_limit):
-            self.m.setParam(GRB.Param.TimeLimit, common_config.time_limit)
-        # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
-        self.m.setParam(GRB.Param.MIPGap, common_config.mipgap)
-
         log.info("\n" + "-"*80)
         log.info("Model {} with:\n"
                  "{} devices, {} partitions and {} flows"
@@ -402,6 +397,12 @@ class MIP(Namespace):
             self.m.setParam(GRB.Param.LogToConsole, 0)
             # gplogger = logging.getLogger('gurobipy')
             # gplogger.disabled = True
+
+        if(common_config.time_limit):
+            self.m.setParam(GRB.Param.TimeLimit, common_config.time_limit)
+        # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
+        self.m.setParam(GRB.Param.MIPGap, common_config.mipgap)
+
 
         self.compute_dev_par_tuplelist()
         self.add_frac_mem_var()
