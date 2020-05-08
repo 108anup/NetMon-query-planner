@@ -7,6 +7,14 @@ from common import Namespace, memoize
 from helpers import get_val, get_rounded_val, log_vars
 
 
+def get_rounded_cores(x):
+    f, i = math.modf(x)
+    if(f < common_config.ftol):
+        return i
+    else:
+        return i + 1
+
+
 # * Device
 class Device(Namespace):
 
@@ -88,7 +96,7 @@ class CPU(Device):
         return pdt
 
     def set_thr(self, md, ns_req):
-        md.cores_sketch = math.ceil(md.ns_single / ns_req)
+        md.cores_sketch = get_rounded_cores(md.ns_single / ns_req)
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
         if(md.cores_sketch != 0):
             md.ns_sketch = md.ns_single / md.cores_sketch
@@ -97,7 +105,7 @@ class CPU(Device):
         f = CPU.fraction_parallel
         dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
         assert(dpdk_cores > 0)
-        md.cores_dpdk = math.ceil(dpdk_cores)
+        md.cores_dpdk = get_rounded_cores(dpdk_cores)
         md.ns_dpdk = dpdk_single_ns * (1-f + f/md.cores_dpdk)
         md.ns = max(md.ns_dpdk, md.ns_sketch)
 
@@ -167,7 +175,7 @@ class CPU(Device):
         if(ns_req):
             dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
             assert(dpdk_cores > 0)
-            md.cores_dpdk = math.ceil(dpdk_cores)
+            md.cores_dpdk = get_rounded_cores(dpdk_cores)
             # m.addConstr(
             #     (md.cores_dpdk*(1-CPU.fraction_parallel)
             #      + CPU.fraction_parallel)*dpdk_single_ns
@@ -291,7 +299,7 @@ class Netronome(Device):
         return pdt
 
     def set_thr(self, md, ns_req):
-        md.micro_engines = math.ceil(max(
+        md.micro_engines = get_rounded_cores(max(
             md.ns_hash_max * self.total_me / ns_req, md.ns_mem_max,
             md.ns_fwd_max * self.total_me / ns_req
         ))

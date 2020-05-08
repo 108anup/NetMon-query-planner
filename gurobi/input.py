@@ -335,6 +335,9 @@ def generate_overlay(nesting, start_idx=0):
 
 
 def merge(l, n=2):
+    """
+    Convert ([[1,2,3], [4,5,6], [7,8,9]], 2) => [[1,2,3,4,5,6], [7,8,9]]
+    """
     ret = []
     cur = []
     itr = 0
@@ -351,6 +354,9 @@ def merge(l, n=2):
 
 
 def fold(l, n=4):
+    """
+    Convert ([[1,2,3], [4,5,6], [7,8,9]], 2) => [[[1,2,3], [4,5,6]], [7,8,9]]
+    """
     ret = []
     cur = []
     itr = 0
@@ -361,7 +367,10 @@ def fold(l, n=4):
             ret.append(cur)
             cur = []
             itr = 0
-    if(len(cur) > 0):
+
+    if(len(cur) == 1):
+        ret.extend(cur)
+    elif(len(cur) > 1):
         ret.append(cur)
     return ret
 
@@ -501,6 +510,7 @@ class TreeTopology():
                         this_netro.append(dev_id)
                 host_overlay.append(this_servers + this_netro)
 
+            inp.tenant_servers = host_overlay
             inp.tenant_overlay = (host_overlay
                                   + generate_overlay(
                                       [self.tors + self.l1s + 1],
@@ -748,6 +758,58 @@ class TreeTopology():
         # draw_overlay(inp)
         return overlay
 
+    def get_tenant_overlay_switches(self, inp):
+        devices_per_cluster = common_config.MAX_CLUSTERS_PER_CLUSTER
+        if(common_config.solver == 'Netmon'):
+            devices_per_cluster = common_config.MAX_DEVICES_PER_CLUSTER
+        host_nic_overlay = inp.tenant_servers
+
+        num_tenant_clusters_to_merge = math.ceil(devices_per_cluster
+                                                 / self.hosts_per_tenant)
+        if(num_tenant_clusters_to_merge > 1):
+            host_nic_overlay = merge(host_nic_overlay,
+                                     num_tenant_clusters_to_merge)
+
+        # Assign switches to clusters:
+        dev_id_to_cluster_id = dict()
+        for cnum, c in enumerate(host_nic_overlay):
+            for dnum in c:
+                dev_id_to_cluster_id[dnum] = cnum
+
+        g = get_complete_graph(inp)
+        switches_start_idx = self.hosts + self.num_netronome
+        total_devices = len(inp.devices)
+        seq = 0
+        total_clusters = len(host_nic_overlay)
+
+        for snum in range(switches_start_idx, total_devices):
+            devs = g.neighbors(snum)
+            best_dnum, edge_count = -1, 0
+            for dnum in devs:
+                if(dnum in dev_id_to_cluster_id):
+                    edges = g.number_of_edges(snum, dnum)
+                    if(edges > edge_count):
+                        edge_count = edges
+                        best_dnum = dnum
+
+            if(best_dnum == -1):
+                cnum = seq % total_clusters
+                seq += 1
+            else:
+                cnum = dev_id_to_cluster_id[best_dnum]
+            host_nic_overlay[cnum].append(snum)
+            dev_id_to_cluster_id[snum] = cnum
+
+        if(total_clusters > common_config.MAX_CLUSTERS_PER_CLUSTER):
+            host_nic_overlay = fold(host_nic_overlay,
+                                    common_config.MAX_CLUSTERS_PER_CLUSTER)
+
+        inp.overlay = host_nic_overlay
+        draw_overlay_over_tenant(inp)
+        if(len(host_nic_overlay) == 1):
+            return None
+        return host_nic_overlay
+
     def get_overlay(self, inp):
         assert(self.num_netronome == 0 or
                'spectral' in self.overlay or
@@ -773,7 +835,7 @@ class TreeTopology():
                 overlay = fold(overlay, common_config.MAX_CLUSTER_PER_CLUSTER)
 
         elif(self.overlay == 'tenant'):
-            return self.get_tenant_overlay(inp)
+            return self.get_tenant_overlay_switches(inp)
 
         elif(self.overlay == 'random'):
             ov = np.array(range(self.hosts))
@@ -1202,8 +1264,9 @@ input_generator = [
 
     # 30
     # Small tenant with small requirements
-    TreeTopology(hosts_per_tors=8, tors_per_l1s=2, l1s=2, num_queries=16,
-                 eps=eps0/10, overlay='tenant', tenant=True, refine=False),
+    TreeTopology(hosts_per_tors=8, tors_per_l1s=2, l1s=2, num_queries=32 * 2,
+                 queries_per_tenant=8 * 2, eps=eps0/100, overlay='tenant',
+                 tenant=True, refine=False),
 
     Input(
         # Change when devices are added / removed

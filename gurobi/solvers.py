@@ -409,7 +409,7 @@ class MIP(Namespace):
         if(common_config.time_limit):
             self.m.setParam(GRB.Param.TimeLimit, common_config.time_limit)
         # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
-        # m.setParam(GRB.Param.MIPGap, common_config.mipgap)
+        self.m.setParam(GRB.Param.MIPGap, common_config.mipgap)
 
         if(hasattr(self, 'init')):
             self.initialize()
@@ -739,6 +739,7 @@ class Netmon(UnivmonGreedyRows):
 
         if(getattr(self, 'ns_req', None) is not None):
             self.m.NumObj = 1
+            self.m.setParam(GRB.Param.MIPGap, common_config.mipgap_res)
             self.m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
             self.m.setObjectiveN(self.res, 0, 10, reltol=common_config.res_tol,
                                  name='res')
