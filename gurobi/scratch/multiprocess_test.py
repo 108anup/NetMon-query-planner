@@ -1,12 +1,32 @@
-"""# from types import SimpleNamespace
+# from types import SimpleNamespace
 from collections import namedtuple
 import concurrent.futures
 import multiprocessing as mp
 import time
+# from pathos.pools import ProcessPool
 
 
-mycls = namedtuple(\\\"mycls\\\", \\\"num\\\")
-myarr = [mycls(num=i) for i in range(1000000)]
+class Namespace:
+    def __init__(self, **kw):
+        self.__dict__.update(kw)
+
+    # def __getattr__(self, attr):
+    #     if attr in self.__dict__:
+    #         return self.__dict__[attr]
+    #     else:
+    #         raise AttributeError("Not found key: {}".format(attr))
+
+    def frozen_setter(self, attr):
+        raise AttributeError("Object {} is frozen,"
+                             " can't set attribute:"
+                             .format(self, attr))
+
+    def __repr__(self):
+        return repr(self.__dict__)
+
+
+mycls = namedtuple("mycls", "num")
+myarr = [Namespace(num=-1) for i in range(1000000)]
 
 
 # class MyClass():
@@ -34,7 +54,8 @@ def myfun(i):
     print(len(myarr))
     # print(len(myarr))
     # time.sleep(10)
-
+    # time.sleep(0.8)
+    return [Namespace(num=i) for j in range(1000000)]
 
 # PARALLEL PART
 st = time.time()
@@ -42,22 +63,24 @@ st = time.time()
 # futures = []
 # for i in range(WORKERS):
 #     futures.append(executer.submit(myfun, i))
-pool = mp.Pool()
-pool.map(myfun, [i for i in range(WORKERS)])
+pool = mp.Pool() # ProcessPool()
+res = pool.map(myfun, [i for i in range(WORKERS)])
+for r in res:
+    print(r[0])
 print(myarr[:5])
 # for i in range(WORKERS):
 #     futures[i].result()
 parallel = time.time() - st
-print(\\\"Parallel: \\\", parallel)
+print("Parallel: ", parallel)
 
 # SEQUENTIAL PART
 st = time.time()
 list(map(myfun, [i for i in range(WORKERS)]))
 print(myarr[:5])
 sequential = time.time() - st
-print(\\\"Sequential: \\\", sequential)
-print(\\\"Overhead: \\\", parallel - sequential)
-"""
+print("Sequential: ", sequential)
+print("Overhead: ", parallel - sequential)
+
 
 # from scipy.interpolate import interp1d
 # import numpy as np
@@ -87,12 +110,12 @@ print(\\\"Overhead: \\\", parallel - sequential)
 # plt.show()
 
 
-class Test(object):
-    class_var = {}
+# class Test(object):
+#     class_var = {}
 
 
-i1 = Test()
-i2 = Test()
+# i1 = Test()
+# i2 = Test()
 
-i1.class_var[4] = 5
-print(i2.class_var)
+# i1.class_var[4] = 5
+# print(i2.class_var)
