@@ -7,7 +7,6 @@ import traceback
 from queue import Queue
 from pathos.pools import ProcessPool
 
-import ipdb
 import matplotlib.pyplot as plt
 import networkx as nx
 from gurobipy import GRB, tupledict, tuplelist
@@ -26,7 +25,8 @@ from solvers import (UnivmonGreedyRows, log_placement, log_results,
 # * Helper functions
 def runner(solver):
     solver.solve()
-    return solver
+    # TODO return frac, mem, results ...
+    # return solver
 
 
 def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
@@ -552,6 +552,7 @@ if(__name__ == '__main__'):
     try:
         solve(inp)
     except Exception:
+        import ipdb
         extype, value, tb = sys.exc_info()
         traceback.print_exc()
         ipdb.post_mortem(tb)
