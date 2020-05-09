@@ -13,13 +13,15 @@ ut.base_dir = 'outputs/clustering'
 
 
 @pytest.mark.parametrize(
-    "hosts_per_tors, tors_per_l1s, l1s, overlay, refine, devices_per_cluster",
+    "hosts_per_tors, tors_per_l1s, l1s, overlay, "
+    "refine, devices_per_cluster, clusters_per_cluster",
     # [(48, 20, 10, 'none')]
     # combinations(
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [10, 20], [4, 10], ['tenant'], [False], [200, 300, 500]]
+        [[48], [10, 20], [4, 10, 20], ['tenant'], [False],
+         [50, 200, 350, 500], [500, 1000, 2000]]
     )
     # combinations(
     #     [[8], [2], [2], ['tenant'], [False]]
@@ -27,8 +29,10 @@ ut.base_dir = 'outputs/clustering'
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
                                        l1s, overlay, refine,
-                                       devices_per_cluster):
+                                       devices_per_cluster,
+                                       clusters_per_cluster):
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
+    common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
     num_queries = int(num_hosts/2)
     inp = TreeTopology(hosts_per_tors, tors_per_l1s, l1s,
