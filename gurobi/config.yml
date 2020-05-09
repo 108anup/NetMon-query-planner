@@ -1,2 +1,3 @@
 prog_dir: 'progs'
 time_limit: 120
+WORKERS: 4

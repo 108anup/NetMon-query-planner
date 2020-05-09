@@ -20,8 +20,8 @@ ut.base_dir = 'outputs/clustering'
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [10, 20], [4, 10, 20], ['tenant'], [False],
-         [50, 200, 350, 500], [500, 1000, 2000]]
+        [[48], [50], [20], ['tenant'], [False],
+         [150], [1000]]
     )
     # combinations(
     #     [[8], [2], [2], ['tenant'], [False]]
@@ -34,12 +34,12 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
-    num_queries = int(num_hosts/2)
+    num_queries = int(num_hosts*2)
     inp = TreeTopology(hosts_per_tors, tors_per_l1s, l1s,
                        num_queries=num_queries,
                        overlay=overlay, tenant=True,
                        refine=refine, eps=eps0/10,
-                       queries_per_tenant=4)
+                       queries_per_tenant=16)
     common_config.parallel = True
     common_config.vertical_partition = True
     # common_config.horizontal_partition = True
@@ -77,6 +77,7 @@ def test_devices_per_cluster(devices_per_cluster):
     inp = TreeTopology(48, 20, 4,
                        num_queries=480*4,
                        overlay='tenant', tenant=True,
+
                        refine=False, eps=eps0/100,
                        queries_per_tenant=4)
 

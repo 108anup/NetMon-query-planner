@@ -820,7 +820,8 @@ class TreeTopology():
     def get_overlay(self, inp):
         assert(self.num_netronome == 0 or
                'spectral' in self.overlay or
-               self.overlay == 'hdbscan')
+               self.overlay == 'hdbscan' or
+               self.overlay == 'tenant')
 
         if(self.overlay == 'tor'):
             overlay = self.get_tor_overlay()
@@ -1247,7 +1248,7 @@ input_generator = [
     # Large tenant (10K)
     TreeTopology(hosts_per_tors=48, tors_per_l1s=20,
                  l1s=4, num_queries=480*4, tenant=True, overlay='tenant',
-                 eps=eps0/100),
+                 eps=eps0/100, portion_netronome=0),
 
     # 26 Clustering Intuition init cant help
     Input(
@@ -1280,8 +1281,9 @@ input_generator = [
     # 29
     # Very Large (100K)
     TreeTopology(hosts_per_tors=48, tors_per_l1s=50,
-                 l1s=20, num_queries=24000, tenant=True,
-                 overlay='spectralA', refine=False),
+                 l1s=40, num_queries=48 * 50 * 40, tenant=True,
+                 overlay='tenant', refine=False,
+                 queries_per_tenant=8),
 
     # 30
     # Small tenant with small requirements

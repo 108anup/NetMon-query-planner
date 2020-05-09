@@ -101,20 +101,24 @@ class CPU(Device):
         if(md.cores_sketch != 0):
             md.ns_sketch = md.ns_single / md.cores_sketch
         else:
+            assert(md.ns_single == 0)
             md.ns_sketch = 0
         f = CPU.fraction_parallel
         dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
         assert(dpdk_cores > 0)
         md.cores_dpdk = get_rounded_cores(dpdk_cores)
+        assert(md.cores_dpdk + md.cores_sketch <= self.cores)
         md.ns_dpdk = dpdk_single_ns * (1-f + f/md.cores_dpdk)
         md.ns = max(md.ns_dpdk, md.ns_sketch)
 
+    # TODO: Can remove clutter from here!
     def add_ns_constraints(self, m, md, ns_req=None):
         rows = md.rows_tot
         mem = md.mem_tot
 
         # Either both should be True or neither should be True
-        assert(isinstance(rows, (int, float)) == isinstance(mem, (int, float)))
+        assert(isinstance(rows, (int, float))
+               == isinstance(mem, (int, float)))
         if(isinstance(rows, (int, float))):
             md.m_access_time = self.get_mem_access_time(mem)
             md.ns_single = rows * (md.m_access_time + self.hash_ns)
@@ -124,6 +128,8 @@ class CPU(Device):
             if(ns_req is not None):
                 assert(m is None)  # TODO: can remove later
                 return self.set_thr(md, ns_req)
+            else:
+                assert(False)
 
         else:
             # Access time based on mem
@@ -225,56 +231,94 @@ class CPU(Device):
         # TODO: Measure the impact of using int here
         mem_tot = get_rounded_val(get_val(md.mem_tot))
         rows_tot = get_rounded_val(get_val(md.rows_tot))
-        # key = (self.profile_name, mem_tot, rows_tot)
-        # if(key in self.cache):
-        #     # self.cache['helped'] += 1
-        #     return self.cache[key]
+        m_access_time = self.get_mem_access_time(mem_tot)
+        ns_single = rows_tot * (m_access_time + self.hash_ns)
+        dpdk_single_ns = 1000/self.dpdk_single_core_thr
+        f = CPU.fraction_parallel
 
-        md_tmp = Namespace()
-        # mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
-        #                    name='mem_tot_{}'.format(d),
-        #                    lb=0, ub=d.max_mem)
-        # u.addConstr(mem_tot == get_rounded_val(get_val(d.mem_tot)),
-        #             name='mem_tot_{}'.format(d))
-        # md.mem_tot_old = md.mem_tot
-        md_tmp.mem_tot = mem_tot
+        a = dpdk_single_ns * (1-f)
+        b = dpdk_single_ns * f
+        c = ns_single
+        k = self.cores
+        x = (a*k+b+c - math.sqrt((a*k+b+c)**2 - 4*a*k*c))/(2 * a)
 
-        # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
-        #                     name='rows_tot_{}'.format(d), lb=0)
-        # u.addConstr(rows_tot == d.rows_tot.x,
-        #             name='rows_tot_{}'.format(d))
-        # md.rows_tot_old = md.rows_tot
-        md_tmp.rows_tot = rows_tot
+        ns_options = []
 
-        u = gp.Model(self.name)
-        if(not common_config.mipout):
-            u.setParam(GRB.Param.LogToConsole, 0)
+        def helper_ns(cores_sketch, cores_dpdk):
+            if(cores_dpdk >= 1 and cores_sketch >= 0 and
+               cores_dpdk + cores_sketch <= self.cores):
+                ns_dpdk = dpdk_single_ns * (1-f + f/cores_dpdk)
+                if(cores_sketch == 0):
+                    if(ns_single == 0):
+                        ns_sketch = 0
+                        ns_options.append(max(ns_dpdk, ns_sketch))
+                else:
+                    ns_sketch = ns_single / cores_sketch
+                    ns_options.append(max(ns_dpdk, ns_sketch))
 
-        self.add_ns_constraints(u, md_tmp)
+        # Case 1:
+        cores_sketch = int(x)
+        cores_dpdk = k - cores_sketch
+        helper_ns(cores_sketch, cores_dpdk)
 
-        u.setObjectiveN(md_tmp.ns, 0, 10, reltol=common_config.ns_tol,
-                        name='ns')
-        u.setObjectiveN(self.res(md_tmp), 1, 5, reltol=common_config.res_tol,
-                        name='res')
+        # Case 2:
+        cores_sketch = math.ceil(x)
+        cores_dpdk = k - cores_sketch
+        helper_ns(cores_sketch, cores_dpdk)
 
-        u.ModelSense = GRB.MINIMIZE
-        u.update()
-        u.optimize()
-        # The solver constraints should guarantee that following holds
-        assert(not is_infeasible(u))
+        assert(len(ns_options) > 0)
+        return min(ns_options)
 
-        # TODO: Is the following needed as we can just keep the new values
-        # Need to keep these to retain model values.
-        # if(hasattr(md, 'u')):
-        #     if(hasattr(md, 'old_u')):
-        #         md.old_u.append(md.u)
-        #     else:
-        #         md.old_u = [md.u]
-        # md.u = u
-        log_vars(u)
-        return get_val(md_tmp.ns)
-        # self.cache[key] = get_val(md_tmp.ns)
-        # return self.cache[key]
+        # # key = (self.profile_name, mem_tot, rows_tot)
+        # # if(key in self.cache):
+        # #     # self.cache['helped'] += 1
+        # #     return self.cache[key]
+
+        # md_tmp = Namespace()
+        # # mem_tot = u.addVar(vtype=GRB.CONTINUOUS,
+        # #                    name='mem_tot_{}'.format(d),
+        # #                    lb=0, ub=d.max_mem)
+        # # u.addConstr(mem_tot == get_rounded_val(get_val(d.mem_tot)),
+        # #             name='mem_tot_{}'.format(d))
+        # # md.mem_tot_old = md.mem_tot
+        # md_tmp.mem_tot = mem_tot
+
+        # # rows_tot = u.addVar(vtype=GRB.CONTINUOUS,
+        # #                     name='rows_tot_{}'.format(d), lb=0)
+        # # u.addConstr(rows_tot == d.rows_tot.x,
+        # #             name='rows_tot_{}'.format(d))
+        # # md.rows_tot_old = md.rows_tot
+        # md_tmp.rows_tot = rows_tot
+
+        # u = gp.Model(self.name)
+        # if(not common_config.mipout):
+        #     u.setParam(GRB.Param.LogToConsole, 0)
+
+        # self.add_ns_constraints(u, md_tmp)
+
+        # u.setObjectiveN(md_tmp.ns, 0, 10, reltol=common_config.ns_tol,
+        #                 name='ns')
+        # u.setObjectiveN(self.res(md_tmp), 1, 5, reltol=common_config.res_tol,
+        #                 name='res')
+
+        # u.ModelSense = GRB.MINIMIZE
+        # u.update()
+        # u.optimize()
+        # # The solver constraints should guarantee that following holds
+        # assert(not is_infeasible(u))
+
+        # # TODO: Is the following needed as we can just keep the new values
+        # # Need to keep these to retain model values.
+        # # if(hasattr(md, 'u')):
+        # #     if(hasattr(md, 'old_u')):
+        # #         md.old_u.append(md.u)
+        # #     else:
+        # #         md.old_u = [md.u]
+        # # md.u = u
+        # log_vars(u)
+        # return get_val(md_tmp.ns)
+        # # self.cache[key] = get_val(md_tmp.ns)
+        # # return self.cache[key]
 
     def __init__(self, *args, **kwargs):
         super(CPU, self).__init__(*args, **kwargs)
@@ -300,8 +344,8 @@ class Netronome(Device):
 
     def set_thr(self, md, ns_req):
         md.micro_engines = get_rounded_cores(max(
-            md.ns_hash_max * self.total_me / ns_req, md.ns_mem_max,
-            md.ns_fwd_max * self.total_me / ns_req
+            md.ns_hash_max * self.total_me / ns_req,
+            md.ns_fwd_max * self.total_me / ns_req, self.total_me
         ))
         md.ns_hash = md.ns_hash_max * self.total_me / md.micro_engines
         md.ns_fwd = md.ns_fwd_max * self.total_me / md.micro_engines
@@ -321,6 +365,8 @@ class Netronome(Device):
             if(ns_req is not None):
                 assert(m is None)
                 return self.set_thr(md, ns_req)
+            else:
+                assert(False)
 
         else:
             md.m_access_time = m.addVar(vtype=GRB.CONTINUOUS, lb=0,
@@ -389,6 +435,7 @@ class Netronome(Device):
         if(hasattr(md, 'micro_engines')):
             val = get_val(md.micro_engines)
             if(r):
+                r.nic_memory += get_val(md.mem_tot)
                 r.micro_engines += val
             return "micro_engines: {}".format(val)
         else:
@@ -397,29 +444,36 @@ class Netronome(Device):
     def get_ns(self, md):
         mem_tot = get_rounded_val(get_val(md.mem_tot))
         rows_tot = get_rounded_val(get_val(md.rows_tot))
-        md_tmp = Namespace()
-        md_tmp.mem_tot = mem_tot
-        md_tmp.rows_tot = rows_tot
 
-        u = gp.Model(self.name)
-        if(not common_config.mipout):
-            u.setParam(GRB.Param.LogToConsole, 0)
+        m_access_time = self.get_mem_access_time(mem_tot)
+        ns_mem_max = self.mem_const + rows_tot * m_access_time
+        ns_hash_max = self.hashing_const + self.hashing_slope * rows_tot
+        ns_fwd_max = 1000 / self.line_thr
+        return max(ns_hash_max, ns_fwd_max, ns_mem_max)
 
-        self.add_ns_constraints(u, md_tmp)
+        # md_tmp = Namespace()
+        # md_tmp.mem_tot = mem_tot
+        # md_tmp.rows_tot = rows_tot
 
-        u.setObjectiveN(md_tmp.ns, 0, 10, reltol=common_config.ns_tol,
-                        name='ns')
-        u.setObjectiveN(self.res(md_tmp), 1, 5, reltol=common_config.res_tol,
-                        name='res')
+        # u = gp.Model(self.name)
+        # if(not common_config.mipout):
+        #     u.setParam(GRB.Param.LogToConsole, 0)
 
-        u.ModelSense = GRB.MINIMIZE
-        u.update()
-        u.optimize()
-        # The solver constraints should guarantee that following holds
-        assert(not is_infeasible(u))
+        # self.add_ns_constraints(u, md_tmp)
 
-        log_vars(u)
-        return get_val(md_tmp.ns)
+        # u.setObjectiveN(md_tmp.ns, 0, 10, reltol=common_config.ns_tol,
+        #                 name='ns')
+        # u.setObjectiveN(self.res(md_tmp), 1, 5, reltol=common_config.res_tol,
+        #                 name='res')
+
+        # u.ModelSense = GRB.MINIMIZE
+        # u.update()
+        # u.optimize()
+        # # The solver constraints should guarantee that following holds
+        # assert(not is_infeasible(u))
+
+        # log_vars(u)
+        # return get_val(md_tmp.ns)
 
     def __init__(self, *args, **kwargs):
         super(Netronome, self).__init__(*args, **kwargs)

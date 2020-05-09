@@ -71,7 +71,7 @@ def refine_devices(devices, md_list, placement_fixed=True):
         ns_max = max(ns_max, d.get_ns(md))
 
     r = Namespace(ns_max=ns_max, res=0, total_CPUs=0, micro_engines=0,
-                  used_cores=0, switch_memory=0)
+                  used_cores=0, switch_memory=0, nic_memory=0)
     for (dnum, d) in enumerate(devices):
         md = md_list[dnum]
 
@@ -782,6 +782,7 @@ def log_results(devices, r, md_list, logger=log.info,
         r.total_CPUs = 0
         r.res = 0
         r.ns_max = 0
+        r.nic_memory = 0
         r.switch_memory = 0
         r.micro_engines = 0
         # This would be used by solving runs which did not
@@ -796,17 +797,21 @@ def log_results(devices, r, md_list, logger=log.info,
         msg, 1000/r.ns_max, r.ns_max))
     log.info("Resources: {}".format(r.res))
     if(r.total_CPUs is not None and r.used_cores is not None
-       and r.switch_memory is not None and r.micro_engines is not None):
+       and r.switch_memory is not None and r.micro_engines is not None
+       and r.nic_memory is not None):
         log.info("Used Cores: {}, Total CPUS: {}, "
-                 "Switch Memory: {}, Micro-enginges: {}"
+                 "Switch Memory: {}, \n"
+                 "Micro-enginges: {}, NIC Memory: {}"
                  .format(r.used_cores, r.total_CPUs,
-                         r.switch_memory, r.micro_engines))
+                         r.switch_memory, r.micro_engines,
+                         r.nic_memory))
 
     if(common_config.results_file is not None and elapsed is not None):
         f = open(common_config.results_file, 'a')
-        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {}, ".format(
+        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {:0.3f}, {}, ".format(
             1000/r.ns_max, r.res,
-            r.used_cores, r.total_CPUs, r.switch_memory, elapsed))
+            r.used_cores, r.total_CPUs, r.switch_memory,
+            r.nic_memory, elapsed))
         f.close()
 
 
