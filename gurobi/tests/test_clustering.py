@@ -52,10 +52,12 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
     m.args_str = (
         "overlay={};total_devices={};refine={};"
         "hosts_per_tors={};tors_per_l1s={};l1s={};"
-        "num_queries={};devices_per_cluster={}"
+        "num_queries={};devices_per_cluster={};"
+        "clusters_per_cluster={}"
         .format(overlay, total_devices, refine,
                 hosts_per_tors, tors_per_l1s, l1s,
-                num_queries, devices_per_cluster)
+                num_queries, devices_per_cluster,
+                clusters_per_cluster)
     )
     setup_test_meta(m)
     run_all_with_input(m, inp)
