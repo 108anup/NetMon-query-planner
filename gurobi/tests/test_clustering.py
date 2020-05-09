@@ -13,29 +13,30 @@ ut.base_dir = 'outputs/clustering'
 
 
 @pytest.mark.parametrize(
-    "hosts_per_tors, tors_per_l1s, l1s, overlay, refine",
+    "hosts_per_tors, tors_per_l1s, l1s, overlay, refine, devices_per_cluster",
     # [(48, 20, 10, 'none')]
     # combinations(
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [10, 20], [4, 10], ['tenant'], [False]]
+        [[48], [10, 20], [4, 10], ['tenant'], [False], [200, 300, 500]]
     )
     # combinations(
     #     [[8], [2], [2], ['tenant'], [False]]
     # )
 )
 def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
-                                       l1s, overlay, refine):
+                                       l1s, overlay, refine,
+                                       devices_per_cluster):
+    common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
     num_queries = int(num_hosts/2)
     inp = TreeTopology(hosts_per_tors, tors_per_l1s, l1s,
                        num_queries=num_queries,
                        overlay=overlay, tenant=True,
                        refine=refine, eps=eps0/10,
-                       queries_per_tenant=4).get_input()
-
-    # common_config.parallel = True
+                       queries_per_tenant=4)
+    common_config.parallel = True
     common_config.vertical_partition = True
     # common_config.horizontal_partition = True
     # common_config.mipout = True
@@ -43,12 +44,14 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
 
     m = Namespace()
     m.test_name = 'vary_topo_size_dc_topo_tenant'
-    total_devices = len(inp.devices)
+    total_devices = num_hosts + tors_per_l1s*l1s + l1s + 1
     m.args_str = (
         "overlay={};total_devices={};refine={};"
-        "hosts_per_tors={};tors_per_l1s={};l1s={};num_queries={}"
+        "hosts_per_tors={};tors_per_l1s={};l1s={};"
+        "num_queries={};devices_per_cluster={}"
         .format(overlay, total_devices, refine,
-                hosts_per_tors, tors_per_l1s, l1s, num_queries)
+                hosts_per_tors, tors_per_l1s, l1s,
+                num_queries, devices_per_cluster)
     )
     setup_test_meta(m)
     run_all_with_input(m, inp)

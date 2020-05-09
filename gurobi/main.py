@@ -1,15 +1,16 @@
 import concurrent.futures
 import os
 import sys
-import threading
+# import threading
 import time
 import traceback
 from queue import Queue
-from pathos.pools import ProcessPool
+# from pathos.pools import ProcessPool
 
 import matplotlib.pyplot as plt
 import networkx as nx
 from gurobipy import GRB, tupledict, tuplelist
+import gurobipy as gp
 from orderedset import OrderedSet
 
 from cli import generate_parser
@@ -20,13 +21,63 @@ from flows import flow
 from input import Input, get_graph, input_generator
 from solvers import (UnivmonGreedyRows, log_placement, log_results,
                      refine_devices, solver_to_class)
+from helpers import get_val
 
 
 # * Helper functions
+# Run in child process
+def extract_solution(solver):
+    num_devices = len(solver.devices)
+    solution = Namespace(frac=list(range(num_devices)),
+                         mem=list(range(num_devices)),
+                         dev_par_tuplelist=list(range(num_devices)),
+                         md_list=list(range(num_devices)))
+    for dnum in range(num_devices):
+        solution.dev_par_tuplelist[dnum] = list()
+        solution.frac[dnum] = dict()
+        solution.mem[dnum] = dict()
+        solution.md_list[dnum] = Namespace()
+        for k, v in solver.md_list[dnum].__dict__.items():
+            if(not isinstance(v, gp.Model)):
+                solution.md_list[dnum].__dict__[k] = get_val(v)
+
+    for (dnum, pnum) in solver.dev_par_tuplelist:
+        solution.dev_par_tuplelist[dnum].append(pnum)
+        solution.frac[dnum][pnum] = solver.frac[dnum, pnum].x
+        solution.mem[dnum][pnum] = solver.mem[dnum, pnum].x
+
+    return solution
+
+
+# Run in parent process
+def rebuild_solution(solution):
+    new_solution = Namespace(frac=tupledict(),
+                             mem=tupledict(),
+                             dev_par_tuplelist=tuplelist(),
+                             md_list=solution.md_list)
+
+    for dnum, pnums in enumerate(solution.dev_par_tuplelist):
+        for pnum in pnums:
+            new_solution.dev_par_tuplelist.append((dnum, pnum))
+            new_solution.frac[dnum, pnum] = solution.frac[dnum][pnum]
+            new_solution.mem[dnum, pnum] = solution.mem[dnum][pnum]
+
+    return new_solution
+
+
 def runner(solver):
     solver.solve()
-    # TODO return frac, mem, results ...
-    # return solver
+    if(solver.infeasible):
+        # myinp = Input(devices=solver.devices, flows=solver.flows)
+        # g = get_graph(myinp)
+        # labels = {}
+        # for dnum, d in enumerate(solver.devices):
+        #     labels[dnum] = d.name
+        # nx.draw(g, labels=labels)
+        # plt.show()
+        # import ipdb; ipdb.set_trace()
+        return handle_infeasible(solver.culprit)
+    return extract_solution(solver)
 
 
 def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
@@ -96,20 +147,20 @@ def get_cluster_from_overlay(inp, overlay):
 # Side effects on device only, create new devices (clusters) for each
 # invocation of solver
 @log_time
-def get_partitions_flows(inp, cluster, solver, dnum):
+def get_partitions_flows(inp, cluster, problem, dnum, solution):
     dev_id_to_cluster_id = cluster.dev_id_to_cluster_id(inp)
     partitions = []
     remaining_frac = {}
     p_to_pnum = {}
 
     id = 0
-    for (_, pnum) in solver.dev_par_tuplelist.select(dnum, '*'):
-        if(solver.frac[dnum, pnum].x > 0):
-            p = solver.partitions[pnum]
+    for (_, pnum) in solution.dev_par_tuplelist.select(dnum, '*'):
+        if(get_val(solution.frac[dnum, pnum]) > 0):
+            p = problem.partitions[pnum]
             partitions.append(p)
             p_to_pnum[p] = id
             id += 1
-            remaining_frac[p] = solver.frac[dnum, pnum].x
+            remaining_frac[p] = get_val(solution.frac[dnum, pnum])
 
     flows = []
     for f in inp.flows:
@@ -206,7 +257,7 @@ def get_subproblems(inp, solver):
         for dnum, d in enumerate(devices):
             dev_id_to_dnum[d.dev_id] = dnum
 
-        # TODO:: optimize to only include relevant partitions
+        # HOLD: optimize to only include relevant partitions
         partitions = set()
         flows = []
         for f in inp.flows:
@@ -263,10 +314,10 @@ def log_step(msg, logger=log.info):
 def cluster_refinement(inp):
     Solver = solver_to_class[common_config.solver]
 
-    dont_refine = False
+    # dont_refine = False
     if(common_config.solver == 'Netmon'):
         log_step("Running UnivmonGreedyRows over full topology")
-        dont_refine = True
+        # dont_refine = True
     solver = UnivmonGreedyRows(devices=inp.devices,
                                partitions=inp.partitions,
                                flows=inp.flows, queries=inp.queries,
@@ -339,22 +390,11 @@ def cluster_optimization(inp):
                           md_list=[Namespace()
                                    for i in range(len(inp.devices))])
 
-    def update_solution(solver):
-        if(solver.infeasible):
-            # myinp = Input(devices=solver.devices, flows=solver.flows)
-            # g = get_graph(myinp)
-            # labels = {}
-            # for dnum, d in enumerate(solver.devices):
-            #     labels[dnum] = d.name
-            # nx.draw(g, labels=labels)
-            # plt.show()
-            # import ipdb; ipdb.set_trace()
-            return handle_infeasible(solver.culprit)
-
-        for (dnum, d) in enumerate(solver.devices):
+    def update_solution(problem, solution):
+        for (dnum, d) in enumerate(problem.devices):
             if(isinstance(d, Cluster)):
                 (partitions, flows) = get_partitions_flows(
-                    inp, d, solver, dnum)
+                    inp, d, problem, dnum, solution)
                 # Either both have something or both have nothing
                 assert(len(partitions) > 0 or len(flows) == 0)
                 assert(len(partitions) == 0 or len(flows) > 0)
@@ -364,76 +404,17 @@ def cluster_optimization(inp):
                                         flows=flows))
             else:
                 # Clusters never overlap!!
-                for (_, pnum)in solver.dev_par_tuplelist.select(
+                for (_, pnum)in solution.dev_par_tuplelist.select(
                         dnum, '*'):
-                    p = solver.partitions[pnum]
+                    p = problem.partitions[pnum]
                     placement.frac[d.dev_id, p.partition_id] \
-                        = solver.frac[dnum, pnum].x
+                        = solution.frac[dnum, pnum]
                     placement.mem[d.dev_id, p.partition_id] \
-                        = solver.mem[dnum, pnum].x
+                        = solution.mem[dnum, pnum]
                     # placement.res[d] = d.res().getValue()
                     placement.dev_par_tuplelist.append(
                         (d.dev_id, p.partition_id))
-                    placement.md_list[d.dev_id] = solver.md_list[dnum]
-
-    # *** Parallel processing
-
-    # Using threads
-    # # BFS over device tree
-    # if(common_config.parallel):
-    #     def solver_thread(front):
-    #         devices = front.devices
-    #         partitions = front.partitions
-    #         flows = front.flows
-    #         """
-    #         Python takes a lot of locks while running threads
-    #         Assuming Gurobi spawn a independent dedicated process
-    #         We should be able to overlap the solving times
-    #         """
-    #         solver = Solver(devices=devices, partitions=partitions,
-    #                         flows=flows, queries=inp.queries,
-    #                         dont_refine=True)
-    #         solver.solve()
-
-    #         # TODO:: check if this will work with multiple threads
-    #         # TODO:: Try futures in python!!
-    #         if(solver.infeasible):
-    #             return handle_infeasible(solver.culprit)
-
-    #         for (dnum, d) in enumerate(devices):
-    #             if(isinstance(d, Cluster)):
-    #                 (partitions, flows) = get_partitions_flows(
-    #                     inp, d, solver, dnum)
-    #                 if(len(partitions) > 0 and len(flows) > 0):
-    #                     queue.put(Namespace(devices=d.device_tree,
-    #                                         partitions=partitions,
-    #                                         flows=flows))
-    #             else:
-    #                 # Clusters never overlap!!
-    #                 for (_, pnum)in solver.dev_par_tuplelist.select(dnum, '*'):
-    #                     p = solver.partitions[pnum]
-    #                     placement.frac[d.dev_id, p.partition_id] \
-    #                         = solver.frac[dnum, pnum].x
-    #                     placement.mem[d.dev_id, p.partition_id] \
-    #                         = solver.mem[dnum, pnum].x
-    #                     # placement.res[d] = d.res().getValue()
-    #                     placement.dev_par_tuplelist.append(
-    #                         (d.dev_id, p.partition_id))
-    #                     placement.md_list[d.dev_id] = solver.md_list[dnum]
-
-    #     # Don't support init here
-    #     while(queue.qsize() > 0):
-    #         threads = []
-    #         num_threads = queue.qsize()
-    #         for thread_id in range(num_threads):
-    #             front = queue.get()
-    #             threads.append(
-    #                 threading.Thread(target=solver_thread, args=(front, ))
-    #             )
-    #         for th in threads:
-    #             th.start()
-    #         for th in threads:
-    #             th.join()
+                    placement.md_list[d.dev_id] = solution.md_list[dnum]
 
     if(not common_config.parallel):
         first_run = True
@@ -452,31 +433,77 @@ def cluster_optimization(inp):
                                 dont_refine=True)
             solver.solve()
             first_run = False
-            update_solution(solver)
+
+            if(solver.infeasible):
+                # myinp = Input(devices=solver.devices, flows=solver.flows)
+                # g = get_graph(myinp)
+                # labels = {}
+                # for dnum, d in enumerate(solver.devices):
+                #     labels[dnum] = d.name
+                # nx.draw(g, labels=labels)
+                # plt.show()
+                # import ipdb; ipdb.set_trace()
+                return handle_infeasible(solver.culprit)
+
+            for (dnum, d) in enumerate(solver.devices):
+                if(isinstance(d, Cluster)):
+                    (partitions, flows) = get_partitions_flows(
+                        inp, d, solver, dnum, solver)
+                    # Either both have something or both have nothing
+                    assert(len(partitions) > 0 or len(flows) == 0)
+                    assert(len(partitions) == 0 or len(flows) > 0)
+                    if(len(partitions) > 0 and len(flows) > 0):
+                        queue.put(Namespace(devices=d.device_tree,
+                                            partitions=partitions,
+                                            flows=flows))
+                else:
+                    # Clusters never overlap!!
+                    for (_, pnum)in solver.dev_par_tuplelist.select(
+                            dnum, '*'):
+                        p = solver.partitions[pnum]
+                        placement.frac[d.dev_id, p.partition_id] \
+                            = solver.frac[dnum, pnum].x
+                        placement.mem[d.dev_id, p.partition_id] \
+                            = solver.mem[dnum, pnum].x
+                        # placement.res[d] = d.res().getValue()
+                        placement.dev_par_tuplelist.append(
+                            (d.dev_id, p.partition_id))
+                        placement.md_list[d.dev_id] = solver.md_list[dnum]
+
+    # *** Parallel processing
     else:
         # executer = concurrent.futures.ProcessPoolExecutor(
         #     max_workers=common_config.WORKERS)
         # futures = []
-        pool = ProcessPool(nodes=common_config.WORKERS)
-        while(queue.qsize() > 0):
-            problems = []
-            while(queue.qsize() > 0):
-                front = queue.get()
-                devices = front.devices
-                partitions = front.partitions
-                flows = front.flows
-                solver = Solver(devices=devices, partitions=partitions,
-                                flows=flows, queries=inp.queries,
-                                dont_refine=True)
-                problems.append(solver)
-                # futures.append(executer.submit(runner, solver))
+        # pool = ProcessPool(nodes=common_config.WORKERS)
+        with concurrent.futures.ProcessPoolExecutor(
+                max_workers=common_config.WORKERS) as executor:
 
-            solutions = pool.map(runner, problems)
-            for solution in solutions:
-                update_solution(solution)
-            # for future in futures:
-            #     solver = future.result()
-            #     update_solution(solver)
+            while(queue.qsize() > 0):
+                problems = []
+                while(queue.qsize() > 0):
+                    front = queue.get()
+                    devices = front.devices
+                    partitions = front.partitions
+                    flows = front.flows
+                    solver = Solver(devices=devices, partitions=partitions,
+                                    flows=flows, queries=inp.queries,
+                                    dont_refine=True)
+                    problems.append(solver)
+                    # futures.append(executer.submit(runner, solver))
+
+                solutions = list(executor.map(runner, problems))
+                for prob_num in range(len(problems)):
+                    problem = problems[prob_num]
+                    solution = solutions[prob_num]
+                    if(solution is None):
+                        return None
+                    else:
+                        new_solution = rebuild_solution(solution)
+                        update_solution(problem, new_solution)
+                # for future in futures:
+                #     solver = future.result()
+                #     update_solution(solver)
 
     # import ipdb; ipdb.set_trace()
     log_step('Clustered Optimization complete')

@@ -3,7 +3,8 @@ from collections import namedtuple
 import concurrent.futures
 import multiprocessing as mp
 import time
-# from pathos.pools import ProcessPool
+from pathos.pools import ProcessPool
+from gurobipy import GRB, tupledict, tuplelist
 
 
 class Namespace:
@@ -55,7 +56,9 @@ def myfun(i):
     # print(len(myarr))
     # time.sleep(10)
     # time.sleep(0.8)
-    return [Namespace(num=i) for j in range(1000000)]
+    myn = Namespace(num=i, t=tupledict())
+    myn.t[1,2,3] = i
+    return myn
 
 # PARALLEL PART
 st = time.time()
@@ -63,7 +66,7 @@ st = time.time()
 # futures = []
 # for i in range(WORKERS):
 #     futures.append(executer.submit(myfun, i))
-pool = mp.Pool() # ProcessPool()
+pool = ProcessPool()
 res = pool.map(myfun, [i for i in range(WORKERS)])
 for r in res:
     print(r[0])
@@ -75,11 +78,11 @@ print("Parallel: ", parallel)
 
 # SEQUENTIAL PART
 st = time.time()
-list(map(myfun, [i for i in range(WORKERS)]))
+print(list(map(myfun, [i for i in range(WORKERS)])))
 print(myarr[:5])
 sequential = time.time() - st
 print("Sequential: ", sequential)
-print("Overhead: ", parallel - sequential)
+# print("Overhead: ", parallel - sequential)
 
 
 # from scipy.interpolate import interp1d
