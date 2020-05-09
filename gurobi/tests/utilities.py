@@ -58,8 +58,8 @@ def run_all_with_input(m, inp, solvers=['UnivmonGreedyRows', 'Netmon']):
             .format(m.config_str, m.args_str, solver)))
 
         if(not isinstance(inp, Input)):
-            inp = inp.get_input()
-        solve(inp)
+            myinp = inp.get_input()
+        solve(myinp)
 
     with open(common_config.results_file, 'a') as f:
         f.write("\n")

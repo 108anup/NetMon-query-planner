@@ -55,7 +55,7 @@ def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
 
 
 @pytest.mark.parametrize(
-    "devices_per_cluster", [25, 100, 150, 200]
+    "devices_per_cluster", [25, 50, 100, 150, 200]
 )
 def test_devices_per_cluster(devices_per_cluster):
     # common_config.parallel = True
@@ -78,7 +78,7 @@ def test_devices_per_cluster(devices_per_cluster):
         .format(devices_per_cluster)
     )
     setup_test_meta(m)
-    run_all_with_input(m, inp)
+    run_all_with_input(m, inp, solvers=['Netmon'])
 
 
 @pytest.mark.parametrize("cluster_size, num_cpus", [(0, 20)]
