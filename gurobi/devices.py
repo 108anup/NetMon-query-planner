@@ -101,7 +101,7 @@ class CPU(Device):
         if(md.cores_sketch != 0):
             md.ns_sketch = md.ns_single / md.cores_sketch
         else:
-            assert(md.ns_single <= 0.001)
+            # assert(md.ns_single <= 0.001)
             md.ns_sketch = 0
         f = CPU.fraction_parallel
         dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
@@ -520,7 +520,7 @@ class Cluster(Device):
     # Tree of devices
     # HOLD: should Clusters have cols_pwr_2?
     # Ideally clusters will have some CPUs, so not needed for now
-    cols_pwr_2 = True
+    cols_pwr_2 = False
 
     @memoize
     def transitive_closure(self):

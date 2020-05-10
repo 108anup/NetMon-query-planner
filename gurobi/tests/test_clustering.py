@@ -14,32 +14,30 @@ ut.base_dir = 'outputs/clustering'
 
 @pytest.mark.parametrize(
     "hosts_per_tors, tors_per_l1s, l1s, overlay, "
-    "refine, devices_per_cluster, clusters_per_cluster",
+    "refine, devices_per_cluster, clusters_per_cluster, portion_netronome",
     # [(48, 20, 10, 'none')]
     # combinations(
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
     combinations(
-        [[48], [50], [20], ['tenant'], [False],
-         [150], [1000]]
+        [[48], [20, 50], [20], ['tenant'], [False],
+         [25], [200], [0, 0.5]]
     )
     # combinations(
     #     [[8], [2], [2], ['tenant'], [False]]
     # )
 )
-def test_vary_topo_size_dc_topo_tenant(hosts_per_tors, tors_per_l1s,
-                                       l1s, overlay, refine,
-                                       devices_per_cluster,
-                                       clusters_per_cluster):
+def test_vary_topo_size_dc_topo_tenant(
+        hosts_per_tors, tors_per_l1s, l1s, overlay, refine,
+        devices_per_cluster, clusters_per_cluster, portion_netronome):
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
     num_queries = int(num_hosts*2)
-    inp = TreeTopology(hosts_per_tors, tors_per_l1s, l1s,
-                       num_queries=num_queries,
-                       overlay=overlay, tenant=True,
-                       refine=refine, eps=eps0/10,
-                       queries_per_tenant=16)
+    inp = TreeTopology(
+        hosts_per_tors, tors_per_l1s, l1s, num_queries=num_queries,
+        overlay=overlay, tenant=True, refine=refine, eps=eps0/10,
+        queries_per_tenant=16, portion_netronome=portion_netronome)
     common_config.parallel = True
     common_config.vertical_partition = True
     # common_config.horizontal_partition = True

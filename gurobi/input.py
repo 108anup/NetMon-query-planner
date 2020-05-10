@@ -1247,8 +1247,9 @@ input_generator = [
     # 25
     # Large tenant (10K)
     TreeTopology(hosts_per_tors=48, tors_per_l1s=20,
-                 l1s=4, num_queries=480*4, tenant=True, overlay='tenant',
-                 eps=eps0/100, portion_netronome=0),
+                 l1s=10, num_queries=48*20*10*2, tenant=True, overlay='tenant',
+                 eps=eps0/100, portion_netronome=0.5,
+                 queries_per_tenant=16),
 
     # 26 Clustering Intuition init cant help
     Input(
@@ -1272,11 +1273,10 @@ input_generator = [
 
     # 28
     # Medium tenant (1K)
-    # This basically is an example of spectralA which gives infeasible
-    TreeTopology(hosts_per_tors=48, tors_per_l1s=4,
-                 l1s=4, num_queries=48 * 4 * 4, tenant=True,
+    TreeTopology(hosts_per_tors=48, tors_per_l1s=10,
+                 l1s=10, num_queries=48*100*2, tenant=True,
                  overlay='tenant', refine=False, eps=eps0/10,
-                 queries_per_tenant=8),
+                 queries_per_tenant=16),
 
     # 29
     # Very Large (100K)
