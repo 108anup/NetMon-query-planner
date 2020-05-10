@@ -22,6 +22,7 @@ from input import Input, get_graph, input_generator
 from solvers import (UnivmonGreedyRows, log_placement, log_results,
                      refine_devices, solver_to_class)
 from helpers import get_val
+# from loky import get_reusable_executor
 
 
 # * Helper functions
@@ -144,10 +145,14 @@ def get_cluster_from_overlay(inp, overlay):
         return inp.devices[overlay]
 
 
-# Side effects on device only, create new devices (clusters) for each
-# invocation of solver
-@log_time
-def get_partitions_flows(inp, cluster, problem, dnum, solution):
+get_partition_flows_problems = []
+def get_partitions_flows(idx):
+    inp = get_partition_flows_problems[idx].inp
+    cluster = get_partition_flows_problems[idx].cluster
+    problem = get_partition_flows_problems[idx].problem
+    dnum = get_partition_flows_problems[idx].dnum
+    solution = get_partition_flows_problems[idx].solution
+
     dev_id_to_cluster_id = cluster.dev_id_to_cluster_id(inp)
     partitions = []
     remaining_frac = {}
@@ -390,18 +395,15 @@ def cluster_optimization(inp):
                           md_list=[Namespace()
                                    for i in range(len(inp.devices))])
 
+    @log_time(logger=log.info)
     def update_solution(problem, solution):
+        get_partition_flows_problems.clear()
         for (dnum, d) in enumerate(problem.devices):
             if(isinstance(d, Cluster)):
-                (partitions, flows) = get_partitions_flows(
-                    inp, d, problem, dnum, solution)
-                # Either both have something or both have nothing
-                assert(len(partitions) > 0 or len(flows) == 0)
-                assert(len(partitions) == 0 or len(flows) > 0)
-                if(len(partitions) > 0 and len(flows) > 0):
-                    queue.put(Namespace(devices=d.device_tree,
-                                        partitions=partitions,
-                                        flows=flows))
+                _prob = Namespace(
+                    inp=inp, cluster=d, problem=problem,
+                    dnum=dnum, solution=solution)
+                get_partition_flows_problems.append(_prob)
             else:
                 # Clusters never overlap!!
                 for (_, pnum)in solution.dev_par_tuplelist.select(
@@ -415,6 +417,26 @@ def cluster_optimization(inp):
                     placement.dev_par_tuplelist.append(
                         (d.dev_id, p.partition_id))
                     placement.md_list[d.dev_id] = solution.md_list[dnum]
+
+        _probs = len(get_partition_flows_problems)
+        if(_probs > 0):
+            _prob_nums = [i for i in range(len(get_partition_flows_problems))]
+            with concurrent.futures.ProcessPoolExecutor(
+                    max_workers=common_config.WORKERS) as executor:
+                _solutions = list(executor.map(
+                    get_partitions_flows,
+                    _prob_nums))
+
+            for _pnum, _prob in enumerate(get_partition_flows_problems):
+                (partitions, flows) = _solutions[_pnum]
+                d = _prob.cluster
+                # Either both have something or both have nothing
+                assert(len(partitions) > 0 or len(flows) == 0)
+                assert(len(partitions) == 0 or len(flows) > 0)
+                if(len(partitions) > 0 and len(flows) > 0):
+                    queue.put(Namespace(devices=d.device_tree,
+                                        partitions=partitions,
+                                        flows=flows))
 
     if(not common_config.parallel):
         first_run = True
@@ -447,8 +469,12 @@ def cluster_optimization(inp):
 
             for (dnum, d) in enumerate(solver.devices):
                 if(isinstance(d, Cluster)):
-                    (partitions, flows) = get_partitions_flows(
-                        inp, d, solver, dnum, solver)
+                    _prob = Namespace(
+                        inp=inp, cluster=d, problem=solver,
+                        dnum=dnum, solution=solver)
+                    get_partition_flows_problems.clear()
+                    get_partition_flows_problems.append(_prob)
+                    (partitions, flows) = get_partitions_flows(0)
                     # Either both have something or both have nothing
                     assert(len(partitions) > 0 or len(flows) == 0)
                     assert(len(partitions) == 0 or len(flows) > 0)
@@ -472,13 +498,9 @@ def cluster_optimization(inp):
 
     # *** Parallel processing
     else:
-        # executer = concurrent.futures.ProcessPoolExecutor(
-        #     max_workers=common_config.WORKERS)
-        # futures = []
-        # pool = ProcessPool(nodes=common_config.WORKERS)
+        # executor = get_reusable_executor(common_config.WORKERS)
         with concurrent.futures.ProcessPoolExecutor(
                 max_workers=common_config.WORKERS) as executor:
-
             while(queue.qsize() > 0):
                 problems = []
                 while(queue.qsize() > 0):
@@ -490,7 +512,6 @@ def cluster_optimization(inp):
                                     flows=flows, queries=inp.queries,
                                     dont_refine=True)
                     problems.append(solver)
-                    # futures.append(executer.submit(runner, solver))
 
                 solutions = list(executor.map(runner, problems))
                 for prob_num in range(len(problems)):
@@ -501,9 +522,7 @@ def cluster_optimization(inp):
                     else:
                         new_solution = rebuild_solution(solution)
                         update_solution(problem, new_solution)
-                # for future in futures:
-                #     solver = future.result()
-                #     update_solution(solver)
+        # executor.shutdown()
 
     # import ipdb; ipdb.set_trace()
     log_step('Clustered Optimization complete')

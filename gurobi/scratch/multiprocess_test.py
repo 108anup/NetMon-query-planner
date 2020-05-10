@@ -28,7 +28,7 @@ class Namespace:
 
 mycls = namedtuple("mycls", "num")
 myarr = [Namespace(num=-1) for i in range(1000000)]
-
+myarr_n = Namespace(myar=myarr)
 
 # class MyClass():
 #     def print_len(self):
@@ -42,6 +42,7 @@ WORKERS = 4
 #     obj.arr = myarr
 
 
+_probs = []
 def myfun(i):
     # print(i, id(myarr), id(myarr[i]))
     # myarr[i].num = 100
@@ -52,13 +53,17 @@ def myfun(i):
     # print(objs[i].arr[i])
     # objs[i].print_len()
     # objs[i].arr[i].hello = 3
-    print(len(myarr))
+    print(len(_probs[i].myar))
     # print(len(myarr))
     # time.sleep(10)
     # time.sleep(0.8)
-    myn = Namespace(num=i, t=tupledict())
-    myn.t[1,2,3] = i
-    return myn
+    # myn = Namespace(num=i, t=tupledict())
+    # myn.t[1,2,3] = i
+    return 1
+
+
+for i in range(WORKERS):
+    _probs.append(myarr_n)
 
 # PARALLEL PART
 st = time.time()
@@ -68,8 +73,6 @@ st = time.time()
 #     futures.append(executer.submit(myfun, i))
 pool = ProcessPool()
 res = pool.map(myfun, [i for i in range(WORKERS)])
-for r in res:
-    print(r[0])
 print(myarr[:5])
 # for i in range(WORKERS):
 #     futures[i].result()
