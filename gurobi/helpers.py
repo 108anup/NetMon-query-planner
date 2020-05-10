@@ -21,8 +21,10 @@ def get_val(v):
         return v
     if(isinstance(v, gp.Var)):
         return v.x
-    else:
+    try:
         return v.getValue()
+    except AttributeError:
+        return v
 
 
 def log_vars(m, logger=partial(log.log, logging.DEBUG-1)):
