@@ -19,8 +19,16 @@ ut.base_dir = 'outputs/clustering'
     # combinations(
     #     [[48], [2, 10, 20], [2, 4, 10], ['tenant'], [True, False]]
     # )
+
+    # Large
+    # combinations(
+    #     [[48], [20, 50], [20], ['tenant'], [False],
+    #      [25], [200], [0, 0.5]]
+    # )
+
+    # Medium
     combinations(
-        [[48], [20, 50], [20], ['tenant'], [False],
+        [[48], [10, 20], [4, 10], ['tenant'], [False],
          [25], [200], [0, 0.5]]
     )
     # combinations(

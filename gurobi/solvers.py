@@ -126,7 +126,7 @@ class MIP(Namespace):
             self.frac = tupledict()
             for (dnum, d) in enumerate(self.devices):
                 tuples = self.dev_par_tuplelist.select(dnum, '*')
-                if(d.cols_pwr_2):
+                if(d.cols_pwr_2 or isinstance(d, Cluster)):
                     self.frac.update(
                         self.m.addVars(tuples, vtype=GRB.BINARY, name='frac')
                     )
