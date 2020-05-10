@@ -43,7 +43,7 @@ class CPU(Device):
     fraction_parallel = 3/4
     # static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
     # s_rows = [0, 2, 3, 4, 5, 6, 7, 8, 9]
-    cache = {}  # TODO: see if there is more performant cache
+    # cache = {}  # HOLD: see if there is more performant cache
     fixed_thr = False
     cols_pwr_2 = False
 

@@ -1,0 +1,478 @@
+#+PRIORITIES: A C N
+#+OPTIONS: \n:t
+#+TAGS: implement(i) experiment(e) discuss(e) writing(w)
+
+bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
+
+* Things that must be done
+  DEADLINE: <2020-05-17 Sun>
+  :PROPERTIES:
+  :COLUMNS: %TODO(STATUS) %70ITEM(TASK) %TIME(EFFORT){:} %DEADLINE(EXPECTED COMPLETION) %ASSIGNED %PRIORITY
+  :ASSIGNED_All: Alan Anup Srini
+  :ID:       264caa17-5edb-4762-94c9-2d89f7b0ecd4
+  :END:
+** TODO [#A] Better name for our system                             :writing:
+   - SPARE (Scalable, Performant, Accurate and Resource Efficient)
+   - NetMon
+** HOLD [#A] [3/5] Fix and incorporate netronome NIC with solver :implementation:
+   DEADLINE: [2020-05-05 Tue]
+   :PROPERTIES:
+   :TIME:     1d 0:00
+   :COOKIE_DATA: todo recursive
+   :END:
+*** DONE [#A] Basic model                                    :implementation:
+    CLOSED: [2020-05-05 Tue 12:50]
+*** DONE [#A] Why is the model wrong in some cases               :experiment:
+    CLOSED: [2020-05-05 Tue 12:59]
+    :PROPERTIES:
+    :TIME:     0.5d
+    :END:
+    Hypothesis: +contention at cache write buffers+
+    
+    Experiment: (new model)
+    [[file:~/Netmon/NetMon-query-planner/gurobi/device_models/netro-model-expl.png][file:~/Netmon/NetMon-query-planner/gurobi/device_models/netro-model-expl.png]]
+    [[file:~/Netmon/NetMon-query-planner/gurobi/device_models/netro-model.png]]
+
+    Conclusion:
+    The flat part can resemble either of hashing or memory in different settings
+    Slope value 1 (slope of flat parts of red line) comes from => hashing, 
+    Slope value 3 (slope of flat parts of purple line) comes from => memory bottleneck
+
+    :q: What does the slope of the flat part mean?
+    :a: There are multiple flat parts in the graph, if we connect 
+    the midpoints of each of those flat parts we are considering the slope of that line connecting midpoints
+    
+*** Netronome resources                                          :experiment:
+**** DONE [#A] ME count
+     CLOSED: [2020-05-07 Thu 13:22]
+     :PROPERTIES:
+     :TIME:     0.5d
+     :END:
+     
+     [[file:~/Netmon/NetMon-query-planner/gurobi/device_models/netro-model-expl.png][file:~/Netmon/NetMon-query-planner/gurobi/device_models/netro-model-36me.png]]
+     Hashing and forwarding throughput scale inverse linearly with micro engine count
+     Memory throughput is independent of microengine count
+
+**** HOLD [#C] ME percentage usage
+
+*** HOLD [#C] use both imem and emem              :implementation:experiment:
+** DONE [#A] [3/3] Scalability and optimality
+   CLOSED: [2020-05-10 Sun 13:29] DEADLINE: <2020-05-07 Thu> SCHEDULED: <2020-05-05 Tue>
+*** DONE [#A] Find an input where Netmon with clustering is better than Univmon without clustering                                                              :experiment:
+    CLOSED: [2020-05-10 Sun 13:29]
+*** DONE [#A] Parallelize Solver                                                          :implementation:
+    CLOSED: [2020-05-10 Sun 13:29]
+    :PROPERTIES:
+    :TIME:     1d
+    :END:
+*** DONE [#A] Intelligently decide the Cluster sizes                                                      :implementation:
+    CLOSED: [2020-05-07 Thu 13:23]
+    :PROPERTIES:
+    :TIME:     0.5d
+    :END:
+** PROG [#B] Memoization / Calculate optima when placement is known directly without using Gurobi
+   DEADLINE: <2020-05-08 Fri>
+   :PROPERTIES:
+   :TIME:     0.5d
+   :END:
+*** DONE [#B] make memoization key more precise                                                          :implementation:
+    CLOSED: [2020-05-10 Sun 13:29]
+    :PROPERTIES:
+    :TIME:
+    :END:
+*** TODO [#B] need to change memoization input after traffic demand incorporation                                                          :implementation:
+    :PROPERTIES:
+    :TIME:
+    :END:
+** PROG [#A] Incorporate traffic demands in input                                                           :implementation:
+   DEADLINE: <2020-05-08 Fri>
+   :PROPERTIES:
+   :TIME:     1d
+   :END:
+*** DONE [#A] How to evaluate this                                                             :discuss:
+    CLOSED: [2020-05-05 Tue 12:50]
+    Other (prior) techniques have no notion of traffic requirements.
+    We can show how much do they diverge from the traffic constraints.
+**** [#A] We should claim per device resource allocation as a contribution
+     In Netronome, when memory is bottleneck, we can reduce microengine count so that
+     forwarding and hashing throughput are close to memory throughput.
+     This was only possible after we build the models.
+
+     And we should compare resource allocation of our solver
+     with static allocation of resources (fixed core or microengine counts).
+
+     Basically, the 2 things are different: 
+     1. traffic (indirectly performance) aware resource allocation and,
+     2. traffic (indirectly performance or compute resources) aware sketch placement
+
+     Summary of schemes to run:
+     1. sketch placement: static placement (place sketch on origin, place sketch on first switch) (ingress monitoring)
+        resource allocation:
+        1. static (fixed core and micro engine count)
+        2. use profiles (based on the sketches placed on this device, how many microengines/cores are needed to support some throughput)
+     2. sketch placement: Memory aware = Univmon (ILP) + constraints for (row capacity & cols should be power of 2)
+        resource allocation: static, use profiles
+     3. sketch placement: Prioritize switches because of line rate guarantees = Memory aware + greedy
+        resource allocation: static, use profiles
+     4. our approach: join placement and resource allocation using device profiles
+
+     Objectives to run:
+     1. Known traffic demands (performance as a constraint, resource as objective)
+        What we expect to see without joint placement and resource allocation
+        1. Static resource allocation will over provision resources to support unknown traffic
+           1. Traffic can be supported but with max (static) resource usage
+           2. Traffic cannot be supported
+        2. Use profiles for resource allocation
+           1. Traffic can be supported but with very high resource usage
+           2. Traffic cannot be supported at all
+        With joint placement and allocation we expect to see
+        1. If feasible then low resource usage (it is still possible that demand is too high to support)
+
+     2. Traffic demand unknown (performance and resource both as objective)
+        + Just to demonstrate the degree of resource consumption reduced.
+          Each flow has k (one or 2) sketches to update, we maximize the minimum throughput of any device.
+        + Though, this objective will be very different from throughput witnessed by a flow.
+          Throughput of a device will be divided between flows passing through it, and throughput of a flow would be the minimum of its throughput share on each device on its path.
+
+**** [#C] Sensitivity Analysis / Parameter choice justification
+     What figure of merit to use and what inputs to use?
+     Parameter Sensitivity analysis / Parameter choice justification / validation:
+     1. Partitioning
+        1. Horizontal
+        2. Vertical
+        3. Both
+        4. None
+     2. Allow or don't allow partitioning of cols on P4/Netronome
+     3. Cluster sizes / number of clusters
+     4. Cluster of cluster sizes (above and this are different)
+
+** [#A] OpenVSwitch style and multicore implementation
+   DEADLINE: <2020-05-10 Sun>
+   :PROPERTIES:
+   :TIME:     1d 0:00
+   :END:
+*** TODO [#A] profiling and verification of OVS with sketching                                                          :experiment:
+    :PROPERTIES:
+    :TIME:     0.5d
+    :END:
+    The forwarding numbers were for DPDK, need to consider overhead of OVS
+*** TODO [#A] multicore sketching implementation                                                      :implementation:
+    :PROPERTIES:
+    :TIME:     0.5d
+    :END:
+    Sketches run on cores separate from forwarding.
+    Forwarding path should not be affected by sketching.
+    Till now, I assumed we will get perfect parallelization from implementing sketches on multiple cores 
+    (there might be contention at L3 which might counter this assumption)
+** TODO [#A] Solver Input generation                         :implementation:
+   DEADLINE: <2020-05-11 Mon>
+   :PROPERTIES:
+   :TIME:     1d
+   :END:
+*** Topology generator
+    :PROPERTIES:
+    :END:
+**** DONE Tree
+     :PROPERTIES:
+     :ASSIGNED: Anup
+     :END:
+**** Clos
+     :PROPERTIES:
+     :ASSIGNED: Anup
+     :END:
+**** Internet2
+     :PROPERTIES:
+     :ASSIGNED: Alan
+     :END:
+**** TopologyZoo
+     :PROPERTIES:
+     :ASSIGNED: Alan
+     :END:
+**** Others
+     :PROPERTIES:
+     :ASSIGNED: Alan
+     :END:
+*** Traffic demand generator
+    :PROPERTIES:
+    :ASSIGNED: Alan
+    :END:
+*** Sketch requirement generator
+** TODO [#A] Handling changes in topology and requirements                                           :implementation:experiment:
+   DEADLINE: <2020-05-14 Thu>
+   :PROPERTIES:
+   :TIME:     3d
+   :END:
+** [#B] Evaluation device profiles - one device at a time
+   DEADLINE: <2020-05-17 Sun>
+   :PROPERTIES:
+   :TIME:     2d 0:00
+   :END:
+   We want to be able to show that our profiles are accurate.
+   We do 2 things for this:
+   1. Generate sketch configurations (manifests) by scaling rows and columns
+   2. Take a decent size sample of sketch manifests generated by the solver for different devices
+      and test those manifests specifically. This step is done because we can't exhaustively test
+      all possible manifests.
+*** TODO setup - convert solver output to running script and profiling task                                                        :implementation:
+    :PROPERTIES:
+    :TIME:     1d
+    :END:
+*** TODO running                                                            :experiment:
+    :PROPERTIES:
+    :TIME:     1d
+    :END:
+** TODO [#B] Add more types of sketches           :implementation:experiment:
+   :PROPERTIES:
+   :TIME:     1d 0:00
+   :END:
+   1. Count Sketch
+   2. Univmon
+   3. HyperLogLog
+   4. Hierarchical Heavy Hitters?
+*** TODO Non linear accuracy relations                           :experiment:
+    :PROPERTIES:
+    :TIME:     1d
+    :END:
+** TODO [#C] Prototype evaluation (can't do without physical conn changes, can do some?)                                           :implementation:experiment:
+   :PROPERTIES:
+   :TIME:
+   :END:
+** PROG [#C] Alternate faster clustering approaches                                                           :implementation:
+   :PROPERTIES:
+   :TIME:     1d
+   :END:
+   The scipy implementation of spectral clustering seems to take a lot of time for 100k nodes (over night) O(n^3).
+   Based on [[https://hdbscan.readthedocs.io/en/latest/performance_and_scalability.html][clustering-bench]] sklearn spectral is slow (interactive only for 5000 nodes).
+   
+   One alternative could be [[https://hdbscan.readthedocs.io/en/latest/how_hdbscan_works.html][hdbscan]], which is very fast.
+   Need to see if it can give us good clusters that we need.
+
+   Based on [[https://www.ijcai.org/Proceedings/13/Papers/222.pdf][large scale spectral clustering]], Another alternative is approximate spectral clustering techniques can be used which are much faster.
+** TODO [#C] Performance vs system load                      :implementation:
+   :PROPERTIES:
+   :TIME:     3d
+   :END:
+   As load on the system changes the overall packet rate supported by a device might change.
+   Example:
+   1. As other memory heavy programs run on CPU, L3 cache contention might slow down sketching
+   2. As other forwarding tasks share micro engine resources forwarding might slow down
+** TODO [#C] Need to email barefoot Faster with paper 10 days before for checking IP violations
+** TODO [#B] Mix cluster refinement and cluster optimization
+   :PROPERTIES:
+   :TIME:     2d
+   :END:
+** Summary Table of TODOs
+   :PROPERTIES:
+   :TIME:
+   :END:
+#+BEGIN: columnview :hlines 2 :indent t :id 264caa17-5edb-4762-94c9-2d89f7b0ecd4
+| STATUS | TASK                                                                                       |   EFFORT | EXPECTED COMPLETION | ASSIGNED | PRIORITY |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+|        | Things that must be done                                                                   | 18d 0:00 | <2020-05-17 Sun>    |          | N        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO   | \_  Better name for our system                                                             |          |                     |          | A        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| HOLD   | \_  [3/5] Fix and incorporate netronome NIC with solver                                    |  1d 0:00 | [2020-05-05 Tue]    |          | A        |
+| DONE   | \_    Basic model                                                                          |          |                     |          | A        |
+| DONE   | \_    Why is the model wrong in some cases                                                 |     0.5d |                     |          | A        |
+|        | \_    Netronome resources                                                                  |    12:00 |                     |          | N        |
+| DONE   | \_      ME count                                                                           |     0.5d |                     |          | A        |
+| HOLD   | \_      ME percentage usage                                                                |          |                     |          | C        |
+| HOLD   | \_    use both imem and emem                                                               |          |                     |          | C        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| DONE   | \_  [3/3] Scalability and optimality                                                       | 1d 12:00 | <2020-05-07 Thu>    |          | A        |
+| DONE   | \_    Find an input where Netmon with clustering is better than Univmon without clustering |          |                     |          | A        |
+| DONE   | \_    Parallelize Solver                                                                   |       1d |                     |          | A        |
+| DONE   | \_    Intelligently decide the Cluster sizes                                               |     0.5d |                     |          | A        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| PROG   | \_  Memoization / Calculate optima when placement is known directly without using Gurobi   |     0.5d | <2020-05-08 Fri>    |          | B        |
+| DONE   | \_    make memoization key more precise                                                    |          |                     |          | B        |
+| TODO   | \_    need to change memoization input after traffic demand incorporation                  |          |                     |          | B        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| PROG   | \_  Incorporate traffic demands in input                                                   |       1d | <2020-05-08 Fri>    |          | A        |
+| DONE   | \_    How to evaluate this                                                                 |          |                     |          | A        |
+|        | \_      We should claim per device resource allocation as a contribution                   |          |                     |          | A        |
+|        | \_      Sensitivity Analysis / Parameter choice justification                              |          |                     |          | C        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+|        | \_  OpenVSwitch style and multicore implementation                                         |  1d 0:00 | <2020-05-10 Sun>    |          | A        |
+| TODO   | \_    profiling and verification of OVS with sketching                                     |     0.5d |                     |          | A        |
+| TODO   | \_    multicore sketching implementation                                                   |     0.5d |                     |          | A        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO   | \_  Solver Input generation                                                                |       1d | <2020-05-11 Mon>    |          | A        |
+|        | \_    Topology generator                                                                   |          |                     |          | N        |
+| DONE   | \_      Tree                                                                               |          |                     | Anup     | N        |
+|        | \_      Clos                                                                               |          |                     | Anup     | N        |
+|        | \_      Internet2                                                                          |          |                     | Alan     | N        |
+|        | \_      TopologyZoo                                                                        |          |                     | Alan     | N        |
+|        | \_      Others                                                                             |          |                     | Alan     | N        |
+|        | \_    Traffic demand generator                                                             |          |                     | Alan     | N        |
+|        | \_    Sketch requirement generator                                                         |          |                     |          | N        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO   | \_  Handling changes in topology and requirements                                          |       3d | <2020-05-14 Thu>    |          | A        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+|        | \_  Evaluation device profiles - one device at a time                                      |  2d 0:00 | <2020-05-17 Sun>    |          | B        |
+| TODO   | \_    setup - convert solver output to running script and profiling task                   |       1d |                     |          | N        |
+| TODO   | \_    running                                                                              |       1d |                     |          | N        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO   | \_  Add more types of sketches                                                             |  1d 0:00 |                     |          | B        |
+| TODO   | \_    Non linear accuracy relations                                                        |       1d |                     |          | N        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO   | \_  Prototype evaluation (can't do without physical conn changes, can do some?)            |          |                     |          | C        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| PROG   | \_  Alternate faster clustering approaches                                                 |       1d |                     |          | C        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO   | \_  Performance vs system load                                                             |       3d |                     |          | C        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO   | \_  Need to email barefoot Faster with paper 10 days before for checking IP violations     |          |                     |          | C        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO   | \_  Mix cluster refinement and cluster optimization                                        |       2d |                     |          | B        |
+|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+|        | \_  Summary Table of TODOs                                                                 |          |                     |          | N        |
+#+END:
+
+
+* Our assumptions                                                     :paper:
+** Heap overheads
+*** HHs are reported using separate packets at a low enough frequency that  has negligible performance overhead.
+*** Q/A
+    :q: What about static overhead of reporting HH in P4, calculating min?
+    :a: No need to calculate min, if at any point value exceeds threshold, just report. The controller will take care of min operations.
+    The memory can be polled using control plane apps (netro, tofino) and using shared memory regions in CPU    
+
+
+* Discussion (subtleties)                                             :paper:
+** sometimes Netmon can take more resources, discuss??              :discuss:
+   This happens when different clusters have different ns and Netmon places to optimize for that ns
+   This problem does not arise if we have a traffic requirement
+** restricting cols to power of 2 alleviates need to constrain packing in P4, along with being feasible
+
+
+* Design details                                                      :paper:
+** multi core CPU sketch                                    :discuss:
+   1. different rows on different 
+   2. packet spraying based on some key in header
+      + This will cause extra L1 / L2 memory.
+      + For non linear accuracy models, this will require more memory
+
+        
+* Background and Motivation
+** monitoring tasks
+*** HH, Distinct, HHH
+** Sketches
+*** CM, CS, Univmon
+** TODO Uses of monitoring (can look for more relevant examples) :writing:
+   - Security (VM compromise detection cite:private-eye)
+   - Resource Provisioning (cite:traffic-demands-application)
+   - Billing (cite:accounting-application)
+** Expectations from network operators
+*** Performance 
+**** cite:private-eye
+     At each end host, for every 10s:
+     Flow sample and keep data for 5000 flows at a time, a sketch can do better by providing a better mem-accuracy trade-off
+      
+     It is relevant for us as:
+     + Queries can be captured using HH
+       + Bytes sent to IP a.b.c.d over time by each VM
+       + Flow size distribution for each VM
+     They use CDFs which they bucket into top 1%, 10% etc. => HH style query
+*** Resources
+    cite:vcrib "RackSpace operators prefer not to dedicate even a portion of a server core for rule processing [6]"
+    cite:microsoft-fpga cores are money
+    cite:vcrib TCAM power hungry
+*** Accuracy
+    Obvious?
+    cite:private-eye carefully chooses 5000 based on fraction of VMs which have more than 5000 flows.
+*** Network-wide (need both end-hosts and in-network devices)
+    cite:private-eye NetFlow/IPFix do not capture flows that do not traverse the network core.
+    cite:pathdump packets may not reach the destination etc. (spurious drops)
+    - can use HH to count packets dropped per flow / origin as well
+    With NetCache like works, packets again may not reach servers
+*** Predictability and reliability
+    cite:microsoft-fpga cloud providers and network operators don't like variability in performance
+*** Choose right sampling method according to situation: Flow-sampling
+    cite:private-eye NetFlow/IPFix systems are used for traffic engineering,
+    DDOS protection, and other tasks. They run on core
+    routers and sample 1 out of 4096 packets traversing the network core. 
+    Biased towards heavy flows
+*** There is a benefit of a central monitoring requirement store
+    If left to the will of tenants in cloud settings, multiple tenants can
+** Prior approaches have had good insights
+   cite:csamp => hash based coordination, flow sampling, optimal placement
+   But these are no longer sufficient!
+** Devices are changing
+*** Memory is not a proxy for cost
+    Cost vs memory is not strictly monotonic, it can have flat parts.
+
+    If we only consider memory then we will put a lot of load on CPU (high capacity)
+    This will lead to either high resource usage (CPU cores)
+    or lead to poor performance (low throughput)
+    => Need to consider compute resources / performance
+*** Some devices have discrete resources like cores (polled)
+    This introduces a concept of fitting, (flat cost)
+    Can show cost vs sketch manifest graph (step wise)
+*** Flexibility - other works talk about
+    - difference in flexibility
+      - reassembly
+      - complex control flow
+    We can say that for queries requiring reassembly type operations we need to incorporate CPUs
+**** TODO Are there sketches which can only be implemented on one type of device?
+*** Have a notion of expected performance
+** Current solutions are falling short of addressing trends in modern networks
+   cite:private-eye can do much better (more accuracy, lower performance/resource overhead)
+   cite:vcrib rule / sampling based -> can use sketches for lower resource usage (hence better performance)
+   cite:univmon memory as proxy for load -> will lead to high perf overhead for CPUs
+   if not leveraging step wise then loosing out on benefits
+    
+
+* Micro optimizations in code
+** keep a single bench profile rather than copying the variables for each device. :implementation:
+   This might change when we add device load as well
+   
+
+* Meeting updates
+** <2020-05-04 Mon>
+   - Doing vertical partitioning only on CPU seems to give same benefits
+   - Discuss netronome model
+   - Discuss timeline and outline
+   - emulab setup
+   - Why is overlay=none taking lesser time.
+   :q: Why is selective refinement degrading solution. 
+   :a: due to wrong caching, don't take ceiling or floor of rows -> sensitive param!
+
+   
+* Emulab setup
+  Got 4x Mellanox NICs (16, 17, 18, 19)
+  Got 2x Intel NICs (20, 22)
+  Got 2x Netronome NICs (12, 13)
+  Got 2x Tofino switches (T1, T2)
+
+  Propsed changes:
+  beluga12:netro0 - tofino1:7
+  beluga13:netro0 - tofino2:7
+
+  beluga20:fge0 - tofino1:8
+  beluga21:fge0 - tofino1:9
+  beluga20:fge1 - tofino2:3
+  beluga21:fge1 - tofino2:4
+
+  beluga16:fge1 - tofino2:5
+  beluga17:fge1 - tofino2:6
+
+  Original:
+  tofino1:1 - beluga14:fge0
+  tofino1:2 - beluga15:fge0
+  tofino1:3 - beluga16:fge0
+  tofino1:4 - beluga17:fge0
+  tofino1:5 - beluga18:fge0
+  tofino1:6 - beluga19:fge0
+  tofino1:32 - tofino2:32
+  beluga14:fge1 - beluga15:fge1
+  beluga16:fge1 - beluga17:fge1
+  beluga18:fge1 - tofino2:1
+  beluga19:fge1 - tofino2:2
+  beluga20:fge0 - beluga21:fge0
+  beluga22:fge0 - beluga3:fge1
+  beluga22:fge1 - beluga4:fge1
+  beluga1:fge0 - beluga2:fge0
+  beluga12:fge1 - beluga13:fge1
+  beluga12:netro0 - beluga13:netro0
