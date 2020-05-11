@@ -64,7 +64,7 @@ beluga20 = {
 
 tofino = {
     'profile_name': "tofino",
-    'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 148,
+    'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 5208.33,
     'max_mpr': 512, 'max_mem': 512 * 12, 'max_rows': 12 * 4, 'max_col_bits': 17
 }
 
@@ -515,6 +515,8 @@ class TreeTopology():
                                   + generate_overlay(
                                       [self.tors + self.l1s + 1],
                                       self.hosts + self.num_netronome))
+            flows_per_host = (flows_per_query * self.queries_per_tenant
+                              / self.hosts_per_tenant)
 
             for (tnum, t) in enumerate(tenant_servers):
                 query_set = [i + tnum*self.queries_per_tenant
@@ -530,7 +532,8 @@ class TreeTopology():
                     flows.append(
                         flow(
                             path=self.get_path(self.g, h1, h2),
-                            queries=[(q, cov)]
+                            queries=[(q, cov)],
+                            thr=40/(flows_per_host * 2)
                         )
                     )
         else:
@@ -923,7 +926,7 @@ input_generator = [
         ],
         # Change when metric filters are modified
         flows=[
-            flow(path=(0, 1), queries=[(0, 1)]),
+            flow(path=(0, 1), queries=[(0, 1)], thr=70),
         ]
     ),
 
@@ -1240,9 +1243,9 @@ input_generator = [
 
     # 24
     # Small tenant (100)
-    TreeTopology(hosts_per_tors=8, num_queries=4*30, tenant=True,
-                 eps=eps0, overlay='spectralA', refine=True,
-                 queries_per_tenant=30, portion_netronome=0),
+    TreeTopology(hosts_per_tors=8, num_queries=4*40, tenant=True,
+                 eps=eps0, overlay='tenant', refine=True,
+                 queries_per_tenant=40, portion_netronome=0),
 
     # 25
     # Large tenant (10K)
@@ -1319,7 +1322,7 @@ input_generator = [
         ],
         # Change when metric filters are modified
         flows=[
-            flow(path=(0,), queries=[(0, 1)]),
+            flow(path=(0,), queries=[(0, 1)], thr=20),
         ]
     ),
 ]

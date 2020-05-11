@@ -129,5 +129,6 @@ def setup_logging(args):
 
 constants = Namespace(
     cell_size=4,
-    KB2B=1024
+    KB2B=1024,
+    NS_LARGEST=1000
 )

@@ -113,15 +113,17 @@ class CPU(Device):
 
     # TODO: Can remove clutter from here!
     def add_ns_constraints(self, m, md, ns_req=None):
-        rows = md.rows_tot
+        # rows = md.rows_tot
         mem = md.mem_tot
+        rows_thr = md.rows_thr
+        ns_req = md.ns_req
 
         # Either both should be True or neither should be True
-        assert(isinstance(rows, (int, float))
+        assert(isinstance(rows_thr, (int, float))
                == isinstance(mem, (int, float)))
-        if(isinstance(rows, (int, float))):
+        if(isinstance(rows_thr, (int, float))):
             md.m_access_time = self.get_mem_access_time(mem)
-            md.ns_single = rows * (md.m_access_time + self.hash_ns)
+            md.ns_single = rows_thr * (md.m_access_time + self.hash_ns)
 
             # If it is None then directly use set_thr function
             # Using assert because there is no need for creating model m
@@ -144,11 +146,11 @@ class CPU(Device):
             md.ns_single = m.addVar(vtype=GRB.CONTINUOUS,
                                     name='ns_single_{}'.format(self))
             md.pdt_m_rows = self.get_pdt_var(md.m_access_time,
-                                             rows, 'm_rows', m, 1)
+                                             rows_thr, 'm_rows', m, 1)
             # m.addConstr(self.t * self.Li_ns[0] + self.pdt_m_rows
             #             + rows * self.hash_ns
             #             <= self.ns_single, name='ns_single_{}'.format(self))
-            m.addConstr(md.pdt_m_rows + rows * self.hash_ns
+            m.addConstr(md.pdt_m_rows + rows_thr * self.hash_ns
                         == md.ns_single,
                         name='ns_single_{}'.format(self))
 
@@ -228,11 +230,10 @@ class CPU(Device):
             return ""
 
     def get_ns(self, md):
-        # TODO: Measure the impact of using int here
         mem_tot = get_rounded_val(get_val(md.mem_tot))
-        rows_tot = get_rounded_val(get_val(md.rows_tot))
+        rows_thr = get_rounded_val(get_val(md.rows_thr))
         m_access_time = self.get_mem_access_time(mem_tot)
-        ns_single = rows_tot * (m_access_time + self.hash_ns)
+        ns_single = rows_thr * (m_access_time + self.hash_ns)
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
         f = CPU.fraction_parallel
 
@@ -352,15 +353,16 @@ class Netronome(Device):
         md.ns = max(md.ns_hash, md.ns_fwd, md.ns_mem_max)
 
     def add_ns_constraints(self, m, md, ns_req=None):
-        rows = md.rows_tot
+        rows_thr = md.rows_thr
         mem = md.mem_tot
         md.ns_fwd_max = 1000 / self.line_thr
 
-        assert(isinstance(rows, (int, float)) == isinstance(mem, (int, float)))
-        if(isinstance(rows, (int, float))):
+        assert(isinstance(rows_thr, (int, float))
+               == isinstance(mem, (int, float)))
+        if(isinstance(rows_thr, (int, float))):
             md.m_access_time = self.get_mem_access_time(mem)
-            md.ns_mem_max = self.mem_const + rows * md.m_access_time
-            md.ns_hash_max = self.hashing_const + self.hashing_slope * rows
+            md.ns_mem_max = self.mem_const + rows_thr * md.m_access_time
+            md.ns_hash_max = self.hashing_const + self.hashing_slope * rows_thr
 
             if(ns_req is not None):
                 assert(m is None)
@@ -376,14 +378,14 @@ class Netronome(Device):
             md.ns_mem_max = m.addVar(vtype=GRB.CONTINUOUS,
                                      name='ns_mem_max_{}'.format(self))
             md.pdt_m_rows = self.get_pdt_var(md.m_access_time,
-                                             rows, 'm_rows', m, 1)
+                                             rows_thr, 'm_rows', m, 1)
             m.addConstr(self.mem_const + md.pdt_m_rows == md.ns_mem_max,
                         name='ns_mem_max_{}'.format(self))
 
             md.ns_hash_max = m.addVar(vtype=GRB.CONTINUOUS,
                                       name='ns_hash_max_{}'.format(self))
             m.addConstr(md.ns_hash_max == self.hashing_const
-                        + rows * self.hashing_slope,
+                        + rows_thr * self.hashing_slope,
                         name='ns_hash_max_{}'.format(self))
 
         '''
@@ -412,18 +414,19 @@ class Netronome(Device):
             md.ns_hash = m.addVar(vtype=GRB.CONTINUOUS,
                                   name='ns_hash_{}'.format(self), lb=0)
             md.ns_mem = m.addVar(vtype=GRB.CONTINUOUS,
-                                  name='ns_mem_{}'.format(self), lb=0)
+                                 name='ns_mem_{}'.format(self), lb=0)
             md.ns_fwd = m.addVar(vtype=GRB.CONTINUOUS,
                                  name='ns_fwd_{}'.format(self), lb=0)
             md.ns = m.addVar(vtype=GRB.CONTINUOUS,
                              name='ns_{}'.format(self))
-            md.pdt_ns_me = self.get_pdt_var(
-                md.ns, md.micro_engines, 'ns_me', m, 0)
-
-            m.addConstr(md.pdt_ns_me ==
-                        gp.max_(md.ns_hash_max * self.total_me,
-                                md.ns_fwd_max * self.total_me),
-                        name='ns_req_hash_{}'.format(self))
+            md.pdt_ns_hash_me = self.get_pdt_var(
+                md.ns_hash_max, md.micro_engines,
+                'ns_hash_me', m, 0)
+            md.pdt_ns_fwd_me = self.get_pdt_var(
+                md.ns_fwd_max, md.micro_engines,
+                'ns_fwd_me', m, 0)
+            m.addConstr(md.pdt_ns_hash_me == md.ns_hash_max * self.total_me)
+            m.addConstr(md.pdt_ns_fwd_me == md.ns_fwd_max * self.total_me)
             m.addGenConstrMax(md.ns, [md.ns_hash, md.ns_mem, md.ns_fwd],
                               name='ns_{}'.format(self))
 
@@ -443,11 +446,11 @@ class Netronome(Device):
 
     def get_ns(self, md):
         mem_tot = get_rounded_val(get_val(md.mem_tot))
-        rows_tot = get_rounded_val(get_val(md.rows_tot))
+        rows_thr = get_rounded_val(get_val(md.rows_thr))
 
         m_access_time = self.get_mem_access_time(mem_tot)
-        ns_mem_max = self.mem_const + rows_tot * m_access_time
-        ns_hash_max = self.hashing_const + self.hashing_slope * rows_tot
+        ns_mem_max = self.mem_const + rows_thr * m_access_time
+        ns_hash_max = self.hashing_const + self.hashing_slope * rows_thr
         ns_fwd_max = 1000 / self.line_thr
         return max(ns_hash_max, ns_fwd_max, ns_mem_max)
 

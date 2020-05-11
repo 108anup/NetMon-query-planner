@@ -7,7 +7,7 @@ import math
 import gurobipy as gp
 from gurobipy import GRB, tupledict, tuplelist
 
-from common import Namespace, log, log_time, memoize
+from common import Namespace, log, log_time, memoize, constants
 from config import common_config
 from devices import P4, Cluster
 from helpers import get_rounded_val, get_val, log_vars, is_infeasible
@@ -106,12 +106,20 @@ class MIP(Namespace):
         self.infeasible = False
 
     def compute_dev_par_tuplelist(self):
+        dev_par_thr = tupledict()
         dev_par_tuplelist = []
         for (fnum, f) in enumerate(self.flows):
             for p in f.partitions:
                 pnum = p[0]
-                dev_par_tuplelist.extend([(dnum, pnum) for dnum in f.path])
+                for dnum in f.path:
+                    dev_par_tuplelist.append((dnum, pnum))
+                    if((dnum, pnum) in dev_par_thr):
+                        dev_par_thr[dnum, pnum] += f.thr
+                    else:
+                        dev_par_thr[dnum, pnum] = f.thr
+
         self.dev_par_tuplelist = tuplelist(set(dev_par_tuplelist))
+        self.dev_par_thr = dev_par_thr
 
     @log_time
     def add_frac_mem_var(self):
@@ -281,40 +289,65 @@ class MIP(Namespace):
 
         for (dnum, d) in enumerate(self.devices):
             md = self.md_list[dnum]
-            # Memory constraints
-            # Capacity constraints included in bounds
-            mem_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                    name='mem_tot_{}'.format(d),
-                                    lb=0, ub=d.max_mem)
-            self.m.addConstr(mem_tot == self.mem.sum(dnum, '*'),
-                             name='mem_tot_{}'.format(d))
-            md.mem_tot = mem_tot
-            normalized_mem_tot = self.m.addVar(
-                vtype=GRB.CONTINUOUS, name='normalized_mem_tot_{}'.format(d),
-                lb=0, ub=1)
-            self.m.addConstr(normalized_mem_tot == mem_tot / d.max_mem)
-            md.normalized_mem_tot = normalized_mem_tot
 
-            # Row constraints
-            rows_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                     name='rows_tot_{}'.format(d), lb=0)
-            normalized_rows_tot = self.m.addVar(
-                vtype=GRB.CONTINUOUS, name='normalized_rows_tot_{}'.format(d),
-                lb=0, ub=1)
-            rows_series = []
-            for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
-                p = self.partitions[pnum]
-                rows_series.append(
-                    p.num_rows * self.frac[dnum, pnum]
-                )
-            # rows_series = [p.num_rows * frac[dnum, p.partition_id]
-            #                for p in self.partitions]
-            self.m.addConstr(rows_tot == gp.quicksum(rows_series),
-                             name='rows_tot_{}'.format(d))
-            md.rows_tot = rows_tot
-            self.m.addConstr(normalized_rows_tot == rows_tot / d.max_rows)
-            md.normalized_rows_tot = normalized_rows_tot
-            md.m = self.m
+            if(len(self.dev_par_tuplelist.select(dnum, '*')) > 0):
+                # Memory constraints
+                # Capacity constraints included in bounds
+                mem_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                        name='mem_tot_{}'.format(d),
+                                        lb=0, ub=d.max_mem)
+                self.m.addConstr(mem_tot == self.mem.sum(dnum, '*'),
+                                 name='mem_tot_{}'.format(d))
+                md.mem_tot = mem_tot
+                normalized_mem_tot = self.m.addVar(
+                    vtype=GRB.CONTINUOUS,
+                    name='normalized_mem_tot_{}'.format(d),
+                    lb=0, ub=1)
+                self.m.addConstr(normalized_mem_tot == mem_tot / d.max_mem)
+                md.normalized_mem_tot = normalized_mem_tot
+
+                # Row constraints
+                rows_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                         name='rows_tot_{}'.format(d), lb=0)
+                normalized_rows_tot = self.m.addVar(
+                    vtype=GRB.CONTINUOUS,
+                    name='normalized_rows_tot_{}'.format(d),
+                    lb=0, ub=1)
+                rows_thr = self.m.addVar(vtype=GRB.CONTINUOUS,
+                                         name='rows_thr_{}'.format(d), lb=0)
+
+                rows_series = []
+                rows_thr_series = []
+                thr_req = 0
+                for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
+                    p = self.partitions[pnum]
+                    rows_series.append(
+                        p.num_rows * self.frac[dnum, pnum]
+                    )
+                    rows_thr_series.append(
+                        p.num_rows * self.frac[dnum, pnum]
+                        * self.dev_par_thr[dnum, pnum])
+                    thr_req += self.dev_par_thr[dnum, pnum]
+                # rows_series = [p.num_rows * frac[dnum, p.partition_id]
+                #                for p in self.partitions]
+                self.m.addConstr(rows_tot == gp.quicksum(rows_series),
+                                 name='rows_tot_{}'.format(d))
+                self.m.addConstr(
+                    rows_thr == gp.quicksum(rows_thr_series) / thr_req,
+                    name='rows_thr_{}'.format(d))
+                md.rows_tot = rows_tot
+                md.rows_thr = rows_thr
+                md.ns_req = 1000 / thr_req
+                self.m.addConstr(normalized_rows_tot == rows_tot / d.max_rows)
+                md.normalized_rows_tot = normalized_rows_tot
+                md.m = self.m
+            else:
+                md.rows_tot = 0
+                md.rows_thr = 0
+                md.mem_tot = 0
+                md.normalized_rows_tot = 0
+                md.normalized_mem_tot = 0
+                md.ns_req = constants.NS_LARGEST
 
     def add_device_aware_constraints(self):
         for (dnum, d) in enumerate(self.devices):
@@ -402,7 +435,6 @@ class MIP(Namespace):
             self.m.setParam(GRB.Param.TimeLimit, common_config.time_limit)
         # m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
         self.m.setParam(GRB.Param.MIPGap, common_config.mipgap)
-
 
         self.compute_dev_par_tuplelist()
         self.add_frac_mem_var()
@@ -694,62 +726,62 @@ class Netmon(UnivmonGreedyRows):
             log.info("Netmon behaving like UnivmonGreedyRows")
             return super(Netmon, self).add_constraints()
 
-        if(not getattr(self, 'ns_req', None)):
-            # Initialize with unimon_greedy_rows solution
-            super(Netmon, self).add_constraints()
-            super(Netmon, self).add_objective()
-            log.info("-"*50)
-            log.info("Running Intermediate Univmon Placement")
-            self.m.update()
-            # HOLD: Redundancy here. Consider running univmon at Obj init time
-            self.m.optimize()
-            if(is_infeasible(self.m)):
-                self.infeasible = True
-                self.culprit = self.m
-                return
+        # if(not getattr(self, 'ns_req', None)):
+        #     # Initialize with unimon_greedy_rows solution
+        #     super(Netmon, self).add_constraints()
+        #     super(Netmon, self).add_objective()
+        #     log.info("-"*50)
+        #     log.info("Running Intermediate Univmon Placement")
+        #     self.m.update()
+        #     # HOLD: Redundancy here. Consider running univmon at Obj init time
+        #     self.m.optimize()
+        #     if(is_infeasible(self.m)):
+        #         self.infeasible = True
+        #         self.culprit = self.m
+        #         return
 
-            log_objectives(self.m)
-            dont_refine = self.dont_refine
-            self.dont_refine = False
-            self.placement_fixed = False
-            super(Netmon, self).post_optimize()
-            self.dont_refine = dont_refine
-            # (ns_max, _) = refine_devices(self.devices)
-            log_placement(self.devices, self.partitions, self.flows,
-                          self.dev_par_tuplelist, self.frac, self.md_list,
-                          msg="UnivmonGreedyRows: Intermediate Placement")
-            log_results(self.devices, self.r, self.md_list,
-                        msg="UnivmonGreedyRows: Intermediate Results")
+        #     log_objectives(self.m)
+        #     dont_refine = self.dont_refine
+        #     self.dont_refine = False
+        #     self.placement_fixed = False
+        #     super(Netmon, self).post_optimize()
+        #     self.dont_refine = dont_refine
+        #     # (ns_max, _) = refine_devices(self.devices)
+        #     log_placement(self.devices, self.partitions, self.flows,
+        #                   self.dev_par_tuplelist, self.frac, self.md_list,
+        #                   msg="UnivmonGreedyRows: Intermediate Placement")
+        #     log_results(self.devices, self.r, self.md_list,
+        #                 msg="UnivmonGreedyRows: Intermediate Results")
 
-            # numdevices = len(self.devices)
-            # numpartitions = len(self.partitions)
+        #     # numdevices = len(self.devices)
+        #     # numpartitions = len(self.partitions)
 
-            # for dnum in range(numdevices):
-            #     for pnum in range(numpartitions):
-            for (dnum, pnum) in self.dev_par_tuplelist:
-                self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
-                self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
+        #     # for dnum in range(numdevices):
+        #     #     for pnum in range(numpartitions):
+        #     for (dnum, pnum) in self.dev_par_tuplelist:
+        #         self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
+        #         self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
 
-            # TODO:: Check this!
-            self.ns_req = self.r.ns_max + common_config.ftol
-        (self.ns, self.res) = self.add_device_model_constraints(self.ns_req)
+        #     # TODO:: Check this!
+        #     self.ns_req = self.r.ns_max + common_config.ftol
+        (self.ns, self.res) = self.add_device_model_constraints(None)
 
     def add_objective(self):
         if(self.is_clustered()):
             return super(Netmon, self).add_objective()
 
-        if(getattr(self, 'ns_req', None) is not None):
-            self.m.NumObj = 1
-            self.m.setParam(GRB.Param.MIPGap, common_config.mipgap_res)
-            self.m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
-            self.m.setObjectiveN(self.res, 0, 10, reltol=common_config.res_tol,
-                                 name='res')
-        else:
-            self.m.NumObj = 2
-            self.m.setObjectiveN(self.ns, 0, 10, reltol=common_config.ns_tol,
-                                 name='ns')
-            self.m.setObjectiveN(self.res, 1, 5, reltol=common_config.res_tol,
-                                 name='res')
+        # if(getattr(self, 'ns_req', None) is not None):
+        self.m.NumObj = 1
+        self.m.setParam(GRB.Param.MIPGap, common_config.mipgap_res)
+        self.m.setParam(GRB.Param.MIPGapAbs, common_config.mipgapabs)
+        self.m.setObjectiveN(self.res, 0, 10, reltol=common_config.res_tol,
+                             name='res')
+        # else:
+        #     self.m.NumObj = 2
+        #     self.m.setObjectiveN(self.ns, 0, 10, reltol=common_config.ns_tol,
+        #                          name='ns')
+        #     self.m.setObjectiveN(self.res, 1, 5, reltol=common_config.res_tol,
+        #                          name='res')
 
     def post_optimize(self):
         if(self.is_clustered()):
@@ -899,8 +931,8 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
             log.debug("Initial Rows total: {}".format(tot_rows))
             log.debug("Initial Mem total: {}".format(tot_mem))
 
-        if(hasattr(d, 'ns')):
-            log.debug("Throughput: {}".format(1000/get_val(md.ns)))
+        if(hasattr(md, 'ns')):
+            log.debug("Throughput: {} Mpps".format(1000/get_val(md.ns)))
 
     # log.debug("")
     # for (fnum, f) in enumerate(flows):

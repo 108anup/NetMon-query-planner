@@ -194,6 +194,7 @@ def get_partitions_flows(inp, cluster, problem, dnum, solution):
         if(len(par_new) > 0 and len(path_new) > 0):
             f_new.partitions = par_new
             f_new.path = path_new
+            f_new.thr = f.thr
             flows.append(f_new)
 
     return (partitions, flows)
@@ -213,7 +214,8 @@ def map_flows_to_cluster(inp):
             path=[dev_id_to_cluster_id[dnum]
                   for dnum in f.path
                   if(not isinstance(devices[dnum], P4))],
-            partitions=f.partitions, queries=f.queries
+            partitions=f.partitions, queries=f.queries,
+            thr=f.thr
         )
         flows.append(f_new)
     return flows
