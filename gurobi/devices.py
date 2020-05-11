@@ -3,8 +3,8 @@ import gurobipy as gp
 from gurobipy import GRB
 
 from config import common_config
-from common import Namespace, memoize
-from helpers import get_val, get_rounded_val, log_vars, is_infeasible
+from common import Namespace, memoize, log
+from helpers import get_val, get_rounded_val, is_infeasible
 
 
 def get_rounded_cores(x):
@@ -228,6 +228,12 @@ class CPU(Device):
         else:
             assert(r is None)
             return ""
+
+    def log_vars(self, md):
+        log.debug("Vars:")
+        for k, v in md.__dict__.items():
+            if(not isinstance(v, gp.Model)):
+                log.debug("{}: {}".format(k, get_val(v)))
 
     def get_ns(self, md):
         mem_tot = get_rounded_val(get_val(md.mem_tot))

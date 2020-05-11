@@ -41,12 +41,12 @@ def test_vary_topo_size_dc_topo_tenant(
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
-    num_queries = int(num_hosts*2)
+    num_queries = int(num_hosts/2)
     inp = TreeTopology(
         hosts_per_tors, tors_per_l1s, l1s, num_queries=num_queries,
         overlay=overlay, tenant=True, refine=refine, eps=eps0/10,
-        queries_per_tenant=16, portion_netronome=portion_netronome)
-    common_config.parallel = True
+        queries_per_tenant=4, portion_netronome=portion_netronome)
+    # common_config.parallel = True
     common_config.vertical_partition = True
     # common_config.horizontal_partition = True
     # common_config.mipout = True

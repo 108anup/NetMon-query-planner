@@ -27,7 +27,7 @@ def get_val(v):
         return v
 
 
-def log_vars(m, logger=partial(log.log, logging.DEBUG-1)):
+def log_vars(m, logger=partial(log.log, logging.DEBUG-2)):
     logger("\nVARIABLES "+"-"*30)
     logger("Objective: {}".format(m.objVal))
     for v in m.getVars():

@@ -1,16 +1,19 @@
+import logging
+import math
 import os
 # import re
 import sys
 import time
-import math
+from functools import partial
 
 import gurobipy as gp
 from gurobipy import GRB, tupledict, tuplelist
 
-from common import Namespace, log, log_time, memoize, constants
+from common import Namespace, constants, log, log_time, memoize
 from config import common_config
-from devices import P4, Cluster
-from helpers import get_rounded_val, get_val, log_vars, is_infeasible
+from devices import P4, Cluster, CPU
+from helpers import get_rounded_val, get_val, is_infeasible, log_vars
+
 
 """
 frac represents fraction of row monitored on a device
@@ -60,17 +63,18 @@ Above are not relevant any more
 # elements of md_list are updated in place
 @log_time(logger=log.info)
 def refine_devices(devices, md_list, placement_fixed=True):
-    ns_max = 0
-    for (dnum, d) in enumerate(devices):
-        md = md_list[dnum]
-        if(not hasattr(md, 'mem_tot')):
-            assert(not hasattr(md, 'rows_tot'))
-            md.mem_tot = 0
-            md.rows_tot = 0
+    # ns_max = 0
+    # for (dnum, d) in enumerate(devices):
+    #     md = md_list[dnum]
+    #     if(not hasattr(md, 'mem_tot')):
+    #         assert(not hasattr(md, 'rows_tot'))
+    #         md.mem_tot = 0
+    #         md.rows_tot = 0
+    #         md.rows_thr = 0
 
-        ns_max = max(ns_max, d.get_ns(md))
+    #     ns_max = max(ns_max, d.get_ns(md))
 
-    r = Namespace(ns_max=ns_max, res=0, total_CPUs=0, micro_engines=0,
+    r = Namespace(ns_max=0, res=0, total_CPUs=0, micro_engines=0,
                   used_cores=0, switch_memory=0, nic_memory=0)
     for (dnum, d) in enumerate(devices):
         md = md_list[dnum]
@@ -83,14 +87,15 @@ def refine_devices(devices, md_list, placement_fixed=True):
             rows_tot_old = md.rows_tot
             md.mem_tot = get_rounded_val(get_val(md.mem_tot))
             md.rows_tot = get_rounded_val(get_val(md.rows_tot))
-            d.add_ns_constraints(None, md, ns_max)
+            md.rows_thr = get_rounded_val(get_val(md.rows_thr))
+            d.add_ns_constraints(None, md, md.ns_req)
             d.resource_stats(md, r)
             if(not placement_fixed):
                 # Will be used by Netmon in later optimization
                 md.mem_tot = mem_tot_old
                 md.rows_tot = rows_tot_old
         else:
-            d.add_ns_constraints(None, md, ns_max)
+            d.add_ns_constraints(None, md, md.ns_req)
             d.resource_stats(md, r)
 
         r.ns_max = max(r.ns_max, get_val(md.ns))
@@ -895,14 +900,15 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
     # #         log.debug("Total frac: {:0.3f}".format(total_frac))
 
     prev_q_id = None
+    logger = partial(log.log, logging.DEBUG-1)
     for (pnum, p) in enumerate(partitions):
         q = p.sketch
         if(q.sketch_id != prev_q_id):
-            log.debug("\nSketch ({}) ({})"
+            logger("\nSketch ({}) ({})"
                       .format(q.sketch_id, q.details()))
             prev_q_id = q.sketch_id
 
-        log.debug("Par{} id: {}, Rows: {}"
+        logger("Par{} id: {}, Rows: {}"
                   .format(p.partition_id - q.partitions[0],
                           p.partition_id, p.num_rows))
         par_info = ""
@@ -911,8 +917,8 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
             par_info += "({:0.3f},{})    ".format(
                 get_val(frac[dnum, pnum]), dnum)
             total_frac += (get_val(frac[dnum, pnum]))
-        log.debug(par_info)
-        log.debug("Total frac: {:0.3f}".format(total_frac))
+        logger(par_info)
+        logger("Total frac: {:0.3f}".format(total_frac))
 
     for (dnum, d) in enumerate(devices):
         md = md_list[dnum]
@@ -933,6 +939,9 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
 
         if(hasattr(md, 'ns')):
             log.debug("Throughput: {} Mpps".format(1000/get_val(md.ns)))
+            log.debug("Throughput Req: {} Mpps".format(1000/md.ns_req))
+            if(isinstance(d, CPU)):
+                d.log_vars(md)
 
     # log.debug("")
     # for (fnum, f) in enumerate(flows):
