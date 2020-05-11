@@ -70,8 +70,8 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     :PROPERTIES:
     :TIME:     0.5d
     :END:
-** PROG [#B] Memoization / Calculate optima when placement is known directly without using Gurobi
-   DEADLINE: <2020-05-08 Fri>
+** DONE [#B] Memoization / Calculate optima when placement is known directly without using Gurobi
+   CLOSED: [2020-05-10 Sun 23:30] DEADLINE: <2020-05-08 Fri>
    :PROPERTIES:
    :TIME:     0.5d
    :END:
@@ -80,12 +80,13 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     :PROPERTIES:
     :TIME:
     :END:
-*** TODO [#B] need to change memoization input after traffic demand incorporation                                                          :implementation:
+*** DONE [#B] need to change memoization input after traffic demand incorporation :implementation:
+    CLOSED: [2020-05-10 Sun 23:32]
     :PROPERTIES:
     :TIME:
     :END:
-** PROG [#A] Incorporate traffic demands in input                                                           :implementation:
-   DEADLINE: <2020-05-08 Fri>
+** DONE [#A] Incorporate traffic demands in input                                                           :implementation:
+   CLOSED: [2020-05-10 Sun 23:30] DEADLINE: <2020-05-08 Fri>
    :PROPERTIES:
    :TIME:     1d
    :END:
@@ -146,17 +147,17 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
      3. Cluster sizes / number of clusters
      4. Cluster of cluster sizes (above and this are different)
 
-** [#A] OpenVSwitch style and multicore implementation
+** PROG [#A] OpenVSwitch style and multicore implementation
    DEADLINE: <2020-05-10 Sun>
    :PROPERTIES:
    :TIME:     1d 0:00
    :END:
-*** TODO [#A] profiling and verification of OVS with sketching                                                          :experiment:
+*** PROG [#A] profiling and verification of OVS with sketching                                                              :experiment:
     :PROPERTIES:
     :TIME:     0.5d
     :END:
     The forwarding numbers were for DPDK, need to consider overhead of OVS
-*** TODO [#A] multicore sketching implementation                                                      :implementation:
+*** PROG [#A] multicore sketching implementation                                                          :implementation:
     :PROPERTIES:
     :TIME:     0.5d
     :END:
@@ -164,6 +165,7 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     Forwarding path should not be affected by sketching.
     Till now, I assumed we will get perfect parallelization from implementing sketches on multiple cores 
     (there might be contention at L3 which might counter this assumption)
+*** PROG [#A] verify linear combination of ns for multiple sketches
 ** TODO [#A] Solver Input generation                         :implementation:
    DEADLINE: <2020-05-11 Mon>
    :PROPERTIES:
@@ -285,18 +287,19 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
 | DONE   | \_    Parallelize Solver                                                                   |       1d |                     |          | A        |
 | DONE   | \_    Intelligently decide the Cluster sizes                                               |     0.5d |                     |          | A        |
 |--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| PROG   | \_  Memoization / Calculate optima when placement is known directly without using Gurobi   |     0.5d | <2020-05-08 Fri>    |          | B        |
+| DONE   | \_  Memoization / Calculate optima when placement is known directly without using Gurobi   |     0.5d | <2020-05-08 Fri>    |          | B        |
 | DONE   | \_    make memoization key more precise                                                    |          |                     |          | B        |
-| TODO   | \_    need to change memoization input after traffic demand incorporation                  |          |                     |          | B        |
+| DONE   | \_    need to change memoization input after traffic demand incorporation                  |          |                     |          | B        |
 |--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| PROG   | \_  Incorporate traffic demands in input                                                   |       1d | <2020-05-08 Fri>    |          | A        |
+| DONE   | \_  Incorporate traffic demands in input                                                   |       1d | <2020-05-08 Fri>    |          | A        |
 | DONE   | \_    How to evaluate this                                                                 |          |                     |          | A        |
 |        | \_      We should claim per device resource allocation as a contribution                   |          |                     |          | A        |
 |        | \_      Sensitivity Analysis / Parameter choice justification                              |          |                     |          | C        |
 |--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-|        | \_  OpenVSwitch style and multicore implementation                                         |  1d 0:00 | <2020-05-10 Sun>    |          | A        |
-| TODO   | \_    profiling and verification of OVS with sketching                                     |     0.5d |                     |          | A        |
-| TODO   | \_    multicore sketching implementation                                                   |     0.5d |                     |          | A        |
+| PROG   | \_  OpenVSwitch style and multicore implementation                                         |  1d 0:00 | <2020-05-10 Sun>    |          | A        |
+| PROG   | \_    profiling and verification of OVS with sketching                                     |     0.5d |                     |          | A        |
+| PROG   | \_    multicore sketching implementation                                                   |     0.5d |                     |          | A        |
+| PROG   | \_    verify linear combination of ns for multiple sketches                                |          |                     |          | A        |
 |--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
 | TODO   | \_  Solver Input generation                                                                |       1d | <2020-05-11 Mon>    |          | A        |
 |        | \_    Topology generator                                                                   |          |                     |          | N        |
