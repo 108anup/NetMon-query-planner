@@ -524,17 +524,23 @@ def cluster_optimization(inp):
 
 
 # * Main solve function
-# TODO:: Handle disconnected graph in solver
+# TODO: Handle infeasible when refine returns none
+# HOLD: Handle disconnected graph in solver
 # Final devices will always be refined, just log at the end
 @log_time(logger=log.info)
 def solve(inp):
     start = time.time()
     # log.info("Solving started at time: {}".format(start))
     # import ipdb; ipdb.set_trace()
+    # Assign device ids, if not frozen
+    # If frozen then assume ids have been assigned
+    try:
+        for (dnum, d) in enumerate(inp.devices):
+            d.dev_id = dnum
+            freeze_object(d)
+    except TypeError:
+        pass
 
-    # for (dnum, d) in enumerate(inp.devices):
-    #     d.dev_id = dnum
-    #     freeze_object(d)
     inp.partitions = get_partitions(inp.queries)
     map_flows_partitions(inp.flows, inp.queries)
     Solver = solver_to_class[common_config.solver]

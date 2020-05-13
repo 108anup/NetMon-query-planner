@@ -58,7 +58,7 @@ beluga20 = {
                5.84114, 30.6627, 39.6981],
     'Li_size': [32, 256, 8192, 32768],
     'Li_ns': [0.53, 1.5, 3.7, 36],
-    'hash_ns': 3.5, 'cores': 7, 'dpdk_single_core_thr': 35,
+    'hash_ns': 3.5, 'cores': 4, 'dpdk_single_core_thr': 35,
     'max_mem': 32768, 'max_rows': 12, 'line_thr': 98
 }
 
@@ -1293,36 +1293,48 @@ input_generator = [
     TreeTopology(hosts_per_tors=8, tors_per_l1s=2, l1s=2, num_queries=32 * 2,
                  queries_per_tenant=8 * 2, eps=eps0/100, overlay='tenant',
                  tenant=True, refine=False),
-
+    # 31
     Input(
-        # Change when devices are added / removed
         devices=[
             CPU(**beluga20, name='CPU_1'),
             Netronome(**agiliocx40gbe, name='Netronome_1'),
             P4(**tofino, name='P4_1'),
         ],
-        # Change when metrics are added / removed
         queries=[
             cm_sketch(eps0=eps0/10000, del0=del0/1.5),
         ],
-        # Change when metric filters are modified
         flows=[
             flow(path=(0, 1, 2), queries=[(0, 1)]),
         ]
     ),
 
+    # 32
     Input(
-        # Change when devices are added / removed
         devices=[
             Netronome(**agiliocx40gbe, name='Netronome_1'),
         ],
-        # Change when metrics are added / removed
         queries=[
             cm_sketch(eps0=eps0/1000, del0=del0/1.5),
         ],
-        # Change when metric filters are modified
         flows=[
             flow(path=(0,), queries=[(0, 1)], thr=20),
         ]
     ),
+
+    # 33
+    Input(
+        devices=(
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(2)] +
+            [P4(**tofino, name='P4_{}'.format(i)) for i in range(2)]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0/100, del0=del0/1.5) for i in range(8)
+        ],
+        flows=[
+            flow(path=(0, 2, 1),
+                 queries=[(i, 1) for i in range(8)], thr=20),
+            flow(path=(0, 3, 1),
+                 queries=[(i, 1) for i in range(7)], thr=40)
+        ]
+    )
 ]
