@@ -81,6 +81,14 @@ def refine_devices(devices, md_list, placement_fixed=True):
 
         # refine should not be called with clusters
         assert(hasattr(d, 'fixed_thr'))
+        if(not hasattr(md, 'mem_tot')):
+            assert(not hasattr(md, 'rows_tot'))
+            md.rows_tot = 0
+            md.rows_thr = 0
+            md.mem_tot = 0
+            md.normalized_rows_tot = 0
+            md.normalized_mem_tot = 0
+            md.ns_req = constants.NS_LARGEST
 
         if(not d.fixed_thr):
             mem_tot_old = md.mem_tot
@@ -100,6 +108,8 @@ def refine_devices(devices, md_list, placement_fixed=True):
 
         r.ns_max = max(r.ns_max, get_val(md.ns))
         r.res += get_val(d.res(md))
+        if(getattr(md, 'infeasible', None)):
+            return None
 
     return r
 
@@ -111,17 +121,20 @@ class MIP(Namespace):
         self.infeasible = False
 
     def compute_dev_par_tuplelist(self):
+        self.md_list = [Namespace(total_thr=0)
+                        for i in range(len(self.devices))]
         dev_par_thr = tupledict()
         dev_par_tuplelist = []
         for (fnum, f) in enumerate(self.flows):
-            for p in f.partitions:
-                pnum = p[0]
-                for dnum in f.path:
+            for dnum in f.path:
+                for p in f.partitions:
+                    pnum = p[0]
                     dev_par_tuplelist.append((dnum, pnum))
                     if((dnum, pnum) in dev_par_thr):
                         dev_par_thr[dnum, pnum] += f.thr
                     else:
                         dev_par_thr[dnum, pnum] = f.thr
+                self.md_list[dnum].total_thr += f.thr
 
         self.dev_par_tuplelist = tuplelist(set(dev_par_tuplelist))
         self.dev_par_thr = dev_par_thr
@@ -290,8 +303,6 @@ class MIP(Namespace):
 
     @log_time
     def add_capacity_constraints(self):
-        self.md_list = [Namespace() for i in range(len(self.devices))]
-
         for (dnum, d) in enumerate(self.devices):
             md = self.md_list[dnum]
 
@@ -323,7 +334,6 @@ class MIP(Namespace):
 
                 rows_series = []
                 rows_thr_series = []
-                thr_req = 0
                 for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
                     p = self.partitions[pnum]
                     rows_series.append(
@@ -332,17 +342,16 @@ class MIP(Namespace):
                     rows_thr_series.append(
                         p.num_rows * self.frac[dnum, pnum]
                         * self.dev_par_thr[dnum, pnum])
-                    thr_req += self.dev_par_thr[dnum, pnum]
                 # rows_series = [p.num_rows * frac[dnum, p.partition_id]
                 #                for p in self.partitions]
                 self.m.addConstr(rows_tot == gp.quicksum(rows_series),
                                  name='rows_tot_{}'.format(d))
                 self.m.addConstr(
-                    rows_thr == gp.quicksum(rows_thr_series) / thr_req,
+                    rows_thr == gp.quicksum(rows_thr_series) / md.total_thr,
                     name='rows_thr_{}'.format(d))
                 md.rows_tot = rows_tot
                 md.rows_thr = rows_thr
-                md.ns_req = 1000 / thr_req
+                md.ns_req = 1000 / md.total_thr
                 self.m.addConstr(normalized_rows_tot == rows_tot / d.max_rows)
                 md.normalized_rows_tot = normalized_rows_tot
                 md.m = self.m
@@ -395,15 +404,17 @@ class MIP(Namespace):
             md = self.md_list[dnum]
 
             # adding these constraints here
-            assert(isinstance(md.mem_tot, gp.Var))
-            assert(isinstance(md.rows_tot, gp.Var))
+            assert(isinstance(md.mem_tot, gp.Var) or md.mem_tot == 0)
+            assert(isinstance(md.rows_tot, gp.Var) or md.rows_tot == 0)
 
-            # Throughput
-            # Simple total model
-            d.add_ns_constraints(self.m, md, ns_req)
+            if(isinstance(md.mem_tot, gp.Var)
+               or isinstance(md.rows_tot, gp.Var)):
+                # Throughput
+                # Simple total model
+                d.add_ns_constraints(self.m, md, ns_req)
 
-            # Resources
-            res_acc += d.res(md)
+                # Resources
+                res_acc += d.res(md)
 
         ns = None
         if(ns_req is None):
@@ -795,16 +806,16 @@ class Netmon(UnivmonGreedyRows):
         self.m.printQuality()
         log_vars(self.m)
 
-        if(self.m.Status == GRB.TIME_LIMIT):
-            self.r = refine_devices(
-                self.devices, self.md_list)
-        else:
-            self.r = Namespace()
-            if(getattr(self, 'ns_req', None) is None):
-                self.r.ns_max = get_val(self.ns)
-            else:
-                self.r.ns_max = self.ns_req
-            self.r.res = get_val(self.res)
+        # if(self.m.Status == GRB.TIME_LIMIT):
+        self.r = refine_devices(
+            self.devices, self.md_list)
+        # else:
+        #     self.r = Namespace()
+        #     if(getattr(self, 'ns_req', None) is None):
+        #         self.r.ns_max = get_val(self.ns)
+        #     else:
+        #         self.r.ns_max = self.ns_req
+        #     self.r.res = get_val(self.res)
         self.refined = True
 
 

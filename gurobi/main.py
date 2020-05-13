@@ -76,11 +76,13 @@ def runner(solver):
         # nx.draw(g, labels=labels)
         # plt.show()
         # import ipdb; ipdb.set_trace()
-        return handle_infeasible(solver.culprit)
+        # return handle_infeasible(solver.culprit)
+        solution = Namespace(infeasible=True)
+        return solution
     return extract_solution(solver)
 
 
-def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
+def handle_infeasible(m=None, iis=True, msg="Infeasible Placement!"):
 
     # import ipdb; ipdb.set_trace()
     log.warning(msg)
@@ -90,7 +92,7 @@ def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
         f.write("-, -, -, -, -, ")
         f.close()
 
-    if(common_config.prog_dir and iis):
+    if(common_config.prog_dir and iis and m):
         m.computeIIS()
         m.write(
             os.path.join(
@@ -499,7 +501,7 @@ def cluster_optimization(inp):
                     problem = problems[prob_num]
                     solution = solutions[prob_num]
                     if(solution is None):
-                        return None
+                        return handle_infeasible()
                     else:
                         new_solution = rebuild_solution(solution)
                         update_solution(problem, new_solution)
@@ -511,6 +513,8 @@ def cluster_optimization(inp):
     log_step('Clustered Optimization complete')
     # log.debug(placement.md_list)
     r = refine_devices(inp.devices, placement.md_list)
+    if(r is None):
+        return handle_infeasible(msg="Can't meet traffic demand!")
     # TODO:: Put intermediate output to debug!
     # Allow loggers to take input logging level
     log_placement(inp.devices, inp.partitions, inp.flows,

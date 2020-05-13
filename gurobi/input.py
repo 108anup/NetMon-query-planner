@@ -533,7 +533,7 @@ class TreeTopology():
                         flow(
                             path=self.get_path(self.g, h1, h2),
                             queries=[(q, cov)],
-                            thr=40/(flows_per_host * 2)
+                            thr=70/(flows_per_host * 2)
                         )
                     )
         else:

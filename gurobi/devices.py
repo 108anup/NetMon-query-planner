@@ -107,9 +107,10 @@ class CPU(Device):
         dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
         assert(dpdk_cores > 0)
         md.cores_dpdk = get_rounded_cores(dpdk_cores)
-        assert(md.cores_dpdk + md.cores_sketch <= self.cores)
         md.ns_dpdk = dpdk_single_ns * (1-f + f/md.cores_dpdk)
         md.ns = max(md.ns_dpdk, md.ns_sketch)
+        if(md.cores_dpdk + md.cores_sketch > self.cores):
+            md.infeasible = True
 
     # TODO: Can remove clutter from here!
     def add_ns_constraints(self, m, md, ns_req=None):
