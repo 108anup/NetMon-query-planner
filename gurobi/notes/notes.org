@@ -1,6 +1,6 @@
 #+PRIORITIES: A C N
 #+OPTIONS: \n:t
-#+TAGS: implement(i) experiment(e) discuss(e) writing(w)
+#+TAGS: implement(i) experiment(e) discuss(d) writing(w)
 
 bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
 
@@ -53,6 +53,9 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
      Hashing and forwarding throughput scale inverse linearly with micro engine count
      Memory throughput is independent of microengine count
 
+     [2020-05-14 Thu]
+     Added branching part
+
 **** HOLD [#C] ME percentage usage
 
 *** HOLD [#C] use both imem and emem              :implementation:experiment:
@@ -65,6 +68,16 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     :PROPERTIES:
     :TIME:     1d
     :END:
+  |---------------+------------------+---------------------|
+  | topology size | with parallelism | without parallelism |
+  |               |         time (s) |                     |
+  |---------------+------------------+---------------------|
+  |          1965 |      27.77460408 |         129.2760494 |
+  |          4911 |      79.12766099 |           143.11234 |
+  |          3925 |      49.39854693 |         137.8388758 |
+  |          9811 |      154.2889419 |         166.3800375 |
+  |---------------+------------------+---------------------|
+    
 *** DONE [#A] Intelligently decide the Cluster sizes                                                      :implementation:
     CLOSED: [2020-05-07 Thu 13:23]
     :PROPERTIES:
@@ -85,6 +98,9 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     :PROPERTIES:
     :TIME:
     :END:
+  I actually just removed the resource allocation using gurobi for a device given placement altogether.
+  It can just be solved using finding optima for a quadratic function.
+  This is much faster. Saves 2000 seconds for 40k device settings.
 ** DONE [#A] Incorporate traffic demands in input                                                           :implementation:
    CLOSED: [2020-05-10 Sun 23:30] DEADLINE: <2020-05-08 Fri>
    :PROPERTIES:
@@ -147,6 +163,8 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
      3. Cluster sizes / number of clusters
      4. Cluster of cluster sizes (above and this are different)
 
+**** NetMon puts sketch with lower traffic on CPUs to improve overall throughput and reduce resources!
+
 ** PROG [#A] OpenVSwitch style and multicore implementation
    DEADLINE: <2020-05-10 Sun>
    :PROPERTIES:
@@ -157,6 +175,17 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     :TIME:     0.5d
     :END:
     The forwarding numbers were for DPDK, need to consider overhead of OVS
+
+    [2020-05-14 Thu]
+    RingBuffer from elastic sketch is a bottleneck
+    Will try using readerwriterqueue by cameron
+*** DISCUSS [#A] Best way to implement shared queue?
+    :PROPERTIES:
+    :ASSIGNED: Alan
+    :END:
+    Can you share the modified queue
+**** OVS thread
+**** Separate process?
 *** PROG [#A] multicore sketching implementation                                                          :implementation:
     :PROPERTIES:
     :TIME:     0.5d
@@ -250,6 +279,24 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
    Need to see if it can give us good clusters that we need.
 
    Based on [[https://www.ijcai.org/Proceedings/13/Papers/222.pdf][large scale spectral clustering]], Another alternative is approximate spectral clustering techniques can be used which are much faster.
+
+   [2020-05-14 Thu]
+   The clustering approach is very general and can be applied to cSAMP or other resource allocation or placement problems!
+   The clustering approach clearly offers speedups:
+   |---------------+------------------+---------------------|
+   | topology size | With Parallelism | Without Parallelism |
+   |     (devices) |                  |                     |
+   |---------------+------------------+---------------------|
+   |               |         time (s) |            time (s) |
+   |               |                  | (1/2 hr time limit) |
+   |---------------+------------------+---------------------|
+   |          1965 |      27.77460408 |         1809.236743 |
+   |          4911 |      79.12766099 |         1822.971018 |
+   |          3925 |      49.39854693 |         1818.198086 |
+   |          9811 |      154.2889419 |                     |
+   |---------------+------------------+---------------------|
+*** TODO [#A] Check how fast non clustering solver reaches clustered solution :experiment:
+    The solutions were similar (I need to check how fast did the non clustering solver reach the solution output by the clustered solver)
 ** TODO [#C] Performance vs system load                      :implementation:
    :PROPERTIES:
    :TIME:     3d
@@ -263,6 +310,13 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
    :PROPERTIES:
    :TIME:     2d
    :END:
+** DISCUSS [#A] Modes of operation                                  :discuss:
+   [2020-05-14 Thu]
+   Accuracy will always be a constraint because there is no use of allocating way more memory to sketches. I guess you can upper bound accuracy and maximize within that bound.
+   Though there is no sense of resource optimization after that -> at that point you would have met your max accuracy, might as well put as constraint.
+   Same with coverage.
+
+   So coverage or accuracy obj and other 3 () as constraints.
 ** Summary Table of TODOs
    :PROPERTIES:
    :TIME:
