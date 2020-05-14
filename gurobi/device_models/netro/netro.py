@@ -85,9 +85,13 @@ bench_list = [SimpleNamespace(rows=x[0], cols=x[1], pps=x[2])
 for x in bench_list:
     x.ns = 1e9/x.pps
 
-# plt.plot(list(map(lambda x: x.rows, bench_list)),
-#          list(map(lambda x: x.ns, bench_list)), '*-')
-# plt.show()
+fig = plt.figure(figsize=(4, 2))
+plt.plot(list(map(lambda x: x.rows, bench_list)),
+         list(map(lambda x: x.ns, bench_list)), '*-')
+plt.xlabel("Number of sketch updates per packet")
+plt.ylabel("Time per packet (ns)")
+plt.tight_layout()
+plt.savefig(os.path.join(bench_dir, 'hash.pdf'))
 
 # Linear model
 # Hand identified when hashing is bottleneck
@@ -129,6 +133,20 @@ for x in bench_list_1:
 for x in bench_list_2:
     x.ns = 1e9/x.pps
     x.mem = x.rows * x.cols * CELL_SIZE / KB2B
+
+fig = plt.figure(figsize=(5, 3))
+plt.plot(list(map(lambda x: x.mem/1024, bench_list_1)),
+         list(map(lambda x: x.ns, bench_list_1)), '*-',
+         label='{} updates per packet'.format(bench_list_1[0].rows))
+plt.plot(list(map(lambda x: x.mem/1024, bench_list_2)),
+         list(map(lambda x: x.ns, bench_list_2)), '*-',
+         label='{} updates per packet'.format(bench_list_2[0].rows))
+plt.xscale('log')
+plt.xlabel("Total sketch memory (MB)")
+plt.ylabel("Time per packet (ns)")
+plt.legend()
+plt.tight_layout()
+plt.savefig(os.path.join(bench_dir, 'mem.pdf'))
 
 bench_1_ns = list(map(lambda x: x.ns, bench_list_1))
 bench_2_ns = list(map(lambda x: x.ns, bench_list_2))
@@ -255,39 +273,45 @@ for x in bench_list:
              # hashing_time(x.rows),
              x.hash_ns, x.mem_ns)
     x.argmax, x.model_ns = max(enumerate(items), key=itemgetter(1))
-    x.argmax = x.argmax * x.me / 5
+    x.argmax_loc = 1500 / x.me + x.argmax * 10 #  * x.me / 5
     diff.append(abs(x.ns - x.model_ns) / x.ns)
 
 
 def myplot(bench_list, me):
-    fig = plt.figure(figsize=(4, 4))
-    labels = list(map(lambda x: str(x.rows) + ", " + str(x.mem), bench_list))
-    plt.plot(labels, list(map(lambda x: x.ns, bench_list)), '.-', linewidth=2,
-             label='Ground Truth')
-    plt.plot(labels, list(map(lambda x: x.model_ns, bench_list)), linewidth=2,
-             label="Model")
-    plt.plot(labels, list(map(lambda x: x.argmax, bench_list)), linewidth=2,
-             label="Bottleneck")
-    # plt.plot(labels, list(map(lambda x: x.hash_ns, bench_list)), linewidth=2,
+    fig, ax = plt.subplots()
+    fig.set_size_inches((5, 3))
+    labels = list(map(lambda x: '{}, {:g}'.format(x.rows, x.mem), bench_list))
+    ax.plot(labels, list(map(lambda x: x.ns, bench_list)), '.-', linewidth=2,
+            label='Ground Truth')
+    ax.plot(labels, list(map(lambda x: x.model_ns, bench_list)), linewidth=2,
+            label="Model")
+    # ax2 = ax.twinx()
+    # ax.plot(labels, list(map(
+    #     lambda x: x.argmax_loc, bench_list)), linewidth=2,
+    #         label="Bottleneck Operation")
+    # ax.plot(labels, list(map(lambda x: x.hash_ns, bench_list)), linewidth=2,
     #          label="Hashing")
-    # plt.plot(labels, list(map(lambda x: x.mem_ns, bench_list)), linewidth=2,
+    # ax.plot(labels, list(map(lambda x: x.mem_ns, bench_list)), linewidth=2,
     #          label="Mem")
 
+    # make a plot with different y-axis using second axis object
+    # ax2.set_ylabel("Bottleneck operation", color="blue", fontsize=14)
+
     num_labels = len(labels)
-    plt.xticks(labels[::int(num_labels/20)])
+    plt.xticks(labels[::int(num_labels/15)])
     plt.xticks(rotation=90)
     plt.xlabel("Sketch configuration (rows, mem KB)")
     plt.ylabel("Time per packet (ns)")
     plt.title("Netronome profile for {} MEs".format(me))
     plt.legend()
+    plt.tight_layout()
     # pprint.pprint(bench_list)
-    plt.show()
-    fig.tight_layout()
-    # plt.savefig('netro-model-36me.png')
+    # plt.show()
+    plt.savefig(os.path.join(bench_dir, 'netro-model-{}me.pdf'.format(me)))
 
 
 myplot([x for x in bench_list if x.me == 54], "54")
 myplot([x for x in bench_list if x.me == 36], "36")
-# myplot([x for x in bench_list if x.me == 20], "20")
+myplot([x for x in bench_list if x.me == 20], "20")
 print("Relative Error: ", np.average(diff))
 # pprint.pprint(bench_list)
