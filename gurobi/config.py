@@ -35,14 +35,13 @@ default_config = Config(
     res_tol=0,
     use_model=False,
     ftol=6.0e-5,
-    mipgapabs=10,
-    mipgap_res=0.05,
-    mipgap=0.05,
+    MIP_GAP_REL=0.05,
     MAX_DEVICES_PER_CLUSTER=150,
     MAX_CLUSTERS_PER_CLUSTER=1000,
     ME_WEIGHT=5,
     CPU_CORE_WEIGTH=10,
     WORKERS=4,
+    PORTION_TIME_ON_PERF=0.4,
 
     solver='Netmon',
     input_num=0,
@@ -55,7 +54,8 @@ default_config = Config(
     config_file=[],
     prog_dir=None,
     init=False,
-    parallel=False
+    parallel=False,
+    perf_obj=False
 )
 common_config = Config()
 common_config.update(default_config)

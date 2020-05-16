@@ -823,8 +823,7 @@ class TreeTopology():
     def get_overlay(self, inp):
         assert(self.num_netronome == 0 or
                'spectral' in self.overlay or
-               self.overlay == 'hdbscan' or
-               self.overlay == 'tenant')
+               self.overlay in ['hdbscan', 'tenant', 'none'])
 
         if(self.overlay == 'tor'):
             overlay = self.get_tor_overlay()
@@ -1250,7 +1249,7 @@ input_generator = [
     # 25
     # Large tenant (10K)
     TreeTopology(hosts_per_tors=48, tors_per_l1s=20,
-                 l1s=10, num_queries=48*20*10*2, tenant=True, overlay='tenant',
+                 l1s=10, num_queries=48*20*10*2, tenant=True, overlay='none',
                  eps=eps0/100, portion_netronome=0.5,
                  queries_per_tenant=16),
 
@@ -1278,7 +1277,7 @@ input_generator = [
     # Medium tenant (1K)
     TreeTopology(hosts_per_tors=48, tors_per_l1s=10,
                  l1s=10, num_queries=48*100*2, tenant=True,
-                 overlay='tenant', refine=False, eps=eps0/10,
+                 overlay='none', refine=False, eps=eps0/10,
                  queries_per_tenant=16),
 
     # 29

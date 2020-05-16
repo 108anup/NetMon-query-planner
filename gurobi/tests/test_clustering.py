@@ -54,7 +54,8 @@ def test_vary_topo_size_dc_topo_tenant(
 
     m = Namespace()
     m.test_name = 'vary_topo_size_dc_topo_tenant'
-    total_devices = num_hosts + tors_per_l1s*l1s + l1s + 1
+    total_devices = (num_hosts + tors_per_l1s*l1s
+                     + l1s + 1 + num_hosts * portion_netronome)
     m.args_str = (
         "overlay={};total_devices={};refine={};"
         "hosts_per_tors={};tors_per_l1s={};l1s={};"

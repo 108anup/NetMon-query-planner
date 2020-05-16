@@ -112,12 +112,10 @@ class CPU(Device):
         if(md.cores_dpdk + md.cores_sketch > self.cores):
             md.infeasible = True
 
-    # TODO: Can remove clutter from here!
     def add_ns_constraints(self, m, md, ns_req=None):
         # rows = md.rows_tot
         mem = md.mem_tot
         rows_thr = md.rows_thr
-        ns_req = md.ns_req
 
         # Either both should be True or neither should be True
         assert(isinstance(rows_thr, (int, float))
@@ -161,7 +159,6 @@ class CPU(Device):
         If ns_req is not present then Amdahl's law requires non-convexity
         If both are known then use set_thr
         '''
-        m.setParam(GRB.Param.NonConvex, 2)
 
         # Multi-core model
         md.cores_sketch = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.cores,
@@ -208,9 +205,6 @@ class CPU(Device):
                              name='ns_{}'.format(self))
             m.addGenConstrMax(md.ns, [md.ns_dpdk, md.ns_sketch],
                               name='ns_{}'.format(self))
-        # TODO:: Fix this: for netronome as well
-        else:
-            md.ns = ns_req
 
     def res(self, md):
         return 10*(md.cores_dpdk + md.cores_sketch) \
@@ -401,7 +395,6 @@ class Netronome(Device):
         If ns_req is not present then Amdahl's law requires non-convexity
         If both are known then use set_thr
         '''
-        m.setParam(GRB.Param.NonConvex, 2)
 
         # Parallelism
         md.micro_engines = m.addVar(vtype=GRB.INTEGER, lb=0, ub=self.total_me,
@@ -415,8 +408,6 @@ class Netronome(Device):
             m.addConstr(ns_req * md.micro_engines >=
                         md.ns_fwd_max * self.total_me,
                         name='ns_req_fwd_{}'.format(self))
-            # TODO:: fix this
-            md.ns = ns_req
         else:
             md.ns_hash = m.addVar(vtype=GRB.CONTINUOUS,
                                   name='ns_hash_{}'.format(self), lb=0)

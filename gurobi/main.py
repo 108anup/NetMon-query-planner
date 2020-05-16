@@ -77,7 +77,8 @@ def runner(solver):
         # plt.show()
         # import ipdb; ipdb.set_trace()
         # return handle_infeasible(solver.culprit)
-        solution = Namespace(infeasible=True)
+        solution = Namespace(infeasible=True,
+                             reason="Infeasible independent branch")
         return solution
     return extract_solution(solver)
 
@@ -280,7 +281,8 @@ def get_subproblems(inp, solver):
             if(len(new_path) > 0 and len(new_par) > 0):
                 flows.append(flow(
                     path=new_path,
-                    partitions=new_par))
+                    partitions=new_par,
+                    thr=f.thr))
 
         subproblem.devices = devices
         subproblem.partitions = inp.partitions
@@ -328,7 +330,7 @@ def cluster_refinement(inp):
                                dont_refine=False)
     solver.solve()
     if(solver.infeasible):
-        return handle_infeasible(solver.culprit)
+        return handle_infeasible(solver.culprit, solver.reason)
 
     log_results(inp.devices, solver.r, solver.md_list,
                 msg="UnivmonGreedyRows Results")
@@ -447,7 +449,7 @@ def cluster_optimization(inp):
                 # nx.draw(g, labels=labels)
                 # plt.show()
                 # import ipdb; ipdb.set_trace()
-                return handle_infeasible(solver.culprit)
+                return handle_infeasible(getattr(solver, 'culprit', None))
 
             for (dnum, d) in enumerate(solver.devices):
                 if(isinstance(d, Cluster)):
@@ -513,8 +515,8 @@ def cluster_optimization(inp):
     log_step('Clustered Optimization complete')
     # log.debug(placement.md_list)
     r = refine_devices(inp.devices, placement.md_list)
-    if(r is None):
-        return handle_infeasible(msg="Can't meet traffic demand!")
+    if(getattr(r, 'infeasible', None)):
+        return handle_infeasible(msg=r.reason)
     # TODO:: Put intermediate output to debug!
     # Allow loggers to take input logging level
     log_placement(inp.devices, inp.partitions, inp.flows,
@@ -555,7 +557,7 @@ def solve(inp):
                         dont_refine=False)
         solver.solve()
         if(solver.infeasible):
-            return handle_infeasible(solver.culprit)
+            return handle_infeasible(solver.culprit, msg=solver.reason)
         ret = Namespace(results=solver.r, md_list=solver.md_list)
 
     if(ret is None):
