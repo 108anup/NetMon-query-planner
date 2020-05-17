@@ -380,7 +380,7 @@ def cluster_optimization(inp):
                                    dont_refine=True)
         solver.solve()
         if(solver.infeasible):
-            return handle_infeasible(solver.culprit)
+            return handle_infeasible(getattr(solver, 'culprit', None))
 
     inp.cluster = get_cluster_from_overlay(inp, inp.overlay)
     if(common_config.init is True):
@@ -559,7 +559,8 @@ def solve(inp):
                         dont_refine=False)
         solver.solve()
         if(solver.infeasible):
-            return handle_infeasible(solver.culprit, msg=solver.reason)
+            return handle_infeasible(getattr(solver, 'culprit', None),
+                                     msg=solver.reason)
         ret = Namespace(results=solver.r, md_list=solver.md_list)
 
     if(ret is None):

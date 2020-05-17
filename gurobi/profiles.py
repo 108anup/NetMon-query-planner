@@ -13,8 +13,8 @@ beluga20 = {
 
 tofino = {
     'profile_name': "tofino",
-    'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 30 * 4,
-    'per_port_line_thr': 30, # 5208.33,
+    'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 5208.33,
+    'per_port_line_thr': 30,
     'max_mpr': 512, 'max_mem': 512 * 12, 'max_rows': 12 * 4, 'max_col_bits': 17
 }
 

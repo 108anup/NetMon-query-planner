@@ -2,21 +2,20 @@ import math
 import os
 import pickle
 import random
+import sys
 
 import networkx as nx
 import numpy as np
 
 from common import constants, freeze_object, log
-from devices import CPU, P4, Netronome
-from input import (Input, draw_graph, generate_overlay,
-                   fold, get_spectral_overlay, merge, get_complete_graph,
-                   draw_overlay_over_tenant, get_labels_from_overlay, get_graph)
-from sketches import cm_sketch
-from profiles import beluga20, tofino, agiliocx40gbe
-import matplotlib.pyplot as plt
-from flows import flow
 from config import common_config
-
+from devices import CPU, P4, Netronome
+from flows import flow
+from input import (Input, draw_graph, draw_overlay_over_tenant, fold,
+                   generate_overlay, get_complete_graph, get_graph,
+                   get_labels_from_overlay, get_spectral_overlay, merge)
+from profiles import agiliocx40gbe, beluga20, tofino
+from sketches import cm_sketch
 
 eps0 = constants.eps0
 del0 = constants.del0
@@ -58,7 +57,7 @@ class Clos(object):
         start += self.num_netronome
 
         core_switches = [(devices[i].name,
-                          {'remaining': devices[i].line_thr/self.pods,
+                          {'remaining': devices[i].per_port_line_thr,
                            'id': i})
                          for i in range(start, start+self.num_core_sw)]
         start += self.num_core_sw
@@ -67,7 +66,7 @@ class Clos(object):
         # The first self.pods/2 agg sw are in upper layer
         # The next self.pods/2 agg sw are in lower layer
         agg_switches = [(devices[i].name,
-                         {'remaining': devices[i].line_thr/self.pods,
+                         {'remaining': devices[i].per_port_line_thr,
                           'id': i})
                         for i in range(start, start+self.num_agg_sw)]
 
@@ -153,9 +152,9 @@ class Clos(object):
         # query_density means queries per host
         num_tenants = self.num_hosts / self.hosts_per_tenant
         queries_per_tenant = self.query_density * self.hosts_per_tenant
-        flows_per_query = 6
+        flows_per_query = 4
 
-        mean_queries_updated_by_flow = 4
+        mean_queries_updated_by_flow = 6
         half_range = mean_queries_updated_by_flow - 1
         low = mean_queries_updated_by_flow - half_range
         high = mean_queries_updated_by_flow + half_range
@@ -189,34 +188,61 @@ class Clos(object):
         for (tnum, t) in enumerate(tenant_servers):
             query_set = [i + tnum * queries_per_tenant
                          for i in range(queries_per_tenant)]
-            for itr in range(queries_per_tenant * flows_per_query):
-                h1 = t[random.randint(0, self.hosts_per_tenant-1)]
-                h2 = t[random.randint(0, self.hosts_per_tenant-1)]
-                while(h2 == h1):
-                    h2 = t[random.randint(0, self.hosts_per_tenant-1)]
+            # for itr in range(queries_per_tenant * flows_per_query):
+            #     h1 = t[random.randint(0, self.hosts_per_tenant-1)]
+            #     h2 = t[random.randint(0, self.hosts_per_tenant-1)]
+            #     while(h2 == h1):
+            #         h2 = t[random.randint(0, self.hosts_per_tenant-1)]
 
-                (node_path, id_path, capacity) = \
-                    self.get_path_with_largest_capacity(g, h1, h2)
-                traffic = min(capacity, 25/(flows_per_host * 2))
-                self.update_path_with_traffic(g, node_path, traffic)
+            # for h1 in t:
+            #     while(self.hosts[h1][1]['remaining_flows'] > 0):
+            #         h2 = t[random.randint(0, self.hosts_per_tenant-1)]
+            #         while(h2 == h1 or self.hosts[h2][1]['remaining_flows'] == 0):
+            #             h2 = t[random.randint(0, self.hosts_per_tenant-1)]
 
-                np.random.shuffle(qlist_generator)
-                queries_for_this_flow = random.randint(low, high)
-                q_list = qlist_generator[:queries_for_this_flow]
+            #         self.hosts[h1][1]['remaining_flows'] -= 1
+            #         self.hosts[h2][1]['remaining_flows'] -= 1
 
-                flows.append(
-                    flow(
-                        path=id_path,
-                        queries=[
-                            (
-                                query_set[q_idx],
-                                int(random.random() * 4 + 7)/10
-                            )
-                            for q_idx in q_list
-                        ],
-                        thr=traffic
+            for itr in range(int(flows_per_host/2)):
+                assigned = t.copy()
+                np.random.shuffle(assigned)
+
+                for idx in range(len(t)):
+                    h1 = t[idx]
+                    h2 = assigned[idx]
+                    while(h2 == h1):
+                        h2 = t[random.randint(0, self.hosts_per_tenant-1)]
+                    (node_path, id_path, capacity) = \
+                        self.get_path_with_largest_capacity(g, h1, h2)
+                    traffic = min(capacity, 27/flows_per_host)
+                    if(traffic == 0):
+                        log.error("Too many flows than capacity: {} {}"
+                                  .format(h1, h2))
+                        continue
+                        # sys.exit(1)
+                    log.error("Adding: {} {} with traffic: {}".format(
+                        h1, h2, traffic))
+
+                    self.update_path_with_traffic(g, node_path, traffic)
+
+                    np.random.shuffle(qlist_generator)
+                    queries_for_this_flow = random.randint(low, high)
+                    q_list = qlist_generator[:queries_for_this_flow]
+
+                    flows.append(
+                        flow(
+                            path=id_path,
+                            queries=[
+                                (
+                                    query_set[q_idx],
+                                    int(random.random() * 4 + 7)/10
+                                )
+                                for q_idx in q_list
+                            ],
+                            thr=traffic
+                        )
                     )
-                )
+
         return flows
 
     def get_tenant_overlay_switches(self, inp):

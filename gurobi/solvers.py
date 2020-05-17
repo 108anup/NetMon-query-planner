@@ -372,9 +372,19 @@ class MIP(Namespace):
                 #                for p in self.partitions]
                 self.m.addConstr(rows_tot == gp.quicksum(rows_series),
                                  name='rows_tot_{}'.format(d))
-                self.m.addConstr(
-                    rows_thr == gp.quicksum(rows_thr_series) / md.total_thr,
-                    name='rows_thr_{}'.format(d))
+                if (len(rows_thr_series) > 0):
+                    if(md.total_thr == 0):
+                        print(rows_series)
+                        print(rows_thr_series)
+                    self.m.addConstr(
+                        rows_thr ==
+                        gp.quicksum(rows_thr_series) / md.total_thr,
+                        name='rows_thr_{}'.format(d))
+                else:
+                    self.m.addConstr(
+                        rows_thr == 0,
+                        name='rows_thr_{}'.format(d))
+
                 md.rows_tot = rows_tot
                 md.rows_thr = rows_thr
                 if(not common_config.perf_obj):
@@ -773,7 +783,7 @@ class Netmon(UnivmonGreedyRows):
             log.info("Netmon behaving like UnivmonGreedyRows")
             return super(Netmon, self).add_constraints()
 
-        if(not hasattr(self, 'init')):
+        if(not hasattr(self, 'init') and common_config.perf_obj):
             # Initialize with unimon_greedy_rows solution
             super(Netmon, self).add_constraints()
             super(Netmon, self).add_objective()
