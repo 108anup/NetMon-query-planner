@@ -18,7 +18,8 @@ from common import Namespace, freeze_object, log, log_time, setup_logging
 from config import common_config
 from devices import P4, Cluster
 from flows import flow
-from input import Input, get_graph, input_generator
+from input import Input, get_graph
+from input_generator import input_generator
 from solvers import (UnivmonGreedyRows, log_placement, log_results,
                      refine_devices, solver_to_class)
 from helpers import get_val

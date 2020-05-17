@@ -809,7 +809,7 @@ class Netmon(UnivmonGreedyRows):
             #     for pnum in range(numpartitions):
             for (dnum, pnum) in self.dev_par_tuplelist:
                 self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
-                self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
+                self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
                 # self.frac[dnum, pnum].ub = self.frac[dnum, pnum].x
                 # self.frac[dnum, pnum].lb = self.frac[dnum, pnum].x
                 # self.mem[dnum, pnum].ub = self.mem[dnum, pnum].x

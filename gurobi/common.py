@@ -134,5 +134,7 @@ constants = Namespace(
     KB2B=1024,
     # Following are used when a device does not see any packet
     NS_LARGEST=1000,
-    NS_SMALLEST=1
+    NS_SMALLEST=1,
+    eps0=0.1 * 8 / 128,  # 1e-5
+    del0=0.05,  # 0.02
 )
