@@ -498,7 +498,7 @@ class TreeTopology():
                         h2 = t[random.randint(0, self.hosts_per_tenant-1)] + 1
 
                     np.random.shuffle(qlist_generator)
-                    q_list = qlist_generator[:flows_per_query]
+                    q_list = qlist_generator[:queries_updated_by_flow]
                     flows.append(
                         flow(
                             path=self.get_path(self.g, h1, h2),

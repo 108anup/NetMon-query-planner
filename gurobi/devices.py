@@ -40,8 +40,7 @@ class Device(Namespace):
 
 # * CPU
 class CPU(Device):
-    # TODO:: update with OVS
-    fraction_parallel = 3/4
+    fraction_parallel = 1
     # static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
     # s_rows = [0, 2, 3, 4, 5, 6, 7, 8, 9]
     # cache = {}  # HOLD: see if there is more performant cache
@@ -244,12 +243,6 @@ class CPU(Device):
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
         f = CPU.fraction_parallel
 
-        a = dpdk_single_ns * (1-f)
-        b = dpdk_single_ns * f
-        c = ns_single
-        k = self.cores
-        x = (a*k+b+c - math.sqrt((a*k+b+c)**2 - 4*a*k*c))/(2 * a)
-
         ns_options = []
 
         def helper_ns(cores_sketch, cores_dpdk):
@@ -264,15 +257,37 @@ class CPU(Device):
                     ns_sketch = ns_single / cores_sketch
                     ns_options.append(max(ns_dpdk, ns_sketch))
 
-        # Case 1:
-        cores_sketch = int(x)
-        cores_dpdk = k - cores_sketch
-        helper_ns(cores_sketch, cores_dpdk)
+        if(f < 1):
+            a = dpdk_single_ns * (1-f)
+            b = dpdk_single_ns * f
+            c = ns_single
+            k = self.cores
+            x = (a*k+b+c - math.sqrt((a*k+b+c)**2 - 4*a*k*c))/(2 * a)
 
-        # Case 2:
-        cores_sketch = math.ceil(x)
-        cores_dpdk = k - cores_sketch
-        helper_ns(cores_sketch, cores_dpdk)
+            # Case 1:
+            cores_sketch = int(x)
+            cores_dpdk = k - cores_sketch
+            helper_ns(cores_sketch, cores_dpdk)
+
+            # Case 2:
+            cores_sketch = math.ceil(x)
+            cores_dpdk = k - cores_sketch
+            helper_ns(cores_sketch, cores_dpdk)
+
+        else:
+            # This basically is for OVS which gives
+            # almost linear throughput with cores
+            ratio = ns_single / dpdk_single_ns
+
+            # Case 1:
+            cores_sketch = math.floor(ratio * self.cores)
+            cores_dpdk = self.cores - cores_sketch
+            helper_ns(cores_sketch, cores_dpdk)
+
+            # Case 2:
+            cores_sketch = math.ceil(ratio * self.cores)
+            cores_dpdk = self.cores - cores_sketch
+            helper_ns(cores_sketch, cores_dpdk)
 
         assert(len(ns_options) > 0)
         return min(ns_options)

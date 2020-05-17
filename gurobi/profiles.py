@@ -7,13 +7,14 @@ beluga20 = {
                5.84114, 30.6627, 39.6981],
     'Li_size': [32, 256, 8192, 32768],
     'Li_ns': [0.53, 1.5, 3.7, 36],
-    'hash_ns': 3.5, 'cores': 4, 'dpdk_single_core_thr': 35,
+    'hash_ns': 3.5, 'cores': 5, 'dpdk_single_core_thr': 5.746337927,
     'max_mem': 32768, 'max_rows': 24, 'line_thr': 98
 }
 
 tofino = {
     'profile_name': "tofino",
-    'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 5208.33,
+    'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 30 * 4,
+    'per_port_line_thr': 30, # 5208.33,
     'max_mpr': 512, 'max_mem': 512 * 12, 'max_rows': 12 * 4, 'max_col_bits': 17
 }
 
