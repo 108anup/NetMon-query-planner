@@ -132,5 +132,7 @@ def setup_logging(args):
 constants = Namespace(
     cell_size=4,
     KB2B=1024,
-    NS_LARGEST=1000
+    # Following are used when a device does not see any packet
+    NS_LARGEST=1000,
+    NS_SMALLEST=1
 )

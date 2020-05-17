@@ -59,7 +59,7 @@ beluga20 = {
     'Li_size': [32, 256, 8192, 32768],
     'Li_ns': [0.53, 1.5, 3.7, 36],
     'hash_ns': 3.5, 'cores': 4, 'dpdk_single_core_thr': 35,
-    'max_mem': 32768, 'max_rows': 12, 'line_thr': 98
+    'max_mem': 32768, 'max_rows': 24, 'line_thr': 98
 }
 
 tofino = {
@@ -487,6 +487,8 @@ class TreeTopology():
             flows = []
 
             flows_per_query = 2
+            queries_updated_by_flow = 2
+            assert(self.queries_per_tenant > queries_updated_by_flow)
             num_tenants = self.hosts / self.hosts_per_tenant
             assert(
                 self.num_queries
@@ -517,6 +519,7 @@ class TreeTopology():
                                       self.hosts + self.num_netronome))
             flows_per_host = (flows_per_query * self.queries_per_tenant
                               / self.hosts_per_tenant)
+            qlist_generator = list(range(self.queries_per_tenant))
 
             for (tnum, t) in enumerate(tenant_servers):
                 query_set = [i + tnum*self.queries_per_tenant
@@ -527,12 +530,19 @@ class TreeTopology():
                     h2 = t[random.randint(0, self.hosts_per_tenant-1)] + 1
                     while(h2 == h1):
                         h2 = t[random.randint(0, self.hosts_per_tenant-1)] + 1
-                    cov = int(random.random() * 4 + 7)/10
-                    q = query_set[random.randint(0, self.queries_per_tenant-1)]
+
+                    np.random.shuffle(qlist_generator)
+                    q_list = qlist_generator[:flows_per_query]
                     flows.append(
                         flow(
                             path=self.get_path(self.g, h1, h2),
-                            queries=[(q, cov)],
+                            queries=[
+                                (
+                                    query_set[q_idx],
+                                    int(random.random() * 4 + 7)/10
+                                )
+                                for q_idx in q_list
+                            ],
                             thr=70/(flows_per_host * 2)
                         )
                     )
@@ -551,7 +561,7 @@ class TreeTopology():
                 for flownum in range(max(self.hosts, self.num_queries) * 5)
             ]
         return flows
-
+    
     def create_inp(self):
         inp = Input(
             devices=(
@@ -1276,9 +1286,9 @@ input_generator = [
     # 28
     # Medium tenant (1K)
     TreeTopology(hosts_per_tors=48, tors_per_l1s=10,
-                 l1s=10, num_queries=48*100*2, tenant=True,
-                 overlay='none', refine=False, eps=eps0/10,
-                 queries_per_tenant=16),
+                 l1s=4, num_queries=48*10*4*3, tenant=True,
+                 overlay='tenant', refine=False, eps=eps0/10,
+                 queries_per_tenant=8*3),
 
     # 29
     # Very Large (100K)

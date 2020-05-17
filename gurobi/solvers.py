@@ -5,6 +5,7 @@ import os
 import sys
 import time
 from functools import partial
+import numpy as np
 
 import gurobipy as gp
 from gurobipy import GRB, tupledict, tuplelist
@@ -68,7 +69,7 @@ def no_traffic_md(md):
     md.normalized_mem_tot = 0
     if(not common_config.perf_obj):
         md.ns_req = constants.NS_LARGEST
-    md.ns = 0
+    md.ns = constants.NS_SMALLEST
 
 # elements of md_list are updated in place
 @log_time(logger=log.info)
@@ -318,6 +319,15 @@ class MIP(Namespace):
 
     @log_time
     def add_capacity_constraints(self):
+        mem_list = [
+            d.max_mem
+            for d in self.devices]
+        total_avg_mem = int(np.sum(mem_list)/len(mem_list))
+        rows_list = [
+            d.max_rows
+            for d in self.devices]
+        total_avg_rows = int(np.sum(rows_list)/len(rows_list))
+
         for (dnum, d) in enumerate(self.devices):
             md = self.md_list[dnum]
 
@@ -333,8 +343,9 @@ class MIP(Namespace):
                 normalized_mem_tot = self.m.addVar(
                     vtype=GRB.CONTINUOUS,
                     name='normalized_mem_tot_{}'.format(d),
-                    lb=0, ub=1)
-                self.m.addConstr(normalized_mem_tot == mem_tot / d.max_mem)
+                    lb=0)
+                self.m.addConstr(normalized_mem_tot ==
+                                 (total_avg_mem * mem_tot) / d.max_mem)
                 md.normalized_mem_tot = normalized_mem_tot
 
                 # Row constraints
@@ -343,7 +354,7 @@ class MIP(Namespace):
                 normalized_rows_thr_tot = self.m.addVar(
                     vtype=GRB.CONTINUOUS,
                     name='normalized_rows_thr_tot_{}'.format(d),
-                    lb=0, ub=1)
+                    lb=0)
                 rows_thr = self.m.addVar(vtype=GRB.CONTINUOUS,
                                          name='rows_thr_{}'.format(d), lb=0)
 
@@ -368,7 +379,8 @@ class MIP(Namespace):
                 md.rows_thr = rows_thr
                 if(not common_config.perf_obj):
                     md.ns_req = 1000 / md.total_thr
-                self.m.addConstr(normalized_rows_thr_tot == rows_thr / d.max_rows)
+                self.m.addConstr(normalized_rows_thr_tot ==
+                                 (total_avg_rows * rows_thr) / d.max_rows)
                 md.normalized_rows_thr_tot = normalized_rows_thr_tot
                 md.m = self.m
             else:
@@ -521,7 +533,8 @@ class MIP(Namespace):
 
         if(is_infeasible(self.m)):
             self.infeasible = True
-            self.reason = 'Infeasible solve'
+            self.reason = ('Infeasible solve: {} devices, {} sketches'
+                           .format(len(self.devices), len(self.partitions)))
             self.culprit = self.m
             return
         else:
@@ -760,52 +773,57 @@ class Netmon(UnivmonGreedyRows):
             log.info("Netmon behaving like UnivmonGreedyRows")
             return super(Netmon, self).add_constraints()
 
-        # if(not hasattr(self, 'init')):
-        #     # Initialize with unimon_greedy_rows solution
-        #     super(Netmon, self).add_constraints()
-        #     super(Netmon, self).add_objective()
-        #     log.info("-"*50)
-        #     log.info("Running Intermediate Univmon Placement")
-        #     self.m.update()
-        #     # HOLD: Redundancy here. Consider running univmon at Obj init time
-        #     self.m.optimize()
-        #     if(is_infeasible(self.m)):
-        #         self.infeasible = True
-        #         self.culprit = self.m
-        #         return
+        if(not hasattr(self, 'init')):
+            # Initialize with unimon_greedy_rows solution
+            super(Netmon, self).add_constraints()
+            super(Netmon, self).add_objective()
+            log.info("-"*50)
+            log.info("Running Intermediate Univmon Placement")
+            self.m.update()
+            # HOLD: Redundancy here. Consider running univmon at Obj init time
+            self.m.optimize()
+            if(is_infeasible(self.m)):
+                self.infeasible = True
+                self.culprit = self.m
+                self.reason = ('Infeasible solve: {} devices, {} sketches'
+                           .format(len(self.devices), len(self.partitions)))
+                return
 
-        #     log_objectives(self.m)
-        #     dont_refine = self.dont_refine
-        #     self.dont_refine = False
-        #     self.placement_fixed = False
-        #     super(Netmon, self).post_optimize()
-        #     self.dont_refine = dont_refine
-        #     # (ns_max, _) = refine_devices(self.devices)
-        #     log_placement(self.devices, self.partitions, self.flows,
-        #                   self.dev_par_tuplelist, self.frac, self.md_list,
-        #                   msg="UnivmonGreedyRows: Intermediate Placement")
-        #     log_results(self.devices, self.r, self.md_list,
-        #                 msg="UnivmonGreedyRows: Intermediate Results")
+            log_objectives(self.m)
+            dont_refine = self.dont_refine
+            self.dont_refine = False
+            self.placement_fixed = False
+            super(Netmon, self).post_optimize()
+            self.dont_refine = dont_refine
+            # (ns_max, _) = refine_devices(self.devices)
+            log_placement(self.devices, self.partitions, self.flows,
+                          self.dev_par_tuplelist, self.frac, self.md_list,
+                          msg="UnivmonGreedyRows: Intermediate Placement")
+            log_results(self.devices, self.r, self.md_list,
+                        msg="UnivmonGreedyRows: Intermediate Results")
 
-        #     # numdevices = len(self.devices)
-        #     # numpartitions = len(self.partitions)
+            # numdevices = len(self.devices)
+            # numpartitions = len(self.partitions)
 
-        #     # for dnum in range(numdevices):
-        #     #     for pnum in range(numpartitions):
-        #     for (dnum, pnum) in self.dev_par_tuplelist:
-        #         self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
-        #         self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
-        #         # self.frac[dnum, pnum].ub = self.frac[dnum, pnum].x
-        #         # self.frac[dnum, pnum].lb = self.frac[dnum, pnum].x
-        #         # self.mem[dnum, pnum].ub = self.mem[dnum, pnum].x
-        #         # self.mem[dnum, pnum].b = self.mem[dnum, pnum].x
-        #     # # NOTE:: Check this!
-        #     # With both netro and CPU UGR solution may not be optimal
-        #     # Also with rows_thr also the solution by UGR may not be optimal
-        #     # self.ns_req = self.r.ns_max + common_config.ftol
-        #         """TODO: I am facing an error similar to:
-        #         https://support.gurobi.com/hc/en-us/community/posts/360056102052-Test-if-the-start-solution-is-feasible?page=1
-        #         https://groups.google.com/forum/#!topic/gurobi/C1bIDPFvtKY"""
+            # for dnum in range(numdevices):
+            #     for pnum in range(numpartitions):
+            for (dnum, pnum) in self.dev_par_tuplelist:
+                self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
+                self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
+                # self.frac[dnum, pnum].ub = self.frac[dnum, pnum].x
+                # self.frac[dnum, pnum].lb = self.frac[dnum, pnum].x
+                # self.mem[dnum, pnum].ub = self.mem[dnum, pnum].x
+                # self.mem[dnum, pnum].b = self.mem[dnum, pnum].x
+            # # NOTE:: Check this!
+            # With both netro and CPU UGR solution may not be optimal
+            # Also with rows_thr also the solution by UGR may not be optimal
+            # self.ns_req = self.r.ns_max + common_config.ftol
+
+            """
+            TODO: I am facing an error similar to:
+            https://support.gurobi.com/hc/en-us/community/posts/360056102052-Test-if-the-start-solution-is-feasible?page=1
+            https://groups.google.com/forum/#!topic/gurobi/C1bIDPFvtKY
+            """
 
         self.m.setParam(GRB.Param.NonConvex, 2)
         (self.ns, self.res) = self.add_device_model_constraints()
@@ -977,6 +995,10 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
         log.debug("Rows total: {}".format(get_val(md.rows_tot)))
         log.debug("Expected updates: {}".format(get_val(md.rows_thr)))
         log.debug("Mem total: {}".format(get_val(md.mem_tot)))
+        if(hasattr(md, 'ns_sketch')):
+            log.debug("ns_sketch: {}".format(get_val(md.ns_sketch)))
+        if(hasattr(md, 'ns_dpdk')):
+            log.debug("ns_dpdk: {}".format(get_val(md.ns_dpdk)))
         if(init):
             tot_rows = 0
             tot_mem = 0

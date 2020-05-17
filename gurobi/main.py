@@ -78,7 +78,7 @@ def runner(solver):
         # import ipdb; ipdb.set_trace()
         # return handle_infeasible(solver.culprit)
         solution = Namespace(infeasible=True,
-                             reason="Infeasible independent branch")
+                             reason=solver.reason)
         return solution
     return extract_solution(solver)
 
@@ -449,7 +449,8 @@ def cluster_optimization(inp):
                 # nx.draw(g, labels=labels)
                 # plt.show()
                 # import ipdb; ipdb.set_trace()
-                return handle_infeasible(getattr(solver, 'culprit', None))
+                return handle_infeasible(getattr(solver, 'culprit', None),
+                                         msg=solver.reason)
 
             for (dnum, d) in enumerate(solver.devices):
                 if(isinstance(d, Cluster)):
@@ -502,8 +503,8 @@ def cluster_optimization(inp):
                 for prob_num in range(len(problems)):
                     problem = problems[prob_num]
                     solution = solutions[prob_num]
-                    if(solution is None):
-                        return handle_infeasible()
+                    if(getattr(solution, 'infeasible', None)):
+                        return handle_infeasible(msg=solution.reason)
                     else:
                         new_solution = rebuild_solution(solution)
                         update_solution(problem, new_solution)

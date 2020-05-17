@@ -33,6 +33,7 @@ class Device(Namespace):
     def resource_stats(self, md):
         return ""
 
+    # What is the best ns possible for given placement
     def get_ns(self, md):
         return 1000 / self.line_thr
 
@@ -95,6 +96,7 @@ class CPU(Device):
         #     sys.exit(-1)
         return pdt
 
+    # What resources are needed for given placement and ns_req
     def set_thr(self, md, ns_req):
         md.cores_sketch = get_rounded_cores(md.ns_single / ns_req)
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
@@ -105,8 +107,9 @@ class CPU(Device):
             md.ns_sketch = 0
         f = CPU.fraction_parallel
         dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
-        assert(dpdk_cores > 0)
         md.cores_dpdk = get_rounded_cores(dpdk_cores)
+        if(dpdk_cores < 0):
+            md.infeasible = True
         md.ns_dpdk = dpdk_single_ns * (1-f + f/md.cores_dpdk)
         md.ns = max(md.ns_dpdk, md.ns_sketch)
         if(md.cores_dpdk + md.cores_sketch > self.cores):
@@ -349,6 +352,8 @@ class Netronome(Device):
             md.ns_hash_max * self.total_me / ns_req,
             md.ns_fwd_max * self.total_me / ns_req, self.total_me
         ))
+        if(md.micro_engines > self.total_me):
+            md.infeasible = True
         md.ns_hash = md.ns_hash_max * self.total_me / md.micro_engines
         md.ns_fwd = md.ns_fwd_max * self.total_me / md.micro_engines
         md.ns = max(md.ns_hash, md.ns_fwd, md.ns_mem_max)
