@@ -98,6 +98,7 @@ class CPU(Device):
 
     # What resources are needed for given placement and ns_req
     def set_thr(self, md, ns_req):
+        assert(ns_req > 0)
         md.cores_sketch = get_rounded_cores(md.ns_single / ns_req)
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
         if(md.cores_sketch != 0):
@@ -106,10 +107,12 @@ class CPU(Device):
             # assert(md.ns_single <= 0.001)
             md.ns_sketch = 0
         f = CPU.fraction_parallel
-        dpdk_cores = f/(ns_req/dpdk_single_ns - 1 + f)
-        md.cores_dpdk = get_rounded_cores(dpdk_cores)
-        if(dpdk_cores < 0):
+        den = ns_req/dpdk_single_ns - 1 + f
+        if(den <= 0):
             md.infeasible = True
+            return
+        dpdk_cores = f/den
+        md.cores_dpdk = get_rounded_cores(dpdk_cores)
         md.ns_dpdk = dpdk_single_ns * (1-f + f/md.cores_dpdk)
         md.ns = max(md.ns_dpdk, md.ns_sketch)
         if(md.cores_dpdk + md.cores_sketch > self.cores):
