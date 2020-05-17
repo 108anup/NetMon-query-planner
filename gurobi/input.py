@@ -16,7 +16,7 @@ from config import common_config
 from devices import CPU, P4, Netronome
 from flows import flow
 from sketches import cm_sketch
-from profiles import beluga20, tofino, agiliocx40gbe
+from profiles import beluga20, tofino, agiliocx40gbe, dc_line_rate
 
 """
 TODO:
@@ -509,7 +509,7 @@ class TreeTopology():
                                 )
                                 for q_idx in q_list
                             ],
-                            thr=70/(flows_per_host * 2)
+                            thr=dc_line_rate/(flows_per_host * 2)
                         )
                     )
         else:

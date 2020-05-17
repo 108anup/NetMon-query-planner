@@ -1,3 +1,6 @@
+dc_line_rate = 22
+p4_stages = 2
+
 # * One time profiling of each device type
 beluga20 = {
     'profile_name': "beluga20",
@@ -13,9 +16,9 @@ beluga20 = {
 
 tofino = {
     'profile_name': "tofino",
-    'meter_alus': 4, 'sram': 512, 'stages': 12, 'line_thr': 5208.33,
-    'per_port_line_thr': 30,
-    'max_mpr': 512, 'max_mem': 512 * 12, 'max_rows': 12 * 4, 'max_col_bits': 17
+    'meter_alus': 4, 'sram': 512, 'stages': p4_stages, 'line_thr': 5208.33,
+    'max_mpr': 512, 'max_mem': 512 * p4_stages, 'max_rows': p4_stages * 4,
+    'max_col_bits': 17
 }
 
 agiliocx40gbe = {

@@ -1022,8 +1022,8 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
             log.debug("Throughput: {} Mpps".format(1000/get_val(md.ns)))
         if(hasattr(md, 'ns_req')):
             log.debug("Throughput Req: {} Mpps".format(1000/md.ns_req))
-            if(isinstance(d, CPU)):
-                d.log_vars(md)
+            # if(isinstance(d, CPU)):
+            #     d.log_vars(md)
 
     # log.debug("")
     # for (fnum, f) in enumerate(flows):

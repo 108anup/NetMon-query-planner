@@ -14,8 +14,9 @@ from flows import flow
 from input import (Input, draw_graph, draw_overlay_over_tenant, fold,
                    generate_overlay, get_complete_graph, get_graph,
                    get_labels_from_overlay, get_spectral_overlay, merge)
-from profiles import agiliocx40gbe, beluga20, tofino
+from profiles import agiliocx40gbe, beluga20, tofino, dc_line_rate
 from sketches import cm_sketch
+import matplotlib.pyplot as plt
 
 eps0 = constants.eps0
 del0 = constants.del0
@@ -41,33 +42,27 @@ class Clos(object):
         self.query_density = query_density
         self.num_queries = self.num_hosts * self.query_density
         self.eps = eps0
-        self.hosts_per_tenant = hosts_per_tenant
+        self.hosts_per_tenant = min(hosts_per_tenant, self.num_hosts)
         self.overlay = overlay
 
     def construct_graph(self, devices, has_netro):
         start = 0
-        hosts = [(devices[i].name,
-                  {'remaining': devices[i].line_thr, 'id': i})
+        hosts = [(devices[i].name, {'id': i, 'remaining': dc_line_rate})
                  for i in range(start, start+self.num_hosts)]
         start += self.num_hosts
 
-        netronome_nics = [(devices[i].name,
-                           {'remaining': devices[i].line_thr, 'id': i})
+        netronome_nics = [(devices[i].name, {'id': i})
                           for i in range(start, start+self.num_netronome)]
         start += self.num_netronome
 
-        core_switches = [(devices[i].name,
-                          {'remaining': devices[i].per_port_line_thr,
-                           'id': i})
+        core_switches = [(devices[i].name, {'id': i})
                          for i in range(start, start+self.num_core_sw)]
         start += self.num_core_sw
 
         # For a given pod:
         # The first self.pods/2 agg sw are in upper layer
         # The next self.pods/2 agg sw are in lower layer
-        agg_switches = [(devices[i].name,
-                         {'remaining': devices[i].per_port_line_thr,
-                          'id': i})
+        agg_switches = [(devices[i].name, {'id': i})
                         for i in range(start, start+self.num_agg_sw)]
 
         g = nx.Graph()
@@ -85,13 +80,15 @@ class Clos(object):
                 # Connect to core switches
                 for port in range(self.podsby2):
                     core_switch = core_switches[core_offset][0]
-                    g.add_edge(switch, core_switch)
+                    g.add_edge(switch, core_switch,
+                               remaining=dc_line_rate)
                     core_offset += 1
 
                 # Connect to aggregate switches in same pod
                 for port in range(self.podsby2, self.pods):
                     lower_switch = agg_switches[(pod*self.pods) + port][0]
-                    g.add_edge(switch, lower_switch)
+                    g.add_edge(switch, lower_switch,
+                               remaining=dc_line_rate)
 
             for sw in range(self.podsby2, self.pods):
                 switch = agg_switches[(pod*self.pods) + sw][0]
@@ -103,10 +100,10 @@ class Clos(object):
                     netro_offset = has_netro[host_offset]
                     if(netro_offset >= 0):
                         netro = netronome_nics[netro_offset][0]
-                        g.add_edge(switch, netro)
-                        g.add_edge(netro, host)
+                        g.add_edge(switch, netro, remaining=dc_line_rate)
+                        g.add_edge(netro, host, remaining=dc_line_rate)
                     else:
-                        g.add_edge(switch, host)
+                        g.add_edge(switch, host, remaining=dc_line_rate)
                     host_offset += 1
 
         self.hosts = hosts
@@ -114,7 +111,7 @@ class Clos(object):
         self.core_switches = core_switches
         self.agg_switches = agg_switches
 
-        # Check that everything is in order :D
+        # # Check that everything is in order :D
         # pos = nx.spring_layout(g)
         # # labels = nx.draw_networkx_labels(g, pos=pos)
         # labels = {}
@@ -129,36 +126,61 @@ class Clos(object):
         h2name = self.hosts[h2][0]
 
         node_paths = nx.all_shortest_paths(g, h1name, h2name)
-        node_paths_capacity = [
-            (
-                path,
-                min(map(lambda x: g.nodes[x]['remaining'], path))
-            )
-            for path in node_paths
-        ]
-        (most_capacity_path, capacity) = max(
-            node_paths_capacity,
-            key=lambda x: x[1]
-        )
+        node_paths_capacity = []
+        max_capacity = 0
+        max_capacity_path = None
+        for path in node_paths:
+            capacity = dc_line_rate
+            for start in range(len(path)-1):
+                beg = path[start]
+                end = path[start+1]
+                capacity = min(capacity, g.edges[beg, end]['remaining'])
+            node_paths_capacity.append((path, capacity))
+            if(capacity >= max_capacity):
+                max_capacity_path = path
+                max_capacity = capacity
+
+        # node_paths_capacity = [
+        #     (
+        #         path,
+        #         min(map(lambda x: g.nodes[x]['remaining'], path))
+        #     )
+        #     for path in node_paths
+        # ]
+        # (max_capacity_path, capacity) = max(
+        #     node_paths_capacity,
+        #     key=lambda x: x[1]
+        # )
         ids_path = list(map(lambda x: g.nodes[x]['id'],
-                            most_capacity_path))
-        return (most_capacity_path, ids_path, capacity)
+                            max_capacity_path))
+        return (max_capacity_path, ids_path, max_capacity)
 
     def update_path_with_traffic(self, g, node_path, traffic):
-        for node in node_path:
-            g.nodes[node]['remaining'] -= traffic
+        h1 = node_path[0]
+        h2 = node_path[-1]
+        g.nodes[h1]['remaining'] -= traffic
+        g.nodes[h2]['remaining'] -= traffic
+        for start in range(len(node_path)-1):
+            beg = node_path[start]
+            end = node_path[start+1]
+            g.edges[beg, end]['remaining'] -= traffic
+            if('debug' in g.edges[beg, end]):
+                g.edges[beg, end]['debug'].append((h1, h2, traffic))
+            else:
+                g.edges[beg, end]['debug'] = [(h1, h2, traffic)]
 
     def get_flows(self, g, inp):
         # query_density means queries per host
-        num_tenants = self.num_hosts / self.hosts_per_tenant
+        num_tenants = math.ceil(self.num_hosts / self.hosts_per_tenant)
         queries_per_tenant = self.query_density * self.hosts_per_tenant
-        flows_per_query = 4
+        flows_per_query = 2
 
-        mean_queries_updated_by_flow = 6
+        mean_queries_updated_by_flow = 2
         half_range = mean_queries_updated_by_flow - 1
         low = mean_queries_updated_by_flow - half_range
         high = mean_queries_updated_by_flow + half_range
-        assert(queries_per_tenant > high)
+        assert(queries_per_tenant > high
+               and queries_per_tenant <= self.num_queries)
 
         servers = np.arange(self.num_hosts)
         np.random.shuffle(servers)
@@ -210,19 +232,24 @@ class Clos(object):
                 for idx in range(len(t)):
                     h1 = t[idx]
                     h2 = assigned[idx]
-                    while(h2 == h1):
+                    h1name = self.hosts[h1][0]
+                    h2name = self.hosts[h2][0]
+
+                    # Clos should ensure if hosts have remaining
+                    # capacity then there is a path between them
+                    # with enough capacity
+                    if(g.nodes[h1name]['remaining'] == 0):
+                        continue
+                    while(h2 == h1 or g.nodes[h2name]['remaining'] == 0):
                         h2 = t[random.randint(0, self.hosts_per_tenant-1)]
+                        h2name = self.hosts[h2][0]
+
                     (node_path, id_path, capacity) = \
                         self.get_path_with_largest_capacity(g, h1, h2)
-                    traffic = min(capacity, 27/flows_per_host)
+                    traffic = min(capacity, dc_line_rate/flows_per_host)
                     if(traffic == 0):
-                        log.error("Too many flows than capacity: {} {}"
-                                  .format(h1, h2))
+                        log.error('Need better way to select paths')
                         continue
-                        # sys.exit(1)
-                    log.error("Adding: {} {} with traffic: {}".format(
-                        h1, h2, traffic))
-
                     self.update_path_with_traffic(g, node_path, traffic)
 
                     np.random.shuffle(qlist_generator)
@@ -292,13 +319,15 @@ class Clos(object):
                                     common_config.MAX_CLUSTERS_PER_CLUSTER)
 
         overlay = host_nic_overlay
-        inp.overlay = overlay
-        node_labels = {}
-        for d in inp.devices:
-            node_labels[d.dev_id] = d.name
-        node_colors = get_labels_from_overlay(inp, inp.overlay)
-        g = get_graph(inp)
-        draw_graph(g, node_colors, node_labels)
+
+        # inp.overlay = overlay
+        # node_labels = {}
+        # for d in inp.devices:
+        #     node_labels[d.dev_id] = d.name
+        # node_colors = get_labels_from_overlay(inp, inp.overlay)
+        # g = get_graph(inp)
+        # draw_graph(g, node_colors, node_labels)
+
         if(len(overlay) == 1 and isinstance(overlay[0], list)):
             return overlay[0]
 

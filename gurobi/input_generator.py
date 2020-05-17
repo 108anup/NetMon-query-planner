@@ -441,5 +441,5 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=6, overlay='tenant', query_density=5),
+    Clos(pods=4, overlay='tenant', query_density=6),
 ]
