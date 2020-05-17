@@ -432,7 +432,7 @@ class MIP(Namespace):
         return True
 
     @log_time
-    def add_device_model_constraints(self):
+    def add_device_model_constraints(self, ns_max=None):
         res_acc = gp.LinExpr()
         for (dnum, d) in enumerate(self.devices):
             md = self.md_list[dnum]
@@ -445,7 +445,7 @@ class MIP(Namespace):
                or isinstance(md.rows_tot, gp.Var)):
                 # Throughput
                 # Simple total model
-                d.add_ns_constraints(self.m, md, getattr(md, 'ns_req', None))
+                d.add_ns_constraints(self.m, md, getattr(md, 'ns_req', ns_max))
 
                 # Resources
                 res_acc += d.res(md)
@@ -470,6 +470,7 @@ class MIP(Namespace):
     @log_time
     def solve(self):
         self.m = gp.Model(self.__class__.__name__)
+        self.m.ModelSense = GRB.MINIMIZE
         log.info("\n" + "-"*80)
         log.info("Model {} with:\n"
                  "{} devices, {} partitions and {} flows"
@@ -501,8 +502,8 @@ class MIP(Namespace):
         if(self.infeasible):
             return
 
-        self.m.ModelSense = GRB.MINIMIZE
-        self.add_objective()
+        if(not getattr(self, 'objectives_added', False)):
+            self.add_objective()
 
         start = time.time()
         self.m.update()
@@ -783,7 +784,8 @@ class Netmon(UnivmonGreedyRows):
             log.info("Netmon behaving like UnivmonGreedyRows")
             return super(Netmon, self).add_constraints()
 
-        if(not hasattr(self, 'init') and common_config.perf_obj):
+        if(not hasattr(self, 'init') and common_config.perf_obj and
+           getattr(self, 'ns_req', None) is None):
             # Initialize with unimon_greedy_rows solution
             super(Netmon, self).add_constraints()
             super(Netmon, self).add_objective()
@@ -796,7 +798,7 @@ class Netmon(UnivmonGreedyRows):
                 self.infeasible = True
                 self.culprit = self.m
                 self.reason = ('Infeasible solve: {} devices, {} sketches'
-                           .format(len(self.devices), len(self.partitions)))
+                               .format(len(self.devices), len(self.partitions)))
                 return
 
             log_objectives(self.m)
@@ -805,29 +807,11 @@ class Netmon(UnivmonGreedyRows):
             self.placement_fixed = False
             super(Netmon, self).post_optimize()
             self.dont_refine = dont_refine
-            # (ns_max, _) = refine_devices(self.devices)
             log_placement(self.devices, self.partitions, self.flows,
                           self.dev_par_tuplelist, self.frac, self.md_list,
                           msg="UnivmonGreedyRows: Intermediate Placement")
             log_results(self.devices, self.r, self.md_list,
                         msg="UnivmonGreedyRows: Intermediate Results")
-
-            # numdevices = len(self.devices)
-            # numpartitions = len(self.partitions)
-
-            # for dnum in range(numdevices):
-            #     for pnum in range(numpartitions):
-            for (dnum, pnum) in self.dev_par_tuplelist:
-                self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
-                self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
-                # self.frac[dnum, pnum].ub = self.frac[dnum, pnum].x
-                # self.frac[dnum, pnum].lb = self.frac[dnum, pnum].x
-                # self.mem[dnum, pnum].ub = self.mem[dnum, pnum].x
-                # self.mem[dnum, pnum].b = self.mem[dnum, pnum].x
-            # # NOTE:: Check this!
-            # With both netro and CPU UGR solution may not be optimal
-            # Also with rows_thr also the solution by UGR may not be optimal
-            # self.ns_req = self.r.ns_max + common_config.ftol
 
             """
             TODO: I am facing an error similar to:
@@ -835,15 +819,54 @@ class Netmon(UnivmonGreedyRows):
             https://groups.google.com/forum/#!topic/gurobi/C1bIDPFvtKY
             """
 
+            # frac_old_ub = tupledict()
+            # mem_old_ub = tupledict()
+            for (dnum, pnum) in self.dev_par_tuplelist:
+                # frac_old_ub[dnum, pnum] = self.frac[dnum, pnum].ub
+                # mem_old_ub[dnum, pnum] = self.mem[dnum, pnum].ub
+                # self.frac[dnum, pnum].ub = self.frac[dnum, pnum].x
+                # self.frac[dnum, pnum].lb = self.frac[dnum, pnum].x
+                # self.mem[dnum, pnum].ub = self.mem[dnum, pnum].x
+                # self.mem[dnum, pnum].lb = self.mem[dnum, pnum].x
+                self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
+                self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
+
+
+            # # NOTE:: Check this!
+            # With both netro and CPU UGR solution may not be optimal
+            # Also with rows_thr also the solution by UGR may not be optimal
+            self.ns_req = self.r.ns_max + common_config.ftol
+
+            # self.m.setParam(GRB.Param.NonConvex, 2)
+            # (self.ns, self.res) = self.add_device_model_constraints()
+
+            # self.add_objective()
+            # self.objectives_added = True
+            # self.m.update()
+            # self.m.optimize()
+            # if(is_infeasible(self.m)):
+            #     self.infeasible = True
+            #     self.culprit = self.m
+            #     self.reason = 'Constraint violation in UGR -> Netmon'
+            #     return
+
+            # for v in self.m.getVars():
+            #     v.start = v.x
+
+            # for (dnum, pnum) in self.dev_par_tuplelist:
+            #     self.frac[dnum, pnum].ub = frac_old_ub[dnum, pnum]
+            #     self.mem[dnum, pnum].ub = mem_old_ub[dnum, pnum]
+
         self.m.setParam(GRB.Param.NonConvex, 2)
-        (self.ns, self.res) = self.add_device_model_constraints()
+        (self.ns, self.res) = self.add_device_model_constraints(
+            getattr(self, 'ns_req', None))
 
     def add_objective(self):
         if(self.is_clustered()):
             return super(Netmon, self).add_objective()
 
-        # if(getattr(self, 'ns_req', None) is not None):
-        if(not common_config.perf_obj):
+        if(not common_config.perf_obj or
+           getattr(self, 'ns_req', None) is not None):
             self.m.NumObj = 1
             self.m.setObjectiveN(self.res, 0, 10, reltol=common_config.res_tol,
                                  name='res')

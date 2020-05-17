@@ -198,9 +198,14 @@ class CPU(Device):
                                   name='ns_dpdk_{}'.format(self))
             md.pdt_nsc_dpdk = self.get_pdt_var(
                 md.ns_dpdk, md.cores_dpdk, 'nsc_dpdk', m, 0)
-            m.addConstr(
-                (md.cores_dpdk*(1-f)+f)*dpdk_single_ns
-                == md.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))
+            if(f == 0):
+                m.addConstr(
+                    dpdk_single_ns
+                    == md.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))
+            else:
+                m.addConstr(
+                    (md.cores_dpdk*(1-f)+f)*dpdk_single_ns
+                    == md.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))
 
         m.addConstr(md.cores_sketch + md.cores_dpdk <= self.cores,
                     name='capacity_cores_{}'.format(self))

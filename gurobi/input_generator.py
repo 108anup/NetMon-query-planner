@@ -352,7 +352,7 @@ input_generator = [
     # 25
     # Large tenant (10K)
     TreeTopology(hosts_per_tors=48, tors_per_l1s=20,
-                 l1s=10, num_queries=48*20*10*2, tenant=True, overlay='none',
+                 l1s=10, num_queries=48*20*10*2, tenant=True, overlay='tenant',
                  eps=eps0/100, portion_netronome=0.5,
                  queries_per_tenant=16),
 
