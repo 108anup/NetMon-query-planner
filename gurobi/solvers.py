@@ -754,13 +754,17 @@ class UnivmonGreedyRows(UnivmonGreedy):
             self.m.setObjectiveN(self.max_rows_others, 1, 90,
                                  name='others_rows_load')
             env1 = self.m.getMultiobjEnv(1)
-            env1.setParam('MIPFocus', 3)
-            if(getattr(common_config, 'ABS_TIME_ON_UNIVMON_BOTTLENECK', None)):
-                env1.setParam('TimeLimit',
+            env1.setParam(GRB.Param.MIPFocus, 2)
+            if(getattr(common_config, 'ABS_TIME_ON_UNIVMON_BOTTLENECK', None)
+               is not None):
+                log.error("Setting Univmon Time limit to: {}".format(
+                    common_config.ABS_TIME_ON_UNIVMON_BOTTLENECK))
+                env1.setParam(GRB.Param.TimeLimit,
                               common_config.ABS_TIME_ON_UNIVMON_BOTTLENECK)
             elif(getattr(common_config,
-                         'MIP_GAP_REL_UNIVMON_BOTTLENECK', None)):
-                env1.setParam('TimeLimit',
+                         'MIP_GAP_REL_UNIVMON_BOTTLENECK', None)
+                 is not None):
+                env1.setParam(GRB.Param.MIPGap,
                               common_config.MIP_GAP_REL_UNIVMON_BOTTLENECK)
 
         if(hasattr(self, 'max_rows_fixed_thr')):
@@ -776,13 +780,17 @@ class UnivmonGreedyRows(UnivmonGreedy):
             self.m.setObjectiveN(self.max_mem_others, 5, 50,
                                  name='others_load_mem')
             env5 = self.m.getMultiobjEnv(5)
-            env5.setParam('MIPFocus', 3)
-            if(getattr(common_config, 'ABS_TIME_ON_UNIVMON_BOTTLENECK', None)):
-                env5.setParam('TimeLimit',
+            env5.setParam(GRB.Param.MIPFocus, 2)
+            if(getattr(common_config, 'ABS_TIME_ON_UNIVMON_BOTTLENECK', None)
+               is not None):
+                log.error("Setting Univmon Time limit to: {}".format(
+                    common_config.ABS_TIME_ON_UNIVMON_BOTTLENECK))
+                env5.setParam(GRB.Param.TimeLimit,
                               common_config.ABS_TIME_ON_UNIVMON_BOTTLENECK)
             elif(getattr(common_config,
-                         'MIP_GAP_REL_UNIVMON_BOTTLENECK', None)):
-                env5.setParam('TimeLimit',
+                         'MIP_GAP_REL_UNIVMON_BOTTLENECK', None)
+                 is not None):
+                env5.setParam(GRB.Param.MIPGap,
                               common_config.MIP_GAP_REL_UNIVMON_BOTTLENECK)
 
         if(hasattr(self, 'max_mem_fixed_thr')):
@@ -856,7 +864,7 @@ class Netmon(UnivmonGreedyRows):
             # # NOTE:: Check this!
             # With both netro and CPU UGR solution may not be optimal
             # Also with rows_thr also the solution by UGR may not be optimal
-            self.ns_req = self.r.ns_max + common_config.ftol
+            # self.ns_req = self.r.ns_max + common_config.ftol
 
             # self.m.setParam(GRB.Param.MIPFocus, 1)
             # self.m.setParam(GRB.Param.NonConvex, 2)
@@ -881,6 +889,7 @@ class Netmon(UnivmonGreedyRows):
             #     self.mem[dnum, pnum].ub = mem_old_ub[dnum, pnum]
 
         self.m.setParam(GRB.Param.NonConvex, 2)
+        self.m.setParam(GRB.Param.MIPFocus, 2)
         (self.ns, self.res) = self.add_device_model_constraints(
             getattr(self, 'ns_req', None))
 
@@ -894,28 +903,34 @@ class Netmon(UnivmonGreedyRows):
             self.m.NumObj = 1
             self.m.setObjectiveN(self.res, 0, 10, reltol=common_config.res_tol,
                                  name='res')
+
             env0 = self.m.getMultiobjEnv(0)
-            env0.setParam('NonConvex', 2)
-            env0.setParam('MIPFocus', 2)
-            env0.setParam('TimeLimit', common_config.time_limit)
+            env0.setParam(GRB.Param.NonConvex, 2)
+            env0.setParam(GRB.Param.MIPFocus, 2)
+            env0.setParam(GRB.Param.TimeLimit, common_config.time_limit)
+            env0.setParam(GRB.Param.MIPGap, common_config.MIP_GAP_REL)
         else:
             self.m.NumObj = 2
             self.m.setObjectiveN(self.ns, 0, 10, reltol=common_config.ns_tol,
                                  name='ns')
             self.m.setObjectiveN(self.res, 1, 5, reltol=common_config.res_tol,
                                  name='res')
-            env0 = self.m.getMultiobjEnv(0)
-            env0.setParam('NonConvex', 2)
-            env0.setParam('MIPFocus', 1)
+
             t0 = (common_config.time_limit
                   * common_config.PORTION_TIME_ON_PERF)
-            env0.setParam('TimeLimit', t0)
+            env0 = self.m.getMultiobjEnv(0)
+            env0.setParam(GRB.Param.NonConvex, 2)
+            env0.setParam(GRB.Param.MIPFocus, 2)
+            env0.setParam(GRB.Param.TimeLimit, t0)
+            env0.setParam(GRB.Param.MIPGap, common_config.MIP_GAP_REL)
 
-            env1 = self.m.getMultiobjEnv(1)
-            env1.setParam('NonConvex', 2)
-            env1.setParam('MIPFocus', 2)
             t1 = common_config.time_limit - t0
-            env1.setParam('TimeLimit', t1)
+            env1 = self.m.getMultiobjEnv(1)
+            env1.setParam(GRB.Param.NonConvex, 2)
+            env1.setParam(GRB.Param.MIPFocus, 2)
+            env1.setParam(GRB.Param.TimeLimit, t1)
+            env1.setParam(GRB.Param.MIPGap, common_config.MIP_GAP_REL)
+
 
     def post_optimize(self):
         if(self.is_clustered()):
