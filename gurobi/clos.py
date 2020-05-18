@@ -39,6 +39,8 @@ class Clos(object):
         self.num_agg_sw = pods**2
         self.num_core_sw = int((pods**2)/4)
         self.num_netronome = int(self.num_hosts * portion_netronome)
+        self.total_devices = (self.num_hosts + self.num_agg_sw
+                              + self.num_core_sw + self.num_netronome)
         self.query_density = query_density
         self.num_queries = self.num_hosts * self.query_density
         self.eps = eps0
@@ -164,12 +166,13 @@ class Clos(object):
             beg = node_path[start]
             end = node_path[start+1]
             g.edges[beg, end]['remaining'] -= traffic
-            if('debug' in g.edges[beg, end]):
-                g.edges[beg, end]['debug'].append((h1, h2, traffic))
-            else:
-                g.edges[beg, end]['debug'] = [(h1, h2, traffic)]
+            # if('debug' in g.edges[beg, end]):
+            #     g.edges[beg, end]['debug'].append((h1, h2, traffic))
+            # else:
+            #     g.edges[beg, end]['debug'] = [(h1, h2, traffic)]
 
     def get_flows(self, g, inp):
+        # import ipdb; ipdb.set_trace()
         # query_density means queries per host
         num_tenants = math.ceil(self.num_hosts / self.hosts_per_tenant)
         queries_per_tenant = self.query_density * self.hosts_per_tenant
@@ -240,9 +243,11 @@ class Clos(object):
                     # with enough capacity
                     if(g.nodes[h1name]['remaining'] == 0):
                         continue
-                    while(h2 == h1 or g.nodes[h2name]['remaining'] == 0):
-                        h2 = t[random.randint(0, self.hosts_per_tenant-1)]
+                    while(h2 == h1):
+                        h2 = t[random.randint(0, len(t)-1)]
                         h2name = self.hosts[h2][0]
+                    if(g.nodes[h2name]['remaining'] == 0):
+                        continue
 
                     (node_path, id_path, capacity) = \
                         self.get_path_with_largest_capacity(g, h1, h2)

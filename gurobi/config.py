@@ -42,6 +42,8 @@ default_config = Config(
     CPU_CORE_WEIGTH=10,
     WORKERS=4,
     PORTION_TIME_ON_PERF=0.4,
+    ABS_TIME_ON_UNIVMON_BOTTLENECK=None,
+    MIP_GAP_REL_UNIVMON_BOTTLENECK=0.2,
 
     solver='Netmon',
     input_num=0,

@@ -198,7 +198,7 @@ class CPU(Device):
                                   name='ns_dpdk_{}'.format(self))
             md.pdt_nsc_dpdk = self.get_pdt_var(
                 md.ns_dpdk, md.cores_dpdk, 'nsc_dpdk', m, 0)
-            if(f == 0):
+            if(f == 1):
                 m.addConstr(
                     dpdk_single_ns
                     == md.pdt_nsc_dpdk, name='ns_dpdk_{}'.format(self))

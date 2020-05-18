@@ -8,7 +8,7 @@ from config import common_config
 from common import Namespace
 import tests.utilities as ut
 from tests.utilities import (run_all_with_input, setup_test_meta, combinations)
-
+from clos import Clos
 ut.base_dir = 'outputs/clustering'
 
 
@@ -48,7 +48,7 @@ def test_vary_topo_size_dc_topo_tenant(
         overlay=overlay, tenant=True, refine=refine, eps=eps0/10,
         queries_per_tenant=8*query_density,
         portion_netronome=portion_netronome)
-    common_config.perf_obj=True
+    common_config.perf_obj = True
     common_config.parallel = True
     common_config.vertical_partition = True
     # common_config.horizontal_partition = True
@@ -71,6 +71,45 @@ def test_vary_topo_size_dc_topo_tenant(
     )
     setup_test_meta(m)
     run_all_with_input(m, inp)
+
+
+@pytest.mark.parametrize(
+    "pods, query_density, portion_netronome, overlay, "
+    "refine, devices_per_cluster, clusters_per_cluster, perf_obj",
+    # Medium
+    combinations(
+        [[16, 24, 32], [4, 6], [0, 1], ['tenant'], [False],
+         [16], [100], [True, False]]
+    )
+)
+def test_vary_topo_size_clos(
+        pods, query_density, portion_netronome, overlay, refine,
+        devices_per_cluster, clusters_per_cluster, perf_obj):
+    common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
+    common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
+    inp = Clos(
+        pods, query_density, portion_netronome=portion_netronome,
+        overlay=overlay, eps=eps0/10)
+    common_config.perf_obj = perf_obj
+    common_config.parallel = False
+    common_config.vertical_partition = True
+    # common_config.horizontal_partition = True
+    common_config.mipout = True
+    common_config.verbose = 1
+
+    m = Namespace()
+    m.test_name = 'vary_topo_size_clos'
+    m.args_str = (
+        "overlay={};total_devices={};refine={};"
+        "num_queries={};devices_per_cluster={};"
+        "clusters_per_cluster={}"
+        .format(overlay, inp.total_devices, refine,
+                inp.num_queries, devices_per_cluster,
+                clusters_per_cluster)
+    )
+    setup_test_meta(m)
+    run_all_with_input(m, inp)
+
 
 
 @pytest.mark.parametrize(
