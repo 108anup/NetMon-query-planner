@@ -79,7 +79,7 @@ def test_vary_topo_size_dc_topo_tenant(
     # Medium
     combinations(
         [[16, 24, 32], [4, 6], [0, 1], ['tenant'], [False],
-         [16], [100], [True, False]]
+         [25], [200], [True, False]]
     )
 )
 def test_vary_topo_size_clos(
