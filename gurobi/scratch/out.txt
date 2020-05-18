@@ -1,0 +1,114 @@
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+Changed value of parameter NonConvex to 2
+   Prev: -1  Min: -1  Max: 2  Default: -1
+Changed value of parameter MIPFocus to 1
+   Prev: 0  Min: 0  Max: 3  Default: 0
+Changed value of parameter TimeLimit to 120.0
+   Prev: inf  Min: 0.0  Max: inf  Default: inf
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 0 rows, 20001 columns and 0 nonzeros
+Model fingerprint: 0xf3277a38
+Model has 10000 quadratic constraints
+Model has 1 general constraint
+Variable types: 10001 continuous, 10000 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [0e+00, 0e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 8e+00]
+  RHS range        [0e+00, 0e+00]
+  QRHS range       [3e-03, 5e+01]
+Presolve added 8757 rows and 0 columns
+Presolve removed 0 rows and 2486 columns
+Presolve time: 0.13s
+Presolved: 43785 rows, 17515 columns, 87570 nonzeros
+Presolved model has 8757 bilinear constraint(s)
+Variable types: 8758 continuous, 8757 integer (0 binary)
+
+Root relaxation: objective 6.249121e+00, 21668 iterations, 0.12 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    6.24912    0 14408          -    6.24912      -     -    0s
+     0     0    6.24912    0 14408          -    6.24912      -     -    0s
+     0     0    6.24912    0 14027          -    6.24912      -     -    0s
+     0     0    6.24912    0 13837          -    6.24912      -     -    0s
+     0     0    6.24912    0 13970          -    6.24912      -     -    1s
+     0     0    6.24912    0 12102          -    6.24912      -     -    1s
+     0     0    6.24912    0 12260          -    6.24912      -     -    1s
+     0     0    6.24912    0 9678          -    6.24912      -     -    1s
+     0     0    6.24912    0 9591          -    6.24912      -     -    1s
+     0     0    6.24912    0 8734          -    6.24912      -     -    2s
+H    0     0                      39.8783374    6.24912  84.3%     -    2s
+H    0     0                      11.5481040    6.24912  45.9%     -    3s
+H    0     2                       8.3300642    6.24912  25.0%     -    3s
+     0     2    6.24912    0 9019    8.33006    6.24912  25.0%     -    3s
+   197   303    6.24912   35 9562    8.33006    6.24912  25.0%  20.2    5s
+   831  1252    6.24912  140 9506    8.33006    6.24912  25.0%   5.4   10s
+  2109  2462    6.24912  353 9440    8.33006    6.24912  25.0%   2.8   15s
+  3066  3385    6.24912  502 9306    8.33006    6.24912  25.0%   2.0   21s
+  3720  4086    6.24912  611 9198    8.33006    6.24912  25.0%   1.6   25s
+  4490  4902    6.24912  739 9076    8.33006    6.24912  25.0%   1.4   30s
+  5303  5756    6.24912  874 8946    8.33006    6.24912  25.0%   1.2   35s
+H 6272  5959                       8.3259060    6.24912  24.9%   1.0   38s
+H 6273  5661                       8.3233186    6.24912  24.9%   1.0   39s
+H 6275  5380                       6.9373923    6.24912  9.92%   1.0   39s
+H 6277  5111                       6.9035873    6.24912  9.48%   1.0   39s
+  6279  5112    6.24912  202 3081    6.90359    6.24912  9.48%   1.0   40s
+H 6279  4857                       6.8974937    6.24912  9.40%   1.0   40s
+H 6282  4616                       6.8931683    6.24912  9.34%   1.0   40s
+H 6314  4413                       6.8916486    6.24912  9.32%   7.7   41s
+  7069  5189    6.24912   77 5165    6.89165    6.24912  9.32%   7.0   45s
+  8600  6001    6.34246  200 4656    6.89165    6.24912  9.32%  22.9   50s
+  9953  7076    6.24912  297 4716    6.89165    6.24912  9.32%  57.0   56s
+ 10658  7828    6.60963  345 3878    6.89165    6.24912  9.32%  71.6   60s
+ 12320  8984    6.24912  469 4372    6.89165    6.24912  9.32%  95.4   66s
+H13103  8579                       6.8728021    6.24912  9.07%   113   68s
+H13174  7128                       6.6524118    6.24912  6.06%   113   68s
+ 13319  7469     cutoff  543         6.65241    6.24912  6.06%   111   70s
+ 14642  8235    6.24912  656 3535    6.65241    6.24912  6.06%   102   75s
+ 15969  9182    6.24912  751 3469    6.65241    6.24912  6.06%   100   81s
+H17207  1329                       6.2491208    6.24912  0.00%   101   84s
+
+Cutting planes:
+  MIR: 5278
+  RLT: 3966
+
+Explored 17499 nodes (1786441 simplex iterations) in 84.48 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 10: 6.24912 6.65241 6.8728 ... 8.32591
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 6.249120786816e+00, best bound 6.249120786816e+00, gap 0.0000%
+6.249120786816276
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 0 rows, 20001 columns and 0 nonzeros
+Model fingerprint: 0x1829ebe3
+Model has 10000 quadratic constraints
+Model has 1 general constraint
+Variable types: 10001 continuous, 10000 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [0e+00, 0e+00]
+  QMatrix range    [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [8e+00, 8e+00]
+  RHS range        [0e+00, 0e+00]
+  QRHS range       [3e-03, 5e+01]
+
+Loaded user MIP start with objective 6.24912
+MIP start from previous solve did not produce a new incumbent solution
+
+Presolve removed 0 rows and 20001 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.01 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 1: 6.24912 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 6.249120786816e+00, best bound 6.249120786816e+00, gap 0.0000%
