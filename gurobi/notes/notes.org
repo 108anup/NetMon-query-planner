@@ -1,6 +1,6 @@
 #+PRIORITIES: A C N
 #+OPTIONS: \n:t
-#+TAGS: implement(i) experiment(e) discuss(e) writing(w)
+#+TAGS: implement(i) experiment(e) discuss(d) writing(w)
 
 bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
 
@@ -53,6 +53,9 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
      Hashing and forwarding throughput scale inverse linearly with micro engine count
      Memory throughput is independent of microengine count
 
+     [2020-05-14 Thu]
+     Added branching part
+
 **** HOLD [#C] ME percentage usage
 
 *** HOLD [#C] use both imem and emem              :implementation:experiment:
@@ -65,13 +68,23 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     :PROPERTIES:
     :TIME:     1d
     :END:
+  |---------------+------------------+---------------------|
+  | topology size | with parallelism | without parallelism |
+  |               |         time (s) |                     |
+  |---------------+------------------+---------------------|
+  |          1965 |      27.77460408 |         129.2760494 |
+  |          4911 |      79.12766099 |           143.11234 |
+  |          3925 |      49.39854693 |         137.8388758 |
+  |          9811 |      154.2889419 |         166.3800375 |
+  |---------------+------------------+---------------------|
+    
 *** DONE [#A] Intelligently decide the Cluster sizes                                                      :implementation:
     CLOSED: [2020-05-07 Thu 13:23]
     :PROPERTIES:
     :TIME:     0.5d
     :END:
-** PROG [#B] Memoization / Calculate optima when placement is known directly without using Gurobi
-   DEADLINE: <2020-05-08 Fri>
+** DONE [#B] Memoization / Calculate optima when placement is known directly without using Gurobi
+   CLOSED: [2020-05-10 Sun 23:30] DEADLINE: <2020-05-08 Fri>
    :PROPERTIES:
    :TIME:     0.5d
    :END:
@@ -80,12 +93,16 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     :PROPERTIES:
     :TIME:
     :END:
-*** TODO [#B] need to change memoization input after traffic demand incorporation                                                          :implementation:
+*** DONE [#B] need to change memoization input after traffic demand incorporation :implementation:
+    CLOSED: [2020-05-10 Sun 23:32]
     :PROPERTIES:
     :TIME:
     :END:
-** PROG [#A] Incorporate traffic demands in input                                                           :implementation:
-   DEADLINE: <2020-05-08 Fri>
+  I actually just removed the resource allocation using gurobi for a device given placement altogether.
+  It can just be solved using finding optima for a quadratic function.
+  This is much faster. Saves 2000 seconds for 40k device settings.
+** DONE [#A] Incorporate traffic demands in input                                                           :implementation:
+   CLOSED: [2020-05-10 Sun 23:30] DEADLINE: <2020-05-08 Fri>
    :PROPERTIES:
    :TIME:     1d
    :END:
@@ -146,17 +163,30 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
      3. Cluster sizes / number of clusters
      4. Cluster of cluster sizes (above and this are different)
 
-** [#A] OpenVSwitch style and multicore implementation
+**** NetMon puts sketch with lower traffic on CPUs to improve overall throughput and reduce resources!
+
+** PROG [#A] OpenVSwitch style and multicore implementation
    DEADLINE: <2020-05-10 Sun>
    :PROPERTIES:
    :TIME:     1d 0:00
    :END:
-*** TODO [#A] profiling and verification of OVS with sketching                                                          :experiment:
+*** PROG [#A] profiling and verification of OVS with sketching                                                              :experiment:
     :PROPERTIES:
     :TIME:     0.5d
     :END:
     The forwarding numbers were for DPDK, need to consider overhead of OVS
-*** TODO [#A] multicore sketching implementation                                                      :implementation:
+
+    [2020-05-14 Thu]
+    RingBuffer from elastic sketch is a bottleneck
+    Will try using readerwriterqueue by cameron
+*** DISCUSS [#A] Best way to implement shared queue?
+    :PROPERTIES:
+    :ASSIGNED: Alan
+    :END:
+    Can you share the modified queue
+**** OVS thread
+**** Separate process?
+*** PROG [#A] multicore sketching implementation                                                          :implementation:
     :PROPERTIES:
     :TIME:     0.5d
     :END:
@@ -164,6 +194,7 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     Forwarding path should not be affected by sketching.
     Till now, I assumed we will get perfect parallelization from implementing sketches on multiple cores 
     (there might be contention at L3 which might counter this assumption)
+*** PROG [#A] verify linear combination of ns for multiple sketches
 ** TODO [#A] Solver Input generation                         :implementation:
    DEADLINE: <2020-05-11 Mon>
    :PROPERTIES:
@@ -248,6 +279,24 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
    Need to see if it can give us good clusters that we need.
 
    Based on [[https://www.ijcai.org/Proceedings/13/Papers/222.pdf][large scale spectral clustering]], Another alternative is approximate spectral clustering techniques can be used which are much faster.
+
+   [2020-05-14 Thu]
+   The clustering approach is very general and can be applied to cSAMP or other resource allocation or placement problems!
+   The clustering approach clearly offers speedups:
+   |---------------+------------------+---------------------|
+   | topology size | With Parallelism | Without Parallelism |
+   |     (devices) |                  |                     |
+   |---------------+------------------+---------------------|
+   |               |         time (s) |            time (s) |
+   |               |                  | (1/2 hr time limit) |
+   |---------------+------------------+---------------------|
+   |          1965 |      27.77460408 |         1809.236743 |
+   |          4911 |      79.12766099 |         1822.971018 |
+   |          3925 |      49.39854693 |         1818.198086 |
+   |          9811 |      154.2889419 |                     |
+   |---------------+------------------+---------------------|
+*** TODO [#A] Check how fast non clustering solver reaches clustered solution :experiment:
+    The solutions were similar (I need to check how fast did the non clustering solver reach the solution output by the clustered solver)
 ** TODO [#C] Performance vs system load                      :implementation:
    :PROPERTIES:
    :TIME:     3d
@@ -261,6 +310,13 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
    :PROPERTIES:
    :TIME:     2d
    :END:
+** DISCUSS [#A] Modes of operation                                  :discuss:
+   [2020-05-14 Thu]
+   Accuracy will always be a constraint because there is no use of allocating way more memory to sketches. I guess you can upper bound accuracy and maximize within that bound.
+   Though there is no sense of resource optimization after that -> at that point you would have met your max accuracy, might as well put as constraint.
+   Same with coverage.
+
+   So coverage or accuracy obj and other 3 () as constraints.
 ** Summary Table of TODOs
    :PROPERTIES:
    :TIME:
@@ -285,18 +341,19 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
 | DONE   | \_    Parallelize Solver                                                                   |       1d |                     |          | A        |
 | DONE   | \_    Intelligently decide the Cluster sizes                                               |     0.5d |                     |          | A        |
 |--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| PROG   | \_  Memoization / Calculate optima when placement is known directly without using Gurobi   |     0.5d | <2020-05-08 Fri>    |          | B        |
+| DONE   | \_  Memoization / Calculate optima when placement is known directly without using Gurobi   |     0.5d | <2020-05-08 Fri>    |          | B        |
 | DONE   | \_    make memoization key more precise                                                    |          |                     |          | B        |
-| TODO   | \_    need to change memoization input after traffic demand incorporation                  |          |                     |          | B        |
+| DONE   | \_    need to change memoization input after traffic demand incorporation                  |          |                     |          | B        |
 |--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| PROG   | \_  Incorporate traffic demands in input                                                   |       1d | <2020-05-08 Fri>    |          | A        |
+| DONE   | \_  Incorporate traffic demands in input                                                   |       1d | <2020-05-08 Fri>    |          | A        |
 | DONE   | \_    How to evaluate this                                                                 |          |                     |          | A        |
 |        | \_      We should claim per device resource allocation as a contribution                   |          |                     |          | A        |
 |        | \_      Sensitivity Analysis / Parameter choice justification                              |          |                     |          | C        |
 |--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-|        | \_  OpenVSwitch style and multicore implementation                                         |  1d 0:00 | <2020-05-10 Sun>    |          | A        |
-| TODO   | \_    profiling and verification of OVS with sketching                                     |     0.5d |                     |          | A        |
-| TODO   | \_    multicore sketching implementation                                                   |     0.5d |                     |          | A        |
+| PROG   | \_  OpenVSwitch style and multicore implementation                                         |  1d 0:00 | <2020-05-10 Sun>    |          | A        |
+| PROG   | \_    profiling and verification of OVS with sketching                                     |     0.5d |                     |          | A        |
+| PROG   | \_    multicore sketching implementation                                                   |     0.5d |                     |          | A        |
+| PROG   | \_    verify linear combination of ns for multiple sketches                                |          |                     |          | A        |
 |--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
 | TODO   | \_  Solver Input generation                                                                |       1d | <2020-05-11 Mon>    |          | A        |
 |        | \_    Topology generator                                                                   |          |                     |          | N        |

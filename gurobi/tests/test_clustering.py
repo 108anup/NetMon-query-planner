@@ -8,7 +8,7 @@ from config import common_config
 from common import Namespace
 import tests.utilities as ut
 from tests.utilities import (run_all_with_input, setup_test_meta, combinations)
-
+from clos import Clos
 ut.base_dir = 'outputs/clustering'
 
 
@@ -38,14 +38,17 @@ ut.base_dir = 'outputs/clustering'
 def test_vary_topo_size_dc_topo_tenant(
         hosts_per_tors, tors_per_l1s, l1s, overlay, refine,
         devices_per_cluster, clusters_per_cluster, portion_netronome):
+    query_density = 3
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
-    num_queries = int(num_hosts*2)
+    num_queries = int(num_hosts * query_density)
     inp = TreeTopology(
         hosts_per_tors, tors_per_l1s, l1s, num_queries=num_queries,
         overlay=overlay, tenant=True, refine=refine, eps=eps0/10,
-        queries_per_tenant=16, portion_netronome=portion_netronome)
+        queries_per_tenant=8*query_density,
+        portion_netronome=portion_netronome)
+    common_config.perf_obj = True
     common_config.parallel = True
     common_config.vertical_partition = True
     # common_config.horizontal_partition = True
@@ -54,7 +57,8 @@ def test_vary_topo_size_dc_topo_tenant(
 
     m = Namespace()
     m.test_name = 'vary_topo_size_dc_topo_tenant'
-    total_devices = num_hosts + tors_per_l1s*l1s + l1s + 1
+    total_devices = (num_hosts + tors_per_l1s*l1s
+                     + l1s + 1 + num_hosts * portion_netronome)
     m.args_str = (
         "overlay={};total_devices={};refine={};"
         "hosts_per_tors={};tors_per_l1s={};l1s={};"
@@ -67,6 +71,48 @@ def test_vary_topo_size_dc_topo_tenant(
     )
     setup_test_meta(m)
     run_all_with_input(m, inp)
+
+
+@pytest.mark.parametrize(
+    "pods, query_density, portion_netronome, overlay, "
+    "refine, devices_per_cluster, clusters_per_cluster, perf_obj",
+    # Medium
+    combinations(
+        [[24, 32], [4], [0, 1], ['tenant'], [False],
+         [16], [128], [True, False]]
+    )
+)
+def test_vary_topo_size_clos(
+        pods, query_density, portion_netronome, overlay, refine,
+        devices_per_cluster, clusters_per_cluster, perf_obj):
+    common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
+    common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
+    inp = Clos(
+        pods, query_density, portion_netronome=portion_netronome,
+        overlay=overlay, eps=eps0/10)
+    common_config.perf_obj = perf_obj
+    obj = "res"
+    if(common_config.perf_obj):
+        obj = "perf"
+    common_config.parallel = False
+    common_config.vertical_partition = True
+    # common_config.horizontal_partition = True
+    common_config.mipout = False
+    common_config.verbose = 1
+
+    m = Namespace()
+    m.test_name = 'vary_topo_size_clos'
+    m.args_str = (
+        "overlay={};total_devices={};refine={};"
+        "num_queries={};pods={};obj={};num_netronome={};devices_per_cluster={};"
+        "clusters_per_cluster={}"
+        .format(overlay, inp.total_devices, refine,
+                inp.num_queries, pods, obj, inp.num_netronome, devices_per_cluster,
+                clusters_per_cluster)
+    )
+    setup_test_meta(m)
+    run_all_with_input(m, inp)
+
 
 
 @pytest.mark.parametrize(

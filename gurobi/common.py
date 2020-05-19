@@ -6,8 +6,8 @@ import sys
 log = logging.getLogger('control')
 log.setLevel(logging.NOTSET+1)
 console = logging.StreamHandler(sys.stdout)
-# console.setLevel(logging.WARN)
-console.setLevel(logging.INFO)
+console.setLevel(logging.WARN)
+# console.setLevel(logging.INFO)
 log.addHandler(console)
 
 
@@ -98,7 +98,9 @@ def add_file_logger(file_path):
 
 def setup_logging(args):
 
-    if(args.verbose >= 3):
+    if(args.verbose >= 4):
+        console.setLevel(logging.DEBUG-2)
+    elif(args.verbose >= 3):
         console.setLevel(logging.DEBUG-1)
     elif(args.verbose >= 2):
         console.setLevel(logging.DEBUG)
@@ -129,5 +131,10 @@ def setup_logging(args):
 
 constants = Namespace(
     cell_size=4,
-    KB2B=1024
+    KB2B=1024,
+    # Following are used when a device does not see any packet
+    NS_LARGEST=1000,
+    NS_SMALLEST=1,
+    eps0=0.1 * 8 / 128,  # 1e-5
+    del0=0.05,  # 0.02
 )

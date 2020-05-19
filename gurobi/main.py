@@ -18,7 +18,8 @@ from common import Namespace, freeze_object, log, log_time, setup_logging
 from config import common_config
 from devices import P4, Cluster
 from flows import flow
-from input import Input, get_graph, input_generator
+from input import Input, get_graph
+from input_generator import input_generator
 from solvers import (UnivmonGreedyRows, log_placement, log_results,
                      refine_devices, solver_to_class)
 from helpers import get_val
@@ -76,11 +77,14 @@ def runner(solver):
         # nx.draw(g, labels=labels)
         # plt.show()
         # import ipdb; ipdb.set_trace()
-        return handle_infeasible(solver.culprit)
+        # return handle_infeasible(solver.culprit)
+        solution = Namespace(infeasible=True,
+                             reason=solver.reason)
+        return solution
     return extract_solution(solver)
 
 
-def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
+def handle_infeasible(m=None, iis=True, msg="Infeasible Placement!"):
 
     # import ipdb; ipdb.set_trace()
     log.warning(msg)
@@ -90,7 +94,7 @@ def handle_infeasible(m, iis=True, msg="Infeasible Placement!"):
         f.write("-, -, -, -, -, ")
         f.close()
 
-    if(common_config.prog_dir and iis):
+    if(common_config.prog_dir and iis and m):
         m.computeIIS()
         m.write(
             os.path.join(
@@ -194,6 +198,7 @@ def get_partitions_flows(inp, cluster, problem, dnum, solution):
         if(len(par_new) > 0 and len(path_new) > 0):
             f_new.partitions = par_new
             f_new.path = path_new
+            f_new.thr = f.thr
             flows.append(f_new)
 
     return (partitions, flows)
@@ -213,7 +218,8 @@ def map_flows_to_cluster(inp):
             path=[dev_id_to_cluster_id[dnum]
                   for dnum in f.path
                   if(not isinstance(devices[dnum], P4))],
-            partitions=f.partitions, queries=f.queries
+            partitions=f.partitions, queries=f.queries,
+            thr=f.thr
         )
         flows.append(f_new)
     return flows
@@ -276,7 +282,8 @@ def get_subproblems(inp, solver):
             if(len(new_path) > 0 and len(new_par) > 0):
                 flows.append(flow(
                     path=new_path,
-                    partitions=new_par))
+                    partitions=new_par,
+                    thr=f.thr))
 
         subproblem.devices = devices
         subproblem.partitions = inp.partitions
@@ -324,7 +331,7 @@ def cluster_refinement(inp):
                                dont_refine=False)
     solver.solve()
     if(solver.infeasible):
-        return handle_infeasible(solver.culprit)
+        return handle_infeasible(solver.culprit, solver.reason)
 
     log_results(inp.devices, solver.r, solver.md_list,
                 msg="UnivmonGreedyRows Results")
@@ -373,7 +380,7 @@ def cluster_optimization(inp):
                                    dont_refine=True)
         solver.solve()
         if(solver.infeasible):
-            return handle_infeasible(solver.culprit)
+            return handle_infeasible(getattr(solver, 'culprit', None))
 
     inp.cluster = get_cluster_from_overlay(inp, inp.overlay)
     if(common_config.init is True):
@@ -443,7 +450,8 @@ def cluster_optimization(inp):
                 # nx.draw(g, labels=labels)
                 # plt.show()
                 # import ipdb; ipdb.set_trace()
-                return handle_infeasible(solver.culprit)
+                return handle_infeasible(getattr(solver, 'culprit', None),
+                                         msg=solver.reason)
 
             for (dnum, d) in enumerate(solver.devices):
                 if(isinstance(d, Cluster)):
@@ -496,8 +504,8 @@ def cluster_optimization(inp):
                 for prob_num in range(len(problems)):
                     problem = problems[prob_num]
                     solution = solutions[prob_num]
-                    if(solution is None):
-                        return None
+                    if(getattr(solution, 'infeasible', None)):
+                        return handle_infeasible(msg=solution.reason)
                     else:
                         new_solution = rebuild_solution(solution)
                         update_solution(problem, new_solution)
@@ -509,6 +517,8 @@ def cluster_optimization(inp):
     log_step('Clustered Optimization complete')
     # log.debug(placement.md_list)
     r = refine_devices(inp.devices, placement.md_list)
+    if(getattr(r, 'infeasible', None)):
+        return handle_infeasible(msg=r.reason)
     # TODO:: Put intermediate output to debug!
     # Allow loggers to take input logging level
     log_placement(inp.devices, inp.partitions, inp.flows,
@@ -518,17 +528,23 @@ def cluster_optimization(inp):
 
 
 # * Main solve function
-# TODO:: Handle disconnected graph in solver
+# TODO: Handle infeasible when refine returns none
+# HOLD: Handle disconnected graph in solver
 # Final devices will always be refined, just log at the end
 @log_time(logger=log.info)
 def solve(inp):
     start = time.time()
     # log.info("Solving started at time: {}".format(start))
     # import ipdb; ipdb.set_trace()
+    # Assign device ids, if not frozen
+    # If frozen then assume ids have been assigned
+    try:
+        for (dnum, d) in enumerate(inp.devices):
+            d.dev_id = dnum
+            freeze_object(d)
+    except TypeError:
+        pass
 
-    # for (dnum, d) in enumerate(inp.devices):
-    #     d.dev_id = dnum
-    #     freeze_object(d)
     inp.partitions = get_partitions(inp.queries)
     map_flows_partitions(inp.flows, inp.queries)
     Solver = solver_to_class[common_config.solver]
@@ -543,7 +559,8 @@ def solve(inp):
                         dont_refine=False)
         solver.solve()
         if(solver.infeasible):
-            return handle_infeasible(solver.culprit)
+            return handle_infeasible(getattr(solver, 'culprit', None),
+                                     msg=solver.reason)
         ret = Namespace(results=solver.r, md_list=solver.md_list)
 
     if(ret is None):

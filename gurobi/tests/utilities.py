@@ -46,7 +46,9 @@ def get_init_str(args):
 def run_all_with_input(m, inp, solvers=['UnivmonGreedyRows', 'Netmon']):
 
     with open(common_config.results_file, 'a') as f:
-        f.write("{}, {}, {}, ".format(m.test_name, m.config_str, m.args_str))
+        f.write("{}, {}, {}, ".format(
+            m.test_name + "-" + get_git_revision_short_hash(),
+            m.config_str, m.args_str))
         f.close()
 
     for solver in solvers:
