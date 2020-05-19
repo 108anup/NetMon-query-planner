@@ -106,12 +106,12 @@ def handle_infeasible(m=None, iis=True, msg="Infeasible Placement!"):
 
 
 @log_time
-def get_partitions(queries):
+def get_partitions(queries, correction=0):
     partitions = []
     for (i, q) in enumerate(queries):
-        q.sketch_id = i
+        q.sketch_id = i + correction
         num_rows = q.rows()
-        start_idx = len(partitions)
+        start_idx = len(partitions) + correction
         if(common_config.horizontal_partition):
             q.partitions = [start_idx + r for r in range(num_rows)]
             partitions += [Namespace(partition_id=start_idx+r,
@@ -291,6 +291,82 @@ def get_subproblems(inp, solver):
         if(len(flows) > 0):
             problems.append(subproblem)
     return problems
+
+
+@log_time
+def get_new_problem(old_inp, old_solution, additions):
+
+    assert(not common_config.horizontal_partition)
+    assert(getattr(additions, 'devices', None) is None)
+    relevant_devices = set()
+    old_devices = old_inp.devices
+    for f in additions.flows:
+        for dnum in f.path:
+            relevant_devices.add(old_devices[dnum])
+
+    new_inp = Input()
+    new_inp.devices = list(relevant_devices)
+
+    dev_id_to_dnum = {}
+    for dnum, d in enumerate(new_inp.devices):
+        dev_id_to_dnum[d.dev_id] = dnum
+
+    tmp_flows = []
+    # relevant_partitions = set()
+    for f in old_inp.flows:
+        new_path = set()
+        new_par = []
+        for fp in f.partitions:
+            pnum = fp[0]
+            cov = fp[1]
+            tot_frac = 0
+            for dev_id in f.path:
+                new_path.add(dev_id_to_dnum[dev_id])
+                tot_frac += get_val(old_solution.frac[dev_id, pnum])
+            if(tot_frac > 0):
+                new_par.extend([(pnum, min(cov, tot_frac))])
+        if(len(new_path) > 0 and len(new_par) > 0):
+            # for pnum in new_par:
+            #     relevant_partitions.add(pnum)
+            tmp_flows.append(flow(
+                path=new_path,
+                partitions=new_par,
+                thr=f.thr))
+
+    # new_inp.partitions = list(relevant_partitions)
+    # p_id_to_pnum = {}
+    # for pnum, p in enumerate(new_inp.partitions):
+    #     p_id_to_pnum[p.partition_id] = pnum
+
+    # # Convert old p_ids to new pnums
+    # new_flows = []
+    # for f in tmp_flows:
+    #     new_flows.append(
+    #         path=f.path, thr=f.thr,
+    #         partitions=list(
+    #             map(lambda x: tuple((p_id_to_pnum[x[0]], x[1])), f.partitions)
+    #         )
+    #     )
+
+    corr = len(old_inp.partitions)
+    new_queries = additions.queries
+    new_partitions = get_partitions(new_queries, correction=corr)
+    new_inp.queries = old_inp.queries + new_queries
+    new_inp.partitions = old_inp.partitions + new_partitions
+
+    # Assumed that no horizontal partitioning
+    new_flows = tmp_flows
+    for f in additions.flows:
+        new_flows.append(flow(
+            path=list(
+                map(lambda x: dev_id_to_dnum[x], f.path)
+            ),
+            partitions=[(x[0] + corr, x[1]) for x in f.queries],
+            thr=f.thr
+        ))
+
+    new_inp.flows = new_flows
+    return new_inp
 
 
 @log_time
@@ -524,18 +600,16 @@ def cluster_optimization(inp):
     log_placement(inp.devices, inp.partitions, inp.flows,
                   placement.dev_par_tuplelist, placement.frac,
                   placement.md_list)
-    return Namespace(results=r, md_list=placement.md_list)
+    return Namespace(results=r, md_list=placement.md_list, frac=placement.frac)
 
 
 # * Main solve function
-# TODO: Handle infeasible when refine returns none
 # HOLD: Handle disconnected graph in solver
 # Final devices will always be refined, just log at the end
 @log_time(logger=log.info)
-def solve(inp):
+def solve(inp, pre_processed=False):
     start = time.time()
-    # log.info("Solving started at time: {}".format(start))
-    # import ipdb; ipdb.set_trace()
+
     # Assign device ids, if not frozen
     # If frozen then assume ids have been assigned
     try:
@@ -545,8 +619,9 @@ def solve(inp):
     except TypeError:
         pass
 
-    inp.partitions = get_partitions(inp.queries)
-    map_flows_partitions(inp.flows, inp.queries)
+    if(not pre_processed):
+        inp.partitions = get_partitions(inp.queries)
+        map_flows_partitions(inp.flows, inp.queries)
     Solver = solver_to_class[common_config.solver]
 
     if(getattr(inp, 'refine', None) and getattr(inp, 'overlay', None)):
@@ -561,7 +636,8 @@ def solve(inp):
         if(solver.infeasible):
             return handle_infeasible(getattr(solver, 'culprit', None),
                                      msg=solver.reason)
-        ret = Namespace(results=solver.r, md_list=solver.md_list)
+        ret = Namespace(results=solver.r, md_list=solver.md_list,
+                        frac=solver.frac)
 
     if(ret is None):
         return None
@@ -570,10 +646,23 @@ def solve(inp):
     log.info("\n" + "-"*80)
     log_results(inp.devices, ret.results, ret.md_list,
                 elapsed=end-start, msg="Final Results")
-    # log.info("Memoization resolved {} cases.".format(CPU.cache['helped']))
-    # log.info("Solving ended at time: {}, taking: {} s"
-    #          .format(end, end-start))
+
     return ret
+
+
+@log_time(logger=log.info)
+def run(inp):
+    ret = solve(inp)
+
+    if(getattr(inp, 'additions', None)):
+        new_inp = get_new_problem(inp, ret, inp.additions)
+        new_ret = solve(new_inp, pre_processed=True)
+
+        # TODO: combine old and new ret
+        # TODO: compare with recompute full solution
+        return ret
+    else:
+        return ret
 
 
 if(__name__ == '__main__'):
@@ -594,7 +683,7 @@ if(__name__ == '__main__'):
 
     # log.info("Time before solving: {}".format(time.time() - start))
     try:
-        solve(inp)
+        run(inp)
     except Exception:
         import ipdb
         extype, value, tb = sys.exc_info()

@@ -4,7 +4,7 @@ from devices import CPU, P4, Netronome
 from flows import flow
 from input import Input, TreeTopology
 from profiles import agiliocx40gbe, beluga20, tofino
-from sketches import cm_sketch
+from sketches import cm_sketch, cs_sketch
 
 # Stub file for providing input to solver
 
@@ -447,4 +447,34 @@ input_generator = [
 
     # 35
     Clos(6, 4, portion_netronome=0, overlay='none', hosts_per_tenant=6),
+
+    # 36
+    Input(
+        devices=(
+            [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(2)] +
+            [Netronome(**agiliocx40gbe, name='Netro_{}'.format(i))
+             for i in range(2)] +
+            [P4(**tofino, name='P4_{}'.format(i)) for i in range(2)]
+        ),
+        queries=[
+            cm_sketch(eps0=eps0/100, del0=del0/1.5) for i in range(16)
+        ],
+        flows=[
+            flow(path=(0, 2, 4, 3, 1),
+                 queries=[(i, 1) for i in range(16)], thr=8*0.75),
+            flow(path=(0, 2, 5, 3, 1),
+                 queries=[(i, 1) for i in range(12)], thr=10*0.75)
+        ],
+        additions=Input(
+            queries=[
+                cs_sketch(eps0=eps0/10, del0=del0/1.5) for i in range(2)
+            ],
+            flows=[
+                flow(path=(0, 2, 4, 3, 1),
+                     queries=[(i, 1) for i in range(2)], thr=8*0.75),
+                flow(path=(0, 2, 5, 3, 1),
+                     queries=[(i, 1) for i in range(1)], thr=10*0.75)
+            ]
+        )
+    )
 ]
