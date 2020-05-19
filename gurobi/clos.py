@@ -7,7 +7,7 @@ import sys
 import networkx as nx
 import numpy as np
 
-from common import constants, freeze_object, log
+from common import constants, freeze_object, log, log_time
 from config import common_config
 from devices import CPU, P4, Netronome
 from flows import flow
@@ -123,6 +123,7 @@ class Clos(object):
         # plt.show()
         return g
 
+    # @log_time(logger=log.info)
     def get_path_with_largest_capacity(self, g, h1, h2):
         h1name = self.hosts[h1][0]
         h2name = self.hosts[h2][0]
@@ -171,12 +172,14 @@ class Clos(object):
             # else:
             #     g.edges[beg, end]['debug'] = [(h1, h2, traffic)]
 
+    # @log_time(logger=log.info)
     def get_flows(self, g, inp):
+        # log.info("Generating flows")
         # import ipdb; ipdb.set_trace()
         # query_density means queries per host
         num_tenants = math.ceil(self.num_hosts / self.hosts_per_tenant)
         queries_per_tenant = self.query_density * self.hosts_per_tenant
-        flows_per_query = 2
+        flows_per_query = 1
 
         mean_queries_updated_by_flow = 2
         half_range = mean_queries_updated_by_flow - 1
@@ -209,6 +212,7 @@ class Clos(object):
                           / self.hosts_per_tenant)
         qlist_generator = list(range(queries_per_tenant))
 
+        log.info("Need to generate: {} flows.".format(flows_per_host * self.num_hosts / 2))
         flows = []
         for (tnum, t) in enumerate(tenant_servers):
             query_set = [i + tnum * queries_per_tenant
@@ -402,14 +406,14 @@ class Clos(object):
             self.pods, self.query_density, eps0/self.eps, self.num_netronome)
         pickle_loaded = False
         if(os.path.exists(pickle_name)):
+            log.info("Fetching clos topo with {} hosts.".format(self.num_hosts))
             inp_file = open(pickle_name, 'rb')
             inp = pickle.load(inp_file)
             inp_file.close()
             pickle_loaded = True
         else:
+            log.info("Building clos topo with {} hosts.".format(self.num_hosts))
             inp = self.create_inp()
-
-        log.info("Building clos topo with {} hosts.".format(self.num_hosts))
 
         # Recompute overlay
         inp.overlay = self.get_overlay(inp)
