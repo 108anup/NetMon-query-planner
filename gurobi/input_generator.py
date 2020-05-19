@@ -427,22 +427,24 @@ input_generator = [
     Input(
         devices=(
             [CPU(**beluga20, name='CPU_{}'.format(i)) for i in range(2)] +
+            [Netronome(**agiliocx40gbe, name='Netro_{}'.format(i))
+             for i in range(2)] +
             [P4(**tofino, name='P4_{}'.format(i)) for i in range(2)]
         ),
         queries=[
-            cm_sketch(eps0=eps0/100, del0=del0/1.5) for i in range(8)
+            cm_sketch(eps0=eps0/100, del0=del0/1.5) for i in range(16)
         ],
         flows=[
-            flow(path=(0, 2, 1),
-                 queries=[(i, 1) for i in range(8)], thr=20),
-            flow(path=(0, 3, 1),
-                 queries=[(i, 1) for i in range(7)], thr=40)
+            flow(path=(0, 2, 4, 3, 1),
+                 queries=[(i, 1) for i in range(16)], thr=8*0.75),
+            flow(path=(0, 2, 5, 3, 1),
+                 queries=[(i, 1) for i in range(12)], thr=10*0.75)
         ]
     ),
 
     # 34
-    Clos(pods=4, overlay='tenant', query_density=6),
+    Clos(pods=4, overlay='tenant', query_density=11, portion_netronome=0.5),
 
     # 35
-    Clos(12, 4, portion_netronome=0, overlay='none', hosts_per_tenant=6)
+    Clos(6, 4, portion_netronome=0, overlay='none', hosts_per_tenant=6),
 ]

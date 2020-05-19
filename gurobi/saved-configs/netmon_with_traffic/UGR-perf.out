@@ -1,0 +1,83 @@
+Function: get_partitions took 2.9087066650390625e-05 seconds
+Function: map_flows_partitions took 1.0013580322265625e-05 seconds
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------------------------------------
+Model UnivmonGreedyRows with:
+6 devices, 16 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 0.0015783309936523438 seconds
+Function: MIP.add_coverage_constraints took 0.0008084774017333984 seconds
+Function: MIP.add_accuracy_constraints took 0.0016684532165527344 seconds
+Function: MIP.add_capacity_constraints took 0.0016901493072509766 seconds
+Model update took: 0.00015997886657714844 s
+Starting model optimize
+--------------------------------------------------
+Model optimize took: 0.022384166717529297 seconds
+--------------------------------------------------
+Objectives: 
+tot_rows_others: 60.0
+others_rows_load: 11.666666666666666
+tot_rows_fixed_thr: 4.0
+rows_load_fixed_thr: 4.0
+tot_mem_others: 11915.78125
+others_load_mem: 8080.981945991516
+tot_mem_fixed_thr: 1024.0
+mem_load_fixed_thr: 1024.0
+--------------------------------------------------
+Function: refine_devices took 0.00046515464782714844 seconds
+--------------------------------------------------
+Placement:
+
+Device (0) CPU_0:
+cores_sketch: 3.0, cores_dpdk: 2.0
+Rows total: 20.0
+Expected updates: 20.0
+Mem total: 3397.890625
+ns_sketch: 59.347501159040824
+ns_dpdk: 87.01193809898956
+Throughput: 11.492675854 Mpps
+
+Device (1) CPU_1:
+cores_sketch: 2.0, cores_dpdk: 2.0
+Rows total: 20.0
+Expected updates: 17.77777777777778
+Mem total: 3397.890625
+ns_sketch: 79.13000154538777
+ns_dpdk: 87.01193809898956
+Throughput: 11.492675854 Mpps
+
+Device (2) Netro_0:
+micro_engines: 54.0
+Rows total: 8.0
+Expected updates: 8.0
+Mem total: 2048.0
+Throughput: 22.4400350830758 Mpps
+
+Device (3) Netro_1:
+micro_engines: 54.0
+Rows total: 12.0
+Expected updates: 7.555555555555555
+Mem total: 3072.0
+Throughput: 20.99801543543382 Mpps
+
+Device (4) P4_0:
+Rows total: 4.0
+Expected updates: 4.0
+Mem total: 1024.0
+Throughput: 5208.33 Mpps
+
+Device (5) P4_1:
+Rows total: 0.0
+Expected updates: 0.0
+Mem total: 0.0
+Throughput: 5208.33 Mpps
+Function: MIP.solve took 0.058516502380371094 seconds
+
+--------------------------------------------------------------------------------
+Final Results:
+Throughput: 11.492675854 Mpps, ns per packet: 87.01193809898956
+Resources: 635.4962298075359
+Used Cores: 9.0, Total CPUS: 2, Switch Memory: 1024.0, 
+Micro-enginges: 108.0, NIC Memory: 5120.0
+Function: solve took 0.05882406234741211 seconds
