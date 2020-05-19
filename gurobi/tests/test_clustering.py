@@ -78,13 +78,15 @@ def test_vary_topo_size_dc_topo_tenant(
     "refine, devices_per_cluster, clusters_per_cluster, perf_obj",
     # Medium
     combinations(
-        [[24, 32], [4], [0, 1], ['tenant'], [False],
+        [[16, 24, 32], [4], [0, 1], ['tenant'], [False],
          [16], [128], [True, False]]
     )
 )
 def test_vary_topo_size_clos(
         pods, query_density, portion_netronome, overlay, refine,
         devices_per_cluster, clusters_per_cluster, perf_obj):
+    if(portion_netronome == 1):
+        devices_per_cluster = int(devices_per_cluster / 2)
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     inp = Clos(
@@ -94,7 +96,7 @@ def test_vary_topo_size_clos(
     obj = "res"
     if(common_config.perf_obj):
         obj = "perf"
-    common_config.parallel = False
+    common_config.parallel = True
     common_config.vertical_partition = True
     # common_config.horizontal_partition = True
     common_config.mipout = False
