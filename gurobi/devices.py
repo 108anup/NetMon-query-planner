@@ -285,12 +285,12 @@ class CPU(Device):
             ratio = ns_single / dpdk_single_ns
 
             # Case 1:
-            cores_sketch = math.floor(ratio * self.cores)
+            cores_sketch = math.floor(ratio * self.cores / (ratio + 1))
             cores_dpdk = self.cores - cores_sketch
             helper_ns(cores_sketch, cores_dpdk)
 
             # Case 2:
-            cores_sketch = math.ceil(ratio * self.cores)
+            cores_sketch = math.ceil(ratio * self.cores / (ratio + 1))
             cores_dpdk = self.cores - cores_sketch
             helper_ns(cores_sketch, cores_dpdk)
 

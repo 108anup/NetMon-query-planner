@@ -1,0 +1,83 @@
+Function: get_partitions took 2.765655517578125e-05 seconds
+Function: map_flows_partitions took 6.9141387939453125e-06 seconds
+Using license file /home/anupa/gurobi.lic
+Academic license - for non-commercial use only
+
+--------------------------------------------------------------------------------
+Model UnivmonGreedyRows with:
+6 devices, 16 partitions and 2 flows
+Function: MIP.add_frac_mem_var took 0.0016167163848876953 seconds
+Function: MIP.add_coverage_constraints took 0.0008342266082763672 seconds
+Function: MIP.add_accuracy_constraints took 0.0024182796478271484 seconds
+Function: MIP.add_capacity_constraints took 0.0020067691802978516 seconds
+Model update took: 0.0001590251922607422 s
+Starting model optimize
+--------------------------------------------------
+Model optimize took: 0.02318549156188965 seconds
+--------------------------------------------------
+Objectives: 
+tot_rows_others: 60.0
+others_rows_load: 11.666666666666666
+tot_rows_fixed_thr: 4.0
+rows_load_fixed_thr: 4.0
+tot_mem_others: 11915.78125
+others_load_mem: 8080.981945991516
+tot_mem_fixed_thr: 1024.0
+mem_load_fixed_thr: 1024.0
+--------------------------------------------------
+Function: refine_devices took 0.00030994415283203125 seconds
+--------------------------------------------------
+Placement:
+
+Device (0) CPU_0:
+cores_sketch: 3.0, cores_dpdk: 3.0
+Rows total: 20.0
+Expected updates: 20.0
+Mem total: 3397.890625
+ns_sketch: 59.347501159040824
+ns_dpdk: 58.0079587326597
+Throughput: 16.84990910266258 Mpps
+Throughput Req: 13.5 Mpps
+
+Device (1) CPU_1:
+cores_sketch: 3.0, cores_dpdk: 3.0
+Rows total: 20.0
+Expected updates: 17.77777777777778
+Mem total: 3397.890625
+ns_sketch: 52.75333436359185
+ns_dpdk: 58.0079587326597
+Throughput: 17.239013781 Mpps
+Throughput Req: 13.5 Mpps
+
+Device (2) Netro_0:
+micro_engines: 54.0
+Rows total: 8.0
+Expected updates: 8.0
+Mem total: 2048.0
+Throughput: 22.4400350830758 Mpps
+Throughput Req: 13.5 Mpps
+
+Device (3) Netro_1:
+micro_engines: 54.0
+Rows total: 12.0
+Expected updates: 7.555555555555555
+Mem total: 3072.0
+Throughput: 20.99801543543382 Mpps
+Throughput Req: 13.5 Mpps
+
+Device (4) P4_0:
+Rows total: 4.0
+Expected updates: 4.0
+Mem total: 1024.0
+Throughput: 5208.33 Mpps
+Throughput Req: 6.0 Mpps
+
+Device (5) P4_1:
+Rows total: 0.0
+Expected updates: 0.0
+Mem total: 0.0
+Throughput: 5208.33 Mpps
+Throughput Req: 7.499999999999999 Mpps
+Function: MIP.solve took 0.0572817325592041 seconds
+Can't meet traffic demand
+Function: solve took 0.0576474666595459 seconds
