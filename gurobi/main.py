@@ -587,13 +587,13 @@ if(__name__ == '__main__'):
 
     setup_logging(common_config)
 
-    input_num = common_config.input_num
-    inp = input_generator[input_num]
-    if(not isinstance(inp, Input)):
-        inp = inp.get_input()
-
-    # log.info("Time before solving: {}".format(time.time() - start))
     try:
+        input_num = common_config.input_num
+        inp = input_generator[input_num]
+        if(not isinstance(inp, Input)):
+            inp = inp.get_input()
+
+        # log.info("Time before solving: {}".format(time.time() - start))
         solve(inp)
     except Exception:
         import ipdb

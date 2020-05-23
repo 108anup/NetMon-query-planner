@@ -443,7 +443,7 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=4, overlay='tenant', query_density=11, portion_netronome=0.5),
+    Clos(pods=6, overlay='none', query_density=3, portion_netronome=0),
 
     # 35
     Clos(pods=32, query_density=4, overlay='tenant', portion_netronome=0),
