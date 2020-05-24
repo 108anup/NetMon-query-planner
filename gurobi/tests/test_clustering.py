@@ -38,7 +38,7 @@ ut.base_dir = 'outputs/clustering'
 def test_vary_topo_size_dc_topo_tenant(
         hosts_per_tors, tors_per_l1s, l1s, overlay, refine,
         devices_per_cluster, clusters_per_cluster, portion_netronome):
-    query_density = 3
+    query_density = 2
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
@@ -73,20 +73,22 @@ def test_vary_topo_size_dc_topo_tenant(
     run_all_with_input(m, inp)
 
 
+devices_per_cluster_list = [25, 50, 100, 200, 250]
+clusters_per_cluster_list = [x * 8 for x in devices_per_cluster_list]
 @pytest.mark.parametrize(
     "pods, query_density, portion_netronome, overlay, "
     "refine, devices_per_cluster, clusters_per_cluster, perf_obj",
     # Medium
     combinations(
-        [[16, 24, 32], [4], [0, 1], ['tenant'], [False],
-         [16], [128], [True, False]]
+        [[16], [2], [1], ['tenant'], [False],
+         devices_per_cluster_list, [250], [False]]
     )
 )
 def test_vary_topo_size_clos(
         pods, query_density, portion_netronome, overlay, refine,
         devices_per_cluster, clusters_per_cluster, perf_obj):
-    if(portion_netronome == 1):
-        devices_per_cluster = int(devices_per_cluster / 2)
+    # if(portion_netronome == 1):
+    #     devices_per_cluster = int(devices_per_cluster / 2)
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     inp = Clos(
@@ -97,7 +99,7 @@ def test_vary_topo_size_clos(
     if(common_config.perf_obj):
         obj = "perf"
     common_config.parallel = True
-    common_config.vertical_partition = True
+    # common_config.vertical_partition = True
     # common_config.horizontal_partition = True
     common_config.mipout = False
     common_config.verbose = 1
@@ -113,33 +115,72 @@ def test_vary_topo_size_clos(
                 clusters_per_cluster)
     )
     setup_test_meta(m)
-    run_all_with_input(m, inp)
-
+    solvers = ['UnivmonGreedyRows', 'Netmon']
+    # if(pods > 12):
+    #     solvers = ['UnivmonGreedyRows']
+    run_all_with_input(m, inp, solvers=solvers)
 
 
 @pytest.mark.parametrize(
-    "devices_per_cluster", [25, 50, 100, 150, 200]
+    "devices_per_cluster", [0] #[8, 16, 32, 48, 64, 128, 256, 512] #[25, 50, 100, 150, 200]
 )
 def test_devices_per_cluster(devices_per_cluster):
-    # common_config.parallel = True
-    common_config.vertical_partition = True
+    common_config.parallel = True
+    # common_config.vertical_partition = True
     # common_config.horizontal_partition = True
-    # common_config.mipout = True
+    common_config.mipout = True
     common_config.verbose = 1
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
+    common_config.MAX_CLUSTERS_PER_CLUSTER = 8*devices_per_cluster
+    common_config.perf_obj = True
 
-    inp = TreeTopology(48, 20, 4,
-                       num_queries=480*4,
-                       overlay='tenant', tenant=True,
+    # inp = TreeTopology(48, 20, 10,
+    #                    num_queries=48*20*5,
+    #                    overlay='tenant', tenant=True,
+    #                    refine=False, eps=eps0/100,
+    #                    queries_per_tenant=4)
 
-                       refine=False, eps=eps0/100,
-                       queries_per_tenant=4)
+    inp = Clos(
+        pods=20, query_density=3, portion_netronome=1,
+        overlay='none', eps=eps0/10)
 
     m = Namespace()
     m.test_name = 'vary_devices_per_cluster'
     m.args_str = (
         "devices_per_cluster={}"
         .format(devices_per_cluster)
+    )
+    setup_test_meta(m)
+    run_all_with_input(m, inp, solvers=['Netmon'])
+
+
+@pytest.mark.parametrize(
+    "time_limit", [60, 120, 180, 240, 360, 480, 960]
+)
+def test_vary_time_limit(time_limit):
+    common_config.parallel = True
+    # common_config.vertical_partition = True
+    # common_config.horizontal_partition = True
+    common_config.mipout = True
+    common_config.verbose = 1
+    common_config.perf_obj = True
+    common_config.time_limit = time_limit
+
+    # inp = TreeTopology(48, 20, 10,
+    #                    num_queries=48*20*5,
+    #                    overlay='tenant', tenant=True,
+    #                    refine=False, eps=eps0/100,
+    #                    queries_per_tenant=4)
+
+    inp = Clos(
+        pods=20, query_density=3, portion_netronome=1,
+        overlay='none', eps=eps0/10)
+
+    m = Namespace()
+    m.test_name = 'vary_time_limit'
+    m.args_str = (
+        "time_limit={}"
+        .format(time_limit)
     )
     setup_test_meta(m)
     run_all_with_input(m, inp, solvers=['Netmon'])

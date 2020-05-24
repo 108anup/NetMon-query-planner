@@ -470,6 +470,7 @@ class MIP(Namespace):
     @log_time
     def solve(self):
         self.m = gp.Model(self.__class__.__name__)
+        # self.m.setParam(GRB.Param.Threads, 2)
         self.m.ModelSense = GRB.MINIMIZE
         log.info("\n" + "-"*80)
         log.info("Model {} with:\n"
@@ -864,7 +865,7 @@ class Netmon(UnivmonGreedyRows):
             # # NOTE:: Check this!
             # With both netro and CPU UGR solution may not be optimal
             # Also with rows_thr also the solution by UGR may not be optimal
-            # self.ns_req = self.r.ns_max + common_config.ftol
+            self.ns_req = self.r.ns_max + common_config.ftol
 
             # self.m.setParam(GRB.Param.MIPFocus, 1)
             # self.m.setParam(GRB.Param.NonConvex, 2)
@@ -907,8 +908,11 @@ class Netmon(UnivmonGreedyRows):
             env0 = self.m.getMultiobjEnv(0)
             env0.setParam(GRB.Param.NonConvex, 2)
             env0.setParam(GRB.Param.MIPFocus, 2)
-            env0.setParam(GRB.Param.TimeLimit, common_config.time_limit)
-            env0.setParam(GRB.Param.MIPGap, common_config.MIP_GAP_REL)
+            env0.setParam(GRB.Param.MIPGapAbs, common_config.MIP_GAP_ABS_RES)
+            env0.setParam(GRB.Param.MIPGap, 0)
+            if(common_config.time_limit):
+                env0.setParam(GRB.Param.TimeLimit, common_config.time_limit)
+
         else:
             self.m.NumObj = 2
             self.m.setObjectiveN(self.ns, 0, 10, reltol=common_config.ns_tol,

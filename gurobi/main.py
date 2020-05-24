@@ -486,6 +486,7 @@ def cluster_optimization(inp):
         # pool = ProcessPool(nodes=common_config.WORKERS)
         with concurrent.futures.ProcessPoolExecutor(
                 max_workers=common_config.WORKERS) as executor:
+        # with concurrent.futures.ProcessPoolExecutor() as executor:
 
             while(queue.qsize() > 0):
                 problems = []

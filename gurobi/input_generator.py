@@ -378,10 +378,10 @@ input_generator = [
 
     # 28
     # Medium tenant (1K)
-    TreeTopology(hosts_per_tors=48, tors_per_l1s=10,
-                 l1s=4, num_queries=48*10*4*3, tenant=True,
+    TreeTopology(hosts_per_tors=48, tors_per_l1s=20,
+                 l1s=4, num_queries=48*20*2, tenant=True,
                  overlay='tenant', refine=False, eps=eps0/10,
-                 queries_per_tenant=8*3),
+                 queries_per_tenant=4),
 
     # 29
     # Very Large (100K)
