@@ -38,7 +38,7 @@ ut.base_dir = 'outputs/clustering'
 def test_vary_topo_size_dc_topo_tenant(
         hosts_per_tors, tors_per_l1s, l1s, overlay, refine,
         devices_per_cluster, clusters_per_cluster, portion_netronome):
-    query_density = 3
+    query_density = 2
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     num_hosts = hosts_per_tors*tors_per_l1s*l1s
@@ -73,18 +73,22 @@ def test_vary_topo_size_dc_topo_tenant(
     run_all_with_input(m, inp)
 
 
+devices_per_cluster_list = [16, 32, 48]
+clusters_per_cluster_list = [x * 8 for x in devices_per_cluster_list]
 @pytest.mark.parametrize(
     "pods, query_density, portion_netronome, overlay, "
     "refine, devices_per_cluster, clusters_per_cluster, perf_obj",
     # Medium
     combinations(
-        [[24, 32], [4], [0, 1], ['tenant'], [False],
-         [16], [128], [True, False]]
+        [[32, 48], [2], [1], ['none', 'tenant'], [False],
+         devices_per_cluster_list, [250], [False]]
     )
 )
 def test_vary_topo_size_clos(
         pods, query_density, portion_netronome, overlay, refine,
         devices_per_cluster, clusters_per_cluster, perf_obj):
+    # if(portion_netronome == 1):
+    #     devices_per_cluster = int(devices_per_cluster / 2)
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = clusters_per_cluster
     inp = Clos(
@@ -94,8 +98,8 @@ def test_vary_topo_size_clos(
     obj = "res"
     if(common_config.perf_obj):
         obj = "perf"
-    common_config.parallel = False
-    common_config.vertical_partition = True
+    common_config.parallel = True
+    # common_config.vertical_partition = True
     # common_config.horizontal_partition = True
     common_config.mipout = False
     common_config.verbose = 1
@@ -111,36 +115,121 @@ def test_vary_topo_size_clos(
                 clusters_per_cluster)
     )
     setup_test_meta(m)
-    run_all_with_input(m, inp)
-
+    solvers = ['UnivmonGreedyRows', 'Netmon']
+    # if(pods > 12):
+    #     solvers = ['UnivmonGreedyRows']
+    run_all_with_input(m, inp, solvers=solvers)
 
 
 @pytest.mark.parametrize(
-    "devices_per_cluster", [25, 50, 100, 150, 200]
+    "devices_per_cluster", [16, 32, 48, 64] #[25, 50, 100, 150, 200]
 )
 def test_devices_per_cluster(devices_per_cluster):
-    # common_config.parallel = True
-    common_config.vertical_partition = True
+    common_config.parallel = True
+    # common_config.vertical_partition = True
     # common_config.horizontal_partition = True
     # common_config.mipout = True
     common_config.verbose = 1
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
+    common_config.MAX_CLUSTERS_PER_CLUSTER = 8*devices_per_cluster
+    common_config.perf_obj = False
+    common_config.time_limit = 420
+    common_config.ABS_TIME_ON_UNIVMON_BOTTLENECK = 5
 
-    inp = TreeTopology(48, 20, 4,
-                       num_queries=480*4,
-                       overlay='tenant', tenant=True,
+    # inp = TreeTopology(48, 20, 10,
+    #                    num_queries=48*20*5,
+    #                    overlay='tenant', tenant=True,
+    #                    refine=False, eps=eps0/100,
+    #                    queries_per_tenant=4)
 
-                       refine=False, eps=eps0/100,
-                       queries_per_tenant=4)
+    pods = 24
+    inp = Clos(
+        pods=pods, query_density=3, portion_netronome=1,
+        overlay='tenant', eps=eps0/10)
 
     m = Namespace()
     m.test_name = 'vary_devices_per_cluster'
     m.args_str = (
-        "devices_per_cluster={}"
-        .format(devices_per_cluster)
+        "devices_per_cluster={};pods={}"
+        .format(devices_per_cluster, pods)
     )
     setup_test_meta(m)
     run_all_with_input(m, inp, solvers=['Netmon'])
+
+@pytest.mark.parametrize(
+    "devices_per_cluster, pods",
+    combinations([[0], [20, 24]])
+)
+def test_osdi2020(devices_per_cluster, pods):
+    common_config.parallel = True
+    # common_config.vertical_partition = True
+    # common_config.horizontal_partition = True
+    if(devices_per_cluster == 0):
+        common_config.mipout = True
+    else:
+        common_config.mipout = False
+    common_config.verbose = 1
+    common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
+    common_config.MAX_CLUSTERS_PER_CLUSTER = 8*devices_per_cluster
+    common_config.perf_obj = False
+    common_config.time_limit = 3200
+    # common_config.ABS_TIME_ON_UNIVMON_BOTTLENECK = 5
+    common_config.static = False
+    common_config.MIP_GAP_REL = 0.1
+
+    overlay = 'tenant'
+    if(devices_per_cluster == 0):
+        overlay = 'none'
+
+    inp = Clos(
+        pods=pods, query_density=3, portion_netronome=1,
+        overlay=overlay, eps=eps0/10)
+
+    m = Namespace()
+    m.test_name = 'test_osdi2020'
+    m.args_str = (
+        "devices_per_cluster={};pods={};time_limit={}"
+        .format(devices_per_cluster, pods, common_config.time_limit)
+    )
+
+    setup_test_meta(m)
+    run_all_with_input(m, inp, solvers=['Univmon', 'UnivmonGreedyRows'])
+
+
+@pytest.mark.parametrize(
+    "time_limit, pods",
+    combinations([[2000], [20, 24]])
+)
+def test_vary_time_limit(time_limit, pods):
+    common_config.parallel = True
+    # common_config.vertical_partition = True
+    # common_config.horizontal_partition = True
+    # common_config.mipout = True
+    common_config.verbose = 1
+    common_config.perf_obj = False
+    common_config.time_limit = time_limit
+    # common_config.ABS_TIME_ON_UNIVMON_BOTTLENECK = 5
+    # common_config.MIP_GAP_REL_UNIVMON_BOTTLENECK = 0.05
+
+    # inp = TreeTopology(48, 20, 10,
+    #                    num_queries=48*20*5,
+    #                    overlay='tenant', tenant=True,
+    #                    refine=False, eps=eps0/100,
+    #                    queries_per_tenant=4)
+
+    pods = 24
+    inp = Clos(
+        pods=pods, query_density=3, portion_netronome=1,
+        overlay='none', eps=eps0/10)
+
+    m = Namespace()
+    m.test_name = 'vary_time_limit'
+    m.args_str = (
+        "time_limit={};pods={}"
+        .format(time_limit, pods)
+    )
+    setup_test_meta(m)
+    run_all_with_input(m, inp, solvers=['Univmon', 'UnivmonGreedyRows'])
 
 
 @pytest.mark.parametrize("cluster_size, num_cpus", [(0, 20)]

@@ -172,6 +172,7 @@ class CPU(Device):
         if(ns_req):
             m.addConstr(md.cores_sketch * ns_req >= md.ns_single,
                         name='ns_sketch_{}'.format(self))
+            # md.ns_sketch = md.ns_single / md.cores_sketch
         else:
             md.ns_sketch = m.addVar(vtype=GRB.CONTINUOUS,
                                     name='ns_sketch_{}'.format(self), lb=0)
@@ -191,6 +192,7 @@ class CPU(Device):
             #     (md.cores_dpdk*(1-CPU.fraction_parallel)
             #      + CPU.fraction_parallel)*dpdk_single_ns
             #     <= md.cores_dpdk * ns_req, name='ns_dpdk_{}'.format(self))
+            md.ns_dpdk = dpdk_single_ns*(1-f + f/md.cores_dpdk)
         else:
             md.cores_dpdk = m.addVar(vtype=GRB.INTEGER, lb=1, ub=self.cores,
                                      name='cores_dpdk_{}'.format(self))
@@ -215,10 +217,13 @@ class CPU(Device):
                              name='ns_{}'.format(self))
             m.addGenConstrMax(md.ns, [md.ns_dpdk, md.ns_sketch],
                               name='ns_{}'.format(self))
+        else:
+            # md.ns = gp.max_(md.ns_dpdk, md.ns_sketch)
+            pass
 
     def res(self, md):
-        return 10*(md.cores_dpdk + md.cores_sketch) \
-            + md.mem_tot/self.Li_size[2]
+        return (common_config.CPU_CORE_WEIGHT*(md.cores_dpdk + md.cores_sketch)
+                + md.mem_tot/self.Li_size[2])
 
     def resource_stats(self, md, r=None):
         if(hasattr(md, 'cores_sketch')):
@@ -373,8 +378,7 @@ class Netronome(Device):
     def set_thr(self, md, ns_req):
         md.micro_engines = get_rounded_cores(max(
             md.ns_hash_max * self.total_me / ns_req,
-            md.ns_fwd_max * self.total_me / ns_req, self.total_me
-        ))
+            md.ns_fwd_max * self.total_me / ns_req))
         if(md.micro_engines > self.total_me):
             md.infeasible = True
         md.ns_hash = md.ns_hash_max * self.total_me / md.micro_engines

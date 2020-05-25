@@ -562,6 +562,7 @@ def cluster_optimization(inp):
         # pool = ProcessPool(nodes=common_config.WORKERS)
         with concurrent.futures.ProcessPoolExecutor(
                 max_workers=common_config.WORKERS) as executor:
+        # with concurrent.futures.ProcessPoolExecutor() as executor:
 
             while(queue.qsize() > 0):
                 problems = []
@@ -646,7 +647,14 @@ def solve(inp, pre_processed=False):
     log.info("\n" + "-"*80)
     log_results(inp.devices, ret.results, ret.md_list,
                 elapsed=end-start, msg="Final Results")
+    if(common_config.solver == 'Univmon'):
+        ret.results = refine_devices(inp.devices, ret.md_list, static=True)
+        log_results(inp.devices, ret.results, ret.md_list,
+                    elapsed=end-start, msg="Unimon w/static placement")
 
+    # log.info("Memoization resolved {} cases.".format(CPU.cache['helped']))
+    # log.info("Solving ended at time: {}, taking: {} s"
+    #          .format(end, end-start))
     return ret
 
 
@@ -676,14 +684,14 @@ if(__name__ == '__main__'):
 
     setup_logging(common_config)
 
-    input_num = common_config.input_num
-    inp = input_generator[input_num]
-    if(not isinstance(inp, Input)):
-        inp = inp.get_input()
-
-    # log.info("Time before solving: {}".format(time.time() - start))
     try:
-        run(inp)
+        input_num = common_config.input_num
+        inp = input_generator[input_num]
+        if(not isinstance(inp, Input)):
+            inp = inp.get_input()
+
+        # log.info("Time before solving: {}".format(time.time() - start))
+        solve(inp)
     except Exception:
         import ipdb
         extype, value, tb = sys.exc_info()

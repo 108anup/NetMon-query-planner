@@ -7,7 +7,7 @@ import sys
 import networkx as nx
 import numpy as np
 
-from common import constants, freeze_object, log
+from common import constants, freeze_object, log, log_time
 from config import common_config
 from devices import CPU, P4, Netronome
 from flows import flow
@@ -45,6 +45,11 @@ class Clos(object):
         self.num_queries = self.num_hosts * self.query_density
         self.eps = eps0
         self.hosts_per_tenant = min(hosts_per_tenant, self.num_hosts)
+        if(self.num_hosts % self.hosts_per_tenant != 0):
+            if(pods < 12):
+                self.hosts_per_tenant = pods
+            elif(pods < 22):
+                self.hosts_per_tenant = self.podsby2
         self.overlay = overlay
 
     def construct_graph(self, devices, has_netro):
@@ -123,6 +128,7 @@ class Clos(object):
         # plt.show()
         return g
 
+    @log_time(logger=log.info)
     def get_path_with_largest_capacity(self, g, h1, h2):
         h1name = self.hosts[h1][0]
         h2name = self.hosts[h2][0]
@@ -171,7 +177,9 @@ class Clos(object):
             # else:
             #     g.edges[beg, end]['debug'] = [(h1, h2, traffic)]
 
+    # @log_time(logger=log.info)
     def get_flows(self, g, inp):
+        # log.info("Generating flows")
         # import ipdb; ipdb.set_trace()
         # query_density means queries per host
         num_tenants = math.ceil(self.num_hosts / self.hosts_per_tenant)
@@ -188,9 +196,29 @@ class Clos(object):
         servers = np.arange(self.num_hosts)
         np.random.shuffle(servers)
         tenant_servers = np.split(servers, num_tenants)
+
+        # servers = servers.tolist()
+        # tenant_servers = []
+        # taken = 0
+        # total_servers = len(servers)
+        # for i in range(num_tenants):
+        #     this_num_servers = random.randint(self.hosts_per_tenant-1,
+        #                                       self.hosts_per_tenant+1)
+        #     if(this_num_servers + taken > total_servers):
+        #         tenant_servers.append(servers[taken:])
+        #         taken = total_servers
+        #         break
+
+        #     tenant_servers.append(servers[taken:this_num_servers+taken])
+        #     taken += this_num_servers
+
+        # if(taken < total_servers):
+        #     tenant_servers.append(servers[taken:])
+
         host_overlay = []
         for x in tenant_servers:
             this_servers = x.tolist()
+            # this_servers = x
             this_netro = []
             for s in this_servers:
                 netro_id = self.has_netro[s]
@@ -209,6 +237,7 @@ class Clos(object):
                           / self.hosts_per_tenant)
         qlist_generator = list(range(queries_per_tenant))
 
+        log.info("Need to generate: {} flows.".format(flows_per_host * self.num_hosts / 2))
         flows = []
         for (tnum, t) in enumerate(tenant_servers):
             query_set = [i + tnum * queries_per_tenant
@@ -402,14 +431,14 @@ class Clos(object):
             self.pods, self.query_density, eps0/self.eps, self.num_netronome)
         pickle_loaded = False
         if(os.path.exists(pickle_name)):
+            log.info("Fetching clos topo with {} hosts.".format(self.num_hosts))
             inp_file = open(pickle_name, 'rb')
             inp = pickle.load(inp_file)
             inp_file.close()
             pickle_loaded = True
         else:
+            log.info("Building clos topo with {} hosts.".format(self.num_hosts))
             inp = self.create_inp()
-
-        log.info("Building clos topo with {} hosts.".format(self.num_hosts))
 
         # Recompute overlay
         inp.overlay = self.get_overlay(inp)

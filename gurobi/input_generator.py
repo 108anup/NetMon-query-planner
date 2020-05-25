@@ -378,10 +378,10 @@ input_generator = [
 
     # 28
     # Medium tenant (1K)
-    TreeTopology(hosts_per_tors=48, tors_per_l1s=10,
-                 l1s=4, num_queries=48*10*4*3, tenant=True,
+    TreeTopology(hosts_per_tors=48, tors_per_l1s=20,
+                 l1s=4, num_queries=48*20*2, tenant=True,
                  overlay='tenant', refine=False, eps=eps0/10,
-                 queries_per_tenant=8*3),
+                 queries_per_tenant=4),
 
     # 29
     # Very Large (100K)
@@ -443,10 +443,11 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=4, overlay='tenant', query_density=11, portion_netronome=0.5),
+    Clos(pods=6, overlay='none', query_density=3, portion_netronome=0),
 
     # 35
-    Clos(6, 4, portion_netronome=0, overlay='none', hosts_per_tenant=6),
+    Clos(pods=20, query_density=3, portion_netronome=1,
+        overlay='none', eps=eps0/10),
 
     # 36
     Input(

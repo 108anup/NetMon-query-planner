@@ -36,12 +36,13 @@ default_config = Config(
     use_model=False,
     ftol=6.0e-5,
     MIP_GAP_REL=0.05,
+    MIP_GAP_ABS_RES=200,
     MAX_DEVICES_PER_CLUSTER=25,
     MAX_CLUSTERS_PER_CLUSTER=200,
-    ME_WEIGHT=5,
-    CPU_CORE_WEIGTH=10,
+    ME_WEIGHT=50,
+    CPU_CORE_WEIGHT=100,
     WORKERS=4,
-    PORTION_TIME_ON_PERF=0.4,
+    PORTION_TIME_ON_PERF=0.7,
     ABS_TIME_ON_UNIVMON_BOTTLENECK=None,
     MIP_GAP_REL_UNIVMON_BOTTLENECK=0.2,
 
@@ -57,7 +58,8 @@ default_config = Config(
     prog_dir=None,
     init=False,
     parallel=False,
-    perf_obj=False
+    perf_obj=False,
+    static=False
 )
 common_config = Config()
 common_config.update(default_config)
