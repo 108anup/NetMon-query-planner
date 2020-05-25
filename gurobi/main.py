@@ -571,6 +571,11 @@ def solve(inp):
     log.info("\n" + "-"*80)
     log_results(inp.devices, ret.results, ret.md_list,
                 elapsed=end-start, msg="Final Results")
+    if(common_config.solver == 'Univmon'):
+        ret.results = refine_devices(inp.devices, ret.md_list, static=True)
+        log_results(inp.devices, ret.results, ret.md_list,
+                    elapsed=end-start, msg="Unimon w/static placement")
+
     # log.info("Memoization resolved {} cases.".format(CPU.cache['helped']))
     # log.info("Solving ended at time: {}, taking: {} s"
     #          .format(end, end-start))

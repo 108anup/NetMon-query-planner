@@ -74,7 +74,8 @@ def no_traffic_md(md):
 
 # elements of md_list are updated in place
 @log_time(logger=log.info)
-def refine_devices(devices, md_list, placement_fixed=True):
+def refine_devices(devices, md_list, placement_fixed=True, static=False):
+    static = static or common_config.static
     #, just_collect=False):
     ns_max = None
     if(common_config.perf_obj):
@@ -114,7 +115,11 @@ def refine_devices(devices, md_list, placement_fixed=True):
             md.rows_tot = get_rounded_val(get_val(md.rows_tot))
             md.rows_thr = get_rounded_val(get_val(md.rows_thr))
             # if(not just_collect):
-            d.add_ns_constraints(None, md, getattr(md, 'ns_req', ns_max))
+            if(static):
+                ns_max = d.get_ns(md)
+                d.add_ns_constraints(None, md, ns_max)
+            else:
+                d.add_ns_constraints(None, md, getattr(md, 'ns_req', ns_max))
             d.resource_stats(md, r)
             if(not placement_fixed):
                 # Will be used by Netmon in later optimization
@@ -497,8 +502,8 @@ class MIP(Namespace):
         self.add_coverage_constraints()
         self.add_accuracy_constraints()
         self.add_capacity_constraints()
-        if(not type(self).__name__ == 'Univmon'):
-            self.add_device_aware_constraints()
+        # if(not type(self).__name__ == 'Univmon'):
+        self.add_device_aware_constraints()
 
         if(hasattr(self, 'init')):
             self.initialize()
@@ -579,8 +584,8 @@ class Univmon(MIP):
                          name='tot_mem')
 
     def add_objective(self):
-        self.m.setObjectiveN(self.max_mem, 0, 10, name='max_mem')
-        self.m.setObjectiveN(self.tot_mem, 1, 5, name='tot_mem')
+        self.m.setObjectiveN(self.max_mem, 0, weight=len(self.devices), name='max_mem')
+        self.m.setObjectiveN(self.tot_mem, 1, weight=1, name='tot_mem')
 
     def post_optimize(self):
         self.m.printQuality()
@@ -759,9 +764,9 @@ class UnivmonGreedyRows(UnivmonGreedy):
         """
         # self.m.setParam(GRB.Param.SimplexPricing, 2)
         if(hasattr(self, 'max_rows_others')):
-            self.m.setObjectiveN(self.tot_rows_others, 0, 100,
+            self.m.setObjectiveN(self.tot_rows_others, 0, 100, weight=1,
                                  name='tot_rows_others')
-            self.m.setObjectiveN(self.max_rows_others, 1, 90,
+            self.m.setObjectiveN(self.max_rows_others, 1, 100, weight=len(self.devices),
                                  name='others_rows_load')
             env1 = self.m.getMultiobjEnv(1)
             env1.setParam(GRB.Param.MIPFocus, 2)
@@ -785,9 +790,9 @@ class UnivmonGreedyRows(UnivmonGreedy):
         # self.m.setObjectiveN(self.tot_rows, 2, 20, name='rows_load')
 
         if(hasattr(self, 'max_mem_others')):
-            self.m.setObjectiveN(self.tot_mem_others, 4, 60,
+            self.m.setObjectiveN(self.tot_mem_others, 4, 60, weight=1,
                                  name='tot_mem_others')
-            self.m.setObjectiveN(self.max_mem_others, 5, 50,
+            self.m.setObjectiveN(self.max_mem_others, 5, 60, weight=len(self.devices),
                                  name='others_load_mem')
             env5 = self.m.getMultiobjEnv(5)
             env5.setParam(GRB.Param.MIPFocus, 2)
@@ -874,7 +879,7 @@ class Netmon(UnivmonGreedyRows):
             # # NOTE:: Check this!
             # With both netro and CPU UGR solution may not be optimal
             # Also with rows_thr also the solution by UGR may not be optimal
-            # self.ns_req = self.r.ns_max + common_config.ftol
+            self.ns_req = self.r.ns_max + common_config.ftol
 
             # self.m.setParam(GRB.Param.MIPFocus, 1)
             # self.m.setParam(GRB.Param.NonConvex, 2)

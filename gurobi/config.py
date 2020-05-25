@@ -58,7 +58,8 @@ default_config = Config(
     prog_dir=None,
     init=False,
     parallel=False,
-    perf_obj=False
+    perf_obj=False,
+    static=False
 )
 common_config = Config()
 common_config.update(default_config)
