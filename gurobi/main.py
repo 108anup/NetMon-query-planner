@@ -685,8 +685,8 @@ def solve(inp, pre_processed=False):
 def run(inp):
     flows = inp.flows
     if(common_config.dynamic_flows):
-        inp.flows = flows[:-10]
-        inp.additions = Input(flows=flows[-10:])
+        inp.flows = flows[:-200]
+        inp.additions = Input(flows=flows[-200:-190])
     else:
         inp.flows = flows
 

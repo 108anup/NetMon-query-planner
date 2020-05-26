@@ -70,6 +70,56 @@ def run_all_with_input(m, inp, solvers=['UnivmonGreedyRows', 'Netmon']):
         f.close()
 
 
+def full_rerun_flow_dynamics(m, inp, num_changes, change_size):
+    with open(common_config.results_file, 'a') as f:
+        f.write("{}, {}, {}\n".format(
+            m.test_name + "-" + get_git_revision_short_hash(),
+            m.config_str, m.args_str))
+
+    solver = 'Netmon'
+    common_config.solver = solver
+
+    if(not isinstance(inp, Input)):
+        myinp = inp.get_input()
+
+    inp_flows = myinp.flows
+    # import ipdb; ipdb.set_trace()
+    myinp.flows = inp_flows[:-change_size * num_changes]
+    remaining_flows = inp_flows[-change_size * num_changes:]
+
+    setup_logging(common_config)
+    remove_all_file_loggers()
+    add_file_logger(os.path.join(
+        m.out_dir, '{}-{}-{}-first-run.out'
+        .format(m.config_str, m.args_str, solver)))
+
+    ret = solve(myinp)
+
+    with open(common_config.results_file, 'a') as f:
+        f.write("\n")
+
+    for change_id in range(num_changes):
+        with open(common_config.results_file, 'a') as f:
+            f.write("change_id={}, ".format(change_id))
+
+        setup_logging(common_config)
+        remove_all_file_loggers()
+        add_file_logger(os.path.join(
+            m.out_dir, '{}-{}-{}-{}-full-rerun.out'
+            .format(m.config_str, m.args_str, solver, change_id)))
+
+        this_flows = remaining_flows[
+            change_id * change_size:(change_id+1)*change_size]
+        myinp.flows += this_flows
+        new_ret = solve(myinp)
+        if(new_ret is None):
+            return
+
+        with open(common_config.results_file, 'a') as f:
+            f.write("\n")
+            f.close()
+
+
 def run_flow_dynamics(m, inp, num_changes, change_size):
 
     with open(common_config.results_file, 'a') as f:
@@ -84,8 +134,9 @@ def run_flow_dynamics(m, inp, num_changes, change_size):
         myinp = inp.get_input()
 
     inp_flows = myinp.flows
+    # import ipdb; ipdb.set_trace()
     myinp.flows = inp_flows[:-change_size * num_changes]
-    remaining_flows = inp_flows[change_size * num_changes:]
+    remaining_flows = inp_flows[-change_size * num_changes:]
 
     setup_logging(common_config)
     remove_all_file_loggers()
@@ -100,7 +151,7 @@ def run_flow_dynamics(m, inp, num_changes, change_size):
 
     old_inp = myinp
     old_solution = ret
-    for change_id in range(len(num_changes)):
+    for change_id in range(num_changes):
         with open(common_config.results_file, 'a') as f:
             f.write("change_id={}, ".format(change_id))
 
@@ -115,7 +166,9 @@ def run_flow_dynamics(m, inp, num_changes, change_size):
         new_inp = get_new_problem(old_inp, old_solution,
                                   Input(flows=this_flows))
         start = time.time()
-        new_ret = solve(new_inp)
+        new_ret = solve(new_inp, pre_processed=True)
+        if(new_ret is None):
+            return
         new_solution = new_ret
 
         # calc full resource util
@@ -128,7 +181,7 @@ def run_flow_dynamics(m, inp, num_changes, change_size):
             assert(old_id is None or new_id is None or old_id == new_id)
             complete_md_list[d.dev_id] = new_md
 
-        results = refine_devices(inp.devices, complete_md_list)
+        results = refine_devices(myinp.devices, complete_md_list)
         end = time.time()
         log_results(myinp.devices, results, complete_md_list,
                     elapsed=end-start, msg='Computed Full Resource Stat')
@@ -138,6 +191,8 @@ def run_flow_dynamics(m, inp, num_changes, change_size):
             f.close()
 
         # merge (update old_inp and old_solution):
+        for f in this_flows:
+            f.partitions = [(x[0], x[1]) for x in f.queries]
         old_inp.flows += this_flows
 
         old_solution.results = results  # this value is not used
