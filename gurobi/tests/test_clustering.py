@@ -8,7 +8,7 @@ from config import common_config
 from common import Namespace
 import tests.utilities as ut
 from tests.utilities import (run_all_with_input, setup_test_meta,
-                             combinations, run_flow_dynamics)
+                             combinations, run_flow_dynamics, full_rerun_flow_dynamics)
 from clos import Clos
 ut.base_dir = 'outputs/clustering'
 
@@ -249,7 +249,7 @@ def test_flow_dynamics(pods, num_changes, change_size):
     # common_config.MIP_GAP_REL_UNIVMON_BOTTLENECK = 0.05
 
     inp = Clos(pods=pods, query_density=3, portion_netronome=1,
-               overlay='none', eps=eps0/10)
+               overlay='tenant', eps=eps0/10)
 
     m = Namespace()
     m.test_name = 'flow_dynamics'
@@ -259,6 +259,35 @@ def test_flow_dynamics(pods, num_changes, change_size):
     )
     setup_test_meta(m)
     run_flow_dynamics(m, inp, num_changes, change_size)
+
+
+@pytest.mark.parametrize(
+    "pods, num_changes, change_size",
+    [(16, 20, 10)]
+)
+def test_full_rerun_flow_dynamics(pods, num_changes, change_size):
+
+    common_config.parallel = True
+    # common_config.vertical_partition = True
+    # common_config.horizontal_partition = True
+    # common_config.mipout = True
+    common_config.verbose = 1
+    common_config.perf_obj = False
+    common_config.time_limit = 3200
+    # common_config.ABS_TIME_ON_UNIVMON_BOTTLENECK = 5
+    # common_config.MIP_GAP_REL_UNIVMON_BOTTLENECK = 0.05
+
+    inp = Clos(pods=pods, query_density=3, portion_netronome=1,
+               overlay='tenant', eps=eps0/10)
+
+    m = Namespace()
+    m.test_name = 'full_rerun_flow_dynamics'
+    m.args_str = (
+        "pods={};num_changes={};change_size={};time_limit={};"
+        .format(pods, num_changes, change_size, common_config.time_limit)
+    )
+    setup_test_meta(m)
+    full_rerun_flow_dynamics(m, inp, num_changes, change_size)
 
 
 @pytest.mark.parametrize("cluster_size, num_cpus", [(0, 20)]
