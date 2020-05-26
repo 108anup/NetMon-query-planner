@@ -536,3 +536,7 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
   beluga1:fge0 - beluga2:fge0
   beluga12:fge1 - beluga13:fge1
   beluga12:netro0 - beluga13:netro0
+
+* TODOs
+** gravity model for TM generation: 
+   http://www.maths.adelaide.edu.au/matthew.roughan/papers/ccr_2005.pdf

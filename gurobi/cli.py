@@ -74,9 +74,13 @@ def generate_parser():
     )
 
     p.add_argument(
-        '--perf-obj',
+        '--dynamic-flows',
         action='store_true'
     )
 
+    p.add_argument(
+        '--perf-obj',
+        action='store_true'
+    )
 
     return p

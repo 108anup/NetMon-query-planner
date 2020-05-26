@@ -146,8 +146,12 @@ class MIP(Namespace):
         self.infeasible = False
 
     def compute_dev_par_tuplelist(self):
-        self.md_list = [Namespace(total_thr=0)
-                        for i in range(len(self.devices))]
+        self.md_list = [
+            Namespace(
+                total_thr=0,
+                dev_id=getattr(d, 'dev_id', None),
+                name=d.name)
+            for d in self.devices]
         dev_par_thr = tupledict()
         dev_par_tuplelist = []
         for (fnum, f) in enumerate(self.flows):

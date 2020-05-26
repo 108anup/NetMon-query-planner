@@ -1,5 +1,7 @@
+import time
 import os
-from main import solve
+from main import solve, get_new_problem
+from solvers import refine_devices, log_results
 
 from config import common_config
 import subprocess
@@ -66,6 +68,83 @@ def run_all_with_input(m, inp, solvers=['UnivmonGreedyRows', 'Netmon']):
     with open(common_config.results_file, 'a') as f:
         f.write("\n")
         f.close()
+
+
+def run_flow_dynamics(m, inp, num_changes, change_size):
+
+    with open(common_config.results_file, 'a') as f:
+        f.write("{}, {}, {}\n".format(
+            m.test_name + "-" + get_git_revision_short_hash(),
+            m.config_str, m.args_str))
+
+    solver = 'Netmon'
+    common_config.solver = solver
+
+    if(not isinstance(inp, Input)):
+        myinp = inp.get_input()
+
+    inp_flows = myinp.flows
+    myinp.flows = inp_flows[:-change_size * num_changes]
+    remaining_flows = inp_flows[change_size * num_changes:]
+
+    setup_logging(common_config)
+    remove_all_file_loggers()
+    add_file_logger(os.path.join(
+        m.out_dir, '{}-{}-{}-init.out'
+        .format(m.config_str, m.args_str, solver)))
+
+    ret = solve(myinp)
+
+    with open(common_config.results_file, 'a') as f:
+        f.write("\n")
+
+    old_inp = myinp
+    old_solution = ret
+    for change_id in range(len(num_changes)):
+        with open(common_config.results_file, 'a') as f:
+            f.write("change_id={}, ".format(change_id))
+
+        setup_logging(common_config)
+        remove_all_file_loggers()
+        add_file_logger(os.path.join(
+            m.out_dir, '{}-{}-{}-{}-succ.out'
+            .format(m.config_str, m.args_str, solver, change_id)))
+
+        this_flows = remaining_flows[
+            change_id * change_size:(change_id+1)*change_size]
+        new_inp = get_new_problem(old_inp, old_solution,
+                                  Input(flows=this_flows))
+        start = time.time()
+        new_ret = solve(new_inp)
+        new_solution = new_ret
+
+        # calc full resource util
+        complete_md_list = old_solution.md_list
+        for dnum, d in enumerate(new_inp.devices):
+            old_md = complete_md_list[d.dev_id]
+            new_md = new_ret.md_list[dnum]
+            old_id = getattr(old_md, 'dev_id', None)
+            new_id = getattr(new_md, 'dev_id', None)
+            assert(old_id is None or new_id is None or old_id == new_id)
+            complete_md_list[d.dev_id] = new_md
+
+        results = refine_devices(inp.devices, complete_md_list)
+        end = time.time()
+        log_results(myinp.devices, results, complete_md_list,
+                    elapsed=end-start, msg='Computed Full Resource Stat')
+
+        with open(common_config.results_file, 'a') as f:
+            f.write("\n")
+            f.close()
+
+        # merge (update old_inp and old_solution):
+        old_inp.flows += this_flows
+
+        old_solution.results = results  # this value is not used
+        old_solution.md_list = complete_md_list
+        for (dnum, pnum), f in new_solution.frac.items():
+            dev_id = new_inp.devices[dnum].dev_id
+            old_solution.frac[dev_id, pnum] = f
 
 
 def setup_test_meta(m):

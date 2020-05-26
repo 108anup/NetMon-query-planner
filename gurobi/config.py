@@ -59,7 +59,8 @@ default_config = Config(
     init=False,
     parallel=False,
     perf_obj=False,
-    static=False
+    static=False,
+    dynamic_flows=False,
 )
 common_config = Config()
 common_config.update(default_config)
