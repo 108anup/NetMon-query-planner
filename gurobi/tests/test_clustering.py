@@ -158,7 +158,7 @@ def test_devices_per_cluster(devices_per_cluster):
 
 @pytest.mark.parametrize(
     "devices_per_cluster, pods",
-    combinations([[0], [20, 24]])
+    combinations([[0], [32]])
 )
 def test_osdi2020(devices_per_cluster, pods):
     common_config.parallel = True
@@ -172,7 +172,7 @@ def test_osdi2020(devices_per_cluster, pods):
     common_config.MAX_DEVICES_PER_CLUSTER = devices_per_cluster
     common_config.MAX_CLUSTERS_PER_CLUSTER = 8*devices_per_cluster
     common_config.perf_obj = False
-    common_config.time_limit = 3200
+    common_config.time_limit = 8000
     # common_config.ABS_TIME_ON_UNIVMON_BOTTLENECK = 5
     common_config.static = False
     common_config.MIP_GAP_REL = 0.1
@@ -182,7 +182,7 @@ def test_osdi2020(devices_per_cluster, pods):
         overlay = 'none'
 
     inp = Clos(
-        pods=pods, query_density=3, portion_netronome=1,
+        pods=pods, query_density=4, portion_netronome=1,
         overlay=overlay, eps=eps0/10)
 
     m = Namespace()
@@ -193,7 +193,7 @@ def test_osdi2020(devices_per_cluster, pods):
     )
 
     setup_test_meta(m)
-    run_all_with_input(m, inp, solvers=['Univmon', 'UnivmonGreedyRows'])
+    run_all_with_input(m, inp, solvers=['UnivmonGreedyRows'])
 
 
 @pytest.mark.parametrize(

@@ -766,7 +766,7 @@ class UnivmonGreedyRows(UnivmonGreedy):
         if(hasattr(self, 'max_rows_others')):
             self.m.setObjectiveN(self.tot_rows_others, 0, 100, weight=1,
                                  name='tot_rows_others')
-            self.m.setObjectiveN(self.max_rows_others, 1, 100, weight=len(self.devices),
+            self.m.setObjectiveN(self.max_rows_others, 1, 90, weight=len(self.devices),
                                  name='others_rows_load')
             env1 = self.m.getMultiobjEnv(1)
             env1.setParam(GRB.Param.MIPFocus, 2)
@@ -792,7 +792,7 @@ class UnivmonGreedyRows(UnivmonGreedy):
         if(hasattr(self, 'max_mem_others')):
             self.m.setObjectiveN(self.tot_mem_others, 4, 60, weight=1,
                                  name='tot_mem_others')
-            self.m.setObjectiveN(self.max_mem_others, 5, 60, weight=len(self.devices),
+            self.m.setObjectiveN(self.max_mem_others, 5, 50, weight=len(self.devices),
                                  name='others_load_mem')
             env5 = self.m.getMultiobjEnv(5)
             env5.setParam(GRB.Param.MIPFocus, 2)

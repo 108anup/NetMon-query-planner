@@ -546,6 +546,12 @@ def solve(inp):
     except TypeError:
         pass
 
+    flows = []
+    for f in inp.flows:
+        if f.thr > 0.1:
+            flows.append(f)
+    inp.flows = flows
+
     inp.partitions = get_partitions(inp.queries)
     map_flows_partitions(inp.flows, inp.queries)
     Solver = solver_to_class[common_config.solver]
@@ -573,6 +579,7 @@ def solve(inp):
                 elapsed=end-start, msg="Final Results")
     if(common_config.solver == 'Univmon'):
         ret.results = refine_devices(inp.devices, ret.md_list, static=True)
+        end = time.time()
         log_results(inp.devices, ret.results, ret.md_list,
                     elapsed=end-start, msg="Unimon w/static placement")
 
