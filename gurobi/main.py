@@ -313,7 +313,11 @@ def get_new_problem(old_inp, old_solution, additions):
 
     tmp_flows = []
     # relevant_partitions = set()
+    idx = 0
+    # TODO: Verify if there is no bug in get_val(old_solution.frac[dev_id, pnum])
+    # TODO: U and UGR timing and objectives
     for f in old_inp.flows:
+        idx += 1
         new_path = set()
         new_par = []
         for fp in f.partitions:
@@ -321,11 +325,12 @@ def get_new_problem(old_inp, old_solution, additions):
             cov = fp[1]
             tot_frac = 0
             for dev_id in f.path:
-                new_path.add(dev_id_to_dnum[dev_id])
-                tot_frac += get_val(old_solution.frac[dev_id, pnum])
+                if(dev_id in dev_id_to_dnum):
+                    new_path.add(dev_id_to_dnum[dev_id])
+                    tot_frac += get_val(old_solution.frac.get((dev_id, pnum), 0))
             if(tot_frac > 0):
                 new_par.extend([(pnum, min(cov, tot_frac))])
-        if(len(new_path) > 0 and len(new_par) > 0):
+        if(len(new_path) > 0):  #and len(new_par) > 0):
             # for pnum in new_par:
             #     relevant_partitions.add(pnum)
             tmp_flows.append(flow(
@@ -349,23 +354,41 @@ def get_new_problem(old_inp, old_solution, additions):
     #     )
 
     corr = len(old_inp.partitions)
-    new_queries = additions.queries
-    new_partitions = get_partitions(new_queries, correction=corr)
-    new_inp.queries = old_inp.queries + new_queries
-    new_inp.partitions = old_inp.partitions + new_partitions
 
-    # Assumed that no horizontal partitioning
-    new_flows = tmp_flows
-    for f in additions.flows:
-        new_flows.append(flow(
-            path=list(
-                map(lambda x: dev_id_to_dnum[x], f.path)
-            ),
-            partitions=[(x[0] + corr, x[1]) for x in f.queries],
-            thr=f.thr
-        ))
+    # Added new sketches
+    # TODO: Handle both new sketches and new flows??
+    if(hasattr(additions, 'queries')):
+        new_queries = additions.queries
+        new_partitions = get_partitions(new_queries, correction=corr)
+        new_inp.queries = old_inp.queries + new_queries
+        new_inp.partitions = old_inp.partitions + new_partitions
 
-    new_inp.flows = new_flows
+        # Assumed that no horizontal partitioning
+        new_flows = tmp_flows
+        for f in additions.flows:
+            new_flows.append(flow(
+                path=list(
+                    map(lambda x: dev_id_to_dnum[x], f.path)
+                ),
+                partitions=[(x[0] + corr, x[1]) for x in f.queries],
+                thr=f.thr
+            ))
+
+        new_inp.flows = new_flows
+    else:
+        new_flows = tmp_flows
+        for f in additions.flows:
+            new_flows.append(flow(
+                path=list(
+                    map(lambda x: dev_id_to_dnum[x], f.path)
+                ),
+                partitions=[(x[0], x[1]) for x in f.queries],
+                thr=f.thr
+            ))
+        new_inp.queries = old_inp.queries
+        new_inp.partitions = old_inp.partitions
+        new_inp.flows = new_flows
+
     return new_inp
 
 
@@ -613,20 +636,20 @@ def solve(inp, pre_processed=False):
 
     # Assign device ids, if not frozen
     # If frozen then assume ids have been assigned
-    try:
-        for (dnum, d) in enumerate(inp.devices):
-            d.dev_id = dnum
-            freeze_object(d)
-    except TypeError:
-        pass
-
-    flows = []
-    for f in inp.flows:
-        if f.thr > 0.1:
-            flows.append(f)
-    inp.flows = flows
-
     if(not pre_processed):
+        try:
+            for (dnum, d) in enumerate(inp.devices):
+                d.dev_id = dnum
+                freeze_object(d)
+        except TypeError:
+            pass
+
+        flows = []
+        for f in inp.flows:
+            if f.thr > 0.1:
+                flows.append(f)
+        inp.flows = flows
+
         inp.partitions = get_partitions(inp.queries)
         map_flows_partitions(inp.flows, inp.queries)
 
@@ -654,32 +677,54 @@ def solve(inp, pre_processed=False):
     log.info("\n" + "-"*80)
     log_results(inp.devices, ret.results, ret.md_list,
                 elapsed=end-start, msg="Final Results")
-<<<<<<< HEAD
-    if(common_config.solver == 'Univmon'):
-        ret.results = refine_devices(inp.devices, ret.md_list, static=True)
-        end = time.time()
-        log_results(inp.devices, ret.results, ret.md_list,
-                    elapsed=end-start, msg="Unimon w/static placement")
+
+    # if(common_config.solver == 'Univmon'):
+    #     ret.results = refine_devices(inp.devices, ret.md_list, static=True)
+    #     end = time.time()
+    #     log_results(inp.devices, ret.results, ret.md_list,
+    #                 elapsed=end-start, msg="Unimon w/static placement")
 
     # log.info("Memoization resolved {} cases.".format(CPU.cache['helped']))
     # log.info("Solving ended at time: {}, taking: {} s"
     #          .format(end, end-start))
-=======
 
->>>>>>> Add basic dynamic scaffold: add query and flow
     return ret
 
 
 @log_time(logger=log.info)
 def run(inp):
+    flows = inp.flows
+    if(common_config.dynamic_flows):
+        inp.flows = flows[:-10]
+        inp.additions = Input(flows=flows[-10:])
+    else:
+        inp.flows = flows
+
     ret = solve(inp)
 
     if(getattr(inp, 'additions', None)):
+        log_step('Initial placement done')
         new_inp = get_new_problem(inp, ret, inp.additions)
+        log.info("Redoing placement over following devices: {}"
+                 .format(new_inp.devices))
         new_ret = solve(new_inp, pre_processed=True)
+        log_step('Got placement and alloc after changes')
 
-        # TODO: combine old and new ret
-        # TODO: compare with recompute full solution
+        complete_md_list = ret.md_list
+        old_md_list = []
+        new_md_list = []
+        for dnum, d in enumerate(new_inp.devices):
+            old_md = complete_md_list[d.dev_id]
+            new_md = new_ret.md_list[dnum]
+            old_id = getattr(old_md, 'dev_id', None)
+            new_id = getattr(new_md, 'dev_id', None)
+            assert(old_id is None or new_id is None or old_id == new_id)
+            old_md_list.append(old_md)
+            complete_md_list[d.dev_id] = new_md
+            new_md_list.append(new_md)
+
+        res = refine_devices(inp.devices, complete_md_list)
+        log_results(inp.devices, res, complete_md_list)
         return ret
     else:
         return ret
@@ -697,17 +742,13 @@ if(__name__ == '__main__'):
     setup_logging(common_config)
 
     try:
-<<<<<<< HEAD
         input_num = common_config.input_num
         inp = input_generator[input_num]
         if(not isinstance(inp, Input)):
             inp = inp.get_input()
 
         # log.info("Time before solving: {}".format(time.time() - start))
-        solve(inp)
-=======
         run(inp)
->>>>>>> Add basic dynamic scaffold: add query and flow
     except Exception:
         import ipdb
         extype, value, tb = sys.exc_info()

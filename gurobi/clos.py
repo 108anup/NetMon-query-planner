@@ -281,7 +281,7 @@ class Clos(object):
                     (node_path, id_path, capacity) = \
                         self.get_path_with_largest_capacity(g, h1, h2)
                     traffic = min(capacity, dc_line_rate/flows_per_host)
-                    if(traffic == 0):
+                    if(traffic < 0.1):
                         log.error('Need better way to select paths')
                         continue
                     self.update_path_with_traffic(g, node_path, traffic)
@@ -422,7 +422,8 @@ class Clos(object):
         np.random.shuffle(self.has_netro)
 
         g = self.construct_graph(inp.devices, self.has_netro)
-        inp.flows = self.get_flows(g, inp)
+        flows = self.get_flows(g, inp)
+        inp.flows = flows
 
         return inp
 
