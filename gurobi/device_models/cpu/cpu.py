@@ -84,16 +84,16 @@ for x in bench_list:
     x.ns_single = x.cores * 1000/x.Mpps
     x.ns = x.cores * 1000/x.Mpps
 
-fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
+fig, ax = plt.subplots(figsize=get_fig_size(0.5, 0.6))
 plt.plot(list(map(lambda x: x.rows, bench_list)),
          list(map(lambda x: x.ns_single, bench_list)),
          color=colors[5], marker='s', markersize=MARKER_SIZE,
          lw=LINE_WIDTH, linestyle=linestyles[0], clip_on=False)
-ax.set_xlabel('Number of sketch updates per packet', fontsize=FONT_SIZE)
+ax.set_xlabel('Number of sketch\nupdates per packet', fontsize=FONT_SIZE)
 ax.xaxis.set_ticks_position('bottom')
 ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
-ax.set_ylabel("Time per packet (ns)", fontsize=FONT_SIZE)
+ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
 ax.yaxis.set_ticks_position('left')
 
 # ax.set_xscale("log", basex=10)
@@ -104,7 +104,7 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'cpu-hash.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(bench_dir, 'cpu-hash-hs.pdf'), bbox_inches='tight')
 
 # Linear model
 # Hand identified when hashing is bottleneck
@@ -148,7 +148,7 @@ for x in bench_list_2:
     x.cols = x.cols_per_core * x.cores
     x.mem = x.rows * x.cols * CELL_SIZE / KB2B
 
-fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
+fig, ax = plt.subplots(figsize=get_fig_size(1, 0.5))
 plt.plot(list(map(lambda x: x.mem/1024, bench_list_1)),
          list(map(lambda x: x.ns, bench_list_1)),
          color=colors[5], marker='s', markersize=MARKER_SIZE,
@@ -169,7 +169,7 @@ ax.set_xlabel('Total sketch memory (MB)', fontsize=FONT_SIZE)
 ax.xaxis.set_ticks_position('bottom')
 ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
-ax.set_ylabel("Time per packet (ns)", fontsize=FONT_SIZE)
+ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
 ax.yaxis.set_ticks_position('left')
 
 legend = plt.legend(loc='upper left', numpoints=1,
@@ -190,7 +190,7 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'cpu-mem.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(bench_dir, 'cpu-mem-hs.pdf'), bbox_inches='tight')
 
 bench_1_ns = list(map(lambda x: x.ns, bench_list_1))
 bench_2_ns = list(map(lambda x: x.ns, bench_list_2))
@@ -344,7 +344,7 @@ def myplot(bench_list, cores):
     ax.xaxis.set_ticks_position('bottom')
     ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
-    ax.set_ylabel("Time per packet (ns)")
+    ax.set_ylabel("Time per\npacket (ns)")
     ax.yaxis.set_ticks_position('left')
 
     ax.tick_params(labelsize=FONT_SIZE, pad=2)
