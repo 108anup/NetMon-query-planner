@@ -98,16 +98,16 @@ for x in bench_list:
     x.ns = 1e9/x.pps
 
 
-fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
+fig, ax = plt.subplots(figsize=get_fig_size(0.5, 0.6))
 plt.plot(list(map(lambda x: x.rows, bench_list)),
          list(map(lambda x: x.ns, bench_list)),
          color=colors[5], marker='s', markersize=MARKER_SIZE,
          lw=LINE_WIDTH, linestyle=linestyles[0], clip_on=False)
-ax.set_xlabel('Number of sketch updates per packet', fontsize=FONT_SIZE)
+ax.set_xlabel('Number of sketch\nupdates per packet', fontsize=FONT_SIZE)
 ax.xaxis.set_ticks_position('bottom')
 ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
-ax.set_ylabel("Time per packet (ns)", fontsize=FONT_SIZE)
+ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
 ax.yaxis.set_ticks_position('left')
 
 # ax.set_xscale("log", basex=10)
@@ -118,7 +118,7 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'netro-hash.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(bench_dir, 'netro-hash-hs.pdf'), bbox_inches='tight')
 
 # sys.exit(0)
 # fig = plt.figure(figsize=(4, 2))
@@ -170,7 +170,7 @@ for x in bench_list_2:
     x.ns = 1e9/x.pps
     x.mem = x.rows * x.cols * CELL_SIZE / KB2B
 
-fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
+fig, ax = plt.subplots(figsize=get_fig_size(1, 0.4))
 plt.plot(list(map(lambda x: x.mem/1024, bench_list_1)),
          list(map(lambda x: x.ns, bench_list_1)),
          color=colors[5], marker='s', markersize=MARKER_SIZE,
@@ -185,7 +185,7 @@ ax.set_xlabel('Total sketch memory (MB)', fontsize=FONT_SIZE)
 ax.xaxis.set_ticks_position('bottom')
 ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
-ax.set_ylabel("Time per packet (ns)", fontsize=FONT_SIZE)
+ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
 ax.yaxis.set_ticks_position('left')
 
 legend = plt.legend(loc='upper left', numpoints=1,
@@ -197,7 +197,7 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'netro-mem.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(bench_dir, 'netro-mem-hs.pdf'), bbox_inches='tight')
 
 # sys.exit(0)
 # fig = plt.figure(figsize=(5, 3))
@@ -354,7 +354,7 @@ def get_mem_label(m):
 
 def myplot(bench_list, me):
 
-    fig, ax = plt.subplots(figsize=get_fig_size(1, 0.8))
+    fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
     labels = list(map(lambda x: '{}, {}'.format(int(x.rows), get_mem_label(x.mem)), bench_list))
     ax.plot(labels, list(map(lambda x: x.ns, bench_list)),
             label='Ground Truth', color=colors[5], marker='s',
@@ -385,7 +385,7 @@ def myplot(bench_list, me):
     ax.xaxis.set_ticks_position('bottom')
     ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
-    ax.set_ylabel("Time per packet (ns)")
+    ax.set_ylabel("Time per\npacket (ns)")
     ax.yaxis.set_ticks_position('left')
 
     ax.tick_params(labelsize=FONT_SIZE, pad=2)
@@ -398,7 +398,7 @@ def myplot(bench_list, me):
     plt.xticks(rotation=90)
     # plt.title("CPU profile for {} cores".format(cores))
 
-    plt.savefig(os.path.join(bench_dir, 'netro-model-{}me.pdf'.format(me)),
+    plt.savefig(os.path.join(bench_dir, 'netro-model-{}me-hs.pdf'.format(me)),
                 bbox_inches='tight')
 
 # def myplot(bench_list, me):
