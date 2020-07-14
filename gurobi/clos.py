@@ -371,9 +371,18 @@ class Clos(object):
         assert(self.overlay in ['tenant', 'none', 'spectral'])
         overlay = None
         if('spectral' in self.overlay):
-            overlay = self.get_spectral_overlay(inp)
+            overlay = get_spectral_overlay(inp, affinity=True)
             if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
-                overlay = fold(overlay, common_config.MAX_CLUSTER_PER_CLUSTER)
+                overlay = fold(overlay, common_config.MAX_CLUSTERS_PER_CLUSTER)
+
+            inp.overlay = overlay
+            node_labels = {}
+            for d in inp.devices:
+                node_labels[d.dev_id] = d.name
+            node_colors = get_labels_from_overlay(inp, inp.overlay)
+            g = get_graph(inp)
+            draw_graph(g, node_colors, node_labels)
+
         elif(self.overlay == 'tenant'):
             overlay = self.get_tenant_overlay_switches(inp)
 
