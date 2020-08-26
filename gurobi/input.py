@@ -113,7 +113,7 @@ def draw_graph(G, colors, labels=None, remap=True):
         temp = {x: labels[x] for x in G.nodes}
         labels = temp
     nx.draw(G, pos, node_color=colors, labels=labels,
-            font_size=30, node_size=1200, width=3, linewidths=3,
+            font_size=12, node_size=1200, width=3, linewidths=3,
             cmap=plt.get_cmap('Spectral'))
     plt.show()
 

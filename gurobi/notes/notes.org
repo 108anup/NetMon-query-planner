@@ -11,7 +11,8 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
   :ASSIGNED_All: Alan Anup Srini
   :ID:       264caa17-5edb-4762-94c9-2d89f7b0ecd4
   :END:
-** TODO [#A] Better name for our system                             :writing:
+** DONE [#A] Better name for our system                             :writing:
+   CLOSED: [2020-06-02 Tue 23:18]
    - SPARE (Scalable, Performant, Accurate and Resource Efficient)
    - NetMon
 ** HOLD [#A] [3/5] Fix and incorporate netronome NIC with solver :implementation:
@@ -165,12 +166,13 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
 
 **** NetMon puts sketch with lower traffic on CPUs to improve overall throughput and reduce resources!
 
-** PROG [#A] OpenVSwitch style and multicore implementation
+** [#A] PROG OpenVSwitch style and multicore implementation
    DEADLINE: <2020-05-10 Sun>
    :PROPERTIES:
    :TIME:     1d 0:00
    :END:
-*** PROG [#A] profiling and verification of OVS with sketching                                                              :experiment:
+*** DONE [#A] profiling and verification of OVS with sketching   :experiment:
+    CLOSED: [2020-06-02 Tue 23:18]
     :PROPERTIES:
     :TIME:     0.5d
     :END:
@@ -229,8 +231,8 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
     :ASSIGNED: Alan
     :END:
 *** Sketch requirement generator
-** PROG [#A] Handling changes in topology and requirements :implementation:experiment:
-   DEADLINE: <2020-05-14 Thu>
+** DONE [#A] Handling changes in topology and requirements :implementation:experiment:
+   CLOSED: [2020-06-02 Tue 23:19] DEADLINE: <2020-05-14 Thu>
    :PROPERTIES:
    :TIME:     3d
    :END:
@@ -325,69 +327,76 @@ bibliography:/mnt/E/YandexDisk/CMU/Research/reading-material/references.bib
    :TIME:
    :END:
 #+BEGIN: columnview :hlines 2 :indent t :id 264caa17-5edb-4762-94c9-2d89f7b0ecd4
-| STATUS | TASK                                                                                       |   EFFORT | EXPECTED COMPLETION | ASSIGNED | PRIORITY |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-|        | Things that must be done                                                                   | 18d 0:00 | <2020-05-17 Sun>    |          | N        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| TODO   | \_  Better name for our system                                                             |          |                     |          | A        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| HOLD   | \_  [3/5] Fix and incorporate netronome NIC with solver                                    |  1d 0:00 | [2020-05-05 Tue]    |          | A        |
-| DONE   | \_    Basic model                                                                          |          |                     |          | A        |
-| DONE   | \_    Why is the model wrong in some cases                                                 |     0.5d |                     |          | A        |
-|        | \_    Netronome resources                                                                  |    12:00 |                     |          | N        |
-| DONE   | \_      ME count                                                                           |     0.5d |                     |          | A        |
-| HOLD   | \_      ME percentage usage                                                                |          |                     |          | C        |
-| HOLD   | \_    use both imem and emem                                                               |          |                     |          | C        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| DONE   | \_  [3/3] Scalability and optimality                                                       | 1d 12:00 | <2020-05-07 Thu>    |          | A        |
-| DONE   | \_    Find an input where Netmon with clustering is better than Univmon without clustering |          |                     |          | A        |
-| DONE   | \_    Parallelize Solver                                                                   |       1d |                     |          | A        |
-| DONE   | \_    Intelligently decide the Cluster sizes                                               |     0.5d |                     |          | A        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| DONE   | \_  Memoization / Calculate optima when placement is known directly without using Gurobi   |     0.5d | <2020-05-08 Fri>    |          | B        |
-| DONE   | \_    make memoization key more precise                                                    |          |                     |          | B        |
-| DONE   | \_    need to change memoization input after traffic demand incorporation                  |          |                     |          | B        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| DONE   | \_  Incorporate traffic demands in input                                                   |       1d | <2020-05-08 Fri>    |          | A        |
-| DONE   | \_    How to evaluate this                                                                 |          |                     |          | A        |
-|        | \_      We should claim per device resource allocation as a contribution                   |          |                     |          | A        |
-|        | \_      Sensitivity Analysis / Parameter choice justification                              |          |                     |          | C        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| PROG   | \_  OpenVSwitch style and multicore implementation                                         |  1d 0:00 | <2020-05-10 Sun>    |          | A        |
-| PROG   | \_    profiling and verification of OVS with sketching                                     |     0.5d |                     |          | A        |
-| PROG   | \_    multicore sketching implementation                                                   |     0.5d |                     |          | A        |
-| PROG   | \_    verify linear combination of ns for multiple sketches                                |          |                     |          | A        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| TODO   | \_  Solver Input generation                                                                |       1d | <2020-05-11 Mon>    |          | A        |
-|        | \_    Topology generator                                                                   |          |                     |          | N        |
-| DONE   | \_      Tree                                                                               |          |                     | Anup     | N        |
-|        | \_      Clos                                                                               |          |                     | Anup     | N        |
-|        | \_      Internet2                                                                          |          |                     | Alan     | N        |
-|        | \_      TopologyZoo                                                                        |          |                     | Alan     | N        |
-|        | \_      Others                                                                             |          |                     | Alan     | N        |
-|        | \_    Traffic demand generator                                                             |          |                     | Alan     | N        |
-|        | \_    Sketch requirement generator                                                         |          |                     |          | N        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| TODO   | \_  Handling changes in topology and requirements                                          |       3d | <2020-05-14 Thu>    |          | A        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-|        | \_  Evaluation device profiles - one device at a time                                      |  2d 0:00 | <2020-05-17 Sun>    |          | B        |
-| TODO   | \_    setup - convert solver output to running script and profiling task                   |       1d |                     |          | N        |
-| TODO   | \_    running                                                                              |       1d |                     |          | N        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| TODO   | \_  Add more types of sketches                                                             |  1d 0:00 |                     |          | B        |
-| TODO   | \_    Non linear accuracy relations                                                        |       1d |                     |          | N        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| TODO   | \_  Prototype evaluation (can't do without physical conn changes, can do some?)            |          |                     |          | C        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| PROG   | \_  Alternate faster clustering approaches                                                 |       1d |                     |          | C        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| TODO   | \_  Performance vs system load                                                             |       3d |                     |          | C        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| TODO   | \_  Need to email barefoot Faster with paper 10 days before for checking IP violations     |          |                     |          | C        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-| TODO   | \_  Mix cluster refinement and cluster optimization                                        |       2d |                     |          | B        |
-|--------+--------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
-|        | \_  Summary Table of TODOs                                                                 |          |                     |          | N        |
+| STATUS  | TASK                                                                                                      |   EFFORT | EXPECTED COMPLETION | ASSIGNED | PRIORITY |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+|         | Things that must be done                                                                                  | 18d 0:00 | <2020-05-17 Sun>    |          | N        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| DONE    | \_  Better name for our system                                                                            |          |                     |          | A        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| HOLD    | \_  [3/5] Fix and incorporate netronome NIC with solver                                                   |  1d 0:00 | [2020-05-05 Tue]    |          | A        |
+| DONE    | \_    Basic model                                                                                         |          |                     |          | A        |
+| DONE    | \_    Why is the model wrong in some cases                                                                |     0.5d |                     |          | A        |
+|         | \_    Netronome resources                                                                                 |    12:00 |                     |          | N        |
+| DONE    | \_      ME count                                                                                          |     0.5d |                     |          | A        |
+| HOLD    | \_      ME percentage usage                                                                               |          |                     |          | C        |
+| HOLD    | \_    use both imem and emem                                                                              |          |                     |          | C        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| DONE    | \_  [3/3] Scalability and optimality                                                                      | 1d 12:00 | <2020-05-07 Thu>    |          | A        |
+| DONE    | \_    Find an input where Netmon with clustering is better than Univmon without clustering                |          |                     |          | A        |
+| DONE    | \_    Parallelize Solver                                                                                  |       1d |                     |          | A        |
+| DONE    | \_    Intelligently decide the Cluster sizes                                                              |     0.5d |                     |          | A        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| DONE    | \_  Memoization / Calculate optima when placement is known directly without using Gurobi                  |     0.5d | <2020-05-08 Fri>    |          | B        |
+| DONE    | \_    make memoization key more precise                                                                   |          |                     |          | B        |
+| DONE    | \_    need to change memoization input after traffic demand incorporation                                 |          |                     |          | B        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| DONE    | \_  Incorporate traffic demands in input                                                                  |       1d | <2020-05-08 Fri>    |          | A        |
+| DONE    | \_    How to evaluate this                                                                                |          |                     |          | A        |
+|         | \_      We should claim per device resource allocation as a contribution                                  |          |                     |          | A        |
+|         | \_      Sensitivity Analysis / Parameter choice justification                                             |          |                     |          | C        |
+|         | \_      NetMon puts sketch with lower traffic on CPUs to improve overall throughput and reduce resources! |          |                     |          | N        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| PROG    | \_  OpenVSwitch style and multicore implementation                                                        |  1d 0:00 | <2020-05-10 Sun>    |          | N        |
+| DONE    | \_    profiling and verification of OVS with sketching                                                    |     0.5d |                     |          | A        |
+| DISCUSS | \_    Best way to implement shared queue?                                                                 |          |                     | Alan     | A        |
+|         | \_      OVS thread                                                                                        |          |                     |          | N        |
+|         | \_      Separate process?                                                                                 |          |                     |          | N        |
+| PROG    | \_    multicore sketching implementation                                                                  |     0.5d |                     |          | A        |
+| PROG    | \_    verify linear combination of ns for multiple sketches                                               |          |                     |          | A        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO    | \_  Solver Input generation                                                                               |       1d | <2020-05-11 Mon>    |          | A        |
+|         | \_    Topology generator                                                                                  |          |                     |          | N        |
+| DONE    | \_      Tree                                                                                              |          |                     | Anup     | N        |
+| DONE    | \_      Clos                                                                                              |          |                     | Anup     | N        |
+|         | \_      Internet2                                                                                         |          |                     | Alan     | N        |
+|         | \_      TopologyZoo                                                                                       |          |                     | Alan     | N        |
+|         | \_      Others                                                                                            |          |                     | Alan     | N        |
+|         | \_    Traffic demand generator                                                                            |          |                     | Alan     | N        |
+|         | \_    Sketch requirement generator                                                                        |          |                     |          | N        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| DONE    | \_  Handling changes in topology and requirements                                                         |       3d | <2020-05-14 Thu>    |          | A        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+|         | \_  Evaluation device profiles - one device at a time                                                     |  2d 0:00 | <2020-05-17 Sun>    |          | B        |
+| PROG    | \_    setup - convert solver output to running script and profiling task                                  |       1d |                     |          | N        |
+| PROG    | \_    running                                                                                             |       1d |                     |          | N        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| PROG    | \_  Add more types of sketches                                                                            |  1d 0:00 |                     |          | B        |
+| DONE    | \_    Non linear accuracy relations                                                                       |       1d |                     |          | N        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO    | \_  Prototype evaluation (can't do without physical conn changes, can do some?)                           |          |                     |          | C        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| PROG    | \_  Alternate faster clustering approaches                                                                |       1d |                     |          | C        |
+| TODO    | \_    Check how fast non clustering solver reaches clustered solution                                     |          |                     |          | A        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| HOLD    | \_  Performance vs system load                                                                            |       3d |                     |          | C        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| TODO    | \_  Need to email barefoot Faster with paper 10 days before for checking IP violations                    |          |                     |          | C        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| HOLD    | \_  Mix cluster refinement and cluster optimization                                                       |       2d |                     |          | B        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+| DONE    | \_  Modes of operation                                                                                    |          |                     |          | A        |
+|---------+-----------------------------------------------------------------------------------------------------------+----------+---------------------+----------+----------|
+|         | \_  Summary Table of TODOs                                                                                |          |                     |          | N        |
 #+END:
 
 

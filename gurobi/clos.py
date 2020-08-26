@@ -378,7 +378,7 @@ class Clos(object):
             inp.overlay = overlay
             node_labels = {}
             for d in inp.devices:
-                node_labels[d.dev_id] = d.name
+                node_labels[d.dev_id] = d.name[-2:]
             node_colors = get_labels_from_overlay(inp, inp.overlay)
             g = get_graph(inp)
             draw_graph(g, node_colors, node_labels)
