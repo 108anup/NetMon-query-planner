@@ -13,7 +13,8 @@ from devices import CPU, P4, Netronome
 from flows import flow
 from input import (Input, draw_graph, draw_overlay_over_tenant, fold,
                    generate_overlay, get_complete_graph, get_graph,
-                   get_labels_from_overlay, get_spectral_overlay, merge)
+                   get_labels_from_overlay, get_spectral_overlay, merge,
+                   get_hdbscan_overlay)
 from profiles import agiliocx40gbe, beluga20, tofino, dc_line_rate
 from sketches import cm_sketch
 import matplotlib.pyplot as plt
@@ -368,7 +369,7 @@ class Clos(object):
         return overlay
 
     def get_overlay(self, inp):
-        assert(self.overlay in ['tenant', 'none', 'spectral'])
+        assert(self.overlay in ['tenant', 'none', 'spectral', 'hdbscan'])
         overlay = None
         if('spectral' in self.overlay):
             overlay = get_spectral_overlay(inp, affinity=True)
@@ -385,6 +386,12 @@ class Clos(object):
 
         elif(self.overlay == 'tenant'):
             overlay = self.get_tenant_overlay_switches(inp)
+
+        elif(self.overlay == 'hdbscan'):
+            overlay = get_hdbscan_overlay(inp)
+            # TODO: remove this redundancy
+            if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
+                overlay = fold(overlay, common_config.MAX_CLUSTERS_PER_CLUSTER)
 
         if(overlay):
             if(len(overlay) == 1

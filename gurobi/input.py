@@ -17,6 +17,7 @@ from devices import CPU, P4, Netronome
 from flows import flow
 from sketches import cm_sketch
 from profiles import beluga20, tofino, agiliocx40gbe, dc_line_rate
+from util import get_fig_size
 
 """
 TODO:
@@ -107,16 +108,22 @@ def draw_graph(G, colors, labels=None, remap=True):
     if(remap):
         colors = remap_colors(colors)
 
-    plt.figure(figsize=(10, 10))
+    fig_width = get_fig_size()[0]
+    plt.figure(figsize=(fig_width, fig_width))
     pos = nx.spring_layout(G)
+    # with open('pickle_objs/cluster-pickle-pos', 'rb') as f:
+    #     pos = pickle.load(f)
+    # with open('pickle_objs/cluster-pickle-pos', 'wb') as f:
+    #     pickle.dump(pos, f)
+
     if(labels):
         temp = {x: labels[x] for x in G.nodes}
         labels = temp
     nx.draw(G, pos, node_color=colors, labels=labels,
-            font_size=12, node_size=1200, width=3, linewidths=3,
+            font_size=8, node_size=150, width=0.5, linewidths=0.8,
             cmap=plt.get_cmap('Spectral'))
     plt.show()
-
+    # plt.savefig('spectral.pdf')
 
 # Only for tree (acyclic graph)
 def dfs(nodes, data):
@@ -212,6 +219,14 @@ def get_spectral_overlay(inp, comp={}, normalized=True, affinity=False):
                 cluster_assignment = sc.fit_predict(adj)
                 log.info("Finished SpectralClustering, taking total: {}s"
                          .format(time.time()-start))
+                # start = time.time()
+                # log.info("Started SpectralClustering {}/{} size: {}"
+                #          .format(num_comp, num_components, len(cg)))
+                # sc = SpectralClustering(nc, affinity='precomputed',
+                #                         n_init=10, assign_labels='discretize')
+                # cluster_assignment = sc.fit_predict(adj)
+                # log.info("Finished SpectralClustering, taking total: {}s"
+                #          .format(time.time()-start))
             else:
                 cluster_assignment = UnnormalizedSpectral(adj, nc)
             # draw_graph(cg, cluster_assignment)
@@ -240,19 +255,80 @@ def get_spectral_overlay(inp, comp={}, normalized=True, affinity=False):
     return overlay
 
 
+# TODO: remove redundancy in getting overlay for non-connected graphs and such
 @log_time(logger=log.info)
 def get_hdbscan_overlay(inp):
-    log.info("Buliding spectral overlay with {} devices"
+    log.info("Buliding HDBSCAN overlay with {} devices"
              .format(len(inp.devices)))
     g = get_complete_graph(inp)
-    adj = nx.adjacency_matrix(g)
+    # overlay = []
+
+    # num_comp = 0
+    # node_colors = list(g.nodes)
+    # last_inc = 0
+    # num_components = len(list(nx.connected_components(g)))
+
+    # for c in nx.connected_components(g):
+    #     num_comp += 1
+    #     cg = g.subgraph(c)
+    #     i2n = list(cg.nodes)
+    #     if(len(i2n) > 1):
+    #         adj = nx.adjacency_matrix(cg)
+    #         max_devices_per_cluster = common_config.MAX_CLUSTERS_PER_CLUSTER
+    #         if(common_config.solver == 'Netmon'):
+    #             max_devices_per_cluster = common_config.MAX_DEVICES_PER_CLUSTER
+    #         start = time.time()
+    #         log.info("Started HDBSCAN {}/{} size: {}"
+    #                  .format(num_comp, num_components, len(cg)))
+    #         clusterer = hdbscan.HDBSCAN(
+    #             metric='precomputed',
+    #             allow_single_cluster=False,
+    #             min_cluster_size=int(max_devices_per_cluster/2),
+    #             cluster_selection_method='leaf',
+    #             min_samples=1,
+    #             cluster_selection_epsilon=0.1
+    #         )
+    #         clusterer.fit(adj)
+    #         cluster_assignment = clusterer.labels_
+    #         log.info("Finished HDBSCAN, taking total: {}s"
+    #                  .format(time.time()-start))
+    #         # draw_graph(cg, cluster_assignment)
+    #         nc = clusterer.labels_.max() + 1
+    #         sub_overlay = [[] for i in range(nc)]
+
+    #         for dnum, cnum in enumerate(cluster_assignment):
+    #             node_colors[i2n[dnum]] = last_inc + cnum
+    #             sub_overlay[cnum].append(i2n[dnum])
+    #         last_inc += nc
+
+    #         filtered_sub_overlay = remove_empty(sub_overlay)
+    #         if(len(filtered_sub_overlay) == 1):
+    #             overlay.extend(filtered_sub_overlay)
+    #         elif(len(filtered_sub_overlay) > 1):
+    #             overlay.append(filtered_sub_overlay)
+    #     else:
+    #         overlay.append(i2n[0])
+    #         node_colors[i2n[0]] = last_inc
+    #         last_inc += 1
+
+    # # draw_graph(g, node_colors)
+
+    # if(len(overlay) == 1 and isinstance(overlay[0], list)):
+    #     return overlay[0]
+    # return overlay
+
+    import ipdb; ipdb.set_trace()
+    adj = nx.adjacency_matrix(g).astype(float)
+    # convert to distance matrix
+    np.exp(-adj.data, out=adj.data)
     clusterer = hdbscan.HDBSCAN(
         metric='precomputed',
         allow_single_cluster=False,
-        min_cluster_size=4, #common_config.DEVICES_PER_CLUSTER,
+        min_cluster_size=4,# int(common_config.MAX_DEVICES_PER_CLUSTER/2),
         cluster_selection_method='leaf',
         min_samples=1,
-        cluster_selection_epsilon=0.1
+        # cluster_selection_epsilon=0.1,
+        max_dist=1
     )
     clusterer.fit(adj)
 
@@ -269,6 +345,27 @@ def get_hdbscan_overlay(inp):
     import sys
     sys.exit()
     return None
+
+
+# def kmeans_cluster(affinities, n_clusters, rseed=2):
+#     assert(len(affinities.shape) == 2)
+#     assert(affinities.shape[0] == affinities.shape[1])
+
+#     # 1. Randomly choose clusters
+#     rng = np.random.RandomState(rseed)
+#     centers = rng.permutation(affinities.shape[0])[:n_clusters]
+
+#     while True:
+#         # 2a. Assign labels based on closest center
+#         labels = pairwise_distances_argmin(X, centers)
+#         # 2b. Find new centers from means of points
+#         new_centers = np.array([X[labels == i].mean(0)
+#                                 for i in range(n_clusters)])
+#         # 2c. Check for convergence
+#         if np.all(centers == new_centers):
+#             break
+#         centers = new_centers
+#     return centers, labels
 
 
 def shift_overlay(overlay):
