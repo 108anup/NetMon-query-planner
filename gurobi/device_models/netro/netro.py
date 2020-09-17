@@ -170,34 +170,35 @@ for x in bench_list_2:
     x.ns = 1e9/x.pps
     x.mem = x.rows * x.cols * CELL_SIZE / KB2B
 
-fig, ax = plt.subplots(figsize=get_fig_size(1, 0.4))
+fig, ax = plt.subplots(figsize=get_fig_size(0.5/0.9, 0.5))
 plt.plot(list(map(lambda x: x.mem/1024, bench_list_1)),
          list(map(lambda x: x.ns, bench_list_1)),
          color=colors[5], marker='s', markersize=MARKER_SIZE,
          lw=LINE_WIDTH, linestyle=linestyles[0], clip_on=False,
-         label='{} updates per packet'.format(int(bench_list_1[0].rows)))
+         label='{}'.format(int(bench_list_1[0].rows)))
 plt.plot(list(map(lambda x: x.mem/1024, bench_list_2)),
          list(map(lambda x: x.ns, bench_list_2)),
          color=colors[1], marker='^', markersize=MARKER_SIZE,
          lw=LINE_WIDTH, linestyle=linestyles[0], clip_on=False,
-         label='{} updates per packet'.format(int(bench_list_2[0].rows)))
-ax.set_xlabel('Total sketch memory (MB)', fontsize=FONT_SIZE)
+         label='{}'.format(int(bench_list_2[0].rows)))
+ax.set_xlabel('Total sketch\nmemory (MB)', fontsize=FONT_SIZE)
 ax.xaxis.set_ticks_position('bottom')
 ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
 ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
 ax.yaxis.set_ticks_position('left')
 
-legend = plt.legend(loc='upper left', numpoints=1,
+legend = plt.legend(loc='upper left', numpoints=1, bbox_to_anchor=(0, 1.2),
                     ncol=1, prop={'size': FONT_SIZE}, columnspacing=0.5,
                     handlelength=HANDLE_LENGTH, handletextpad=0.5)
 legend.set_frame_on(False)
 ax.set_xscale("log", basex=2)
+ax.set_xticks([2**(x-12) for x in range(0, 22, 4)])
 ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'netro-mem-hs.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(bench_dir, 'netro-mem-half.pdf'), bbox_inches='tight')
 
 # sys.exit(0)
 # fig = plt.figure(figsize=(5, 3))

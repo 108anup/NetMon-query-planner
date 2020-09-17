@@ -148,37 +148,37 @@ for x in bench_list_2:
     x.cols = x.cols_per_core * x.cores
     x.mem = x.rows * x.cols * CELL_SIZE / KB2B
 
-fig, ax = plt.subplots(figsize=get_fig_size(1, 0.5))
+fig, ax = plt.subplots(figsize=get_fig_size(0.5/0.9, 0.5))
 plt.plot(list(map(lambda x: x.mem/1024, bench_list_1)),
          list(map(lambda x: x.ns, bench_list_1)),
          color=colors[5], marker='s', markersize=MARKER_SIZE,
          lw=LINE_WIDTH, linestyle=linestyles[0], clip_on=False,
-         label='{} updates per packet'.format(int(bench_list_1[0].rows)))
+         label='{}'.format(int(bench_list_1[0].rows)))
 plt.plot(list(map(lambda x: x.mem/1024, bench_list_2)),
          list(map(lambda x: x.ns, bench_list_2)),
          color=colors[1], marker='^', markersize=MARKER_SIZE,
          lw=LINE_WIDTH, linestyle=linestyles[0], clip_on=False,
-         label='{} updates per packet'.format(int(bench_list_2[0].rows)))
+         label='{}'.format(int(bench_list_2[0].rows)))
 # plt.plot(list(map(lambda x: x.mem/1024, bench_list_2)),
 #          list(map(lambda x: fwd_ns, bench_list_2)),
 #          color=colors[3],
 #          lw=LINE_WIDTH, linestyle=linestyles[1], clip_on=False,
 #          label='Vanilla OVS-DPDK'.format(bench_list_2[0].rows))
 
-ax.set_xlabel('Total sketch memory (MB)', fontsize=FONT_SIZE)
+ax.set_xlabel('Total sketch\nmemory (MB)', fontsize=FONT_SIZE)
 ax.xaxis.set_ticks_position('bottom')
 ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
 ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
 ax.yaxis.set_ticks_position('left')
 
-legend = plt.legend(loc='upper left', numpoints=1,
+legend = plt.legend(loc='upper left', numpoints=1, bbox_to_anchor=(0, 1.2),
                     ncol=1, prop={'size': FONT_SIZE}, columnspacing=0.5,
                     handlelength=HANDLE_LENGTH, handletextpad=0.5)
 legend.set_frame_on(False)
 
 ax.set_xscale("log", basex=2)
-ax.set_xticks([2**(x-6) for x in range(0, 16, 2)])
+ax.set_xticks([2**(x-6) for x in range(0, 16, 3)])
 
 # ax.set_yscale("log", basey=10)
 # ax.set_yticks([200 + 50*x for x in range(9)])
@@ -190,7 +190,7 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'cpu-mem-hs.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(bench_dir, 'cpu-mem-half.pdf'), bbox_inches='tight')
 
 bench_1_ns = list(map(lambda x: x.ns, bench_list_1))
 bench_2_ns = list(map(lambda x: x.ns, bench_list_2))
@@ -313,7 +313,7 @@ def get_mem_label(m):
 
 def myplot(bench_list, cores):
 
-    fig, ax = plt.subplots(figsize=get_fig_size(1, 0.8))
+    fig, ax = plt.subplots(figsize=get_fig_size(0.5/0.9, 0.8))
     labels = list(map(lambda x: '{}, {}'.format(int(x.rows), get_mem_label(x.mem)), bench_list))
     ax.plot(labels, list(map(lambda x: x.ns, bench_list)),
             label='Ground Truth', color=colors[5], marker='s',
@@ -335,12 +335,12 @@ def myplot(bench_list, cores):
     # make a plot with different y-axis using second axis object
     # ax2.set_ylabel("Bottleneck operation", color="blue", fontsize=14)
 
-    l = plt.legend(loc='upper left', numpoints=1, ncol=1,
+    l = plt.legend(loc='upper left', numpoints=1, ncol=1, bbox_to_anchor=(0, 1.2),
                    prop={'size': FONT_SIZE}, columnspacing=0.5,
                    handlelength=2.7, handletextpad=0.5)
     l.set_frame_on(False)
 
-    ax.set_xlabel('Sketch Configuration (rows, mem in Bytes)')
+    ax.set_xlabel('Sketch Configuration\n(rows, mem in Bytes)')
     ax.xaxis.set_ticks_position('bottom')
     ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
@@ -353,11 +353,11 @@ def myplot(bench_list, cores):
     ax.spines['right'].set_color('none')
 
     num_labels = len(labels)
-    plt.xticks(labels[::int(num_labels/13)])
+    plt.xticks(labels[::int(num_labels/8)])
     plt.xticks(rotation=90)
     # plt.title("CPU profile for {} cores".format(cores))
 
-    plt.savefig(os.path.join(bench_dir, 'cpu-model-{}cores.pdf'.format(cores)),
+    plt.savefig(os.path.join(bench_dir, 'cpu-model-{}cores-half.pdf'.format(cores)),
                 bbox_inches='tight')
 
 
