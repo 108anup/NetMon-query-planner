@@ -281,14 +281,50 @@ def get_new_problem(old_inp, old_solution, additions):
 
     assert(not common_config.horizontal_partition)
     assert(getattr(additions, 'devices', None) is None)
-    relevant_devices = set()
+    relevant_device_ids = set()
     old_devices = old_inp.devices
+
+    num_changed_devs = 0
+    if(hasattr(additions, 'changed_devices')):
+        num_changed_devs = len(additions.changed_devices)
+        # Changed devices is a dict of dnum -> Device
+        for dnum, d in additions.changed_devices.items():
+            relevant_device_ids.add(dnum)
+
+        # Add enough flexibility by incorporating devices mentioned in
+        # OD pairs for sketches mapped to changed_devices
+        for f in old_inp.flows:
+            for fp in f.partitions:
+                pnum = fp[0]
+                cov = fp[1]
+                tot_frac = 0
+                for dev_id in f.path:
+                    if(dev_id in additions.changed_devices):
+                        tot_frac += get_val(old_solution.frac.get((dev_id, pnum), 0))
+                if(tot_frac > 0):
+                    relevant_device_ids.update(f.path)
+
+    # Fetch affected devices from changed OD-pairs
     for f in additions.flows:
         for dnum in f.path:
-            relevant_devices.add(old_devices[dnum])
+            relevant_device_ids.add(dnum)
 
     new_inp = Input()
-    new_inp.devices = list(relevant_devices)
+    new_devices = []
+    if(hasattr(additions, 'changed_devices')):
+        for dnum in relevant_device_ids:
+            if(dnum in additions.changed_devices):
+                new_devices.append(additions.changed_devices[dnum])
+            else:
+                new_devices.append(old_devices[dnum])
+    else:
+        for dnum in relevant_device_ids:
+            new_devices.append(old_devices[dnum])
+    new_inp.devices = new_devices
+
+    log.info(("Num changed_devices: {}, num changed OD-pairs: {}, "
+              "num affected devices: {}")
+             .format(num_changed_devs, len(additions.flows), len(new_devices)))
 
     dev_id_to_dnum = {}
     for dnum, d in enumerate(new_inp.devices):
