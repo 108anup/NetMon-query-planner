@@ -218,6 +218,8 @@ class CPU(Device):
             m.addGenConstrMax(md.ns, [md.ns_dpdk, md.ns_sketch],
                               name='ns_{}'.format(self))
         else:
+            # TODO: Do better here.
+            md.ns = ns_req
             # md.ns = gp.max_(md.ns_dpdk, md.ns_sketch)
             pass
 
@@ -443,8 +445,8 @@ class Netronome(Device):
         else:
             md.ns_hash = m.addVar(vtype=GRB.CONTINUOUS,
                                   name='ns_hash_{}'.format(self), lb=0)
-            md.ns_mem = m.addVar(vtype=GRB.CONTINUOUS,
-                                 name='ns_mem_{}'.format(self), lb=0)
+            # md.ns_mem = m.addVar(vtype=GRB.CONTINUOUS,
+            #                      name='ns_mem_{}'.format(self), lb=0)
             md.ns_fwd = m.addVar(vtype=GRB.CONTINUOUS,
                                  name='ns_fwd_{}'.format(self), lb=0)
             md.ns = m.addVar(vtype=GRB.CONTINUOUS,
@@ -457,7 +459,7 @@ class Netronome(Device):
                 'ns_fwd_me', m, 0)
             m.addConstr(md.pdt_ns_hash_me == md.ns_hash_max * self.total_me)
             m.addConstr(md.pdt_ns_fwd_me == md.ns_fwd_max * self.total_me)
-            m.addGenConstrMax(md.ns, [md.ns_hash, md.ns_mem, md.ns_fwd],
+            m.addGenConstrMax(md.ns, [md.ns_hash, md.ns_mem_max, md.ns_fwd],
                               name='ns_{}'.format(self))
 
     def res(self, md):
