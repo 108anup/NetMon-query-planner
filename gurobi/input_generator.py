@@ -345,8 +345,8 @@ input_generator = [
 
     # 24
     # Small tenant (100)
-    TreeTopology(hosts_per_tors=8, num_queries=64, tenant=True,
-                 eps=eps0, overlay='spectralA', refine=True,
+    TreeTopology(hosts_per_tors=8, num_queries=4*16, tenant=True,
+                 eps=eps0, overlay='tenant', refine=False,
                  queries_per_tenant=16, portion_netronome=0),
 
     # 25
@@ -443,11 +443,11 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=6, overlay='none', query_density=3, portion_netronome=0),
+    Clos(pods=6, overlay='kmedoids', query_density=3, portion_netronome=0),
 
     # 35
-    Clos(pods=16, query_density=3, portion_netronome=1,
-         overlay='hdbscan', eps=eps0/10),
+    Clos(pods=20, query_density=3, portion_netronome=1,
+         overlay='spectralA', eps=eps0/10),
 
     # 36
     Clos(6, 4, portion_netronome=0, overlay='none', hosts_per_tenant=6),

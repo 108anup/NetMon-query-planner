@@ -615,6 +615,7 @@ class Univmon(MIP):
                 if(getattr(self.r, 'infeasible', None)):
                     self.infeasible = True
                     self.reason = 'Can\'t meet traffic demand'
+                    self.culprit = None
 
         # else:
         #     prefixes = ['frac', 'mem\[']
@@ -1030,6 +1031,15 @@ def log_results(devices, r, md_list, logger=log.info,
             r.used_cores, r.total_CPUs, r.switch_memory,
             r.nic_memory, elapsed))
         f.close()
+
+        # Logging for analysis
+        # import pickle
+        # with open(common_config.results_file + "_result.pickle", 'wb') as f:
+        #     pickle.dump(r, f)
+        # with open(common_config.results_file + "_devices.pickle", 'wb') as f:
+        #     pickle.dump(devices, f)
+        # with open(common_config.results_file + "_md_list.pickle", 'wb') as f:
+        #     pickle.dump(md_list, f)
 
 
 def log_initial(devices, partitions, flows, dev_par_tuplelist, init):

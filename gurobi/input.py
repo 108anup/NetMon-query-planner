@@ -5,11 +5,17 @@ import pickle
 import random
 import hdbscan
 import seaborn as sns
+import copy
 
+from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
+from sklearn.metrics.pairwise import pairwise_distances
 from sklearn.cluster import KMeans, SpectralClustering
+from sklearn.cluster.spectral import discretize
+from sklearn_extra.cluster import KMedoids
+from sklearn.decomposition import PCA
 
 from common import Namespace, log, log_time, memoize, freeze_object, constants
 from config import common_config
@@ -18,6 +24,9 @@ from flows import flow
 from sketches import cm_sketch
 from profiles import beluga20, tofino, agiliocx40gbe, dc_line_rate
 from util import get_fig_size
+import equal_kmedoids
+from scipy.sparse import csgraph
+from sklearn.manifold import SpectralEmbedding
 
 """
 TODO:
@@ -54,13 +63,41 @@ del0 = constants.del0
 def remove_empty(l):
     re = [e for e in l if len(e) > 0]
     # Also flatten single device cluster
+    # ret = []
+    # for e in re:
+    #     if(isinstance(e, list) and len(e) == 1):
+    #         ret.extend(e)
+    #     else:
+    #         ret.append(e)
+    # return ret
+    return re
+
+
+def flatten(l):
     ret = []
-    for e in re:
-        if(isinstance(e, list) and len(e) == 1):
-            ret.extend(e)
+    for x in l:
+        if(isinstance(x, list)):
+            ret.extend(flatten(x))
         else:
-            ret.append(e)
+            ret.append(x)
     return ret
+
+
+def get_2_level_overlay(overlay):
+    output = []
+    for l in overlay:
+        if(isinstance(l, list)):
+            no_nesting = True
+            for e in l:
+                if(isinstance(e, list)):
+                    no_nesting = False
+            if(no_nesting):
+                output.append(l)
+            else:
+                output.extend(get_2_level_overlay(l))
+        else:
+            output.append(l)
+    return output
 
 
 def get_graph(inp):
@@ -179,8 +216,9 @@ def UnnormalizedSpectral(W, nc=2):
     v = v[:, idx]
 
     U = np.array(v[:, :nc])
-    km = KMeans(init='k-means++', n_clusters=nc)
-    r = km.fit_predict(U)
+    # km = KMeans(init='k-means++', n_clusters=nc)
+    # r = km.fit_predict(U)
+    r = discretize(U)
     return r
 
 
@@ -257,7 +295,7 @@ def get_spectral_overlay(inp, comp={}, normalized=True, affinity=False):
 
 # TODO: remove redundancy in getting overlay for non-connected graphs and such
 @log_time(logger=log.info)
-def get_hdbscan_overlay(inp):
+def get_hdbscan_overlay(inp, dont_include=lambda x: False):
     log.info("Buliding HDBSCAN overlay with {} devices"
              .format(len(inp.devices)))
     g = get_complete_graph(inp)
@@ -295,7 +333,6 @@ def get_hdbscan_overlay(inp):
     #         # draw_graph(cg, cluster_assignment)
     #         nc = clusterer.labels_.max() + 1
     #         sub_overlay = [[] for i in range(nc)]
-
     #         for dnum, cnum in enumerate(cluster_assignment):
     #             node_colors[i2n[dnum]] = last_inc + cnum
     #             sub_overlay[cnum].append(i2n[dnum])
@@ -317,34 +354,247 @@ def get_hdbscan_overlay(inp):
     #     return overlay[0]
     # return overlay
 
-    import ipdb; ipdb.set_trace()
-    adj = nx.adjacency_matrix(g).astype(float)
+    nodes_to_remove = [dont_include(x) for x in g.nodes]
+    g.remove_nodes_from(nodes_to_remove)
+
+    adj = nx.adjacency_matrix(g)
+
+    # convert to feature vector matrix
+    max_affinity = adj.max()
+    num_nodes = len(g.nodes)
+    adj = adj.toarray()
+    for i in range(num_nodes):
+        adj[i, i] = max_affinity
+
     # convert to distance matrix
-    np.exp(-adj.data, out=adj.data)
+    # np.exp(-adj.data, out=adj.data)
     clusterer = hdbscan.HDBSCAN(
-        metric='precomputed',
         allow_single_cluster=False,
-        min_cluster_size=4,# int(common_config.MAX_DEVICES_PER_CLUSTER/2),
+        min_cluster_size=int(common_config.MAX_DEVICES_PER_CLUSTER/2),
         cluster_selection_method='leaf',
         min_samples=1,
         # cluster_selection_epsilon=0.1,
-        max_dist=1
     )
+    start = time.time()
+    log.info("Starting HDBSCAN")
     clusterer.fit(adj)
+    end = time.time()
+    log.info("Ended HDBSCAN, Took {} seconds".format(end - start))
 
-    palette = sns.color_palette()
-    cluster_colors = [sns.desaturate(palette[col], sat)
-                      if col >= 0 else (0.5, 0.5, 0.5) for col, sat in
-                      zip(clusterer.labels_, clusterer.probabilities_)]
-    gg = get_graph(inp)
-    node_labels = get_labels_from_overlay(inp, inp.tenant_overlay)
-    draw_graph(gg, cluster_colors, node_labels, remap=False)
+    # palette = sns.color_palette()
+    # cluster_colors = [sns.desaturate(palette[col], sat)
+    #                   if col >= 0 else (0.5, 0.5, 0.5) for col, sat in
+    #                   zip(clusterer.labels_, clusterer.probabilities_)]
+    # gg = get_graph(inp)
+    # node_labels = get_labels_from_overlay(inp, inp.tenant_overlay)
+    # draw_graph(gg, cluster_colors, node_labels, remap=False)
+
+    cluster_assignment = clusterer.labels_
     # import ipdb; ipdb.set_trace()
+    # TODO: Handle -1's
+    nc = clusterer.labels_.max() + 1
+    overlay = [[] for i in range(nc)]
+    for dnum, cnum in enumerate(cluster_assignment):
+        overlay[cnum].append(dnum)
 
-    # TODO: return overlay
-    import sys
-    sys.exit()
-    return None
+    return overlay
+
+"""
+KMedoids does not do a good job of clustering switches into
+the server clusters, so we handle it separately
+"""
+@log_time(logger=log.info)
+def get_kmedoids_overlay(inp, dont_include=lambda x: False):
+    log.info("Buliding k-medoids cluster overlay with {} devices"
+             .format(len(inp.devices)))
+    g = get_complete_graph(inp)
+    nodes_to_remove = [x for x in g.nodes if dont_include(x)]
+    g.remove_nodes_from(nodes_to_remove)
+
+    adj = nx.adjacency_matrix(g)
+
+    # convert to feature vector matrix
+    max_affinity = adj.max()
+    num_nodes = adj.shape[0]
+    adj = adj.toarray()
+    for i in range(num_nodes):
+        adj[i, i] = max_affinity
+    # adj = adj/max_affinity
+    # adj = 1 - adj
+
+    # # Visualize affinities
+    # pca = PCA(n_components=3)
+    # pca.fit(adj)
+    # projected = pca.transform(adj)
+    # node_labels = get_labels_from_overlay(inp, inp.tenant_overlay)
+    # # plt.scatter(projected[:, 0], projected[:, 1],
+    # #             c=node_labels,
+    # #             cmap=plt.cm.get_cmap('Spectral', 10))
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111, projection='3d')
+    # ax.scatter(projected[:, 0], projected[:, 1], projected[:, 2],
+    #            c=node_labels[:num_nodes],
+    #            cmap=plt.cm.get_cmap('Spectral', 10))
+    # plt.show()
+
+    devices_per_cluster = common_config.MAX_CLUSTERS_PER_CLUSTER
+    if(common_config.solver == 'Netmon'):
+        devices_per_cluster = common_config.MAX_DEVICES_PER_CLUSTER
+    nc = math.ceil(num_nodes/devices_per_cluster)
+
+    # # import ipdb; ipdb.set_trace()
+    # se = SpectralEmbedding(n_components=nc)
+    # adj = se.fit_transform(adj)
+
+    start = time.time()
+    log.info("Started KMedoids size: {}".format(num_nodes))
+
+    # kmedoids sklearn extra
+    # km = KMeans(nc) #, metric='manhattan')
+    # km.fit(adj)
+    # cluster_assignment = km.labels_
+
+    pca = PCA(n_components=nc)
+    pca.fit(adj)
+    projected = pca.transform(adj)
+    cluster_assignment = discretize(projected)
+
+    log.info("Finished KMedoids, taking total: {}s"
+             .format(time.time()-start))
+
+    overlay = [[] for i in range(nc)]
+
+    for dnum, cnum in enumerate(cluster_assignment):
+        overlay[cnum].append(dnum)
+    overlay = remove_empty(overlay)
+
+    # # Visualize spectral embedding
+    # se = SpectralEmbedding(n_components=3, affinity='precomputed')
+    # projected = se.fit_transform(adj)
+    # node_labels = get_labels_from_overlay(inp, inp.tenant_overlay)
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111, projection='3d')
+    # ax.scatter(projected[:, 0], projected[:, 1], projected[:, 2],
+    #            c=node_labels[:num_nodes],
+    #            cmap=plt.cm.get_cmap('Spectral', 10))
+    # # ax = fig.add_subplot(111)
+    # # ax.scatter(projected[:, 0], projected[:, 1],
+    # #            c=cluster_assignment,
+    # #            cmap=plt.cm.get_cmap('Spectral', 10))
+    # # for i in range(0, num_nodes):
+    # #     plt.annotate(node_labels[i], (projected[i, 0], projected[i, 1]))
+    # plt.show()
+
+    # num_comp = 0
+    # node_colors = list(g.nodes)
+    # last_inc = 0
+    # num_components = len(list(nx.connected_components(g)))
+
+    # for c in nx.connected_components(g):
+    #     num_comp += 1
+    #     cg = g.subgraph(c)
+    #     i2n = list(cg.nodes)
+    #     if(len(i2n) > 1):
+    #         adj = nx.adjacency_matrix(cg)
+
+    #         # convert to feature vector matrix
+    #         max_affinity = adj.max()
+    #         num_nodes = adj.shape[0]
+    #         adj = adj.toarray()
+    #         for i in range(num_nodes):
+    #             adj[i, i] = max_affinity
+
+    #         # convert to distance matrix
+    #         # Option 1
+    #         # adj = adj/max_affinity
+    #         # adj = 1 - adj
+    #         # Option 2
+    #         # adj = max_affinity - adj
+    #         # Option 3
+    #         # adj = np.exp(-adj)
+
+    #         devices_per_cluster = common_config.MAX_CLUSTERS_PER_CLUSTER
+    #         if(common_config.solver == 'Netmon'):
+    #             devices_per_cluster = common_config.MAX_DEVICES_PER_CLUSTER
+    #         nc = math.ceil(len(i2n)/devices_per_cluster)
+    #         start = time.time()
+    #         log.info("Started KMediods {}/{} size: {}"
+    #                  .format(num_comp, num_components, len(cg)))
+
+    #         # # equal size github
+    #         # dist = pairwise_distances(adj, metric='euclidean')
+    #         # km = equal_kmedoids.KMedoids(distance_matrix=dist, n_clusters=nc)
+    #         # km.run(max_iterations=30, tolerance=0.001)
+    #         # cluster_assignment = list(np.zeros(num_nodes))
+    #         # cnum = 0
+    #         # for k, v in km.clusters.items():
+    #         #     for dnum in v:
+    #         #         cluster_assignment[dnum] = cnum
+    #         #     cnum += 1
+
+    #         # kmedoids sklearn extra
+    #         km = KMedoids(nc)
+    #         km.fit(adj)
+    #         cluster_assignment = km.labels_
+
+    #         log.info("Finished KMediods, taking total: {}s"
+    #                  .format(time.time()-start))
+
+    #         # draw_graph(cg, cluster_assignment)
+    #         sub_overlay = [[] for i in range(nc)]
+
+    #         for dnum, cnum in enumerate(cluster_assignment):
+    #             if(not dont_include(i2n[dnum])):
+    #                 node_colors[i2n[dnum]] = last_inc + cnum
+    #                 sub_overlay[cnum].append(i2n[dnum])
+    #         last_inc += nc
+    #         filtered_sub_overlay = remove_empty(sub_overlay)
+    #         if(len(filtered_sub_overlay) == 1):
+    #             overlay.extend(filtered_sub_overlay)
+    #         elif(len(filtered_sub_overlay) > 1):
+    #             import ipdb; ipdb.set_trace()
+    #             overlay.append(filtered_sub_overlay)
+    #     else:
+    #         overlay.append(i2n[0])
+    #         node_colors[i2n[0]] = last_inc
+    #         last_inc += 1
+
+    # # gg = get_graph(inp)
+    # # node_labels = get_labels_from_overlay(inp, inp.tenant_overlay)
+    # # draw_graph(gg, node_colors, node_labels)
+
+    if(len(overlay) == 1 and isinstance(overlay[0], list)):
+        return overlay[0]
+    return overlay
+
+
+@log_time(logger=log.info)
+def get_kmedoids_centers(inp, dont_include=lambda x: False):
+    log.info("Buliding k-medoids cluster overlay with {} devices"
+             .format(len(inp.devices)))
+    g = get_complete_graph(inp)
+    nodes_to_remove = [x for x in g.nodes if dont_include(x)]
+    g.remove_nodes_from(nodes_to_remove)
+    adj = nx.adjacency_matrix(g)
+
+    # convert to feature vector matrix
+    max_affinity = adj.max()
+    num_nodes = adj.shape[0]
+    adj = adj.toarray()
+    for i in range(num_nodes):
+        adj[i, i] = max_affinity
+
+    # number of clusters
+    devices_per_cluster = common_config.MAX_CLUSTERS_PER_CLUSTER
+    if(common_config.solver == 'Netmon'):
+        devices_per_cluster = common_config.MAX_DEVICES_PER_CLUSTER
+    nc = math.ceil(num_nodes/devices_per_cluster)
+
+    # kmedoids sklearn extra
+    km = KMedoids(nc)
+    km.fit(adj)
+    medoid_indices = km.medoid_indices_
+    return medoid_indices
 
 
 # def kmeans_cluster(affinities, n_clusters, rseed=2):
@@ -842,7 +1092,7 @@ class TreeTopology():
         devices_per_cluster = common_config.MAX_CLUSTERS_PER_CLUSTER
         if(common_config.solver == 'Netmon'):
             devices_per_cluster = common_config.MAX_DEVICES_PER_CLUSTER
-        host_nic_overlay = inp.tenant_servers
+        host_nic_overlay = copy.deepcopy(inp.tenant_servers)
 
         # import ipdb; ipdb.set_trace()
         num_tenant_clusters_to_merge = math.ceil(devices_per_cluster
@@ -862,12 +1112,13 @@ class TreeTopology():
         total_devices = len(inp.devices)
         seq = 0
         total_clusters = len(host_nic_overlay)
+        best_dnum_ = {}
 
         for snum in range(switches_start_idx, total_devices):
             devs = g.neighbors(snum)
             best_dnum, edge_count = -1, 0
             for dnum in devs:
-                if(dnum in dev_id_to_cluster_id):
+                if(dnum in dev_id_to_cluster_id and dnum < switches_start_idx):
                     edges = g.number_of_edges(snum, dnum)
                     if(edges > edge_count):
                         edge_count = edges
@@ -880,6 +1131,7 @@ class TreeTopology():
                 cnum = dev_id_to_cluster_id[best_dnum]
             host_nic_overlay[cnum].append(snum)
             dev_id_to_cluster_id[snum] = cnum
+            best_dnum_[snum] = best_dnum
 
         if(total_clusters > common_config.MAX_CLUSTERS_PER_CLUSTER):
             host_nic_overlay = fold(host_nic_overlay,
@@ -891,6 +1143,56 @@ class TreeTopology():
         if(len(overlay) == 1 and isinstance(overlay[0], list)):
             return overlay[0]
 
+        return overlay
+
+    def get_kmedoids_overlay(self, inp):
+        switches_start_idx = self.hosts + self.num_netronome
+        dont_include = lambda x: x >= switches_start_idx
+        overlay = get_kmedoids_overlay(inp, dont_include)
+        # TODO: Directly get flattened overlay in KMediods instead of flattening yourself
+        overlay = get_2_level_overlay(overlay)
+
+        # Assign switches to clusters:
+        dev_id_to_cluster_id = dict()
+        for cnum, c in enumerate(overlay):
+            for dnum in c:
+                dev_id_to_cluster_id[dnum] = cnum
+
+        g = get_complete_graph(inp)
+        total_devices = len(inp.devices)
+        seq = 0
+        total_clusters = len(overlay)
+
+        switch_best_dnum_dict = {}
+        for snum in range(switches_start_idx, total_devices):
+            devs = g.neighbors(snum)
+            best_dnum, edge_count = -1, 0
+            for dnum in devs:
+                if(dnum in dev_id_to_cluster_id and not dont_include(dnum)):
+                    edges = g.number_of_edges(snum, dnum)
+                    if(edges > edge_count):
+                        edge_count = edges
+                        best_dnum = dnum
+
+            if(best_dnum == -1):
+                cnum = seq % total_clusters
+                seq += 1
+            else:
+                cnum = dev_id_to_cluster_id[best_dnum]
+            switch_best_dnum_dict[snum] = best_dnum
+            overlay[cnum].append(snum)
+            dev_id_to_cluster_id[snum] = cnum
+
+        # TODO: remove all these redundancies on post processing.
+        # Move them to a single function
+        if(len(overlay) == 1 and isinstance(overlay[0], list)):
+            return overlay[0]
+
+        if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
+            overlay = fold(overlay, common_config.MAX_CLUSTERS_PER_CLUSTER)
+
+        # inp.overlay = overlay
+        # draw_overlay_over_tenant(inp)
         return overlay
 
     def get_overlay(self, inp):
@@ -914,6 +1216,11 @@ class TreeTopology():
 
         elif('spectral' in self.overlay):
             overlay = self.get_spectral_overlay(inp)
+            if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
+                overlay = fold(overlay, common_config.MAX_CLUSTER_PER_CLUSTER)
+
+        elif(self.overlay == 'kmedoids'):
+            overlay = self.get_kmedoids_overlay(inp)
             if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
                 overlay = fold(overlay, common_config.MAX_CLUSTER_PER_CLUSTER)
 

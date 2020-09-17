@@ -14,7 +14,8 @@ from flows import flow
 from input import (Input, draw_graph, draw_overlay_over_tenant, fold,
                    generate_overlay, get_complete_graph, get_graph,
                    get_labels_from_overlay, get_spectral_overlay, merge,
-                   get_hdbscan_overlay)
+                   get_hdbscan_overlay, get_kmedoids_overlay, flatten,
+                   get_kmedoids_centers, get_2_level_overlay)
 from profiles import agiliocx40gbe, beluga20, tofino, dc_line_rate
 from sketches import cm_sketch
 import matplotlib.pyplot as plt
@@ -368,21 +369,160 @@ class Clos(object):
 
         return overlay
 
+
+    def get_kmedoids_equal_overlay(self, inp):
+        switches_start_idx = self.num_hosts + self.num_netronome
+        dont_include = lambda x: x >= switches_start_idx
+        medoids = get_kmedoids_centers(inp, dont_include)
+        overlay = [[x] for x in medoids]
+
+        dev_id_to_cluster_id = dict()
+        for cnum, c in enumerate(overlay):
+            for dnum in c:
+                dev_id_to_cluster_id[dnum] = cnum
+
+        # TODO try by group by clusters
+        # This is in order of nodes
+        # Both can have bad clusters
+
+        g = get_complete_graph(inp)
+        total_clusters = len(overlay)
+        total_devices = len(inp.devices)
+        total_devices_per_cluster = math.ceil(total_devices/total_clusters)
+        num_devices_per_cluster = [1 for i in overlay]
+        not_clustered = set(range(total_devices)) - set(medoids)
+
+        adj = nx.adjacency_matrix(g)
+        adj = adj.toarray()
+
+        # for cnum, c in enumerate(medoids):
+        #     # get best nodes which have not already been clustered
+        #     candidate_scores = [(i, adj[c, i]) for i in not_clustered if adj[c, i] > 0]
+        #     candidate_scores.sort(key=lambda x: x[1], reverse=True)
+        #     dev_to_take = min(len(candidate_scores),
+        #                       (total_devices_per_cluster
+        #                        - num_devices_per_cluster[cnum]))
+        #     take = list(map(lambda x: x[0], candidate_scores[:dev_to_take]))
+        #     overlay[cnum].extend(take)
+
+        #     for dnum in take:
+        #         dev_id_to_cluster_id[dnum] = cnum
+
+        #     not_clustered = not_clustered - set(take)
+        #     num_devices_per_cluster[cnum] += dev_to_take
+
+        # assert(len(not_clustered) == 0)
+
+        seq = 0
+        # switches_start_idx = self.num_hosts + self.num_netronome
+        # dont_include = lambda x: x >= switches_start_idx
+
+        for snum in not_clustered:
+            devs = g.neighbors(snum)
+            best_dnum, edge_count = -1, 0
+            for dnum in devs:
+                if(dnum in dev_id_to_cluster_id):
+                    cnum = dev_id_to_cluster_id[dnum]
+                    edges = g.number_of_edges(snum, dnum)
+                    if(edges > edge_count and
+                       (num_devices_per_cluster[cnum]
+                        < total_devices_per_cluster)):
+                        edge_count = edges
+                        best_dnum = dnum
+
+            if(best_dnum == -1):
+                cnum = seq % total_clusters
+                while (num_devices_per_cluster[cnum]
+                       >= total_devices_per_cluster):
+                    seq += 1
+                    cnum = seq % total_clusters
+                seq += 1
+            else:
+                cnum = dev_id_to_cluster_id[best_dnum]
+            overlay[cnum].append(snum)
+            num_devices_per_cluster[cnum] += 1
+            dev_id_to_cluster_id[snum] = cnum
+
+        if(len(overlay) == 1 and isinstance(overlay[0], list)):
+            return overlay[0]
+
+        if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
+            overlay = fold(overlay, common_config.MAX_CLUSTERS_PER_CLUSTER)
+
+        # inp.overlay = overlay
+        # draw_overlay_over_tenant(inp)
+        return overlay
+
+    def get_kmedoids_overlay(self, inp):
+        switches_start_idx = self.num_hosts + self.num_netronome
+        dont_include = lambda x: x >= switches_start_idx
+        overlay = get_kmedoids_overlay(inp, dont_include)
+        # TODO: Directly get flattened overlay in KMediods instead of flattening yourself
+        overlay = get_2_level_overlay(overlay)
+
+        # Assign switches to clusters:
+        dev_id_to_cluster_id = dict()
+        for cnum, c in enumerate(overlay):
+            for dnum in c:
+                dev_id_to_cluster_id[dnum] = cnum
+
+        g = get_complete_graph(inp)
+        total_devices = len(inp.devices)
+        seq = 0
+        total_clusters = len(overlay)
+
+        switch_best_dnum_dict = {}
+        for snum in range(switches_start_idx, total_devices):
+            devs = g.neighbors(snum)
+            best_dnum, edge_count = -1, 0
+            for dnum in devs:
+                if(dnum in dev_id_to_cluster_id and not dont_include(dnum)):
+                    edges = g.number_of_edges(snum, dnum)
+                    if(edges > edge_count):
+                        edge_count = edges
+                        best_dnum = dnum
+
+            if(best_dnum == -1):
+                cnum = seq % total_clusters
+                seq += 1
+            else:
+                cnum = dev_id_to_cluster_id[best_dnum]
+            switch_best_dnum_dict[snum] = best_dnum
+            overlay[cnum].append(snum)
+            dev_id_to_cluster_id[snum] = cnum
+
+        # TODO: remove all these redundancies on post processing.
+        # Move them to a single function
+        if(len(overlay) == 1 and isinstance(overlay[0], list)):
+            return overlay[0]
+
+        if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
+            overlay = fold(overlay, common_config.MAX_CLUSTERS_PER_CLUSTER)
+
+        # inp.overlay = overlay
+        # draw_overlay_over_tenant(inp)
+        return overlay
+
     def get_overlay(self, inp):
-        assert(self.overlay in ['tenant', 'none', 'spectral', 'hdbscan'])
+        assert(self.overlay in ['tenant', 'none', 'spectral', 'hdbscan', 'kmedoids', 'spectralA'])
         overlay = None
-        if('spectral' in self.overlay):
-            overlay = get_spectral_overlay(inp, affinity=True)
+        if('spectral' == self.overlay):
+            overlay = get_spectral_overlay(inp)
             if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
                 overlay = fold(overlay, common_config.MAX_CLUSTERS_PER_CLUSTER)
 
-            inp.overlay = overlay
-            node_labels = {}
-            for d in inp.devices:
-                node_labels[d.dev_id] = d.name[-2:]
-            node_colors = get_labels_from_overlay(inp, inp.overlay)
-            g = get_graph(inp)
-            draw_graph(g, node_colors, node_labels)
+        if('spectralA' == self.overlay):
+            overlay = get_spectral_overlay(inp, normalized=False, affinity=True)
+            if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
+                overlay = fold(overlay, common_config.MAX_CLUSTERS_PER_CLUSTER)
+
+            # inp.overlay = overlay
+            # node_labels = {}
+            # for d in inp.devices:
+            #     node_labels[d.dev_id] = d.name[-2:]
+            # node_colors = get_labels_from_overlay(inp, inp.overlay)
+            # g = get_graph(inp)
+            # draw_graph(g, node_colors, node_labels)
 
         elif(self.overlay == 'tenant'):
             overlay = self.get_tenant_overlay_switches(inp)
@@ -392,6 +532,9 @@ class Clos(object):
             # TODO: remove this redundancy
             if(len(overlay) > common_config.MAX_CLUSTERS_PER_CLUSTER):
                 overlay = fold(overlay, common_config.MAX_CLUSTERS_PER_CLUSTER)
+
+        elif(self.overlay == 'kmedoids'):
+            overlay = self.get_kmedoids_overlay(inp)
 
         if(overlay):
             if(len(overlay) == 1

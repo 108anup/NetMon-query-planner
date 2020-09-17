@@ -18,7 +18,7 @@ from common import Namespace, freeze_object, log, log_time, setup_logging
 from config import common_config
 from devices import P4, Cluster
 from flows import flow
-from input import Input, get_graph
+from input import Input, get_graph, get_2_level_overlay
 from input_generator import input_generator
 from solvers import (UnivmonGreedyRows, log_placement, log_results,
                      refine_devices, solver_to_class)
@@ -223,23 +223,6 @@ def map_flows_to_cluster(inp):
         )
         flows.append(f_new)
     return flows
-
-
-def get_2_level_overlay(overlay):
-    output = []
-    for l in overlay:
-        if(isinstance(l, list)):
-            no_nesting = True
-            for e in l:
-                if(isinstance(e, list)):
-                    no_nesting = False
-            if(no_nesting):
-                output.append(l)
-            else:
-                output.extend(get_2_level_overlay(l))
-        else:
-            output.append(l)
-    return output
 
 
 @log_time

@@ -9,20 +9,10 @@ import time
 import ipdb
 import traceback
 
-from input import dc_topology, eps0
+from input import dc_topology, eps0, flatten
 from main import solve
 from config import common_config
 from common import setup_logging, Namespace
-
-
-def flatten(l):
-    ret = []
-    for x in l:
-        if(isinstance(x, list)):
-            ret.extend(flatten(x))
-        else:
-            ret.append(x)
-    return ret
 
 
 INP = dc_topology(hosts_per_tors=8, num_queries=4*40, tenant=True,
