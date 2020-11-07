@@ -104,7 +104,7 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'cpu-hash-hs.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(bench_dir, 'cpu-hash-hs.png'), bbox_inches='tight', dpi=700)
 
 # Linear model
 # Hand identified when hashing is bottleneck
@@ -190,7 +190,7 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'cpu-mem-half.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(bench_dir, 'cpu-mem-half.png'), bbox_inches='tight', dpi=700)
 
 bench_1_ns = list(map(lambda x: x.ns, bench_list_1))
 bench_2_ns = list(map(lambda x: x.ns, bench_list_2))
@@ -357,8 +357,8 @@ def myplot(bench_list, cores):
     plt.xticks(rotation=90)
     # plt.title("CPU profile for {} cores".format(cores))
 
-    plt.savefig(os.path.join(bench_dir, 'cpu-model-{}cores-half.pdf'.format(cores)),
-                bbox_inches='tight')
+    plt.savefig(os.path.join(bench_dir, 'cpu-model-{}cores-half.png'.format(cores)),
+                bbox_inches='tight', dpi=700)
 
 
 myplot([x for x in bench_list if x.cores == 4], "4")
