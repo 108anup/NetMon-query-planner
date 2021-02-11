@@ -2,18 +2,17 @@ import math
 import os
 import pickle
 import random
+from abc import ABC, abstractmethod
 
+import networkx as nx
 import numpy as np
 
 from clustering import Clustering
-from common import freeze_object, log, constants
+from common import constants, freeze_object, log
+from devices import CPU, P4, Netronome
 from flows import flow
-from input import (Input, draw_graph, draw_overlay_over_tenant, flatten, fold,
-                   generate_overlay, get_2_level_overlay, get_complete_graph,
-                   get_graph, get_hdbscan_overlay, get_kmedoids_centers,
-                   get_kmedoids_overlay, get_labels_from_overlay,
-                   get_spectral_overlay, merge)
-from profiles import dc_line_rate
+from input import Input
+from profiles import agiliocx40gbe, beluga20, dc_line_rate, tofino
 from sketches import cm_sketch
 from traffic import Traffic
 
@@ -21,10 +20,54 @@ eps0 = constants.eps0
 del0 = constants.del0
 
 
-class Topology(object):
+class Topology(ABC):
+
+    def __init__(self):
+        self.num_nics = self.num_netronome + self.num_fpga
+        self.switches_start_idx = self.num_hosts + self.num_nics
+
+    @abstractmethod
+    def get_pickle_name(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def construct_graph(self, devices):
+        start = 0
+
+        self.hosts = [(devices[i].name, {'id': i, 'remaining': dc_line_rate})
+                      for i in range(start, start+self.num_hosts)]
+        start += self.num_hosts
+
+        self.nics = [(devices[i].name, {'id': i})
+                     for i in range(start, start+self.num_nics)]
+        start += self.num_nics
+
+        self.switches = [(devices[i].name, {'id': i})
+                         for i in range(start, start+self.num_switches)]
+
+        g = nx.Graph()
+        g.add_nodes_from(self.hosts)
+        g.add_nodes_from(self.nics)
+        g.add_nodes_from(self.switches)
+        return g
 
 
-    # TODO: Consider splitting this function
+    def get_device_list(self):
+        return (
+            [CPU(**beluga20, name='CPU_'+str(i+1))
+             for i in range(self.num_hosts)] +
+            [Netronome(**agiliocx40gbe, name='Netro'+str(i+1))
+             for i in range(self.num_netronome)] +
+            [Netronome(**agiliocx40gbe, name='FPGA'+str(i+1))
+             for i in range(self.num_fpga)] +
+            [P4(**tofino, name='P4_'+str(i+1))
+             for i in range(self.num_switches)]
+        )
+
+    def supported_overlays(self):
+        return ['none', 'tenant', 'spectral', 'spectralA']
+
+    # TODO: Consider splitting this function and moving to Traffic class
     def get_flows(self, g, inp):
         num_tenants = math.ceil(self.num_hosts / self.hosts_per_tenant)
         queries_per_tenant = self.query_density * self.hosts_per_tenant
@@ -111,13 +154,6 @@ class Topology(object):
 
         return flows
 
-    def supported_overlays(self):
-        return ['none', 'tenant', 'spectral', 'spectralA']
-
-    # @abstractmethod See how you do this in Python
-    def get_pickle_name(self):
-        raise NotImplementedError
-
     def get_input(self):
         pickle_name = self.get_pickle_name()
         pickle_path = os.path.join("pickle_objs", pickle_name)
@@ -143,9 +179,6 @@ class Topology(object):
         pickle.dump(inp, inp_file)
         inp_file.close()
         return inp
-
-    def get_device_list():
-        raise NotImplementedError
 
     def create_inp(self):
         inp = Input(

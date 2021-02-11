@@ -1,11 +1,12 @@
-from jellyfish import JellyFish
 from clos import Clos
 from common import constants
 from devices import CPU, P4, Netronome
 from flows import flow
 from input import Input, TreeTopology
+from jellyfish import JellyFish
 from profiles import agiliocx40gbe, beluga20, tofino
 from sketches import cm_sketch, cs_sketch
+from topology_zoo import TopologyZoo
 
 # Stub file for providing input to solver
 
@@ -484,5 +485,8 @@ input_generator = [
     ),
 
     # 38
-    JellyFish(overlay='tenant')
+    JellyFish(overlay='tenant'),
+
+    # 38
+    TopologyZoo('Geant2012.gml', overlay='tenant')
 ]
