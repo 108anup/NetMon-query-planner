@@ -28,7 +28,7 @@ input_generator = [
         ],
         # Change when metric filters are modified
         flows=[
-            flow(path=(0, 1), queries=[(0, 1)], thr=70),
+            flow(path=(0, 1), queries=[(0, 1)], thr=20),
         ]
     ),
 
@@ -443,7 +443,7 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=6, overlay='kmedoids', query_density=3, portion_netronome=0),
+    Clos(pods=6, overlay='tenant', query_density=3, portion_netronome=0),
 
     # 35
     Clos(pods=20, query_density=3, portion_netronome=1,
