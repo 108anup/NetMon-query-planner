@@ -1,31 +1,21 @@
-import math
-import os
-import pickle
-import random
-import sys
-
 import networkx as nx
-import numpy as np
 
-from common import constants, freeze_object, log, log_time
-from config import common_config
+from common import constants
 from devices import CPU, P4, Netronome
-from flows import flow
 from input import (Input, draw_graph, draw_overlay_over_tenant, fold,
                    generate_overlay, get_complete_graph, get_graph,
                    get_labels_from_overlay, get_spectral_overlay, merge,
                    get_hdbscan_overlay, get_kmedoids_overlay, flatten,
                    get_kmedoids_centers, get_2_level_overlay)
 from profiles import agiliocx40gbe, beluga20, tofino, dc_line_rate
-from sketches import cm_sketch
-import matplotlib.pyplot as plt
 import heapq
+from topology import Topology
 
 eps0 = constants.eps0
 del0 = constants.del0
 
 
-class JellyFish(object):
+class JellyFish(Topology):
 
     def __init__(self, tors=20, ports_per_tor=4, num_hosts=16,
                  hosts_per_tenant=8, query_density=2,
@@ -46,14 +36,21 @@ class JellyFish(object):
         self.query_density = query_density
         self.num_netronome = int(self.num_hosts * portion_netronome)
         self.num_fpga = int(self.num_hosts * portion_fpga)
+        self.num_nics = self.num_fpga + self.num_netronome
         self.num_queries = int(query_density * self.num_hosts)
         self.eps = eps
+        self.hosts_per_tenant = hosts_per_tenant
 
         self.hosts_per_tor = num_hosts / tors
         self.N = tors
         self.k = ports_per_tor
         self.r = int(self.k - self.hosts_per_tor)
         self.overlay = overlay
+
+        self.switches_start_idx = self.num_hosts + self.num_nics
+
+        # TODO try this
+        # super.__init__()
 
     def construct_graph(self, devices):
         start = 0
@@ -130,12 +127,9 @@ class JellyFish(object):
 
         return g
 
-
-    # FIXME: Remove redundancy have a common topo class
-    def create_inp(self):
-        # TODO change to fpga
-        inp = Input(
-            devices=(
+    def get_device_list(self):
+        # TODO change to FPGA
+        return (
                 [CPU(**beluga20, name='CPU_'+str(i+1))
                  for i in range(self.num_hosts)] +
                 [Netronome(**agiliocx40gbe, name='Netro'+str(i+1))
@@ -144,121 +138,12 @@ class JellyFish(object):
                  for i in range(self.num_fpga)] +
                 [P4(**tofino, name='P4_'+str(i+1))
                  for i in range(self.tors)]
-            ),
-            queries=(
-                [cm_sketch(eps0=self.eps, del0=del0)
-                 for i in range(self.num_queries)]
-                + []
-            ),
-        )
-        for (dnum, d) in enumerate(inp.devices):
-            d.dev_id = dnum
-            freeze_object(d)
+            )
 
-        # FIXME: different from Clos
-        self.has_nic = ([i for i in range(self.num_fpga + self.num_netronome)]
-                        + [-1 for i in
-                           range(self.num_hosts - self.num_netronome - self.num_fpga)])
-        # has_nic stores the index of the NIC device relative to all nics
-        # to which the host is connected to
-        np.random.shuffle(self.has_nic)
-
-        g = self.construct_graph(inp.devices)
-        # nx.draw(g, labels=[d.name for d in inp.devices])
-        nx.draw_networkx(g)
-        plt.show()
-
-        flows = self.get_flows(g, inp)
-        inp.flows = flows
-
-        return inp
-
-    def get_flows(self, g, inp):
-        num_tenants = math.ceil(self.num_hosts / self.hosts_per_tenant)
-        queries_per_tenant = self.query_density * self.hosts_per_tenant
-
-        flows_per_query = 2
-        mean_queries_updated_by_flow = 2
-        half_range = mean_queries_updated_by_flow - 1
-        low = mean_queries_updated_by_flow - half_range
-        high = mean_queries_updated_by_flow + half_range
-        assert(queries_per_tenant > high
-               and queries_per_tenant <= self.num_queries)
-
-        servers = np.arange(self.num_hosts)
-        np.random.shuffle(servers)
-        tenant_servers = np.split(servers, num_tenants)
-
-        host_overlay = []
-        for x in tenant_servers:
-            this_servers = x.tolist()
-            this_nics = []
-            for s in this_servers:
-                nic_id = self.has_nic[s]
-                if(nic_id >= 0):
-                    dev_id = self.nics[nic_id][1]['id']
-                    this_nics.append(dev_id)
-            host_overlay.append(this_servers + this_nics)
-
-        inp.tenant_servers = host_overlay
-        flows_per_host = (flows_per_query * queries_per_tenant
-                          / self.hosts_per_tenant)
-        qlist_generator = list(range(queries_per_tenant))
-
-        log.info("Need to generate: {} flows.".format(flows_per_host * self.num_hosts / 2))
-        flows = []
-        for (tnum, t) in enumerate(tenant_servers):
-            query_set = [i + tnum * queries_per_tenant
-                         for i in range(queries_per_tenant)]
-            for itr in range(int(flows_per_host/2)):
-                assigned = t.copy()
-                np.random.shuffle(assigned)
-
-                for idx in range(len(t)):
-                    h1 = t[idx]
-                    h2 = assigned[idx]
-                    h1name = self.hosts[h1][0]
-                    h2name = self.hosts[h2][0]
-
-                    # Clos should ensure if hosts have remaining
-                    # capacity then there is a path between them
-                    # with enough capacity
-                    if(g.nodes[h1name]['remaining'] == 0):
-                        continue
-                    while(h2 == h1):
-                        h2 = t[random.randint(0, len(t)-1)]
-                        h2name = self.hosts[h2][0]
-                    if(g.nodes[h2name]['remaining'] == 0):
-                        continue
-
-                    (node_path, id_path, capacity) = \
-                        self.get_path_with_largest_capacity(g, h1, h2)
-                    traffic = min(capacity, dc_line_rate/flows_per_host)
-                    if(traffic < 0.1):
-                        log.error('Need better way to select paths')
-                        continue
-                    self.update_path_with_traffic(g, node_path, traffic)
-
-                    np.random.shuffle(qlist_generator)
-                    queries_for_this_flow = random.randint(low, high)
-                    q_list = qlist_generator[:queries_for_this_flow]
-
-                    flows.append(
-                        flow(
-                            path=id_path,
-                            queries=[
-                                (
-                                    query_set[q_idx],
-                                    int(random.random() * 4 + 7)/10
-                                )
-                                for q_idx in q_list
-                            ],
-                            thr=traffic
-                        )
-                    )
-
-        return flows
-
+    def get_pickle_name(self):
+        return "jelly-{}-{}-{}-{}-{}-{}-{}".format(
+            self.N, self.k, self.r, self.query_density, eps0/self.eps,
+            self.num_netronome, self.num_fpga)
 
 
 if (__name__ == '__main__'):
@@ -267,5 +152,6 @@ if (__name__ == '__main__'):
     # # plt.show()
     # import ipdb; ipdb.set_trace()
 
-    gen = JellyFish(portion_netronome=0, portion_fpga=0)
-    gen.create_inp()
+    gen = JellyFish(portion_netronome=0, portion_fpga=0, overlay='tenant')
+    inp = gen.get_input()
+    import ipdb; ipdb.set_trace()

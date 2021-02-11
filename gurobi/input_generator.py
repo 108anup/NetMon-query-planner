@@ -1,3 +1,4 @@
+from jellyfish import JellyFish
 from clos import Clos
 from common import constants
 from devices import CPU, P4, Netronome
@@ -480,5 +481,8 @@ input_generator = [
                      queries=[(i, 1) for i in range(1)], thr=10*0.75)
             ]
         )
-    )
+    ),
+
+    # 38
+    JellyFish(overlay='tenant')
 ]
