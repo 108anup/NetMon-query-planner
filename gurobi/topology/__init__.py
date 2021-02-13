@@ -51,7 +51,6 @@ class Topology(ABC):
         g.add_nodes_from(self.switches)
         return g
 
-
     def get_device_list(self):
         return (
             [CPU(**beluga20, name='CPU_'+str(i+1))
@@ -65,11 +64,12 @@ class Topology(ABC):
         )
 
     def supported_overlays(self):
-        return ['none', 'tenant', 'spectral', 'spectralA']
+        return ['none', 'tenant', 'spectral', 'spectralA',
+                'kmeans', 'kmedoids', 'hdbscan']
 
     # TODO: Consider splitting this function and moving to Traffic class
     def get_flows(self, g, inp):
-        num_tenants = math.ceil(self.num_hosts / self.hosts_per_tenant)
+        num_tenants = math.floor(self.num_hosts / self.hosts_per_tenant)
         queries_per_tenant = self.query_density * self.hosts_per_tenant
 
         flows_per_query = 2
@@ -82,7 +82,15 @@ class Topology(ABC):
 
         servers = np.arange(self.num_hosts)
         np.random.shuffle(servers)
-        tenant_servers = np.split(servers, num_tenants)
+        accounted_for = self.hosts_per_tenant * num_tenants
+        tenant_servers = np.split(servers[:accounted_for], num_tenants)
+        idx = 0
+        for s in servers[accounted_for:]:
+            # This will be true always, since otherwise
+            # we would have one more host per tenant
+            assert(idx < num_tenants)
+            tenant_servers[idx] = np.append(tenant_servers[idx], s)
+            idx += 1
 
         host_overlay = []
         for x in tenant_servers:

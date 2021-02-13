@@ -369,7 +369,6 @@ class Clos(object):
 
         return overlay
 
-
     def get_kmedoids_equal_overlay(self, inp):
         switches_start_idx = self.num_hosts + self.num_netronome
         dont_include = lambda x: x >= switches_start_idx

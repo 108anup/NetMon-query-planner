@@ -17,7 +17,8 @@ class TopologyZoo(Topology):
                  eps=constants.eps0, overlay='none',
                  hosts_per_tenant=8):
         g = nx.read_gml(
-            os.path.join(TOPOLOGY_ZOO_DIRECTORY, topology_gml_name))
+            os.path.join(TOPOLOGY_ZOO_DIRECTORY, topology_gml_name),
+            label='id')
         self.num_switches = len(g.nodes)
         self.max_degree = max(d for (n, d) in g.degree)
         self.num_hosts = np.sum([self.max_degree - d for (n, d) in g.degree])

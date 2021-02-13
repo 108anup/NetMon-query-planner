@@ -14,7 +14,7 @@ from profiles import dc_line_rate
 class Traffic(object):
 
     @staticmethod
-    @log_time(logger=log.info)
+    @log_time(logger=log.debug)
     def get_path_with_largest_capacity(g, h1name, h2name):
         node_paths = nx.all_shortest_paths(g, h1name, h2name)
         node_paths_capacity = []

@@ -3,10 +3,10 @@ from common import constants
 from devices import CPU, P4, Netronome
 from flows import flow
 from input import Input, TreeTopology
-from jellyfish import JellyFish
 from profiles import agiliocx40gbe, beluga20, tofino
 from sketches import cm_sketch, cs_sketch
-from topology_zoo import TopologyZoo
+from topology.jellyfish import JellyFish
+from topology.topology_zoo import TopologyZoo
 
 # Stub file for providing input to solver
 
@@ -47,7 +47,7 @@ input_generator = [
             cm_sketch(eps0=eps0/10, del0=del0),
         ],
         flows=[
-            flow(path=(0, 1), queries=[(0, 1), (1, 1), (2, 1)]),
+            flow(path=(0, 1), queries=[(0, 1), (1, 1), (2, 1)], thr=15),
         ]
     ),
 
@@ -445,11 +445,11 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=6, overlay='tenant', query_density=3, portion_netronome=0),
+    Clos(pods=6, overlay='none', query_density=3, portion_netronome=1),
 
     # 35
     Clos(pods=20, query_density=3, portion_netronome=1,
-         overlay='spectralA', eps=eps0/10),
+         overlay='tenant', eps=eps0/10),
 
     # 36
     Clos(6, 4, portion_netronome=0, overlay='none', hosts_per_tenant=6),
@@ -487,6 +487,14 @@ input_generator = [
     # 38
     JellyFish(overlay='tenant'),
 
-    # 38
-    TopologyZoo('Geant2012.gml', overlay='tenant')
+    # 39
+    JellyFish(tors=500, ports_per_tor=20,
+              num_hosts=2000, overlay='hdbscan',
+              query_density=1),
+
+    # 40
+    TopologyZoo('Geant2012.gml', overlay='none', query_density=4),
+
+    # 41
+    TopologyZoo('GtsCe.gml', overlay='none', query_density=4)
 ]
