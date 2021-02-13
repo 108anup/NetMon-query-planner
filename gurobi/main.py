@@ -1,3 +1,4 @@
+import math
 import concurrent.futures
 import os
 import sys
@@ -190,12 +191,22 @@ def get_partitions_flows(inp, cluster, problem, dnum, solution):
                 d = inp.devices[dnum]
                 cnum = dev_id_to_cluster_id[dnum]
                 c = cluster.device_tree[cnum]
+
                 if(isinstance(d, P4) and isinstance(c, Cluster)):
+                    import ipdb; ipdb.set_trace()
+                    # I now think this optimization might lead to incorrect
+                    # behavior
+                    # Any way this is only used in hierarchical clustering
+                    # otherwise this won't ever be triggered
+                    # So ignore for now.
                     pass
                 else:
                     path_new.add(dev_id_to_cluster_id[dnum])
 
-        if(len(par_new) > 0 and len(path_new) > 0):
+        # if(len(par_new) > 0 and len(path_new) > 0):
+        # NOTE: Even if par_new is empty need path_new
+        # To convey forwarding throughput
+        if(len(path_new) > 0):
             f_new.partitions = par_new
             f_new.path = path_new
             f_new.thr = f.thr
@@ -646,6 +657,69 @@ def cluster_optimization(inp):
     return Namespace(results=r, md_list=placement.md_list, frac=placement.frac)
 
 
+def verify_solution(inp, ret):
+    log.info('='*50)
+    log.info("Verifying Solution")
+    log.info('='*50)
+    # Verify placement
+    ## Coverage
+    not_met = 0
+    for f in inp.flows:
+        for fp in f.partitions:
+            pnum = fp[0]
+            required_cov = fp[1]
+            actual_cov = 0
+            for dnum in f.path:
+                if((dnum, pnum) in ret.frac):
+                    actual_cov += get_val(ret.frac[dnum, pnum])
+            assert(actual_cov >= required_cov - common_config.ftol)
+            if(actual_cov < required_cov - common_config.ftol):
+                import ipdb; ipdb.set_trace()
+                not_met += 1
+
+    ## Resources
+    ret.dev_par_tuplelist = ret.frac.keys()
+    for dnum, d in enumerate(inp.devices):
+        mem_tot_req = 0
+        # rows_thr_req = 0
+        for (_, pnum) in ret.dev_par_tuplelist.select(dnum, '*'):
+            p = inp.partitions[pnum]
+            sk = p.sketch
+            mm = sk.min_mem()
+            if(d.cols_pwr_2):
+                mm = 2 ** math.ceil(math.log2(mm))
+            mem_tot_req += mm * get_val(ret.frac[dnum, pnum]) * p.num_rows
+            # rows_thr_req += f.thr * get_val(ret.frac[dnum, pnum]) * p.num_rows / md_list
+        mem_tot_actual = get_val(ret.md_list[dnum].mem_tot)
+        assert(mem_tot_req - common_config.ftol <= mem_tot_actual)
+
+    ## Verify with the full solver
+    Solver = solver_to_class['Netmon']
+    solver = Solver(devices=inp.devices, flows=inp.flows,
+                    partitions=inp.partitions, queries=inp.queries,
+                    dont_refine=False, check=Namespace(frac=ret.frac))
+    solver.solve()
+    if(solver.infeasible):
+        return handle_infeasible(getattr(solver, 'culprit', None),
+                                 msg=solver.reason)
+    ret_v = Namespace(results=solver.r, md_list=solver.md_list,
+                      frac=solver.frac)
+    import ipdb; ipdb.set_trace()
+    for (dnum, pnum) in solver.dev_par_tuplelist.select('*'):
+        if((dnum, pnum) in ret.frac):
+            if(abs(get_val(solver.frac[dnum, pnum])
+                   - get_val(ret.frac[dnum, pnum])) > common_config.ftol):
+                import ipdb; ipdb.set_trace()
+                dummy = 2+2
+        elif(get_val(solver.frac[dnum, pnum]) > common_config.ftol):
+            import ipdb; ipdb.set_trace()
+            dummy = 2+2
+
+    log.info("\n" + "-"*80)
+    log_results(inp.devices, ret_v.results, ret_v.md_list,
+                msg="Verification Results")
+
+
 # * Main solve function
 # HOLD: Handle disconnected graph in solver
 # Final devices will always be refined, just log at the end
@@ -707,6 +781,7 @@ def solve(inp, pre_processed=False):
     # log.info("Solving ended at time: {}, taking: {} s"
     #          .format(end, end-start))
 
+    verify_solution(inp, ret)
     return ret
 
 

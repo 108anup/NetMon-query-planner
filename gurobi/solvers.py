@@ -480,6 +480,15 @@ class MIP(Namespace):
         # log_initial(self.devices, self.partitions, self.flows,
         #             self.dev_par_tuplelist, self.init)
 
+    def add_check_constraints(self):
+        for (dnum, pnum) in self.dev_par_tuplelist:
+            if((dnum, pnum) in self.check.frac):
+                self.m.addConstr(
+                    self.frac[dnum, pnum] >=
+                    get_val(self.check.frac[dnum, pnum])
+                    - common_config.ftol
+                )
+
     @log_time
     def solve(self):
         self.m = gp.Model(self.__class__.__name__)
@@ -515,6 +524,9 @@ class MIP(Namespace):
         self.add_constraints()
         if(self.infeasible):
             return
+
+        if(hasattr(self, 'check')):
+            self.add_check_constraints()
 
         if(not getattr(self, 'objectives_added', False)):
             self.add_objective()
