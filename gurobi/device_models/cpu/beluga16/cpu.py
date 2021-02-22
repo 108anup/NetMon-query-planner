@@ -286,7 +286,7 @@ print("mem const: ", mem_const)
 ground_truth = read_bench('ground-truth.csv')
 bench_list = [SimpleNamespace(cores=x[0], rows=x[1], cols_per_core=x[2], Mpps=x[3])
               for x in ground_truth]
-bench_list = bench_list[:168:2]
+# bench_list = bench_list[:168:2]
 diff = []
 for x in bench_list:
     x.mem = x.rows * x.cols_per_core * x.cores * CELL_SIZE / KB2B
