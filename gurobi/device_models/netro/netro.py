@@ -36,15 +36,24 @@ linestyles = ['-', '--']
 plt.rc('pdf', fonttype=42)
 plt.rc('font', **{'size': FONT_SIZE})
 
+mem_params_dict = {}
 # no-branching
-mem_params = {
+mem_params_dict['no-branching'] = {
     'FLAT_REGION': [6, 14],
     'COMBINE': [1, 4, 10],
     'DOMINANT': 7
 }
 
 # with-branching
-mem_params = {
+mem_params_dict['with-branching'] = {
+    'FLAT_REGION': [9, 15],
+    'COMBINE': [1, 8, 7],
+    'DOMINANT': 14,
+    'MEM_CONST': 13.460474472023066
+}
+
+# all-in-sandbox
+mem_params_dict['all-in-sandbox'] = {
     'FLAT_REGION': [9, 15],
     'COMBINE': [1, 8, 7],
     'DOMINANT': 14,
@@ -58,6 +67,10 @@ KB2B = 1024
 
 # * Globals
 bench_dir = sys.argv[1]
+plot_dir = os.path.join(bench_dir, 'plots')
+mem_params = mem_params_dict['all-in-sandbox']
+if(bench_dir in mem_params_dict):
+    mem_params = mem_params_dict[bench_dir]
 
 
 def read_bench(fname):
@@ -118,7 +131,7 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'netro-hash-hs.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(plot_dir, 'netro-hash-hs.pdf'), bbox_inches='tight')
 
 # sys.exit(0)
 # fig = plt.figure(figsize=(4, 2))
@@ -157,6 +170,15 @@ print("hashing_const: ", hashing_const)
 # pprint.pprint(xs)
 # pprint.pprint(ys)
 # hashing_time = interp1d(xs, ys)
+
+
+def get_hash_time(x, hpr=1, additional_hashes=0):
+    return (
+        (hashing_const + hashing_slope * (x.rows * hpr + additional_hashes)
+         + branching_slope * x.rows)
+        * MAX_ME / x.me
+    )
+
 
 # * Mem params
 bench_list_1 = [SimpleNamespace(rows=x[0], cols=x[1], pps=x[2])
@@ -198,7 +220,7 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(bench_dir, 'netro-mem-half.pdf'), bbox_inches='tight')
+plt.savefig(os.path.join(plot_dir, 'netro-mem-half.pdf'), bbox_inches='tight')
 
 # sys.exit(0)
 # fig = plt.figure(figsize=(5, 3))
@@ -306,36 +328,20 @@ pprint.pprint(xs)
 pprint.pprint(ys)
 print("mem const: ", mem_const)
 
-# Evaluation:
-ground_truth_54 = read_bench('ground_truth_54.csv')
-ground_truth_36 = read_bench('ground_truth_36.csv')
-ground_truth_20 = read_bench('ground_truth_20.csv')
 
-MAX_ME = 54
-bench_list = [SimpleNamespace(rows=x[0], cols=x[1], pps=x[2], me=54)
-              for x in ground_truth_54]
-bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], pps=x[2], me=54)
-                   for x in mem_bench])
-bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], pps=x[2], me=54)
-                   for x in hash_bench])
-bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], pps=x[2], me=36)
-                   for x in ground_truth_36])
-bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], pps=x[2], me=20)
-                   for x in ground_truth_20])
-bench_list.sort(key=lambda x: (x.rows, x.cols, x.me))
+def get_mem_time(x, hpr=1):
+    x.m_access_time = get_mem_access_time(x.mem)
+    if(hasattr(x, 'levels')):
+        x.m_access_time = get_mem_access_time(x.mem * x.levels)
+    return (mem_const + x.rows * x.m_access_time
+            + x.rows * branching_slope)
 
-diff = []
-for x in bench_list:
+
+def model(x, hpr, additional_hashes, diff):
     x.mem = x.rows * x.cols * CELL_SIZE / KB2B
     x.ns = 1e9/x.pps
-    x.hash_ns = (
-        (hashing_const + hashing_slope * x.rows
-         + branching_slope * x.rows)
-        * MAX_ME / x.me
-    )
-    x.m_access_time = get_mem_access_time(x.mem)
-    x.mem_ns = (mem_const +
-                x.rows * x.m_access_time + x.rows * branching_slope)
+    x.hash_ns = get_hash_time(x, hpr, additional_hashes)
+    x.mem_ns = get_mem_time(x, hpr)
     items = (fwd_ns * MAX_ME / x.me,
              # hashing_time(x.rows),
              x.hash_ns, x.mem_ns)
@@ -344,6 +350,7 @@ for x in bench_list:
     diff.append(abs(x.ns - x.model_ns) / x.ns)
 
 
+# Evaluation:
 def get_mem_label(m):
     if(m < 1):
         return "{}".format(int(m * 1024))
@@ -353,10 +360,19 @@ def get_mem_label(m):
         return "{}M".format(int(m / 1024))
 
 
-def myplot(bench_list, me):
+def myplot(bench_list, me, sketch):
+    print("SK: {}, list size: {}, me: {}".format(
+        sketch, len(bench_list), me))
+    if(len(bench_list) == 0):
+        return
 
     fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
-    labels = list(map(lambda x: '{}, {}'.format(int(x.rows), get_mem_label(x.mem)), bench_list))
+    labels = list(map(lambda x: '{}, {}'.format(
+        int(x.rows), get_mem_label(x.mem)), bench_list))
+    if(sketch =='univmon'):
+        labels = list(map(lambda x: '{}, {}, {}'.format(
+            int(x.levels), int(x.rows),
+            get_mem_label(x.mem * x.levels)), bench_list))
     ax.plot(labels, list(map(lambda x: x.ns, bench_list)),
             label='Ground Truth', color=colors[5], marker='s',
             markersize=MARKER_SIZE,
@@ -383,6 +399,9 @@ def myplot(bench_list, me):
     l.set_frame_on(False)
 
     ax.set_xlabel('Sketch Configuration (rows, mem in Bytes)')
+    if(sketch == 'univmon'):
+        ax.set_xlabel('Sketch Configuration (levels, rows, mem in Bytes)')
+
     ax.xaxis.set_ticks_position('bottom')
     ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
@@ -399,7 +418,7 @@ def myplot(bench_list, me):
     plt.xticks(rotation=90)
     # plt.title("CPU profile for {} cores".format(cores))
 
-    plt.savefig(os.path.join(bench_dir, 'netro-model-{}me-hs.pdf'.format(me)),
+    plt.savefig(os.path.join(plot_dir, 'netro-model-{}me-hs.pdf'.format(me)),
                 bbox_inches='tight')
 
 # def myplot(bench_list, me):
@@ -435,8 +454,48 @@ def myplot(bench_list, me):
 #     plt.savefig(os.path.join(bench_dir, 'netro-model-{}me.pdf'.format(me)))
 
 
-myplot([x for x in bench_list if x.me == 54], "54")
-myplot([x for x in bench_list if x.me == 36], "36")
-myplot([x for x in bench_list if x.me == 20], "20")
-print("Relative Error: ", np.average(diff))
-# pprint.pprint(bench_list)
+def parse_ground_truth(x, header, me):
+    entry = SimpleNamespace()
+    for hid, hname in enumerate(header):
+        setattr(entry, hname, x[hid])
+    entry.me = me
+    return entry
+
+
+sketches = ['count-min-sketch', 'count-sketch', 'univmon']
+hashes_per_row = [1, 2, 2]
+additional_hashes = [0, 0, 1]
+header = ('rows', 'cols', 'pps')
+headers = [header, header, header[:-1] + tuple(["levels"]) + header[-1:]]
+me_list = [20, 36, 54]
+MAX_ME = 54
+for skid, sketch in enumerate(sketches):
+
+    ground_truths = {}
+    bench_list = []
+    for me in me_list:
+        ground_truths[me] = read_bench(
+            os.path.join(sketch, 'ground_truth_{}.csv'.format(me)))
+        bench_list.extend([parse_ground_truth(x, headers[skid], me)
+                           for x in ground_truths[me]])
+
+    if(sketch == 'count-min-sketch'):
+        bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], pps=x[2], me=54)
+                           for x in mem_bench])
+        bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], pps=x[2], me=54)
+                           for x in hash_bench])
+
+    bench_list.sort(key=lambda x: (x.rows, x.cols, x.me))
+    if(sketch == 'univmon'):
+        bench_list.sort(key=lambda x: (x.levels, x.rows, x.cols, x.me))
+
+    diff = []
+    for x in bench_list:
+        model(x, hashes_per_row[skid], additional_hashes[skid], diff)
+
+    myplot([x for x in bench_list if x.me == 54], "54", sketch)
+    myplot([x for x in bench_list if x.me == 36], "36", sketch)
+    myplot([x for x in bench_list if x.me == 20], "20", sketch)
+    if(len(diff) > 0):
+        print("Relative Error [{}]: ".format(sketch), np.average(diff))
+    # pprint.pprint(bench_list)
