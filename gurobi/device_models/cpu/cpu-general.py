@@ -306,6 +306,8 @@ print("mem const: ", mem_const)
 
 def get_mem_time(x, hpr=1):
     x.m_access_time = get_mem_access_time(x.mem)
+    if(hasattr(x, 'levels')):
+        x.m_access_time = get_mem_access_time(x.mem * x.levels)
     return (mem_const + x.rows * x.m_access_time)
 
 
@@ -353,7 +355,7 @@ def myplot(bench_list, cores, sketch):
     labels = list(map(lambda x: '{}, {}'.format(int(x.rows), get_mem_label(x.mem)), bench_list))
     if(sketch == 'univmon'):
         labels = list(map(lambda x: '{}, {}, {}'.format(
-            int(x.levels), int(x.rows), get_mem_label(x.mem)), bench_list))
+            int(x.levels), int(x.rows), get_mem_label(x.mem * x.levels)), bench_list))
     ax.plot(labels, list(map(lambda x: x.ns, bench_list)),
             label='Ground Truth', color=colors[5], marker='s',
             markersize=MARKER_SIZE,
@@ -396,7 +398,7 @@ def myplot(bench_list, cores, sketch):
     xticks = labels
     num_labels = len(labels)
     if(num_labels > 8):
-        xticks = labels[::int(num_labels/8)]
+        xticks = labels[::int(num_labels/9)]
     plt.xticks(xticks)
     plt.xticks(rotation=90)
     # plt.title("CPU profile for {} cores".format(cores))
