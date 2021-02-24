@@ -68,6 +68,8 @@ KB2B = 1024
 # * Globals
 bench_dir = sys.argv[1]
 plot_dir = os.path.join(bench_dir, 'plots')
+if(not os.path.isdir(plot_dir)):
+    os.mkdir(plot_dir)
 mem_params = mem_params_dict['all-in-sandbox']
 if(bench_dir in mem_params_dict):
     mem_params = mem_params_dict[bench_dir]
@@ -102,6 +104,7 @@ fwd_ns = 1e9/fwd_thr
 print("fwd_ns: ", fwd_ns)
 
 branching_slope = 1e9/hash_bench[0][2] - fwd_ns
+branching_slope = 0
 print("branching_slope: ", branching_slope)
 
 # * Hashing params
@@ -144,7 +147,7 @@ plt.savefig(os.path.join(plot_dir, 'netro-hash-hs.pdf'), bbox_inches='tight')
 
 # Linear model
 # Hand identified when hashing is bottleneck
-start = 4
+start = 5
 end = len(bench_list)
 start_idx = start - 1
 end_idx = end - 1
@@ -172,9 +175,10 @@ print("hashing_const: ", hashing_const)
 # hashing_time = interp1d(xs, ys)
 
 
-def get_hash_time(x, hpr=1, additional_hashes=0):
+def get_hash_time(x, hpr, additional_hashes):
     return (
-        (hashing_const + hashing_slope * (x.rows * hpr + additional_hashes)
+        (hashing_const
+         + hashing_slope * (x.rows * hpr + additional_hashes)
          + branching_slope * x.rows)
         * MAX_ME / x.me
     )
@@ -329,10 +333,48 @@ pprint.pprint(ys)
 print("mem const: ", mem_const)
 
 
+def get_mem_time_univmon(x):
+    total_time = 0
+    current_invprob = 1
+    current_term = 0
+    for l in range(1, x.levels):
+        current_term = l * get_mem_access_time(x.mem * l) - current_term
+        # current_term = get_mem_access_time(x.mem * l)
+        current_invprob = current_invprob * 2
+        total_time += current_term / current_invprob
+    l = x.levels
+    current_term = l * get_mem_access_time(x.mem * l) - current_term
+    # current_term = get_mem_access_time(x.mem * l)
+    # no degradation in prob for last level
+    total_time += current_term / current_invprob
+    return total_time
+
+
+def get_mem_time_univmon_linear_model(x):
+    return np.sum(
+        [
+            get_mem_access_time(x.mem * l)/(2**l)
+            for l in range(1, x.levels)
+        ] + [
+            get_mem_access_time(x.mem * x.levels)/(2**(x.levels-1))
+        ]
+    )
+
+
 def get_mem_time(x, hpr=1):
     x.m_access_time = get_mem_access_time(x.mem)
     if(hasattr(x, 'levels')):
-        x.m_access_time = get_mem_access_time(x.mem * x.levels)
+        # # More involved model
+        # x.m_access_time = get_mem_time_univmon(x)
+
+        # Simple Linear combination model
+        x.m_access_time = get_mem_time_univmon_linear_model(x)
+
+        # # Half model
+        # x.m_access_time = 0.5 * get_mem_access_time(x.mem * x.levels)
+
+        # # No change model
+        # x.m_access_time = get_mem_access_time(x.mem * x.levels)
     return (mem_const + x.rows * x.m_access_time
             + x.rows * branching_slope)
 
@@ -418,7 +460,8 @@ def myplot(bench_list, me, sketch):
     plt.xticks(rotation=90)
     # plt.title("CPU profile for {} cores".format(cores))
 
-    plt.savefig(os.path.join(plot_dir, 'netro-model-{}me-hs.pdf'.format(me)),
+    plt.savefig(os.path.join(
+        plot_dir, 'netro-model-{}-{}me-hs.pdf'.format(sketch, me)),
                 bbox_inches='tight')
 
 # def myplot(bench_list, me):
@@ -475,11 +518,15 @@ for skid, sketch in enumerate(sketches):
     bench_list = []
     for me in me_list:
         ground_truths[me] = read_bench(
-            os.path.join(sketch, 'ground_truth_{}.csv'.format(me)))
+            os.path.join(sketch, 'ground_truth_small_{}.csv'.format(me)))
         bench_list.extend([parse_ground_truth(x, headers[skid], me)
                            for x in ground_truths[me]])
 
     if(sketch == 'count-min-sketch'):
+        gt_full = read_bench(
+            os.path.join(sketch, 'ground_truth.csv'))
+        bench_list.extend([parse_ground_truth(x, headers[skid], 54)
+                           for x in gt_full])
         bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], pps=x[2], me=54)
                            for x in mem_bench])
         bench_list.extend([SimpleNamespace(rows=x[0], cols=x[1], pps=x[2], me=54)
