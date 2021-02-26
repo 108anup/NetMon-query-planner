@@ -118,7 +118,8 @@ xs, ys, get_mem_access_time = get_mem_params(
 
 def get_mem_time(x, hpr=1):
     x.m_access_time = get_mem_access_time(x.mem)
-    if(hasattr(x, 'levels')):
+    if(x.sk_name == 'univmon' and hasattr(x, 'levels')
+       and hasattr(x, 'logcols_emem')):
         x.m_access_time = get_mem_access_time(x.mem * x.levels)
     return (mem_const + x.rows * x.m_access_time)
 
@@ -155,18 +156,37 @@ for skid, sketch in enumerate(sketches):
     bench_list.sort(key=lambda x: (x.rows, x.hash_units, x.cols))
     if(sketch == 'univmon'):
         bench_list.sort(
-            key=lambda x: (x.hash_units, x.levels, x.rows, x.cols))
+            key=lambda x: (x.levels, x.rows, x.hash_units, x.cols))
 
     diff = []
     for x in bench_list:
         model(x, sketch_params[sketch].hpr,
               sketch_params[sketch].additional_hashes, diff)
 
-    # TODO: group by hash_units
-    extra = ""
+    # grouped_by_hash_units = {}
+    # for x in bench_list:
+    #     grouped_by_hash_units.setdefault(x.hash_units, []).append(x)
+
+    # for hash_units, group in grouped_by_hash_units.items():
+    #     extra = "h{}".format(hash_units)
+    #     file_path = os.path.join(
+    #         plot_dir, 'fpga-model-{}-{}-hs.pdf'.format(sketch, extra))
+    #     evaluation_plot([x for x in group], sketch, file_path)
+
+    label_function = lambda x: 'r{}, h{}, {}'.format(
+        int(x.rows), int(x.hash_units), get_mem_label(x.mem))
+    xlabel = 'Device & Sketch Configuration\n(r[rows], h[hash units], mem in Bytes)'
+    if(sketch =='univmon'):
+        label_function = lambda x: 'l{}, r{}, h{}, {}'.format(
+            int(x.levels), int(x.rows), int(x.hash_units),
+            get_mem_label(x.mem * x.levels))
+        xlabel = ('Device & Sketch Configuration\n(l[levels], '
+                  'r[rows], h[hash units], mem in Bytes)')
+
     file_path = os.path.join(
-        plot_dir, 'fpga-model-{}-{}-hs.pdf'.format(sketch, extra))
-    evaluation_plot([x for x in bench_list], sketch, file_path)
+        plot_dir, 'fpga-model-{}-hs.pdf'.format(sketch))
+    evaluation_plot([x for x in bench_list], sketch,
+                    file_path, label_function, xlabel)
 
     if(len(diff) > 0):
         print("Relative Error [{}]: ".format(sketch), np.average(diff))

@@ -165,19 +165,17 @@ def get_mem_label(m):
         return "{}M".format(int(m / 1024))
 
 
-def evaluation_plot(bench_list, sketch, file_path):
+def evaluation_plot(bench_list, sketch, file_path,
+                    label_function=lambda x: '{}, {}'
+                    .format(int(x.rows), get_mem_label(x.mem)),
+                    xlabel='Sketch Configuration (rows, mem in Bytes)'):
     print("SK: {}, list size: {}".format(
         sketch, len(bench_list)))
     if(len(bench_list) == 0):
         return
 
     fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
-    labels = list(map(lambda x: '{}, {}'.format(
-        int(x.rows), get_mem_label(x.mem)), bench_list))
-    if(sketch =='univmon'):
-        labels = list(map(lambda x: '{}, {}, {}'.format(
-            int(x.levels), int(x.rows),
-            get_mem_label(x.mem * x.levels)), bench_list))
+    labels = list(map(label_function, bench_list))
     ax.plot(labels, list(map(lambda x: x.ns, bench_list)),
             label='Ground Truth', color=colors[5], marker='s',
             markersize=MARKER_SIZE,
@@ -193,10 +191,7 @@ def evaluation_plot(bench_list, sketch, file_path):
                    handlelength=2.7, handletextpad=0.5)
     l.set_frame_on(False)
 
-    ax.set_xlabel('Sketch Configuration (rows, mem in Bytes)')
-    if(sketch == 'univmon'):
-        ax.set_xlabel('Sketch Configuration (levels, rows, mem in Bytes)')
-
+    ax.set_xlabel(xlabel)
     ax.set_yscale("log", basey=10)
 
     ax.xaxis.set_ticks_position('bottom')
@@ -211,8 +206,13 @@ def evaluation_plot(bench_list, sketch, file_path):
     ax.spines['right'].set_color('none')
 
     num_labels = len(labels)
-    plt.xticks(labels[::int(num_labels/13)])
-    plt.xticks(rotation=90)
+    if(num_labels > 20):
+        plt.xticks(labels[::int(num_labels/13)])
+        plt.xticks(rotation=90)
+    else:
+        plt.xticks(labels)
+        plt.xticks(rotation=45)
+
     # plt.title("CPU profile for {} cores".format(cores))
 
     plt.savefig(file_path, bbox_inches='tight')
