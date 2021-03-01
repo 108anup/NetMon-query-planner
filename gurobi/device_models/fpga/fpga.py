@@ -114,13 +114,24 @@ mem_const = 0  # FIXME: hit and trial fitting
 contract_till = 3  # FIXME: manual (3 points are flat)
 xs, ys, get_mem_access_time = get_mem_params(
     mem_bench_1, mem_bench_2, 0, contract_till)
+MAX_MEM_NS, MAX_MEM_NS_ARG = max([(x.ns - mem_const, x.mem) for x in mem_bench_2])
 
 
 def get_mem_time(x, hpr=1):
-    x.m_access_time = get_mem_access_time(x.mem)
-    if(x.sk_name == 'univmon' and hasattr(x, 'levels')
-       and hasattr(x, 'logcols_emem')):
-        x.m_access_time = get_mem_access_time(x.mem * x.levels)
+    if(not hasattr(x, 'logcols_emem')):
+        x.m_access_time = get_mem_access_time(x.mem)
+        if(x.sk_name == 'univmon' and hasattr(x, 'levels')
+           and hasattr(x, 'logcols_emem')):
+            x.m_access_time = get_mem_access_time(x.mem * x.levels)
+    else:
+        # This is only because some ground truth might use emem even when
+        # the sketch table would fit in the cache
+        cache_time = get_mem_access_time(0)
+        emem_time = get_mem_access_time(MAX_MEM_NS_ARG)
+        emem_qty = (1 << x.logcols_emem) * x.rows * CELL_SIZE / KB2B
+        cache_qty = (1 << x.logcols) * x.rows * CELL_SIZE / KB2B
+        x.m_access_time = emem_time * emem_qty / x.mem
+        x.m_access_time += cache_time * cache_qty / x.mem
     return (mem_const + x.rows * x.m_access_time)
 
 
@@ -141,7 +152,11 @@ for skid, sketch in enumerate(sketches):
     ground_truth = read_bench('ground_truth_{}.csv'.format(sketch),
                               update_entry)
     bench_list.extend(ground_truth)
-        
+    ground_truth_emem = read_bench('ground_truth_{}-emem.csv'.format(sketch),
+                                   update_entry)
+    bench_list.extend(ground_truth_emem)
+
+
     if(sketch == 'count-min-sketch'):
         bench_list.extend(mem_bench)
         bench_list.extend(hash_bench)
