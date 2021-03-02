@@ -37,16 +37,6 @@ class Device(Namespace):
     def get_ns(self, md):
         return 1000 / self.line_thr
 
-
-# * CPU
-class CPU(Device):
-    fraction_parallel = 1
-    # static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
-    # s_rows = [0, 2, 3, 4, 5, 6, 7, 8, 9]
-    # cache = {}  # HOLD: see if there is more performant cache
-    fixed_thr = False
-    cols_pwr_2 = False
-
     def get_pdt_var(self, a, b, pdt_name, m, direction):
         m.update()
         pdt = m.addVar(vtype=GRB.CONTINUOUS,
@@ -95,6 +85,16 @@ class CPU(Device):
         #     sys.exit(-1)
         return pdt
 
+
+# * CPU
+class CPU(Device):
+    fraction_parallel = 1
+    # static_loads = [0, 6, 12, 18, 24, 30, 43, 49, 55]
+    # s_rows = [0, 2, 3, 4, 5, 6, 7, 8, 9]
+    # cache = {}  # HOLD: see if there is more performant cache
+    fixed_thr = False
+    cols_pwr_2 = False
+
     # What resources are needed for given placement and ns_req
     def set_thr(self, md, ns_req):
         assert(ns_req > 0)
@@ -118,16 +118,17 @@ class CPU(Device):
             md.infeasible = True
 
     def add_ns_constraints(self, m, md, ns_req=None):
-        # rows = md.rows_tot
-        mem = md.mem_tot
-        rows_thr = md.rows_thr
+        hashes_per_packet_thr = md.hashes_per_packet_thr
+        mem_updates_per_packet_thr = md.mem_updates_per_packet_thr
+        uniform_mem_tot = md.uniform_mem_tot
 
         # Either both should be True or neither should be True
-        assert(isinstance(rows_thr, (int, float))
-               == isinstance(mem, (int, float)))
-        if(isinstance(rows_thr, (int, float))):
-            md.m_access_time = self.get_mem_access_time(mem)
-            md.ns_single = rows_thr * (md.m_access_time + self.hash_ns)
+        assert(isinstance(hashes_per_packet_thr, (int, float))
+               == isinstance(uniform_mem_tot, (int, float)))
+        if(isinstance(hashes_per_packet_thr, (int, float))):
+            md.m_access_time = self.get_mem_access_time(uniform_mem_tot)
+            md.ns_single = (mem_updates_per_packet_thr * md.m_access_time
+                            + hashes_per_packet_thr * self.hash_ns)
 
             # If it is None then directly use set_thr function
             # Using assert because there is no need for creating model m
@@ -142,19 +143,21 @@ class CPU(Device):
             # TODO:: better fits for mem and t
             md.m_access_time = m.addVar(vtype=GRB.CONTINUOUS, lb=0,
                                         name='m_access_time_{}'.format(self))
-            m.addGenConstrPWL(mem, md.m_access_time, self.mem_par, self.mem_ns,
+            m.addGenConstrPWL(uniform_mem_tot, md.m_access_time,
+                              self.mem_par, self.mem_ns,
                               "mem_access_time_{}".format(self))
             # single core ns model
             # self.t = m.addVar(vtype=GRB.CONTINUOUS, lb=0)
             # m.addGenConstrPWL(rows, self.t, CPU.s_rows, CPU.static_loads)
             md.ns_single = m.addVar(vtype=GRB.CONTINUOUS,
                                     name='ns_single_{}'.format(self))
-            md.pdt_m_rows = self.get_pdt_var(md.m_access_time,
-                                             rows_thr, 'm_rows', m, 1)
+            md.pdt_m_rows = self.get_pdt_var(
+                md.m_access_time,
+                mem_updates_per_packet_thr, 'm_rows', m, 1)
             # m.addConstr(self.t * self.Li_ns[0] + self.pdt_m_rows
             #             + rows * self.hash_ns
             #             <= self.ns_single, name='ns_single_{}'.format(self))
-            m.addConstr(md.pdt_m_rows + rows_thr * self.hash_ns
+            m.addConstr(md.pdt_m_rows + hashes_per_packet_thr * self.hash_ns
                         == md.ns_single,
                         name='ns_single_{}'.format(self))
 
@@ -225,7 +228,7 @@ class CPU(Device):
 
     def res(self, md):
         return (common_config.CPU_CORE_WEIGHT*(md.cores_dpdk + md.cores_sketch)
-                + md.mem_tot/self.Li_size[2])
+                + md.static_mem_tot/self.Li_size[2])
 
     def resource_stats(self, md, r=None):
         if(hasattr(md, 'cores_sketch')):
@@ -248,10 +251,15 @@ class CPU(Device):
                 log.debug("{}: {}".format(k, get_val(v)))
 
     def get_ns(self, md):
-        mem_tot = get_rounded_val(get_val(md.mem_tot))
-        rows_thr = get_rounded_val(get_val(md.rows_thr))
-        m_access_time = self.get_mem_access_time(mem_tot)
-        ns_single = rows_thr * (m_access_time + self.hash_ns)
+        hashes_per_packet_thr = get_rounded_val(get_val(
+            md.hashes_per_packet_thr))
+        mem_updates_per_packet_thr = get_rounded_val(get_val(
+            md.mem_updates_per_packet_thr))
+        uniform_mem_tot = get_rounded_val(get_val(md.uniform_mem_tot))
+
+        m_access_time = self.get_mem_access_time(uniform_mem_tot)
+        ns_single = (mem_updates_per_packet_thr * m_access_time
+                     + hashes_per_packet_thr * self.hash_ns)
         dpdk_single_ns = 1000/self.dpdk_single_core_thr
         f = CPU.fraction_parallel
 
@@ -369,14 +377,6 @@ class Netronome(Device):
     fixed_thr = False
     cols_pwr_2 = True
 
-    def get_pdt_var(self, a, b, pdt_name, m, direction):
-        m.update()
-        pdt = m.addVar(vtype=GRB.CONTINUOUS,
-                       name='pdt_{}_{}'.format(pdt_name, self))
-        m.addQConstr(pdt == a * b,
-                     name='pdt_{}_{}'.format(pdt_name, self))
-        return pdt
-
     def set_thr(self, md, ns_req):
         md.micro_engines = get_rounded_cores(max(
             md.ns_hash_max * self.total_me / ns_req,
@@ -388,16 +388,20 @@ class Netronome(Device):
         md.ns = max(md.ns_hash, md.ns_fwd, md.ns_mem_max)
 
     def add_ns_constraints(self, m, md, ns_req=None):
-        rows_thr = md.rows_thr
-        mem = md.mem_tot
+        hashes_per_packet_thr = md.hashes_per_packet_thr
+        mem_updates_per_packet_thr = md.mem_updates_per_packet_thr
+        uniform_mem_tot = md.uniform_mem_tot
+
         md.ns_fwd_max = 1000 / self.line_thr
 
-        assert(isinstance(rows_thr, (int, float))
-               == isinstance(mem, (int, float)))
-        if(isinstance(rows_thr, (int, float))):
-            md.m_access_time = self.get_mem_access_time(mem)
-            md.ns_mem_max = self.mem_const + rows_thr * md.m_access_time
-            md.ns_hash_max = self.hashing_const + self.hashing_slope * rows_thr
+        assert(isinstance(hashes_per_packet_thr, (int, float))
+               == isinstance(uniform_mem_tot, (int, float)))
+        if(isinstance(hashes_per_packet_thr, (int, float))):
+            md.m_access_time = self.get_mem_access_time(uniform_mem_tot)
+            md.ns_mem_max = self.mem_const \
+                + mem_updates_per_packet_thr * md.m_access_time
+            md.ns_hash_max = self.hashing_const \
+                + self.hashing_slope * hashes_per_packet_thr
 
             if(ns_req is not None):
                 assert(m is None)
@@ -408,19 +412,21 @@ class Netronome(Device):
         else:
             md.m_access_time = m.addVar(vtype=GRB.CONTINUOUS, lb=0,
                                         name='m_access_time_{}'.format(self))
-            m.addGenConstrPWL(mem, md.m_access_time, self.mem_par, self.mem_ns,
+            m.addGenConstrPWL(uniform_mem_tot, md.m_access_time,
+                              self.mem_par, self.mem_ns,
                               "mem_access_time_{}".format(self))
             md.ns_mem_max = m.addVar(vtype=GRB.CONTINUOUS,
                                      name='ns_mem_max_{}'.format(self))
             md.pdt_m_rows = self.get_pdt_var(md.m_access_time,
-                                             rows_thr, 'm_rows', m, 1)
+                                             mem_updates_per_packet_thr,
+                                             'm_rows', m, 1)
             m.addConstr(self.mem_const + md.pdt_m_rows == md.ns_mem_max,
                         name='ns_mem_max_{}'.format(self))
 
             md.ns_hash_max = m.addVar(vtype=GRB.CONTINUOUS,
                                       name='ns_hash_max_{}'.format(self))
             m.addConstr(md.ns_hash_max == self.hashing_const
-                        + rows_thr * self.hashing_slope,
+                        + hashes_per_packet_thr * self.hashing_slope,
                         name='ns_hash_max_{}'.format(self))
 
         '''
@@ -452,10 +458,10 @@ class Netronome(Device):
             md.ns = m.addVar(vtype=GRB.CONTINUOUS,
                              name='ns_{}'.format(self))
             md.pdt_ns_hash_me = self.get_pdt_var(
-                md.ns_hash_max, md.micro_engines,
+                md.ns_hash, md.micro_engines,
                 'ns_hash_me', m, 0)
             md.pdt_ns_fwd_me = self.get_pdt_var(
-                md.ns_fwd_max, md.micro_engines,
+                md.ns_fwd, md.micro_engines,
                 'ns_fwd_me', m, 0)
             m.addConstr(md.pdt_ns_hash_me == md.ns_hash_max * self.total_me)
             m.addConstr(md.pdt_ns_fwd_me == md.ns_fwd_max * self.total_me)
@@ -464,25 +470,30 @@ class Netronome(Device):
 
     def res(self, md):
         return (common_config.ME_WEIGHT * (md.micro_engines)
-                + md.mem_tot/self.emem_size)
+                + md.static_mem_tot/self.emem_size)
 
     def resource_stats(self, md, r=None):
         if(hasattr(md, 'micro_engines')):
             val = get_val(md.micro_engines)
             if(r):
-                r.nic_memory += get_val(md.mem_tot)
+                r.nic_memory += get_val(md.static_mem_tot)
                 r.micro_engines += val
             return "micro_engines: {}".format(val)
         else:
             return ""
 
     def get_ns(self, md):
-        mem_tot = get_rounded_val(get_val(md.mem_tot))
-        rows_thr = get_rounded_val(get_val(md.rows_thr))
+        hashes_per_packet_thr = get_rounded_val(get_val(
+            md.hashes_per_packet_thr))
+        mem_updates_per_packet_thr = get_rounded_val(get_val(
+            md.mem_updates_per_packet_thr))
+        uniform_mem_tot = get_rounded_val(get_val(md.uniform_mem_tot))
 
-        m_access_time = self.get_mem_access_time(mem_tot)
-        ns_mem_max = self.mem_const + rows_thr * m_access_time
-        ns_hash_max = self.hashing_const + self.hashing_slope * rows_thr
+        m_access_time = self.get_mem_access_time(uniform_mem_tot)
+        ns_mem_max = (self.mem_const
+                      + mem_updates_per_packet_thr * m_access_time)
+        ns_hash_max = (self.hashing_const
+                       + self.hashing_slope * hashes_per_packet_thr)
         ns_fwd_max = 1000 / self.line_thr
         return max(ns_hash_max, ns_fwd_max, ns_mem_max)
 
@@ -516,17 +527,152 @@ class Netronome(Device):
         self.get_mem_access_time = interp1d(self.mem_par, self.mem_ns)
 
 
+# * FPGA
+class FPGA(Device):
+    fixed_thr = False
+    cols_pwr_2 = False
+
+    # Known ns_req, known placement
+    def set_thr(self, md, ns_req):
+        md.hash_units = get_rounded_cores(md.ns_hash / ns_req)
+        if(md.hash_units > self.total_hash_units):
+            md.infeasible = True
+        md.ns_hash = md.ns_hash_single / md.hash_units
+        md.ns = max(md.ns_hash, md.ns_fwd, md.ns_mem)
+
+    # Nothing is known by default, if things are
+    # known appropriate functions are called
+    def add_ns_constraints(self, m, md, ns_req=None):
+        hashes_per_packet_thr = md.hashes_per_packet_thr
+        mem_updates_per_packet_thr = md.mem_updates_per_packet_thr
+        uniform_mem_tot = md.uniform_mem_tot
+
+        md.ns_fwd_max = 1000 / self.line_thr
+        # No way to change this on FPGA, its fixed
+        md.ns_fwd = md.ns_fwd_max
+
+        assert(isinstance(hashes_per_packet_thr, (int, float))
+               == isinstance(uniform_mem_tot, (int, float)))
+        if(isinstance(hashes_per_packet_thr, (int, float))):
+            md.m_access_time = self.get_mem_access_time(uniform_mem_tot)
+            md.ns_mem = self.mem_const \
+                + mem_updates_per_packet_thr * md.m_access_time
+            md.ns_hash_single = self.hashing_const \
+                + self.hashing_slope * hashes_per_packet_thr
+
+            if(ns_req is not None):
+                assert(m is None)
+                return self.set_thr(md, ns_req)
+            else:
+                assert(False)
+
+        else:
+            md.m_access_time = m.addVar(vtype=GRB.CONTINUOUS, lb=0,
+                                        name='m_access_time_{}'.format(self))
+            m.addGenConstrPWL(uniform_mem_tot, md.m_access_time,
+                              self.mem_par, self.mem_ns,
+                              "mem_access_time_{}".format(self))
+            md.ns_mem = m.addVar(vtype=GRB.CONTINUOUS,
+                                 name='ns_mem_{}'.format(self))
+            md.pdt_m_rows = self.get_pdt_var(md.m_access_time,
+                                             mem_updates_per_packet_thr,
+                                             'm_rows', m, 1)
+            m.addConstr(self.mem_const + md.pdt_m_rows == md.ns_mem,
+                        name='ns_mem_max_{}'.format(self))
+
+            md.ns_hash_single = m.addVar(vtype=GRB.CONTINUOUS,
+                                         name='ns_hash_single{}'.format(self))
+            m.addConstr(md.ns_hash_single == self.hashing_const
+                        + hashes_per_packet_thr * self.hashing_slope,
+                        name='ns_hash_{}'.format(self))
+
+        '''
+        If rows and mem are not known then m_access_time * rows requires
+        non-convexity
+        If ns_req is not present then Amdahl's law requires non-convexity
+        If both are known then use set_thr
+        '''
+
+        # Parallelism
+        md.hash_units = m.addVar(vtype=GRB.INTEGER, lb=0,
+                                 ub=self.total_hash_units,
+                                 name='hash_units_{}'.format(self))
+        if(ns_req):
+            m.addConstr(ns_req * md.hash_units >=
+                        md.ns_hash,
+                        name='ns_req_hash_{}'.format(self))
+            m.addConstr(md.ns_mem <= ns_req,
+                        name='ns_req_mem_{}'.format(self))
+        else:
+            md.ns_hash = m.addVar(vtype=GRB.CONTINUOUS,
+                                  name='ns_hash_{}'.format(self), lb=0)
+            md.ns = m.addVar(vtype=GRB.CONTINUOUS,
+                             name='ns_{}'.format(self))
+            md.pdt_ns_hash_hu = self.get_pdt_var(
+                md.ns_hash, md.hash_units,
+                'ns_hash_hu', m, 0)
+            m.addConstr(md.pdt_ns_hash_hu == md.ns_hash_single)
+            m.addGenConstrMax(md.ns, [md.ns_hash, md.ns_mem, md.ns_fwd],
+                              name='ns_{}'.format(self))
+
+    def res(self, md):
+        return (common_config.HASH_UNIT_WEIGHT * (md.hash_units)
+                + md.static_mem_tot/self.bram_size)
+
+    def resource_stats(self, md, r=None):
+        if(hasattr(md, 'hash_units')):
+            val = get_val(md.hash_units)
+            if(r):
+                r.fpga_memory += get_val(md.static_mem_tot)
+                r.fpga_hash_units += val
+            return "hash_units: {}".format(val)
+        else:
+            return ""
+
+    # Known placement only, return best possible ns
+    def get_ns(self, md):
+        hashes_per_packet_thr = get_rounded_val(get_val(
+            md.hashes_per_packet_thr))
+        mem_updates_per_packet_thr = get_rounded_val(get_val(
+            md.mem_updates_per_packet_thr))
+        uniform_mem_tot = get_rounded_val(get_val(md.uniform_mem_tot))
+
+        m_access_time = self.get_mem_access_time(uniform_mem_tot)
+        ns_mem = (self.mem_const
+                  + mem_updates_per_packet_thr * m_access_time)
+        ns_hash_single = (self.hashing_const
+                          + self.hashing_slope * hashes_per_packet_thr)
+        ns_fwd = 1000 / self.line_thr
+        ns_bottleneck = max(ns_fwd, ns_mem)
+        # Number of hash_units such that either all used
+        # or hashing does not become bottleneck
+        hash_units = min(
+            self.total_hash_units,
+            get_rounded_cores(md.ns_hash_single / ns_bottleneck)
+        )
+        ns_hash = ns_hash_single / hash_units
+        return max(ns_hash, ns_fwd, ns_mem)
+
+    def __init__(self, *args, **kwargs):
+        super(FPGA, self).__init__(*args, **kwargs)
+        from scipy.interpolate import interp1d
+        self.get_mem_access_time = interp1d(self.mem_par, self.mem_ns)
+
+
 # * P4
 class P4(Device):
     fixed_thr = True
     cols_pwr_2 = True
 
     def add_ns_constraints(self, m, md, ns_req=None):
+        hashes_per_packet_thr = md.hashes_per_packet_thr
+        uniform_mem_tot = md.uniform_mem_tot
+
         md.ns = 1000 / self.line_thr
         if(ns_req):
-            assert(isinstance(md.rows_tot, (int, float))
-                   == isinstance(md.mem_tot, (int, float)))
-            if(isinstance(md.rows_tot, (int, float))):
+            assert(isinstance(hashes_per_packet_thr, (int, float))
+                   == isinstance(uniform_mem_tot, (int, float)))
+            if(isinstance(hashes_per_packet_thr, (int, float))):
                 assert(m is None)  # TODO: can remove later
             assert(md.ns <= ns_req)
         # md.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
@@ -538,11 +684,12 @@ class P4(Device):
         #     m.addConstr(md.ns <= ns_req, name='max_ns_{}'.format(self))
 
     def res(self, md):
-        return md.rows_tot/self.meter_alus + md.mem_tot/self.sram
+        return md.static_hashes_tot/self.meter_alus \
+            + md.static_mem_tot/self.sram
 
     def resource_stats(self, md, r=None):
         if(hasattr(md, 'mem_tot') and r):
-            r.switch_memory += get_val(md.mem_tot)
+            r.switch_memory += get_val(md.static_mem_tot)
         return ""
 
     def __init__(self, *args, **kwargs):
@@ -592,11 +739,11 @@ class Cluster(Device):
 
     @property
     @memoize
-    def max_rows(self):
-        mr = 0
+    def max_hashes(self):
+        mh = 0
         for d in self.transitive_closure():
-            mr += d.max_rows
-        return mr
+            mh += d.max_hashes
+        return mh
 
     @property
     @memoize

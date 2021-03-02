@@ -13,7 +13,7 @@ import networkx as nx
 import numpy as np
 from sklearn.metrics.pairwise import pairwise_distances
 from sklearn.cluster import KMeans, SpectralClustering
-from sklearn.cluster.spectral import discretize
+from sklearn.cluster._spectral import discretize
 from sklearn_extra.cluster import KMedoids
 from sklearn.decomposition import PCA
 

@@ -63,11 +63,16 @@ Above are not relevant any more
 
 
 def no_traffic_md(md):
-    md.rows_tot = 0
-    md.rows_thr = 0
-    md.mem_tot = 0
-    md.normalized_rows_thr_tot = 0
-    md.normalized_mem_tot = 0
+    md.static_hashes_tot = 0
+    md.hashes_per_packet_thr = 0
+    md.mem_updates_per_packet_thr = 0
+    md.static_mem_tot = 0
+    md.uniform_mem_tot = 0
+
+    # used for univmon only
+    md.normalized_hashes_per_packet_thr_tot = 0
+    md.normalized_static_mem_tot = 0
+
     if(not common_config.perf_obj):
         md.ns_req = constants.NS_LARGEST
     md.ns = constants.NS_SMALLEST
@@ -75,6 +80,8 @@ def no_traffic_md(md):
 # elements of md_list are updated in place
 @log_time(logger=log.info)
 def refine_devices(devices, md_list, placement_fixed=True, static=False):
+    # TODO: terminology used in this function can be changed
+    # This can be made more readable and organized.
     static = static or common_config.static
     #, just_collect=False):
     ns_max = None
@@ -82,23 +89,26 @@ def refine_devices(devices, md_list, placement_fixed=True, static=False):
         ns_max = 0
         for (dnum, d) in enumerate(devices):
             md = md_list[dnum]
-            if(not hasattr(md, 'mem_tot')):
-                assert(not hasattr(md, 'rows_tot'))
-                md.mem_tot = 0
-                md.rows_tot = 0
-                md.rows_thr = 0
+            if(not hasattr(md, 'static_mem_tot')):
+                assert(not hasattr(md, 'static_hashes_tot'))
+                md.static_mem_tot = 0
+                md.uniform_mem_tot = 0
+                md.static_hashes_tot = 0
+                md.hashes_per_packet_thr = 0
+                md.mem_updates_per_packet_thr = 0
 
             ns_max = max(ns_max, d.get_ns(md))
 
     r = Namespace(ns_max=0, res=0, total_CPUs=0, micro_engines=0,
-                  used_cores=0, switch_memory=0, nic_memory=0)
+                  used_cores=0, switch_memory=0, nic_memory=0,
+                  fpga_memory=0, fpga_hash_units=0)
     for (dnum, d) in enumerate(devices):
         md = md_list[dnum]
 
         # refine should not be called with clusters
         assert(hasattr(d, 'fixed_thr'))
-        if(not hasattr(md, 'mem_tot')):
-            assert(not hasattr(md, 'rows_tot'))
+        if(not hasattr(md, 'static_mem_tot')):
+            assert(not hasattr(md, 'static_hashes_tot'))
             # These are uninitialized when device was never a part of
             # any optimization as it did not have any flows
             # TODO: Assign 0 resources based on device type
@@ -108,24 +118,39 @@ def refine_devices(devices, md_list, placement_fixed=True, static=False):
             assert(not common_config.perf_obj)
 
         if(not d.fixed_thr):
-            mem_tot_old = md.mem_tot
-            rows_tot_old = md.rows_tot
-            rows_thr_old = md.rows_thr
-            md.mem_tot = get_rounded_val(get_val(md.mem_tot))
-            md.rows_tot = get_rounded_val(get_val(md.rows_tot))
-            md.rows_thr = get_rounded_val(get_val(md.rows_thr))
+            # static here means that resources are statically allocated by compiler
+            static_mem_tot_old = md.static_mem_tot
+            static_hashes_tot_old = md.static_hashes_tot
+            hashes_per_packet_thr_old = md.hashes_per_packet_thr
+            mem_updates_per_packet_thr_old = md.mem_updates_per_packet_thr
+            uniform_mem_tot_old = md.uniform_mem_tot
+
+            md.static_mem_tot = get_rounded_val(get_val(md.static_mem_tot))
+            md.static_hashes_tot = get_rounded_val(get_val(md.static_hashes_tot))
+            md.hashes_per_packet_thr = get_rounded_val(
+                get_val(md.hashes_per_packet_thr))
+            md.mem_updates_per_packet_thr = get_rounded_val(get_val(
+                md.mem_updates_per_packet_thr))
+            md.uniform_mem_tot = get_rounded_val(get_val(md.uniform_mem_tot))
+
             # if(not just_collect):
+            # static here means that placement was fixed
+            # (used for baseline with allocation)
             if(static):
                 ns_max = d.get_ns(md)
                 d.add_ns_constraints(None, md, ns_max)
             else:
                 d.add_ns_constraints(None, md, getattr(md, 'ns_req', ns_max))
             d.resource_stats(md, r)
+            # placement fixed means that just calculated ns_max
+            # based on Univmon placement
             if(not placement_fixed):
                 # Will be used by Netmon in later optimization
-                md.mem_tot = mem_tot_old
-                md.rows_tot = rows_tot_old
-                md.rows_thr = rows_thr_old
+                md.static_mem_tot = static_mem_tot_old
+                md.uniform_mem_tot = uniform_mem_tot_old
+                md.static_hashes_tot = static_hashes_tot_old
+                md.hashes_per_packet_thr = hashes_per_packet_thr_old
+                md.mem_updates_per_packet_thr = mem_updates_per_packet_thr_old
         else:
             # if(not just_collect):
             d.add_ns_constraints(None, md, getattr(md, 'ns_req', ns_max))
@@ -196,9 +221,12 @@ class MIP(Namespace):
                 name='frac')
 
         # Memory taken by partition
-        self.mem = self.m.addVars(
+        self.static_mem = self.m.addVars(
             self.dev_par_tuplelist, vtype=GRB.CONTINUOUS,
-            lb=0, name='mem')
+            lb=0, name='static_mem')
+        self.uniform_mem = self.m.addVars(
+            self.dev_par_tuplelist, vtype=GRB.CONTINUOUS,
+            lb=0, name='uniform_mem')
 
         # Ceiling
         # rows = m.addVars(numdevices, numpartitions, vtype=GRB.BINARY,
@@ -248,7 +276,6 @@ class MIP(Namespace):
 
     @log_time
     def add_accuracy_constraints(self):
-
         for (dnum, pnum) in self.dev_par_tuplelist:
 
             self.cols = tupledict()
@@ -257,14 +284,21 @@ class MIP(Namespace):
             p = self.partitions[pnum]
             sk = p.sketch
             num_rows = p.num_rows
-            mm = sk.min_mem()
+
+            mpr = sk.memory_per_row()
             d = self.devices[dnum]
+            power_of_2_multiplier = 1
 
             if(d.cols_pwr_2):
-                mm = 2 ** math.ceil(math.log2(mm))
-            self.m.addConstr(self.mem[dnum, pnum] ==
-                             mm * self.frac[dnum, pnum] * num_rows,
+                power_of_2_multiplier = 2 ** math.ceil(math.log2(mpr)) / mpr
+            self.m.addConstr(self.static_mem[dnum, pnum] ==
+                             sk.total_mem(num_rows) * power_of_2_multiplier
+                             * self.frac[dnum, pnum],
                              name='accuracy_{}_{}'.format(dnum, pnum))
+            self.m.addConstr(self.uniform_mem[dnum, pnum] ==
+                             sk.uniform_mem(num_rows) * power_of_2_multiplier
+                             * self.frac[dnum, pnum],
+                             name='uniform_mem_{}_{}'.format(dnum, pnum))
 
             # if(not common_config.vertical_partition):
             #     if isinstance(d, P4):
@@ -332,12 +366,23 @@ class MIP(Namespace):
 
     @log_time
     def add_capacity_constraints(self):
+        """
+        This function apart from adding memory constraints, creates
+        variables for book keeping total normalized rows/mem.
+
+        The memory constraints are added using variable upper bounds.
+
+        Note, the rows capacity constraints are added in
+        MIP.add_device_aware_constraints
+
+        NOTE: For now Univmon only using static mem for greedy things.
+        """
         mem_list = [
             d.max_mem
             for d in self.devices]
         total_avg_mem = int(np.sum(mem_list)/len(mem_list))
         rows_list = [
-            d.max_rows
+            d.max_hashes
             for d in self.devices]
         total_avg_rows = int(np.sum(rows_list)/len(rows_list))
 
@@ -347,80 +392,131 @@ class MIP(Namespace):
             if(len(self.dev_par_tuplelist.select(dnum, '*')) > 0):
                 # Memory constraints
                 # Capacity constraints included in bounds
-                mem_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                        name='mem_tot_{}'.format(d),
-                                        lb=0, ub=d.max_mem)
-                self.m.addConstr(mem_tot == self.mem.sum(dnum, '*'),
-                                 name='mem_tot_{}'.format(d))
-                md.mem_tot = mem_tot
-                normalized_mem_tot = self.m.addVar(
+
+                uniform_mem_tot = self.m.addVar(
+                    vtype=GRB.CONTINUOUS,
+                    name='uniform_mem_tot_{}'.format(d),
+                    lb=0, ub=d.max_mem)
+                self.m.addConstr(
+                    uniform_mem_tot == self.uniform_mem.sum(dnum, '*'),
+                    name='uniform_mem_{}'.format(d))
+                md.uniform_mem_tot = uniform_mem_tot
+
+                static_mem_tot = self.m.addVar(
+                    vtype=GRB.CONTINUOUS,
+                    name='static_mem_tot_{}'.format(d),
+                    lb=0, ub=d.max_mem)
+                self.m.addConstr(
+                    static_mem_tot == self.static_mem.sum(dnum, '*'),
+                    name='static_mem_{}'.format(d))
+                md.static_mem_tot = static_mem_tot
+
+                normalized_static_mem_tot = self.m.addVar(
                     vtype=GRB.CONTINUOUS,
                     name='normalized_mem_tot_{}'.format(d),
                     lb=0)
-                self.m.addConstr(normalized_mem_tot ==
-                                 (total_avg_mem * mem_tot) / d.max_mem)
-                md.normalized_mem_tot = normalized_mem_tot
+                self.m.addConstr(normalized_static_mem_tot ==
+                                 (total_avg_mem * static_mem_tot) / d.max_mem)
+                md.normalized_static_mem_tot = normalized_static_mem_tot
 
-                # Row constraints
-                rows_tot = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                         name='rows_tot_{}'.format(d), lb=0)
-                normalized_rows_thr_tot = self.m.addVar(
+                # Row constraints for bookkeeping variables
+                static_hashes_tot = self.m.addVar(
                     vtype=GRB.CONTINUOUS,
-                    name='normalized_rows_thr_tot_{}'.format(d),
+                    name='static_hashes_tot_{}'.format(d), lb=0)
+                normalized_hashes_per_packet_thr_tot = self.m.addVar(
+                    vtype=GRB.CONTINUOUS,
+                    name='normalized_hashes_per_packet_thr_tot_{}'.format(d),
                     lb=0)
-                rows_thr = self.m.addVar(vtype=GRB.CONTINUOUS,
-                                         name='rows_thr_{}'.format(d), lb=0)
+                hashes_per_packet_thr = self.m.addVar(
+                    vtype=GRB.CONTINUOUS,
+                    name='hashes_per_packet_thr_{}'.format(d), lb=0)
+                mem_updates_per_packet_thr = self.m.addVar(
+                    vtype=GRB.CONTINUOUS,
+                    name='mem_udpates_per_packet_thr_{}'.format(d), lb=0)
 
-                rows_series = []
-                rows_thr_series = []
+                static_hashes_series = []
+                hashes_per_packet_thr_series = []
+                mem_updates_per_packet_thr_series = []
                 for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
                     p = self.partitions[pnum]
-                    rows_series.append(
-                        p.num_rows * self.frac[dnum, pnum]
+                    static_hashes_series.append(
+                        p.sketch.hashes_per_packet(p.num_rows)
+                        * self.frac[dnum, pnum]
                     )
-                    rows_thr_series.append(
-                        p.num_rows * self.frac[dnum, pnum]
+                    hashes_per_packet_thr_series.append(
+                        p.sketch.hashes_per_packet(p.num_rows)
+                        * self.frac[dnum, pnum]
+                        * self.dev_par_thr[dnum, pnum])
+                    mem_updates_per_packet_thr_series.append(
+                        p.sketch.mem_updates_per_packet(p.num_rows)
+                        * self.frac[dnum, pnum]
                         * self.dev_par_thr[dnum, pnum])
                 # rows_series = [p.num_rows * frac[dnum, p.partition_id]
                 #                for p in self.partitions]
-                self.m.addConstr(rows_tot == gp.quicksum(rows_series),
-                                 name='rows_tot_{}'.format(d))
-                if (len(rows_thr_series) > 0):
+                if (len(hashes_per_packet_thr_series) > 0):
                     if(md.total_thr == 0):
-                        print(rows_series)
-                        print(rows_thr_series)
+                        """
+                        It should not be the case that there is device
+                        without traffic that must hold a sketch.
+                        This means that the input is malformed, or there
+                        some bug in the input helper functions.
+                        """
+                        print(static_hashes_series)
+                        print(hashes_per_packet_thr_series)
+                        assert(False)
                     self.m.addConstr(
-                        rows_thr ==
-                        gp.quicksum(rows_thr_series) / md.total_thr,
-                        name='rows_thr_{}'.format(d))
+                        hashes_per_packet_thr ==
+                        gp.quicksum(hashes_per_packet_thr_series)
+                        / md.total_thr,
+                        name='hashes_per_packet_thr_{}'.format(d))
+                    self.m.addConstr(
+                        mem_updates_per_packet_thr ==
+                        gp.quicksum(mem_updates_per_packet_thr_series)
+                        / md.total_thr,
+                        name='mem_updates_per_packet_thr_{}'.format(d))
+                    self.m.addConstr(static_hashes_tot
+                                     == gp.quicksum(static_hashes_series),
+                                     name='static_hashes_tot_{}'.format(d))
                 else:
                     self.m.addConstr(
-                        rows_thr == 0,
-                        name='rows_thr_{}'.format(d))
+                        hashes_per_packet_thr == 0,
+                        name='hashes_per_packet_thr_{}'.format(d))
+                    self.m.addConstr(
+                        mem_updates_per_packet_thr == 0,
+                        name='hashes_per_packet_thr_{}'.format(d))
+                    self.m.addConstr(static_hashes_tot == 0,
+                                     name='static_hashes_tot_{}'.format(d))
 
-                md.rows_tot = rows_tot
-                md.rows_thr = rows_thr
+                md.static_hashes_tot = static_hashes_tot
+                md.hashes_per_packet_thr = hashes_per_packet_thr
+                md.mem_updates_per_packet_thr = mem_updates_per_packet_thr
                 if(not common_config.perf_obj):
                     md.ns_req = 1000 / md.total_thr
-                self.m.addConstr(normalized_rows_thr_tot ==
-                                 (total_avg_rows * rows_thr) / d.max_rows)
-                md.normalized_rows_thr_tot = normalized_rows_thr_tot
+                self.m.addConstr(normalized_hashes_per_packet_thr_tot ==
+                                 (total_avg_rows * hashes_per_packet_thr)
+                                 / d.max_hashes)
+                md.normalized_hashes_per_packet_thr_tot = \
+                    normalized_hashes_per_packet_thr_tot
                 md.m = self.m
             else:
                 no_traffic_md(md)
 
     def add_device_aware_constraints(self):
+        """
+        Constraints that mostly basically ensure
+        that the sketch fits in P4 switch.
+        """
         for (dnum, d) in enumerate(self.devices):
             md = self.md_list[dnum]
-            self.m.addConstr(md.rows_tot <= d.max_rows,
-                             name='row_capacity_{}'.format(d))
+            self.m.addConstr(md.static_hashes_tot <= d.max_hashes,
+                             name='static_row_capacity_{}'.format(d))
 
             if hasattr(d, 'max_mpr'):
                 for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
                     p = self.partitions[pnum]
                     self.m.addConstr(
-                        self.mem[dnum, pnum] <= d.max_mpr * p.num_rows,
-                        'capacity_mem_par_{}_{}'.format(pnum, d))
+                        self.static_mem[dnum, pnum] <= d.max_mpr * p.num_rows,
+                        'static_capacity_mem_par_{}_{}'.format(pnum, d))
 
     def add_constraints(self):
         pass
@@ -434,12 +530,12 @@ class MIP(Namespace):
     def check_device_aware_constraints(self):
         for (dnum, d) in enumerate(self.devices):
             md = self.md_list[dnum]
-            if not (get_val(md.rows_tot) <= d.max_rows):
+            if not (get_val(md.static_hashes_tot) <= d.max_hashes):
                 return False
             if hasattr(d, 'max_mpr'):
                 for (_, pnum) in self.dev_par_tuplelist.select(dnum, '*'):
                     p = self.partitions[pnum]
-                    if not (get_val(self.mem[dnum, pnum])
+                    if not (get_val(self.static_mem[dnum, pnum])
                             <= d.max_mpr * p.num_rows):
                         return False
         return True
@@ -451,11 +547,13 @@ class MIP(Namespace):
             md = self.md_list[dnum]
 
             # adding these constraints here
-            assert(isinstance(md.mem_tot, gp.Var) or md.mem_tot == 0)
-            assert(isinstance(md.rows_tot, gp.Var) or md.rows_tot == 0)
+            assert(isinstance(md.static_mem_tot, gp.Var)
+                   or md.static_mem_tot == 0)
+            assert(isinstance(md.static_hashes_tot, gp.Var)
+                   or md.static_hashes_tot == 0)
 
-            if(isinstance(md.mem_tot, gp.Var)
-               or isinstance(md.rows_tot, gp.Var)):
+            if(isinstance(md.static_mem_tot, gp.Var)
+               or isinstance(md.static_hashes_tot, gp.Var)):
                 # Throughput
                 # Simple total model
                 d.add_ns_constraints(self.m, md, getattr(md, 'ns_req', ns_max))
@@ -474,13 +572,23 @@ class MIP(Namespace):
 
     def initialize(self):
         for (dnum, pnum) in self.dev_par_tuplelist:
-            self.mem[dnum, pnum].start = self.init.mem[dnum, pnum]
-            self.frac[dnum, pnum].start = self.init.frac[dnum, pnum]
+            if(hasattr(self.init, 'static_mem')):
+                self.static_mem[dnum, pnum].start = \
+                    get_val(self.init.static_mem[dnum, pnum])
+            if((dnum, pnum) in self.init.frac):
+                self.frac[dnum, pnum].start = \
+                    get_val(self.init.frac[dnum, pnum])
+            else:
+                self.frac[dnum, pnum].start = 0
 
         # log_initial(self.devices, self.partitions, self.flows,
         #             self.dev_par_tuplelist, self.init)
 
     def add_check_constraints(self):
+        """
+        Used for debugging whether clustering total resources used is
+        same as no clustering total resources used.
+        """
         for (dnum, pnum) in self.dev_par_tuplelist:
             if((dnum, pnum) in self.check.frac):
                 self.m.addConstr(
@@ -591,7 +699,7 @@ class MIP(Namespace):
 class Univmon(MIP):
 
     def add_constraints(self):
-        mem_series = [md.mem_tot for md in self.md_list]
+        mem_series = [md.static_mem_tot for md in self.md_list]
         self.max_mem = self.m.addVar(vtype=GRB.CONTINUOUS, name='max_mem')
         self.m.addGenConstrMax(self.max_mem, mem_series, name='mem_overall')
         self.tot_mem = self.m.addVar(vtype=GRB.CONTINUOUS,
@@ -685,14 +793,14 @@ class UnivmonGreedy(Univmon):
     fixed_thr = (P4)
 
     def add_constraints(self):
-        mem_series_fixed_thr = [self.md_list[dnum].mem_tot
+        mem_series_fixed_thr = [self.md_list[dnum].static_mem_tot
                                 for (dnum, d) in enumerate(self.devices)
                                 if isinstance(d, self.fixed_thr)]
-        mem_series_others = [self.md_list[dnum].mem_tot
+        mem_series_others = [self.md_list[dnum].static_mem_tot
                              for (dnum, d) in enumerate(self.devices)
                              if not isinstance(d, self.fixed_thr)]
         normalized_mem_series_others = [
-            self.md_list[dnum].normalized_mem_tot
+            self.md_list[dnum].normalized_static_mem_tot
             for (dnum, d) in enumerate(self.devices)
             if (not isinstance(d, self.fixed_thr))]
 
@@ -739,32 +847,45 @@ class UnivmonGreedyRows(UnivmonGreedy):
     def add_constraints(self):
         super(UnivmonGreedyRows, self).add_constraints()
 
-        rows_thr_series_fixed_thr = [self.md_list[dnum].rows_tot
-                                     for (dnum, d) in enumerate(self.devices)
-                                     if isinstance(d, self.fixed_thr)]
-        rows_thr_series_others = [self.md_list[dnum].rows_tot
-                                  for (dnum, d) in enumerate(self.devices)
-                                  if not isinstance(d, self.fixed_thr)]
-        normalized_rows_thr_series_others = [
-            self.md_list[dnum].normalized_rows_thr_tot
+        """
+        The logic here is that, normalization is only needed for others
+        as fixed thr is only P4 and does not need to be normalized.
+
+        NOTE: self.fixed_thr is a tuple defined in UnivmonGreedy
+
+        Currently minimizing sum of static_hashes over all devices and
+        max of normalized hashes. TODO: Check if this actually makes sense.
+        """
+
+        static_rows_series_fixed_thr = [
+            self.md_list[dnum].static_hashes_tot
+            for (dnum, d) in enumerate(self.devices)
+            if isinstance(d, self.fixed_thr)]
+        static_rows_series_others = [
+            self.md_list[dnum].static_hashes_tot
+            for (dnum, d) in enumerate(self.devices)
+            if not isinstance(d, self.fixed_thr)]
+        normalized_hashes_per_packet_thr_series_others = [
+            self.md_list[dnum].normalized_hashes_per_packet_thr_tot
             for (dnum, d) in enumerate(self.devices)
             if (not isinstance(d, self.fixed_thr))]
 
-        if(len(rows_thr_series_fixed_thr) > 0):
+        if(len(static_rows_series_fixed_thr) > 0):
             self.max_rows_fixed_thr = self.m.addVar(vtype=GRB.CONTINUOUS,
                                                     name='max_rows_fixed_thr')
             self.m.addGenConstrMax(self.max_rows_fixed_thr,
-                                   rows_thr_series_fixed_thr,
+                                   static_rows_series_fixed_thr,
                                    name='rows_overall_fixed_thr')
-            self.tot_rows_fixed_thr = gp.quicksum(rows_thr_series_fixed_thr)
+            self.tot_rows_fixed_thr = gp.quicksum(static_rows_series_fixed_thr)
 
-        if(len(rows_thr_series_others) > 0):
+        if(len(static_rows_series_others) > 0):
             self.max_rows_others = self.m.addVar(
                 vtype=GRB.CONTINUOUS, name='max_rows_others')
-            self.m.addGenConstrMax(self.max_rows_others,
-                                   normalized_rows_thr_series_others,
-                                   name='rows_overall_others')
-            self.tot_rows_others = gp.quicksum(rows_thr_series_others)
+            self.m.addGenConstrMax(
+                self.max_rows_others,
+                normalized_hashes_per_packet_thr_series_others,
+                name='rows_overall_others')
+            self.tot_rows_others = gp.quicksum(static_rows_series_others)
 
         # self.tot_rows = self.m.addVar(vtype=GRB.CONTINUOUS,
         #                               name='tot_rows')
@@ -891,7 +1012,7 @@ class Netmon(UnivmonGreedyRows):
                 # self.mem[dnum, pnum].ub = self.mem[dnum, pnum].x
                 # self.mem[dnum, pnum].lb = self.mem[dnum, pnum].x
                 self.frac[dnum, pnum].start = self.frac[dnum, pnum].x
-                self.mem[dnum, pnum].start = self.mem[dnum, pnum].x
+                self.static_mem[dnum, pnum].start = self.static_mem[dnum, pnum].x
 
             # # NOTE:: Check this!
             # With both netro and CPU UGR solution may not be optimal
@@ -1028,20 +1149,23 @@ def log_results(devices, r, md_list, logger=log.info,
     log.info("Resources: {}".format(r.res))
     if(r.total_CPUs is not None and r.used_cores is not None
        and r.switch_memory is not None and r.micro_engines is not None
-       and r.nic_memory is not None):
+       and r.nic_memory is not None and r.fpga_memory is not None
+       and r.fpga_hash_units is not None):
         log.info("Used Cores: {}, Total CPUS: {}, "
                  "Switch Memory: {}, \n"
-                 "Micro-enginges: {}, NIC Memory: {}"
+                 "Micro-enginges: {}, NIC Memory: {}\n"
+                 "FPGA-hash_units: {}, FPGA Memory: {}"
                  .format(r.used_cores, r.total_CPUs,
                          r.switch_memory, r.micro_engines,
-                         r.nic_memory))
+                         r.nic_memory, r.fpga_hash_units,
+                         r.fpga_memory))
 
     if(common_config.results_file is not None and elapsed is not None):
         f = open(common_config.results_file, 'a')
-        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {:0.3f}, {}, ".format(
+        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {:0.3f}, {:0.3f}, {:0.3f}, {}, ".format(
             1000/r.ns_max, r.res,
             r.used_cores, r.total_CPUs, r.switch_memory,
-            r.nic_memory, elapsed))
+            r.nic_memory, r.fpga_hash_units, r.fpga_memory, elapsed))
         f.close()
 
         # Logging for analysis
@@ -1111,8 +1235,8 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
             prev_q_id = q.sketch_id
 
         logger("Par{} id: {}, Rows: {}"
-                  .format(p.partition_id - q.partitions[0],
-                          p.partition_id, p.num_rows))
+               .format(p.partition_id - q.partitions[0],
+                       p.partition_id, p.num_rows))
         par_info = ""
         total_frac = 0
         for (dnum, _) in dev_par_tuplelist.select('*', pnum):
@@ -1128,9 +1252,10 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
         res_stats = d.resource_stats(md)
         if(res_stats != ""):
             log.debug(res_stats)
-        log.debug("Rows total: {}".format(get_val(md.rows_tot)))
-        log.debug("Expected updates: {}".format(get_val(md.rows_thr)))
-        log.debug("Mem total: {}".format(get_val(md.mem_tot)))
+        log.debug("Static Hashes total: {}".format(get_val(md.static_hashes_tot)))
+        log.debug("Expected hashes: {}".format(
+            get_val(md.hashes_per_packet_thr)))
+        log.debug("Static Mem total: {}".format(get_val(md.static_mem_tot)))
         if(hasattr(md, 'ns_sketch')):
             log.debug("ns_sketch: {}".format(get_val(md.ns_sketch)))
         if(hasattr(md, 'ns_dpdk')):
