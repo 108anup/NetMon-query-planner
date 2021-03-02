@@ -25,6 +25,7 @@ class Topology(ABC):
     def __init__(self):
         self.num_nics = self.num_netronome + self.num_fpga
         self.switches_start_idx = self.num_hosts + self.num_nics
+
         self.sketch_load = {}
         num_sk_types = len(all_sketches)
         self.num_queries = num_sk_types * math.ceil(self.num_queries / num_sk_types)

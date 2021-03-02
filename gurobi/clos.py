@@ -17,13 +17,14 @@ from input import (Input, draw_graph, draw_overlay_over_tenant, fold,
                    get_hdbscan_overlay, get_kmedoids_overlay, flatten,
                    get_kmedoids_centers, get_2_level_overlay)
 from profiles import agiliocx40gbe, beluga20, tofino, dc_line_rate, alveo_u280
-from sketches import cm_sketch, cs_sketch, univmon
+from sketches import cm_sketch, cs_sketch, univmon, all_sketches
 import matplotlib.pyplot as plt
 
 eps0 = constants.eps0
 del0 = constants.del0
+levels0 = constants.levels0
 
-
+# TODO: Make clos inherit from topo
 class Clos(object):
     '''
     Adapted from:
@@ -55,6 +56,13 @@ class Clos(object):
             elif(pods < 22):
                 self.hosts_per_tenant = self.podsby2
         self.overlay = overlay
+
+        self.sketch_load = {}
+        num_sk_types = len(all_sketches)
+        self.num_queries = num_sk_types * math.ceil(self.num_queries / num_sk_types)
+        for sk in all_sketches:
+            self.sketch_load[sk] = int(self.num_queries/num_sk_types)
+
 
     def construct_graph(self, devices, has_nic):
         start = 0
@@ -569,9 +577,12 @@ class Clos(object):
             ),
             queries=(
                 [cm_sketch(eps0=self.eps, del0=del0)
-                 for i in range(self.num_queries)]
-                + []
-            ),
+                 for i in range(self.sketch_load[cm_sketch])]
+                + [cs_sketch(eps0=self.eps/2, del0=del0)
+                 for i in range(self.sketch_load[cs_sketch])]
+                + [univmon(eps0=self.eps/2, del0=del0, levels=levels0)
+                 for i in range(self.sketch_load[univmon])]
+            )
         )
         for (dnum, d) in enumerate(inp.devices):
             d.dev_id = dnum

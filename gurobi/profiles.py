@@ -37,7 +37,7 @@ agiliocx40gbe = {
 
 # Hashes almost always won't become bottleneck
 # On the other hand, very low memory
-bram_size = 1000
+bram_size = 48
 alveo_u280 = {
     'profile_name': "alveo_u280",
     'mem_const': 0,

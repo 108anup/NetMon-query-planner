@@ -643,7 +643,6 @@ def cluster_optimization(inp):
                 #     solver = future.result()
                 #     update_solution(solver)
 
-    # import ipdb; ipdb.set_trace()
     log_step('Clustered Optimization complete')
     # log.debug(placement.md_list)
     r = refine_devices(inp.devices, placement.md_list)
@@ -651,6 +650,7 @@ def cluster_optimization(inp):
         return handle_infeasible(msg=r.reason)
     # TODO:: Put intermediate output to debug!
     # Allow loggers to take input logging level
+    # import ipdb; ipdb.set_trace()
     log_placement(inp.devices, inp.partitions, inp.flows,
                   placement.dev_par_tuplelist, placement.frac,
                   placement.md_list, msg="Final Placement")
