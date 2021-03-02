@@ -69,6 +69,8 @@ class Clustering(object):
         assert(topology.overlay in topology.supported_overlays())
         overlay = None
 
+        # TODO: can convert to classes rather
+        # than functions
         if('spectral' == topology.overlay):
             overlay = get_spectral_overlay(inp)
         elif('spectralA' == topology.overlay):

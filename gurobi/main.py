@@ -531,9 +531,16 @@ def cluster_optimization(inp):
             if(isinstance(d, Cluster)):
                 (partitions, flows) = get_partitions_flows(
                     inp, d, problem, dnum, solution)
+
                 # Either both have something or both have nothing
-                assert(len(partitions) > 0 or len(flows) == 0)
+
+                # partitions can be empty and flows can still be there if
+                # there is just traffic without need for monitoring
+                # in the cluster.
+                # assert(len(partitions) > 0 or len(flows) == 0)
+
                 assert(len(partitions) == 0 or len(flows) > 0)
+
                 if(len(partitions) > 0 and len(flows) > 0):
                     queue.put(Namespace(devices=d.device_tree,
                                         partitions=partitions,
