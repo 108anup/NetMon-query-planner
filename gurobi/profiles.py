@@ -1,5 +1,5 @@
 dc_line_rate = 22
-p4_stages = 4
+p4_stages = 2
 
 # * One time profiling of each device type
 beluga20 = {
@@ -10,8 +10,8 @@ beluga20 = {
                5.84114, 30.6627, 39.6981],
     'Li_size': [32, 256, 8192, 32768],
     'Li_ns': [0.53, 1.5, 3.7, 36],
-    'hash_ns': 3.5, 'cores': 5, 'dpdk_single_core_thr': 5.746337927,
-    'max_mem': 32768, 'max_hashes': 24, 'line_thr': 98
+    'hash_ns': 3.5, 'cores': 6, 'dpdk_single_core_thr': 5.746337927,
+    'max_mem': 32768, 'max_hashes': 48, 'line_thr': 98
 }
 
 tofino = {
@@ -37,6 +37,7 @@ agiliocx40gbe = {
 
 # Hashes almost always won't become bottleneck
 # On the other hand, very low memory
+bram_size = 1000
 alveo_u280 = {
     'profile_name': "alveo_u280",
     'mem_const': 0,
@@ -44,6 +45,6 @@ alveo_u280 = {
     'mem_ns': [0, 0, 457.89396815068494, 565.0799996575344,
                595.8979178082192, 595.8979178082192],
     'hashing_const': 0, 'hashing_slope': 3.424654843444227,
-    'bram_size': 48, 'total_hash_units': 400, 'max_mem': 32768,
+    'bram_size': bram_size, 'total_hash_units': 400, 'max_mem':bram_size,
     'max_hashes': 1200, 'line_thr': 91.438134
 }

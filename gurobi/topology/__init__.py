@@ -9,22 +9,27 @@ import numpy as np
 
 from clustering import Clustering
 from common import constants, freeze_object, log
-from devices import CPU, P4, Netronome
+from devices import CPU, P4, Netronome, FPGA
 from flows import flow
 from input import Input
-from profiles import agiliocx40gbe, beluga20, dc_line_rate, tofino
-from sketches import cm_sketch
+from profiles import agiliocx40gbe, beluga20, dc_line_rate, tofino, alveo_u280
+from sketches import cm_sketch, cs_sketch, univmon, all_sketches
 from traffic import Traffic
 
 eps0 = constants.eps0
 del0 = constants.del0
-
+levels0 = constants.levels0
 
 class Topology(ABC):
 
     def __init__(self):
         self.num_nics = self.num_netronome + self.num_fpga
         self.switches_start_idx = self.num_hosts + self.num_nics
+        self.sketch_load = {}
+        num_sk_types = len(all_sketches)
+        self.num_queries = num_sk_types * math.ceil(self.num_queries / num_sk_types)
+        for sk in all_sketches:
+            self.sketch_load[sk] = int(self.num_queries/num_sk_types)
 
     @abstractmethod
     def get_pickle_name(self):
@@ -55,9 +60,9 @@ class Topology(ABC):
         return (
             [CPU(**beluga20, name='CPU_'+str(i+1))
              for i in range(self.num_hosts)] +
-            [Netronome(**agiliocx40gbe, name='Netro'+str(i+1))
+            [Netronome(**agiliocx40gbe, name='Netro_'+str(i+1))
              for i in range(self.num_netronome)] +
-            [Netronome(**agiliocx40gbe, name='FPGA'+str(i+1))
+            [FPGA(**alveo_u280, name='FPGA_'+str(i+1))
              for i in range(self.num_fpga)] +
             [P4(**tofino, name='P4_'+str(i+1))
              for i in range(self.num_switches)]
@@ -193,8 +198,11 @@ class Topology(ABC):
             devices=self.get_device_list(),
             queries=(
                 [cm_sketch(eps0=self.eps, del0=del0)
-                 for i in range(self.num_queries)]
-                + []
+                 for i in range(self.sketch_load[cm_sketch])]
+                + [cs_sketch(eps0=self.eps/2, del0=del0)
+                 for i in range(self.sketch_load[cs_sketch])]
+                + [univmon(eps0=self.eps/2, del0=del0, levels=levels0)
+                 for i in range(self.sketch_load[univmon])]
             ),
         )
         for (dnum, d) in enumerate(inp.devices):

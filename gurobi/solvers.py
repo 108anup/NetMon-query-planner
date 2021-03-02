@@ -15,6 +15,7 @@ from common import Namespace, constants, log, log_time, memoize
 from config import common_config
 from devices import P4, Cluster, CPU
 from helpers import get_rounded_val, get_val, is_infeasible, log_vars
+from sketches import all_sketches
 
 
 """
@@ -1225,6 +1226,10 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
     # #         log.debug(par_info)
     # #         log.debug("Total frac: {:0.3f}".format(total_frac))
 
+    sketch_dev_affinity = {}
+    for sk in all_sketches:
+        sketch_dev_affinity[sk.__name__] = {}
+
     prev_q_id = None
     logger = partial(log.log, logging.DEBUG-1)
     for (pnum, p) in enumerate(partitions):
@@ -1243,6 +1248,10 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
             par_info += "({:0.3f},{})    ".format(
                 get_val(frac[dnum, pnum]), dnum)
             total_frac += (get_val(frac[dnum, pnum]))
+            dtype = type(devices[dnum]).__name__
+            stype = type(p.sketch).__name__
+            sketch_dev_affinity[stype][dtype] = \
+                sketch_dev_affinity[stype].get(dtype, 0) + 1
         logger(par_info)
         logger("Total frac: {:0.3f}".format(total_frac))
 
@@ -1262,12 +1271,12 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
             log.debug("ns_dpdk: {}".format(get_val(md.ns_dpdk)))
         if(init):
             tot_rows = 0
-            tot_mem = 0
+            tot_static_mem = 0
             for (_, pnum) in dev_par_tuplelist.select(dnum, '*'):
                 tot_rows += init.frac[dnum, pnum] * partitions[pnum].num_rows
-                tot_mem += init.mem[dnum, pnum]
+                tot_static_mem += init.static_mem[dnum, pnum]
             log.debug("Initial Rows total: {}".format(tot_rows))
-            log.debug("Initial Mem total: {}".format(tot_mem))
+            log.debug("Initial Mem total: {}".format(tot_static_mem))
 
         if(hasattr(md, 'ns')):
             log.debug("Throughput: {} Mpps".format(1000/get_val(md.ns)))
@@ -1282,7 +1291,17 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
     #     log.debug("partitions: {}".format(f.partitions))
     #     log.debug("path: {}".format(f.path))
     # log.debug("-"*50)
-
+    if(msg == "Final Placement"):
+        dev_dict = sketch_dev_affinity['cm_sketch']
+        dev_names = list(dev_dict.keys())
+        header = "Sketch, " + ", ".join(dev_names)
+        print(header)
+        for sk, dev_dict in sketch_dev_affinity.items():
+            print(sk, end=', ')
+            counts = [str(dev_dict.get(dev, 0)) for dev in dev_names]
+            print(", ".join(counts))
+        print()
+        pprint.pprint(sketch_dev_affinity)
 
 solver_names = ['Univmon', 'UnivmonGreedy', 'UnivmonGreedyRows', 'Netmon']
 solver_list = [getattr(sys.modules[__name__], s) for s in solver_names]

@@ -3,3 +3,4 @@ progs
 config.yml
 pickle_objs
 .mypy_cache
+topology-zoo

@@ -31,13 +31,13 @@ from helpers import get_val
 def extract_solution(solver):
     num_devices = len(solver.devices)
     solution = Namespace(frac=list(range(num_devices)),
-                         mem=list(range(num_devices)),
+                         static_mem=list(range(num_devices)),
                          dev_par_tuplelist=list(range(num_devices)),
                          md_list=list(range(num_devices)))
     for dnum in range(num_devices):
         solution.dev_par_tuplelist[dnum] = list()
         solution.frac[dnum] = dict()
-        solution.mem[dnum] = dict()
+        solution.static_mem[dnum] = dict()
         solution.md_list[dnum] = Namespace()
         for k, v in solver.md_list[dnum].__dict__.items():
             if(not isinstance(v, gp.Model)):
@@ -46,7 +46,7 @@ def extract_solution(solver):
     for (dnum, pnum) in solver.dev_par_tuplelist:
         solution.dev_par_tuplelist[dnum].append(pnum)
         solution.frac[dnum][pnum] = solver.frac[dnum, pnum].x
-        solution.mem[dnum][pnum] = solver.mem[dnum, pnum].x
+        solution.static_mem[dnum][pnum] = solver.static_mem[dnum, pnum].x
 
     return solution
 
@@ -54,7 +54,7 @@ def extract_solution(solver):
 # Run in parent process
 def rebuild_solution(solution):
     new_solution = Namespace(frac=tupledict(),
-                             mem=tupledict(),
+                             static_mem=tupledict(),
                              dev_par_tuplelist=tuplelist(),
                              md_list=solution.md_list)
 
@@ -62,7 +62,7 @@ def rebuild_solution(solution):
         for pnum in pnums:
             new_solution.dev_par_tuplelist.append((dnum, pnum))
             new_solution.frac[dnum, pnum] = solution.frac[dnum][pnum]
-            new_solution.mem[dnum, pnum] = solution.mem[dnum][pnum]
+            new_solution.static_mem[dnum, pnum] = solution.static_mem[dnum][pnum]
 
     return new_solution
 
@@ -425,17 +425,17 @@ def get_new_problem(old_inp, old_solution, additions):
 @log_time
 def init_leaf_solution_to_cluster(solver, cluster):
     dev_id_to_cluster_id = cluster.dev_id_to_cluster_id(inp)
-    mem = tupledict()
+    static_mem = tupledict()
     frac = tupledict()
 
     for (dnum, pnum) in solver.dev_par_tuplelist:
         cnum = dev_id_to_cluster_id[dnum]
-        mem.setdefault((cnum, pnum), 0)
+        static_mem.setdefault((cnum, pnum), 0)
         frac.setdefault((cnum, pnum), 0)
-        mem[cnum, pnum] += solver.mem[dnum, pnum].x
+        static_mem[cnum, pnum] += solver.static_mem[dnum, pnum].x
         frac[cnum, pnum] += solver.frac[dnum, pnum].x
 
-    init = Namespace(mem=mem, frac=frac)
+    init = Namespace(static_mem=static_mem, frac=frac)
     return init
 
 
@@ -521,7 +521,7 @@ def cluster_optimization(inp):
                         partitions=inp.partitions,
                         flows=flows))
 
-    placement = Namespace(frac=tupledict(), mem=tupledict(), res={},
+    placement = Namespace(frac=tupledict(), static_mem=tupledict(), res={},
                           dev_par_tuplelist=tuplelist(),
                           md_list=[Namespace()
                                    for i in range(len(inp.devices))])
@@ -545,8 +545,8 @@ def cluster_optimization(inp):
                     p = problem.partitions[pnum]
                     placement.frac[d.dev_id, p.partition_id] \
                         = solution.frac[dnum, pnum]
-                    placement.mem[d.dev_id, p.partition_id] \
-                        = solution.mem[dnum, pnum]
+                    placement.static_mem[d.dev_id, p.partition_id] \
+                        = solution.static_mem[dnum, pnum]
                     # placement.res[d] = d.res().getValue()
                     placement.dev_par_tuplelist.append(
                         (d.dev_id, p.partition_id))
@@ -600,8 +600,8 @@ def cluster_optimization(inp):
                         p = solver.partitions[pnum]
                         placement.frac[d.dev_id, p.partition_id] \
                             = solver.frac[dnum, pnum].x
-                        placement.mem[d.dev_id, p.partition_id] \
-                            = solver.mem[dnum, pnum].x
+                        placement.static_mem[d.dev_id, p.partition_id] \
+                            = solver.static_mem[dnum, pnum].x
                         # placement.res[d] = d.res().getValue()
                         placement.dev_par_tuplelist.append(
                             (d.dev_id, p.partition_id))
@@ -653,7 +653,7 @@ def cluster_optimization(inp):
     # Allow loggers to take input logging level
     log_placement(inp.devices, inp.partitions, inp.flows,
                   placement.dev_par_tuplelist, placement.frac,
-                  placement.md_list)
+                  placement.md_list, msg="Final Placement")
     return Namespace(results=r, md_list=placement.md_list, frac=placement.frac)
 
 
@@ -685,12 +685,13 @@ def verify_solution(inp, ret):
         for (_, pnum) in ret.dev_par_tuplelist.select(dnum, '*'):
             p = inp.partitions[pnum]
             sk = p.sketch
-            mm = sk.min_mem()
+            pwr_2_multiplier = 1
             if(d.cols_pwr_2):
-                mm = 2 ** math.ceil(math.log2(mm))
-            mem_tot_req += mm * get_val(ret.frac[dnum, pnum]) * p.num_rows
+                mpr = sk.memory_per_row()
+                pwr_2_multiplier = 2 ** math.ceil(math.log2(mpr)) / mpr
+            mem_tot_req += get_val(ret.frac[dnum, pnum]) * sk.total_mem(p.num_rows)
             # rows_thr_req += f.thr * get_val(ret.frac[dnum, pnum]) * p.num_rows / md_list
-        mem_tot_actual = get_val(ret.md_list[dnum].mem_tot)
+        mem_tot_actual = get_val(ret.md_list[dnum].static_mem_tot)
         assert(mem_tot_req - common_config.ftol <= mem_tot_actual)
 
     ## Verify with the full solver
@@ -781,7 +782,7 @@ def solve(inp, pre_processed=False):
     # log.info("Solving ended at time: {}, taking: {} s"
     #          .format(end, end-start))
 
-    verify_solution(inp, ret)
+    # verify_solution(inp, ret)
     return ret
 
 

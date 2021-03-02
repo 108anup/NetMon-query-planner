@@ -9,15 +9,15 @@ import numpy as np
 
 from common import constants, freeze_object, log, log_time
 from config import common_config
-from devices import CPU, P4, Netronome
+from devices import CPU, P4, Netronome, FPGA
 from flows import flow
 from input import (Input, draw_graph, draw_overlay_over_tenant, fold,
                    generate_overlay, get_complete_graph, get_graph,
                    get_labels_from_overlay, get_spectral_overlay, merge,
                    get_hdbscan_overlay, get_kmedoids_overlay, flatten,
                    get_kmedoids_centers, get_2_level_overlay)
-from profiles import agiliocx40gbe, beluga20, tofino, dc_line_rate
-from sketches import cm_sketch
+from profiles import agiliocx40gbe, beluga20, tofino, dc_line_rate, alveo_u280
+from sketches import cm_sketch, cs_sketch, univmon
 import matplotlib.pyplot as plt
 
 eps0 = constants.eps0
@@ -32,7 +32,7 @@ class Clos(object):
     '''
 
     def __init__(self, pods=8, query_density=2, hosts_per_tenant=8,
-                 portion_netronome=0, overlay='none',
+                 portion_netronome=0, portion_fpga=0, overlay='none',
                  eps=eps0):
         assert(pods % 2 == 0)
         self.pods = pods
@@ -41,8 +41,10 @@ class Clos(object):
         self.num_agg_sw = pods**2
         self.num_core_sw = int((pods**2)/4)
         self.num_netronome = int(self.num_hosts * portion_netronome)
+        self.num_fpga = int(self.num_hosts * portion_fpga)
+        self.num_nics = self.num_netronome + self.num_fpga
         self.total_devices = (self.num_hosts + self.num_agg_sw
-                              + self.num_core_sw + self.num_netronome)
+                              + self.num_core_sw + self.num_nics)
         self.query_density = query_density
         self.num_queries = self.num_hosts * self.query_density
         self.eps = eps0
@@ -54,15 +56,15 @@ class Clos(object):
                 self.hosts_per_tenant = self.podsby2
         self.overlay = overlay
 
-    def construct_graph(self, devices, has_netro):
+    def construct_graph(self, devices, has_nic):
         start = 0
         hosts = [(devices[i].name, {'id': i, 'remaining': dc_line_rate})
                  for i in range(start, start+self.num_hosts)]
         start += self.num_hosts
 
-        netronome_nics = [(devices[i].name, {'id': i})
-                          for i in range(start, start+self.num_netronome)]
-        start += self.num_netronome
+        nics = [(devices[i].name, {'id': i})
+                          for i in range(start, start+self.num_nics)]
+        start += self.num_nics
 
         core_switches = [(devices[i].name, {'id': i})
                          for i in range(start, start+self.num_core_sw)]
@@ -76,7 +78,7 @@ class Clos(object):
 
         g = nx.Graph()
         g.add_nodes_from(hosts)
-        g.add_nodes_from(netronome_nics)
+        g.add_nodes_from(nics)
         g.add_nodes_from(core_switches)
         g.add_nodes_from(agg_switches)
 
@@ -106,17 +108,17 @@ class Clos(object):
                 for port in range(self.podsby2, self.pods):
                     host = hosts[host_offset][0]
 
-                    netro_offset = has_netro[host_offset]
-                    if(netro_offset >= 0):
-                        netro = netronome_nics[netro_offset][0]
-                        g.add_edge(switch, netro, remaining=dc_line_rate)
-                        g.add_edge(netro, host, remaining=dc_line_rate)
+                    nic_offset = has_nic[host_offset]
+                    if(nic_offset >= 0):
+                        nic = nics[nic_offset][0]
+                        g.add_edge(switch, nic, remaining=dc_line_rate)
+                        g.add_edge(nic, host, remaining=dc_line_rate)
                     else:
                         g.add_edge(switch, host, remaining=dc_line_rate)
                     host_offset += 1
 
         self.hosts = hosts
-        self.netronome_nics = netronome_nics
+        self.nics = nics
         self.core_switches = core_switches
         self.agg_switches = agg_switches
 
@@ -221,19 +223,19 @@ class Clos(object):
         for x in tenant_servers:
             this_servers = x.tolist()
             # this_servers = x
-            this_netro = []
+            this_nics = []
             for s in this_servers:
-                netro_id = self.has_netro[s]
-                if(netro_id >= 0):
-                    dev_id = self.netronome_nics[netro_id][1]['id']
-                    this_netro.append(dev_id)
-            host_overlay.append(this_servers + this_netro)
+                nic_id = self.has_nic[s]
+                if(nic_id >= 0):
+                    dev_id = self.nics[nic_id][1]['id']
+                    this_nics.append(dev_id)
+            host_overlay.append(this_servers + this_nics)
 
         inp.tenant_servers = host_overlay
         inp.tenant_overlay = (host_overlay
                               + generate_overlay(
                                   [self.num_core_sw + self.num_agg_sw],
-                                  self.num_hosts + self.num_netronome))
+                                  self.num_hosts + self.num_nics))
 
         flows_per_host = (flows_per_query * queries_per_tenant
                           / self.hosts_per_tenant)
@@ -327,7 +329,7 @@ class Clos(object):
                 dev_id_to_cluster_id[dnum] = cnum
 
         g = get_complete_graph(inp)
-        switches_start_idx = self.num_hosts + self.num_netronome
+        switches_start_idx = self.num_hosts + self.num_nics
         total_devices = len(inp.devices)
         seq = 0
         total_clusters = len(host_nic_overlay)
@@ -370,7 +372,7 @@ class Clos(object):
         return overlay
 
     def get_kmedoids_equal_overlay(self, inp):
-        switches_start_idx = self.num_hosts + self.num_netronome
+        switches_start_idx = self.num_hosts + self.num_nics
         dont_include = lambda x: x >= switches_start_idx
         medoids = get_kmedoids_centers(inp, dont_include)
         overlay = [[x] for x in medoids]
@@ -453,7 +455,7 @@ class Clos(object):
         return overlay
 
     def get_kmedoids_overlay(self, inp):
-        switches_start_idx = self.num_hosts + self.num_netronome
+        switches_start_idx = self.num_hosts + self.num_nics
         dont_include = lambda x: x >= switches_start_idx
         overlay = get_kmedoids_overlay(inp, dont_include)
         # TODO: Directly get flattened overlay in KMediods instead of flattening yourself
@@ -556,8 +558,10 @@ class Clos(object):
             devices=(
                 [CPU(**beluga20, name='CPU_'+str(i+1))
                  for i in range(self.num_hosts)] +
-                [Netronome(**agiliocx40gbe, name='Netro'+str(i+1))
+                [Netronome(**agiliocx40gbe, name='Netro_'+str(i+1))
                  for i in range(self.num_netronome)] +
+                [FPGA(**alveo_u280, name='FPGA_'+str(i+1))
+                 for i in range(self.num_fpga)] +
                 [P4(**tofino, name='core_P4_'+str(i+1))
                  for i in range(self.num_core_sw)] +
                 [P4(**tofino, name='agg_P4_'+str(i+1))
@@ -574,20 +578,21 @@ class Clos(object):
             freeze_object(d)
 
         # FIXME: different from TreeTopology
-        self.has_netro = ([i for i in range(self.num_netronome)]
+        self.has_nic = ([i for i in range(self.num_nics)]
                           + [-1 for i in
-                             range(self.num_hosts - self.num_netronome)])
-        np.random.shuffle(self.has_netro)
+                             range(self.num_hosts - self.num_nics)])
+        np.random.shuffle(self.has_nic)
 
-        g = self.construct_graph(inp.devices, self.has_netro)
+        g = self.construct_graph(inp.devices, self.has_nic)
         flows = self.get_flows(g, inp)
         inp.flows = flows
 
         return inp
 
     def get_input(self):
-        pickle_name = "pickle_objs/clos-{}-{}-{}-{}".format(
-            self.pods, self.query_density, eps0/self.eps, self.num_netronome)
+        pickle_name = "pickle_objs/clos-{}-{}-{}-{}-{}".format(
+            self.pods, self.query_density, eps0/self.eps,
+            self.num_netronome, self.num_fpga)
         pickle_loaded = False
         if(os.path.exists(pickle_name)):
             log.info("Fetching clos topo with {} hosts.".format(self.num_hosts))

@@ -167,4 +167,5 @@ constants = Namespace(
     NS_SMALLEST=1,
     eps0=0.1 * 8 / 128,  # 1e-5
     del0=0.05,  # 0.02
+    levels0=16,
 )

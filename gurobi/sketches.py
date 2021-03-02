@@ -90,3 +90,6 @@ class univmon(cs_sketch):
         if(num_rows is None):
             num_rows = self.rows()
         return 2 * num_rows + 1  # 1 for level identification
+
+
+all_sketches = [cm_sketch, cs_sketch, univmon]
