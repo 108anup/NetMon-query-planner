@@ -116,6 +116,8 @@ class CPU(Device):
         md.ns = max(md.ns_dpdk, md.ns_sketch)
         if(md.cores_dpdk + md.cores_sketch > self.cores):
             md.infeasible = True
+        if(md.ns > ns_req):
+            md.infeasible = True
 
     def add_ns_constraints(self, m, md, ns_req=None):
         hashes_per_packet_thr = md.hashes_per_packet_thr
@@ -386,6 +388,8 @@ class Netronome(Device):
         md.ns_hash = md.ns_hash_max * self.total_me / md.micro_engines
         md.ns_fwd = md.ns_fwd_max * self.total_me / md.micro_engines
         md.ns = max(md.ns_hash, md.ns_fwd, md.ns_mem_max)
+        if(md.ns > ns_req):
+            md.infeasible = True
 
     def add_ns_constraints(self, m, md, ns_req=None):
         hashes_per_packet_thr = md.hashes_per_packet_thr
@@ -534,11 +538,16 @@ class FPGA(Device):
 
     # Known ns_req, known placement
     def set_thr(self, md, ns_req):
-        md.hash_units = get_rounded_cores(md.ns_hash / ns_req)
+        md.hash_units = get_rounded_cores(md.ns_hash_single / ns_req)
         if(md.hash_units > self.total_hash_units):
             md.infeasible = True
-        md.ns_hash = md.ns_hash_single / md.hash_units
+        if(md.hash_units == 0):
+            md.ns_hash = 0
+        else:
+            md.ns_hash = md.ns_hash_single / md.hash_units
         md.ns = max(md.ns_hash, md.ns_fwd, md.ns_mem)
+        if(md.ns > ns_req):
+            md.infeasible = True
 
     # Nothing is known by default, if things are
     # known appropriate functions are called
@@ -599,7 +608,7 @@ class FPGA(Device):
                                  name='hash_units_{}'.format(self))
         if(ns_req):
             m.addConstr(ns_req * md.hash_units >=
-                        md.ns_hash,
+                        md.ns_hash_single,
                         name='ns_req_hash_{}'.format(self))
             m.addConstr(md.ns_mem <= ns_req,
                         name='ns_req_mem_{}'.format(self))
@@ -650,7 +659,10 @@ class FPGA(Device):
             self.total_hash_units,
             get_rounded_cores(md.ns_hash_single / ns_bottleneck)
         )
-        ns_hash = ns_hash_single / hash_units
+        if(hash_units == 0):
+            ns_hash = 0
+        else:
+            ns_hash = ns_hash_single / hash_units
         return max(ns_hash, ns_fwd, ns_mem)
 
     def __init__(self, *args, **kwargs):
@@ -674,7 +686,8 @@ class P4(Device):
                    == isinstance(uniform_mem_tot, (int, float)))
             if(isinstance(hashes_per_packet_thr, (int, float))):
                 assert(m is None)  # TODO: can remove later
-            assert(md.ns <= ns_req)
+            if(md.ns > ns_req):
+                md.infeasible = True
         # md.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
         # m.addConstr(md.ns == 1000 / self.line_thr, name='ns_{}'.format(self))
 
@@ -688,7 +701,7 @@ class P4(Device):
             + md.static_mem_tot/self.sram
 
     def resource_stats(self, md, r=None):
-        if(hasattr(md, 'mem_tot') and r):
+        if(hasattr(md, 'static_mem_tot') and r):
             r.switch_memory += get_val(md.static_mem_tot)
         return ""
 

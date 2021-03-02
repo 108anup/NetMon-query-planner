@@ -75,7 +75,7 @@ class univmon(cs_sketch):
             self.eps0, self.del0, self.memory_per_row())
 
     def memory_per_row(self):
-        super(self, univmon).memory_per_row() * self.levels
+        return super(univmon, self).memory_per_row() * self.levels
         # return constants.cell_size * self.__cols() / constants.KB2B
 
     def total_mem(self, num_rows=None):
