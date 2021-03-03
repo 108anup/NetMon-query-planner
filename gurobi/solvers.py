@@ -1060,7 +1060,8 @@ class Netmon(UnivmonGreedyRows):
 
             env0 = self.m.getMultiobjEnv(0)
             env0.setParam(GRB.Param.NonConvex, 2)
-            env0.setParam(GRB.Param.MIPFocus, 2)
+            # env0.setParam(GRB.Param.MIPFocus, 2)
+            env0.setParam(GRB.Param.MIPFocus, 1)
             env0.setParam(GRB.Param.MIPGapAbs, common_config.MIP_GAP_ABS_RES)
             env0.setParam(GRB.Param.MIPGap, 0)
             if(common_config.time_limit):

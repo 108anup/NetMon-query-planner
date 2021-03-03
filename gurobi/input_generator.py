@@ -446,7 +446,8 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=6, overlay='none', query_density=3, portion_netronome=1),
+    Clos(pods=16, overlay='none', query_density=1, portion_netronome=0.5,
+         portion_fpga=0.5),
 
     # 35
     Clos(pods=20, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
