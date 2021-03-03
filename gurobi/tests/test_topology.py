@@ -1,7 +1,8 @@
 import pytest
 from common import Namespace
 from topology.jellyfish import JellyFish
-from topology.topology_zoo import TopologyZoo, TopologyZooWAN
+from topology.topology_zoo import TopologyZoo
+from topology.topology_zoo_wan import TopologyZooWAN
 from topology.clos import Clos
 from tests.utilities import (run_all_with_input, setup_test_meta,
                              combinations, run_flow_dynamics, full_rerun_flow_dynamics)
@@ -28,8 +29,6 @@ TOPOLOGIES_TO_TEST = [
               query_density=1,
               portion_netronome=0.5,
               portion_fpga=0.5),
-]
-TOPOLOGIES_TO_TEST = [
     Clos(pods=20, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
          overlay='none')
 ]

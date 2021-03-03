@@ -1,4 +1,4 @@
-from clos import Clos
+from topology.clos import Clos
 from common import constants
 from devices import CPU, P4, Netronome, FPGA
 from flows import flow
