@@ -600,6 +600,14 @@ class Clos(object):
 
         return inp
 
+    def get_name(self):
+        return "Clos (pods={})".format(self.pods)
+
+    def get_pickle_name(self):
+        return "clos-{}-{}-{}-{}-{}".format(
+            self.pods, self.query_density, eps0/self.eps,
+            self.num_netronome, self.num_fpga)
+
     def get_input(self):
         pickle_name = "pickle_objs/clos-{}-{}-{}-{}-{}".format(
             self.pods, self.query_density, eps0/self.eps,

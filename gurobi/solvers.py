@@ -1295,13 +1295,13 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
         dev_dict = sketch_dev_affinity['cm_sketch']
         dev_names = list(dev_dict.keys())
         header = "Sketch, " + ", ".join(dev_names)
-        print(header)
+        log.info(header)
         for sk, dev_dict in sketch_dev_affinity.items():
-            print(sk, end=', ')
+            log.info(sk, end=', ')
             counts = [str(dev_dict.get(dev, 0)) for dev in dev_names]
-            print(", ".join(counts))
-        print()
-        pprint.pprint(sketch_dev_affinity)
+            log.info(", ".join(counts))
+        log.info()
+        # pprint.pprint(sketch_dev_affinity)
 
 solver_names = ['Univmon', 'UnivmonGreedy', 'UnivmonGreedyRows', 'Netmon']
 solver_list = [getattr(sys.modules[__name__], s) for s in solver_names]

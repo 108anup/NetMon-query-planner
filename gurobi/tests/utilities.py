@@ -14,7 +14,7 @@ from devices import CPU, Netronome, P4
 import numpy as np
 import pickle
 
-base_dir = 'outputs/tmp'
+BASE_DIR = 'outputs/tmp'
 
 
 def flatten_list(l):
@@ -279,7 +279,7 @@ def run_flow_dynamics(m, inp, num_changes, change_size):
             old_solution.frac[dev_id, pnum] = f
 
 
-def setup_test_meta(m):
+def setup_test_meta(m, base_dir=BASE_DIR):
     m.out_dir = os.path.join(base_dir, m.test_name
                              + "-" + get_git_revision_short_hash())
     os.makedirs(m.out_dir, exist_ok=True)

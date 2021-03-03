@@ -105,6 +105,9 @@ class JellyFish(Topology):
             constants.eps0/self.eps,
             self.num_netronome, self.num_fpga)
 
+    def get_name(self):
+        return "JellyFish (N={}, k={}, r={})".format(self.N, self.k, self.r)
+
 
 if (__name__ == '__main__'):
     # rrg = nx.random_regular_graph(d=3, n=20)

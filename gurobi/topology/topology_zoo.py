@@ -16,9 +16,16 @@ class TopologyZoo(Topology):
                  portion_netronome=0.5, portion_fpga=0.5,
                  eps=constants.eps0, overlay='none',
                  hosts_per_tenant=8):
-        g = nx.read_gml(
-            os.path.join(TOPOLOGY_ZOO_DIRECTORY, topology_gml_name),
-            label='id')
+        if(topology_gml_name.endswith('.gml')):
+            g = nx.read_gml(
+                os.path.join(TOPOLOGY_ZOO_DIRECTORY, topology_gml_name),
+                label='id')
+        else:
+            assert topology_gml_name.endswith('.graphml')
+            g = nx.read_graphml(
+                os.path.join(TOPOLOGY_ZOO_DIRECTORY, topology_gml_name))
+        if(isinstance(g, nx.MultiGraph)):
+            g = nx.Graph(g)
         self.num_switches = len(g.nodes)
         self.max_degree = max(d for (n, d) in g.degree)
         self.num_hosts = np.sum([self.max_degree - d for (n, d) in g.degree])
@@ -64,6 +71,12 @@ class TopologyZoo(Topology):
         return "zoo-{}-{}-{}".format(self.topology_gml_name,
                                      self.num_queries,
                                      constants.eps0/self.eps)
+
+    def get_name(self):
+        if(self.topology_gml_name.endswith('.graphml')):
+            return self.topology_gml_name[:-8]
+        if(self.topology_gml_name.endswith('.gml')):
+            return self.topology_gml_name[:-4]
 
 
 if(__name__ == "__main__"):
