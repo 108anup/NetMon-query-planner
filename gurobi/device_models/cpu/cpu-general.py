@@ -10,6 +10,7 @@ import os
 import csv
 import palettable
 from util import get_fig_size
+from scipy import stats
 
 
 # * Plottging Config
@@ -90,7 +91,7 @@ bench_list = [SimpleNamespace(cores=x[0], rows=x[1], cols_per_core=x[2], Mpps=x[
               for x in hash_bench]
 for x in bench_list:
     x.ns_single = x.cores * 1000/x.Mpps
-    x.ns = x.cores * 1000/x.Mpps
+    x.ns = 1000/x.Mpps
 
 fig, ax = plt.subplots(figsize=get_fig_size(0.5, 0.6))
 plt.plot(list(map(lambda x: x.rows, bench_list)),
@@ -122,11 +123,17 @@ start_idx = start - 1
 end_idx = end - 1
 
 hashing_x = start
-hashing_y = bench_list[start_idx].ns
-hashing_slope = (np.average([((bench_list[i+1].ns - bench_list[i].ns) /
-                              (bench_list[i+1].rows - bench_list[i].rows))
-                             for i in range(start_idx, end_idx)]))
-hashing_const = (hashing_y - (hashing_slope) * hashing_x)
+hashing_y = bench_list[start_idx].ns_single
+# hashing_slope = (np.average([((bench_list[i+1].ns_single - bench_list[i].ns_single) /
+#                               (bench_list[i+1].rows - bench_list[i].rows))
+#                              for i in range(start_idx, end_idx)]))
+# hashing_const = (hashing_y - (hashing_slope) * hashing_x)
+
+ns_singles = [x.ns_single for x in bench_list]
+rows = [x.rows for x in bench_list]
+hashing_slope, hashing_const, r_value, p_value, std_err = stats.linregress(
+    rows, ns_singles)
+
 print("hashing: x, y, slope:", hashing_x, hashing_y, hashing_slope)
 print("hashing_const: ", hashing_const)
 
@@ -216,7 +223,11 @@ plt.savefig(os.path.join(plot_dir, 'cpu-mem-half.pdf'), bbox_inches='tight')
 bench_1_ns = list(map(lambda x: x.mem_ns_ground, bench_list_1))
 bench_2_ns = list(map(lambda x: x.mem_ns_ground, bench_list_2))
 
+print(bench_1_ns)
+print(bench_2_ns)
+
 FLAT_REGION = mem_params['FLAT_REGION']
+# import ipdb; ipdb.set_trace()
 p1 = bench_list_1[0]
 p2 = bench_list_2[0]
 flat_part_slope = ((np.average(bench_2_ns[FLAT_REGION[0]:FLAT_REGION[1] + 1])
