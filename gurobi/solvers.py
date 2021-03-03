@@ -1297,9 +1297,8 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
         header = "Sketch, " + ", ".join(dev_names)
         log.info(header)
         for sk, dev_dict in sketch_dev_affinity.items():
-            log.info(sk, end=', ')
             counts = [str(dev_dict.get(dev, 0)) for dev in dev_names]
-            log.info(", ".join(counts))
+            log.info("{}, {}".format(sk, ", ".join(counts)))
         log.info()
         # pprint.pprint(sketch_dev_affinity)
 

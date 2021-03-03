@@ -21,6 +21,7 @@ eps0 = constants.eps0
 del0 = constants.del0
 levels0 = constants.levels0
 
+
 class Topology(ABC):
 
     def __init__(self):
@@ -207,9 +208,9 @@ class Topology(ABC):
                 [cm_sketch(eps0=self.eps, del0=del0)
                  for i in range(self.sketch_load[cm_sketch])]
                 + [cs_sketch(eps0=self.eps/2, del0=del0)
-                 for i in range(self.sketch_load[cs_sketch])]
+                   for i in range(self.sketch_load[cs_sketch])]
                 + [univmon(eps0=self.eps/2, del0=del0, levels=levels0)
-                 for i in range(self.sketch_load[univmon])]
+                   for i in range(self.sketch_load[univmon])]
             ),
         )
         for (dnum, d) in enumerate(inp.devices):
@@ -227,8 +228,8 @@ class Topology(ABC):
 
         g = self.construct_graph(inp.devices)
         # nx.draw(g, labels=[d.name for d in inp.devices])
-        nx.draw_networkx(g)
-        plt.show()
+        # nx.draw_networkx(g)
+        # plt.show()
 
         flows = self.get_flows(g, inp)
         inp.flows = flows
