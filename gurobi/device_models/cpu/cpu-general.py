@@ -44,7 +44,6 @@ MODEL_TYPE = 1
 # 0 means min
 # 1 means additive
 
-
 # * Constants
 CELL_SIZE = 4
 KB2B = 1024
@@ -52,6 +51,9 @@ KB2B = 1024
 # * Globals
 bench_dir = sys.argv[1]
 plot_dir = os.path.join(bench_dir, "plots")
+
+if(MODEL_TYPE == 0 and bench_dir == 'beluga14-prefetch'):
+    mem_params['MEM_CONST'] = 200
 
 if(not os.path.isdir(plot_dir)):
     os.mkdir(plot_dir)
@@ -74,7 +76,7 @@ def read_bench(fname):
 
 # * Start
 hash_bench = sorted(read_bench('hash.csv'))
-mem_bench = sorted(read_bench('mem.csv'))
+mem_bench = sorted(read_bench('mem-medium.csv'))
 half_len_mem_bench = int(len(mem_bench)/2)
 mem_bench_1 = mem_bench[:half_len_mem_bench]
 mem_bench_2 = mem_bench[half_len_mem_bench:]
@@ -163,14 +165,15 @@ bench_list_2 = [SimpleNamespace(cores=x[0], rows=x[1], cols_per_core=x[2], Mpps=
 
 def fill_values(bench_list):
     for x in bench_list:
-        x.ns = 1000/x.Mpps * x.cores
+        x.ns_single = 1000/x.Mpps * x.cores
+        x.ns = 1000/x.Mpps
         x.cols = x.cols_per_core * x.cores
         x.mem = x.rows * x.cols * CELL_SIZE / KB2B
         x.hash_ns_fill = get_hash_time(x)
         if(MODEL_TYPE == 1):
-            x.mem_ns_ground = x.ns - x.hash_ns_fill
+            x.mem_ns_ground = x.ns_single - x.hash_ns_fill
         else:
-            x.mem_ns_ground = x.ns
+            x.mem_ns_ground = x.ns_single
 
 
 fill_values(bench_list_1)
@@ -337,11 +340,14 @@ def model(x, hpr, additional_hashes):
         # sum of the items model
         x.model_ns = np.sum(items)
 
-    # Sketching includes forwarding as they scale together
     x.model_ns = (x.model_ns)/x.cores
+    # Sketching includes forwarding as they scale together
     diff.append(abs(x.ns - x.model_ns) / x.ns)
     invdiff.append(abs((1/x.ns) - (1/x.model_ns)) / (1/x.ns))
-    print(x.rows, x.mem, x.ns, x.model_ns)
+    if(hasattr(x, 'levels')):
+        print(x.rows, x.mem, x.levels, x.ns, x.model_ns)
+    # else:
+    #     print(x.rows, x.mem, x.ns, x.model_ns)
 
 
 def get_mem_label(m):
@@ -361,6 +367,8 @@ def parse_ground_truth(x, header):
 
 
 def myplot(bench_list, cores, sketch):
+    if(len(bench_list) == 0):
+        return
 
     fig, ax = plt.subplots(figsize=get_fig_size(0.5/0.9, 0.8))
     labels = list(map(lambda x: '{}, {}'.format(int(x.rows), get_mem_label(x.mem)), bench_list))
@@ -427,7 +435,7 @@ additional_hashes = [0, 0, 1]
 header = ('cores', 'rows', 'cols_per_core', 'Mpps')
 headers = [header, header, header[:-1] + tuple(["levels"]) + header[-1:]]
 for skid, sketch in enumerate(sketches):
-
+    print("Sketch: {}".format(sketch))
     ground_truth = sorted(read_bench(sketch + '.csv'))
     bench_list = [
         parse_ground_truth(x, headers[skid])
@@ -440,8 +448,9 @@ for skid, sketch in enumerate(sketches):
     for x in bench_list:
         model(x, hashes_per_row[skid], additional_hashes[skid])
 
-    myplot([x for x in bench_list if x.cores == 4], "4", sketch)
-    myplot([x for x in bench_list if x.cores == 2], "2", sketch)
-    print("Relative Error ns: ", np.average(diff))
-    print("Relative Error thr: ", np.average(invdiff))
-    # pprint.pprint(bench_list)
+    if(len(bench_list) > 0):
+        myplot([x for x in bench_list if x.cores == 4], "4", sketch)
+        myplot([x for x in bench_list if x.cores == 2], "2", sketch)
+        print("Relative Error ns: ", np.average(diff))
+        print("Relative Error thr: ", np.average(invdiff))
+        # pprint.pprint(bench_list)
