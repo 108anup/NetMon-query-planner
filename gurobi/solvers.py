@@ -1299,7 +1299,6 @@ def log_placement(devices, partitions, flows, dev_par_tuplelist, frac,
         for sk, dev_dict in sketch_dev_affinity.items():
             counts = [str(dev_dict.get(dev, 0)) for dev in dev_names]
             log.info("{}, {}".format(sk, ", ".join(counts)))
-        log.info()
         # pprint.pprint(sketch_dev_affinity)
 
 solver_names = ['Univmon', 'UnivmonGreedy', 'UnivmonGreedyRows', 'Netmon']

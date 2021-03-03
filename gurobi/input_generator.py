@@ -449,8 +449,8 @@ input_generator = [
     Clos(pods=6, overlay='none', query_density=3, portion_netronome=1),
 
     # 35
-    Clos(pods=16, query_density=3, portion_netronome=1,
-         overlay='hdbscan', eps=eps0/10),
+    Clos(pods=20, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
+         overlay='tenant'),
 
     # 36
     Clos(6, 4, portion_netronome=0, overlay='none', hosts_per_tenant=6),

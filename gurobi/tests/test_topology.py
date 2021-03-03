@@ -6,6 +6,7 @@ from topology.topology_zoo_wan import TopologyZooWAN
 from topology.clos import Clos
 from tests.utilities import (run_all_with_input, setup_test_meta,
                              combinations, run_flow_dynamics, full_rerun_flow_dynamics)
+from config import common_config
 
 ZOO_SELECTION = [
     'Geant2012.graphml',
@@ -34,16 +35,17 @@ TOPOLOGIES_TO_TEST = [
 ]
 
 OVERLAYS = [
-    'none',
+    # 'none',
     'tenant'
 ]
 
-@pytest.mark.parametrize("inp, overlay", combinations([TOPOLOGIES_TO_TEST, OVERLAYS]))
+@pytest.mark.parametrize("inp, overlay", combinations([TOPOLOGIES_TO_TEST[-1:], OVERLAYS]))
 def test_vary_topology(inp, overlay):
     m = Namespace()
     m.test_name = "vary_topology"
     m.args_str = ("handle={};overlay={};pickle={}"
                   .format(inp.get_name(), overlay, inp.get_pickle_name()))
     inp.overlay = overlay
+    common_config.time_limit = 420
     setup_test_meta(m, "outputs/vary_topology")
     run_all_with_input(m, inp)
