@@ -81,4 +81,5 @@ class TopologyZoo(Topology):
 
 if(__name__ == "__main__"):
     gen = TopologyZoo('Geant2012.gml')
+    inp = gen.create_inp()
     import ipdb; ipdb.set_trace()

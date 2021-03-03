@@ -1,10 +1,10 @@
 from clos import Clos
 from common import constants
-from devices import CPU, P4, Netronome
+from devices import CPU, P4, Netronome, FPGA
 from flows import flow
 from input import Input, TreeTopology
-from profiles import agiliocx40gbe, beluga20, tofino
-from sketches import cm_sketch, cs_sketch
+from profiles import agiliocx40gbe, beluga20, tofino, alveo_u280
+from sketches import cm_sketch, cs_sketch, univmon
 from topology.jellyfish import JellyFish
 from topology.topology_zoo import TopologyZoo
 
@@ -55,6 +55,7 @@ input_generator = [
     # Bad for UnivmonGreedyRows (puts too much load on P4)
     # CPU can handle extra memory load with same core budget
     # P4 memory exhausted!
+    # I think this only works with partitioning
     Input(
         devices=[
             CPU(**beluga20, name='CPU_1'),
@@ -64,7 +65,7 @@ input_generator = [
             cm_sketch(eps0=eps0/5000, del0=del0),
         ],
         flows=[
-            flow(path=(0, 1), queries=[(0, 1)])
+            flow(path=(0, 1), queries=[(0, 1)], thr=15)
         ]
     ),
 
@@ -448,8 +449,8 @@ input_generator = [
     Clos(pods=6, overlay='none', query_density=3, portion_netronome=1),
 
     # 35
-    Clos(pods=20, query_density=3, portion_netronome=1,
-         overlay='tenant', eps=eps0/10),
+    Clos(pods=16, query_density=3, portion_netronome=1,
+         overlay='hdbscan', eps=eps0/10),
 
     # 36
     Clos(6, 4, portion_netronome=0, overlay='none', hosts_per_tenant=6),
@@ -485,16 +486,49 @@ input_generator = [
     ),
 
     # 38
-    JellyFish(overlay='tenant'),
+    JellyFish(overlay='none'),
 
     # 39
     JellyFish(tors=500, ports_per_tor=20,
-              num_hosts=2000, overlay='hdbscan',
-              query_density=1),
+              num_hosts=2000, overlay='tenant',
+              query_density=2),
 
     # 40
-    TopologyZoo('Geant2012.gml', overlay='none', query_density=4),
+    TopologyZoo('Geant2012.gml', overlay='none', query_density=8),
 
     # 41
-    TopologyZoo('GtsCe.gml', overlay='none', query_density=4)
+    TopologyZoo('GtsCe.gml', overlay='none', query_density=8),
+
+    # Test device/sketch affinity
+    # 42
+        Input(
+        devices=[
+            CPU(**beluga20, name='CPU_1'),
+            Netronome(**agiliocx40gbe, name='Netro_1'),
+            P4(**tofino, name='P4_1'),
+            FPGA(**alveo_u280, name='FPGA_1'),
+            CPU(**beluga20, name='CPU_2'),
+        ],
+        queries=[
+            cm_sketch(eps0=eps0/1000, del0=del0),
+            cs_sketch(eps0=eps0/10, del0=del0),
+            univmon(eps0=eps0/10, del0=del0, levels=16),
+            cm_sketch(eps0=eps0, del0=del0),
+            cs_sketch(eps0=eps0, del0=del0),
+            univmon(eps0=eps0, del0=del0, levels=16)
+        ],
+        flows=[
+            flow(path=(0, 1, 2, 3, 4),
+                 queries=[(0, 1), (1, 1), (2, 1),
+                          (3, 1), (4, 1), (5, 1)],
+                 thr=15),
+        ]
+    ),
+
+    # 43
+    Clos(6, 4, portion_netronome=0.5, portion_fpga=0.5,
+         overlay='none', hosts_per_tenant=6),
+
+    # 44
+    TopologyZoo('Cogentco.graphml', overlay='none', query_density=4),
 ]

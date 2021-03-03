@@ -15,6 +15,7 @@ from input import Input
 from profiles import agiliocx40gbe, beluga20, dc_line_rate, tofino, alveo_u280
 from sketches import cm_sketch, cs_sketch, univmon, all_sketches
 from traffic import Traffic
+import matplotlib.pyplot as plt
 
 eps0 = constants.eps0
 del0 = constants.del0
@@ -92,10 +93,15 @@ class Topology(ABC):
         tenant_servers = np.split(servers[:accounted_for], num_tenants)
         idx = 0
         for s in servers[accounted_for:]:
+
+            # This assert is wrong, may not happen
+            # e.g. num_hosts = 12
             # This will be true always, since otherwise
             # we would have one more host per tenant
-            assert(idx < num_tenants)
-            tenant_servers[idx] = np.append(tenant_servers[idx], s)
+            # assert(idx < num_tenants)
+
+            tenant_idx = idx % num_tenants
+            tenant_servers[tenant_idx] = np.append(tenant_servers[tenant_idx], s)
             idx += 1
 
         host_overlay = []
@@ -221,8 +227,8 @@ class Topology(ABC):
 
         g = self.construct_graph(inp.devices)
         # nx.draw(g, labels=[d.name for d in inp.devices])
-        # nx.draw_networkx(g)
-        # plt.show()
+        nx.draw_networkx(g)
+        plt.show()
 
         flows = self.get_flows(g, inp)
         inp.flows = flows

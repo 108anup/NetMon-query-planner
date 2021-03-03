@@ -1,7 +1,7 @@
 import pytest
 from common import Namespace
 from topology.jellyfish import JellyFish
-from topology.topology_zoo import TopologyZoo
+from topology.topology_zoo import TopologyZoo, TopologyZooWAN
 from topology.clos import Clos
 from tests.utilities import (run_all_with_input, setup_test_meta,
                              combinations, run_flow_dynamics, full_rerun_flow_dynamics)
@@ -18,10 +18,10 @@ BAD_TRAFFIC = [
 ]
 
 TOPOLOGIES_TO_TEST = [
-    TopologyZoo(zoo_name, overlay='none',
-                query_density=4,
-                portion_netronome=0.5,
-                portion_fpga=0.5) for zoo_name in ZOO_SELECTION
+    TopologyZooWAN(zoo_name, overlay='none',
+                   query_density=4,
+                   portion_netronome=0.5,
+                   portion_fpga=0.5) for zoo_name in ZOO_SELECTION
 ] + [
     JellyFish(tors=500, ports_per_tor=20,
               num_hosts=2000, overlay='none',
@@ -30,7 +30,8 @@ TOPOLOGIES_TO_TEST = [
               portion_fpga=0.5),
 ]
 TOPOLOGIES_TO_TEST = [
-    Clos
+    Clos(pods=20, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
+         overlay='none')
 ]
 
 OVERLAYS = [
