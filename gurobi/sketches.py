@@ -85,7 +85,7 @@ class univmon(cs_sketch):
     def uniform_mem(self, num_rows=None, device_name='Cluster'):
         alpha = {
             'CPU': min(8, self.levels),
-            'Netronome': min(4, self.levels),
+            'Netronome': min(3, self.levels),
             'FPGA': self.levels,
             'P4': self.levels,
             'Cluster': self.levels
