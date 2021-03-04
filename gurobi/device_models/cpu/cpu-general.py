@@ -371,6 +371,7 @@ def myplot(bench_list, cores, sketch):
         return
 
     fig, ax = plt.subplots(figsize=get_fig_size(0.5/0.9, 0.8))
+    # fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
     labels = list(map(lambda x: '{}, {}'.format(int(x.rows), get_mem_label(x.mem)), bench_list))
     if(sketch == 'univmon'):
         labels = list(map(lambda x: '{}, {}, {}'.format(
@@ -417,7 +418,7 @@ def myplot(bench_list, cores, sketch):
     xticks = labels
     num_labels = len(labels)
     if(num_labels > 8):
-        xticks = labels[::int(num_labels/9)]
+        xticks = labels[::int(num_labels/8)]
     plt.xticks(xticks)
     plt.xticks(rotation=90)
     # plt.title("CPU profile for {} cores".format(cores))
