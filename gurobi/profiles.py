@@ -11,7 +11,8 @@ beluga20 = {
     'Li_size': [32, 256, 8192, 32768],
     'Li_ns': [0.53, 1.5, 3.7, 36],
     'hash_ns': 3.5, 'cores': 6, 'dpdk_single_core_thr': 5.746337927,
-    'max_mem': 32768, 'max_hashes': 48, 'line_thr': 98
+    'max_mem': 32768, 'max_hashes': 48, 'line_thr': 98,
+    'cache_size': 8192
 }
 
 tofino = {
@@ -32,7 +33,8 @@ agiliocx40gbe = {
                11.792229798079585, 13.76708909669199, 14.348232588210744],
     'hashing_const': 33.22322438313901, 'hashing_slope': 1.0142711549803503,
     'emem_size': 3*1024, 'total_me': 54, 'max_mem': 200000,
-    'max_hashes': 12, 'line_thr': 27.55
+    'max_hashes': 12, 'line_thr': 27.55,
+    'cache_size': 3*1024
 }
 
 # Hashes almost always won't become bottleneck
@@ -46,5 +48,6 @@ alveo_u280 = {
                595.8979178082192, 595.8979178082192],
     'hashing_const': 0, 'hashing_slope': 3.424654843444227,
     'bram_size': bram_size, 'total_hash_units': 400, 'max_mem':bram_size,
-    'max_hashes': 1200, 'line_thr': 91.438134
+    'max_hashes': 1200, 'line_thr': 91.438134,
+    'cache_size': 48
 }

@@ -2,7 +2,6 @@ import math
 
 from common import Namespace, constants
 
-
 class cm_sketch(Namespace):
 
     def __repr__(self):
@@ -32,7 +31,7 @@ class cm_sketch(Namespace):
         return self.memory_per_row() * num_rows
 
     # Used for memory access time
-    def uniform_mem(self, num_rows=None):
+    def uniform_mem(self, num_rows=None, device_name=None):
         return self.total_mem(num_rows)
 
     # Used for perf per packet, and static allocation
@@ -83,8 +82,15 @@ class univmon(cs_sketch):
             num_rows = self.rows()
         return self.memory_per_row() * num_rows * self.levels
 
-    def uniform_mem(self, num_rows=None):
-        return self.total_mem(num_rows) / 2
+    def uniform_mem(self, num_rows=None, device_name='Cluster'):
+        alpha = {
+            'CPU': min(8, self.levels),
+            'Netronome': min(4, self.levels),
+            'FPGA': self.levels,
+            'P4': self.levels,
+            'Cluster': self.levels
+        }
+        return self.memory_per_row() * num_rows * alpha[device_name]
 
     def hashes_per_packet(self, num_rows=None):
         if(num_rows is None):

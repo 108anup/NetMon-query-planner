@@ -102,7 +102,7 @@ def refine_devices(devices, md_list, placement_fixed=True, static=False):
 
     r = Namespace(ns_max=0, res=0, total_CPUs=0, micro_engines=0,
                   used_cores=0, switch_memory=0, nic_memory=0,
-                  fpga_memory=0, fpga_hash_units=0)
+                  fpga_memory=0, fpga_hash_units=0, p10miss_count=0)
     for (dnum, d) in enumerate(devices):
         md = md_list[dnum]
 
@@ -159,6 +159,9 @@ def refine_devices(devices, md_list, placement_fixed=True, static=False):
 
         r.ns_max = max(r.ns_max, get_val(md.ns))
         r.res += get_val(d.res(md))
+        if(hasattr(md, 'ns_req')):
+            if(get_val(md.ns) * 1.1 > md.ns_req and get_val(md.static_mem_tot > d.cache_size)):
+                r.p10miss_count += 1
         if(getattr(md, 'infeasible', None)):
             r.infeasible = True
 
@@ -296,8 +299,9 @@ class MIP(Namespace):
                              sk.total_mem(num_rows) * power_of_2_multiplier
                              * self.frac[dnum, pnum],
                              name='accuracy_{}_{}'.format(dnum, pnum))
+            this_uniform_mem = sk.uniform_mem(num_rows, type(self.devices[dnum]).__name__)
             self.m.addConstr(self.uniform_mem[dnum, pnum] ==
-                             sk.uniform_mem(num_rows) * power_of_2_multiplier
+                             this_uniform_mem * power_of_2_multiplier
                              * self.frac[dnum, pnum],
                              name='uniform_mem_{}_{}'.format(dnum, pnum))
 
@@ -1161,13 +1165,19 @@ def log_results(devices, r, md_list, logger=log.info,
                          r.switch_memory, r.micro_engines,
                          r.nic_memory, r.fpga_hash_units,
                          r.fpga_memory))
+        log.info("Devices needing more res: {}\n"
+                 "Total devices: {}, Devices needing changes: {}%\n"
+                 .format(r.p10miss_count, len(devices),
+                         round(100 * r.p10miss_count/len(devices), 2))
+                 )
 
     if(common_config.results_file is not None and elapsed is not None):
         f = open(common_config.results_file, 'a')
-        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {:0.3f}, {:0.3f}, {:0.3f}, {}, ".format(
+        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {:0.3f}, {:0.3f}, {:0.3f}, {}, {}, {}".format(
             1000/r.ns_max, r.res,
             r.used_cores, r.total_CPUs, r.switch_memory,
-            r.nic_memory, r.fpga_hash_units, r.fpga_memory, elapsed))
+            r.nic_memory, r.fpga_hash_units, r.fpga_memory, elapsed,
+            r.p10miss_count, len(devices)))
         f.close()
 
         # Logging for analysis

@@ -446,7 +446,7 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=16, overlay='none', query_density=1, portion_netronome=0.5,
+    Clos(pods=16, overlay='tenant', query_density=1, portion_netronome=0.5,
          portion_fpga=0.5),
 
     # 35
