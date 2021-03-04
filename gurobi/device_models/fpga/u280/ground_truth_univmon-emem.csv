@@ -1,0 +1,7 @@
+sk_name, levels, levels_emem, rows, logcols, logcols_emem, hash_units, mpps
+univmon, 16, 16, 3, 8, 8, 2, 12.977800849423732,
+univmon, 8, 4, 6, 8, 8, 2, 6.7126560232754455,
+univmon, 4, 4, 9, 8, 8, 2, 3.109377706396499,
+univmon, 16, 16, 3, 8, 8, 4, 13.123640332434393,
+univmon, 8, 4, 6, 8, 8, 4, 6.751470063241852,
+univmon, 4, 4, 9, 8, 8, 4, 3.109543598229247,

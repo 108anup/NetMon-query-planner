@@ -185,7 +185,7 @@ def evaluation_plot(bench_list, sketch, file_path,
             label="Model", color=colors[1], marker='^',
             markersize=MARKER_SIZE, lw=LINE_WIDTH,
             linestyle=linestyles[0], clip_on=False)
-    
+
     l = plt.legend(loc='upper left', numpoints=1, ncol=1,
                    prop={'size': FONT_SIZE}, columnspacing=0.5,
                    handlelength=2.7, handletextpad=0.5)
@@ -211,7 +211,10 @@ def evaluation_plot(bench_list, sketch, file_path,
         plt.xticks(rotation=90)
     else:
         plt.xticks(labels)
-        plt.xticks(rotation=45)
+        if(sketch == 'univmon'):
+            plt.xticks(rotation=90)
+        else:
+            plt.xticks(rotation=45)
 
     # plt.title("CPU profile for {} cores".format(cores))
 

@@ -321,7 +321,7 @@ print("mem const: ", mem_const)
 def get_mem_time(x, hpr=1):
     x.m_access_time = get_mem_access_time(x.mem)
     if(hasattr(x, 'levels')):
-        x.m_access_time = get_mem_access_time(x.mem * x.levels)
+        x.m_access_time = get_mem_access_time(x.mem * min(8, x.levels))
     return (mem_const + x.rows * x.m_access_time)
 
 
@@ -428,6 +428,7 @@ def myplot(bench_list, cores, sketch):
         bbox_inches='tight')
 
 
+errors = []
 sketches = ['count-min-sketch', 'count-sketch', 'univmon']
 hashes_per_row = [1, 2, 2]
 additional_hashes = [0, 0, 1]
@@ -451,6 +452,14 @@ for skid, sketch in enumerate(sketches):
     if(len(bench_list) > 0):
         myplot([x for x in bench_list if x.cores == 4], "4", sketch)
         myplot([x for x in bench_list if x.cores == 2], "2", sketch)
-        print("Relative Error ns: ", np.average(diff))
-        print("Relative Error thr: ", np.average(invdiff))
+        print("Relative Error ns: ", 100 * np.average(diff),
+              100 * np.percentile(diff, 90))
+        print("Relative Error thr: ", np.average(invdiff),
+              np.percentile(invdiff, 95))
+        errors.append([sketch, round(100 * np.average(diff), 2),
+                       round(100 * np.percentile(diff, 90), 2)])
         # pprint.pprint(bench_list)
+import pandas as pd
+df = pd.DataFrame(errors, columns=['sketch', 'mean percent error', '90th percentile percent error'])
+df.set_index('sketch', inplace=True)
+print(df.to_csv())

@@ -28,8 +28,14 @@ read_bench = partial(read_bench_util, bench_dir)
 def update_entry(x):
     x.ns = 1e3/x.mpps
     x.cols = 1 << x.logcols
-    if(hasattr(x, 'logcols_emem')):
-        x.cols += 1 << x.logcols_emem
+    if(x.sk_name == 'univmon'):
+        if(hasattr(x, 'levels_emem')):
+            x.total_levels = x.levels + x.levels_emem
+        else:
+            x.total_levels = x.levels
+    else:
+        if(hasattr(x, 'logcols_emem')):
+            x.cols += 1 << x.logcols_emem
     # Mem in KibiBytes
     x.mem = x.rows * x.cols * CELL_SIZE / KB2B
 
@@ -96,7 +102,7 @@ def get_mem_params(bench_list_1, bench_list_2, mem_const, contract_till):
     MAX_ROWS = 12
     X_LAST = MAX_ROWS * CELL_SIZE * (MAX_LMEM_COLS + MAX_GMEM_COLS) / KB2B
     # Y_LAST = ys[-1] + (X_LAST-xs[-1])*((ys[-1] - ys[-2])/(xs[-1] - xs[-2]))
-    Y_LAST = np.max(ys)  # FIXME: manual saturated here 
+    Y_LAST = np.max(ys)  # FIXME: manual saturated here
 
     xs.append(X_LAST)
     ys.append(Y_LAST)
@@ -132,6 +138,28 @@ def get_mem_time(x, hpr=1):
         cache_qty = (1 << x.logcols) * x.rows * CELL_SIZE / KB2B
         x.m_access_time = emem_time * emem_qty / x.mem
         x.m_access_time += cache_time * cache_qty / x.mem
+
+        if(x.sk_name == 'univmon'):
+            emem_qty = emem_qty * x.levels
+            cache_qty = cache_qty * x.levels
+            x.mem = cache_qty + emem_qty
+            x.m_access_time = cache_time * cache_qty / x.mem
+            effective_levels_cached = min(4.5, x.levels)
+            # x.m_access_time += emem_time * (2**-5 + 2**-6)
+            x.m_access_time += emem_time * (2**-effective_levels_cached)
+
+            # l1 = x.levels
+            # l2 = x.levels_emem
+            # x.p1 = np.sum(2**(-i) for i in range(1, l1+1))
+            # x.p2 = np.sum(2**(-i-l1) for i in range(1, l2)) + 2**(-l1-l2+1)
+            # x.p3 = np.sum(2**(-i) for i in range(1, l2)) + 2**(-l2+1)
+            # x.p2 = 1/x.levels
+            # x.p2 = 1/2**x.levels
+            # x.m_access_time = emem_time * x.p2
+            # x.m_access_time += cache_time * x.p1
+            # x.m_access_time = x.p2 * emem_time * emem_qty / x.mem
+            # x.m_access_time += cache_time * cache_qty / x.mem
+
     return (mem_const + x.rows * x.m_access_time)
 
 
@@ -142,10 +170,20 @@ def model(x, hpr, additional_hashes, diff):
     items = (fwd_ns, x.hash_ns, x.mem_ns)
     x.argmax, x.model_ns = max(enumerate(items), key=itemgetter(1))
     diff.append(abs(x.ns - x.model_ns) / x.ns)
+    if(x.sk_name == 'univmon'):
+        if(hasattr(x, 'levels_emem')):
+            print("{}, {}, {}, {}, {}, {}, {}, {}".format(
+                x.levels, x.levels_emem, x.rows, x.cols,
+                x.m_access_time, x.mem_ns, x.model_ns, x.ns))
+        else:
+            print("{}, {}, {}, {}, {}, {}".format(
+                x.levels, x.rows, x.cols,
+                x.mem_ns, x.model_ns, x.ns))
 
 
 # ** Evaluation
 sketches = list(sketch_params.keys())
+errors = []
 for skid, sketch in enumerate(sketches):
     ground_truths = {}
     bench_list = []
@@ -171,7 +209,7 @@ for skid, sketch in enumerate(sketches):
     bench_list.sort(key=lambda x: (x.rows, x.hash_units, x.cols))
     if(sketch == 'univmon'):
         bench_list.sort(
-            key=lambda x: (x.levels, x.rows, x.hash_units, x.cols))
+            key=lambda x: (x.total_levels, x.rows, x.hash_units, x.cols))
 
     diff = []
     for x in bench_list:
@@ -193,8 +231,8 @@ for skid, sketch in enumerate(sketches):
     xlabel = 'Device & Sketch Configuration\n(r[rows], h[hash units], mem in Bytes)'
     if(sketch =='univmon'):
         label_function = lambda x: 'l{}, r{}, h{}, {}'.format(
-            int(x.levels), int(x.rows), int(x.hash_units),
-            get_mem_label(x.mem * x.levels))
+            int(x.total_levels), int(x.rows), int(x.hash_units),
+            get_mem_label(x.mem * x.total_levels))
         xlabel = ('Device & Sketch Configuration\n(l[levels], '
                   'r[rows], h[hash units], mem in Bytes)')
 
@@ -205,3 +243,11 @@ for skid, sketch in enumerate(sketches):
 
     if(len(diff) > 0):
         print("Relative Error [{}]: ".format(sketch), np.average(diff))
+        errors.append([sketch, round(100 * np.average(diff), 2),
+                       round(100 * np.percentile(diff, 90), 2)])
+
+
+import pandas as pd
+df = pd.DataFrame(errors, columns=['sketch', 'mean percent error', '90th percentile percent error'])
+df.set_index('sketch', inplace=True)
+print(df.to_csv())

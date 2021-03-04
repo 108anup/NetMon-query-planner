@@ -1,7 +1,7 @@
-sk_name, rows, logcols, logcols_emem, hash_units, mpps
-count-sketch, 6, 10, 10, 4, 0.5820449297065534,
-count-sketch, 3, 10, 20, 2, 0.5828997824895488,
-count-sketch, 9, 10, 20, 4, 0.1942967450936828,
-count-sketch, 3, 10, 10, 4, 1.1848734270120505,
-count-sketch, 6, 10, 16, 2, 0.2957040848796216,
-count-sketch, 3, 10, 16, 1, 0.5913584985132295
+sk_name, levels, levels_emem, rows, logcols, logcols_emem, hash_units, mpps
+count-sketch, 16, 16, 6, 10, 10, 4, 0.5820447893232575,
+count-sketch, 16, 16, 3, 10, 20, 2, 0.5828992251241129,
+count-sketch, 16, 16, 9, 10, 20, 4, 0.19758986380238955,
+count-sketch, 16, 16, 3, 10, 10, 4, 1.1651248633192821,
+count-sketch, 16, 16, 6, 10, 16, 2, 0.29570389951699566,
+count-sketch, 16, 16, 3, 10, 16, 1, 0.591358196713287,

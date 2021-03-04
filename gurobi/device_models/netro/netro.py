@@ -368,7 +368,10 @@ def get_mem_time(x, hpr=1):
         # x.m_access_time = get_mem_time_univmon(x)
 
         # Simple Linear combination model
-        x.m_access_time = get_mem_time_univmon_linear_model(x)
+        # x.m_access_time = get_mem_time_univmon_linear_model(x)
+
+        # First 4 levels only
+        x.m_access_time = get_mem_access_time(x.mem * min(3, x.levels))
 
         # # Half model
         # x.m_access_time = 0.5 * get_mem_access_time(x.mem * x.levels)
@@ -390,6 +393,9 @@ def model(x, hpr, additional_hashes, diff):
     x.argmax, x.model_ns = max(enumerate(items), key=itemgetter(1))
     x.argmax_loc = 1500 / x.me + x.argmax * 10 #  * x.me / 5
     diff.append(abs(x.ns - x.model_ns) / x.ns)
+    if(hasattr(x, 'levels')):
+        print("{}, {}, {}, {}, {}"
+              .format(x.levels, x.rows, x.cols, x.ns, x.model_ns))
 
 
 # Evaluation:
@@ -505,6 +511,7 @@ def parse_ground_truth(x, header, me):
     return entry
 
 
+errors = []
 sketches = ['count-min-sketch', 'count-sketch', 'univmon']
 hashes_per_row = [1, 2, 2]
 additional_hashes = [0, 0, 1]
@@ -545,4 +552,10 @@ for skid, sketch in enumerate(sketches):
     myplot([x for x in bench_list if x.me == 20], "20", sketch)
     if(len(diff) > 0):
         print("Relative Error [{}]: ".format(sketch), np.average(diff))
+        errors.append([sketch, round(100 * np.average(diff), 2),
+                       round(100 * np.percentile(diff, 90), 2)])
     # pprint.pprint(bench_list)
+import pandas as pd
+df = pd.DataFrame(errors, columns=['sketch', 'mean percent error', '90th percentile percent error'])
+df.set_index('sketch', inplace=True)
+print(df.to_csv())
