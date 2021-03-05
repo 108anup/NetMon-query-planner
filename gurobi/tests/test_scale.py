@@ -6,10 +6,10 @@ from config import common_config
 from topology.clos import Clos
 
 PODS_QD = [
-    (16, 1)
-    (20, 1)
-    (24, 3)
-    (32, 3)
+    (16, 1),
+    (20, 1),
+    (24, 3),
+    (32, 3),
     (48, 4)
 ]
 
