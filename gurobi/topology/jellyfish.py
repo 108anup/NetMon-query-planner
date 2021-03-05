@@ -106,7 +106,7 @@ class JellyFish(Topology):
             self.num_netronome, self.num_fpga)
 
     def get_name(self):
-        return "JellyFish (N={}, k={}, r={})".format(self.N, self.k, self.r)
+        return "JellyFish (N:{} k:{} r:{})".format(self.N, self.k, self.r)
 
 
 if (__name__ == '__main__'):

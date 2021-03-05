@@ -56,4 +56,4 @@ def test_vary_topology(inp, scheme):
     inp.overlay = scheme[1]
     common_config.time_limit = 420
     setup_test_meta(m, "outputs/vary_topology")
-    run_all_with_input(m, inp)
+    run_all_with_input(m, inp, solvers=solvers)
