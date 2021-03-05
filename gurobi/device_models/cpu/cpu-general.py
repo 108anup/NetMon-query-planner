@@ -321,7 +321,7 @@ print("mem const: ", mem_const)
 def get_mem_time(x, hpr=1):
     x.m_access_time = get_mem_access_time(x.mem)
     if(hasattr(x, 'levels')):
-        x.m_access_time = get_mem_access_time(x.mem * min(8, x.levels))
+        x.m_access_time = get_mem_access_time(x.mem * min(4, x.levels))
     return (mem_const + x.rows * x.m_access_time)
 
 
