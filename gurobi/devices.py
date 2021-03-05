@@ -657,7 +657,7 @@ class FPGA(Device):
         # or hashing does not become bottleneck
         hash_units = min(
             self.total_hash_units,
-            get_rounded_cores(md.ns_hash_single / ns_bottleneck)
+            get_rounded_cores(ns_hash_single / ns_bottleneck)
         )
         if(hash_units == 0):
             ns_hash = 0

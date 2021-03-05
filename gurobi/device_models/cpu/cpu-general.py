@@ -370,8 +370,10 @@ def myplot(bench_list, cores, sketch):
     if(len(bench_list) == 0):
         return
 
-    fig, ax = plt.subplots(figsize=get_fig_size(0.5/0.9, 0.8))
-    # fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
+    if(sketch == 'count-min-sketch'):
+        fig, ax = plt.subplots(figsize=get_fig_size(0.5/0.9, 0.8))
+    else:
+        fig, ax = plt.subplots(figsize=get_fig_size(1, 0.6))
     labels = list(map(lambda x: '{}, {}'.format(int(x.rows), get_mem_label(x.mem)), bench_list))
     if(sketch == 'univmon'):
         labels = list(map(lambda x: '{}, {}, {}'.format(

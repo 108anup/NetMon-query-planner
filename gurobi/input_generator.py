@@ -446,7 +446,7 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=16, overlay='fast_modularity', query_density=1,
+    Clos(pods=16, overlay='spectral', query_density=1,
          portion_netronome=0.5,
          portion_fpga=0.5),
 
@@ -492,7 +492,7 @@ input_generator = [
 
     # 39
     JellyFish(tors=500, ports_per_tor=20,
-              num_hosts=2000, overlay='spectralA',
+              num_hosts=2000, overlay='tenant',
               query_density=2),
 
     # 40
