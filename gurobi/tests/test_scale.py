@@ -18,19 +18,19 @@ TOPOLOGIES_TO_TEST = [
          overlay='none') for p, q in PODS_QD
 ]
 
-SCHEMES = {
+SCHEMES = [
     ('Baseline', 'none'),
     ('Univmon', 'none'),
     ('UnivmonGreedyRows', 'none'),
     ('UnivmonGreedyRows', 'tenant'),
     ('Netmon', 'none'),
     ('Netmon', 'tenant'),
-}
+]
 
 
 @pytest.mark.parametrize(
-    "inp, overlay",
-    combinations([TOPOLOGIES_TO_TEST[:3], SCHEMES[-2]])
+    "inp, scheme",
+    combinations([TOPOLOGIES_TO_TEST[:3], SCHEMES[-2:-1]])
 )
 def test_scale_clos(inp, scheme):
     common_config.parallel = True

@@ -34,18 +34,26 @@ TOPOLOGIES_TO_TEST = [
          overlay='none')
 ]
 
-OVERLAYS = [
-    # 'none',
-    'tenant'
+SCHEMES = [
+    ('Baseline', 'none'),
+    ('Univmon', 'none'),
+    ('UnivmonGreedyRows', 'none'),
+    ('UnivmonGreedyRows', 'tenant'),
+    ('Netmon', 'none'),
+    ('Netmon', 'tenant'),
 ]
 
-@pytest.mark.parametrize("inp, overlay", combinations([TOPOLOGIES_TO_TEST[-1:], OVERLAYS]))
-def test_vary_topology(inp, overlay):
+@pytest.mark.parametrize("inp, scheme", combinations([TOPOLOGIES_TO_TEST, SCHEMES]))
+def test_vary_topology(inp, scheme):
     m = Namespace()
     m.test_name = "vary_topology"
-    m.args_str = ("handle={};overlay={};pickle={}"
-                  .format(inp.get_name(), overlay, inp.get_pickle_name()))
-    inp.overlay = overlay
+    m.args_str = ("handle={};scheme={};overlay={};pickle={}"
+                  .format(inp.get_name(), scheme[0], scheme[1], inp.get_pickle_name()))
+    solvers = [scheme[0]]
+    if(scheme[0] == 'Baseline'):
+        common_config.static = True
+        solvers = ['Univmon']
+    inp.overlay = scheme[1]
     common_config.time_limit = 420
     setup_test_meta(m, "outputs/vary_topology")
     run_all_with_input(m, inp)
