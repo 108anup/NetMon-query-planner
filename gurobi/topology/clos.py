@@ -4,21 +4,22 @@ import pickle
 import random
 import sys
 
+import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 
+from clustering.fast_modularity import FastModularity
 from common import constants, freeze_object, log, log_time
 from config import common_config
-from devices import CPU, P4, Netronome, FPGA
+from devices import CPU, FPGA, P4, Netronome
 from flows import flow
-from input import (Input, draw_graph, draw_overlay_over_tenant, fold,
-                   generate_overlay, get_complete_graph, get_graph,
-                   get_labels_from_overlay, get_spectral_overlay, merge,
-                   get_hdbscan_overlay, get_kmedoids_overlay, flatten,
-                   get_kmedoids_centers, get_2_level_overlay)
-from profiles import agiliocx40gbe, beluga20, tofino, dc_line_rate, alveo_u280
-from sketches import cm_sketch, cs_sketch, univmon, all_sketches
-import matplotlib.pyplot as plt
+from input import (Input, draw_graph, draw_overlay_over_tenant, flatten, fold,
+                   generate_overlay, get_2_level_overlay, get_complete_graph,
+                   get_graph, get_hdbscan_overlay, get_kmedoids_centers,
+                   get_kmedoids_overlay, get_labels_from_overlay,
+                   get_spectral_overlay, merge)
+from profiles import agiliocx40gbe, alveo_u280, beluga20, dc_line_rate, tofino
+from sketches import all_sketches, cm_sketch, cs_sketch, univmon
 
 eps0 = constants.eps0
 del0 = constants.del0
@@ -195,7 +196,8 @@ class Clos(object):
         # import ipdb; ipdb.set_trace()
         # query_density means queries per host
         num_tenants = math.ceil(self.num_hosts / self.hosts_per_tenant)
-        queries_per_tenant = self.query_density * self.hosts_per_tenant
+        queries_per_tenant = math.ceil(self.query_density
+                                       * self.hosts_per_tenant)
         flows_per_query = 2
 
         mean_queries_updated_by_flow = 2
@@ -513,7 +515,8 @@ class Clos(object):
         return overlay
 
     def get_overlay(self, inp):
-        assert(self.overlay in ['tenant', 'none', 'spectral', 'hdbscan', 'kmedoids', 'spectralA'])
+        assert(self.overlay in ['tenant', 'none', 'spectral', 'hdbscan',
+                                'kmedoids', 'spectralA', 'fast_modularity'])
         overlay = None
         if('spectral' == self.overlay):
             overlay = get_spectral_overlay(inp)
@@ -544,6 +547,12 @@ class Clos(object):
 
         elif(self.overlay == 'kmedoids'):
             overlay = self.get_kmedoids_overlay(inp)
+
+        elif(self.overlay == 'kmedoids'):
+            overlay = self.get_kmedoids_overlay(inp)
+        elif('fast_modularity' == self.overlay):
+            fm = FastModularity()
+            overlay = fm.get_overlay(inp, self)
 
         if(overlay):
             if(len(overlay) == 1

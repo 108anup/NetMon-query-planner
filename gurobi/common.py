@@ -1,7 +1,10 @@
 import time
 import logging
 import sys
+import os
 
+
+PROJECT_ROOT = os.path.dirname(__file__)
 
 log = logging.getLogger('control')
 log.setLevel(logging.NOTSET+1)

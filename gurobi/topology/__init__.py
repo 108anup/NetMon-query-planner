@@ -4,18 +4,18 @@ import pickle
 import random
 from abc import ABC, abstractmethod
 
+import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 
 from clustering import Clustering
 from common import constants, freeze_object, log
-from devices import CPU, P4, Netronome, FPGA
+from devices import CPU, FPGA, P4, Netronome
 from flows import flow
 from input import Input
-from profiles import agiliocx40gbe, beluga20, dc_line_rate, tofino, alveo_u280
-from sketches import cm_sketch, cs_sketch, univmon, all_sketches
+from profiles import agiliocx40gbe, alveo_u280, beluga20, dc_line_rate, tofino
+from sketches import all_sketches, cm_sketch, cs_sketch, univmon
 from traffic import Traffic
-import matplotlib.pyplot as plt
 
 eps0 = constants.eps0
 del0 = constants.del0
@@ -30,7 +30,8 @@ class Topology(ABC):
 
         self.sketch_load = {}
         num_sk_types = len(all_sketches)
-        self.num_queries = num_sk_types * math.ceil(self.num_queries / num_sk_types)
+        self.num_queries = num_sk_types * math.ceil(
+            self.num_queries / num_sk_types)
         for sk in all_sketches:
             self.sketch_load[sk] = int(self.num_queries/num_sk_types)
 
@@ -73,7 +74,7 @@ class Topology(ABC):
 
     def supported_overlays(self):
         return ['none', 'tenant', 'spectral', 'spectralA',
-                'kmeans', 'kmedoids', 'hdbscan']
+                'kmeans', 'kmedoids', 'hdbscan', 'fast_modularity']
 
     # TODO: Consider splitting this function and moving to Traffic class
     def get_flows(self, g, inp):

@@ -7,6 +7,7 @@ from input import (Input, draw_graph, draw_overlay_over_tenant, flatten, fold,
                    get_graph, get_hdbscan_overlay, get_kmedoids_centers,
                    get_kmedoids_overlay, get_labels_from_overlay,
                    get_spectral_overlay, merge)
+from .fast_modularity import FastModularity
 
 
 class Clustering(object):
@@ -69,7 +70,7 @@ class Clustering(object):
         assert(topology.overlay in topology.supported_overlays())
         overlay = None
 
-        # TODO: can convert to classes rather
+        # TODO: consider converting to classes rather
         # than functions
         if('spectral' == topology.overlay):
             overlay = get_spectral_overlay(inp)
@@ -82,6 +83,9 @@ class Clustering(object):
             overlay = get_kmedoids_overlay(inp)
         elif('hdbscan' == topology.overlay):
             overlay = get_hdbscan_overlay(inp)
+        elif('fast_modularity' == topology.overlay):
+            fm = FastModularity()
+            overlay = fm.get_overlay(inp, topology)
 
         # Clean overlay
         # TODO: Move all clustering functions from input.py to here

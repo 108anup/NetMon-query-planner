@@ -2,6 +2,7 @@ import math
 
 from common import Namespace, constants
 
+
 class cm_sketch(Namespace):
 
     def __repr__(self):
