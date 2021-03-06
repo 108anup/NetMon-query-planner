@@ -48,5 +48,7 @@ def test_scale_clos(inp, scheme):
     if(scheme[0] == 'Baseline'):
         common_config.static = True
         solvers = ['Univmon']
+    else:
+        common_config.static = False
     inp.overlay = scheme[1]
     run_all_with_input(m, inp, solvers=solvers)

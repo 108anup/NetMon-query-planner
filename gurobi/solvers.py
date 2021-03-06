@@ -164,6 +164,7 @@ def refine_devices(devices, md_list, placement_fixed=True, static=False):
                 r.p10miss_count += 1
         if(getattr(md, 'infeasible', None)):
             r.infeasible = True
+            r.reason = "Allocating more device resources than available. Possible numerical issue!"
 
     return r
 
@@ -1056,6 +1057,7 @@ class Netmon(UnivmonGreedyRows):
             return super(Netmon, self).add_objective()
         # Spend 10% time in finding a good feasible solution using heuristics
         # self.m.setParam(GRB.Param.Heuristics, 0.5)
+        # self.m.setParam(GRB.Param.ImproveStartGap, 0.05)
         # MIP Focus 2 to get better quality solutions
         # MIP Focus 1 to get faster to a feasible solution
         if(not common_config.perf_obj or
