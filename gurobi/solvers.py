@@ -1055,7 +1055,7 @@ class Netmon(UnivmonGreedyRows):
         if(self.is_clustered()):
             return super(Netmon, self).add_objective()
         # Spend 10% time in finding a good feasible solution using heuristics
-        self.m.setParam(GRB.Param.Heuristics, 0.1)
+        # self.m.setParam(GRB.Param.Heuristics, 0.5)
         # MIP Focus 2 to get better quality solutions
         # MIP Focus 1 to get faster to a feasible solution
         if(not common_config.perf_obj or

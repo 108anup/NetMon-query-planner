@@ -30,7 +30,7 @@ TOPOLOGIES_TO_TEST = [
               query_density=1,
               portion_netronome=0.5,
               portion_fpga=0.5),
-    Clos(pods=20, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
+    Clos(pods=16, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
          overlay='none')
 ]
 
@@ -54,6 +54,5 @@ def test_vary_topology(inp, scheme):
         common_config.static = True
         solvers = ['Univmon']
     inp.overlay = scheme[1]
-    common_config.time_limit = 420
     setup_test_meta(m, "outputs/vary_topology")
     run_all_with_input(m, inp, solvers=solvers)
