@@ -101,7 +101,7 @@ def refine_devices(devices, md_list, placement_fixed=True, static=False):
             ns_max = max(ns_max, d.get_ns(md))
 
     r = Namespace(ns_max=0, res=0, total_CPUs=0, micro_engines=0,
-                  used_cores=0, switch_memory=0, nic_memory=0,
+                  used_cores=0, cpu_memory=0, switch_memory=0, nic_memory=0,
                   fpga_memory=0, fpga_hash_units=0, p10miss_count=0)
     for (dnum, d) in enumerate(devices):
         md = md_list[dnum]
@@ -1157,14 +1157,15 @@ def log_results(devices, r, md_list, logger=log.info,
             msg, 1000/r.ns_max, r.ns_max))
     log.info("Resources: {}".format(r.res))
     if(r.total_CPUs is not None and r.used_cores is not None
+       and r.cpu_memory is not None
        and r.switch_memory is not None and r.micro_engines is not None
        and r.nic_memory is not None and r.fpga_memory is not None
        and r.fpga_hash_units is not None):
-        log.info("Used Cores: {}, Total CPUS: {}, "
+        log.info("Used Cores: {}, Total CPUS: {}, CPU Memory: {}, "
                  "Switch Memory: {}, \n"
                  "Micro-enginges: {}, NIC Memory: {}\n"
                  "FPGA-hash_units: {}, FPGA Memory: {}"
-                 .format(r.used_cores, r.total_CPUs,
+                 .format(r.used_cores, r.total_CPUs, r.cpu_memory,
                          r.switch_memory, r.micro_engines,
                          r.nic_memory, r.fpga_hash_units,
                          r.fpga_memory))
@@ -1176,9 +1177,9 @@ def log_results(devices, r, md_list, logger=log.info,
 
     if(common_config.results_file is not None and elapsed is not None):
         f = open(common_config.results_file, 'a')
-        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {}, {:0.3f}, {}, {:0.3f}, {}, {}, {}".format(
+        f.write("{:0.3f}, {:0.3f}, {}, {:0.3f}, {}, {:0.3f}, {}, {:0.3f}, {}, {:0.3f}, {}, {}, {}".format(
             1000/r.ns_max, r.res,
-            r.used_cores, r.total_CPUs, r.switch_memory,
+            r.used_cores, r.cpu_memory, r.total_CPUs, r.switch_memory,
             r.micro_engines, r.nic_memory, r.fpga_hash_units,
             r.fpga_memory, elapsed,
             r.p10miss_count, len(devices)))

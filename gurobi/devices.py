@@ -236,10 +236,12 @@ class CPU(Device):
         if(hasattr(md, 'cores_sketch')):
             cores_sketch = get_val(md.cores_sketch)
             cores_dpdk = get_val(md.cores_dpdk)
+            cpu_memory = get_val(md.static_mem_tot)
             if(r):
                 # Whenever called with r, assume attrs are set
                 r.total_CPUs += 1
                 r.used_cores += cores_sketch + cores_dpdk
+                r.cpu_memory += cpu_memory
             return "cores_sketch: {}, cores_dpdk: {}".format(
                 cores_sketch, cores_dpdk)
         else:
