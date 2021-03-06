@@ -1,9 +1,23 @@
+from types import SimpleNamespace
+
 import pytest
-from tests.utilities import (combinations, run_all_with_input, setup_test_meta)
+from tests.utilities import combinations, run_all_with_input, setup_test_meta
 
 from common import Namespace
 from config import common_config
 from topology.clos import Clos
+
+p1 = SimpleNamespace(x=4_500, y=150)
+p2 = SimpleNamespace(x=58_176, y=8000)
+slope = (p2.y - p1.y) / (p2.x - p1.x)
+intercept = p1.y - slope * p1.x
+
+
+def get_time_limit(inp):
+    this_devices = len(inp.devices)
+    this_time = intercept + slope * this_devices
+    return this_time
+
 
 PODS_QD = [
     (16, 1),
@@ -43,7 +57,6 @@ def test_scale_clos(inp, scheme):
         "pods={};sketch_load={};scheme={};overlay={}"
         .format(inp.pods, inp.query_density, scheme[0], scheme[1])
     )
-    setup_test_meta(m)
     solvers = [scheme[0]]
     if(scheme[0] == 'Baseline'):
         common_config.static = True
@@ -51,4 +64,6 @@ def test_scale_clos(inp, scheme):
     else:
         common_config.static = False
     inp.overlay = scheme[1]
+    common_config.time_limit = get_time_limit(inp)
+    setup_test_meta(m, "outputs/vary_scale")
     run_all_with_input(m, inp, solvers=solvers)

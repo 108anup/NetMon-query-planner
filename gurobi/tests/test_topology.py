@@ -1,12 +1,11 @@
 import pytest
+from tests.utilities import combinations, run_all_with_input, setup_test_meta
+
 from common import Namespace
-from topology.jellyfish import JellyFish
-from topology.topology_zoo import TopologyZoo
-from topology.topology_zoo_wan import TopologyZooWAN
-from topology.clos import Clos
-from tests.utilities import (run_all_with_input, setup_test_meta,
-                             combinations, run_flow_dynamics, full_rerun_flow_dynamics)
 from config import common_config
+from topology.clos import Clos
+from topology.jellyfish import JellyFish
+from topology.topology_zoo_wan import TopologyZooWAN
 
 ZOO_SELECTION = [
     'Geant2012.graphml',
@@ -43,12 +42,19 @@ SCHEMES = [
     ('Netmon', 'tenant'),
 ]
 
-@pytest.mark.parametrize("inp, scheme", combinations([TOPOLOGIES_TO_TEST, SCHEMES]))
+@pytest.mark.parametrize("inp, scheme",
+                         combinations([TOPOLOGIES_TO_TEST, SCHEMES]))
 def test_vary_topology(inp, scheme):
+    common_config.parallel = True
+    common_config.mipout = False
+    common_config.verbose = 1
+
     m = Namespace()
     m.test_name = "vary_topology"
     m.args_str = ("handle={};scheme={};overlay={};pickle={}"
-                  .format(inp.get_name(), scheme[0], scheme[1], inp.get_pickle_name()))
+                  .format(inp.get_name(), scheme[0], scheme[1],
+                          inp.get_pickle_name()))
+    # TODO: remove redundancy
     solvers = [scheme[0]]
     if(scheme[0] == 'Baseline'):
         common_config.static = True
