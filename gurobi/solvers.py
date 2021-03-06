@@ -1176,10 +1176,11 @@ def log_results(devices, r, md_list, logger=log.info,
 
     if(common_config.results_file is not None and elapsed is not None):
         f = open(common_config.results_file, 'a')
-        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {:0.3f}, {:0.3f}, {:0.3f}, {}, {}, {}".format(
+        f.write("{:0.3f}, {:0.3f}, {}, {}, {:0.3f}, {}, {:0.3f}, {}, {:0.3f}, {}, {}, {}".format(
             1000/r.ns_max, r.res,
             r.used_cores, r.total_CPUs, r.switch_memory,
-            r.nic_memory, r.fpga_hash_units, r.fpga_memory, elapsed,
+            r.micro_engines, r.nic_memory, r.fpga_hash_units,
+            r.fpga_memory, elapsed,
             r.p10miss_count, len(devices)))
         f.close()
 
