@@ -64,6 +64,15 @@ class Clos(object):
         for sk in all_sketches:
             self.sketch_load[sk] = int(self.num_queries/num_sk_types)
 
+        # # Testing impact of other sketches
+        # idx = 0
+        # for sk in all_sketches:
+        #     if(idx != 2):
+        #         self.sketch_load[sk] = int(self.num_queries/2)
+        #         idx += 1
+        #     else:
+        #         self.sketch_load[sk] = 0
+
 
     def construct_graph(self, devices, has_nic):
         start = 0
@@ -587,10 +596,13 @@ class Clos(object):
             queries=(
                 [cm_sketch(eps0=self.eps, del0=del0)
                  for i in range(self.sketch_load[cm_sketch])]
-                + [cs_sketch(eps0=self.eps/2, del0=del0)
+                + [cs_sketch(eps0=self.eps, del0=del0)
                  for i in range(self.sketch_load[cs_sketch])]
-                + [univmon(eps0=self.eps/2, del0=del0, levels=levels0)
+                + [univmon(eps0=self.eps * 8, del0=del0, levels=8)
                  for i in range(self.sketch_load[univmon])]
+                # TODO: reduce total instantiations of sketches rather
+                # than reducing memory of sketch by adjusting
+                # number of flows
             )
         )
         for (dnum, d) in enumerate(inp.devices):

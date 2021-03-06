@@ -210,7 +210,7 @@ class Topology(ABC):
                  for i in range(self.sketch_load[cm_sketch])]
                 + [cs_sketch(eps0=self.eps/2, del0=del0)
                    for i in range(self.sketch_load[cs_sketch])]
-                + [univmon(eps0=self.eps/2, del0=del0, levels=levels0)
+                + [univmon(eps0=self.eps, del0=del0, levels=levels0)
                    for i in range(self.sketch_load[univmon])]
             ),
         )

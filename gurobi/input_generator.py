@@ -12,6 +12,7 @@ from topology.topology_zoo import TopologyZoo
 
 eps0 = constants.eps0
 del0 = constants.del0
+levels0 = constants.levels0
 
 # All memory measured in KB unless otherwise specified
 input_generator = [
@@ -26,7 +27,7 @@ input_generator = [
         ],
         # Change when metrics are added / removed
         queries=[
-            cm_sketch(eps0=eps0, del0=del0),
+            univmon(eps0=eps0, del0=del0, levels=levels0),
         ],
         # Change when metric filters are modified
         flows=[
@@ -535,6 +536,6 @@ input_generator = [
     TopologyZoo('Cogentco.graphml', overlay='none', query_density=4),
 
     # 45
-    Clos(pods=16, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
+    Clos(pods=16, query_density=1, portion_netronome=0.5, portion_fpga=0.5,
          overlay='none')
 ]

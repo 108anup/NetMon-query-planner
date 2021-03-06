@@ -71,8 +71,8 @@ class univmon(cs_sketch):
         return 'Univmon_{}'.format(self.sketch_id)
 
     def details(self):
-        return "univmon: eps0: {}, del0: {}, memory_per_row: {}".format(
-            self.eps0, self.del0, self.memory_per_row())
+        return "univmon: eps0: {}, del0: {}, memory_per_row: {}, levels: {}".format(
+            self.eps0, self.del0, self.memory_per_row(), self.levels)
 
     def memory_per_row(self):
         return super(univmon, self).memory_per_row() * self.levels
@@ -85,7 +85,7 @@ class univmon(cs_sketch):
 
     def uniform_mem(self, num_rows=None, device_name='Cluster'):
         alpha = {
-            'CPU': min(8, self.levels),
+            'CPU': min(4, self.levels),
             'Netronome': min(3, self.levels),
             'FPGA': self.levels,
             'P4': self.levels,
