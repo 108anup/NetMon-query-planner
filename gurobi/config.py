@@ -37,7 +37,7 @@ default_config = Config(
     ftol=6.0e-5,
     MIP_GAP_REL=0.05,
     MIP_GAP_ABS_RES=200,
-    MAX_DEVICES_PER_CLUSTER=25,
+    MAX_DEVICES_PER_CLUSTER=15,
     MAX_CLUSTERS_PER_CLUSTER=200,
     ME_WEIGHT=50,
     CPU_CORE_WEIGHT=100,
@@ -46,6 +46,7 @@ default_config = Config(
     PORTION_TIME_ON_PERF=0.7,
     ABS_TIME_ON_UNIVMON_BOTTLENECK=None,
     MIP_GAP_REL_UNIVMON_BOTTLENECK=0.2,
+    NETMON_RES_FOCUS=1,
 
     solver='Netmon',
     input_num=0,

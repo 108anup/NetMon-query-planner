@@ -7,9 +7,9 @@ from topology.clos import Clos
 
 PODS_QD = [
     (16, 1),
-    (20, 1),
+    (20, 3),
     (24, 3),
-    (32, 3),
+    (32, 4),
     (48, 4)
 ]
 

@@ -4,3 +4,4 @@ config.yml
 pickle_objs
 .mypy_cache
 topology-zoo
+pickle_objs_old

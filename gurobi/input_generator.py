@@ -446,13 +446,13 @@ input_generator = [
     ),
 
     # 34
-    Clos(pods=16, overlay='spectral', query_density=1,
+    Clos(pods=16, overlay='hdbscan', query_density=1,
          portion_netronome=0.5,
          portion_fpga=0.5),
 
     # 35
-    Clos(pods=20, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
-         overlay='tenant'),
+    Clos(pods=24, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
+         overlay='none'),
 
     # 36
     Clos(6, 4, portion_netronome=0, overlay='none', hosts_per_tenant=6),
@@ -533,4 +533,8 @@ input_generator = [
 
     # 44
     TopologyZoo('Cogentco.graphml', overlay='none', query_density=4),
+
+    # 45
+    Clos(pods=20, query_density=3, portion_netronome=0, portion_fpga=0,
+         overlay='none')
 ]

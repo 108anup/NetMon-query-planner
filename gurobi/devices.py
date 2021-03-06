@@ -230,7 +230,7 @@ class CPU(Device):
 
     def res(self, md):
         return (common_config.CPU_CORE_WEIGHT*(md.cores_dpdk + md.cores_sketch)
-                + md.static_mem_tot/self.Li_size[2])
+                + md.static_mem_tot/self.Li_size[1])
 
     def resource_stats(self, md, r=None):
         if(hasattr(md, 'cores_sketch')):

@@ -1,8 +1,8 @@
-name: wbase
+name: heterosketch
 channels:
-  - anaconda
   - gurobi
   - conda-forge
+  - anaconda
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
@@ -47,7 +47,7 @@ dependencies:
   - glib=2.67.4
   - gst-plugins-base=1.14.0
   - gstreamer=1.14.0
-  - gurobi=9.0.0
+  - gurobi=9.1.1
   - hdbscan=0.8.26
   - icu=58.2
   - idna=2.10
@@ -79,10 +79,13 @@ dependencies:
   - latexcodec=2.0.0
   - lazy-object-proxy=1.5.2
   - ld_impl_linux-64=2.33.1
+  - libblas=3.8.0
+  - libcblas=3.8.0
   - libedit=3.1.20191231
   - libffi=3.3
   - libgcc-ng=9.1.0
   - libgfortran-ng=7.3.0
+  - liblapack=3.8.0
   - libllvm10=10.0.1
   - libpng=1.6.37
   - libsodium=1.0.18
@@ -127,6 +130,7 @@ dependencies:
   - orderedset=2.0.3
   - packaging=20.9
   - palettable=3.3.0
+  - pandas=1.2.3
   - pandoc=2.11
   - pandocfilters=1.4.3
   - parso=0.8.1
@@ -168,7 +172,7 @@ dependencies:
   - python-louvain=0.15
   - python_abi=3.7
   - pytz=2021.1
-  - pyyaml=5.3
+  - pyyaml=5.3.1
   - pyzmq=20.0.0
   - qt=5.9.7
   - qtconsole=5.0.2
@@ -214,22 +218,4 @@ dependencies:
   - zeromq=4.3.3
   - zipp=3.4.0
   - zlib=1.2.11
-  - pip:
-    - biblib==0.1.0
-    - cftime==1.2.1
-    - citeproc-py==0.5.1
-    - citeproc-py-styles==0.1.1
-    - cmake-language-server==0.1.2
-    - epc==0.0.5
-    - importmagic==0.1.7
-    - lxml==4.5.0
-    - netcdf4==1.5.4
-    - pandas==0.24.2
-    - pygls==0.8.1
-    - pypblib==0.0.4
-    - pysmt==0.9.0
-    - python-sat==0.1.6.dev6
-    - qm==0.2
-    - sexpdata==0.0.3
-    - xarray==0.14.1
-    - xxhash==2.0.0
+

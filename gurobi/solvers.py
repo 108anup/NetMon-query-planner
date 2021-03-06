@@ -1047,13 +1047,15 @@ class Netmon(UnivmonGreedyRows):
             #     self.mem[dnum, pnum].ub = mem_old_ub[dnum, pnum]
 
         self.m.setParam(GRB.Param.NonConvex, 2)
-        self.m.setParam(GRB.Param.MIPFocus, 2)
+        self.m.setParam(GRB.Param.MIPFocus, common_config.NETMON_RES_FOCUS)
         (self.ns, self.res) = self.add_device_model_constraints(
             getattr(self, 'ns_req', None))
 
     def add_objective(self):
         if(self.is_clustered()):
             return super(Netmon, self).add_objective()
+        # Spend 10% time in finding a good feasible solution using heuristics
+        self.m.setParam(GRB.Param.Heuristics, 0.1)
         # MIP Focus 2 to get better quality solutions
         # MIP Focus 1 to get faster to a feasible solution
         if(not common_config.perf_obj or
@@ -1064,8 +1066,7 @@ class Netmon(UnivmonGreedyRows):
 
             env0 = self.m.getMultiobjEnv(0)
             env0.setParam(GRB.Param.NonConvex, 2)
-            # env0.setParam(GRB.Param.MIPFocus, 2)
-            env0.setParam(GRB.Param.MIPFocus, 1)
+            env0.setParam(GRB.Param.MIPFocus, common_config.NETMON_RES_FOCUS)
             env0.setParam(GRB.Param.MIPGapAbs, common_config.MIP_GAP_ABS_RES)
             env0.setParam(GRB.Param.MIPGap, 0)
             if(common_config.time_limit):
