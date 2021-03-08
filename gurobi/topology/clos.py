@@ -24,6 +24,8 @@ from sketches import all_sketches, cm_sketch, cs_sketch, univmon
 eps0 = constants.eps0
 del0 = constants.del0
 levels0 = constants.levels0
+# TODO: temporary fix for P4 issue.
+switch_line_rate = dc_line_rate
 
 # TODO: Make clos inherit from topo
 class Clos(object):

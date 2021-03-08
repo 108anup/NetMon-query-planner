@@ -537,8 +537,8 @@ input_generator = [
     TopologyZooWAN('Arpanet196912.graphml', overlay='tenant', query_density=4),
 
     # 45
-    Clos(pods=20, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
-         overlay='none'),
+    Clos(pods=16, query_density=1, portion_netronome=0.5, portion_fpga=0.5,
+         overlay='tenant'),
 
     # 46
     JellyFish(tors=500, ports_per_tor=20,

@@ -109,6 +109,7 @@ class CPU(Device):
         den = ns_req/dpdk_single_ns - 1 + f
         if(den <= 0):
             md.infeasible = True
+            md.reason = "Too high thr to support on CPU"
             return
         dpdk_cores = f/den
         md.cores_dpdk = get_rounded_cores(dpdk_cores)
@@ -116,8 +117,10 @@ class CPU(Device):
         md.ns = max(md.ns_dpdk, md.ns_sketch)
         if(md.cores_dpdk + md.cores_sketch > self.cores):
             md.infeasible = True
+            md.reason = "Trying too many cores on CPU"
         if(md.ns > ns_req):
             md.infeasible = True
+            md.reason = "Final ns on CPU is high"
 
     def add_ns_constraints(self, m, md, ns_req=None):
         hashes_per_packet_thr = md.hashes_per_packet_thr
@@ -387,11 +390,13 @@ class Netronome(Device):
             md.ns_fwd_max * self.total_me / ns_req))
         if(md.micro_engines > self.total_me):
             md.infeasible = True
+            md.reason = "Too many micro engines"
         md.ns_hash = md.ns_hash_max * self.total_me / md.micro_engines
         md.ns_fwd = md.ns_fwd_max * self.total_me / md.micro_engines
         md.ns = max(md.ns_hash, md.ns_fwd, md.ns_mem_max)
         if(md.ns > ns_req):
             md.infeasible = True
+            md.reason = "ns too high on netro"
 
     def add_ns_constraints(self, m, md, ns_req=None):
         hashes_per_packet_thr = md.hashes_per_packet_thr
@@ -542,6 +547,7 @@ class FPGA(Device):
     def set_thr(self, md, ns_req):
         md.hash_units = get_rounded_cores(md.ns_hash_single / ns_req)
         if(md.hash_units > self.total_hash_units):
+            md.reason = "Too many hash units on FPGA"
             md.infeasible = True
         if(md.hash_units == 0):
             md.ns_hash = 0
@@ -549,6 +555,7 @@ class FPGA(Device):
             md.ns_hash = md.ns_hash_single / md.hash_units
         md.ns = max(md.ns_hash, md.ns_fwd, md.ns_mem)
         if(md.ns > ns_req):
+            md.reason = "Too high ns on FPGA"
             md.infeasible = True
 
     # Nothing is known by default, if things are
@@ -690,6 +697,7 @@ class P4(Device):
                 assert(m is None)  # TODO: can remove later
             if(md.ns > ns_req):
                 md.infeasible = True
+                md.reason = "Too high ns on P4"
         # md.ns = m.addVar(vtype=GRB.CONTINUOUS, name='ns_{}'.format(self))
         # m.addConstr(md.ns == 1000 / self.line_thr, name='ns_{}'.format(self))
 

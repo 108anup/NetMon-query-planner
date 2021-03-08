@@ -165,7 +165,7 @@ def refine_devices(devices, md_list, placement_fixed=True, static=False):
                     r.p10miss_count += 1
         if(getattr(md, 'infeasible', None)):
             r.infeasible = True
-            r.reason = "Allocating more device resources than available. Possible numerical issue!"
+            r.reason = "Allocating more device resources than available. Possible numerical issue! ({}, {})".format(md.reason, d)
 
     return r
 

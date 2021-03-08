@@ -8,7 +8,7 @@ from common import constants
 
 TOPOLOGIES_TO_TEST = [
     Clos(pods=16, query_density=q, portion_netronome=0.5, portion_fpga=0.5,
-         overlay='tenant', eps=constants.eps0/8)
+         overlay='tenant')
     for q in [1, 2, 3, 4, 5, 6]
 ]
 
