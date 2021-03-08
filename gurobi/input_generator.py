@@ -538,7 +538,7 @@ input_generator = [
 
     # 45
     Clos(pods=20, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
-         overlay='tenant'),
+         overlay='none'),
 
     # 46
     JellyFish(tors=500, ports_per_tor=20,

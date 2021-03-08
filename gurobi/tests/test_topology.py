@@ -20,16 +20,16 @@ BAD_TRAFFIC = [
 
 TOPOLOGIES_TO_TEST = [
     TopologyZooWAN(zoo_name, overlay='none',
-                   query_density=4,
+                   query_density=2,
                    portion_netronome=0.5,
                    portion_fpga=0.5) for zoo_name in ZOO_SELECTION
 ] + [
     JellyFish(tors=500, ports_per_tor=20,
               num_hosts=2000, overlay='none',
-              query_density=1,
+              query_density=2,
               portion_netronome=0.5,
               portion_fpga=0.5),
-    Clos(pods=20, query_density=1, portion_netronome=0.5, portion_fpga=0.5,
+    Clos(pods=20, query_density=2, portion_netronome=0.5, portion_fpga=0.5,
          overlay='none')
 ]
 

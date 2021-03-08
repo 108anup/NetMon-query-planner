@@ -160,8 +160,9 @@ def refine_devices(devices, md_list, placement_fixed=True, static=False):
         r.ns_max = max(r.ns_max, get_val(md.ns))
         r.res += get_val(d.res(md))
         if(hasattr(md, 'ns_req')):
-            if(get_val(md.ns) * 1.1 > md.ns_req and get_val(md.static_mem_tot > d.cache_size)):
-                r.p10miss_count += 1
+            if(get_val(md.ns) * common_config.profile_error > md.ns_req and (not d.fixed_thr)):
+                if(get_val(md.static_mem_tot > d.cache_size)):
+                    r.p10miss_count += 1
         if(getattr(md, 'infeasible', None)):
             r.infeasible = True
             r.reason = "Allocating more device resources than available. Possible numerical issue!"

@@ -63,6 +63,7 @@ default_config = Config(
     perf_obj=False,
     static=False,
     dynamic_flows=False,
+    profile_error=1.1
 )
 common_config = Config()
 common_config.update(default_config)
