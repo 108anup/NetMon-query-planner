@@ -193,7 +193,7 @@ def get_partitions_flows(inp, cluster, problem, dnum, solution):
                 c = cluster.device_tree[cnum]
 
                 if(isinstance(d, P4) and isinstance(c, Cluster)):
-                    import ipdb; ipdb.set_trace()
+                    # import ipdb; ipdb.set_trace()
                     # I now think this optimization might lead to incorrect
                     # behavior
                     # Any way this is only used in hierarchical clustering

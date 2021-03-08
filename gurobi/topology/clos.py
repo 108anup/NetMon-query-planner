@@ -622,7 +622,7 @@ class Clos(object):
         return inp
 
     def get_name(self):
-        return "Clos (pods={})".format(self.pods)
+        return "Clos (pods:{})".format(self.pods)
 
     def get_pickle_name(self):
         return "clos-{}-{}-{}-{}-{}".format(

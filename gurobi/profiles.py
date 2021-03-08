@@ -1,5 +1,6 @@
 dc_line_rate = 22
 p4_stages = 2
+switch_line_rate = 5000
 
 # * One time profiling of each device type
 beluga20 = {

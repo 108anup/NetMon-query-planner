@@ -7,7 +7,7 @@ import networkx as nx
 import numpy as np
 
 from common import constants
-from profiles import dc_line_rate
+from profiles import dc_line_rate, switch_line_rate
 from topology import Topology
 
 TOPOLOGY_ZOO_DIRECTORY = "./topology-zoo"
@@ -90,12 +90,12 @@ class TopologyZooWAN(Topology):
             for i in range(NUM_AGG_SWITCH_PER_CORE):
                 # Connect core to all agg switches meant for it
                 g.add_edge(this_switch[0], agg_switches[agg_idx+i][0],
-                           remaining=dc_line_rate)
+                           remaining=switch_line_rate)
 
                 # All to all connections between agg and tor
                 for j in range(NUM_TOR_SWITCH_PER_CORE):
                     g.add_edge(agg_switches[agg_idx+i][0], tor_switches[tor_idx+j][0],
-                               remaining=dc_line_rate)
+                               remaining=switch_line_rate)
             agg_idx+=NUM_AGG_SWITCH_PER_CORE
             tor_idx+=NUM_TOR_SWITCH_PER_CORE
 
