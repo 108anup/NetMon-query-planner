@@ -7,6 +7,7 @@ from profiles import agiliocx40gbe, beluga20, tofino, alveo_u280
 from sketches import cm_sketch, cs_sketch, univmon
 from topology.jellyfish import JellyFish
 from topology.topology_zoo import TopologyZoo
+from topology.topology_zoo_wan import TopologyZooWAN
 
 # Stub file for providing input to solver
 
@@ -533,16 +534,16 @@ input_generator = [
          overlay='none', hosts_per_tenant=6),
 
     # 44
-    TopologyZoo('Cogentco.graphml', overlay='none', query_density=4),
+    TopologyZooWAN('Arpanet196912.graphml', overlay='tenant', query_density=4),
 
     # 45
-    Clos(pods=20, query_density=1, portion_netronome=0.5, portion_fpga=0.5,
-         overlay='none'),
+    Clos(pods=20, query_density=3, portion_netronome=0.5, portion_fpga=0.5,
+         overlay='tenant'),
 
     # 46
     JellyFish(tors=500, ports_per_tor=20,
               num_hosts=2000, overlay='tenant',
-              query_density=1,
+              query_density=4,
               portion_netronome=0.5,
               portion_fpga=0.5),
 ]

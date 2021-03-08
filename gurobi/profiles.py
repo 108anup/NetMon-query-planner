@@ -1,4 +1,4 @@
-dc_line_rate = 22
+dc_line_rate = 24
 p4_stages = 2
 switch_line_rate = 5000
 
@@ -35,12 +35,14 @@ agiliocx40gbe = {
     'hashing_const': 33.22322438313901, 'hashing_slope': 1.0142711549803503,
     'emem_size': 3*1024, 'total_me': 54, 'max_mem': 200000,
     'max_hashes': 12, 'line_thr': 27.55,
-    'cache_size': 3*1024
+    'cache_size': 3*1024,
+    'ctm_size': 256
 }
 
 # Hashes almost always won't become bottleneck
 # On the other hand, very low memory
-bram_size = 48
+single_bram_size = 36/8  # 36 Kbits
+max_bram_size = 48
 alveo_u280 = {
     'profile_name': "alveo_u280",
     'mem_const': 0,
@@ -48,7 +50,8 @@ alveo_u280 = {
     'mem_ns': [0, 0, 457.89396815068494, 565.0799996575344,
                595.8979178082192, 595.8979178082192],
     'hashing_const': 0, 'hashing_slope': 3.424654843444227,
-    'bram_size': bram_size, 'total_hash_units': 400, 'max_mem':bram_size,
+    'bram_size': single_bram_size, 'total_hash_units': 400,
+    'max_mem': max_bram_size,
     'max_hashes': 1200, 'line_thr': 91.438134,
     'cache_size': 48
 }

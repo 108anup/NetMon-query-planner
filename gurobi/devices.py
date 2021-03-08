@@ -476,7 +476,7 @@ class Netronome(Device):
 
     def res(self, md):
         return (common_config.ME_WEIGHT * (md.micro_engines)
-                + md.static_mem_tot/self.emem_size)
+                + md.static_mem_tot/self.ctm_size)
 
     def resource_stats(self, md, r=None):
         if(hasattr(md, 'micro_engines')):

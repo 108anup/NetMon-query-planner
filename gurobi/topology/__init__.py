@@ -128,6 +128,7 @@ class Topology(ABC):
         for (tnum, t) in enumerate(tenant_servers):
             query_set = [i + tnum * queries_per_tenant
                          for i in range(queries_per_tenant)]
+            # import ipdb; ipdb.set_trace()
             for itr in range(int(flows_per_host/2)):
                 assigned = t.copy()
                 np.random.shuffle(assigned)
@@ -152,6 +153,7 @@ class Topology(ABC):
                             g, h1name, h2name)
                     traffic = min(capacity, dc_line_rate/flows_per_host)
                     if(traffic < 0.1):
+                        # import ipdb; ipdb.set_trace()
                         log.error('Need better way to select paths')
                         continue
                     Traffic.update_path_with_traffic(g, node_path, traffic)
@@ -173,7 +175,6 @@ class Topology(ABC):
                             thr=traffic
                         )
                     )
-
         return flows
 
     def get_input(self):

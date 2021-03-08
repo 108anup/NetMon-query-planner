@@ -18,7 +18,7 @@ from input import (Input, draw_graph, draw_overlay_over_tenant, flatten, fold,
                    get_graph, get_hdbscan_overlay, get_kmedoids_centers,
                    get_kmedoids_overlay, get_labels_from_overlay,
                    get_spectral_overlay, merge)
-from profiles import agiliocx40gbe, alveo_u280, beluga20, dc_line_rate, tofino
+from profiles import agiliocx40gbe, alveo_u280, beluga20, dc_line_rate, tofino, switch_line_rate
 from sketches import all_sketches, cm_sketch, cs_sketch, univmon
 
 eps0 = constants.eps0
@@ -60,7 +60,8 @@ class Clos(object):
 
         self.sketch_load = {}
         num_sk_types = len(all_sketches)
-        self.num_queries = num_sk_types * math.ceil(self.num_queries / num_sk_types)
+        self.num_queries = num_sk_types * math.ceil(
+            self.num_queries / num_sk_types)
         for sk in all_sketches:
             self.sketch_load[sk] = int(self.num_queries/num_sk_types)
 
@@ -110,14 +111,14 @@ class Clos(object):
                 for port in range(self.podsby2):
                     core_switch = core_switches[core_offset][0]
                     g.add_edge(switch, core_switch,
-                               remaining=dc_line_rate)
+                               remaining=switch_line_rate)
                     core_offset += 1
 
                 # Connect to aggregate switches in same pod
                 for port in range(self.podsby2, self.pods):
                     lower_switch = agg_switches[(pod*self.pods) + port][0]
                     g.add_edge(switch, lower_switch,
-                               remaining=dc_line_rate)
+                               remaining=switch_line_rate)
 
             for sw in range(self.podsby2, self.pods):
                 switch = agg_switches[(pod*self.pods) + sw][0]
@@ -596,10 +597,10 @@ class Clos(object):
             queries=(
                 [cm_sketch(eps0=self.eps, del0=del0)
                  for i in range(self.sketch_load[cm_sketch])]
-                + [cs_sketch(eps0=self.eps, del0=del0)
-                 for i in range(self.sketch_load[cs_sketch])]
-                + [univmon(eps0=self.eps * 8, del0=del0, levels=8)
-                 for i in range(self.sketch_load[univmon])]
+                + [cs_sketch(eps0=self.eps/2, del0=del0)
+                   for i in range(self.sketch_load[cs_sketch])]
+                + [univmon(eps0=self.eps, del0=del0, levels=levels0)
+                   for i in range(self.sketch_load[univmon])]
                 # TODO: reduce total instantiations of sketches rather
                 # than reducing memory of sketch by adjusting
                 # number of flows

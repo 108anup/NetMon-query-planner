@@ -36,7 +36,7 @@ class TopologyZooWAN(Topology):
         # Each switch in the original input is connected to 4 switches
         # 2 agg and 2 tor
         self.num_switches = (4 + 1) * len(g.nodes)
-        degrees = [d for n,d in g.degree]
+        degrees = [d for n, d in g.degree]
         self.max_degree = max(degrees)
         # self.degree_to_host = lambda d: math.ceil(
         #     NUM_HOSTS_PER_CORE*(d + 1)/(self.max_degree + 1))
@@ -57,6 +57,7 @@ class TopologyZooWAN(Topology):
 
     def construct_graph(self, devices):
         g = super().construct_graph(devices)
+        # import ipdb; ipdb.set_trace()
 
         zoo_node_to_sname = dict()
         sname_to_zoo_node = dict()
@@ -67,7 +68,7 @@ class TopologyZooWAN(Topology):
         for s1, s2 in self.switch_connections.edges:
             g.add_edge(zoo_node_to_sname[s1],
                        zoo_node_to_sname[s2],
-                       remaining=dc_line_rate)
+                       remaining=switch_line_rate)
 
         till_now = 0
         num_core_switches = len(self.switch_connections.nodes)
@@ -96,8 +97,8 @@ class TopologyZooWAN(Topology):
                 for j in range(NUM_TOR_SWITCH_PER_CORE):
                     g.add_edge(agg_switches[agg_idx+i][0], tor_switches[tor_idx+j][0],
                                remaining=switch_line_rate)
-            agg_idx+=NUM_AGG_SWITCH_PER_CORE
-            tor_idx+=NUM_TOR_SWITCH_PER_CORE
+            agg_idx += NUM_AGG_SWITCH_PER_CORE
+            tor_idx += NUM_TOR_SWITCH_PER_CORE
 
         host_dnum = 0
         tor_switch_start = 0
@@ -125,8 +126,8 @@ class TopologyZooWAN(Topology):
 
     def get_pickle_name(self):
         return "zooWan-{}-{}-{}".format(self.topology_gml_name,
-                                     self.num_queries,
-                                     constants.eps0/self.eps)
+                                        self.num_queries,
+                                        constants.eps0/self.eps)
 
     def get_name(self):
         if(self.topology_gml_name.endswith('.graphml')):
