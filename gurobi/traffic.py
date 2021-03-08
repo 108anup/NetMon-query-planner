@@ -22,9 +22,11 @@ class Traffic(object):
         max_capacity_path = None
         for path in node_paths:
             capacity = dc_line_rate
+            capacity = min(capacity, g.nodes[path[0]]['remaining'])
             for start in range(len(path)-1):
                 beg = path[start]
                 end = path[start+1]
+                capacity = min(capacity, g.nodes[end]['remaining'])
                 capacity = min(capacity, g.edges[beg, end]['remaining'])
             node_paths_capacity.append((path, capacity))
             if(capacity >= max_capacity):
@@ -40,8 +42,9 @@ class Traffic(object):
         h1 = node_path[0]
         h2 = node_path[-1]
         g.nodes[h1]['remaining'] -= traffic
-        g.nodes[h2]['remaining'] -= traffic
+        # g.nodes[h2]['remaining'] -= traffic
         for start in range(len(node_path)-1):
             beg = node_path[start]
             end = node_path[start+1]
+            g.nodes[end]['remaining'] -= traffic
             g.edges[beg, end]['remaining'] -= traffic

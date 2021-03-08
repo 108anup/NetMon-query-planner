@@ -13,7 +13,8 @@ from common import constants, freeze_object, log
 from devices import CPU, FPGA, P4, Netronome
 from flows import flow
 from input import Input
-from profiles import agiliocx40gbe, alveo_u280, beluga20, dc_line_rate, tofino
+from profiles import (agiliocx40gbe, alveo_u280, beluga20, dc_line_rate,
+                      tofino, switch_line_rate)
 from sketches import all_sketches, cm_sketch, cs_sketch, univmon
 from traffic import Traffic
 
@@ -47,11 +48,11 @@ class Topology(ABC):
                       for i in range(start, start+self.num_hosts)]
         start += self.num_hosts
 
-        self.nics = [(devices[i].name, {'id': i})
+        self.nics = [(devices[i].name, {'id': i, 'remaining': dc_line_rate})
                      for i in range(start, start+self.num_nics)]
         start += self.num_nics
 
-        self.switches = [(devices[i].name, {'id': i})
+        self.switches = [(devices[i].name, {'id': i, 'remaining': switch_line_rate})
                          for i in range(start, start+self.num_switches)]
 
         g = nx.Graph()
