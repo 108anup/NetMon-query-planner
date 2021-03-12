@@ -95,7 +95,7 @@ for x in bench_list:
     x.ns_single = x.cores * 1000/x.Mpps
     x.ns = 1000/x.Mpps
 
-fig, ax = plt.subplots(figsize=get_fig_size(0.5, 0.6))
+fig, ax = plt.subplots(figsize=get_fig_size(0.4, 0.3 * 0.6 / 0.4))
 plt.plot(list(map(lambda x: x.rows, bench_list)),
          list(map(lambda x: x.ns_single, bench_list)),
          color=colors[5], marker='s', markersize=MARKER_SIZE,
@@ -115,7 +115,8 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(plot_dir, 'cpu-hash-hs.pdf'), bbox_inches='tight')
+plt.tight_layout()
+plt.savefig(os.path.join(plot_dir, 'cpu-hash-hs-third.pdf'), bbox_inches='tight')
 
 # Linear model
 # Hand identified when hashing is bottleneck

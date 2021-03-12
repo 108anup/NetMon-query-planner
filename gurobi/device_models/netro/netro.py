@@ -114,7 +114,7 @@ for x in bench_list:
     x.ns = 1e9/x.pps
 
 
-fig, ax = plt.subplots(figsize=get_fig_size(0.5, 0.6))
+fig, ax = plt.subplots(figsize=get_fig_size(0.3, 0.6))
 plt.plot(list(map(lambda x: x.rows, bench_list)),
          list(map(lambda x: x.ns, bench_list)),
          color=colors[5], marker='s', markersize=MARKER_SIZE,
@@ -123,7 +123,7 @@ ax.set_xlabel('Number of sketch\nupdates per packet', fontsize=FONT_SIZE)
 ax.xaxis.set_ticks_position('bottom')
 ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
-ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
+# ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
 ax.yaxis.set_ticks_position('left')
 
 # ax.set_xscale("log", basex=10)
@@ -134,7 +134,8 @@ ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
 
 plt.minorticks_on()
-plt.savefig(os.path.join(plot_dir, 'netro-hash-hs.pdf'), bbox_inches='tight')
+plt.tight_layout()
+plt.savefig(os.path.join(plot_dir, 'netro-hash-hs-third.pdf'), bbox_inches='tight')
 
 # sys.exit(0)
 # fig = plt.figure(figsize=(4, 2))

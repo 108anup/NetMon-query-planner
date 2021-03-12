@@ -46,7 +46,7 @@ plt.rc('font', **{'size': FONT_SIZE})
 
 
 def hash_plot(bench_list, file_path):
-    fig, ax = plt.subplots(figsize=get_fig_size(0.5, 0.6))
+    fig, ax = plt.subplots(figsize=get_fig_size(0.3, 0.6))
     plt.plot(list(map(lambda x: x.rows, bench_list)),
              list(map(lambda x: x.ns, bench_list)),
              color=colors[5], marker='s', markersize=MARKER_SIZE,
@@ -55,7 +55,7 @@ def hash_plot(bench_list, file_path):
     ax.xaxis.set_ticks_position('bottom')
     ax.tick_params(labelsize=FONT_SIZE, pad=2)
 
-    ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
+    # ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
     ax.yaxis.set_ticks_position('left')
 
     # ax.set_xscale("log", basex=10)
@@ -64,6 +64,53 @@ def hash_plot(bench_list, file_path):
 
     ax.spines['top'].set_color('none')
     ax.spines['right'].set_color('none')
+
+    plt.minorticks_on()
+    plt.tight_layout()
+    plt.savefig(file_path, bbox_inches='tight')
+
+
+def amdahl_plot(no_sketching, bench_list_small, bench_list_large, file_path):
+    MARKER_SIZE = 5
+    LINE_WIDTH = 1.5
+    fig, ax = plt.subplots(figsize=get_fig_size(0.5, 0.6))
+    plt.plot(list(map(lambda x: x.hash_units, no_sketching)),
+             list(map(lambda x: x.ns, no_sketching)),
+             color=colors[5], marker='x', markersize=MARKER_SIZE,
+             lw=LINE_WIDTH, linestyle=linestyles[0], clip_on=False,
+             label="No sketching")
+    plt.plot(list(map(lambda x: x.hash_units, bench_list_small)),
+             list(map(lambda x: x.ns, bench_list_small)),
+             color=colors[1], marker='^', markersize=MARKER_SIZE,
+             lw=LINE_WIDTH, linestyle=linestyles[0], clip_on=False,
+             label="Many small sketches")
+    if(bench_list_large is not None):
+        plt.plot(list(map(lambda x: x.hash_units, bench_list_large)),
+                 list(map(lambda x: x.ns, bench_list_large)),
+                 color=colors[3], marker='D', markersize=MARKER_SIZE,
+                 lw=LINE_WIDTH, linestyle=linestyles[0], clip_on=False,
+                 label="Single large sketch")
+    ax.set_xlabel('# Hash Unit Instances', fontsize=FONT_SIZE)
+    ax.xaxis.set_ticks_position('bottom')
+    ax.tick_params(labelsize=FONT_SIZE, pad=2)
+
+    ax.set_ylabel("ns per pkt", fontsize=FONT_SIZE)
+    ax.yaxis.set_ticks_position('left')
+
+    # ax.set_xscale("log", basex=10)
+    # ax.set_yticklabels(['1M','10M','100M'])
+    # ax.yaxis.set_label_coords(-0.19, 0.43)
+
+    ax.spines['top'].set_color('none')
+    ax.spines['right'].set_color('none')
+    # legend = plt.legend(loc='lower left', numpoints=1,
+    #                     bbox_to_anchor=(-0.3, 1),
+    #                     ncol=1, prop={'size': FONT_SIZE}, columnspacing=0.5,
+    #                     handlelength=HANDLE_LENGTH, handletextpad=0.5)
+    # legend.set_frame_on(False)
+
+    ax.annotate('Forwarding bottleneck', xy=(5, 12), xytext=(2, 30),
+                arrowprops=dict(facecolor='black', headwidth=4, headlength=4, width=0.5))
 
     plt.minorticks_on()
     plt.savefig(file_path, bbox_inches='tight')

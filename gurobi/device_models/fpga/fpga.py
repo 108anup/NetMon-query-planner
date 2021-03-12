@@ -10,7 +10,7 @@ import os
 import csv
 import palettable
 from util import get_fig_size
-from common import (hash_plot, get_hash_params,
+from common import (hash_plot, get_hash_params, amdahl_plot,
                     read_bench_util, CELL_SIZE,
                     KB2B, plot_mem, get_mem_label,
                     evaluation_plot, sketch_params)
@@ -44,9 +44,17 @@ def update_entry_single_hash_unit(x):
     update_entry(x)
     x.ns = (x.hash_units * 1e3)/x.mpps
 
+
+# ** Amdahl Plot
+amdahl_bench = read_bench('amdahls_hash.csv', update_entry)
+no_sketching = read_bench('no_sketching.csv', update_entry)
+amdahl_bench_large = None  # read_bench('amdahls_hash_large.csv', update_entry)
+amdahl_plot(no_sketching, amdahl_bench, amdahl_bench_large,
+            os.path.join(plot_dir, "fpga_amdahl.pdf"))
+
 # ** Hash params
 hash_bench = read_bench('hash.csv', update_entry_single_hash_unit)
-hash_plot(hash_bench, os.path.join(plot_dir, 'fpga-hash-hs.pdf'))
+hash_plot(hash_bench, os.path.join(plot_dir, 'fpga-hash-hs-third.pdf'))
 start_idx = 3  # FIXME: manual
 hashing_const, hashing_slope = get_hash_params(hash_bench, start_idx)
 
