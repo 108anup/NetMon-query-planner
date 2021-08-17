@@ -159,8 +159,9 @@ def draw_graph(G, colors, labels=None, remap=True):
     nx.draw(G, pos, node_color=colors, labels=labels,
             font_size=8, node_size=150, width=0.5, linewidths=0.8,
             cmap=plt.get_cmap('Spectral'))
+    plt.rc('pdf', fonttype=42)
+    plt.savefig('spectral.pdf')
     plt.show()
-    # plt.savefig('spectral.pdf')
 
 # Only for tree (acyclic graph)
 def dfs(nodes, data):
@@ -1047,8 +1048,8 @@ class TreeTopology():
             overlay = fold(overlay,
                            common_config.MAX_CLUSTERS_PER_CLUSTER)
 
-        # inp.overlay = overlay
-        # draw_overlay_over_tenant(inp)
+        inp.overlay = overlay
+        draw_overlay_over_tenant(inp)
         return overlay
 
     def get_tenant_overlay(self, inp):
@@ -1085,7 +1086,7 @@ class TreeTopology():
         #     inp.overlay = (host_overlay
         #                    + generate_overlay([int(tors/20), 20], hosts)
         #                    + generate_overlay([l1s + 1], hosts + tors))
-        # draw_overlay(inp)
+        draw_overlay(inp)
         return overlay
 
     def get_tenant_overlay_switches(self, inp):
@@ -1138,8 +1139,8 @@ class TreeTopology():
                                     common_config.MAX_CLUSTERS_PER_CLUSTER)
 
         overlay = host_nic_overlay
-        # inp.overlay = overlay
-        # draw_overlay_over_tenant(inp)
+        inp.overlay = overlay
+        draw_overlay_over_tenant(inp)
         if(len(overlay) == 1 and isinstance(overlay[0], list)):
             return overlay[0]
 

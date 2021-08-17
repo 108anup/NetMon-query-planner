@@ -78,7 +78,7 @@ input_generator = [
     # Partitioning helps for UnivmonGreedyRows
 
     # Full sketches only Netmon is better than Univmon*
-    TreeTopology(),
+    TreeTopology(overlay='spectral', tenant=True),
 
     # 4 - same as 0
     # P4 priority over CPU when everything fits on P4
@@ -351,9 +351,8 @@ input_generator = [
     # 24
     # Small tenant (100)
     TreeTopology(hosts_per_tors=8, num_queries=4*16, tenant=True,
-                 eps=eps0, overlay='tenant', refine=False,
+                 eps=eps0, overlay='spectralA', refine=False,
                  queries_per_tenant=16, portion_netronome=0),
-
     # 25
     # Large tenant (10K)
     TreeTopology(hosts_per_tors=48, tors_per_l1s=20,
