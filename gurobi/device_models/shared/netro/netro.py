@@ -126,7 +126,7 @@ ax.tick_params(labelsize=FONT_SIZE, pad=2)
 # ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
 ax.yaxis.set_ticks_position('left')
 
-# ax.set_xscale("log", basex=10)
+# ax.set_xscale("log", base=10)
 # ax.set_yticklabels(['1M','10M','100M'])
 # ax.yaxis.set_label_coords(-0.19, 0.43)
 
@@ -219,7 +219,7 @@ legend = plt.legend(loc='upper left', numpoints=1, bbox_to_anchor=(0, 1.2),
                     ncol=1, prop={'size': FONT_SIZE}, columnspacing=0.5,
                     handlelength=HANDLE_LENGTH, handletextpad=0.5)
 legend.set_frame_on(False)
-ax.set_xscale("log", basex=2)
+ax.set_xscale("log", base=2)
 ax.set_xticks([2**(x-12) for x in range(0, 22, 4)])
 ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')

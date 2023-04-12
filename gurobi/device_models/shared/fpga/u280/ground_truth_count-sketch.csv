@@ -1,0 +1,7 @@
+sk_name, levels, rows, logcols, hash_units, mpps
+count-sketch, 16, 6, 6, 4, 91.43810532730302
+count-sketch, 16, 3, 10, 2, 91.43836302783735
+count-sketch, 16, 9, 10, 4, 64.88898982731752
+count-sketch, 16, 3, 6, 4, 91.43804806071488
+count-sketch, 16, 6, 8, 2, 48.666723444510694
+count-sketch, 16, 3, 8, 1, 48.666707222256015

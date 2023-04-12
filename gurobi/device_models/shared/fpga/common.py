@@ -57,7 +57,7 @@ def hash_plot(bench_list, file_path):
     # ax.set_ylabel("Time per\npacket (ns)", fontsize=FONT_SIZE)
     ax.yaxis.set_ticks_position('left')
 
-    # ax.set_xscale("log", basex=10)
+    # ax.set_xscale("log", base=10)
     # ax.set_yticklabels(['1M','10M','100M'])
     # ax.yaxis.set_label_coords(-0.19, 0.43)
 
@@ -96,7 +96,7 @@ def amdahl_plot(no_sketching, bench_list_small, bench_list_large, file_path):
     ax.set_ylabel("ns per pkt", fontsize=FONT_SIZE)
     ax.yaxis.set_ticks_position('left')
 
-    # ax.set_xscale("log", basex=10)
+    # ax.set_xscale("log", base=10)
     # ax.set_yticklabels(['1M','10M','100M'])
     # ax.yaxis.set_label_coords(-0.19, 0.43)
 
@@ -154,7 +154,7 @@ def plot_mem(bench_list_1, bench_list_2, file_path):
                         ncol=1, prop={'size': FONT_SIZE}, columnspacing=0.5,
                         handlelength=HANDLE_LENGTH, handletextpad=0.5)
     legend.set_frame_on(False)
-    ax.set_xscale("log", basex=2)
+    ax.set_xscale("log", base=2)
     ax.set_xticks([2**(x-12) for x in range(0, 22, 4)])
     ax.spines['top'].set_color('none')
     ax.spines['right'].set_color('none')
@@ -238,7 +238,7 @@ def evaluation_plot(bench_list, sketch, file_path,
     l.set_frame_on(False)
 
     ax.set_xlabel(xlabel)
-    ax.set_yscale("log", basey=10)
+    ax.set_yscale("log", base=10)
 
     ax.xaxis.set_ticks_position('bottom')
     ax.tick_params(labelsize=FONT_SIZE, pad=2)
